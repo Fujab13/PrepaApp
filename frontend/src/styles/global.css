@@ -1,0 +1,48 @@
+:root {
+  --bg:         #0f0f1a;
+  --surface:    #1a1a2e;
+  --surface2:   #22223b;
+  --text:       #f0f0f0;
+  --text-muted: #846c89;
+  --correct:    #4ade80;
+  --wrong:      #f87171;
+  --radius:     16px;
+  --font:       'Inter', system-ui, sans-serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+}
+
+#root {
+  width: 100%;
+  max-width: 480px;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+button { font-family: var(--font); cursor: pointer; }
+a { text-decoration: none; color: inherit; }
+
+.util-btn {
+  background: transparent;
+  border: 1.5px solid var(--text-muted);
+  color: var(--text-muted);
+  font-size: 0.65rem;
+  padding: 3px 8px;
+  border-radius: 12px;
+  cursor: pointer;
+  opacity: 0.5;
+}
+
+.util-btn:active {
+  opacity: 0.8;
+}
