@@ -1,38 +1,15 @@
-// correr en local host, abre en el terminal
-cd project-root/frontend
-npm install
-npm run dev
-https://claude.ai/share/ebba0bf0-86f7-4f89-9127-ecf4c91fbffc
-
-//usar ngrok para hostear tu puerto, abrelo en otro terminal, necesitas tu llave
-ngrok http 5173
-
-https://chat.deepseek.com/share/2iirama4bqnav9bzsn
-
 ✕ ☰ ♔ ♕ ♖ ♗ ♘ ♙ ♚ ♛ ♜ ♝ ♞ ♟ 
 💽 🐺 🦕 🔅 🔆 👤
 ✅ ❌ ⊠ ⛶ 🏁
 
 AÑADIR LECCIONES INFO
 Las lecciones se estructuran en 6 etapas de 12 preguntas es decir 72 preguntas
--Creamos un js con el nombre de interes y lo llenamos con el mismo formato de data.js 
--Dentro de index.js en la la misma carpeta importamos la nueva leccion y la añadimos al strign
+    -Creamos un js con el nombre de interes y lo llenamos con el mismo formato de data.js 
+    -Dentro de index.js en la la misma carpeta importamos la nueva leccion y la añadimos al strign
 
 AÑADIR LECTURAS EXTRA #/data/lecturas
     -Creamos un js con el nombre de interes y lo llenamos con el mismo formato de las lecturas.js
     -Dentro de index.js en la misma carpeta importamos la nueva lectura y la añadimos dentro del string
-
-Notas: 
-Si revisa /project-root/frontend/src/data/ Encontrara las FLASHCARDS en ~/data/lecturas y QUIZZES en ~/data
-El codigo general encargado de mostrar todo esta en /project-root/frontend/scr/pages/Home.jsx y muestra 
-{/* Material de lectura */} y {/* Lista de materias */}
-
-Supabase → Authentication → Providers → Google pero
-    Credenciales en Google Cloud Console
-    https://console.cloud.google.com/auth/clients?organizationId=0&project=prepaapp
-
-https://fiuzmomidaxvewhsodsj.supabase.co
-eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZpdXptb21pZGF4dmV3aHNvZHNqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA0NTE2MTAsImV4cCI6MjA5NjAyNzYxMH0.HpGe7wnwH3EdphunbYtCThBHZqPLUg-5JwQCrSLKXHc
 
 Logica de la Base de Datos
     El razonamiento es algo así.
@@ -57,12 +34,7 @@ create policy "usuarios ven su propio progreso"
 on progreso_usuario for all
 using (auth.uid() = user_id);
 
-
-npm install @supabase/supabase-js
-
-Archivo Leccion.jsx linea 13:1 import { getPreguntasDeUnidad, PREGUNTAS_POR_UNIDAD } from '../components/unidades' removido 
-
-Agregar libros
+AGREGAR LIBROS
 1. Copia el PDF a frontend/public/libros/tu_libro.pdf
 2. Agrega una entrada en frontend/src/data/libros.js:
 
@@ -76,17 +48,6 @@ para renderizar fórmulas escritas en sintaxis LaTeX.
 
 revisa vite.config.js para añadir direcciones url permitidas
 
-
-import { triggerVibration } from '../components/haptics';
-const handleSubmit = () => {
-  try {
-    // Lógica de guardado...
-    triggerVibration('success');
-  } catch (error) {
-    triggerVibration('error');
-  }
-};
-
 Authentication → URL Configuration
 Site URL:
 http://localhost:5173        ← el puerto donde corre tu app (Vite usa 5173, CRA usa 3000)
@@ -97,9 +58,6 @@ http://localhost:5173
 console.cloud.google.com → tu proyecto → APIs & Services → Credentials → tu OAuth Client ID:
 Authorized JavaScript origins:
 http://localhost:5173
-
-Authorized redirect URIs:
-https://TU_PROJECT_ID.supabase.co/auth/v1/callback
 
 :root {
   --bg:         #0f0f1a;
@@ -128,7 +86,6 @@ Pago
     Recordatorios sobre P.Admisión al correo ()
 
 Odontologia (dientes)
-
 
 Puntos y subpuntos clave que debería conocer un aspirante a la BUAP
 
@@ -166,12 +123,12 @@ Post-Admisión
     Inscripción: Documentos necesarios para el ingreso oficial
     Cuotas: Diferencia entre cuota de inscripción y colegiatura
 
-//IDEA PARA MAÑANA
+// NOTA
 Diseñar un cuestionario de 12 o 6 preguntas que estime tus probabilidades de pasar en una determinada carrera de la buap. 
 que determine tu probabilidad de pasar con ayuda
 que determine tu probabilidad de pasar sin ayuda
 
-//DE TODOS LOS PUNTOS CLAVES CREAR FLASHCARDS
+//DE LOS PUNTOS CLAVES CREAR FLASHCARDS
 
 //DISEÑAR UN SISTEMA DE RECORDATORIOS INTELIGENTES PARA PERMITIR ENVIAR RECORDATORIOS INTRUSIVOS A CLIENTES PREMIUM 
 SOBRE LAS FECHAS IMPORTANTES DEL PROCESO DE ADMISIÓN
