@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { getMateria } from '../data/index'
 import Hexagono from '../components/Hexagono'
@@ -11,15 +11,35 @@ export default function Leccion() {
   const navigate = useNavigate()
   const materia = getMateria(materiaId)
   const { unidad, elemento, cargando, guardarProgreso, reiniciar } = useProgreso(materiaId)
-  const [idx, setIdx]               = useState(0)
-  const [respondido, setRespondido] = useState(false)
-  const [feedback, setFeedback]     = useState('')
-  const [estados, setEstados]       = useState(['normal', 'normal', 'normal'])
-  const [esFullscreen, setEsFullscreen] = useState(false)
+
+  const [cola, setCola]                             = useState(null)
+  const [correctasIniciales, setCorrectasIniciales]  = useState(0)
+  const [correctasNuevas, setCorrectasNuevas]        = useState(0)
+  const [respondido, setRespondido]                  = useState(false)
+  const [feedback, setFeedback]                      = useState('')
+  const [estados, setEstados]                        = useState(['normal', 'normal', 'normal'])
+  const [esFullscreen, setEsFullscreen]              = useState(false)
+  const inicializadoRef = useRef(false)
 
   useEffect(() => {
-    if (!cargando && elemento !== undefined) setIdx(elemento)
-  }, [cargando, elemento])
+    if (cargando || elemento === undefined || !materia || inicializadoRef.current) return
+
+    const total = getPreguntasDeUnidad(materia.preguntas, unidad).length
+    if (total === 0) return
+
+    const yaCorrectas = Math.min(elemento, total)
+    const restantes = Array.from({ length: total - yaCorrectas }, (_, i) => i + yaCorrectas)
+
+    setCorrectasIniciales(yaCorrectas)
+    setCorrectasNuevas(0)
+    setCola(restantes.length > 0 ? restantes : Array.from({ length: total }, (_, i) => i))
+
+    inicializadoRef.current = true
+  }, [cargando, elemento, materia, unidad])
+
+  useEffect(() => {
+    inicializadoRef.current = false
+  }, [materiaId, unidad])
 
   useEffect(() => {
     if (!materia) navigate('/')
@@ -28,9 +48,11 @@ export default function Leccion() {
   if (!materia) return null
 
   const preguntas = cargando ? [] : getPreguntasDeUnidad(materia.preguntas, unidad)
-  const pregunta  = preguntas[idx]
+  const colaLista = cola !== null
+  const idxActual = colaLista && cola.length > 0 ? cola[0] : null
+  const pregunta  = idxActual !== null ? preguntas[idxActual] : null
 
-  if (cargando || !pregunta) {
+  if (cargando || !colaLista || preguntas.length === 0 || !pregunta) {
     return (
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '100vh', color: 'var(--text-muted)', fontSize: '0.9rem' }}>
         Cargando lección…
@@ -38,12 +60,15 @@ export default function Leccion() {
     )
   }
 
-  const avance     = Math.round((idx / preguntas.length) * 100)
-  const progresoHex = Math.round((idx / preguntas.length) * 6)
+  const totalCorrectas = correctasIniciales + correctasNuevas
+  const avance      = Math.round((totalCorrectas / preguntas.length) * 100)
+  const progresoHex = Math.round((totalCorrectas / preguntas.length) * 6)
+  const esUltima    = cola.length === 1 // && totalCorrectas === preguntas.length - 1
 
   function responder(i) {
     if (respondido) return
     const correcta = pregunta.correcta
+    const esCorrecta = i === correcta
     const nuevos = pregunta.opciones.map((_, j) => {
       if (j === correcta) return 'correcto'
       if (j === i && i !== correcta) return 'incorrecto'
@@ -51,28 +76,46 @@ export default function Leccion() {
     })
     setEstados(nuevos)
     setRespondido(true)
-    setFeedback(i === correcta ? '✅ ¡Correcto!' : '❌ Incorrecto. La respuesta correcta está marcada.')
+    setFeedback(esCorrecta ? '✅ ¡Correcto!' : '❌ Incorrecto. Corrigela al final.')
   }
 
   async function siguiente() {
-    const esUltima = idx === preguntas.length - 1
-    if (esUltima) {
+    const respondioMal = estados.includes('incorrecto')
+
+    let nuevaCola = cola.slice(1)
+    let nuevasCorrectas = correctasNuevas
+
+    if (respondioMal) {
+      nuevaCola = [...nuevaCola, idxActual]
+    } else {
+      nuevasCorrectas = correctasNuevas + 1
+      setCorrectasNuevas(nuevasCorrectas)
+    }
+
+    setRespondido(false)
+    setFeedback('')
+
+    if (nuevaCola.length === 0) {
       await guardarProgreso(unidad + 1, 0)
       navigate('/')
-    } else {
-      const sig = idx + 1
-      setIdx(sig)
-      setRespondido(false)
-      setFeedback('')
-      setEstados(Array(preguntas[sig].opciones.length).fill('normal'))
-      await guardarProgreso(unidad, sig)
+      return
+    }
+
+    setCola(nuevaCola)
+    const siguienteIdx = nuevaCola[0]
+    setEstados(Array(preguntas[siguienteIdx].opciones.length).fill('normal'))
+
+    if (!respondioMal) {
+      await guardarProgreso(unidad, correctasIniciales + nuevasCorrectas)
     }
   }
 
   async function borrarProgresoTemporal() {
     if (window.confirm('Esto borrará todo el progreso de esta materia. ¿Continuar?')) {
       await reiniciar()
-      setIdx(0)
+      setCola(null)
+      setCorrectasIniciales(0)
+      setCorrectasNuevas(0)
       setEstados(['normal', 'normal', 'normal'])
       setRespondido(false)
       setFeedback('')
@@ -94,8 +137,6 @@ export default function Leccion() {
       setEsFullscreen(false)
     }
   }
-
-  const esUltima = idx === preguntas.length - 1
 
   return (
     <div style={{
@@ -177,7 +218,7 @@ export default function Leccion() {
 
         <div style={{ flex: 1 }}>
           <p style={{ color: 'var(--text)', fontWeight: 600, fontSize: '0.9rem', margin: '0 0 2px' }}>
-            Pregunta {idx + 1}
+            Correctas {totalCorrectas}
             <span style={{ color: 'var(--text-muted)', fontWeight: 400 }}> / {preguntas.length}</span>
           </p>
           <p style={{ color: 'var(--text-muted)', fontSize: '0.75rem', margin: 0 }}>
