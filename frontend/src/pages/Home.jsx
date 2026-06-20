@@ -86,7 +86,7 @@ export default function Home() {
 
 
         <p style={{  color: 'var(--text-muted)', fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '1.5px' }}>
-          Flashcards
+          Tarjetas
         </p>
         {MATERIAS.map(m => (
           <div
@@ -127,7 +127,7 @@ export default function Home() {
 
 
         <p style={{ color: 'var(--text-muted)', fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '1.5px' }}>
-          Quizzes
+          Cuestionarios
         </p>
         {MATERIAS.map(m => (
           <div key={m.id} onClick={() => {

@@ -2,10 +2,10 @@
 //   2. Impórtalo aquí
 //   3. Agrégalo al array MATERIAS
 
-import espanol      from './espanol'
-import matematicas  from './matematicas'
-import ingenierias  from './ingenierias'
-import medicina    from './medicina'
+import espanol      from './cuestionarios/espanol'
+import matematicas  from './cuestionarios/matematicas'
+import ingenierias  from './cuestionarios/ingenierias'
+import medicina    from './cuestionarios/medicina'
 
 export const MATERIAS = [
   espanol,
