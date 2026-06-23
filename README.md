@@ -1,7 +1,13 @@
 ✕ ☰ ♔ ♕ ♖ ♗ ♘ ♙ ♚ ♛ ♜ ♝ ♞ ♟ 
 💽 🐺 🦕 🔅 🔆 👤
 ✅ ❌ ⊠ ⛶ 🏁
-
+ya no se usaran estos emojis
+    ↆↆↆ
+REACT-ICONS
+    https://react-icons.github.io/react-icons/icons/bi/
+    paquete: react-icons, que te permiten importar iconos 
+    FontAwesome, Material Design o Ionicons.
+    
 AÑADIR LECCIONES INFO
 Las lecciones se estructuran en 6 etapas de 12 preguntas es decir 72 preguntas
     -Creamos un js con el nombre de interes y lo llenamos con el mismo formato de data.js 
