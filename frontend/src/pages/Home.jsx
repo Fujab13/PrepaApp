@@ -8,6 +8,11 @@ import Hexagono from '../components/Hexagono'
 import LibroCard from '../components/LibroCard'
 import Sidenav from '../components/Sidenav'
 
+import { BiMobileVibration } from "react-icons/bi";
+import { RxEnterFullScreen } from "react-icons/rx";
+import { MdFullscreen } from "react-icons/md";
+import { RiMenuFill } from "react-icons/ri";
+
 const animacionLunas = ['🌑', '🌒', '🌓', '🌔', '🌕', '🌖', '🌗', '🌘'];
 const animacionPollo = ['🥚', '🐣', '🐥', '🐤', '🐔', '🍗', '😋', '🍽️'];
 const animacionCarga = ['▱▱▱▱', '▰▱▱▱', '▰▰▱▱', '▰▰▰▱', '▰▰▰▰', '▰▰▰▱', '▰▰▱▱', '▰▱▱▱'];
@@ -19,6 +24,10 @@ export default function Home() {
   const [featuredId, setFeaturedId] = useState(
     () => { return localStorage.getItem('featured_materia_id') || MATERIAS[0].id}
   )
+  const [esFullscreen, setEsFullscreen] = useState(false)
+  const [vibracionActiva, setVibracionActiva] = useState(
+  localStorage.getItem('hapticsEnabled') !== 'false'
+  );
 
   const [frameIdx, setFrameIdx] = useState(0)
 
@@ -32,7 +41,7 @@ export default function Home() {
   useEffect(() => {
     const intervalo = setInterval(() => {
       setFrameIdx((prev) => (prev + 1) % animacionLunas.length);
-    }, 300); // 300ms
+    }, 300); // ms
 
     return () => clearInterval(intervalo);
   }, []);
@@ -44,14 +53,61 @@ export default function Home() {
 
       <div style={{ padding: '24px 24px 0', display: 'flex', alignItems: 'center', gap: 10, color: featured.color }}>
         <button onClick={() => setSidenavOpen(true)} style={{background: 'transparent', border: 'none', color: 'var(--text)', fontSize: '1.4rem', cursor: 'pointer', padding: 0}}>
-          ☰
+          <RiMenuFill />
+
         </button>
-        <span style={{ fontSize: '1.6rem', width: '30px', textAlign: 'center' }}>
+        <span style={{ 
+          fontSize: '1.6rem', 
+          width: '30px', 
+          textAlign: 'center',
+          display: 'inline-block',
+          color: '#ffffff',
+          textShadow: `0 2px 10px rgba(255, 255, 255, 0.15), 0 4px 20px ${featured?.color || '#3b82f6'}`
+        }}>
           {animacionLunas[frameIdx]}
         </span>
-        <h1 style={{ fontSize: '1.4rem', fontWeight: 800, margin: 0 }}>
+        <h1 style={{ fontSize: '1.5rem', fontWeight: 800, margin: 0, color: '#ffffff', textShadow: `0 2px 10px rgba(255, 255, 255, 0.15), 0 4px 20px ${featured?.color || '#3b82f6'}` }}>
           PrepaApp
         </h1>
+        <div style={{ 
+          display: 'flex', 
+          alignItems: 'center', 
+          gap: '8px', 
+          color: 'var(--text-muted)', 
+          fontSize: '0.75rem', 
+          marginLeft: 'auto',
+          textTransform: 'uppercase', 
+          letterSpacing: '1.5px', 
+          padding: 7
+          
+        }}>
+          <button className="util-btn" 
+          style={{ background: 'transparent', border: 'none', color: 'var(--text)', fontSize: '1.4rem', cursor: 'pointer', padding: 5}}
+          onClick={() => {
+            const nuevoEstado = !vibracionActiva;
+            setVibracionActiva(nuevoEstado);
+            localStorage.setItem('hapticsEnabled', String(nuevoEstado));
+            if (nuevoEstado) triggerVibration('success');
+          }}>
+            {vibracionActiva ? <BiMobileVibration /> : <BiMobileVibration />}
+          </button>
+          <button className="util-btn" 
+          style={{ background: 'transparent', border: 'none', color: 'var(--text)', fontSize: '1.4rem', cursor: 'pointer', padding: 0 }}
+          onClick={() => {
+            if (!document.fullscreenElement) {
+              document.documentElement.requestFullscreen();
+              setEsFullscreen(true);
+            } else {
+              document.exitFullscreen();
+              setEsFullscreen(false);
+            }
+          }}>
+            {esFullscreen ? <MdFullscreen /> : <MdFullscreen />}
+          </button>
+
+          
+          
+        </div>
       </div>
       <div style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '20px', flex: 1 }}>
 
@@ -68,7 +124,8 @@ export default function Home() {
           <button
             onClick={() => navigate(`/leccion/${featured.id}`)}
             style={{
-              background: featured.color,
+              background: `linear-gradient(355deg, ${featured.color}, #ffffffbe)`,
+              //background: featured.color,
               color: '#000000',
               fontWeight: 700,
               border: 'none',
