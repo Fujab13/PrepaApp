@@ -4,14 +4,12 @@ import { supabase } from '../supabase'
 import { useAuth } from '../context/AuthContext'
 import { MATERIAS } from '../data/index'
 
+import { FaCreditCard } from "react-icons/fa6";
+import { FaUserGraduate } from "react-icons/fa";
 
 export default function Sidenav({ open, onClose }) {
   const navigate = useNavigate()
   const { user } = useAuth()
-  const [esFullscreen, setEsFullscreen] = useState(false)
-  const [vibracionActiva, setVibracionActiva] = useState(
-  localStorage.getItem('hapticsEnabled') !== 'false'
-  );
   async function cerrarSesion() {
     await supabase.auth.signOut()
     onClose()
@@ -48,7 +46,7 @@ export default function Sidenav({ open, onClose }) {
     alignItems: 'center', justifyContent: 'center', fontSize: '1.5rem',
     flexShrink: 0 
   }}>
-    👤
+    <FaUserGraduate />
   </div>
   <div>
     {user ? (<>
@@ -59,43 +57,6 @@ export default function Sidenav({ open, onClose }) {
     )}
   </div>
 </div>
-
-        <div style={{ 
-          display: 'flex', 
-          alignItems: 'center', 
-          gap: '8px', 
-          color: 'var(--text-muted)', 
-          fontSize: '0.75rem', 
-          textTransform: 'uppercase', 
-          letterSpacing: '1.5px' 
-        }}>
-  
-          <button className="util-btn" 
-          style={{ borderRadius: 0 }}
-          onClick={() => {
-            if (!document.fullscreenElement) {
-              document.documentElement.requestFullscreen();
-              setEsFullscreen(true);
-            } else {
-              document.exitFullscreen();
-              setEsFullscreen(false);
-            }
-          }}>
-            {esFullscreen ? 'Fullscreen' : 'Fullscreen'}
-          </button>
-
-          <button className="util-btn" 
-            style={{ borderRadius: 0 }}
-          onClick={() => {
-            const nuevoEstado = !vibracionActiva;
-            setVibracionActiva(nuevoEstado);
-            localStorage.setItem('hapticsEnabled', String(nuevoEstado));
-            if (nuevoEstado) triggerVibration('success');
-          }}>
-            {vibracionActiva ? 'Vibration' : 'Vibration'}
-          </button>
-          
-        </div>
           
         <hr style={{ border: 'none', borderTop: '1px solid var(--surface2)', marginBottom: 16 }} />
         <button onClick={() => ir('/tienda')} style={{
@@ -120,7 +81,7 @@ export default function Sidenav({ open, onClose }) {
           borderRadius: '12px',
           display: 'flex', alignItems: 'center', justifyContent: 'center'
           }}>
-            🏢
+            <FaCreditCard />
           </span>
           <span style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
           Tienda
