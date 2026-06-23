@@ -73,10 +73,14 @@ export default function Store() {
         >
         ✕
         </button>
-        <span style={{ fontSize: '1.6rem', width: '30px', textAlign: 'center' }}>🛍️</span>
-        <h1 style={{ fontSize: '1.2rem', fontWeight: 700, margin: 0 }}>Tienda</h1>
+        <span style={{ fontSize: '1.4rem', width: '30px', textAlign: 'center' }}>
+          🏢
+        </span>
+        <h1 style={{ fontSize: '1.2rem', fontWeight: 700, margin: 0 }}>
+          Tienda
+        </h1>
         
-
+        {/* 🔅💲🔵🟨🔳🌀🍉🌱🎫 */}
         <div style={{
           marginLeft: 'auto',
           background: 'var(--surface)',
@@ -88,28 +92,31 @@ export default function Store() {
           fontWeight: 700,
           fontSize: '0.9rem'
         }}>
-          🔅 {coins}
+          💲{coins}
         </div>
       </div>
 
       <div style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '24px', flex: 1 }}>
 
-        {/* Banner de bienvenida */}
         <div style={{
-          background: 'var(--surface)',
-          borderRadius: 'var(--radius)',
-          padding: '20px',
-          display: 'flex',
-          flexDirection: 'column',
-          gap: 6
+        background: 'var(--surface)',
+        borderRadius: 'var(--radius)',
+        padding: '20px',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 6
         }}>
-          <p style={{ fontWeight: 700, fontSize: '1.05rem' }}>Informacion </p>
-          <p style={{ color: 'var(--text-muted)', fontSize: '0.85rem' }}>
-            Usa tus monedas ganadas estudiando o desbloquea material premium con pago directo.
-          </p>
+  
+        <p style={{ color: 'var(--text)', fontSize: '1.05rem', textAlign: 'justify', margin: 0 }}>
+          Me encuentro entre aquellos que piensan que la ciencia tiene una gran belleza [...]
+        </p>
+        
+        <p style={{ color: 'var(--text-muted)', fontWeight: 700, fontSize: '0.85rem', textAlign: 'right', margin: '4px 0 0 0' }}>
+          Marie Curie 1933 
+        </p>
+  
         </div>
 
-        {/* Secciones por categoría */}
         {categorias.map(categoria => (
           <div key={categoria} style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
             <p style={{
@@ -187,7 +194,7 @@ export default function Store() {
                       : isLoading
                         ? 'Procesando…'
                         : item.type === 'coins'
-                          ? `🪙 ${item.priceCoins} monedas`
+                          ? ` ${item.priceCoins} monedas`
                           : `$${item.priceMXN} MXN`
                     }
                   </button>
@@ -202,7 +209,6 @@ export default function Store() {
         </p>
       </div>
 
-      {/* Toast de feedback */}
       {feedback && (
         <div style={{
           position: 'fixed',

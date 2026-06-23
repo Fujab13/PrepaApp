@@ -29,7 +29,7 @@ export default function Login() {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', justifyContent: 'center', padding: '24px' }}>
-      <h1 style={{ fontSize: '1.6rem', fontWeight: 800, marginBottom: 8 }}>🐺 PrepaApp</h1>
+      <h1 style={{ fontSize: '1.6rem', fontWeight: 800, marginBottom: 8 }}>👤 PrepaApp</h1>
       <p style={{ color: 'var(--text-muted)', marginBottom: 32 }}>
         {modo === 'login' ? 'Inicia sesión para continuar' : 'Crea tu cuenta gratis'}
       </p>

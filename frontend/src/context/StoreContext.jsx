@@ -11,7 +11,7 @@ const INVENTORY_KEY = 'user_inventory'
 export function StoreProvider({ children }) {
   const [coins, setCoins] = useState(() => {
     const saved = localStorage.getItem(COINS_KEY)
-    return saved !== null ? Number(saved) : 10000 // monedas de bienvenida
+    return saved !== null ? Number(saved) : 9790 // monedas de bienvenida
   })
 
   const [inventory, setInventory] = useState(() => {
