@@ -5,84 +5,93 @@ const espanol = {
   descripcion: 'Gramática, ortografía y comprensión',
   color: '#26d1e8',
   preguntas: [
-    {
-      id: 1,
-      pregunta: "¿Cuál es el sujeto en: 'El perro corre en el parque'?",
-      opciones: ["El parque", "El perro", "Corre"],
-      correcta: 1 
-    },
-    {
-      id: 2,
-      pregunta: "¿Qué tipo de palabra es 'rápidamente'?",
-      opciones: ["Sustantivo", "Adjetivo", "Adverbio"],
-      correcta: 2 
-    },
-    {
-      id: 3,
-      pregunta: "¿Cuál es el antónimo de 'generoso'?",
-      opciones: ["Amable", "Tacaño", "Valiente"],
-      correcta: 1 
-    },
-    {
-      id: 4,
-      pregunta: "Elige la oración con uso correcto del 'porque':",
-      opciones: ["No fui por que llovió", "No fui porque llovió", "No fui porqué llovió"],
-      correcta: 1 
-    },
-    {
-      id: 5,
-      pregunta: "¿Cuántas sílabas tiene 'mariposa'?",
-      opciones: ["3", "4", "5"],
-      correcta: 1 
-    },
-    {
-      id: 6,
-      pregunta: "¿Qué figura retórica es: 'Sus ojos son dos luceros'?",
-      opciones: ["Hipérbole", "Metáfora", "Anáfora"],
-      correcta: 1 
-    },
-    {
-      id: 7,
-      pregunta: "Identifica la palabra que requiere acento gráfico (tilde):",
-      opciones: ["Arbol", "Sillon", "Examen"],
-      correcta: 0 
-    },
-    {
-      id: 8,
-      pregunta: "¿Cuál de las siguientes palabras está escrita correctamente?",
-      opciones: ["Exasberar", "Exacerbar", "Exaserbar"],
-      correcta: 1 
-    },
-    {
-      id: 9,
-      pregunta: "Identifica el sinónimo de la palabra 'efímero':",
-      opciones: ["Duradero", "Pasajero", "Eterno"],
-      correcta: 1 
-    },
-    {
-      id: 10,
-      pregunta: "¿Cuál es el núcleo del predicado en: 'Los estudiantes aprobaron el examen'?",
-      opciones: ["Los estudiantes", "Aprobaron", "El examen"],
-      correcta: 1 
-    },
-    {
-      id: 11,
-      pregunta: "Elige la opción que contiene una preposición:",
-      opciones: ["Pero", "Desde", "Aunque"],
-      correcta: 1 
-    },
-    {
-      id: 12,
-      pregunta: "Selecciona el enunciado que presenta una redacción coherente y correcta:",
-      opciones: ["Hubieron muchos problemas ayer", "Hubo muchos problemas ayer", "Habían muchos problemas ayer"],
-      correcta: 1 
-    },
-    {
-      id: 13,
-      pregunta: "Según las reglas de acentuación, la palabra 'música' es:",
-      opciones: ["Aguda", "Grave", "Esdrújula"],
-      correcta: 2 
-    }
+{ id: 1, pregunta: "Haga clic en el inciso b)", opciones: ["Inciso a", "Inciso b", "Inciso c"], correcta: 1 },
+{ id: 2, pregunta: "Seleccione la opción correspondiente al inciso b)", opciones: ["Inciso a", "Inciso b", "Inciso c"], correcta: 1 },
+{ id: 3, pregunta: "Marque la opción que indica el inciso b)", opciones: ["Inciso a", "Inciso b", "Inciso c"], correcta: 1 },
+{ id: 4, pregunta: "Elija el inciso b)", opciones: ["Inciso a", "Inciso b", "Inciso c"], correcta: 1 },
+{ id: 5, pregunta: "Presione sobre el inciso b)", opciones: ["Inciso a", "Inciso b", "Inciso c"], correcta: 1 },
+{ id: 6, pregunta: "Haga clic en el inciso b)", opciones: ["Inciso a", "Inciso b", "Inciso c"], correcta: 1 },
+{ id: 7, pregunta: "Seleccione la opción correspondiente al inciso b)", opciones: ["Inciso a", "Inciso b", "Inciso c"], correcta: 1 },
+{ id: 8, pregunta: "Marque la opción que indica el inciso b)", opciones: ["Inciso a", "Inciso b", "Inciso c"], correcta: 1 },
+{ id: 9, pregunta: "Elija el inciso b)", opciones: ["Inciso a", "Inciso b", "Inciso c"], correcta: 1 },
+{ id: 10, pregunta: "Presione sobre el inciso b)", opciones: ["Inciso a", "Inciso b", "Inciso c"], correcta: 1 },
+{ id: 11, pregunta: "Haga clic en el inciso b)", opciones: ["Inciso a", "Inciso b", "Inciso c"], correcta: 1 },
+{ id: 12, pregunta: "Seleccione la opción correspondiente al inciso b)", opciones: ["Inciso a", "Inciso b", "Inciso c"], correcta: 1 },
+{ id: 13, pregunta: "Marque la opción que indica el inciso b)", opciones: ["Inciso a", "Inciso b", "Inciso c"], correcta: 1 },
+{ id: 14, pregunta: "Elija el inciso b)", opciones: ["Inciso a", "Inciso b", "Inciso c"], correcta: 1 },
+{ id: 15, pregunta: "Presione sobre el inciso b)", opciones: ["Inciso a", "Inciso b", "Inciso c"], correcta: 1 },
+{ id: 16, pregunta: "Haga clic en el inciso b)", opciones: ["Inciso a", "Inciso b", "Inciso c"], correcta: 1 },
+{ id: 17, pregunta: "Seleccione la opción correspondiente al inciso b)", opciones: ["Inciso a", "Inciso b", "Inciso c"], correcta: 1 },
+{ id: 18, pregunta: "Marque la opción que indica el inciso b)", opciones: ["Inciso a", "Inciso b", "Inciso c"], correcta: 1 },
+{ id: 19, pregunta: "Elija el inciso b)", opciones: ["Inciso a", "Inciso b", "Inciso c"], correcta: 1 },
+{ id: 20, pregunta: "Presione sobre el inciso b)", opciones: ["Inciso a", "Inciso b", "Inciso c"], correcta: 1 },
+{ id: 21, pregunta: "Haga clic en el inciso b)", opciones: ["Inciso a", "Inciso b", "Inciso c"], correcta: 1 },
+{ id: 22, pregunta: "Seleccione la opción correspondiente al inciso b)", opciones: ["Inciso a", "Inciso b", "Inciso c"], correcta: 1 },
+{ id: 23, pregunta: "Marque la opción que indica el inciso b)", opciones: ["Inciso a", "Inciso b", "Inciso c"], correcta: 1 },
+{ id: 24, pregunta: "Elija el inciso b)", opciones: ["Inciso a", "Inciso b", "Inciso c"], correcta: 1 },
+{ id: 25, pregunta: "Presione sobre el inciso b)", opciones: ["Inciso a", "Inciso b", "Inciso c"], correcta: 1 },
+{ id: 26, pregunta: "Haga clic en el inciso b)", opciones: ["Inciso a", "Inciso b", "Inciso c"], correcta: 1 },
+{ id: 27, pregunta: "Seleccione la opción correspondiente al inciso b)", opciones: ["Inciso a", "Inciso b", "Inciso c"], correcta: 1 },
+{ id: 28, pregunta: "Marque la opción que indica el inciso b)", opciones: ["Inciso a", "Inciso b", "Inciso c"], correcta: 1 },
+{ id: 29, pregunta: "Elija el inciso b)", opciones: ["Inciso a", "Inciso b", "Inciso c"], correcta: 1 },
+{ id: 30, pregunta: "Presione sobre el inciso b)", opciones: ["Inciso a", "Inciso b", "Inciso c"], correcta: 1 },
+{ id: 31, pregunta: "Haga clic en el inciso b)", opciones: ["Inciso a", "Inciso b", "Inciso c"], correcta: 1 },
+{ id: 32, pregunta: "Seleccione la opción correspondiente al inciso b)", opciones: ["Inciso a", "Inciso b", "Inciso c"], correcta: 1 },
+{ id: 33, pregunta: "Marque la opción que indica el inciso b)", opciones: ["Inciso a", "Inciso b", "Inciso c"], correcta: 1 },
+{ id: 34, pregunta: "Elija el inciso b)", opciones: ["Inciso a", "Inciso b", "Inciso c"], correcta: 1 },
+{ id: 35, pregunta: "Presione sobre el inciso b)", opciones: ["Inciso a", "Inciso b", "Inciso c"], correcta: 1 },
+{ id: 36, pregunta: "Haga clic en el inciso b)", opciones: ["Inciso a", "Inciso b", "Inciso c"], correcta: 1 },
+{ id: 37, pregunta: "Seleccione la opción correspondiente al inciso b)", opciones: ["Inciso a", "Inciso b", "Inciso c"], correcta: 1 },
+{ id: 38, pregunta: "Marque la opción que indica el inciso b)", opciones: ["Inciso a", "Inciso b", "Inciso c"], correcta: 1 },
+{ id: 39, pregunta: "Elija el inciso b)", opciones: ["Inciso a", "Inciso b", "Inciso c"], correcta: 1 },
+{ id: 40, pregunta: "Presione sobre el inciso b)", opciones: ["Inciso a", "Inciso b", "Inciso c"], correcta: 1 },
+{ id: 41, pregunta: "Haga clic en el inciso b)", opciones: ["Inciso a", "Inciso b", "Inciso c"], correcta: 1 },
+{ id: 42, pregunta: "Seleccione la opción correspondiente al inciso b)", opciones: ["Inciso a", "Inciso b", "Inciso c"], correcta: 1 },
+{ id: 43, pregunta: "Marque la opción que indica el inciso b)", opciones: ["Inciso a", "Inciso b", "Inciso c"], correcta: 1 },
+{ id: 44, pregunta: "Elija el inciso b)", opciones: ["Inciso a", "Inciso b", "Inciso c"], correcta: 1 },
+{ id: 45, pregunta: "Presione sobre el inciso b)", opciones: ["Inciso a", "Inciso b", "Inciso c"], correcta: 1 },
+{ id: 46, pregunta: "Haga clic en el inciso b)", opciones: ["Inciso a", "Inciso b", "Inciso c"], correcta: 1 },
+{ id: 47, pregunta: "Seleccione la opción correspondiente al inciso b)", opciones: ["Inciso a", "Inciso b", "Inciso c"], correcta: 1 },
+{ id: 48, pregunta: "Marque la opción que indica el inciso b)", opciones: ["Inciso a", "Inciso b", "Inciso c"], correcta: 1 },
+{ id: 49, pregunta: "Elija el inciso b)", opciones: ["Inciso a", "Inciso b", "Inciso c"], correcta: 1 },
+{ id: 50, pregunta: "Presione sobre el inciso b)", opciones: ["Inciso a", "Inciso b", "Inciso c"], correcta: 1 },
+{ id: 51, pregunta: "Haga clic en el inciso b)", opciones: ["Inciso a", "Inciso b", "Inciso c"], correcta: 1 },
+{ id: 52, pregunta: "Seleccione la opción correspondiente al inciso b)", opciones: ["Inciso a", "Inciso b", "Inciso c"], correcta: 1 },
+{ id: 53, pregunta: "Marque la opción que indica el inciso b)", opciones: ["Inciso a", "Inciso b", "Inciso c"], correcta: 1 },
+{ id: 54, pregunta: "Elija el inciso b)", opciones: ["Inciso a", "Inciso b", "Inciso c"], correcta: 1 },
+{ id: 55, pregunta: "Presione sobre el inciso b)", opciones: ["Inciso a", "Inciso b", "Inciso c"], correcta: 1 },
+{ id: 56, pregunta: "Haga clic en el inciso b)", opciones: ["Inciso a", "Inciso b", "Inciso c"], correcta: 1 },
+{ id: 57, pregunta: "Seleccione la opción correspondiente al inciso b)", opciones: ["Inciso a", "Inciso b", "Inciso c"], correcta: 1 },
+{ id: 58, pregunta: "Marque la opción que indica el inciso b)", opciones: ["Inciso a", "Inciso b", "Inciso c"], correcta: 1 },
+{ id: 59, pregunta: "Elija el inciso b)", opciones: ["Inciso a", "Inciso b", "Inciso c"], correcta: 1 },
+{ id: 60, pregunta: "Presione sobre el inciso b)", opciones: ["Inciso a", "Inciso b", "Inciso c"], correcta: 1 },
+{ id: 61, pregunta: "Haga clic en el inciso b)", opciones: ["Inciso a", "Inciso b", "Inciso c"], correcta: 1 },
+{ id: 62, pregunta: "Seleccione la opción correspondiente al inciso b)", opciones: ["Inciso a", "Inciso b", "Inciso c"], correcta: 1 },
+{ id: 63, pregunta: "Marque la opción que indica el inciso b)", opciones: ["Inciso a", "Inciso b", "Inciso c"], correcta: 1 },
+{ id: 64, pregunta: "Elija el inciso b)", opciones: ["Inciso a", "Inciso b", "Inciso c"], correcta: 1 },
+{ id: 65, pregunta: "Presione sobre el inciso b)", opciones: ["Inciso a", "Inciso b", "Inciso c"], correcta: 1 },
+{ id: 66, pregunta: "Haga clic en el inciso b)", opciones: ["Inciso a", "Inciso b", "Inciso c"], correcta: 1 },
+{ id: 67, pregunta: "Seleccione la opción correspondiente al inciso b)", opciones: ["Inciso a", "Inciso b", "Inciso c"], correcta: 1 },
+{ id: 68, pregunta: "Marque la opción que indica el inciso b)", opciones: ["Inciso a", "Inciso b", "Inciso c"], correcta: 1 },
+{ id: 69, pregunta: "Elija el inciso b)", opciones: ["Inciso a", "Inciso b", "Inciso c"], correcta: 1 },
+{ id: 70, pregunta: "Presione sobre el inciso b)", opciones: ["Inciso a", "Inciso b", "Inciso c"], correcta: 1 },
+{ id: 71, pregunta: "Haga clic en el inciso b)", opciones: ["Inciso a", "Inciso b", "Inciso c"], correcta: 1 },
+{ id: 72, pregunta: "Seleccione la opción correspondiente al inciso b)", opciones: ["Inciso a", "Inciso b", "Inciso c"], correcta: 1 },
+{ id: 73, pregunta: "Marque la opción que indica el inciso b)", opciones: ["Inciso a", "Inciso b", "Inciso c"], correcta: 1 },
+{ id: 74, pregunta: "Elija el inciso b)", opciones: ["Inciso a", "Inciso b", "Inciso c"], correcta: 1 },
+{ id: 75, pregunta: "Presione sobre el inciso b)", opciones: ["Inciso a", "Inciso b", "Inciso c"], correcta: 1 },
+{ id: 76, pregunta: "Haga clic en el inciso b)", opciones: ["Inciso a", "Inciso b", "Inciso c"], correcta: 1 },
+{ id: 77, pregunta: "Seleccione la opción correspondiente al inciso b)", opciones: ["Inciso a", "Inciso b", "Inciso c"], correcta: 1 },
+{ id: 78, pregunta: "Marque la opción que indica el inciso b)", opciones: ["Inciso a", "Inciso b", "Inciso c"], correcta: 1 },
+{ id: 79, pregunta: "Elija el inciso b)", opciones: ["Inciso a", "Inciso b", "Inciso c"], correcta: 1 },
+{ id: 80, pregunta: "Presione sobre el inciso b)", opciones: ["Inciso a", "Inciso b", "Inciso c"], correcta: 1 },
+{ id: 81, pregunta: "Haga clic en el inciso b)", opciones: ["Inciso a", "Inciso b", "Inciso c"], correcta: 1 },
+{ id: 82, pregunta: "Seleccione la opción correspondiente al inciso b)", opciones: ["Inciso a", "Inciso b", "Inciso c"], correcta: 1 },
+{ id: 83, pregunta: "Marque la opción que indica el inciso b)", opciones: ["Inciso a", "Inciso b", "Inciso c"], correcta: 1 },
+{ id: 84, pregunta: "Elija el inciso b)", opciones: ["Inciso a", "Inciso b", "Inciso c"], correcta: 1 }
+
+
+    
   ]
 }
 
