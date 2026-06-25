@@ -12,6 +12,7 @@ import { BiMobileVibration } from "react-icons/bi";
 import { RxEnterFullScreen } from "react-icons/rx";
 import { MdFullscreen } from "react-icons/md";
 import { RiMenuFill } from "react-icons/ri";
+import { FaInstagram, FaFacebook, FaEnvelope, FaWhatsapp } from 'react-icons/fa'
 
 const animacionLunas = ['🌑', '🌒', '🌓', '🌔', '🌕', '🌖', '🌗', '🌘'];
 const animacionPollo = ['🥚', '🐣', '🐥', '🐤', '🐔', '🍗', '😋', '🍽️'];
@@ -105,8 +106,6 @@ export default function Home() {
             {esFullscreen ? <MdFullscreen /> : <MdFullscreen />}
           </button>
 
-          
-          
         </div>
       </div>
       <div style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '20px', flex: 1 }}>
@@ -114,7 +113,7 @@ export default function Home() {
         <div style={{background: 'var(--surface)', borderRadius: 'var(--radius)', padding: '28px 20px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px'}}>
         <p style={{ color: 'var(--text-muted)', fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '1.5px' }}>
           progreso en {featured.nombre}</p>
-
+          
           <Hexagono
           progreso={unidadesCompletas}
           color={featured.color}
@@ -139,7 +138,17 @@ export default function Home() {
             ▶ Empezar lección
           </button>
         </div>
-
+        <p style={{ color: 'var(--text-muted)', fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '1.5px' }}>
+          Cuestionarios
+        </p>
+        {MATERIAS.map(m => (
+          <div key={m.id} onClick={() => {
+            cambiarFeatured(m.id)
+            navigate(`/leccion/${m.id}`)
+          }}>
+            <MateriaCard materia={m} />
+          </div>
+        ))}
 
 
         <p style={{  color: 'var(--text-muted)', fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '1.5px' }}>
@@ -171,34 +180,20 @@ export default function Home() {
           {m.icono}
           </div>
         <div>
-          <p style={{ fontWeight: 700, fontSize: '1.05rem' }}>{m.nombre}</p>
+          {/* <p style={{ fontWeight: 700, fontSize: '1.05rem' }}>{m.nombre}</p> */}
           {/*<p style={{ color: 'var(--text-muted)', fontSize: '0.95rem' }}>Leer material del curso</p>*/}
-          <div style={{ color: 'var(--text-muted)', fontSize: '0.75rem', marginTop: 2 }}>
+          <div style={{ color: 'var(--text-muted)', fontSize: '1.05rem', marginTop: 2 }}>
           {m.descripcion}
         </div>
         </div>
         <span style={{ marginLeft: 'auto', color: 'var(--text-muted)' }}>›</span>
         </div>
         ))}
-
-
-
-        <p style={{ color: 'var(--text-muted)', fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '1.5px' }}>
-          Cuestionarios
-        </p>
-        {MATERIAS.map(m => (
-          <div key={m.id} onClick={() => {
-            cambiarFeatured(m.id)
-            navigate(`/leccion/${m.id}`)
-          }}>
-            <MateriaCard materia={m} />
-          </div>
-        ))}
         
 
 
         <p style={{ color: 'var(--text-muted)', fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '1.5px' }}>
-          Biblioteca
+          Material de la BUAP
         </p>
         {LIBROS.map(libro => (
           <LibroCard
@@ -216,6 +211,59 @@ export default function Home() {
           {animacionCarga[frameIdx]}
         </span>
       </div>
+      <footer style={{
+  padding: '24px',
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  gap: 12,
+  color: 'var(--text-muted)'
+}}>
+  <div style={{ display: 'flex', gap: 16 }}>
+    
+    <a href="https://instagram.com/TU_USUARIO" target="_blank" rel="noopener noreferrer" 
+      style={{ 
+        background: `linear-gradient(355deg, ${featured?.color || '#3b82f6'}, #ffffffbe)`,
+        WebkitBackgroundClip: 'text',
+        WebkitTextFillColor: 'transparent',
+        filter: `drop-shadow(0 2px 8px ${featured?.color || '#3b82f6'}80)`
+      }}>
+      <FaInstagram size={24} />
+    </a>
+
+    <a href="https://facebook.com/TU_USUARIO" target="_blank" rel="noopener noreferrer" 
+      style={{ 
+        background: `linear-gradient(355deg, ${featured?.color || '#3b82f6'}, #ffffffbe)`,
+        WebkitBackgroundClip: 'text',
+        WebkitTextFillColor: 'transparent',
+        filter: `drop-shadow(0 2px 8px ${featured?.color || '#3b82f6'}80)`
+      }}>
+      <FaFacebook size={24} />
+    </a>
+
+    <a href="mailto:fujab13@gmail.com" 
+      style={{ 
+       background: `linear-gradient(355deg, ${featured?.color || '#3b82f6'}, #ffffffbe)`,
+        WebkitBackgroundClip: 'text',
+        WebkitTextFillColor: 'transparent',
+        filter: `drop-shadow(0 2px 8px ${featured?.color || '#3b82f6'}80)`
+      }}>
+      <FaEnvelope size={24} />
+    </a>
+
+    <a href="https://wa.me/527331274538" target="_blank" rel="noopener noreferrer" 
+      style={{ 
+        background: `linear-gradient(355deg, ${featured?.color || '#3b82f6'}, #ffffffbe)`,
+        WebkitBackgroundClip: 'text',
+        WebkitTextFillColor: 'transparent',
+        filter: `drop-shadow(0 2px 8px ${featured?.color || '#3b82f6'}80)`
+      }}>
+      <FaWhatsapp size={24} />
+    </a>
+
+  </div>
+  <p style={{ margin: 0, fontSize: 14 }}>© 2026 PrepaApp - Todos los derechos reservados</p>
+</footer>
     </div>
   )
 }
