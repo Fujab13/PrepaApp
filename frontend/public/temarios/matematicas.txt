@@ -1,0 +1,18 @@
+PROPEDÉUTICO DE RAZONAMIENTO MATEMÁTICO
+	RAZONAMIENTO MATEMÁTICO
+		Números primos y números compuestos
+		Factores primos
+		Divisores comunes
+		Máximo Común Divisor/Mínimo Común Múltiplo
+		Conceptos de proporcionalidad y porcentajes
+		Operaciones compuestas
+		Operaciones algebraicas compuestas
+		Secuencias geométricas y aritméticas
+		Resolución de ecuaciones
+		Resolución de problemas verbales
+		Valores de las variables
+		Distancia entre dos puntos
+		Expresiones algebraicas de enunciados verbales
+		Evaluación de funciones
+		Transformaciones de gráficas
+		Sol

@@ -1,0 +1,52 @@
+PROPEDÉUTICO DE ENFERMERÍA CLÍNICA
+	EVOLUCIÓN HISTÓRICA Y EPISTEMOLOGÍA DE LA ENFERMERÍA
+		Fundamentos Epistemológicos y Conceptos Nucleares de la Disciplina
+		Modelos Conceptuales y Teorías del Cuidado
+	MARCO LEGAL, DEONTOLOGÍA Y REGULACIÓN SANITARIA
+		Fundamentos Constitucionales del Derecho a la Salud
+		Análisis y Aplicación de la Ley General de Salud
+		Cumplimiento de Normas Oficiales Mexicanas en la Práctica Clínica (NOM-004, 019, 022, 045, 087)
+		Deontología Bioética y Clasificaciones Internacionales (CIE)
+	ORGANIZACIÓN Y POLÍTICAS DEL SISTEMA SANITARIO
+		Estructura Operativa del Sistema Nacional de Salud
+	FUNDAMENTOS PRÁCTICOS Y ENFERMERÍA PROPEDÉUTICA
+		Monitorización y Análisis de Signos Vitales
+		Protocolos de Seguridad y Acciones Esenciales para el Paciente (AESP)
+		Técnicas de Higiene de Manos y Prevención de Infecciones Asociadas a la Atención de la Salud (IAAS)
+		Metodología de la Valoración Clínica y Exploración Física
+		Principios de Terapia de Infusión Intravenosa y Accesos Vasculares
+	MORFOFISIOLOGÍA HUMANA APLICADA
+		Estructura y Función General del Sistema Tegumentario
+		Bases Morfofuncionales del Sistema Nervioso
+		Fisiología y Anatomía del Aparato Digestivo
+		Dinámica y Estructura del Sistema Respiratorio
+		Fisiopatología y Anatomía del Sistema Cardiovascular
+	BIOQUÍMICA HUMANA Y BIOENERGÉTICA CELULAR
+		Estructura, Función y Metabolismo de Lípidos
+		Cinética y Función de Macromoléculas Proteicas
+		Metabolismo de Carbohidratos y Procesos de Respiración Celular
+		Biología Molecular: Estructura y Transcripción de Ácidos Nucleicos (ADN y ARN)
+	FARMACOLOGÍA CLÍNICA ESENCIAL
+		Farmacocinética: Procesos de Absorción, Distribución, Biotransformación y Excreción (ADME)
+		Farmacodinámica: Mecanismos de Acción y Farmacometría
+		Criterios Técnicos y Vías de Administración de Fármacos
+		Seguridad en la Gestión y Transcripción de Prescripciones Farmacológicas
+
+Primero quiero que notes que ese temario es demasiado avanzado para chicas que quieren acceder a la universidad.
+
+Formato de las preguntas de las lecciones
+    {
+      id: 1,
+      pregunta: "¿Cuánto es el 15% de 200?",
+      opciones: ["25", "30", "35"],
+      correcta: 1
+    },
+    {
+      id: 2,
+      pregunta: "¿Cuál es el resultado de 3² + 4²?",
+      opciones: ["25", "49", "14"],
+      correcta: 1
+    }
+Desarrolla 12 Preguntas de calidad EGAV, preferenciando preguntas ya vistas de años pasados, o preguntas de nivel intermedio-dificil, ademas guarda las preguntas en formato unilinea, es decir compacto. Comenzando desde el id: 1
+
+AHORA, USANDO TODO LO QUE TE PEGUE QUIERO QUE ADAPTES MÁS EL TEMARIO COMO PARA ASPIRANTES DE LA BUAP, Y EN BLOQUES DE CODIGO PARA COPIAR Y PEGAR ME DES PROMPS EN ORDEN PARA IR GENERANDO PREGUNTAS EN MULTIPLOS DE 12 ya sean 12, 24, 36. QUE AUTOMATICAMENTE CONTENGA LOS SIGUIENTES INDICES, Y TEMAS INCLUIDOS EN EL PROMP PARA PASARLOS A GPT, YA SABES, CALIDAD DE EGA, ADECUADO PARA LOS CHAVOS Y TODO ESO

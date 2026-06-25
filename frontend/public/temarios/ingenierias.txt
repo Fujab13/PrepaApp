@@ -1,0 +1,30 @@
+PROPEDÉUTICO DE CIENCIAS EXACTAS E INGENIERÍA
+	ÁLGEBRA AVANZADA Y TRIGONOMETRÍA
+		Sistemas de ecuaciones lineales con dos y tres variables
+		Ecuaciones de segundo grado y propiedades de las raíces
+		Polinomios y teoremas del residuo y del factor
+		Funciones trigonométricas en el círculo unitario e identidades
+		Leyes de senos y cosenos para la resolución de triángulos
+	GEOMETRÍA ANALÍTICA
+		Línea recta: ecuaciones, pendiente, paralelismo y perpendicularidad
+		Secciones cónicas: circunferencia, parábola, elipse e hipérbola
+		Coordenadas polares y conversión a coordenadas cartesianas
+		Vectores en el plano y en el espacio (producto escalar y vectorial)
+	CÁLCULO DIFERENCIAL E INTEGRAL
+		Límites de funciones algebraicas y trascendentes, y continuidad
+		La derivada: definición geométrica, razones de cambio y regla de la cadena
+		Aplicaciones de la derivada: máximos, mínimos y optimización
+		La integral indefinida: métodos de integración por sustitución y partes
+		La integral definida y el cálculo de áreas bajo la curva
+	FÍSICA GENERAL
+		Sistemas de unidades, conversión y análisis dimensional
+		Cinemática: movimiento rectilíneo uniforme y uniformemente acelerado
+		Dinámica: leyes de Newton, fuerza, masa, fricción y equilibrio
+		Trabajo, energía cinética, energía potencial y conservación de la energía
+		Estática de fluidos: presión hidráulica, principio de Pascal y de Arquímedes
+	QUÍMICA INDUSTRIAL Y DE MATERIALES
+		Estructura atómica, configuración electrónica y tabla periódica
+		Enlaces químicos (iónico, covalente, metálico) y fuerzas intermoleculares
+		Estequiometría: balanceo de ecuaciones, concepto de mol y reactivo limitante
+		Disoluciones: concentración molar, porcentual y cálculo de pH
+		Termoquímica: procesos endotérmicos, exotérmicos y entalpía

@@ -1,0 +1,46 @@
+PROPEDÉUTICO DE ESPAÑOL Y RAZONAMIENTO VERBAL
+	GRAMÁTICA Y REDACCIÓN INDIRECTA
+		Morfosintaxis y Partes de la Oración
+			Funciones y tipos de sustantivos, pronombres y adjetivos
+			El verbo: conjugación, modos (indicativo, subjuntivo, imperativo) y tiempos verbales
+			Uso correcto de adverbios, preposiciones y conjunciones
+			Corrección de vicios de dicción (solecismos, pleonasmos, cacofonías)
+		Concordancia y Sintaxis
+			Concordancia nominal (género y número)
+			Concordancia verbal (sujeto y verbo)
+			Estructura de la oración: sujeto, predicado y complementos (directo, indirecto, circunstancial)
+		Cohesión Textual Avanzada
+			Cohesión gramatical (uso correcto de deícticos y elipsis)
+			Cohesión léxico-semántica (repetición, sustitución por sinónimos)
+	ORTOGRAFÍA Y GRAFEMÁTICA
+		Acentuación
+			División silábica, diptongos y triptongos
+			Clasificación de palabras: agudas, graves, esdrújulas y sobresdrújulas
+			Acento diacrítico y acento enfático
+		Signos de Puntuación
+			Uso del punto (seguido, aparte, final)
+			Uso de la coma (enumerativa, vocativa, elíptica, explicativa)
+			Uso del punto y coma, los dos puntos y puntos suspensivos
+			Uso de signos auxiliares (paréntesis, comillas, guiones)
+	RAZONAMIENTO VERBAL Y LÉXICO
+		Relaciones Semánticas
+			Empleo de sinónimos y antónimos contextuales
+			Homónimos (homófonos y homógrafos) y parónimos
+			Identificación de campos semánticos y series léxicas
+		Lógica del Lenguaje
+			Analogías verbales
+			Completamiento de oraciones de forma lógica y gramatical
+			Eliminación de oraciones por redundancia o impertinencia (coherencia contextual)
+    COMPRENSIÓN LECTORA Y ANÁLISIS DE TEXTOS
+		Intención y Estructura Textual
+			Identificación de la intención comunicativa del autor
+			Diferenciación de tipos de texto (Argumentativo, Narrativo, Expositivo, Descriptivo)
+			Identificación de la idea principal y las ideas secundarias
+		Mecanismos de Coherencia y Cohesión
+			Mantenimiento del hilo conductor del texto
+			Uso de conectores lógicos y marcadores textuales (causales, temporales, de contraste, de adición)
+			Mecanismos de coherencia local y global
+		Análisis de Información e Inferencia
+			Comparación y contraste de ideas entre múltiples fuentes
+			Síntesis y paráfrasis de la información
+			Deducción e inferencia de información implícita
