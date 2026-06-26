@@ -1,7 +1,9 @@
+import { PiMathOperationsFill } from "react-icons/pi";
+
 const matematicas = {
   id: 'matematicas',
   nombre: 'Matemáticas',
-  icono: '♚',
+  icono: <PiMathOperationsFill />,
   descripcion: 'Álgebra, geometría y aritmética',
   color: '#ff4b4b',
   preguntas: [

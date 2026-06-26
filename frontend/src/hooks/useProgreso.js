@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { supabase } from '../supabase'
 import { useAuth } from '../context/AuthContext'
 
-const MAX_UNIDADES = 6
+const MAX_UNIDADES = 26
 
 export function useProgreso(materiaId) {
   const { user } = useAuth()

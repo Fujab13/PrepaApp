@@ -1,7 +1,9 @@
+import { FaBookOpen } from "react-icons/fa";
+
 const espanol = {
   id: 'espanol',
   nombre: 'Español',
-  icono: '♜',
+  icono: <FaBookOpen />,
   descripcion: 'Gramática, ortografía y comprensión',
   color: '#26d1e8',
   preguntas: [

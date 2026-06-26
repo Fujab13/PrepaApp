@@ -15,9 +15,7 @@ import { RiMenuFill } from "react-icons/ri";
 import { FaInstagram, FaFacebook, FaEnvelope, FaWhatsapp } from 'react-icons/fa'
 
 const animacionLunas = ['🌑', '🌒', '🌓', '🌔', '🌕', '🌖', '🌗', '🌘'];
-const animacionPollo = ['🥚', '🐣', '🐥', '🐤', '🐔', '🍗', '😋', '🍽️'];
 const animacionCarga = ['▱▱▱▱', '▰▱▱▱', '▰▰▱▱', '▰▰▰▱', '▰▰▰▰', '▰▰▰▱', '▰▰▱▱', '▰▱▱▱'];
-const animacionDados = ['⚀', '⚁', '⚂', '⚃', '⚄', '⚅', '🎲', '✨'];
 
 export default function Home() {
   const navigate = useNavigate()

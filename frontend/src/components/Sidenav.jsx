@@ -6,6 +6,10 @@ import { MATERIAS } from '../data/index'
 
 import { FaCreditCard } from "react-icons/fa6";
 import { FaUserGraduate } from "react-icons/fa";
+import { LiaCartPlusSolid } from "react-icons/lia";
+import { PiShoppingCart } from "react-icons/pi";
+import { SlUser } from "react-icons/sl";
+
 
 export default function Sidenav({ open, onClose }) {
   const navigate = useNavigate()
@@ -46,11 +50,11 @@ export default function Sidenav({ open, onClose }) {
     alignItems: 'center', justifyContent: 'center', fontSize: '1.5rem',
     flexShrink: 0 
   }}>
-    <FaUserGraduate />
+    <SlUser />
   </div>
   <div>
-    {user ? (<>
-      <p style={{ fontWeight: 700, fontSize: '0.95rem', margin: 0 }}>{user.email.split('@')[0]}</p>
+    {user ? (<> {/* .split('@')[0] */}
+      <p style={{ fontWeight: 700, fontSize: '0.95rem', margin: 0 }}>{user.email}</p>
       <p style={{ color: 'var(--text-muted)', fontSize: '0.75rem', margin: 0 }}>Cuenta activa</p>
       </>) : (
       <p style={{ color: 'var(--text-muted)', fontSize: '0.85rem', margin: 0 }}>No has iniciado sesión</p>
@@ -81,7 +85,7 @@ export default function Sidenav({ open, onClose }) {
           borderRadius: '12px',
           display: 'flex', alignItems: 'center', justifyContent: 'center'
           }}>
-            <FaCreditCard />
+            <PiShoppingCart />
           </span>
           <span style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
           Tienda

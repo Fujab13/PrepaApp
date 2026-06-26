@@ -1,7 +1,9 @@
+import { BsAirplaneFill } from "react-icons/bs";
+
 const ingenierias = {
   id: 'ingenierias',
   nombre: 'Ingenierias',
-  icono: '♞',
+  icono: <BsAirplaneFill />,
   descripcion: 'Conceptos generales de ciencias exactas',
   color: '#e3da33',
   preguntas: [

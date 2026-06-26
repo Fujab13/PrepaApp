@@ -1,7 +1,9 @@
+import { FaBriefcaseMedical } from "react-icons/fa";
+
 const medicina = {
   id: 'medicina',
   nombre: 'Medicina',
-  icono: '♛',
+  icono: <FaBriefcaseMedical />,
   descripcion: 'Anatomía, biología, química y salud.',
   color: '#ffffff',
   preguntas: [
