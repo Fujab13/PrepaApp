@@ -13,8 +13,10 @@ import { RxEnterFullScreen } from "react-icons/rx";
 import { MdFullscreen } from "react-icons/md";
 import { RiMenuFill } from "react-icons/ri";
 import { FaInstagram, FaFacebook, FaEnvelope, FaWhatsapp } from 'react-icons/fa'
+import { PiHexagon } from "react-icons/pi";
 
 const animacionLunas = ['🌑', '🌒', '🌓', '🌔', '🌕', '🌖', '🌗', '🌘'];
+{/*{animacionLunas[frameIdx]}*/}
 const animacionCarga = ['▱▱▱▱', '▰▱▱▱', '▰▰▱▱', '▰▰▰▱', '▰▰▰▰', '▰▰▰▱', '▰▰▱▱', '▰▱▱▱'];
 
 export default function Home() {
@@ -55,18 +57,25 @@ export default function Home() {
           <RiMenuFill />
 
         </button>
-        <span style={{ 
-          fontSize: '1.6rem', 
-          width: '30px', 
-          textAlign: 'center',
-          display: 'inline-block',
-          color: '#ffffff',
-          textShadow: `0 2px 10px rgba(255, 255, 255, 0.15), 0 4px 20px ${featured?.color || '#3b82f6'}`
+                
+        
+         <span style={{ 
+          display: 'inline-flex', 
+          alignItems: 'center', 
+          justifyContent: 'center',
+          fontSize: '1.5rem',
+          opacity: 0.9
         }}>
-          {animacionLunas[frameIdx]}
+          <PiHexagon />
         </span>
-        <h1 style={{ fontSize: '1.5rem', fontWeight: 800, margin: 0, color: '#ffffff', textShadow: `0 2px 10px rgba(255, 255, 255, 0.15), 0 4px 20px ${featured?.color || '#3b82f6'}` }}>
-          PrepaApp
+        <h1 style={{ 
+          fontSize: '1.4rem', 
+          fontWeight: 500, 
+          margin: 0, 
+          color: '#ffffff',
+          letterSpacing: '-0.01em'
+        }}>
+          Prepa<span style={{ fontWeight: 300, opacity: 0.6 }}>App</span>
         </h1>
         <div style={{ 
           display: 'flex', 

@@ -9,7 +9,8 @@ import { FaUserGraduate } from "react-icons/fa";
 import { LiaCartPlusSolid } from "react-icons/lia";
 import { PiShoppingCart } from "react-icons/pi";
 import { SlUser } from "react-icons/sl";
-
+import { PiShoppingCartSimpleFill } from "react-icons/pi";
+import { RiUser3Fill } from "react-icons/ri";
 
 export default function Sidenav({ open, onClose }) {
   const navigate = useNavigate()
@@ -50,7 +51,7 @@ export default function Sidenav({ open, onClose }) {
     alignItems: 'center', justifyContent: 'center', fontSize: '1.5rem',
     flexShrink: 0 
   }}>
-    <SlUser />
+    <RiUser3Fill />
   </div>
   <div>
     {user ? (<> {/* .split('@')[0] */}
@@ -85,7 +86,7 @@ export default function Sidenav({ open, onClose }) {
           borderRadius: '12px',
           display: 'flex', alignItems: 'center', justifyContent: 'center'
           }}>
-            <PiShoppingCart />
+            <PiShoppingCartSimpleFill />
           </span>
           <span style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
           Tienda
