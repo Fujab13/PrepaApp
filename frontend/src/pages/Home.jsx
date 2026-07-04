@@ -13,8 +13,10 @@ import { RxEnterFullScreen } from "react-icons/rx";
 import { MdFullscreen } from "react-icons/md";
 import { RiMenuFill } from "react-icons/ri";
 import { FaInstagram, FaFacebook, FaEnvelope, FaWhatsapp } from 'react-icons/fa'
+import { PiHexagon } from "react-icons/pi";
 
 const animacionLunas = ['🌑', '🌒', '🌓', '🌔', '🌕', '🌖', '🌗', '🌘'];
+{/*{animacionLunas[frameIdx]}*/}
 const animacionCarga = ['▱▱▱▱', '▰▱▱▱', '▰▰▱▱', '▰▰▰▱', '▰▰▰▰', '▰▰▰▱', '▰▰▱▱', '▰▱▱▱'];
 
 export default function Home() {
@@ -27,9 +29,7 @@ export default function Home() {
   const [vibracionActiva, setVibracionActiva] = useState(
   localStorage.getItem('hapticsEnabled') !== 'false'
   );
-
   const [frameIdx, setFrameIdx] = useState(0)
-
   const { unidadesCompletas } = useProgreso(featuredId)
   const featured = MATERIAS.find(m => m.id === featuredId) || MATERIAS[0]
   const cambiarFeatured = (id) => {
@@ -55,18 +55,25 @@ export default function Home() {
           <RiMenuFill />
 
         </button>
-        <span style={{ 
-          fontSize: '1.6rem', 
-          width: '30px', 
-          textAlign: 'center',
-          display: 'inline-block',
-          color: '#ffffff',
-          textShadow: `0 2px 10px rgba(255, 255, 255, 0.15), 0 4px 20px ${featured?.color || '#3b82f6'}`
+                
+        
+         <span style={{ 
+          display: 'inline-flex', 
+          alignItems: 'center', 
+          justifyContent: 'center',
+          fontSize: '1.5rem',
+          opacity: 0.9
         }}>
-          {animacionLunas[frameIdx]}
+          <PiHexagon />
         </span>
-        <h1 style={{ fontSize: '1.5rem', fontWeight: 800, margin: 0, color: '#ffffff', textShadow: `0 2px 10px rgba(255, 255, 255, 0.15), 0 4px 20px ${featured?.color || '#3b82f6'}` }}>
-          PrepaApp
+        <h1 style={{ 
+          fontSize: '1.4rem', 
+          fontWeight: 500, 
+          margin: 0, 
+          color: '#ffffff',
+          letterSpacing: '-0.01em'
+        }}>
+          Prepa<span style={{ fontWeight: 300, opacity: 0.6 }}>App</span>
         </h1>
         <div style={{ 
           display: 'flex', 
@@ -81,7 +88,6 @@ export default function Home() {
           
         }}>
           <button className="util-btn" 
-          style={{ background: 'transparent', border: 'none', color: 'var(--text)', fontSize: '1.4rem', cursor: 'pointer', padding: 5}}
           onClick={() => {
             const nuevoEstado = !vibracionActiva;
             setVibracionActiva(nuevoEstado);
@@ -91,7 +97,6 @@ export default function Home() {
             {vibracionActiva ? <BiMobileVibration /> : <BiMobileVibration />}
           </button>
           <button className="util-btn" 
-          style={{ background: 'transparent', border: 'none', color: 'var(--text)', fontSize: '1.4rem', cursor: 'pointer', padding: 0 }}
           onClick={() => {
             if (!document.fullscreenElement) {
               document.documentElement.requestFullscreen();
@@ -147,46 +152,96 @@ export default function Home() {
             <MateriaCard materia={m} />
           </div>
         ))}
-
-
-        <p style={{  color: 'var(--text-muted)', fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '1.5px' }}>
-          Tarjetas
-        </p>
-        {MATERIAS.map(m => (
-          <div
-            key={m.id}
-            onClick={() => {
-              cambiarFeatured(m.id)
-              navigate(`/lectura/${m.id}`)}}
-            style={{
-              background: 'var(--surface)',
-              borderRadius: 'var(--radius)',
-              padding: '20px 30px',
-              display: 'flex',
-              alignItems: 'center',
-              gap: 12,
-              cursor: 'pointer'
-            }}
-          >
+        
+        
+  <>
+  <p style={{ color: 'var(--text-muted)', fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '1.5px', paddingLeft: '4px' }}>
+    Tarjetas
+  </p>
+  <div style={{ display: 'flex', flexDirection: 'column', gap: '14px', width: '100%' }}>
+    {MATERIAS.map(m => (
+      <div
+        key={m.id}
+        onClick={() => {
+          cambiarFeatured(m.id)
+          navigate(`/lectura/${m.id}`)
+        }}
+        style={{
+          background: 'linear-gradient(135deg, var(--surface) 0%, var(--surface2) 100%)',
+          borderRadius: '12px',
+          padding: '18px 24px',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '20px',
+          cursor: 'pointer',
+          boxShadow: '0 4px 12px rgba(0,0,0,0.03)',
+          position: 'relative',
+          overflow: 'hidden'
+        }}
+      >
         <div style={{
-            fontSize: '2rem',
-            width: '52px', height: '52px',
-            background: 'var(--surface2)',
-            borderRadius: '12px',
-            display: 'flex', alignItems: 'center', justifyContent: 'center'
-          }}>
+          position: 'absolute',
+          left: 0, 
+          top: 0, 
+          bottom: 0,
+          width: '4px',
+          backgroundColor: featured.color || '#ccc'
+        }} />
+        <div style={{
+          fontSize: '1.8rem',
+          width: '44px', 
+          height: '44px',
+          display: 'flex', 
+          alignItems: 'center', 
+          justifyContent: 'center',
+          flexShrink: 0
+        }}>
           {m.icono}
+        </div>
+        <div style={{ 
+          flex: 1, 
+          display: 'flex', 
+          flexDirection: 'column', 
+          alignItems: 'flex-start', 
+          gap: '6px' 
+        }}>
+          <span style={{ 
+            background: 'rgba(255, 255, 255, 0.08)', 
+            padding: '3px 8px', 
+            borderRadius: '4px', 
+            fontSize: '0.65rem', 
+            fontWeight: '700',
+            color: 'var(--text-muted)',
+            textTransform: 'uppercase',
+            letterSpacing: '0.5px'
+          }}>
+            Temario
+          </span>
+          <div style={{ 
+            color: 'var(--text)', 
+            fontSize: '1.1rem', 
+            fontWeight: '600', 
+            lineHeight: '1.3' 
+          }}>
+            {m.descripcion}
           </div>
-        <div>
-          {/* <p style={{ fontWeight: 700, fontSize: '1.05rem' }}>{m.nombre}</p> */}
-          {/*<p style={{ color: 'var(--text-muted)', fontSize: '0.95rem' }}>Leer material del curso</p>*/}
-          <div style={{ color: 'var(--text-muted)', fontSize: '1.05rem', marginTop: 2 }}>
-          {m.descripcion}
         </div>
+    
+        <div style={{
+          display: 'flex', 
+          alignItems: 'center', 
+          justifyContent: 'center',
+          color: 'var(--text-muted)',
+          fontSize: '1.4rem',
+          paddingLeft: '8px',
+          userSelect: 'none'
+        }}>
+          ›
         </div>
-        <span style={{ marginLeft: 'auto', color: 'var(--text-muted)' }}>›</span>
-        </div>
-        ))}
+      </div>
+    ))}
+  </div>
+</>
         
 
 

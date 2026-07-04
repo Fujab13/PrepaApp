@@ -1,18 +1,212 @@
-PROPEDÉUTICO DE RAZONAMIENTO MATEMÁTICO
+Aprobado por @fujab13 y @gpt
+
+PROPEDÉUTICO DE MATEMÁTICAS Y RAZONAMIENTO MATEMÁTICO
+
+	ARITMÉTICA
+
+		Conjuntos Numéricos
+			Números naturales
+			Números enteros
+			Números racionales
+			Números irracionales
+			Números reales
+
+		Operaciones Fundamentales
+			Suma
+			Resta
+			Multiplicación
+			División
+			Jerarquía de operaciones
+			Valor absoluto
+
+		Divisibilidad
+			Números primos y compuestos
+			Criterios de divisibilidad
+			Factorización prima
+			Divisores comunes
+			Máximo Común Divisor (MCD)
+			Mínimo Común Múltiplo (MCM)
+
+		Fracciones y Decimales
+			Operaciones con fracciones
+			Conversión entre fracciones y decimales
+			Fracciones equivalentes
+			Comparación de fracciones
+
+		Potencias y Radicales
+			Leyes de los exponentes
+			Raíz cuadrada
+			Raíz cúbica
+			Radicales
+			Notación científica
+
+		Proporcionalidad
+			Razones
+			Proporciones
+			Regla de tres simple
+			Regla de tres compuesta
+			Variación directa
+			Variación inversa
+			Porcentajes
+			Interés simple
+
+	ÁLGEBRA
+
+		Expresiones Algebraicas
+			Monomios
+			Polinomios
+			Operaciones algebraicas
+			Simplificación de expresiones
+
+		Productos Notables y Factorización
+			Productos notables
+			Factor común
+			Diferencia de cuadrados
+			Trinomio cuadrado perfecto
+			Factorización de polinomios
+
+		Fracciones Algebraicas
+			Simplificación
+			Operaciones
+			Fracciones complejas
+
+		Ecuaciones
+			Ecuaciones de primer grado
+			Ecuaciones de segundo grado
+			Sistemas de ecuaciones
+			Inecuaciones
+			Resolución de problemas mediante ecuaciones
+
+		Modelación Algebraica
+			Expresiones algebraicas de enunciados verbales
+			Planteamiento de ecuaciones
+			Valores de las variables
+
+	FUNCIONES
+
+		Conceptos Fundamentales
+			Relación
+			Función
+			Dominio
+			Rango
+
+		Evaluación de Funciones
+			Sustitución de valores
+			Interpretación de resultados
+
+		Tipos de Funciones
+			Función lineal
+			Función cuadrática
+			Función constante
+			Función afín
+
+		Representación Gráfica
+			Interpretación de gráficas
+			Transformaciones de gráficas
+
+	GEOMETRÍA
+
+		Conceptos Básicos
+			Punto
+			Recta
+			Plano
+			Segmento
+			Semirrecta
+
+		Ángulos
+			Clasificación
+			Ángulos complementarios
+			Ángulos suplementarios
+			Ángulos opuestos por el vértice
+
+		Polígonos
+			Triángulos
+			Cuadriláteros
+			Polígonos regulares
+			Polígonos irregulares
+
+		Circunferencia y Círculo
+			Elementos
+			Longitud de la circunferencia
+			Área del círculo
+
+		Medición
+			Perímetro
+			Área
+			Volumen
+
+		Teoremas Fundamentales
+			Teorema de Pitágoras
+
+	GEOMETRÍA ANALÍTICA
+
+		Plano Cartesiano
+			Coordenadas
+			Ubicación de puntos
+
+		Recta
+			Pendiente
+			Ecuación de la recta
+
+		Distancias y Relaciones
+			Distancia entre dos puntos
+			Punto medio
+
+	ESTADÍSTICA
+
+		Organización de Datos
+			Tablas
+			Frecuencias
+			Gráficas de barras
+			Gráficas circulares
+			Gráficas lineales
+
+		Medidas Estadísticas
+			Media
+			Mediana
+			Moda
+			Rango
+
+		Interpretación de Datos
+			Análisis de tablas
+			Interpretación de gráficas
+			Comparación de datos
+
+	PROBABILIDAD
+
+		Conceptos Básicos
+			Espacio muestral
+			Eventos
+			Sucesos
+
+		Cálculo de Probabilidades
+			Probabilidad simple
+			Probabilidad compuesta
+			Probabilidad complementaria
+
 	RAZONAMIENTO MATEMÁTICO
-		Números primos y números compuestos
-		Factores primos
-		Divisores comunes
-		Máximo Común Divisor/Mínimo Común Múltiplo
-		Conceptos de proporcionalidad y porcentajes
-		Operaciones compuestas
-		Operaciones algebraicas compuestas
-		Secuencias geométricas y aritméticas
-		Resolución de ecuaciones
-		Resolución de problemas verbales
-		Valores de las variables
-		Distancia entre dos puntos
-		Expresiones algebraicas de enunciados verbales
-		Evaluación de funciones
-		Transformaciones de gráficas
-		Sol
+
+		Patrones y Sucesiones
+			Secuencias aritméticas
+			Secuencias geométricas
+			Patrones numéricos
+			Patrones gráficos
+
+		Razonamiento Lógico
+			Series numéricas
+			Series figurativas
+			Analogías matemáticas
+			Deducción lógica
+
+		Interpretación Matemática
+			Resolución de problemas verbales
+			Interpretación de información cuantitativa
+			Modelación matemática
+			Estimación de resultados
+
+		Conversión de Unidades
+			Longitud
+			Área
+			Volumen
+			Masa
+			Tiempo

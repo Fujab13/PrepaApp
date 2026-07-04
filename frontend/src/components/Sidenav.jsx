@@ -9,6 +9,9 @@ import { FaUserGraduate } from "react-icons/fa";
 import { LiaCartPlusSolid } from "react-icons/lia";
 import { PiShoppingCart } from "react-icons/pi";
 import { SlUser } from "react-icons/sl";
+import { PiShoppingCartSimpleFill } from "react-icons/pi";
+import { RiUser3Fill } from "react-icons/ri";
+import { FaClock } from "react-icons/fa6";
 
 
 export default function Sidenav({ open, onClose }) {
@@ -50,7 +53,7 @@ export default function Sidenav({ open, onClose }) {
     alignItems: 'center', justifyContent: 'center', fontSize: '1.5rem',
     flexShrink: 0 
   }}>
-    <SlUser />
+    <RiUser3Fill />
   </div>
   <div>
     {user ? (<> {/* .split('@')[0] */}
@@ -85,10 +88,38 @@ export default function Sidenav({ open, onClose }) {
           borderRadius: '12px',
           display: 'flex', alignItems: 'center', justifyContent: 'center'
           }}>
-            <PiShoppingCart />
+            <PiShoppingCartSimpleFill />
           </span>
           <span style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
           Tienda
+          </span>
+        </button>
+        <button onClick={() => ir('/examen')} style={{
+          background: 'linear-gradient(135deg, var(--surface2), var(--surface))',
+          border: '1px solid var(--surface2)',
+          color: 'var(--text)',
+          textAlign: 'left',
+          padding: '12px 14px',
+          borderRadius: '14px',
+          fontSize: '0.95rem',
+          fontWeight: 700,
+          cursor: 'pointer',
+          display: 'flex',
+          alignItems: 'center',
+          gap: 12,
+          margin: '12px 0 4px'
+        }}>
+          <span style={{
+          fontSize: '1.2rem',
+          width: '30px', height: '30px',
+          background: 'var(--surface2)',
+          borderRadius: '12px',
+          display: 'flex', alignItems: 'center', justifyContent: 'center'
+          }}>
+            <FaClock />
+          </span>
+          <span style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+          Examen Simulador
           </span>
         </button>
         <p style={{ color: 'var(--text-muted)', fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '1.5px', marginBottom: 4 }}>

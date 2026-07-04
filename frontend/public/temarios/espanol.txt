@@ -1,46 +1,242 @@
+Aprobado por @fujab13 y @gpt
+
 PROPEDÉUTICO DE ESPAÑOL Y RAZONAMIENTO VERBAL
+
 	GRAMÁTICA Y REDACCIÓN INDIRECTA
-		Morfosintaxis y Partes de la Oración
-			Funciones y tipos de sustantivos, pronombres y adjetivos
-			El verbo: conjugación, modos (indicativo, subjuntivo, imperativo) y tiempos verbales
-			Uso correcto de adverbios, preposiciones y conjunciones
-			Corrección de vicios de dicción (solecismos, pleonasmos, cacofonías)
-		Concordancia y Sintaxis
+
+		Morfología y Partes de la Oración
+			Funciones y tipos de sustantivos
+			Funciones y tipos de pronombres
+			Funciones y tipos de adjetivos
+			Funciones y tipos de artículos
+			Funciones y tipos de adverbios
+			Preposiciones
+			Conjunciones
+			Interjecciones
+
+		El Verbo
+			Conjugación verbal
+			Persona y número
+			Tiempos verbales
+			Modos verbales (indicativo, subjuntivo e imperativo)
+			Voz activa y voz pasiva
+			Verbos regulares e irregulares
+			Perífrasis verbales
+
+		Sintaxis y Concordancia
 			Concordancia nominal (género y número)
 			Concordancia verbal (sujeto y verbo)
-			Estructura de la oración: sujeto, predicado y complementos (directo, indirecto, circunstancial)
-		Cohesión Textual Avanzada
-			Cohesión gramatical (uso correcto de deícticos y elipsis)
-			Cohesión léxico-semántica (repetición, sustitución por sinónimos)
+			Sujeto
+			Predicado
+			Complemento directo
+			Complemento indirecto
+			Complemento circunstancial
+			Atributo
+			Predicativo
+
+		Tipos de Oración
+			Oraciones simples
+			Oraciones compuestas
+			Coordinadas
+			Subordinadas
+			Enunciativas
+			Interrogativas
+			Exclamativas
+			Exhortativas
+			Dubitativas
+			Desiderativas
+
+		Redacción Indirecta
+			Corrección gramatical de oraciones
+			Corrección de errores sintácticos
+			Orden lógico de palabras
+			Precisión léxica
+			Selección de la palabra adecuada
+			Reescritura de oraciones
+
+		Vicios del Lenguaje
+			Solecismos
+			Pleonasmos
+			Cacofonías
+			Barbarismos
+			Dequeísmo
+			Queísmo
+			Anfibología
+			Muletillas
+
 	ORTOGRAFÍA Y GRAFEMÁTICA
+
 		Acentuación
-			División silábica, diptongos y triptongos
-			Clasificación de palabras: agudas, graves, esdrújulas y sobresdrújulas
-			Acento diacrítico y acento enfático
+			División silábica
+			Diptongos
+			Hiatos
+			Triptongos
+			Palabras agudas
+			Palabras graves
+			Palabras esdrújulas
+			Palabras sobresdrújulas
+			Acento diacrítico
+			Acento enfático
+
+		Uso Correcto de Grafías
+			B y V
+			C, S y Z
+			G y J
+			LL y Y
+			H
+			X
+			R y RR
+			M antes de P y B
+
+		Mayúsculas y Minúsculas
+			Reglas generales
+			Nombres propios
+			Instituciones
+			Títulos
+			Abreviaturas
+
 		Signos de Puntuación
-			Uso del punto (seguido, aparte, final)
-			Uso de la coma (enumerativa, vocativa, elíptica, explicativa)
-			Uso del punto y coma, los dos puntos y puntos suspensivos
-			Uso de signos auxiliares (paréntesis, comillas, guiones)
-	RAZONAMIENTO VERBAL Y LÉXICO
+			Punto
+			Coma
+			Punto y coma
+			Dos puntos
+			Puntos suspensivos
+			Signos de interrogación
+			Signos de exclamación
+			Paréntesis
+			Corchetes
+			Comillas
+			Guion
+			Raya
+
+	LÉXICO Y SEMÁNTICA
+
 		Relaciones Semánticas
-			Empleo de sinónimos y antónimos contextuales
-			Homónimos (homófonos y homógrafos) y parónimos
-			Identificación de campos semánticos y series léxicas
-		Lógica del Lenguaje
-			Analogías verbales
-			Completamiento de oraciones de forma lógica y gramatical
-			Eliminación de oraciones por redundancia o impertinencia (coherencia contextual)
-    COMPRENSIÓN LECTORA Y ANÁLISIS DE TEXTOS
-		Intención y Estructura Textual
-			Identificación de la intención comunicativa del autor
-			Diferenciación de tipos de texto (Argumentativo, Narrativo, Expositivo, Descriptivo)
-			Identificación de la idea principal y las ideas secundarias
-		Mecanismos de Coherencia y Cohesión
-			Mantenimiento del hilo conductor del texto
-			Uso de conectores lógicos y marcadores textuales (causales, temporales, de contraste, de adición)
-			Mecanismos de coherencia local y global
-		Análisis de Información e Inferencia
-			Comparación y contraste de ideas entre múltiples fuentes
-			Síntesis y paráfrasis de la información
-			Deducción e inferencia de información implícita
+			Sinónimos
+			Antónimos
+			Homónimos
+			Homófonos
+			Homógrafos
+			Parónimos
+			Polisemia
+
+		Vocabulario
+			Significado contextual
+			Denotación
+			Connotación
+			Campos semánticos
+			Familias léxicas
+			Series léxicas
+			Neologismos
+			Arcaísmos
+			Tecnicismos
+			Extranjerismos
+
+		Formación de Palabras
+			Raíz
+			Prefijos
+			Sufijos
+			Composición
+			Derivación
+			Parasíntesis
+
+		Precisión Léxica
+			Registro formal
+			Registro informal
+			Adecuación del vocabulario
+			Selección de términos
+			Corrección léxica
+
+	RAZONAMIENTO VERBAL
+
+		Analogías
+			Relaciones de significado
+			Relaciones de función
+			Relaciones de causa-efecto
+			Relaciones de pertenencia
+			Relaciones de oposición
+
+		Completamiento de Oraciones
+			Coherencia lógica
+			Coherencia gramatical
+			Selección contextual
+
+		Organización del Discurso
+			Ordenamiento de oraciones
+			Reconstrucción de párrafos
+			Secuencia lógica de ideas
+
+		Eliminación de Enunciados
+			Redundancia
+			Impertinencia
+			Inconsistencia temática
+
+	COMPRENSIÓN LECTORA Y ANÁLISIS DE TEXTOS
+
+		Tipos de Texto
+			Narrativo
+			Descriptivo
+			Expositivo
+			Argumentativo
+			Literario
+			Periodístico
+			Académico
+			Administrativo
+
+		Comprensión Global
+			Idea principal
+			Ideas secundarias
+			Tema central
+			Título adecuado
+			Propósito del autor
+			Intención comunicativa
+			Tono del autor
+
+		Coherencia y Cohesión
+			Coherencia local
+			Coherencia global
+			Conectores lógicos
+			Marcadores discursivos
+			Referencias
+			Deícticos
+			Elipsis
+			Sustitución léxica
+			Repetición léxica
+
+		Conectores Lógicos
+			Adición
+			Contraste
+			Causa
+			Consecuencia
+			Comparación
+			Ejemplificación
+			Temporalidad
+			Condición
+			Finalidad
+
+		Análisis de Información
+			Información explícita
+			Información implícita
+			Inferencias
+			Deducciones
+			Conclusiones
+			Comparación de textos
+			Síntesis
+			Paráfrasis
+			Resumen
+
+		Análisis Crítico
+			Hechos
+			Opiniones
+			Juicios de valor
+			Suposiciones
+			Objetividad y subjetividad
+			Confiabilidad de la información
+
+		Argumentación
+			Tesis
+			Argumentos
+			Contraargumentos
+			Evidencias
+			Conclusión
+			Falacias argumentativas básicas

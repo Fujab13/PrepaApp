@@ -1,36 +1,154 @@
+Aprobado por @fujab13 y @gpt
+
 PROPEDÉUTICO DE ENFERMERÍA CLÍNICA
 	EVOLUCIÓN HISTÓRICA Y EPISTEMOLOGÍA DE LA ENFERMERÍA
+		Historia y Evolución de la Enfermería
 		Fundamentos Epistemológicos y Conceptos Nucleares de la Disciplina
 		Modelos Conceptuales y Teorías del Cuidado
+		Proceso de Profesionalización de la Enfermería
+
+	PROCESO DE ATENCIÓN DE ENFERMERÍA (PAE)
+		Fundamentos y Objetivos del Proceso de Atención de Enfermería
+		Etapas del PAE: Valoración, Diagnóstico, Planeación, Ejecución y Evaluación
+		Diagnósticos de Enfermería (NANDA-I)
+		Intervenciones de Enfermería (NIC)
+		Resultados de Enfermería (NOC)
+		Elaboración de Planes de Cuidado
+
 	MARCO LEGAL, DEONTOLOGÍA Y REGULACIÓN SANITARIA
 		Fundamentos Constitucionales del Derecho a la Salud
 		Análisis y Aplicación de la Ley General de Salud
-		Cumplimiento de Normas Oficiales Mexicanas en la Práctica Clínica (NOM-004, 019, 022, 045, 087)
-		Deontología Bioética y Clasificaciones Internacionales (CIE)
+		Cumplimiento de Normas Oficiales Mexicanas en la Práctica Clínica (NOM-004, NOM-019, NOM-022, NOM-045, NOM-087)
+		Responsabilidad Profesional y Aspectos Médico-Legales
+		Deontología, Bioética y Principios Éticos Fundamentales
+		Clasificaciones Internacionales de Enfermedades (CIE)
+
 	ORGANIZACIÓN Y POLÍTICAS DEL SISTEMA SANITARIO
 		Estructura Operativa del Sistema Nacional de Salud
-	FUNDAMENTOS PRÁCTICOS Y ENFERMERÍA PROPEDÉUTICA
-		Monitorización y Análisis de Signos Vitales
-		Protocolos de Seguridad y Acciones Esenciales para el Paciente (AESP)
-		Técnicas de Higiene de Manos y Prevención de Infecciones Asociadas a la Atención de la Salud (IAAS)
-		Metodología de la Valoración Clínica y Exploración Física
-		Principios de Terapia de Infusión Intravenosa y Accesos Vasculares
+		Niveles de Atención en Salud
+		Promoción de la Salud
+		Prevención Primaria, Secundaria, Terciaria y Cuaternaria
+		Programas Prioritarios de Salud en México
+		Indicadores Básicos de Salud y Epidemiología
+
+	TERMINOLOGÍA MÉDICA Y BASES ANATÓMICAS
+		Prefijos, Sufijos y Raíces Grecolatinas
+		Terminología Médica Fundamental
+		Posición Anatómica
+		Planos, Ejes y Cavidades Corporales
+		Regiones Anatómicas
+		Direcciones y Movimientos Anatómicos
+
 	MORFOFISIOLOGÍA HUMANA APLICADA
-		Estructura y Función General del Sistema Tegumentario
+		Homeostasis y Organización del Cuerpo Humano
+		Estructura y Función del Sistema Tegumentario
 		Bases Morfofuncionales del Sistema Nervioso
-		Fisiología y Anatomía del Aparato Digestivo
-		Dinámica y Estructura del Sistema Respiratorio
-		Fisiopatología y Anatomía del Sistema Cardiovascular
+		Anatomía y Fisiología del Sistema Musculoesquelético
+		Anatomía y Fisiología del Sistema Cardiovascular
+		Anatomía y Fisiología del Sistema Respiratorio
+		Anatomía y Fisiología del Aparato Digestivo
+		Anatomía y Fisiología del Sistema Urinario
+		Anatomía y Fisiología del Sistema Endocrino
+		Anatomía y Fisiología del Sistema Reproductor
+		Anatomía y Fisiología del Sistema Linfático e Inmunológico
+		Órganos de los Sentidos
+
 	BIOQUÍMICA HUMANA Y BIOENERGÉTICA CELULAR
-		Estructura, Función y Metabolismo de Lípidos
-		Cinética y Función de Macromoléculas Proteicas
-		Metabolismo de Carbohidratos y Procesos de Respiración Celular
-		Biología Molecular: Estructura y Transcripción de Ácidos Nucleicos (ADN y ARN)
+		Agua, Electrolitos y Homeostasis
+		Estructura y Función de Carbohidratos
+		Estructura y Función de Lípidos
+		Estructura y Función de Proteínas
+		Enzimas y Regulación Enzimática
+		Ácidos Nucleicos (ADN y ARN)
+		Respiración Celular y Producción de ATP
+		Metabolismo de Carbohidratos, Lípidos y Proteínas
+		Vitaminas y Minerales
+		Equilibrio Ácido-Base
+
+	MICROBIOLOGÍA Y PARASITOLOGÍA
+		Fundamentos de Microbiología Clínica
+		Bacterias de Importancia Clínica
+		Virus de Importancia Clínica
+		Hongos de Importancia Clínica
+		Parásitos de Importancia Clínica
+		Cadena Epidemiológica
+		Mecanismos de Transmisión de Enfermedades
+		Esterilización, Desinfección y Antisepsia
+		Prevención y Control de Infecciones
+
 	FARMACOLOGÍA CLÍNICA ESENCIAL
-		Farmacocinética: Procesos de Absorción, Distribución, Biotransformación y Excreción (ADME)
-		Farmacodinámica: Mecanismos de Acción y Farmacometría
-		Criterios Técnicos y Vías de Administración de Fármacos
+		Principios Generales de Farmacología
+		Farmacocinética (ADME)
+		Farmacodinámica y Relación Dosis-Respuesta
+		Clasificación General de los Fármacos
+		Vías de Administración de Medicamentos
+		Cálculo Básico de Dosis
+		Reglas para la Administración Segura de Medicamentos
+		Reacciones Adversas a Medicamentos
+		Farmacovigilancia
 		Seguridad en la Gestión y Transcripción de Prescripciones Farmacológicas
+
+	NUTRICIÓN CLÍNICA
+		Fundamentos de Nutrición Humana
+		Macronutrientes y Micronutrientes
+		Requerimientos Nutricionales
+		Valoración del Estado Nutricional
+		Dietas Hospitalarias
+		Alimentación Enteral y Parenteral (Introducción)
+
+	FUNDAMENTOS PRÁCTICOS Y ENFERMERÍA PROPEDÉUTICA
+		Protocolos de Seguridad y Acciones Esenciales para la Seguridad del Paciente (AESP)
+		Identificación Correcta del Paciente
+		Cultura de Seguridad del Paciente
+		Eventos Adversos y Notificación de Incidentes
+		Técnicas de Higiene de Manos
+		Prevención de Infecciones Asociadas a la Atención de la Salud (IAAS)
+		Uso de Equipo de Protección Personal (EPP)
+		Monitorización y Análisis de Signos Vitales
+		Valoración Clínica Integral
+		Métodos de Exploración Física (Inspección, Palpación, Percusión y Auscultación)
+		Principios de Terapia de Infusión Intravenosa
+		Accesos Vasculares
+		Manejo Básico del Material y Equipo Clínico
+		Movilización y Posicionamiento Seguro del Paciente
+
+	DOCUMENTACIÓN Y COMUNICACIÓN CLÍNICA
+		Expediente Clínico (NOM-004)
+		Registros de Enfermería
+		Documentación Clínica Segura
+		Entrega y Recepción de Pacientes
+		Comunicación Clínica Efectiva (SBAR)
+		Trabajo Interdisciplinario
+
+	PSICOLOGÍA DE LA SALUD
+		Fundamentos de Psicología Aplicada a la Salud
+		Relación Terapéutica Enfermera-Paciente
+		Comunicación Empática y Asertiva
+		Manejo Emocional del Paciente
+		Aspectos Psicosociales de la Enfermedad
+		Educación para la Salud
+
+	ATENCIÓN INICIAL DE URGENCIAS
+		Valoración Primaria (ABCDE)
+		Soporte Vital Básico (RCP)
+		Obstrucción de la Vía Aérea por Cuerpo Extraño
+		Control Inicial de Hemorragias
+		Estado de Choque (Introducción)
+		Traslado Seguro del Paciente
+
+	PRÁCTICA BASADA EN EVIDENCIA E INVESTIGACIÓN
+		Fundamentos de la Medicina y Enfermería Basadas en Evidencia
+		Jerarquía de la Evidencia Científica
+		Búsqueda de Información Científica
+		Lectura Crítica de Artículos Científicos
+		Introducción al Método Científico
+
+		
+
+
+		
+Puedes ayudarme a revisar este temario de español? es para comenzar a crear el contenido de mi app de preparacion para la universidad? 
+me gustaria saber si es completo? que podria faltar? que sobra? comparalo con otros temarios oficiales o de sitios de cursos.
 
 Primero quiero que notes que ese temario es demasiado avanzado para chicas que quieren acceder a la universidad.
 

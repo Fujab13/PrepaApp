@@ -34,15 +34,42 @@ a { text-decoration: none; color: inherit; }
 
 .util-btn {
   background: transparent;
-  border: 1.5px solid var(--text-muted);
-  color: var(--text-muted);
-  font-size: 0.65rem;
-  padding: 3px 8px;
-  border-radius: 12px;
+  border: none;
+  color: var(--text);
+  font-size: 1.4rem;
+  padding: 0;
   cursor: pointer;
-  opacity: 0.5;
+  border-radius: 12px; /* Se conserva del CSS original por si usas bordes en el futuro, pero no afecta al tener 'border: none' */
+  transition: opacity 0.2s ease; /* Opcional: para que el cambio al presionar sea suave */
 }
 
 .util-btn:active {
-  opacity: 0.8;
+  opacity: 0.8; /* Mantiene el feedback visual al hacer clic */
+}
+
+.btn-footer-scroll {
+  background: var(--surface);
+  border: 0.5px solid var(--surface2);
+  border-radius: 10px; /* Corregido: guion bajo y añadido 'px' */
+  color: var(--text);
+  font-size: 13px;     /* Corregido: guion bajo y añadido 'px' */
+  font-weight: 600;
+  padding: 10px 12px;  /* Corregido: sin comillas */
+  cursor: pointer;     /* Corregido: sin comillas */
+  text-align: center;  /* Corregido: guion bajo y sin comillas */
+  transition: all 0.15s; /* Corregido: sin comillas */
+  display: flex;            /* Alinea el texto y el icono en línea */
+  align-items: center;      /* Centra verticalmente el texto y el icono */
+  justify-content: center;  /* Centra horizontalmente el contenido */
+  gap: 5px;                 /* Separa un poco el texto del icono */
+}
+
+.reloj-minimal {
+display: flex;
+  align-items: center;
+  gap: 4px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.5px;
+  padding: 2px 4px;
 }
