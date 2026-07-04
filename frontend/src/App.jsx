@@ -8,6 +8,8 @@ import Leccion from './pages/Leccion';
 import Lectura from './pages/Lectura';
 import Login from './pages/Login';
 import Store from './pages/Store'
+import Examen from './pages/Examen';
+import Resultados from './pages/resultados';
 
 import 'katex/dist/katex.min.css';
 import { triggerVibration } from './components/haptics';
@@ -39,6 +41,8 @@ export default function App() {
         <Route path="/lectura/:materiaId" element={<Lectura />} />
         <Route path="/login" element={<Login />} />
         <Route path="/tienda" element={<Store />} />
+        <Route path="/examen" element={<Examen />} />
+<Route path="/resultados" element={<Resultados />} />
       </Routes>
       </StoreProvider>
     </AuthProvider>

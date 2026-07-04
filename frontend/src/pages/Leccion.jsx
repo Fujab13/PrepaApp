@@ -6,6 +6,14 @@ import OpcionBtn from '../components/OpcionBtn'
 import { useProgreso } from '../hooks/useProgreso'
 import { getPreguntasDeUnidad } from '../components/unidades'
 
+import { IoMdClose } from "react-icons/io";
+import { AiOutlineClose } from "react-icons/ai";
+import { MdFullscreen } from "react-icons/md";
+import { VscDebugRestart } from "react-icons/vsc";
+import { MdRestartAlt } from "react-icons/md";
+import { PiCopy } from "react-icons/pi";
+
+
 export default function Leccion() {
   const { materiaId } = useParams()
   const navigate = useNavigate()
@@ -160,24 +168,11 @@ export default function Leccion() {
         <button
           onClick={() => navigate('/')}
           title="Salir"
-          style={{
-            flexShrink: 0,
-            background: 'var(--surface)',
-            border: 'none',
-            color: 'var(--text-muted)',
-            borderRadius: '8px',
-            width: 34,
-            height: 34,
-            fontSize: '0.95rem',
-            cursor: 'pointer',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
+          style={{ background: 'transparent', border: 'none', color: 'var(--text)', fontSize: '1.4rem', cursor: 'pointer', padding: 5}}
         >
-        ✕
+        <AiOutlineClose />
         </button>
-        
+        <span style={{ background: 'transparent', border: 'none', color: 'var(--text)', fontSize: '1.35rem', padding: 2}}>{materia.icono}</span>
         <div style={{
           flex: 1,
           height: '6px',
@@ -194,7 +189,32 @@ export default function Leccion() {
           }} />
         </div>
 
-        <span style={{ fontSize: '1.1rem', flexShrink: 0 }}>{materia.icono}</span>
+        
+        <div 
+        style={{ 
+          display: 'flex', 
+          alignItems: 'center', 
+          gap: '8px', 
+          color: 'var(--text-muted)', 
+          fontSize: '0.75rem', 
+          marginLeft: 'auto',
+          textTransform: 'uppercase', 
+          letterSpacing: '1.5px', 
+          padding: 7
+          
+        }}>
+          {[
+            { label: <MdRestartAlt />, title: 'Reiniciar', action: borrarProgresoTemporal },
+            { label: <PiCopy />, title: 'Copiar pregunta', action: copiarPregunta },
+            { label: esFullscreen ? <MdFullscreen /> : <MdFullscreen />, title: 'Pantalla completa', action: toggleFullscreen },
+          ].map(({ label, title, action }) => (
+            <button
+              key={title}
+              onClick={action}
+              title={title}
+              className="util-btn" >{label}</button>
+          ))}
+        </div>
       </div>
 
       <div style={{
@@ -224,33 +244,6 @@ export default function Leccion() {
           <p style={{ color: 'var(--text-muted)', fontSize: '0.75rem', margin: 0 }}>
             Unidad {unidad}
           </p>
-        </div>
-
-        <div style={{ display: 'flex', gap: 5, flexShrink: 0 }}>
-          {[
-            { label: '↺', title: 'Reiniciar', action: borrarProgresoTemporal },
-            { label: '⎘', title: 'Copiar pregunta', action: copiarPregunta },
-            { label: esFullscreen ? '⛶' : '⛶', title: 'Pantalla completa', action: toggleFullscreen },
-          ].map(({ label, title, action }) => (
-            <button
-              key={title}
-              onClick={action}
-              title={title}
-              style={{
-                background: 'var(--surface)',
-                border: 'none',
-                color: 'var(--text-muted)',
-                borderRadius: '7px',
-                width: 30,
-                height: 30,
-                fontSize: '0.85rem',
-                cursor: 'pointer',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}
-            >{label}</button>
-          ))}
         </div>
       </div>
 
@@ -311,7 +304,7 @@ export default function Leccion() {
               letterSpacing: '0.01em',
             }}
           >
-            {esUltima ? '🏁 Finalizar lección' : 'Siguiente →'}
+            {esUltima ? '🏁 Finalizar lección' : 'Siguiente'}
           </button>
         )}
       </div>

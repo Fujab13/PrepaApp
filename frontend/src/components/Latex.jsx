@@ -1,12 +1,24 @@
-import { InlineMath, BlockMath } from 'react-katex'
+import { BlockMath } from 'react-katex'
+
 export default function RenderContenido({ texto }) {
   const partes = texto.split('$$')
+
   return (
     <>
       {partes.map((parte, i) =>
-        i % 2 === 0
-          ? <span key={i}>{parte}</span>
-          : <BlockMath key={i} math={parte} />
+        i % 2 === 0 ? (
+          <div
+            key={i}
+            style={{
+              whiteSpace: 'pre-line',
+              lineHeight: 1.6
+            }}
+          >
+            {parte}
+          </div>
+        ) : (
+          <BlockMath key={i} math={parte} />
+        )
       )}
     </>
   )

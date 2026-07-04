@@ -6,13 +6,10 @@ const lecturaMatematicas = {
     titulo: 'Regla de la potencia',
     contenido: `
     La derivada de una potencia se calcula mediante:
-
     $$
     \\frac{d}{dx}(x^n)=nx^{n-1}
     $$
-
     Ejemplo:
-
     $$
     \\frac{d}{dx}(x^3)=3x^2
     $$

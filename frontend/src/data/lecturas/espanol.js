@@ -1,40 +1,127 @@
 const lecturaEspanol = {
-  id: 'espanol',
+  id: 'espanol', // debe coincidir exactamente con el id en MATERIAS
   temas: [
     {
-      id: 'sustantivos',
-      titulo: 'El sustantivo',
-      contenido: `El sustantivo es una clase de palabra que designa personas, animales, cosas o ideas.`
+      id: 'morfologia-partes-oracion',
+      titulo: 'Morfología y Partes de la Oración',
+      subtemas: [
+        {
+          id: 'sustantivos',
+          titulo: 'Funciones y tipos de sustantivos',
+          conceptos: [
+            'Común: nombra de forma genérica (perro, ciudad).',
+            'Propio: nombra de forma específica (México, Ana).',
+            'Concreto: se percibe con los sentidos (mesa, lluvia).',
+            'Abstracto: no se percibe físicamente (amor, libertad).'
+          ]
+        },
+        {
+          id: 'pronombres',
+          titulo: 'Funciones y tipos de pronombres',
+          conceptos: [
+            'Personales: yo, tú, él, nosotros...',
+            'Posesivos: mío, tuyo, suyo...',
+            'Demostrativos: este, ese, aquel...',
+            'Relativos: que, quien, cuyo...'
+          ]
+        },
+        {
+          id: 'adjetivos',
+          titulo: 'Funciones y tipos de adjetivos',
+          conceptos: [
+            'Calificativos: describen una cualidad (casa grande).',
+            'Determinativos: limitan o precisan al sustantivo (este libro).',
+            'Concuerdan en género y número con el sustantivo.'
+          ]
+        },
+        {
+          id: 'articulos',
+          titulo: 'Funciones y tipos de artículos',
+          conceptos: [
+            'Determinados: el, la, los, las (algo específico).',
+            'Indeterminados: un, una, unos, unas (algo no específico).'
+          ]
+        },
+        {
+          id: 'adverbios',
+          titulo: 'Funciones y tipos de adverbios',
+          conceptos: [
+            'De modo: bien, mal, rápidamente.',
+            'De tiempo: ayer, hoy, siempre.',
+            'De lugar: aquí, allá, cerca.',
+            'De cantidad: mucho, poco, demasiado.'
+          ]
+        },
+        {
+          id: 'preposiciones',
+          titulo: 'Preposiciones',
+          conceptos: [
+            'Enlazan palabras dentro de la oración (a, ante, con, de, en, para, por...).',
+            'No tienen significado propio, dependen del contexto.'
+          ]
+        },
+        {
+          id: 'conjunciones',
+          titulo: 'Conjunciones',
+          conceptos: [
+            'Coordinantes: unen elementos del mismo nivel (y, o, pero).',
+            'Subordinantes: introducen una cláusula dependiente (porque, aunque, si).'
+          ]
+        },
+        {
+          id: 'interjecciones',
+          titulo: 'Interjecciones',
+          conceptos: [
+            'Expresan emociones o sensaciones de forma aislada (¡ay!, ¡oh!, ¡vaya!).',
+            'No tienen función sintáctica dentro de la oración.'
+          ]
+        }
+      ]
     },
     {
-      id: 'verbos',
-      titulo: 'El verbo',
-      contenido: `El verbo expresa acciones, estados o procesos en el tiempo.`
+      id: 'el-verbo',
+      titulo: 'El Verbo',
+      subtemas: [
+        {
+          id: 'tiempos-verbales',
+          titulo: 'Tiempos verbales',
+          conceptos: [
+            'Presente, pasado y futuro como ejes principales.',
+            'Cada tiempo tiene formas simples y compuestas.'
+          ]
+        },
+        {
+          id: 'modos-verbales',
+          titulo: 'Modos verbales',
+          conceptos: [
+            'Indicativo: expresa hechos reales o certeza.',
+            'Subjuntivo: expresa duda, deseo o hipótesis.',
+            'Imperativo: expresa orden o ruego.'
+          ]
+        }
+      ]
     },
     {
-      id: 'adjetivos',
-      titulo: 'Los adjetivos',
-      contenido: `Son usados para modificar las caracteristicas de los objetos.`
-    },
-    {
-      id: 'adverbios',
-      titulo: 'Los adverbios',
-      contenido: `Son palabras invariables que modifican o matizan el significado de un verbo, un adjetivo u otro adverbio, indicando lugar, tiempo, modo o cantidad.`
-    },
-    {
-      id: 'preposiciones',
-      titulo: 'Las preposiciones',
-      contenido: `Son nexos que relacionan palabras o sintagmas dentro de una oración (como "a", "ante", "con", "de", "en", "para"), estableciendo relaciones de dependencia.`
-    },
-    {
-      id: 'oracion-sujeto-predicado',
-      titulo: 'Estructura de la oración',
-      contenido: `La oración bimembre se compone de sujeto (quien realiza la acción o de quien se habla) y predicado (lo que se dice del sujeto, cuyo núcleo siempre es un verbo conjugado).`
-    },
-    {
-      id: 'acentuacion',
-      titulo: 'Reglas de acentuación',
-      contenido: `Las palabras se clasifican por su acento en agudas (sílaba tónica en la última), graves (en la penúltima), esdrújulas (en la antepenúltima) y sobreesdrújulas (antes de la antepenúltima).`
+      id: 'sintaxis-concordancia',
+      titulo: 'Sintaxis y Concordancia',
+      subtemas: [
+        {
+          id: 'sujeto-predicado',
+          titulo: 'Sujeto y predicado',
+          conceptos: [
+            'Sujeto: quien realiza la acción del verbo.',
+            'Predicado: lo que se dice del sujeto.'
+          ]
+        },
+        {
+          id: 'concordancia-genero-numero',
+          titulo: 'Concordancia de género y número',
+          conceptos: [
+            'El sustantivo y sus modificadores deben coincidir en género y número.',
+            'El verbo concuerda en número y persona con el sujeto.'
+          ]
+        }
+      ]
     }
   ]
 }
