@@ -12,6 +12,18 @@
 import { useMemo } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
+import { GiJewelCrown } from "react-icons/gi";
+import { GiQueenCrown } from "react-icons/gi";
+import { CgCrown } from "react-icons/cg";
+import { ImTrophy } from "react-icons/im";
+import { SiBookstack } from "react-icons/si";
+import { PiSmileySadLight } from "react-icons/pi";
+import { HiOutlineClock } from "react-icons/hi2";
+import { AiOutlineThunderbolt } from "react-icons/ai";
+import { LuTurtle } from "react-icons/lu";
+import { PiEmpty } from "react-icons/pi";
+
+
 // ─── Helpers ────────────────────────────────────────────────────────────────
 const fmtTiempo = (seg) => {
   const m = Math.floor(Math.abs(seg) / 60);
@@ -30,20 +42,20 @@ const fmtMinSeg = (seg) => {
 function MetricCard({ icono, label, valor, sub, color = "#4f8ef7" }) {
   return (
     <div style={{
-      background: "#1e2535",
-      border: "0.5px solid #374151",
-      borderRadius: 12,
-      padding: "14px 16px",
+      background: "#1a1f2e",
+      borderLeft: `3px solid ${color}`,
+      borderRadius: 0,
+      padding: "10px 14px",
       display: "flex",
       flexDirection: "column",
-      gap: 4,
+      gap: 2,
     }}>
-      <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-        <span style={{ fontSize: 18 }}>{icono}</span>
-        <span style={{ fontSize: 12, color: "#9ca3af" }}>{label}</span>
+      <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+        <span style={{ fontSize: 13, color: "#6b7280" }}>{icono}</span>
+        <span style={{ fontSize: 11, color: "#8b93a3", letterSpacing: 0.3 }}>{label}</span>
       </div>
-      <span style={{ fontSize: 24, fontWeight: 700, color }}>{valor}</span>
-      {sub && <span style={{ fontSize: 11, color: "#6b7280" }}>{sub}</span>}
+      <span style={{ fontSize: 22, fontWeight: 500, color: "#e5e7eb" }}>{valor}</span>
+      {sub && <span style={{ fontSize: 11, color: "#5b6472" }}>{sub}</span>}
     </div>
   );
 }
@@ -133,64 +145,71 @@ export default function Resultados() {
   [secciones, preguntas, respuestas]);
 
   // ── Nivel de desempeño ──────────────────────────────────────────────────
-  const nivel = stats.precision >= 80 ? { texto: "Excelente", color: "#22c55e", emoji: "🏆" }
-              : stats.precision >= 60 ? { texto: "Bueno",     color: "#f59e0b", emoji: "👍" }
-              : stats.precision >= 40 ? { texto: "Regular",   color: "#f97316", emoji: "📚" }
-              :                         { texto: "A mejorar", color: "#ef4444", emoji: "💪" };
+  const nivel = stats.precision >= 97 ? { texto: "A+", color: "#22c55e", emoji: <GiJewelCrown />} 
+            : stats.precision >= 90 ? { texto: "A",  color: "#4ade80", emoji: <GiQueenCrown />} 
+            : stats.precision >= 80 ? { texto: "B",  color: "#a3e635", emoji: <CgCrown />} 
+            : stats.precision >= 70 ? { texto: "C",  color: "#f59e0b", emoji: <ImTrophy /> } 
+            : stats.precision >= 60 ? { texto: "D",  color: "#f97316", emoji: <SiBookstack /> } 
+            :                         { texto: "F",  color: "#ef4444", emoji: <PiSmileySadLight /> }; 
 
   return (
     <div style={{
       minHeight: "100vh",
-      background: "#0d1117",
+      background: "--bg",
       color: "#f9fafb",
       fontFamily: "'Inter', system-ui, sans-serif",
       paddingBottom: 40,
     }}>
-      {/* Encabezado */}
-      <div style={{
-        background: "linear-gradient(180deg, #111827 0%, #0d1117 100%)",
-        padding: "32px 20px 24px",
-        textAlign: "center",
-        borderBottom: "0.5px solid #1f2937",
-      }}>
-        <div style={{ fontSize: 48, marginBottom: 8 }}>{nivel.emoji}</div>
-        <h1 style={{ margin: 0, fontSize: 22, fontWeight: 700, color: "#f9fafb" }}>
-          Resultados del examen
-        </h1>
-        <p style={{ margin: "6px 0 0", fontSize: 14, color: "#9ca3af" }}>
-          Tiempo total · {fmtTiempo(tiempoTotalSegundos ?? 0)}
-        </p>
 
-        {/* Score grande */}
-        <div style={{
-          display: "inline-flex",
-          flexDirection: "column",
-          alignItems: "center",
-          background: "#1e2535",
-          border: `2px solid ${nivel.color}`,
-          borderRadius: 16,
-          padding: "16px 32px",
-          marginTop: 20,
-        }}>
-          <span style={{ fontSize: 52, fontWeight: 800, color: nivel.color, lineHeight: 1 }}>
-            {stats.precision}%
-          </span>
-          <span style={{ fontSize: 13, color: "#9ca3af", marginTop: 4 }}>
-            {stats.correctas} correctas de {stats.total}
-          </span>
-          <span style={{
-            marginTop: 8,
-            fontSize: 12,
-            fontWeight: 600,
-            color: nivel.color,
-            background: `${nivel.color}20`,
-            padding: "3px 12px",
-            borderRadius: 20,
-          }}>
-            {nivel.texto}
-          </span>
-        </div>
+      {/* Encabezado - Variante Minimalista Split */}
+<div style={{
+  display: "flex",
+  justifyContent: "space-between",
+  alignItems: "center",
+  padding: "24px 16px",
+  borderBottom: "1px solid #1f2937",
+  gap: "16px",
+  flexWrap: "wrap"
+}}>
+  {/* Izquierda: Emoji y Título */}
+  <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+    <span style={{ fontSize: 32, color: nivel.color }}>{nivel.emoji}</span>
+    <div>
+      <h1 style={{ margin: 0, fontSize: 20, fontWeight: 700, color: nivel.color }}>
+        Resultados
+      </h1>
+      <p style={{ margin: "2px 0 0", fontSize: 13, color: "#9ca3af" }}>
+        Tiempo: {fmtTiempo(tiempoTotalSegundos ?? 0)}
+      </p>
+    </div>
+  </div>
+
+  {/* Derecha: Stats y Badge de Nivel */}
+  <div style={{ display: "flex", alignItems: "stretch", gap: "16px" }}>
+    <div style={{ textAlign: "right", display: "flex", flexDirection: "column", justifyContent: "center" }}>
+      <div style={{ fontSize: 20, fontWeight: 600, color: nivel.color, lineHeight: 1 }}>
+        {stats.precision}%
       </div>
+      <div style={{ fontSize: 12, color: "#9ca3af", marginTop: 4 }}>
+        {stats.correctas}/{stats.total} aciertos
+      </div>
+    </div>
+    
+    <span style={{
+      display: "flex",
+      alignItems: "center",
+      fontSize: 20,
+      fontWeight: 600,
+      color: nivel.color,
+      background: `${nivel.color}15`,
+      padding: "10px 14px",
+      borderRadius: 20,
+      border: `1px solid ${nivel.color}30`
+    }}>
+      {nivel.texto}
+    </span>
+  </div>
+</div>
 
       {/* Cuerpo */}
       <div style={{ maxWidth: 480, margin: "0 auto", padding: "20px 16px" }}>
@@ -198,17 +217,17 @@ export default function Resultados() {
         {/* ── Métricas de tiempo ── */}
         <Section title="Tiempos">
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
-            <MetricCard icono="⏱" label="Promedio por pregunta"
+            <MetricCard icono={<HiOutlineClock />} label="Promedio por pregunta"
               valor={fmtMinSeg(stats.tiempoPromedio)} color="#4f8ef7" />
-            <MetricCard icono="⚡" label="Más rápido"
+            <MetricCard icono={<AiOutlineThunderbolt />} label="Más rápido"
               valor={fmtMinSeg(stats.tiempoMin)}
               sub={stats.pregMasRapida ? `Pregunta ${stats.pregMasRapida}` : ""}
               color="#22c55e" />
-            <MetricCard icono="🐢" label="Más lento"
+            <MetricCard icono={<LuTurtle />} label="Más lento"
               valor={fmtMinSeg(stats.tiempoMax)}
               sub={stats.pregMasLenta ? `Pregunta ${stats.pregMasLenta}` : ""}
               color="#f59e0b" />
-            <MetricCard icono="📋" label="Sin contestar"
+            <MetricCard icono={<PiEmpty />} label="Sin contestar"
               valor={stats.sinContestar}
               sub={`${stats.total - stats.sinContestar} respondidas`}
               color={stats.sinContestar > 0 ? "#ef4444" : "#22c55e"} />
@@ -227,6 +246,24 @@ export default function Resultados() {
             />
           ))}
         </Section>
+        {/* ── Botones finales ── */}
+<div style={{ display: "flex", gap: 10, marginTop: 24, marginBottom: 24 }}> {/* ← Añadido marginBottom */}
+  <button onClick={() => navigate("/")} style={{
+    ...btnStyle,
+    background: "#1e2535",
+    color: "#e5e7eb",
+    border: "0.5px solid #374151",
+    flex: 1,
+  }}>
+    Volver al inicio
+  </button>
+  <button
+    onClick={() => window.print()}
+    style={{ ...btnStyle, background: "#4f8ef7", color: "#fff", border: "none", flex: 1 }}
+  >
+    Imprimir resultados
+  </button>
+</div>
 
         {/* ── Preguntas marcadas ── */}
         {(marcadas?.length ?? 0) > 0 && (
@@ -244,7 +281,7 @@ export default function Resultados() {
                     fontSize: 12,
                     color: esCor ? "#86efac" : "#fca5a5",
                   }}>
-                    #{id} {esCor ? "✓" : respuestas[id] ? "✗" : "—"}
+                    {id} {/* {esCor ? ":)" : respuestas[id] ? "✗" : "—"} */}
                   </div>
                 );
               })}
@@ -281,7 +318,7 @@ export default function Resultados() {
                     background: estado.dot, flexShrink: 0,
                   }} />
                   <div style={{ flex: 1, minWidth: 0 }}>
-                    <span style={{ fontSize: 12, color: "#9ca3af" }}>#{p.id} </span>
+                    <span style={{ fontSize: 12, color: "#9ca3af" }}>{p.id} </span>
                     <span style={{
                       fontSize: 12, color: "#e5e7eb",
                       display: "inline", wordBreak: "break-word",
@@ -304,24 +341,6 @@ export default function Resultados() {
           </div>
         </Section>
 
-        {/* ── Botones finales ── */}
-        <div style={{ display: "flex", gap: 10, marginTop: 24 }}>
-          <button onClick={() => navigate("/")} style={{
-            ...btnStyle,
-            background: "#1e2535",
-            color: "#e5e7eb",
-            border: "0.5px solid #374151",
-            flex: 1,
-          }}>
-            Volver al inicio
-          </button>
-          <button
-            onClick={() => window.print()}
-            style={{ ...btnStyle, background: "#4f8ef7", color: "#fff", border: "none", flex: 1 }}
-          >
-            Imprimir resultados
-          </button>
-        </div>
       </div>
     </div>
   );
