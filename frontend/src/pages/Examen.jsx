@@ -151,7 +151,7 @@ export default function Examen() {
       );
       if (!confirmado) return;
       guardarTiempoPregunta(pregunta.id);
-      navigate("/resultados", {
+      navigate("/Resultados", {
         state: {
           respuestas,
           tiemposPregunta : tiemposRef.current,
@@ -195,7 +195,7 @@ export default function Examen() {
   useEffect(() => {
     if (tiempoGlobal <= 0) {
       guardarTiempoPregunta(pregunta.id);
-      navigate("/resultados", {
+      navigate("/Resultados", {
         state: {
           respuestas,
           tiemposPregunta : tiemposRef.current,

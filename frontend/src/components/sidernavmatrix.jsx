@@ -1,5 +1,7 @@
 // SiderNavMatrix.jsx
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
+
+import { AiOutlineClose } from "react-icons/ai";
 
 // ─── Props ───────────────────────────────────────────────────────────────────
 // preguntas      : array completo de preguntas
@@ -29,6 +31,18 @@ export default function SiderNavMatrix({
     return () => window.removeEventListener("keydown", handler);
   }, [onCerrar]);
 
+  // ── Cálculo del tamaño fijo de casilla ──────────────────────────────────
+  // Se busca el id con más dígitos (ej. "10" → 2 dígitos) y se usa ese
+  // ancho como referencia para TODAS las casillas, sin importar la sección.
+  const cellMinWidth = useMemo(() => {
+    if (!preguntas || preguntas.length === 0) return 34;
+    const maxDigits = Math.max(
+      ...preguntas.map((p) => String(p.id).length)
+    );
+    // Ancho base + un poco por cada dígito extra, más un padding cómodo.
+    return 26 + maxDigits * 11;
+  }, [preguntas]);
+
   const estadoBtn = (id) => {
     if (id === preguntaActual) return "actual";
     if (marcadas.has(id))     return "marcada";
@@ -55,7 +69,7 @@ export default function SiderNavMatrix({
         style={{
           position: "fixed",
           inset: 0,
-          background: "rgba(0,0,0,0.45)",
+          background: "rgba(0, 0, 0, 0.50)",
           zIndex: 40,
         }}
       />
@@ -64,13 +78,13 @@ export default function SiderNavMatrix({
       <div
         style={{
           position: "fixed",
-          bottom: 64,          // deja espacio a los botones inferiores
+          bottom: 70,          // deja espacio a los botones inferiores
           left: 0,
           right: 0,
           height: "52vh",
-          background: "#111827",
+          background: "#111827", // ← (2) fondo sólido, ya no transparente
           borderTop: "1px solid #374151",
-          borderRadius: "20px 20px 0 0",
+          borderRadius: "10px 10px 0 0",
           zIndex: 50,
           display: "flex",
           flexDirection: "column",
@@ -93,19 +107,16 @@ export default function SiderNavMatrix({
               <p style={{ margin: 0, fontSize: 11, color: "#6b7280", textTransform: "uppercase", letterSpacing: "0.08em" }}>
                 Navegador de preguntas
               </p>
-              <p style={{ margin: "2px 0 0", fontSize: 14, fontWeight: 600, color: "#f9fafb" }}>
-                {secciones[seccionActual]?.nombre ?? "Examen"}
-              </p>
             </div>
             <button
               onClick={onCerrar}
               style={{
                 background: "none", border: "none", color: "#9ca3af",
-                fontSize: 20, cursor: "pointer", padding: "4px 8px", lineHeight: 1,
+                fontSize: 17, cursor: "pointer", padding: "3px 5px", lineHeight: 1,
               }}
               aria-label="Cerrar matriz"
             >
-              ×
+              <AiOutlineClose />
             </button>
           </div>
 
@@ -126,7 +137,8 @@ export default function SiderNavMatrix({
         </div>
 
         {/* Cuadrícula scrolleable */}
-        <div style={{ flex: 1, overflowY: "auto", padding: "8px 12px 8px" }}>
+        {/* (1) padding derecho reducido a 3/4 del valor original (12px → 9px) */}
+        <div style={{ flex: 1, overflowY: "auto", padding: "8px 9px 8px 12px" }}>
           {secciones.map((sec, si) => {
             const pregsSec = preguntas.filter(
               (p) => p.id >= sec.id_inicio && p.id <= sec.id_fin
@@ -152,9 +164,10 @@ export default function SiderNavMatrix({
                 </div>
 
                 {/* Botones de la sección */}
+                {/* (3) columnas de ancho fijo (cellMinWidth), calculado globalmente */}
                 <div style={{
                   display: "grid",
-                  gridTemplateColumns: "repeat(8, 1fr)",
+                  gridTemplateColumns: `repeat(auto-fill, minmax(${cellMinWidth}px, 1fr))`,
                   gap: 5,
                 }}>
                   {pregsSec.map((p) => {
@@ -173,6 +186,11 @@ export default function SiderNavMatrix({
                           fontSize: 11,
                           fontWeight: estado === "actual" ? 700 : 500,
                           padding: "5px 0",
+                          minWidth: cellMinWidth,   // ← mismo ancho para todas
+                          width: "100%",
+                          textAlign: "center",
+                          fontFamily: "monospace",       // dígitos de ancho uniforme
+                          fontVariantNumeric: "tabular-nums",
                           cursor: "pointer",
                           transition: "opacity 0.15s",
                           boxShadow: estado === "actual" ? `0 0 0 2px #4f8ef740` : "none",
