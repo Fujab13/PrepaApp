@@ -13,14 +13,16 @@ import { PiShoppingCartSimpleFill } from "react-icons/pi";
 import { RiUser3Fill } from "react-icons/ri";
 import { FaClock } from "react-icons/fa6";
 
-
 export default function Sidenav({ open, onClose }) {
   const navigate = useNavigate()
   const { user } = useAuth()
+  const [hoveredBtn, setHoveredBtn] = useState(null);
+
   async function cerrarSesion() {
     await supabase.auth.signOut()
     onClose()
   }
+
   function ir(ruta) {
     navigate(ruta)
     onClose()
@@ -28,135 +30,273 @@ export default function Sidenav({ open, onClose }) {
 
   return (
     <>
+      {/* Overlay con un desenfoque sutil */}
       {open && (
-        <div onClick={onClose} style={{
-          position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.5)', zIndex: 99
-        }}/>
+        <div 
+          onClick={onClose} 
+          style={{
+            position: 'fixed', 
+            inset: 0, 
+            background: 'rgba(0, 0, 0, 0.4)', 
+            backdropFilter: 'blur(4px)',
+            zIndex: 99,
+            transition: 'opacity 0.3s ease'
+          }}
+        />
       )}
+
+      {/* Contenedor Lateral (Sidenav) */}
       <div style={{
-        position: 'fixed', top: 0, left: 0, height: '100vh', width: '280px',
-        background: 'var(--surface)', zIndex: 100,
+        position: 'fixed', 
+        top: 0, 
+        left: 0, 
+        height: '100vh', 
+        width: '290px',
+        background: 'var(--surface)', 
+        zIndex: 100,
         transform: open ? 'translateX(0)' : 'translateX(-100%)',
-        transition: 'transform 0.3s ease',
-        display: 'flex', flexDirection: 'column', padding: '32px 24px', gap: 8
+        transition: 'transform 0.35s cubic-bezier(0.4, 0, 0.2, 1)',
+        display: 'flex', 
+        flexDirection: 'column', 
+        padding: '24px 20px',
+        boxShadow: open ? '4px 0 24px rgba(0,0,0,0.15)' : 'none',
+        boxSizing: 'border-box'
       }}>
 
+        {/* Perfil de Usuario */}
         <div style={{ 
-  display: 'flex', 
-  alignItems: 'center', 
-  gap: '12px', 
-  marginBottom: 24 
-}}>
-  <div style={{
-    width: 52, height: 52, borderRadius: '50%',
-    background: 'var(--surface2)', display: 'flex',
-    alignItems: 'center', justifyContent: 'center', fontSize: '1.5rem',
-    flexShrink: 0 
-  }}>
-    <RiUser3Fill />
-  </div>
-  <div>
-    {user ? (<> {/* .split('@')[0] */}
-      <p style={{ fontWeight: 700, fontSize: '0.95rem', margin: 0 }}>{user.email}</p>
-      <p style={{ color: 'var(--text-muted)', fontSize: '0.75rem', margin: 0 }}>Cuenta activa</p>
-      </>) : (
-      <p style={{ color: 'var(--text-muted)', fontSize: '0.85rem', margin: 0 }}>No has iniciado sesión</p>
-    )}
-  </div>
-</div>
+          display: 'flex', 
+          alignItems: 'center', 
+          gap: '14px', 
+          marginBottom: 20,
+          padding: '4px'
+        }}>
+          <div style={{
+            width: 48, 
+            height: 48, 
+            borderRadius: '50%',
+            background: 'linear-gradient(135deg, var(--surface2), var(--surface))', 
+            border: '1px solid rgba(255,255,255,0.05)',
+            display: 'flex',
+            alignItems: 'center', 
+            justifyContent: 'center', 
+            fontSize: '1.3rem',
+            color: '#8482e0',
+            flexShrink: 0,
+            boxShadow: 'inset 0 2px 4px rgba(0,0,0,0.05)'
+          }}>
+            <RiUser3Fill />
+          </div>
+          <div style={{ overflow: 'hidden' }}>
+            {user ? (
+              <>
+                <p style={{ fontWeight: 700, fontSize: '0.9rem', margin: 0, textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap', color: 'var(--text)' }}>
+                  {user.email}
+                </p>
+                <p style={{ color: '#10b981', fontSize: '0.75rem', fontWeight: 600, margin: '2px 0 0 0', display: 'flex', alignItems: 'center', gap: 4 }}>
+                  <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#10b981' }}></span> Cuenta activa
+                </p>
+              </>
+            ) : (
+              <p style={{ color: 'var(--text-muted)', fontSize: '0.85rem', fontWeight: 500, margin: 0 }}>No has iniciado sesión</p>
+            )}
+          </div>
+        </div>
           
-        <hr style={{ border: 'none', borderTop: '1px solid var(--surface2)', marginBottom: 16 }} />
-        <button onClick={() => ir('/tienda')} style={{
-          background: 'linear-gradient(135deg, var(--surface2), var(--surface))',
-          border: '1px solid var(--surface2)',
-          color: 'var(--text)',
-          textAlign: 'left',
-          padding: '12px 14px',
-          borderRadius: '14px',
-          fontSize: '0.95rem',
-          fontWeight: 700,
-          cursor: 'pointer',
-          display: 'flex',
-          alignItems: 'center',
-          gap: 12,
-          margin: '12px 0 4px'
-        }}>
-          <span style={{
-          fontSize: '1.2rem',
-          width: '30px', height: '30px',
-          background: 'var(--surface2)',
-          borderRadius: '12px',
-          display: 'flex', alignItems: 'center', justifyContent: 'center'
-          }}>
-            <PiShoppingCartSimpleFill />
-          </span>
-          <span style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-          Tienda
-          </span>
-        </button>
-        <button onClick={() => ir('/examen')} style={{
-          background: 'linear-gradient(135deg, var(--surface2), var(--surface))',
-          border: '1px solid var(--surface2)',
-          color: 'var(--text)',
-          textAlign: 'left',
-          padding: '12px 14px',
-          borderRadius: '14px',
-          fontSize: '0.95rem',
-          fontWeight: 700,
-          cursor: 'pointer',
-          display: 'flex',
-          alignItems: 'center',
-          gap: 12,
-          margin: '12px 0 4px'
-        }}>
-          <span style={{
-          fontSize: '1.2rem',
-          width: '30px', height: '30px',
-          background: 'var(--surface2)',
-          borderRadius: '12px',
-          display: 'flex', alignItems: 'center', justifyContent: 'center'
-          }}>
-            <FaClock />
-          </span>
-          <span style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-          Examen Simulador
-          </span>
-        </button>
-        <p style={{ color: 'var(--text-muted)', fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '1.5px', marginBottom: 4 }}>
-          Cuestionarios
-        </p>
-        {MATERIAS.map(m => (
-          <button key={m.id} onClick={() => ir(`/leccion/${m.id}`)} style={{
-            background: 'transparent', border: 'none', color: 'var(--text)',
-            textAlign: 'left', padding: '10px 8px', borderRadius: '10px',
-            fontSize: '0.95rem', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 10
-          }}>
-            <span>{m.icono}</span> {m.nombre}
-          </button>
-        ))}
+        <hr style={{ border: 'none', borderTop: '1px solid var(--surface2)', marginBottom: 16, opacity: 0.6 }} />
 
-        
-
-        <div style={{ marginTop: 'auto', display: 'flex', flexDirection: 'column', gap: 8 }}>
-          {user ? (
-            <button onClick={cerrarSesion} style={{
-              background: 'var(--surface2)', color: 'var(--wrong)', border: 'none',
-              borderRadius: '12px', padding: '12px', fontWeight: 700, fontSize: '0.9rem', cursor: 'pointer'
+        {/* Cuerpo con Scroll para las materias si exceden la pantalla */}
+        <div style={{ flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: 8, paddingRight: '4px' }}>
+          
+          {/* Botón Tienda */}
+          <button 
+            onClick={() => ir('/tienda')} 
+            onMouseEnter={() => setHoveredBtn('tienda')}
+            onMouseLeave={() => setHoveredBtn(null)}
+            style={{
+              background: hoveredBtn === 'tienda' ? 'var(--surface2)' : 'linear-gradient(135deg, var(--surface2), var(--surface))',
+              border: '1px solid rgba(255,255,255,0.05)',
+              color: 'var(--text)',
+              textAlign: 'left',
+              padding: '12px 14px',
+              borderRadius: '14px',
+              fontSize: '0.95rem',
+              fontWeight: 600,
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              gap: 14,
+              transition: 'all 0.2s ease',
+              transform: hoveredBtn === 'tienda' ? 'translateY(-1px)' : 'none'
+            }}
+          >
+            <span style={{
+              fontSize: '1.1rem',
+              width: '32px', height: '32px',
+              background: 'rgba(124, 92, 191, 0.15)',
+              color: '#7c5cbf',
+              borderRadius: '10px',
+              display: 'flex', alignItems: 'center', justifyindex: 'center',
+              justifyContent: 'center', flexShrink: 0
             }}>
+              <PiShoppingCartSimpleFill />
+            </span>
+            <span>Tienda</span>
+          </button>
+
+          {/* Botón Examen Simulador */}
+          <button 
+            onClick={() => ir('/examen')} 
+            onMouseEnter={() => setHoveredBtn('examen')}
+            onMouseLeave={() => setHoveredBtn(null)}
+            style={{
+              background: hoveredBtn === 'examen' ? 'var(--surface2)' : 'linear-gradient(135deg, var(--surface2), var(--surface))',
+              border: '1px solid rgba(255,255,255,0.05)',
+              color: 'var(--text)',
+              textAlign: 'left',
+              padding: '12px 14px',
+              borderRadius: '14px',
+              fontSize: '0.95rem',
+              fontWeight: 600,
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              gap: 14,
+              transition: 'all 0.2s ease',
+              marginBottom: 16,
+              transform: hoveredBtn === 'examen' ? 'translateY(-1px)' : 'none'
+            }}
+          >
+            <span style={{
+              fontSize: '1.1rem',
+              width: '32px', height: '32px',
+              background: 'rgba(245, 158, 11, 0.15)',
+              color: '#f59e0b',
+              borderRadius: '10px',
+              display: 'flex', alignItems: 'center', justifyindex: 'center',
+              justifyContent: 'center', flexShrink: 0
+            }}>
+              <FaClock />
+            </span>
+            <span>Examen Simulador</span>
+          </button>
+
+          {/* Sección Cuestionarios */}
+          <p style={{ 
+            color: 'var(--text-muted)', 
+            fontSize: '0.7rem', 
+            textTransform: 'uppercase', 
+            letterSpacing: '1.5px', 
+            fontWeight: 700, 
+            margin: '8px 0 6px 4px',
+            opacity: 0.8
+          }}>
+            Cuestionarios
+          </p>
+
+          {MATERIAS.map(m => (
+            <button 
+              key={m.id} 
+              onClick={() => ir(`/leccion/${m.id}`)} 
+              onMouseEnter={() => setHoveredBtn(m.id)}
+              onMouseLeave={() => setHoveredBtn(null)}
+              style={{
+                background: hoveredBtn === m.id ? 'var(--surface2)' : 'transparent', 
+                border: 'none', 
+                color: 'var(--text)',
+                textAlign: 'left', 
+                padding: '10px 12px', 
+                borderRadius: '10px',
+                fontSize: '0.9rem', 
+                fontWeight: 500,
+                cursor: 'pointer', 
+                display: 'flex', 
+                alignItems: 'center', 
+                gap: 12,
+                transition: 'all 0.15s ease'
+              }}
+            >
+              <span style={{ opacity: hoveredBtn === m.id ? 1 : 0.8, display: 'flex', alignItems: 'center' }}>
+                {m.icono}
+              </span> 
+              <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                {m.nombre}
+              </span>
+            </button>
+          ))}
+        </div>
+
+        {/* Sección Inferior de Botones (Despegada con Sombra y Borde superior) */}
+        <div style={{ 
+          marginTop: 'auto', 
+          pt: '16px',
+          display: 'flex', 
+          flexDirection: 'column', 
+          gap: 10,
+          padding: '16px 4px 4px 4px',
+          borderTop: '1px solid rgba(255,255,255,0.03)',
+          background: 'var(--surface)',
+          boxShadow: '0 -12px 20px -10px rgba(0, 0, 0, 0.25)', // Logra el efecto de separación/elevación del fondo
+          zIndex: 5
+        }}>
+          {user ? (
+            <button 
+              onClick={cerrarSesion} 
+              onMouseEnter={() => setHoveredBtn('logout')}
+              onMouseLeave={() => setHoveredBtn(null)}
+              style={{
+                background: hoveredBtn === 'logout' ? 'rgba(239, 68, 68, 0.15)' : 'var(--surface2)', 
+                color: hoveredBtn === 'logout' ? '#ef4444' : 'var(--wrong)', 
+                border: '1px solid rgba(255,255,255,0.03)',
+                borderRadius: '12px', 
+                padding: '12px', 
+                fontWeight: 600, 
+                fontSize: '0.9rem', 
+                cursor: 'pointer',
+                transition: 'all 0.2s ease',
+                boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
+              }}
+            >
               Cerrar sesión
             </button>
           ) : (
             <>
-              <button onClick={() => ir('/login')} style={{
-                background: '#7c5cbf', color: '#fff', border: 'none',
-                borderRadius: '12px', padding: '12px', fontWeight: 700, fontSize: '0.9rem', cursor: 'pointer'
-              }}>
+              <button 
+                onClick={() => ir('/login')} 
+                onMouseEnter={() => setHoveredBtn('login')}
+                onMouseLeave={() => setHoveredBtn(null)}
+                style={{
+                  background: hoveredBtn === 'login' ? '#6b4fa3' : '#7c5cbf', 
+                  color: '#fff', 
+                  border: 'none',
+                  borderRadius: '12px', 
+                  padding: '12px', 
+                  fontWeight: 600, 
+                  fontSize: '0.9rem', 
+                  cursor: 'pointer',
+                  transition: 'all 0.2s ease',
+                  boxShadow: '0 4px 12px rgba(124, 92, 191, 0.25)'
+                }}
+              >
                 Iniciar sesión
               </button>
-              <button onClick={() => ir('/login')} style={{
-                background: 'var(--surface2)', color: 'var(--text)', border: 'none',
-                borderRadius: '12px', padding: '12px', fontWeight: 700, fontSize: '0.9rem', cursor: 'pointer'
-              }}>
+              <button 
+                onClick={() => ir('/login')} 
+                onMouseEnter={() => setHoveredBtn('signup')}
+                onMouseLeave={() => setHoveredBtn(null)}
+                style={{
+                  background: hoveredBtn === 'signup' ? 'rgba(255,255,255,0.05)' : 'var(--surface2)', 
+                  color: 'var(--text)', 
+                  border: '1px solid rgba(255,255,255,0.05)',
+                  borderRadius: '12px', 
+                  padding: '12px', 
+                  fontWeight: 600, 
+                  fontSize: '0.9rem', 
+                  cursor: 'pointer',
+                  transition: 'all 0.2s ease',
+                  boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
+                }}
+              >
                 Registrarse
               </button>
             </>

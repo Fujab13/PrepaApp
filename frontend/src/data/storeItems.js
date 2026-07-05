@@ -5,7 +5,7 @@ export const STORE_ITEMS = [
   {
     id: 'paquete-200-preguntas',
     categoria: 'Práctica extra',
-    icono: '📝',
+    icono: 'A',
     nombre: 'Paquete de +200 preguntas',
     descripcion: '¿Terminaste las preguntas tan rápido🏂?',
     type: 'coins',
@@ -14,7 +14,7 @@ export const STORE_ITEMS = [
   {
     id: 'paquete-200-flashcards',
     categoria: 'Práctica extra',
-    icono: '📝',
+    icono: 'B',
     nombre: 'Paquete de +200 flashcards',
     descripcion: 'Extra de flashcards sobre conceptos.',
     type: 'coins',
@@ -23,7 +23,7 @@ export const STORE_ITEMS = [
   {
     id: 'seguimiento-proceso',
     categoria: 'Asistencia',
-    icono: '🔍',
+    icono: 'C',
     nombre: 'Seguimiento de proceso',
     descripcion: 'Te decimos que hacer y donde hacerlo.',
     type: 'coins',
@@ -32,7 +32,7 @@ export const STORE_ITEMS = [
   {
     id: 'plan-premium-mensual',
     categoria: 'Suscripción',
-    icono: '💽',
+    icono: 'D',
     nombre: 'PrepaApp Premium (3 meses)',
     descripcion: 'Acceso ilimitado + Lecciones en linea',
     type: 'real',
