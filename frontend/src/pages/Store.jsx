@@ -3,6 +3,10 @@ import { useNavigate } from 'react-router-dom'
 import { useStore } from '../context/StoreContext'
 import { STORE_ITEMS } from '../data/storeItems'
 
+import { MdToken } from "react-icons/md";
+import { BsBuildingsFill } from "react-icons/bs";
+import { HiInboxArrowDown } from "react-icons/hi2";
+
 export default function Store() {
   const navigate = useNavigate()
   const { coins, ownsItem, purchaseWithCoins, startRealPayment } = useStore()
@@ -74,7 +78,7 @@ export default function Store() {
         ✕
         </button>
         <span style={{ fontSize: '1.4rem', width: '30px', textAlign: 'center' }}>
-          🏢
+          <BsBuildingsFill  />
         </span>
         <h1 style={{ fontSize: '1.2rem', fontWeight: 700, margin: 0 }}>
           Tienda
@@ -92,7 +96,7 @@ export default function Store() {
           fontWeight: 700,
           fontSize: '0.9rem'
         }}>
-          💲{coins}
+          <MdToken />{coins}
         </div>
       </div>
 
