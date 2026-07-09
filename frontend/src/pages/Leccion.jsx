@@ -225,9 +225,7 @@ export default function Leccion() {
           {[
             { label: <MdRestartAlt />, title: 'Reiniciar', action: borrarProgresoTemporal },
             { label: <PiCopy />, title: 'Copiar pregunta', action: copiarPregunta },
-            // Nota: Tenías 'esFullscreen ? <MdFullscreen /> : <MdFullscreen />'. 
-            // Si tienes un icono para salir de pantalla completa (ej. MdFullscreenExit), cámbialo aquí:
-            { label: esFullscreen ? <MdFullscreenExit /> : <MdFullscreen />, title: 'Pantalla completa', action: toggleFullscreen },
+            { label: esFullscreen ? <MdFullscreen /> : <MdFullscreen />, title: 'Pantalla completa', action: toggleFullscreen },
           ].map(({ label, title, action }) => (
             <button
               key={title}
