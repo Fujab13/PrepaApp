@@ -2,7 +2,9 @@ import { useState, useRef, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { getMateria } from '../data/index'
 import { getLectura } from '../data/lecturas/index'
-import Tarjeta from '../components/Tarjeta'
+import Tarjeta from './Tarjeta'
+
+import { AiOutlineClose } from "react-icons/ai";
 
 export default function Lectura() {
   const { materiaId } = useParams()
@@ -64,16 +66,50 @@ export default function Lectura() {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
-
-      <div style={{ padding: '20px 24px 0', display: 'flex', alignItems: 'center', gap: 12 }}>
-        <button
-          onClick={() => navigate('/')}
-          style={{ background: 'var(--surface)', border: 'none', color: 'var(--text)', borderRadius: '8px', padding: '8px 14px', fontSize: '1.1rem' }}
-        >
-        ✕
-        </button>
-        <span style={{ fontWeight: 700, fontSize: '1.1rem' }}>{materia.icono} {materia.nombre}</span>
-      </div>
+    <div style={{
+      display: 'flex',
+      alignItems: 'center', // Alinea verticalmente los centros de los tres elementos
+      gap: 10,
+      padding: '16px 0 12px',
+      marginTop: '15px',
+    }}>
+      <button
+        onClick={() => navigate('/')}
+        title="Salir"
+        style={{ 
+          background: 'transparent', 
+          border: 'none', 
+          color: 'var(--text)', 
+          fontSize: '1.4rem', 
+          cursor: 'pointer', 
+          display: 'flex',      // Forzamos al botón a centrar internamente su icono
+          alignItems: 'center',
+          padding: 0            // Quitamos el padding para evitar desfases
+        }}
+      >
+        <AiOutlineClose />
+      </button>
+      
+      <span style={{ 
+        background: 'transparent', 
+        border: 'none', 
+        color: 'var(--text)', 
+        fontSize: '1.35rem', 
+        display: 'flex',        // Forzamos al span a centrar internamente el emoji/icono
+        alignItems: 'center',
+        padding: 0              // Quitamos el padding para alineación perfecta
+      }}>
+        {materia.icono}
+      </span>
+      
+      <span style={{ 
+        fontWeight: 700, 
+        fontSize: '1.1rem',
+        lineHeight: 1           // Evita que el interlineado del texto empuje la caja hacia abajo
+      }}>
+        {materia.nombre}
+      </span>
+    </div>
 
       <div style={{ padding: '16px 24px 0', display: 'flex', gap: 8, overflowX: 'auto' }}>
         {lectura.temas.map((t, i) => (
@@ -118,7 +154,7 @@ export default function Lectura() {
               transition: 'opacity 300ms ease'
             }}
           >
-          ← Anterior
+           Anterior
           </button>
 
           {/* Indicador de paginación: dots si hay pocos temas, "x de y" si hay muchos */}
@@ -140,7 +176,7 @@ export default function Lectura() {
               transition: 'opacity 300ms ease'
             }}
           >
-          Siguiente →
+          Siguiente
           </button>
         </div>
       </div>

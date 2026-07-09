@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react'
-import SubtemaItem from './SubtemaItem'
+import SubtemaItem from '../components/SubtemaItem'
 
 export default function Tarjeta({ tema, color, completados, onToggleSubtema }) {
   const [modo, setModo] = useState('teoria') // 'teoria' | 'practica'
