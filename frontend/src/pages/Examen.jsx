@@ -15,8 +15,6 @@ import { IoIosArrowBack } from "react-icons/io";
 import { IoIosArrowForward } from "react-icons/io";
 import { HiOutlineSquares2X2 } from "react-icons/hi2";
 import { IoBookmarkOutline } from "react-icons/io5";
-
-
 // ════════════════════════════════════════════════════════════════════════════
 // ─── CONFIGURACIÓN ──────────────────────────────────────────────────────────
 // ════════════════════════════════════════════════════════════════════════════
@@ -27,7 +25,6 @@ const CONFIG = {
 
   TIEMPO_RECOMENDADO_SEG: 90, // Tiempo recomendado por pregunta (en segundos)
 };
-
 // ════════════════════════════════════════════════════════════════════════════
 // ─── HELPERS ────────────────────────────────────────────────────────────────
 // ════════════════════════════════════════════════════════════════════════════
@@ -385,10 +382,12 @@ export default function Examen() {
             alignItems: "center",
             minHeight: 120,
           }}>
+
+            {/* , filter: "brightness(0) invert(1)" */}
             <img
               src={`/svgs/${pregunta.enlace_svg}`}
               alt={`Imagen de la pregunta ${pregunta.id}`}
-              style={{ maxWidth: "100%", maxHeight: 220, objectFit: "contain", filter: "brightness(0) invert(1)" }}
+              style={{ maxWidth: "100%", maxHeight: 220, objectFit: "contain"}}
               onError={e => { e.currentTarget.style.display = "none"; }}
             />
           </div>

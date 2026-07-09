@@ -63,7 +63,7 @@ export default function Leccion() {
   if (cargando || !colaLista || preguntas.length === 0 || !pregunta) {
     return (
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '100vh', color: 'var(--text-muted)', fontSize: '0.9rem' }}>
-        Cargando lección…
+        Cargando . . .
       </div>
     )
   }
@@ -162,23 +162,49 @@ export default function Leccion() {
       <div style={{
         display: 'flex',
         alignItems: 'center',
-        gap: 10,
+        gap: 12, // Subí ligeramente el gap para que respire mejor con la barra
         padding: '16px 0 12px',
+        marginTop: '15px',
       }}>
+        {/* 1. Botón Salir */}
         <button
           onClick={() => navigate('/')}
           title="Salir"
-          style={{ background: 'transparent', border: 'none', color: 'var(--text)', fontSize: '1.4rem', cursor: 'pointer', padding: 5}}
+          style={{ 
+            background: 'transparent', 
+            border: 'none', 
+            color: 'var(--text)', 
+            fontSize: '1.4rem', 
+            cursor: 'pointer', 
+            display: 'flex',
+            alignItems: 'center',
+            padding: 0 
+          }}
         >
-        <AiOutlineClose />
+          <AiOutlineClose />
         </button>
-        <span style={{ background: 'transparent', border: 'none', color: 'var(--text)', fontSize: '1.35rem', padding: 2}}>{materia.icono}</span>
+
+        {/* 2. Icono de la Materia */}
+        <span style={{ 
+          background: 'transparent', 
+          border: 'none', 
+          color: 'var(--text)', 
+          fontSize: '1.35rem', 
+          display: 'flex',
+          alignItems: 'center',
+          padding: 0 
+        }}>
+          {materia.icono}
+        </span>
+
+        {/* 3. Barra de Progreso (flex: 1 hace que ocupe todo el espacio sobrante) */}
         <div style={{
           flex: 1,
           height: '6px',
           background: 'var(--surface2)',
           borderRadius: '99px',
           overflow: 'hidden',
+          // Un pequeño margen interno no afecta la alineación flexbox del contenedor externo
         }}>
           <div style={{
             height: '100%',
@@ -189,30 +215,41 @@ export default function Leccion() {
           }} />
         </div>
 
-        
-        <div 
-        style={{ 
+        {/* 4. Contenedor de Botones de Utilidad (Alineado a la derecha) */}
+        <div style={{ 
           display: 'flex', 
           alignItems: 'center', 
-          gap: '8px', 
-          color: 'var(--text-muted)', 
-          fontSize: '0.75rem', 
+          gap: '4px', // Un gap más cerrado para los iconos juntos se ve más limpio
           marginLeft: 'auto',
-          textTransform: 'uppercase', 
-          letterSpacing: '1.5px', 
-          padding: 7
-          
         }}>
           {[
             { label: <MdRestartAlt />, title: 'Reiniciar', action: borrarProgresoTemporal },
             { label: <PiCopy />, title: 'Copiar pregunta', action: copiarPregunta },
-            { label: esFullscreen ? <MdFullscreen /> : <MdFullscreen />, title: 'Pantalla completa', action: toggleFullscreen },
+            // Nota: Tenías 'esFullscreen ? <MdFullscreen /> : <MdFullscreen />'. 
+            // Si tienes un icono para salir de pantalla completa (ej. MdFullscreenExit), cámbialo aquí:
+            { label: esFullscreen ? <MdFullscreenExit /> : <MdFullscreen />, title: 'Pantalla completa', action: toggleFullscreen },
           ].map(({ label, title, action }) => (
             <button
               key={title}
               onClick={action}
               title={title}
-              className="util-btn" >{label}</button>
+              className="util-btn"
+              style={{
+                background: 'transparent',
+                border: 'none',
+                color: 'var(--text-muted)',
+                fontSize: '1.2rem', // Tamaño ideal para iconos de utilidad
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                padding: '6px', // Un padding uniforme para que el área de click sea cómoda
+                borderRadius: '6px',
+                transition: 'background 0.2s ease',
+              }}
+            >
+              {label}
+            </button>
           ))}
         </div>
       </div>

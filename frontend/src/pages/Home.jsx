@@ -36,12 +36,10 @@ export default function Home() {
     setFeaturedId(id)
     localStorage.setItem('featured_materia_id', id)
   }
-
   useEffect(() => {
     const intervalo = setInterval(() => {
       setFrameIdx((prev) => (prev + 1) % animacionLunas.length);
     }, 300); // ms
-
     return () => clearInterval(intervalo);
   }, []);
 
@@ -53,10 +51,8 @@ export default function Home() {
       <div style={{ padding: '24px 24px 0', display: 'flex', alignItems: 'center', gap: 10, color: featured.color }}>
         <button onClick={() => setSidenavOpen(true)} style={{background: 'transparent', border: 'none', color: 'var(--text)', fontSize: '1.4rem', cursor: 'pointer', padding: 0}}>
           <RiMenuFill />
-
         </button>
                 
-        
          <span style={{ 
           display: 'inline-flex', 
           alignItems: 'center', 
@@ -66,6 +62,7 @@ export default function Home() {
         }}>
           <PiHexagon />
         </span>
+
         <h1 style={{ 
           fontSize: '1.4rem', 
           fontWeight: 500, 
@@ -108,7 +105,6 @@ export default function Home() {
           }}>
             {esFullscreen ? <MdFullscreen /> : <MdFullscreen />}
           </button>
-
         </div>
       </div>
       <div style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '20px', flex: 1 }}>
@@ -246,7 +242,7 @@ export default function Home() {
 
 
         <p style={{ color: 'var(--text-muted)', fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '1.5px' }}>
-          Material de la BUAP
+          Material
         </p>
         {LIBROS.map(libro => (
           <LibroCard
@@ -256,7 +252,6 @@ export default function Home() {
           />
         ))}
 
-        
 
       </div>
       <div style={{ padding: '24px 24px 0', display: 'flex', alignItems: 'center', gap: 10, color: featured.color }}>
@@ -272,50 +267,42 @@ export default function Home() {
   gap: 12,
   color: 'var(--text-muted)'
 }}>
-  <div style={{ display: 'flex', gap: 16 }}>
+  <div style={{ display: 'flex', gap: 18 }}>
     
     <a href="https://instagram.com/TU_USUARIO" target="_blank" rel="noopener noreferrer" 
       style={{ 
-        background: `linear-gradient(355deg, ${featured?.color || '#3b82f6'}, #ffffffbe)`,
-        WebkitBackgroundClip: 'text',
-        WebkitTextFillColor: 'transparent',
-        filter: `drop-shadow(0 2px 8px ${featured?.color || '#3b82f6'}80)`
+        color: 'var(--text)',
+        opacity: 0.9
       }}>
-      <FaInstagram size={24} />
+      <FaInstagram size={22} />
     </a>
 
     <a href="https://facebook.com/TU_USUARIO" target="_blank" rel="noopener noreferrer" 
       style={{ 
-        background: `linear-gradient(355deg, ${featured?.color || '#3b82f6'}, #ffffffbe)`,
-        WebkitBackgroundClip: 'text',
-        WebkitTextFillColor: 'transparent',
-        filter: `drop-shadow(0 2px 8px ${featured?.color || '#3b82f6'}80)`
+        color: 'var(--text)',
+        opacity: 0.9
       }}>
-      <FaFacebook size={24} />
+      <FaFacebook size={22} />
     </a>
 
     <a href="mailto:fujab13@gmail.com" 
       style={{ 
-       background: `linear-gradient(355deg, ${featured?.color || '#3b82f6'}, #ffffffbe)`,
-        WebkitBackgroundClip: 'text',
-        WebkitTextFillColor: 'transparent',
-        filter: `drop-shadow(0 2px 8px ${featured?.color || '#3b82f6'}80)`
+        color: 'var(--text)',
+        opacity: 0.9
       }}>
-      <FaEnvelope size={24} />
+      <FaEnvelope size={22} />
     </a>
 
     <a href="https://wa.me/527331274538" target="_blank" rel="noopener noreferrer" 
       style={{ 
-        background: `linear-gradient(355deg, ${featured?.color || '#3b82f6'}, #ffffffbe)`,
-        WebkitBackgroundClip: 'text',
-        WebkitTextFillColor: 'transparent',
-        filter: `drop-shadow(0 2px 8px ${featured?.color || '#3b82f6'}80)`
+        color: 'var(--text)',
+        opacity: 0.9
       }}>
-      <FaWhatsapp size={24} />
+      <FaWhatsapp size={22} />
     </a>
 
   </div>
-  <p style={{ margin: 0, fontSize: 14 }}>© 2026 PrepaApp - Todos los derechos reservados</p>
+  <p style={{ margin: 0, fontSize: 13, opacity: 0.7 }}>© 2026 PrepaApp - Todos los derechos reservados</p>
 </footer>
     </div>
   )
