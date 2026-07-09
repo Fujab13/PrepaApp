@@ -225,6 +225,7 @@ export default function Leccion() {
           {[
             { label: <MdRestartAlt />, title: 'Reiniciar', action: borrarProgresoTemporal },
             { label: <PiCopy />, title: 'Copiar pregunta', action: copiarPregunta },
+            
             { label: esFullscreen ? <MdFullscreen /> : <MdFullscreen />, title: 'Pantalla completa', action: toggleFullscreen },
           ].map(({ label, title, action }) => (
             <button
