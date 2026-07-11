@@ -65,7 +65,15 @@ export default function Lectura() {
   const totalTemas = lectura.temas.length
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+    <div style={{ display: 'flex',
+      flexDirection: 'column',
+      minHeight: '100vh',
+      width: '100%',
+      maxWidth: '480px',
+      margin: '0 auto',
+      padding: '0 16px',
+      boxSizing: 'border-box',
+      overflow: 'hidden',}}>
     <div style={{
       display: 'flex',
       alignItems: 'center', // Alinea verticalmente los centros de los tres elementos
