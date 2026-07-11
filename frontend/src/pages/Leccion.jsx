@@ -162,7 +162,7 @@ export default function Leccion() {
       <div style={{
         display: 'flex',
         alignItems: 'center',
-        gap: 12, // Subí ligeramente el gap para que respire mejor con la barra
+        gap: 12,
         padding: '16px 0 12px',
         marginTop: '15px',
       }}>
@@ -197,6 +197,24 @@ export default function Leccion() {
           {materia.icono}
         </span>
 
+        <span style={{ 
+          position: 'relative',
+          width: '40px',
+          display: 'inline-flex',
+        }}>
+          <span style={{ 
+            position: 'absolute',
+            left: '0px',  // Desplazado el doble a la derecha (24px)
+            top: '-18px',   // Bajado un poco (12px)
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            zIndex: 10 
+          }}>
+            <Hexagono progreso={progresoHex} color={materia.color} size={82} />
+          </span>
+        </span>
+
         {/* 3. Barra de Progreso (flex: 1 hace que ocupe todo el espacio sobrante) */}
         <div style={{
           flex: 1,
@@ -219,15 +237,13 @@ export default function Leccion() {
         <div style={{ 
           display: 'flex', 
           alignItems: 'center', 
-          gap: '4px', // Un gap más cerrado para los iconos juntos se ve más limpio
+          gap: '4px',
           marginLeft: 'auto',
         }}>
           {[
             { label: <MdRestartAlt />, title: 'Reiniciar', action: borrarProgresoTemporal },
             { label: <PiCopy />, title: 'Copiar pregunta', action: copiarPregunta },
-            // Nota: Tenías 'esFullscreen ? <MdFullscreen /> : <MdFullscreen />'. 
-            // Si tienes un icono para salir de pantalla completa (ej. MdFullscreenExit), cámbialo aquí:
-            { label: esFullscreen ? <MdFullscreenExit /> : <MdFullscreen />, title: 'Pantalla completa', action: toggleFullscreen },
+            { label: esFullscreen ? <MdFullscreen /> : <MdFullscreen />, action: toggleFullscreen },
           ].map(({ label, title, action }) => (
             <button
               key={title}
@@ -238,12 +254,12 @@ export default function Leccion() {
                 background: 'transparent',
                 border: 'none',
                 color: 'var(--text-muted)',
-                fontSize: '1.2rem', // Tamaño ideal para iconos de utilidad
+                fontSize: '1.2rem', 
                 cursor: 'pointer',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                padding: '6px', // Un padding uniforme para que el área de click sea cómoda
+                padding: '6px', 
                 borderRadius: '6px',
                 transition: 'background 0.2s ease',
               }}
@@ -260,19 +276,6 @@ export default function Leccion() {
         gap: 14,
         marginBottom: 18,
       }}>
-        <div style={{ flexShrink: 0, textAlign: 'center' }}>
-          <Hexagono progreso={progresoHex} color={materia.color} size={92} />
-          <p style={{
-            color: 'var(--text-muted)',
-            fontSize: '0.68rem',
-            margin: '3px 0 0',
-            letterSpacing: '0.03em',
-            textTransform: 'uppercase',
-          }}>
-            U{unidad}
-          </p>
-        </div>
-
         <div style={{ flex: 1 }}>
           <p style={{ color: 'var(--text)', fontWeight: 600, fontSize: '0.9rem', margin: '0 0 2px' }}>
             Correctas {totalCorrectas}
@@ -283,7 +286,29 @@ export default function Leccion() {
           </p>
         </div>
       </div>
+      {/* SVG de la pregunta (si existe) */}
+        {pregunta.enlace_svg && (
+          <div style={{
+            background: "var(--surface)",
+            border: "0.5px solid var(--surface2)",
+            borderRadius: 12,
+            padding: 12,
+            marginBottom: 14,
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            minHeight: 120,
+          }}>
 
+            {/* , filter: "brightness(0) invert(1)" */}
+            <img
+              src={`/svgs/${pregunta.enlace_svg}`}
+              alt={`Imagen de la pregunta ${pregunta.id}`}
+              style={{ maxWidth: "100%", maxHeight: 220, objectFit: "contain"}}
+              onError={e => { e.currentTarget.style.display = "none"; }}
+            />
+          </div>
+        )}
       <div style={{
         background: 'var(--surface)',
         borderRadius: 'var(--radius)',

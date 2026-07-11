@@ -9,7 +9,7 @@ const espanol = {
   preguntas: [
 
     // ===== ORTOGRAFÍA: ACENTUACIÓN =====
-    { id: 1, pregunta: "¿Cuál de las siguientes palabras es esdrújula?", opciones: ["Camion", "Telefono", "Facil"], correcta: 1 },
+    { id: 1, pregunta: "¿Cuál de las siguientes palabras es esdrújula?", opciones: ["Camion", "Telefono", "Facil"], correcta: 1 ,enlace_svg: "espacio.svg"},
     { id: 2, pregunta: "¿Cuál palabra lleva tilde por ser una palabra aguda terminada en 'n'?", opciones: ["Jardin", "Casa", "Mesa"], correcta: 0 },
     { id: 3, pregunta: "Identifica la palabra grave (llana) que requiere tilde:", opciones: ["Arbol", "Camion", "Feliz"], correcta: 0 },
     { id: 4, pregunta: "¿Cuál de las siguientes opciones está correctamente acentuada?", opciones: ["Perú", "Peru", "Perù"], correcta: 0 },
