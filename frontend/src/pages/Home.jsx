@@ -57,10 +57,17 @@ export default function Home() {
           display: 'inline-flex', 
           alignItems: 'center', 
           justifyContent: 'center',
-          fontSize: '1.5rem',
           opacity: 0.9
         }}>
-          <PiHexagon />
+          <img 
+            src="\src\logo.ico" 
+            alt="Logo" 
+            style={{ 
+              width: '30px', 
+              height: '30px', 
+              objectFit: 'contain' 
+            }} 
+          />
         </span>
 
         <h1 style={{ 

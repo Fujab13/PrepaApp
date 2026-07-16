@@ -1,0 +1,17 @@
+fujab13@gmail.com
+
+Bases de datos 
+
+    progreso_usuario
+        id
+        user_id
+        materia_id
+        unidad_actual
+        elemento_actual
+        ultima_interaccion
+
+    inventario_usuario
+
+    productos_tienda
+
+    compra_transaccion

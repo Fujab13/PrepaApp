@@ -130,7 +130,7 @@ export default function Examen() {
       // Primera pregunta de sección actual → advertir
       if (PREGUNTAS[indexActual].id === seccion.id_inicio) {
         const confirmado = window.confirm(
-          `¿Deseas regresar a la sección de ${SECCIONES[prevSec]?.nombre}?\n\nUna vez que avances nuevamente no podrás regresar.`
+          `Regresar a ${SECCIONES[prevSec]?.nombre}`
         );
         if (!confirmado) return;
       }
@@ -144,7 +144,7 @@ export default function Examen() {
     if (indexActual === totalPreguntas - 1) {
       // Última pregunta → ir a resultados
       const confirmado = window.confirm(
-        "¿Estás seguro de que quieres terminar y enviar el examen?"
+        "¿Terminar y enviar el examen?"
       );
       if (!confirmado) return;
       guardarTiempoPregunta(pregunta.id);
@@ -165,7 +165,7 @@ export default function Examen() {
     const nextSec = getSectionIndex(PREGUNTAS[indexActual + 1].id);
     if (nextSec !== seccionIdx && PREGUNTAS[indexActual + 1].id === SECCIONES[nextSec]?.id_inicio) {
       const confirmado = window.confirm(
-        `Estás a punto de entrar a la sección "${SECCIONES[nextSec]?.nombre}".\n\nUna vez que avances no podrás regresar a "${seccion?.nombre}". ¿Continuar?`
+        `Continuar a ${SECCIONES[nextSec]?.nombre}`
       );
       if (!confirmado) return;
     }
