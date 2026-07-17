@@ -42,7 +42,7 @@ export default function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/tienda" element={<Store />} />
         <Route path="/examen" element={<Examen />} />
-<Route path="/resultados" element={<Resultados />} />
+        <Route path="/resultados" element={<Resultados />} />
       </Routes>
       </StoreProvider>
     </AuthProvider>

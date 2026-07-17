@@ -3,9 +3,21 @@ import { useNavigate } from 'react-router-dom'
 import { useStore } from '../context/StoreContext'
 import { STORE_ITEMS } from '../data/storeItems'
 
-import { MdToken } from "react-icons/md";
-import { BsBuildingsFill } from "react-icons/bs";
-import { HiInboxArrowDown } from "react-icons/hi2";
+import { supabase } from '../supabase'
+
+import { MdToken, MdWorkspacePremium } from 'react-icons/md'
+import { HiOutlineRectangleStack, HiOutlineLifebuoy, HiOutlineSparkles } from 'react-icons/hi2'
+import { FaStripe } from "react-icons/fa";
+import { AiOutlineClose } from "react-icons/ai";
+import { PiShoppingCartSimpleFill } from "react-icons/pi";
+import { BiSolidCoin } from "react-icons/bi";
+
+const CATEGORIA_ESTILO = {
+  'Práctica extra': { Icon: HiOutlineRectangleStack, tinte: '96, 165, 250' },
+  'Asistencia': { Icon: HiOutlineLifebuoy, tinte: '52, 211, 153' },
+  'Suscripción': { Icon: MdWorkspacePremium, tinte: '167, 139, 250' },
+}
+const ESTILO_DEFAULT = { Icon: HiOutlineSparkles, tinte: '148, 163, 184' }
 
 export default function Store() {
   const navigate = useNavigate()
@@ -27,6 +39,7 @@ export default function Store() {
     if (ownsItem(item.id) || loadingId) return
     setLoadingId(item.id)
 
+    // --- monedas internas ---
     if (item.type === 'coins') {
       const result = purchaseWithCoins(item)
       if (result.ok) {
@@ -40,181 +53,243 @@ export default function Store() {
       return
     }
 
-    
-    const result = await startRealPayment(item)
-    if (result.ok) {
-      mostrarFeedback('success', `¡Compra confirmada: "${item.nombre}"!`)
-    } else if (result.reason === 'payment_gateway_not_implemented') {
-      mostrarFeedback('error', 'Pagos con dinero real próximamente')
-    } else {
-      mostrarFeedback('error', 'No se pudo procesar el pago')
+    // --- dinero real, sin producto de Stripe configurado todavía ---
+    if (!item.productoId) {
+      const result = await startRealPayment(item)
+      if (result.ok) {
+        mostrarFeedback('success', `¡Compra confirmada: "${item.nombre}"!`)
+      } else if (result.reason === 'payment_gateway_not_implemented') {
+        mostrarFeedback('error', 'Pagos con dinero real próximamente')
+      } else {
+        mostrarFeedback('error', 'No se pudo procesar el pago')
+      }
+      setLoadingId(null)
+      return
     }
-    setLoadingId(null)
+
+    // --- Compra con dinero real vía Stripe Checkout ---
+    try {
+      const { data: { session } } = await supabase.auth.getSession()
+
+      if (!session) {
+        mostrarFeedback('error', 'Inicia sesión para comprar')
+        setLoadingId(null)
+        return
+      }
+
+      const res = await fetch(
+        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/crear-sesion-pago`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${session.access_token}`,
+          },
+          body: JSON.stringify({ producto_id: item.productoId, cantidad: 1 }),
+        }
+      )
+
+      const data = await res.json()
+
+      if (!res.ok || data.error || !data.url) {
+        mostrarFeedback('error', data.error || 'No se pudo iniciar el pago')
+        setLoadingId(null)
+        return
+      }
+
+      window.location.href = data.url // redirige a Stripe Checkout
+    } catch (err) {
+      console.error(err)
+      mostrarFeedback('error', 'No se pudo procesar el pago')
+      setLoadingId(null)
+    }
   }
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
-
-      <div style={{ padding: '24px 24px 0', display: 'flex', alignItems: 'center', gap: 10 }}>
-        
+      <div className="sp-header" style={{ padding: '16px 24px', display: 'flex', alignItems: 'center', gap: 10 }}>
         <button
           onClick={() => navigate('/')}
           title="Salir"
-          style={{
-            flexShrink: 0,
-            background: 'var(--surface)',
-            border: 'none',
-            color: 'var(--text-muted)',
-            borderRadius: '8px',
-            width: 34,
-            height: 34,
-            fontSize: '0.95rem',
-            cursor: 'pointer',
+          style={{ 
+            background: 'transparent', 
+            border: 'none', 
+            color: 'var(--text)', 
+            fontSize: '1.4rem', 
+            cursor: 'pointer', 
             display: 'flex',
             alignItems: 'center',
-            justifyContent: 'center',
+            padding: 0 
           }}
         >
-        ✕
+          <AiOutlineClose />
         </button>
-        <span style={{ fontSize: '1.4rem', width: '30px', textAlign: 'center' }}>
-          <BsBuildingsFill  />
+        <span style={{ fontSize: '1.3rem', width: '28px', textAlign: 'center', color: 'var(--text)' }}>
+          <PiShoppingCartSimpleFill />
         </span>
-        <h1 style={{ fontSize: '1.2rem', fontWeight: 700, margin: 0 }}>
+        <h1 style={{ fontSize: '1.15rem', fontWeight: 700, margin: 0, letterSpacing: '-0.02em' }}>
           Tienda
         </h1>
-        
-        {/* 🔅💲🔵🟨🔳🌀🍉🌱🎫 */}
+
         <div style={{
           marginLeft: 'auto',
-          background: 'var(--surface)',
+          background: 'var(--surface2)',
           borderRadius: '999px',
-          padding: '8px 14px',
+          padding: '7px 14px',
           display: 'flex',
           alignItems: 'center',
           gap: 6,
           fontWeight: 700,
-          fontSize: '0.9rem'
+          fontSize: '0.88rem'
         }}>
-          <MdToken />{coins}
+          <BiSolidCoin  style={{ color: '#facc15', fontSize: '1.05rem' }} />
+          {coins}
         </div>
       </div>
 
-      <div style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '24px', flex: 1 }}>
+      <div style={{ padding: '20px 24px 28px', display: 'flex', flexDirection: 'column', gap: '28px', flex: 1 }}>
 
-        <div style={{
-        background: 'var(--surface)',
-        borderRadius: 'var(--radius)',
-        padding: '20px',
-        display: 'flex',
-        flexDirection: 'column',
-        gap: 6
-        }}>
-  
-        <p style={{ color: 'var(--text)', fontSize: '1.05rem', textAlign: 'justify', margin: 0 }}>
-          Me encuentro entre aquellos que piensan que la ciencia tiene una gran belleza [...]
+        {categorias.map(categoria => {
+          const { Icon, tinte } = CATEGORIA_ESTILO[categoria] || ESTILO_DEFAULT
+
+          return (
+            <div key={categoria} style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                <span style={{
+                  width: 22, height: 22,
+                  borderRadius: '7px',
+                  background: `rgba(${tinte}, 0.18)`,
+                  color: `rgb(${tinte})`,
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  fontSize: '0.85rem',
+                  flexShrink: 0
+                }}>
+                  <Icon />
+                </span>
+                <p style={{
+                  color: 'var(--text-muted)',
+                  fontSize: '0.72rem',
+                  fontWeight: 700,
+                  textTransform: 'uppercase',
+                  letterSpacing: '1.3px',
+                  margin: 0
+                }}>
+                  {categoria}
+                </p>
+              </div>
+
+              <div className="sp-grid">
+                {STORE_ITEMS.filter(i => i.categoria === categoria).map(item => {
+                  const owned = ownsItem(item.id)
+                  const isLoading = loadingId === item.id
+                  const puedeComprar = item.type === 'coins' ? coins >= item.priceCoins : true
+
+                  return (
+                    <div
+                      key={item.id}
+                      className="sp-card"
+                      style={{
+                        background: 'var(--surface)',
+                        borderRadius: 'var(--radius)',
+                        padding: '16px',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: 14
+                      }}
+                    >
+                      <div style={{ display: 'flex', alignItems: 'flex-start', gap: 12 }}>
+                        <div style={{
+                          fontSize: '1.4rem',
+                          width: '46px', height: '46px',
+                          background: `rgba(${tinte}, 0.14)`,
+                          color: `rgb(${tinte})`,
+                          borderRadius: '12px',
+                          display: 'flex', alignItems: 'center', justifyContent: 'center',
+                          flexShrink: 0,
+                          fontWeight: 700
+                        }}>
+                          {item.icono}
+                        </div>
+                        <div style={{ flex: 1, minWidth: 0 }}>
+                          <p style={{ fontWeight: 700, fontSize: '0.96rem', margin: 0 }}>{item.nombre}</p>
+                          <p style={{ color: 'var(--text-muted)', fontSize: '0.78rem', marginTop: 3, lineHeight: 1.4 }}>
+                            {item.descripcion}
+                          </p>
+                        </div>
+                      </div>
+
+                      <button
+                        className="sp-btn"
+                        onClick={() => manejarCompra(item)}
+                        disabled={owned || isLoading || (item.type === 'coins' && !puedeComprar)}
+                        style={{
+                          background: owned
+                            ? 'var(--surface2)'
+                            : item.type === 'coins'
+                              ? (puedeComprar ? '#facc15' : 'var(--surface2)')
+                              : '#7c5cbf',
+                          color: owned
+                            ? 'var(--text-muted)'
+                            : item.type === 'coins'
+                              ? (puedeComprar ? '#000000' : 'var(--text-muted)')
+                              : '#ffffff',
+                          fontWeight: 700,
+                          border: 'none',
+                          borderRadius: '10px',
+                          padding: '11px 16px',
+                          fontSize: '0.87rem',
+                          width: '100%',
+                          opacity: isLoading ? 0.75 : 1,
+                          cursor: owned || (item.type === 'coins' && !puedeComprar) ? 'default' : 'pointer',
+                        }}
+                      >
+                        {owned
+                          ? '✓ Ya lo tienes'
+                          : isLoading
+                            ? (<><span className="sp-spinner" />Procesando…</>)
+                            : item.type === 'coins'
+                              ? `${item.priceCoins} monedas`
+                              : `$${item.priceMXN} MXN`
+                        }
+                      </button>
+                    </div>
+                  )
+                })}
+              </div>
+            </div>
+          )
+        })}
+
+        <p style={{ 
+          color: 'var(--text-muted)', 
+          fontSize: '0.7rem', 
+          marginTop: 4,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: '4px' 
+        }}> 
+          <span>Tus pagos están protegidos y procesados por</span>
+          <a href="https://stripe.com" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            style={{ 
+              display: 'inline-flex', 
+              alignItems: 'center',
+              color: 'inherit', 
+              textDecoration: 'none', 
+              cursor: 'pointer'
+            }}
+          >
+            <FaStripe size="3.1em" />
+          </a>
         </p>
+
         
-        <p style={{ color: 'var(--text-muted)', fontWeight: 700, fontSize: '0.85rem', textAlign: 'right', margin: '4px 0 0 0' }}>
-          Marie Curie 1933 
-        </p>
-  
-        </div>
-
-        {categorias.map(categoria => (
-          <div key={categoria} style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
-            <p style={{
-              color: 'var(--text-muted)',
-              fontSize: '0.75rem',
-              textTransform: 'uppercase',
-              letterSpacing: '1.5px'
-            }}>
-              {categoria}
-            </p>
-
-            {STORE_ITEMS.filter(i => i.categoria === categoria).map(item => {
-              const owned = ownsItem(item.id)
-              const isLoading = loadingId === item.id
-              const puedeComprar = item.type === 'coins' ? coins >= item.priceCoins : true
-
-              return (
-                <div
-                  key={item.id}
-                  style={{
-                    background: 'var(--surface)',
-                    borderRadius: 'var(--radius)',
-                    padding: '18px',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    gap: 14
-                  }}
-                >
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-                    <div style={{
-                      fontSize: '1.8rem',
-                      width: '52px', height: '52px',
-                      background: 'var(--surface2)',
-                      borderRadius: '12px',
-                      display: 'flex', alignItems: 'center', justifyContent: 'center',
-                      flexShrink: 0
-                    }}>
-                      {item.icono}
-                    </div>
-                    <div style={{ flex: 1, minWidth: 0 }}>
-                      <p style={{ fontWeight: 700, fontSize: '1rem' }}>{item.nombre}</p>
-                      <p style={{ color: 'var(--text-muted)', fontSize: '0.8rem', marginTop: 2 }}>
-                        {item.descripcion}
-                      </p>
-                    </div>
-                  </div>
-
-                  <button
-                    onClick={() => manejarCompra(item)}
-                    disabled={owned || isLoading || (item.type === 'coins' && !puedeComprar)}
-                    style={{
-                      background: owned
-                        ? 'var(--surface2)'
-                        : item.type === 'coins'
-                          ? (puedeComprar ? '#facc15' : 'var(--surface2)')
-                          : '#7c5cbf',
-                      color: owned
-                        ? 'var(--text-muted)'
-                        : item.type === 'coins'
-                          ? (puedeComprar ? '#000000' : 'var(--text-muted)')
-                          : '#ffffff',
-                      fontWeight: 700,
-                      border: 'none',
-                      borderRadius: '12px',
-                      padding: '12px 20px',
-                      fontSize: '0.9rem',
-                      width: '100%',
-                      opacity: isLoading ? 0.6 : 1,
-                      cursor: owned ? 'default' : 'pointer',
-                      transition: 'opacity 0.2s'
-                    }}
-                  >
-                    {owned
-                      ? '✓ Ya lo tienes'
-                      : isLoading
-                        ? 'Procesando…'
-                        : item.type === 'coins'
-                          ? ` ${item.priceCoins} monedas`
-                          : `$${item.priceMXN} MXN`
-                    }
-                  </button>
-                </div>
-              )
-            })}
-          </div>
-        ))}
-
-        <p style={{ color: 'var(--text-muted)', fontSize: '0.7rem', textAlign: 'center', marginTop: 4 }}>
-          Los pagos con dinero real se procesan de forma segura por un proveedor externo.
-        </p>
       </div>
 
       {feedback && (
-        <div style={{
+        <div className="sp-toast" style={{
           position: 'fixed',
           bottom: 24,
           left: '50%',
