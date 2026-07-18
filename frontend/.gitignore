@@ -1,6 +1,19 @@
+# Dependencias y compilación
 node_modules/
 dist/
 .env
 .env.local
 *.log
 .DS_Store
+
+# --- NUEVO: Reglas para Supabase ---
+# Ignorar estados locales y ramas de Supabase
+**/supabase/.temp/
+**/supabase/.branches/
+
+# Ignorar archivos locales de entorno de Supabase Edge Functions
+**/supabase/functions/**/*.env
+**/supabase/functions/**/*.env.local
+
+# Respaldos de base de datos locales (si los llegas a generar)
+**/supabase/migrations/*.tmp.sql

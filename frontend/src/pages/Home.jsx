@@ -60,7 +60,7 @@ export default function Home() {
           opacity: 0.9
         }}>
           <img 
-            src="\src\logo.ico" 
+            src="/logo.ico" 
             alt="Logo" 
             style={{ 
               width: '30px', 
@@ -68,6 +68,7 @@ export default function Home() {
               objectFit: 'contain' 
             }} 
           />
+
         </span>
 
         <h1 style={{ 
