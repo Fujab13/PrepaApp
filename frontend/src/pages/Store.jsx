@@ -11,6 +11,7 @@ import { FaStripe } from "react-icons/fa";
 import { AiOutlineClose } from "react-icons/ai";
 import { PiShoppingCartSimpleFill } from "react-icons/pi";
 import { BiSolidCoin } from "react-icons/bi";
+import { PiHexagonDuotone  } from "react-icons/pi";
 
 const CATEGORIA_ESTILO = {
   'Práctica extra': { Icon: HiOutlineRectangleStack, tinte: '96, 165, 250' },
@@ -133,8 +134,6 @@ export default function Store() {
 
         <div style={{
           marginLeft: 'auto',
-          background: 'var(--surface2)',
-          borderRadius: '999px',
           padding: '7px 14px',
           display: 'flex',
           alignItems: 'center',
@@ -142,7 +141,7 @@ export default function Store() {
           fontWeight: 700,
           fontSize: '0.88rem'
         }}>
-          <BiSolidCoin  style={{ color: '#facc15', fontSize: '1.05rem' }} />
+          <PiHexagonDuotone   style={{ color: '#facc15', fontSize: '1.05rem' }} />
           {coins}
         </div>
       </div>
@@ -185,74 +184,49 @@ export default function Store() {
                   const puedeComprar = item.type === 'coins' ? coins >= item.priceCoins : true
 
                   return (
-                    <div
-                      key={item.id}
-                      className="sp-card"
+                    <div key={item.id} className="sp-card">
+                    <div className="sp-card-header">
+                      
+                      <div className="sp-card-icon"
+                        style={{ background: `rgba(${tinte}, 0.14)`,color: `rgb(${tinte})`, }}>
+                        {item.icono}
+                      </div>
+                      
+                      <div className="sp-card-body">
+                        <p className="sp-card-title">{item.nombre}</p>
+                        <p className="sp-card-description">{item.descripcion}</p>
+                      </div>
+                    </div>
+
+                    <button
+                      className="btn-footer-scroll"
+                      onClick={() => manejarCompra(item)}
+                      disabled={owned || isLoading || (item.type === 'coins' && !puedeComprar)}
                       style={{
-                        background: 'var(--surface)',
-                        borderRadius: 'var(--radius)',
-                        padding: '16px',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        gap: 14
+                        background: owned
+                          ? 'var(--surface2)'
+                          : item.type === 'coins'
+                            ? (puedeComprar ? '#facc15' : 'var(--surface2)')
+                            : '#7c5cbf',
+                        color: owned
+                          ? 'var(--text-muted)'
+                          : item.type === 'coins'
+                            ? (puedeComprar ? '#000000' : 'var(--text-muted)')
+                            : '#ffffff',
+                        opacity: isLoading ? 0.75 : 1,
+                        cursor: owned || (item.type === 'coins' && !puedeComprar) ? 'default' : 'pointer',
                       }}
                     >
-                      <div style={{ display: 'flex', alignItems: 'flex-start', gap: 12 }}>
-                        <div style={{
-                          fontSize: '1.4rem',
-                          width: '46px', height: '46px',
-                          background: `rgba(${tinte}, 0.14)`,
-                          color: `rgb(${tinte})`,
-                          borderRadius: '12px',
-                          display: 'flex', alignItems: 'center', justifyContent: 'center',
-                          flexShrink: 0,
-                          fontWeight: 700
-                        }}>
-                          {item.icono}
-                        </div>
-                        <div style={{ flex: 1, minWidth: 0 }}>
-                          <p style={{ fontWeight: 700, fontSize: '0.96rem', margin: 0 }}>{item.nombre}</p>
-                          <p style={{ color: 'var(--text-muted)', fontSize: '0.78rem', marginTop: 3, lineHeight: 1.4 }}>
-                            {item.descripcion}
-                          </p>
-                        </div>
-                      </div>
-
-                      <button
-                        className="sp-btn"
-                        onClick={() => manejarCompra(item)}
-                        disabled={owned || isLoading || (item.type === 'coins' && !puedeComprar)}
-                        style={{
-                          background: owned
-                            ? 'var(--surface2)'
-                            : item.type === 'coins'
-                              ? (puedeComprar ? '#facc15' : 'var(--surface2)')
-                              : '#7c5cbf',
-                          color: owned
-                            ? 'var(--text-muted)'
-                            : item.type === 'coins'
-                              ? (puedeComprar ? '#000000' : 'var(--text-muted)')
-                              : '#ffffff',
-                          fontWeight: 700,
-                          border: 'none',
-                          borderRadius: '10px',
-                          padding: '11px 16px',
-                          fontSize: '0.87rem',
-                          width: '100%',
-                          opacity: isLoading ? 0.75 : 1,
-                          cursor: owned || (item.type === 'coins' && !puedeComprar) ? 'default' : 'pointer',
-                        }}
-                      >
-                        {owned
-                          ? '✓ Ya lo tienes'
-                          : isLoading
-                            ? (<><span className="sp-spinner" />Procesando…</>)
-                            : item.type === 'coins'
-                              ? `${item.priceCoins} monedas`
-                              : `$${item.priceMXN} MXN`
-                        }
-                      </button>
-                    </div>
+                      {owned
+                        ? 'propietario'
+                        : isLoading
+                          ? (<><span className="sp-spinner" />Procesando…</>)
+                          : item.type === 'coins'
+                            ? `${item.priceCoins} monedas`
+                            : `$${item.priceMXN} MXN`
+                      }
+                    </button>
+                  </div>
                   )
                 })}
               </div>
