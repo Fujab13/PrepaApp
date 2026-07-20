@@ -9,28 +9,28 @@ export const STORE_ITEMS = [
     categoria: 'Práctica extra',
     icono: 'A',
     nombre: 'Paquete de +200 preguntas',
-    descripcion: '¿Terminaste las preguntas tan rápido🏂?',
+    descripcion: '¿Terminaste las preguntas tan rápido?',
+    type: 'coins',
+    priceCoins: 17
+  },
+  {
+    id: 'paquete-200-flashcards',
+    categoria: 'Práctica extra',
+    icono: 'B',
+    nombre: 'Paquete de +200 flashcards',
+    descripcion: 'Extra de flashcards sobre conceptos.',
     type: 'coins',
     priceCoins: 17
   },
   {
     id: 'examen-simulador',
     categoria: 'Práctica extra',
-    icono: 'B',
+    icono: 'C',
     nombre: 'Examen simulador ',
     descripcion: 'Este es un examen de 2hrs de cuatro secciones',
     type: 'real',
     priceMXN: 80,
     productoId: '9ad86f75-1279-4783-8efc-05f0a36c50ac' 
-  },
-  {
-    id: 'paquete-200-flashcards',
-    categoria: 'Práctica extra',
-    icono: 'C',
-    nombre: 'Paquete de +200 flashcards',
-    descripcion: 'Extra de flashcards sobre conceptos.',
-    type: 'coins',
-    priceCoins: 17
   },
   {
     id: 'seguimiento-proceso',
