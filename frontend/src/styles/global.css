@@ -64,6 +64,28 @@ a { text-decoration: none; color: inherit; }
   gap: 5px;                 /* Separa un poco el texto del icono */
 }
 
+.btn-sidernav {
+  background: linear-gradient(135deg, var(--surface2), var(--surface));
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  color: var(--text);
+  text-align: left;
+  padding: 12px 14px;
+  border-radius: 14px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  transition: all 0.2s ease;
+  margin-bottom: 16px;
+}
+
+.btn-sidernav:hover {
+  background: var(--surface2);
+  transform: translateY(-1px);
+}
+
 .reloj-minimal {
 display: flex;
   align-items: center;
