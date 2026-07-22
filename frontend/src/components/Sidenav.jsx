@@ -12,6 +12,8 @@ import { SlUser } from "react-icons/sl";
 import { PiShoppingCartSimpleFill } from "react-icons/pi";
 import { RiUser3Fill } from "react-icons/ri";
 import { FaClock } from "react-icons/fa6";
+import { MdSdStorage } from "react-icons/md";
+
 
 export default function Sidenav({ open, onClose }) {
   const navigate = useNavigate()
@@ -113,22 +115,7 @@ export default function Sidenav({ open, onClose }) {
             onClick={() => ir('/tienda')} 
             onMouseEnter={() => setHoveredBtn('tienda')}
             onMouseLeave={() => setHoveredBtn(null)}
-            style={{
-              background: hoveredBtn === 'tienda' ? 'var(--surface2)' : 'linear-gradient(135deg, var(--surface2), var(--surface))',
-              border: '1px solid rgba(255,255,255,0.05)',
-              color: 'var(--text)',
-              textAlign: 'left',
-              padding: '12px 14px',
-              borderRadius: '14px',
-              fontSize: '0.95rem',
-              fontWeight: 600,
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              gap: 14,
-              transition: 'all 0.2s ease',
-              transform: hoveredBtn === 'tienda' ? 'translateY(-1px)' : 'none'
-            }}
+            className="btn-sidernav"
           >
             <span style={{
               fontSize: '1.1rem',
@@ -149,23 +136,7 @@ export default function Sidenav({ open, onClose }) {
             onClick={() => ir('/examen')} 
             onMouseEnter={() => setHoveredBtn('examen')}
             onMouseLeave={() => setHoveredBtn(null)}
-            style={{
-              background: hoveredBtn === 'examen' ? 'var(--surface2)' : 'linear-gradient(135deg, var(--surface2), var(--surface))',
-              border: '1px solid rgba(255,255,255,0.05)',
-              color: 'var(--text)',
-              textAlign: 'left',
-              padding: '12px 14px',
-              borderRadius: '14px',
-              fontSize: '0.95rem',
-              fontWeight: 600,
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              gap: 14,
-              transition: 'all 0.2s ease',
-              marginBottom: 16,
-              transform: hoveredBtn === 'examen' ? 'translateY(-1px)' : 'none'
-            }}
+            className="btn-sidernav"
           >
             <span style={{
               fontSize: '1.1rem',
@@ -179,6 +150,27 @@ export default function Sidenav({ open, onClose }) {
               <FaClock />
             </span>
             <span>Examen Simulador</span>
+          </button>
+
+          {/* Botón Inventario */}
+          <button 
+            onClick={() => ir('/inventario')} 
+            onMouseEnter={() => setHoveredBtn('inventario')}
+            onMouseLeave={() => setHoveredBtn(null)}
+            className="btn-sidernav"
+          >
+            <span style={{
+              fontSize: '1.1rem',
+              width: '32px', height: '32px',
+              background: 'rgba(124, 92, 191, 0.15)',
+              color: '#bf5c5c',
+              borderRadius: '10px',
+              display: 'flex', alignItems: 'center', justifyindex: 'center',
+              justifyContent: 'center', flexShrink: 0
+            }}>
+              <MdSdStorage />
+            </span>
+            <span>Inventario</span>
           </button>
 
           {/* Sección Cuestionarios */}
