@@ -60,7 +60,7 @@ export default function Home() {
           opacity: 0.9
         }}>
           <img 
-            src="/logo.ico" 
+            src="src/logo.ico" 
             alt="Logo" 
             style={{ 
               width: '30px', 
