@@ -107,7 +107,8 @@ export default function Store() {
   }
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+    <div className="suspension-temporal" inert="true"
+    style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
       <div className="sp-header" style={{ padding: '16px 24px', display: 'flex', alignItems: 'center', gap: 10 }}>
         <button
           onClick={() => navigate('/')}
