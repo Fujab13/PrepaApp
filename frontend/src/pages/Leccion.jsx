@@ -1,10 +1,17 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, isValidElement } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import { getMateria } from '../data/index'
+import * as FaIcons from 'react-icons/fa'
+import * as FiIcons from 'react-icons/fi'
+import * as PiIcons from 'react-icons/pi'
+import * as BsIcons from 'react-icons/bs'
+import * as MdIcons from 'react-icons/md'
+import * as RiIcons from 'react-icons/ri'
+import { getMateria } from '../data/leccionesGratis'
 import Hexagono from '../components/Hexagono'
 import OpcionBtn from '../components/OpcionBtn'
 import { useProgreso } from '../hooks/useProgreso'
 import { getPreguntasDeUnidad } from '../components/unidades'
+import { descargarLeccionPremium } from '../services/leccionesPremium'
 
 import { IoMdClose } from "react-icons/io";
 import { AiOutlineClose } from "react-icons/ai";
@@ -17,7 +24,12 @@ import { PiCopy } from "react-icons/pi";
 export default function Leccion() {
   const { materiaId } = useParams()
   const navigate = useNavigate()
-  const materia = getMateria(materiaId)
+  const [materiaLocal, setMateriaLocal] = useState(null)
+  const [cargandoPremium, setCargandoPremium] = useState(false)
+  const [errorPremium, setErrorPremium] = useState('')
+  const materia = materiaLocal || getMateria(materiaId)
+
+const leccionesJson = import.meta.glob('../data/lecciones/*.json', { eager: true, import: 'default' })
   const { unidad, elemento, cargando, guardarProgreso, reiniciar } = useProgreso(materiaId)
 
   const [cola, setCola]                             = useState(null)
@@ -50,8 +62,74 @@ export default function Leccion() {
   }, [materiaId, unidad])
 
   useEffect(() => {
-    if (!materia) navigate('/')
-  }, [materia, navigate])
+    let activo = true
+
+    async function cargarPremium() {
+      if (!materiaId) return
+
+      const materiaLocalBase = getMateria(materiaId)
+      if (materiaLocalBase) {
+        setMateriaLocal(null)
+        return
+      }
+
+      const rutaLocal = Object.keys(leccionesJson).find((ruta) => ruta.endsWith(`/${materiaId}.json`))
+      if (rutaLocal) {
+        const data = leccionesJson[rutaLocal]
+        if (!activo) return
+
+        const materiaJson = {
+          ...data,
+          id: materiaId,
+          preguntas: data.preguntas || [],
+          icono: data.icono || 'FaBookOpen',
+          color: data.color || '#7c5cbf',
+          nombre: data.nombre || materiaId,
+        }
+
+        setMateriaLocal(materiaJson)
+        setCargandoPremium(false)
+        setErrorPremium('')
+        return
+      }
+
+      try {
+        setCargandoPremium(true)
+        setErrorPremium('')
+        const data = await descargarLeccionPremium(`${materiaId}.json`)
+        if (!activo) return
+
+        const materiaPremium = {
+          ...data,
+          id: materiaId,
+          preguntas: data.preguntas || [],
+          icono: data.icono || 'FaBookOpen',
+          color: data.color || '#7c5cbf',
+          nombre: data.nombre || materiaId,
+        }
+
+        setMateriaLocal(materiaPremium)
+      } catch (error) {
+        console.error('No se pudo cargar la lección premium:', error)
+        if (activo) {
+          setErrorPremium(error.message || 'No se pudo cargar la lección premium.')
+          setMateriaLocal(null)
+        }
+      } finally {
+        if (activo) setCargandoPremium(false)
+      }
+    }
+
+    cargarPremium()
+
+    return () => {
+      activo = false
+    }
+  }, [materiaId])
+
+  useEffect(() => {
+    if (!materia && !cargandoPremium) navigate('/')
+  }, [materia, cargandoPremium, navigate])
 
   if (!materia) return null
 
@@ -60,10 +138,10 @@ export default function Leccion() {
   const idxActual = colaLista && cola.length > 0 ? cola[0] : null
   const pregunta  = idxActual !== null ? preguntas[idxActual] : null
 
-  if (cargando || !colaLista || preguntas.length === 0 || !pregunta) {
+  if (cargando || cargandoPremium || !colaLista || preguntas.length === 0 || !pregunta) {
     return (
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '100vh', color: 'var(--text-muted)', fontSize: '0.9rem' }}>
-        Cargando . . .
+        {errorPremium ? errorPremium : 'Cargando . . .'}
       </div>
     )
   }
@@ -146,6 +224,27 @@ export default function Leccion() {
     }
   }
 
+  const renderIconoMateria = (icono) => {
+    if (!icono) return null
+
+    if (isValidElement(icono)) {
+      return icono
+    }
+
+    const iconName = typeof icono === 'string' ? icono : ''
+    const iconSet = {
+      ...FaIcons,
+      ...FiIcons,
+      ...PiIcons,
+      ...BsIcons,
+      ...MdIcons,
+      ...RiIcons,
+    }
+
+    const Icono = iconSet[iconName]
+    return Icono ? <Icono size={20} /> : null
+  }
+
   return (
     <div style={{
       display: 'flex',
@@ -194,7 +293,7 @@ export default function Leccion() {
           alignItems: 'center',
           padding: 0 
         }}>
-          {materia.icono}
+          {renderIconoMateria(materia.icono)}
         </span>
 
         <span style={{ 

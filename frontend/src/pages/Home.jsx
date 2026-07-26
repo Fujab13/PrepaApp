@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { MATERIAS } from '../data/index'
+import { MATERIAS } from '../data/leccionesGratis'
 import { LIBROS } from '../data/libros'
 import { useProgreso } from '../hooks/useProgreso'
 import MateriaCard from '../components/MateriaCard'
