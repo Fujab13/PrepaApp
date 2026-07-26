@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom'
 import { supabase } from '../supabase'
 import { useAuth } from '../context/AuthContext'
-import { MATERIAS } from '../data/index'
+import { MATERIAS } from '../data/leccionesGratis'
 
 import { FaCreditCard } from "react-icons/fa6";
 import { FaUserGraduate } from "react-icons/fa";

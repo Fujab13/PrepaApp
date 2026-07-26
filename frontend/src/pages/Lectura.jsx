@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import { getMateria } from '../data/index'
+import { getMateria } from '../data/leccionesGratis'
 import { getLectura } from '../data/lecturas/index'
 import Tarjeta from './Tarjeta'
 
