@@ -13,7 +13,7 @@ import Resultados from './pages/Resultados';
 import Inventario from './pages/Inventario';
 
 import 'katex/dist/katex.min.css';
-import { triggerVibration } from './components/haptics';
+import { triggerVibration } from './utils/haptics';
 
 export default function App() {
 

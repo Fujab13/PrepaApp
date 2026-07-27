@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { useStore } from '../context/StoreContext'
 import { STORE_ITEMS } from '../data/storeItems'
 
-import { supabase } from '../supabase'
+import { supabase } from '../services/supabaseClient'
 
 import { MdToken, MdWorkspacePremium } from 'react-icons/md'
 import { HiOutlineRectangleStack, HiOutlineLifebuoy, HiOutlineSparkles } from 'react-icons/hi2'

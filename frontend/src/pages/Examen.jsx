@@ -8,7 +8,7 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { PREGUNTAS, SECCIONES } from "../data/examen.js";
-import SiderNavMatrix from "../components/sidernavmatrix.jsx";
+import SidenavMatrix from "../components/SidenavMatrix";
 
 import { AiOutlineClose } from "react-icons/ai";
 import { IoIosArrowBack } from "react-icons/io";
@@ -537,7 +537,7 @@ export default function Examen() {
 
       {/* ── PANEL LATERAL MATRIZ ── */}
       {matrizOpen && (
-        <SiderNavMatrix
+        <SidenavMatrix
           preguntas={PREGUNTAS}
           respuestas={respuestas}
           marcadas={marcadas}
