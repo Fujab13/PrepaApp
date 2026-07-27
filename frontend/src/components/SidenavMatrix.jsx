@@ -1,4 +1,4 @@
-// SiderNavMatrix.jsx
+// SidenavMatrix.jsx
 import { useEffect, useMemo } from "react";
 
 import { AiOutlineClose } from "react-icons/ai";
@@ -14,7 +14,7 @@ import { AiOutlineClose } from "react-icons/ai";
 // seccionActual  : índice de sección (para mostrar el nombre)
 // ─────────────────────────────────────────────────────────────────────────────
 
-export default function SiderNavMatrix({
+export default function SidenavMatrix({
   preguntas,
   respuestas,
   marcadas,

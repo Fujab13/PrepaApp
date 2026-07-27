@@ -14,6 +14,7 @@ import { MdFullscreen } from "react-icons/md";
 import { RiMenuFill } from "react-icons/ri";
 import { FaInstagram, FaFacebook, FaEnvelope, FaWhatsapp } from 'react-icons/fa'
 import { PiHexagon } from "react-icons/pi";
+import { renderIconoMateria } from '../utils/renderIconoMateria'
 
 const animacionLunas = ['🌑', '🌒', '🌓', '🌔', '🌕', '🌖', '🌗', '🌘'];
 {/*{animacionLunas[frameIdx]}*/}
@@ -200,7 +201,7 @@ export default function Home() {
           justifyContent: 'center',
           flexShrink: 0
         }}>
-          {m.icono}
+          {renderIconoMateria(m.icono, { size: 24 })}
         </div>
         <div style={{ 
           flex: 1, 

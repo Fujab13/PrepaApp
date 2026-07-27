@@ -1,0 +1,773 @@
+{
+  "titulo": "Matemáticas",
+  "icono": "PiMathOperationsFill",
+  "color": "#ff4b4b",
+  "descripcion": "Álgebra, geometría y aritmética",
+  "preguntas": [
+    {
+      "pregunta": "Haga clic en el inciso b)",
+      "opciones": [
+        "Inciso a",
+        "Inciso b",
+        "Inciso c"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Seleccione la opción correspondiente al inciso b)",
+      "opciones": [
+        "Inciso a",
+        "Inciso b",
+        "Inciso c"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Marque la opción que indica el inciso b)",
+      "opciones": [
+        "Inciso a",
+        "Inciso b",
+        "Inciso c"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Elija el inciso b)",
+      "opciones": [
+        "Inciso a",
+        "Inciso b",
+        "Inciso c"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Presione sobre el inciso b)",
+      "opciones": [
+        "Inciso a",
+        "Inciso b",
+        "Inciso c"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Haga clic en el inciso b)",
+      "opciones": [
+        "Inciso a",
+        "Inciso b",
+        "Inciso c"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Seleccione la opción correspondiente al inciso b)",
+      "opciones": [
+        "Inciso a",
+        "Inciso b",
+        "Inciso c"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Marque la opción que indica el inciso b)",
+      "opciones": [
+        "Inciso a",
+        "Inciso b",
+        "Inciso c"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Elija el inciso b)",
+      "opciones": [
+        "Inciso a",
+        "Inciso b",
+        "Inciso c"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Presione sobre el inciso b)",
+      "opciones": [
+        "Inciso a",
+        "Inciso b",
+        "Inciso c"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Haga clic en el inciso b)",
+      "opciones": [
+        "Inciso a",
+        "Inciso b",
+        "Inciso c"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Seleccione la opción correspondiente al inciso b)",
+      "opciones": [
+        "Inciso a",
+        "Inciso b",
+        "Inciso c"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Marque la opción que indica el inciso b)",
+      "opciones": [
+        "Inciso a",
+        "Inciso b",
+        "Inciso c"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Elija el inciso b)",
+      "opciones": [
+        "Inciso a",
+        "Inciso b",
+        "Inciso c"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Presione sobre el inciso b)",
+      "opciones": [
+        "Inciso a",
+        "Inciso b",
+        "Inciso c"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Haga clic en el inciso b)",
+      "opciones": [
+        "Inciso a",
+        "Inciso b",
+        "Inciso c"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Seleccione la opción correspondiente al inciso b)",
+      "opciones": [
+        "Inciso a",
+        "Inciso b",
+        "Inciso c"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Marque la opción que indica el inciso b)",
+      "opciones": [
+        "Inciso a",
+        "Inciso b",
+        "Inciso c"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Elija el inciso b)",
+      "opciones": [
+        "Inciso a",
+        "Inciso b",
+        "Inciso c"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Presione sobre el inciso b)",
+      "opciones": [
+        "Inciso a",
+        "Inciso b",
+        "Inciso c"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Haga clic en el inciso b)",
+      "opciones": [
+        "Inciso a",
+        "Inciso b",
+        "Inciso c"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Seleccione la opción correspondiente al inciso b)",
+      "opciones": [
+        "Inciso a",
+        "Inciso b",
+        "Inciso c"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Marque la opción que indica el inciso b)",
+      "opciones": [
+        "Inciso a",
+        "Inciso b",
+        "Inciso c"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Elija el inciso b)",
+      "opciones": [
+        "Inciso a",
+        "Inciso b",
+        "Inciso c"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Presione sobre el inciso b)",
+      "opciones": [
+        "Inciso a",
+        "Inciso b",
+        "Inciso c"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Haga clic en el inciso b)",
+      "opciones": [
+        "Inciso a",
+        "Inciso b",
+        "Inciso c"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Seleccione la opción correspondiente al inciso b)",
+      "opciones": [
+        "Inciso a",
+        "Inciso b",
+        "Inciso c"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Marque la opción que indica el inciso b)",
+      "opciones": [
+        "Inciso a",
+        "Inciso b",
+        "Inciso c"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Elija el inciso b)",
+      "opciones": [
+        "Inciso a",
+        "Inciso b",
+        "Inciso c"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Presione sobre el inciso b)",
+      "opciones": [
+        "Inciso a",
+        "Inciso b",
+        "Inciso c"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Haga clic en el inciso b)",
+      "opciones": [
+        "Inciso a",
+        "Inciso b",
+        "Inciso c"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Seleccione la opción correspondiente al inciso b)",
+      "opciones": [
+        "Inciso a",
+        "Inciso b",
+        "Inciso c"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Marque la opción que indica el inciso b)",
+      "opciones": [
+        "Inciso a",
+        "Inciso b",
+        "Inciso c"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Elija el inciso b)",
+      "opciones": [
+        "Inciso a",
+        "Inciso b",
+        "Inciso c"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Presione sobre el inciso b)",
+      "opciones": [
+        "Inciso a",
+        "Inciso b",
+        "Inciso c"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Haga clic en el inciso b)",
+      "opciones": [
+        "Inciso a",
+        "Inciso b",
+        "Inciso c"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Seleccione la opción correspondiente al inciso b)",
+      "opciones": [
+        "Inciso a",
+        "Inciso b",
+        "Inciso c"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Marque la opción que indica el inciso b)",
+      "opciones": [
+        "Inciso a",
+        "Inciso b",
+        "Inciso c"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Elija el inciso b)",
+      "opciones": [
+        "Inciso a",
+        "Inciso b",
+        "Inciso c"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Presione sobre el inciso b)",
+      "opciones": [
+        "Inciso a",
+        "Inciso b",
+        "Inciso c"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Haga clic en el inciso b)",
+      "opciones": [
+        "Inciso a",
+        "Inciso b",
+        "Inciso c"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Seleccione la opción correspondiente al inciso b)",
+      "opciones": [
+        "Inciso a",
+        "Inciso b",
+        "Inciso c"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Marque la opción que indica el inciso b)",
+      "opciones": [
+        "Inciso a",
+        "Inciso b",
+        "Inciso c"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Elija el inciso b)",
+      "opciones": [
+        "Inciso a",
+        "Inciso b",
+        "Inciso c"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Presione sobre el inciso b)",
+      "opciones": [
+        "Inciso a",
+        "Inciso b",
+        "Inciso c"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Haga clic en el inciso b)",
+      "opciones": [
+        "Inciso a",
+        "Inciso b",
+        "Inciso c"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Seleccione la opción correspondiente al inciso b)",
+      "opciones": [
+        "Inciso a",
+        "Inciso b",
+        "Inciso c"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Marque la opción que indica el inciso b)",
+      "opciones": [
+        "Inciso a",
+        "Inciso b",
+        "Inciso c"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Elija el inciso b)",
+      "opciones": [
+        "Inciso a",
+        "Inciso b",
+        "Inciso c"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Presione sobre el inciso b)",
+      "opciones": [
+        "Inciso a",
+        "Inciso b",
+        "Inciso c"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Haga clic en el inciso b)",
+      "opciones": [
+        "Inciso a",
+        "Inciso b",
+        "Inciso c"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Seleccione la opción correspondiente al inciso b)",
+      "opciones": [
+        "Inciso a",
+        "Inciso b",
+        "Inciso c"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Marque la opción que indica el inciso b)",
+      "opciones": [
+        "Inciso a",
+        "Inciso b",
+        "Inciso c"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Elija el inciso b)",
+      "opciones": [
+        "Inciso a",
+        "Inciso b",
+        "Inciso c"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Presione sobre el inciso b)",
+      "opciones": [
+        "Inciso a",
+        "Inciso b",
+        "Inciso c"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Haga clic en el inciso b)",
+      "opciones": [
+        "Inciso a",
+        "Inciso b",
+        "Inciso c"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Seleccione la opción correspondiente al inciso b)",
+      "opciones": [
+        "Inciso a",
+        "Inciso b",
+        "Inciso c"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Marque la opción que indica el inciso b)",
+      "opciones": [
+        "Inciso a",
+        "Inciso b",
+        "Inciso c"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Elija el inciso b)",
+      "opciones": [
+        "Inciso a",
+        "Inciso b",
+        "Inciso c"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Presione sobre el inciso b)",
+      "opciones": [
+        "Inciso a",
+        "Inciso b",
+        "Inciso c"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Haga clic en el inciso b)",
+      "opciones": [
+        "Inciso a",
+        "Inciso b",
+        "Inciso c"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Seleccione la opción correspondiente al inciso b)",
+      "opciones": [
+        "Inciso a",
+        "Inciso b",
+        "Inciso c"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Marque la opción que indica el inciso b)",
+      "opciones": [
+        "Inciso a",
+        "Inciso b",
+        "Inciso c"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Elija el inciso b)",
+      "opciones": [
+        "Inciso a",
+        "Inciso b",
+        "Inciso c"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Presione sobre el inciso b)",
+      "opciones": [
+        "Inciso a",
+        "Inciso b",
+        "Inciso c"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Haga clic en el inciso b)",
+      "opciones": [
+        "Inciso a",
+        "Inciso b",
+        "Inciso c"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Seleccione la opción correspondiente al inciso b)",
+      "opciones": [
+        "Inciso a",
+        "Inciso b",
+        "Inciso c"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Marque la opción que indica el inciso b)",
+      "opciones": [
+        "Inciso a",
+        "Inciso b",
+        "Inciso c"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Elija el inciso b)",
+      "opciones": [
+        "Inciso a",
+        "Inciso b",
+        "Inciso c"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Presione sobre el inciso b)",
+      "opciones": [
+        "Inciso a",
+        "Inciso b",
+        "Inciso c"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Haga clic en el inciso b)",
+      "opciones": [
+        "Inciso a",
+        "Inciso b",
+        "Inciso c"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Seleccione la opción correspondiente al inciso b)",
+      "opciones": [
+        "Inciso a",
+        "Inciso b",
+        "Inciso c"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Marque la opción que indica el inciso b)",
+      "opciones": [
+        "Inciso a",
+        "Inciso b",
+        "Inciso c"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Elija el inciso b)",
+      "opciones": [
+        "Inciso a",
+        "Inciso b",
+        "Inciso c"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Presione sobre el inciso b)",
+      "opciones": [
+        "Inciso a",
+        "Inciso b",
+        "Inciso c"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Haga clic en el inciso b)",
+      "opciones": [
+        "Inciso a",
+        "Inciso b",
+        "Inciso c"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Seleccione la opción correspondiente al inciso b)",
+      "opciones": [
+        "Inciso a",
+        "Inciso b",
+        "Inciso c"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Marque la opción que indica el inciso b)",
+      "opciones": [
+        "Inciso a",
+        "Inciso b",
+        "Inciso c"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Elija el inciso b)",
+      "opciones": [
+        "Inciso a",
+        "Inciso b",
+        "Inciso c"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Presione sobre el inciso b)",
+      "opciones": [
+        "Inciso a",
+        "Inciso b",
+        "Inciso c"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Haga clic en el inciso b)",
+      "opciones": [
+        "Inciso a",
+        "Inciso b",
+        "Inciso c"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Seleccione la opción correspondiente al inciso b)",
+      "opciones": [
+        "Inciso a",
+        "Inciso b",
+        "Inciso c"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Marque la opción que indica el inciso b)",
+      "opciones": [
+        "Inciso a",
+        "Inciso b",
+        "Inciso c"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Elija el inciso b)",
+      "opciones": [
+        "Inciso a",
+        "Inciso b",
+        "Inciso c"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Presione sobre el inciso b)",
+      "opciones": [
+        "Inciso a",
+        "Inciso b",
+        "Inciso c"
+      ],
+      "correcta": 1
+    }
+  ]
+}

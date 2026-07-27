@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect, useCallback } from 'react'
-import { supabase } from '../supabase'
+import { supabase } from '../services/supabaseClient'
 import { STORE_ITEMS } from '../data/storeItems'
 
 const StoreContext = createContext(null)

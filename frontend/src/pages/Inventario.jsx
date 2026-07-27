@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { supabase } from '../supabase';
+import { supabase } from '../services/supabaseClient';
 
 import { AiOutlineClose } from "react-icons/ai";
 

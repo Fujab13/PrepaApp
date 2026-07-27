@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { getMateria } from '../data/leccionesGratis'
+import { renderIconoMateria } from '../utils/renderIconoMateria'
 import { getLectura } from '../data/lecturas/index'
 import Tarjeta from './Tarjeta'
 
@@ -107,7 +108,7 @@ export default function Lectura() {
         alignItems: 'center',
         padding: 0              // Quitamos el padding para alineación perfecta
       }}>
-        {materia.icono}
+        {renderIconoMateria(materia.icono, { size: 20 })}
       </span>
       
       <span style={{ 

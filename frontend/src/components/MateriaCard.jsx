@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom'
+import { renderIconoMateria } from '../utils/renderIconoMateria'
 
 export default function MateriaCard({ materia }) {
   const navigate = useNavigate()
@@ -33,7 +34,7 @@ export default function MateriaCard({ materia }) {
         borderRadius: '12px',
         display: 'flex', alignItems: 'center', justifyContent: 'center'
       }}>
-        {materia.icono}
+        {renderIconoMateria(materia.icono, { size: 24 })}
       </div>
 
       <div style={{ flex: 1 }}>

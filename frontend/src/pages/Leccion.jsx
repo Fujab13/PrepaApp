@@ -6,12 +6,10 @@ import * as PiIcons from 'react-icons/pi'
 import * as BsIcons from 'react-icons/bs'
 import * as MdIcons from 'react-icons/md'
 import * as RiIcons from 'react-icons/ri'
-import { getMateria } from '../data/leccionesGratis'
 import Hexagono from '../components/Hexagono'
 import OpcionBtn from '../components/OpcionBtn'
 import { useProgreso } from '../hooks/useProgreso'
-import { getPreguntasDeUnidad } from '../components/unidades'
-import { descargarLeccionPremium } from '../services/leccionesPremium'
+import { getPreguntasDeUnidad } from '../data/unidades'
 
 import { IoMdClose } from "react-icons/io";
 import { AiOutlineClose } from "react-icons/ai";
@@ -24,13 +22,10 @@ import { PiCopy } from "react-icons/pi";
 export default function Leccion() {
   const { materiaId } = useParams()
   const navigate = useNavigate()
-  const [materiaLocal, setMateriaLocal] = useState(null)
-  const [cargandoPremium, setCargandoPremium] = useState(false)
-  const [errorPremium, setErrorPremium] = useState('')
-  const materia = materiaLocal || getMateria(materiaId)
-
-const leccionesJson = import.meta.glob('../data/lecciones/*.json', { eager: true, import: 'default' })
-  const { unidad, elemento, cargando, guardarProgreso, reiniciar } = useProgreso(materiaId)
+  const [materia, setMateria] = useState(null)
+  const [cargando, setCargando] = useState(true)
+  const [errorCarga, setErrorCarga] = useState('')
+  const { unidad, elemento, guardarProgreso, reiniciar } = useProgreso(materiaId)
 
   const [cola, setCola]                             = useState(null)
   const [correctasIniciales, setCorrectasIniciales]  = useState(0)
@@ -64,63 +59,45 @@ const leccionesJson = import.meta.glob('../data/lecciones/*.json', { eager: true
   useEffect(() => {
     let activo = true
 
-    async function cargarPremium() {
+    async function cargarLeccion() {
       if (!materiaId) return
 
-      const materiaLocalBase = getMateria(materiaId)
-      if (materiaLocalBase) {
-        setMateriaLocal(null)
-        return
-      }
-
-      const rutaLocal = Object.keys(leccionesJson).find((ruta) => ruta.endsWith(`/${materiaId}.json`))
-      if (rutaLocal) {
-        const data = leccionesJson[rutaLocal]
-        if (!activo) return
-
-        const materiaJson = {
-          ...data,
-          id: materiaId,
-          preguntas: data.preguntas || [],
-          icono: data.icono || 'FaBookOpen',
-          color: data.color || '#7c5cbf',
-          nombre: data.nombre || materiaId,
-        }
-
-        setMateriaLocal(materiaJson)
-        setCargandoPremium(false)
-        setErrorPremium('')
-        return
-      }
-
       try {
-        setCargandoPremium(true)
-        setErrorPremium('')
-        const data = await descargarLeccionPremium(`${materiaId}.json`)
-        if (!activo) return
+        setCargando(true)
+        setErrorCarga('')
 
-        const materiaPremium = {
-          ...data,
-          id: materiaId,
-          preguntas: data.preguntas || [],
-          icono: data.icono || 'FaBookOpen',
-          color: data.color || '#7c5cbf',
-          nombre: data.nombre || materiaId,
+        const modulos = import.meta.glob('../data/lecciones/*.json', { eager: true, import: 'default' })
+        const ruta = Object.keys(modulos).find((rutaActual) => rutaActual.endsWith(`/${materiaId}.json`))
+
+        if (!ruta) {
+          throw new Error('No existe una lección JSON para esta materia.')
         }
 
-        setMateriaLocal(materiaPremium)
-      } catch (error) {
-        console.error('No se pudo cargar la lección premium:', error)
+        const data = modulos[ruta]
+        const leccion = {
+          ...data,
+          id: materiaId,
+          preguntas: Array.isArray(data.preguntas) ? data.preguntas : [],
+          icono: data.icono || 'FaBookOpen',
+          color: data.color || '#7c5cbf',
+          nombre: data.nombre || data.titulo || materiaId,
+        }
+
         if (activo) {
-          setErrorPremium(error.message || 'No se pudo cargar la lección premium.')
-          setMateriaLocal(null)
+          setMateria(leccion)
+        }
+      } catch (error) {
+        console.error('No se pudo cargar la lección JSON:', error)
+        if (activo) {
+          setErrorCarga(error.message || 'No se pudo cargar la lección.')
+          setMateria(null)
         }
       } finally {
-        if (activo) setCargandoPremium(false)
+        if (activo) setCargando(false)
       }
     }
 
-    cargarPremium()
+    cargarLeccion()
 
     return () => {
       activo = false
@@ -128,8 +105,8 @@ const leccionesJson = import.meta.glob('../data/lecciones/*.json', { eager: true
   }, [materiaId])
 
   useEffect(() => {
-    if (!materia && !cargandoPremium) navigate('/')
-  }, [materia, cargandoPremium, navigate])
+    if (!materia && !cargando) navigate('/')
+  }, [materia, cargando, navigate])
 
   if (!materia) return null
 
@@ -138,10 +115,10 @@ const leccionesJson = import.meta.glob('../data/lecciones/*.json', { eager: true
   const idxActual = colaLista && cola.length > 0 ? cola[0] : null
   const pregunta  = idxActual !== null ? preguntas[idxActual] : null
 
-  if (cargando || cargandoPremium || !colaLista || preguntas.length === 0 || !pregunta) {
+  if (cargando || !colaLista || preguntas.length === 0 || !pregunta) {
     return (
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '100vh', color: 'var(--text-muted)', fontSize: '0.9rem' }}>
-        {errorPremium ? errorPremium : 'Cargando . . .'}
+        {errorCarga || 'Cargando . . .'}
       </div>
     )
   }

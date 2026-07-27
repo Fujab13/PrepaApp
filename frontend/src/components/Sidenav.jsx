@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom'
-import { supabase } from '../supabase'
+import { supabase } from '../services/supabaseClient'
 import { useAuth } from '../context/AuthContext'
 import { MATERIAS } from '../data/leccionesGratis'
+import { renderIconoMateria } from '../utils/renderIconoMateria'
 
 import { FaCreditCard } from "react-icons/fa6";
 import { FaUserGraduate } from "react-icons/fa";
@@ -209,7 +210,7 @@ export default function Sidenav({ open, onClose }) {
               }}
             >
               <span style={{ opacity: hoveredBtn === m.id ? 1 : 0.8, display: 'flex', alignItems: 'center' }}>
-                {m.icono}
+                {renderIconoMateria(m.icono, { size: 18 })}
               </span> 
               <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                 {m.nombre}
