@@ -10,6 +10,7 @@ import Hexagono from '../components/Hexagono'
 import OpcionBtn from '../components/OpcionBtn'
 import { useProgreso } from '../hooks/useProgreso'
 import { getPreguntasDeUnidad } from '../data/unidades'
+import { obtenerLeccionDeSesion } from '../services/leccionesPremium';
 
 import { IoMdClose } from "react-icons/io";
 import { AiOutlineClose } from "react-icons/ai";
@@ -66,6 +67,30 @@ export default function Leccion() {
         setCargando(true)
         setErrorCarga('')
 
+        // --- Lección premium (comprada, viene del bucket privado) ---
+        if (materiaId.startsWith('premium-')) {
+          const productoId = materiaId.replace('premium-', '')
+          const cacheada = obtenerLeccionDeSesion(productoId)
+
+          if (!cacheada) {
+            throw new Error('La lección no está disponible. Vuelve al inventario e ábrela de nuevo.')
+          }
+
+          const data = cacheada.data
+          const leccion = {
+            ...data,
+            id: materiaId,
+            preguntas: Array.isArray(data.preguntas) ? data.preguntas : [],
+            icono: data.icono || 'FaBookOpen',
+            color: data.color || '#7c5cbf',
+            nombre: data.nombre || data.titulo || cacheada.nombreProducto,
+          }
+
+          if (activo) setMateria(leccion)
+          return
+        }
+
+        // --- Lección gratuita (JSON local, como antes) ---
         const modulos = import.meta.glob('../data/lecciones/*.json', { eager: true, import: 'default' })
         const ruta = Object.keys(modulos).find((rutaActual) => rutaActual.endsWith(`/${materiaId}.json`))
 
@@ -83,11 +108,9 @@ export default function Leccion() {
           nombre: data.nombre || data.titulo || materiaId,
         }
 
-        if (activo) {
-          setMateria(leccion)
-        }
+        if (activo) setMateria(leccion)
       } catch (error) {
-        console.error('No se pudo cargar la lección JSON:', error)
+        console.error('No se pudo cargar la lección:', error)
         if (activo) {
           setErrorCarga(error.message || 'No se pudo cargar la lección.')
           setMateria(null)
@@ -442,7 +465,7 @@ export default function Leccion() {
               letterSpacing: '0.01em',
             }}
           >
-            {esUltima ? '🏁 Finalizar lección' : 'Siguiente'}
+            {esUltima ? ' Finalizar lección' : 'Siguiente'}
           </button>
         )}
       </div>

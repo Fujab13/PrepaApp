@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '../services/supabaseClient';
+import { cargarYCachearLeccion } from '../services/leccionesPremium';
 
 import { AiOutlineClose } from "react-icons/ai";
 
@@ -10,9 +11,28 @@ export default function Inventario({ onClose, onNavigateStore }) {
   const [loading, setLoading] = useState(true);
   const [selectedItem, setSelectedItem] = useState(null);
   const [menuPosition, setMenuPosition] = useState(null);
+  const [cargandoLeccionId, setCargandoLeccionId] = useState(null);
+  const [errorLeccion, setErrorLeccion] = useState('');
+  const longPressTriggered = useRef(false);
   
   const pressTimer = useRef(null);
 
+  const abrirLeccion = async (item) => {
+    const producto = item.productos;
+    if (!producto?.nombre) return;
+
+    try {
+      setErrorLeccion('');
+      setCargandoLeccionId(item.producto_id);
+      await cargarYCachearLeccion(item.producto_id, producto.nombre);
+      navigate(`/leccion/premium-${item.producto_id}`);
+    } catch (err) {
+      console.error('Error al abrir la lección premium:', err);
+      setErrorLeccion('No se pudo abrir la lección. Intenta de nuevo.');
+    } finally {
+      setCargandoLeccionId(null);
+    }
+  };
   const handleClose = () => {
     if (typeof onClose === 'function') {
       onClose();
@@ -25,7 +45,6 @@ export default function Inventario({ onClose, onNavigateStore }) {
     }
   };
 
-  // Cargar inventario del usuario actual
   useEffect(() => {
     fetchInventario();
   }, []);
@@ -36,7 +55,6 @@ export default function Inventario({ onClose, onNavigateStore }) {
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) return;
 
-      // Consulta uniendo inventario_usuario con productos
       const { data, error } = await supabase
         .from('inventario_usuario')
         .select(`
@@ -63,17 +81,21 @@ export default function Inventario({ onClose, onNavigateStore }) {
     }
   };
 
-  // Manejo de clic sostenido (Long Press para móviles y escritorio)
   const handleTouchStart = (item, e) => {
-    e.persist();
-    pressTimer.current = setTimeout(() => {
-      openActionMenu(item, e);
-    }, 600); // 600ms de presión sostenida
-  };
+  e.persist?.();
+  longPressTriggered.current = false;
+  pressTimer.current = setTimeout(() => {
+    longPressTriggered.current = true;
+    openActionMenu(item, e);
+  }, 600);
+};
 
-  const handleTouchEnd = () => {
-    clearTimeout(pressTimer.current);
-  };
+const handleTouchEnd = (item) => {
+  clearTimeout(pressTimer.current);
+  if (!longPressTriggered.current) {
+    abrirLeccion(item);
+  }
+};
 
   const openActionMenu = (item, e) => {
     const clientX = e.clientX || (e.touches && e.touches[0].clientX);
@@ -140,6 +162,9 @@ export default function Inventario({ onClose, onNavigateStore }) {
                 </button>
                 <h2 style={{ color: 'var(--text)', fontSize: '1.2rem', margin: 0 }}>Inventario</h2>
                 </div>
+        {errorLeccion && (
+          <p style={{ color: 'salmon', padding: '0 16px' }}>{errorLeccion}</p>
+        )}
         {loading ? (
           <p style={styles.loadingText}>Cargando inventario...</p>
         ) : (
@@ -151,13 +176,16 @@ export default function Inventario({ onClose, onNavigateStore }) {
                   key={item.producto_id}
                   style={styles.cardBlue}
                   onMouseDown={(e) => handleTouchStart(item, e)}
-                  onMouseUp={handleTouchEnd}
+                  onMouseUp={() => handleTouchEnd(item)}
                   onTouchStart={(e) => handleTouchStart(item, e)}
-                  onTouchEnd={handleTouchEnd}
+                  onTouchEnd={() => handleTouchEnd(item)}
                 >
                   <div style={styles.cardContent}>
                     <span style={styles.productName}>{item.productos?.nombre || 'Producto'}</span>
                     <span style={styles.productType}>{item.productos?.tipo_producto}</span>
+                    {cargandoLeccionId === item.producto_id && (
+                      <span style={styles.loadingTag}>Cargando…</span>
+                    )}
                   </div>
                 </div>
               ))}
@@ -174,13 +202,16 @@ export default function Inventario({ onClose, onNavigateStore }) {
                   key={item.producto_id}
                   style={styles.cardBlack}
                   onMouseDown={(e) => handleTouchStart(item, e)}
-                  onMouseUp={handleTouchEnd}
+                  onMouseUp={() => handleTouchEnd(item)}
                   onTouchStart={(e) => handleTouchStart(item, e)}
-                  onTouchEnd={handleTouchEnd}
+                  onTouchEnd={() => handleTouchEnd(item)}
                 >
                   <div style={styles.cardContent}>
                     <span style={styles.productNameMuted}>{item.productos?.nombre || 'Producto'}</span>
                     <span style={styles.productTypeMuted}>{item.productos?.tipo_producto}</span>
+                    {cargandoLeccionId === item.producto_id && (
+                      <span style={styles.loadingTag}>Cargando…</span>
+                    )}
                   </div>
                 </div>
               ))}
