@@ -7,14 +7,15 @@ import MateriaCard from '../components/MateriaCard'
 import Hexagono from '../components/Hexagono'
 import LibroCard from '../components/LibroCard'
 import Sidenav from '../components/Sidenav'
+import { renderIconoMateria } from '../utils/renderIconoMateria'
+import { triggerVibration } from '../utils/haptics'
+import { obtenerLeccionDeSesion } from '../services/leccionesPremium'
 
 import { BiMobileVibration } from "react-icons/bi";
 import { RxEnterFullScreen } from "react-icons/rx";
 import { MdFullscreen } from "react-icons/md";
 import { RiMenuFill } from "react-icons/ri";
 import { FaInstagram, FaFacebook, FaEnvelope, FaWhatsapp } from 'react-icons/fa'
-import { PiHexagon } from "react-icons/pi";
-import { renderIconoMateria } from '../utils/renderIconoMateria'
 
 const animacionLunas = ['🌑', '🌒', '🌓', '🌔', '🌕', '🌖', '🌗', '🌘'];
 {/*{animacionLunas[frameIdx]}*/}
@@ -26,6 +27,11 @@ export default function Home() {
   const [featuredId, setFeaturedId] = useState(
     () => { return localStorage.getItem('featured_materia_id') || MATERIAS[0].id}
   )
+  
+  const [premiumLesson, setPremiumLesson] = useState(null)
+  const [premiumLessonLoading, setPremiumLessonLoading] = useState(false)
+  const [premiumLessonError, setPremiumLessonError] = useState('')
+
   const [esFullscreen, setEsFullscreen] = useState(false)
   const [vibracionActiva, setVibracionActiva] = useState(
   localStorage.getItem('hapticsEnabled') !== 'false'
@@ -43,6 +49,44 @@ export default function Home() {
     }, 300); // ms
     return () => clearInterval(intervalo);
   }, []);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+
+    try {
+      setPremiumLessonLoading(true)
+      setPremiumLessonError('')
+      const cacheada = obtenerLeccionDeSesion()
+      if (cacheada?.data) {
+        const data = cacheada.data
+        setPremiumLesson({
+          id: `premium-${cacheada.productoId}`,
+          nombre: data.nombre || data.titulo || cacheada.nombreProducto || 'Lección premium',
+          icono: data.icono || 'FaBookOpen',
+          color: data.color || '#7c5cbf',
+          preguntas: Array.isArray(data.preguntas) ? data.preguntas : [],
+        })
+      } else {
+        setPremiumLesson(null)
+      }
+    } catch (err) {
+      console.error('No se pudo leer la lección premium desde sesión:', err)
+      setPremiumLessonError('No se pudo cargar la lección premium.')
+      setPremiumLesson(null)
+    } finally {
+      setPremiumLessonLoading(false)
+    }
+  }, [])
+
+  const materiasAMostrar = premiumLesson ? [premiumLesson, ...MATERIAS] : MATERIAS
+  const navegarLeccion = (materia) => {
+    if (materia.id.startsWith('premium-')) {
+      navigate(`/leccion/${materia.id}`)
+      return
+    }
+    cambiarFeatured(materia.id)
+    navigate(`/leccion/${materia.id}`)
+  }
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '0', minHeight: '100vh' }}>
@@ -149,11 +193,18 @@ export default function Home() {
         <p style={{ color: 'var(--text-muted)', fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '1.5px' }}>
           Cuestionarios
         </p>
-        {MATERIAS.map(m => (
-          <div key={m.id} onClick={() => {
-            cambiarFeatured(m.id)
-            navigate(`/leccion/${m.id}`)
-          }}>
+        {premiumLessonLoading && (
+          <p style={{ color: 'var(--text-muted)', fontSize: '0.85rem', margin: '0 0 12px' }}>
+            Cargando lección premium...
+          </p>
+        )}
+        {premiumLessonError && (
+          <p style={{ color: 'salmon', fontSize: '0.85rem', margin: '0 0 12px' }}>
+            {premiumLessonError}
+          </p>
+        )}
+        {materiasAMostrar.map(m => (
+          <div key={m.id} onClick={() => navegarLeccion(m)}>
             <MateriaCard materia={m} />
           </div>
         ))}
