@@ -5,27 +5,18 @@
 
 export const STORE_ITEMS = [
   {
-    id: 'paquete-200-preguntas',
+    id: 'medicina-lecciones',
     categoria: 'Práctica extra',
-    icono: 'A',
-    nombre: 'Paquete de +200 preguntas',
-    descripcion: '¿Terminaste las preguntas tan rápido?',
-    type: 'coins',
-    priceCoins: 17
-  },
-  {
-    id: 'paquete-200-flashcards',
-    categoria: 'Práctica extra',
-    icono: 'B',
-    nombre: 'Paquete de +200 flashcards',
-    descripcion: 'Extra de flashcards sobre conceptos.',
+    icono: 'FaBriefcaseMedical',
+    nombre: 'Medicina lección',
+    descripcion: 'Expansión de lecciones ',
     type: 'coins',
     priceCoins: 17
   },
   {
     id: 'examen-simulador',
     categoria: 'Práctica extra',
-    icono: 'C',
+    icono: 'FaClipboardList',
     nombre: 'Examen simulador ',
     descripcion: 'Este es un examen de 2hrs de cuatro secciones',
     type: 'real',
@@ -35,7 +26,7 @@ export const STORE_ITEMS = [
   {
     id: 'seguimiento-proceso',
     categoria: 'Asistencia',
-    icono: 'D',
+    icono: 'FaHeadset',
     nombre: 'Seguimiento de proceso',
     descripcion: 'Te decimos que hacer y donde hacerlo.',
     type: 'coins',
@@ -44,7 +35,7 @@ export const STORE_ITEMS = [
   {
     id: 'plan-premium-mensual',
     categoria: 'Suscripción',
-    icono: 'E',
+    icono: 'FaCrown',
     nombre: 'PrepaApp Premium (3 meses)',
     descripcion: 'Acceso ilimitado + Lecciones en linea',
     type: 'real',
