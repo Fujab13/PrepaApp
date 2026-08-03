@@ -1,7 +1,6 @@
 import { useState, useMemo } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useStore } from '../context/StoreContext'
-import { STORE_ITEMS } from '../data/storeItems'
 
 import { supabase } from '../services/supabaseClient'
 
@@ -23,14 +22,14 @@ const ESTILO_DEFAULT = { Icon: HiOutlineSparkles, tinte: '148, 163, 184' }
 
 export default function Store() {
   const navigate = useNavigate()
-  const { coins, ownsItem, purchaseWithCoins, startRealPayment } = useStore()
+  const { coins, ownsItem, purchaseWithCoins, startRealPayment, claimFreeProduct, items, productosLoading } = useStore()
   const [feedback, setFeedback] = useState(null)
   const [loadingId, setLoadingId] = useState(null)
 
   const categorias = useMemo(() => {
-    const set = new Set(STORE_ITEMS.map(i => i.categoria))
+    const set = new Set(items.map(i => i.categoria))
     return Array.from(set)
-  }, [])
+  }, [items])
 
   function mostrarFeedback(type, text) {
     setFeedback({ type, text })
@@ -50,6 +49,18 @@ export default function Store() {
         mostrarFeedback('error', 'No tienes suficientes monedas')
       } else {
         mostrarFeedback('error', 'Ya tienes este artículo')
+      }
+      setLoadingId(null)
+      return
+    }
+
+    // --- producto real gratuito (precio $0 en Supabase): sin Stripe ---
+    if (item.type === 'real' && item.priceMXN === 0) {
+      const result = await claimFreeProduct(item.productoId)
+      if (result.ok) {
+        mostrarFeedback('success', `¡Desbloqueaste "${item.nombre}"!`)
+      } else {
+        mostrarFeedback('error', 'No se pudo activar la lección gratuita')
       }
       setLoadingId(null)
       return
@@ -150,6 +161,12 @@ export default function Store() {
 
       <div style={{ padding: '20px 24px 28px', display: 'flex', flexDirection: 'column', gap: '28px', flex: 1 }}>
 
+        {productosLoading && (
+          <p style={{ color: 'var(--text-muted)', fontSize: '0.8rem', textAlign: 'center' }}>
+            Cargando tienda…
+          </p>
+        )}
+
         {categorias.map(categoria => {
           const { Icon, tinte } = CATEGORIA_ESTILO[categoria] || ESTILO_DEFAULT
 
@@ -180,7 +197,7 @@ export default function Store() {
               </div>
 
               <div className="sp-grid">
-                {STORE_ITEMS.filter(i => i.categoria === categoria).map(item => {
+                {items.filter(i => i.categoria === categoria).map(item => {
                   const owned = ownsItem(item.id)
                   const isLoading = loadingId === item.id
                   const puedeComprar = item.type === 'coins' ? coins >= item.priceCoins : true
@@ -228,7 +245,9 @@ export default function Store() {
                           ? (<><span className="sp-spinner" />Procesando…</>)
                           : item.type === 'coins'
                             ? `${item.priceCoins} monedas`
-                            : `$${item.priceMXN} MXN`
+                            : item.priceMXN === 0
+                              ? 'Gratis'
+                              : `$${item.priceMXN} MXN`
                       }
                     </button>
                   </div>
