@@ -12,6 +12,7 @@ import { AiOutlineClose } from "react-icons/ai";
 import { PiShoppingCartSimpleFill } from "react-icons/pi";
 import { BiSolidCoin } from "react-icons/bi";
 import { PiHexagonDuotone  } from "react-icons/pi";
+import { renderIconoMateria } from '../utils/renderIconoMateria'
 
 const CATEGORIA_ESTILO = {
   'Práctica extra': { Icon: HiOutlineRectangleStack, tinte: '96, 165, 250' },
@@ -107,8 +108,8 @@ export default function Store() {
   }
 
   return (
-    <div className="suspension-temporal" inert="true"
-    style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+    // className="suspension-temporal" inert="true" 
+    <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
       <div className="sp-header" style={{ padding: '16px 24px', display: 'flex', alignItems: 'center', gap: 10 }}>
         <button
           onClick={() => navigate('/')}
@@ -184,13 +185,16 @@ export default function Store() {
                   const isLoading = loadingId === item.id
                   const puedeComprar = item.type === 'coins' ? coins >= item.priceCoins : true
 
+                  const iconColor = item.type === 'coins' ? '#facc15' : '#7c5cbf'
+                  const iconBg = item.type === 'coins' ? 'rgba(250, 204, 21, 0.16)' : 'rgba(124, 92, 191, 0.16)'
+
                   return (
                     <div key={item.id} className="sp-card">
                     <div className="sp-card-header">
                       
                       <div className="sp-card-icon"
-                        style={{ background: `rgba(${tinte}, 0.14)`,color: `rgb(${tinte})`, }}>
-                        {item.icono}
+                        style={{ background: iconBg, color: iconColor }}>
+                        {renderIconoMateria(item.icono, { size: 24 })}
                       </div>
                       
                       <div className="sp-card-body">

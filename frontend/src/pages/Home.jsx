@@ -7,7 +7,7 @@ import MateriaCard from '../components/MateriaCard'
 import Hexagono from '../components/Hexagono'
 import LibroCard from '../components/LibroCard'
 import Sidenav from '../components/Sidenav'
-import { renderIconoMateria } from '../utils/renderIconoMateria'
+import TemariosCards from '../components/TemariosCards'
 import { triggerVibration } from '../utils/haptics'
 import { obtenerLeccionDeSesion } from '../services/leccionesPremium'
 
@@ -214,89 +214,11 @@ export default function Home() {
   <p style={{ color: 'var(--text-muted)', fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '1.5px', paddingLeft: '4px' }}>
     Tarjetas
   </p>
-  <div style={{ display: 'flex', flexDirection: 'column', gap: '14px', width: '100%' }}>
-    {MATERIAS.map(m => (
-      <div
-        key={m.id}
-        onClick={() => {
-          cambiarFeatured(m.id)
-          navigate(`/lectura/${m.id}`)
-        }}
-        style={{
-          background: 'linear-gradient(135deg, var(--surface) 0%, var(--surface2) 100%)',
-          borderRadius: '12px',
-          padding: '18px 24px',
-          display: 'flex',
-          alignItems: 'center',
-          gap: '20px',
-          cursor: 'pointer',
-          boxShadow: '0 4px 12px rgba(0,0,0,0.03)',
-          position: 'relative',
-          overflow: 'hidden'
-        }}
-      >
-        <div style={{
-          position: 'absolute',
-          left: 0, 
-          top: 0, 
-          bottom: 0,
-          width: '4px',
-          backgroundColor: featured.color || '#ccc'
-        }} />
-        <div style={{
-          fontSize: '1.8rem',
-          width: '44px', 
-          height: '44px',
-          display: 'flex', 
-          alignItems: 'center', 
-          justifyContent: 'center',
-          flexShrink: 0
-        }}>
-          {renderIconoMateria(m.icono, { size: 24 })}
-        </div>
-        <div style={{ 
-          flex: 1, 
-          display: 'flex', 
-          flexDirection: 'column', 
-          alignItems: 'flex-start', 
-          gap: '6px' 
-        }}>
-          <span style={{ 
-            background: 'rgba(255, 255, 255, 0.08)', 
-            padding: '3px 8px', 
-            borderRadius: '4px', 
-            fontSize: '0.65rem', 
-            fontWeight: '700',
-            color: 'var(--text-muted)',
-            textTransform: 'uppercase',
-            letterSpacing: '0.5px'
-          }}>
-            Temario
-          </span>
-          <div style={{ 
-            color: 'var(--text)', 
-            fontSize: '1.1rem', 
-            fontWeight: '600', 
-            lineHeight: '1.3' 
-          }}>
-            {m.descripcion}
-          </div>
-        </div>
-    
-        <div style={{
-          display: 'flex', 
-          alignItems: 'center', 
-          justifyContent: 'center',
-          color: 'var(--text-muted)',
-          fontSize: '1.4rem',
-          paddingLeft: '8px',
-          userSelect: 'none'
-        }}>
-          ›
-        </div>
-      </div>
-    ))}
-  </div>
+  <TemariosCards
+    materias={MATERIAS}
+    featuredColor={featured.color}
+    onSelect={(materia) => cambiarFeatured(materia.id)}
+  />
 </>
         
 
@@ -317,7 +239,7 @@ export default function Home() {
       <div style={{ padding: '24px 24px 0', display: 'flex', alignItems: 'center', gap: 10, color: featured.color }}>
       <span style={{ fontSize: '1.6rem', width: '30px', textAlign: 'center' }}>
           {animacionCarga[frameIdx]}
-        </span>
+      </span>
       </div>
       <footer style={{
   padding: '24px',
