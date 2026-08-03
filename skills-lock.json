@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "skills": {
+    "adding-stripe": {
+      "source": "spencerpauly/awesome-cursor-skills",
+      "sourceType": "github",
+      "skillPath": "resources/adding-stripe/SKILL.md",
+      "computedHash": "3913630122f103444f11955af3b5d9873bfe470690c8fde42f5ba2cde4225e38"
+    },
+    "auditing-security": {
+      "source": "spencerpauly/awesome-cursor-skills",
+      "sourceType": "github",
+      "skillPath": "resources/auditing-security/SKILL.md",
+      "computedHash": "981a56e727eeae39f0502ae4e7b5ee79378185559b933b25b2dfb03910a86a18"
+    },
+    "frontend-design": {
+      "source": "vercel-labs/agent-eval",
+      "ref": "main",
+      "sourceType": "github",
+      "skillPath": "packages/playground/.agents/skills/frontend-design/SKILL.md",
+      "computedHash": "537c1df9d0c694ecf9139a911f9ad0bd111a7ebc173a55457568459e543fe75b"
+    },
+    "supabase": {
+      "source": "supabase/agent-skills",
+      "sourceType": "github",
+      "skillPath": "skills/supabase/SKILL.md",
+      "computedHash": "c4cbf2d313f6afb1ff810623b732961752bb64638f648c7a355449eb6aac9530"
+    }
+  }
+}
