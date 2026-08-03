@@ -254,18 +254,18 @@ export default function Sidenav({ open, onClose }) {
             </button>
           ) : (
             <>
-              <button 
-                onClick={() => ir('/login')} 
+              <button
+                onClick={() => ir('/login?modo=login')}
                 onMouseEnter={() => setHoveredBtn('login')}
                 onMouseLeave={() => setHoveredBtn(null)}
                 style={{
-                  background: hoveredBtn === 'login' ? '#6b4fa3' : '#7c5cbf', 
-                  color: '#fff', 
+                  background: hoveredBtn === 'login' ? '#6b4fa3' : '#7c5cbf',
+                  color: '#fff',
                   border: 'none',
-                  borderRadius: '12px', 
-                  padding: '12px', 
-                  fontWeight: 600, 
-                  fontSize: '0.9rem', 
+                  borderRadius: '12px',
+                  padding: '12px',
+                  fontWeight: 600,
+                  fontSize: '0.9rem',
                   cursor: 'pointer',
                   transition: 'all 0.2s ease',
                   boxShadow: '0 4px 12px rgba(124, 92, 191, 0.25)'
@@ -273,8 +273,8 @@ export default function Sidenav({ open, onClose }) {
               >
                 Iniciar sesión
               </button>
-              <button 
-                onClick={() => ir('/login')} 
+              <button
+                onClick={() => ir('/login?modo=registro')}
                 onMouseEnter={() => setHoveredBtn('signup')}
                 onMouseLeave={() => setHoveredBtn(null)}
                 style={{
