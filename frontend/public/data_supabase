@@ -1,17 +1,130 @@
-fujab13@gmail.com
+auth.users.id
 
-Bases de datos 
+## Table `progreso_usuario`
+| Name | Type | Constraints |
+|------|------|-------------|
+| `id` | `uuid` | Primary |
+| `user_id` | `uuid` |  |
+| `materia_id` | `text` |  |
+| `unidad_actual` | `int4` |  Nullable |
+| `elemento_actual` | `int4` |  Nullable |
+| `ultima_interaccion` | `timestamp` |  Nullable |
 
-    progreso_usuario
-        id
-        user_id
-        materia_id
-        unidad_actual
-        elemento_actual
-        ultima_interaccion
+## Table `inventario_movimientos`
+| Name | Type | Constraints |
+|------|------|-------------|
+| `id` | `uuid` | Primary |
+| `user_id` | `uuid` |  |
+| `producto_id` | `uuid` |  |
+| `tipo_movimiento` | `varchar` |  |
+| `cantidad` | `int4` |  |
+| `transaccion_id` | `uuid` |  Nullable |
+| `metadata` | `jsonb` |  Nullable |
+| `creado_en` | `timestamptz` |  |
 
-    inventario_usuario
+## Table `transacciones`
+| Name | Type | Constraints |
+|------|------|-------------|
+| `id` | `uuid` | Primary |
+| `user_id` | `uuid` |  Nullable |
+| `producto_id` | `uuid` |  Nullable |
+| `monto_total` | `numeric` |  |
+| `moneda` | `varchar` |  |
+| `estado_pago` | `varchar` |  |
+| `stripe_intent_id` | `varchar` |  Nullable Unique |
+| `creado_en` | `timestamptz` |  |
+| `actualizado_en` | `timestamptz` |  |
+| `cantidad` | `int4` |  |
 
-    productos_tienda
+## Table `productos`
+| Name | Type | Constraints |
+|------|------|-------------|
+| `id` | `uuid` | Primary |
+| `nombre` | `varchar` |  |
+| `descripcion` | `text` |  Nullable |
+| `precio` | `numeric` |  |
+| `tipo_producto` | `varchar` |  |
+| `sku` | `varchar` |  Nullable Unique |
+| `activo` | `bool` |  |
+| `metadata` | `jsonb` |  Nullable |
+| `creado_en` | `timestamptz` |  |
 
-    compra_transaccion
+## Table `inventario_usuario`
+| Name | Type | Constraints |
+|------|------|-------------|
+| `user_id` | `uuid` | Primary |
+| `producto_id` | `uuid` | Primary |
+| `adquirido_via_transaccion_id` | `uuid` |  Nullable |
+| `fecha_adquisicion` | `timestamptz` |  |
+| `cantidad_disponible` | `int4` |  |
+| `cantidad_total_adquirida` | `int4` |  |
+| `actualizado_en` | `timestamptz` |  |
+
+
+//// - Database Indexes
+
+| Table | Columns | Name |
+| ---- | ---- | ---- |
+| `inventario_movimientos` | `user_id, producto_id` | `idx_inv_movs_user_producto` |
+| `inventario_movimientos` | `id` | `inventario_movimientos_pkey` |
+| `inventario_usuario` | `user_id, producto_id` | `inventario_usuario_pkey` |
+| `productos` | `id` | `productos_pkey` |
+| `productos` | `sku` | `productos_sku_key` |
+| `progreso_usuario` | `id` | `progreso_usuario_pkey` |
+| `progreso_usuario` | `user_id, materia_id` | `progreso_usuario_user_id_materia_id_key` |
+| `transacciones` | `id` | `transacciones_pkey` |
+| `transacciones` | `stripe_intent_id` | `transacciones_stripe_intent_id_key` |
+
+//// - Database Functions
+
+BEGIN
+  -- Insertar 1 intento en el inventario
+  INSERT INTO public.inventario_usuario (user_id, producto_id, fecha_adquisicion, cantidad_disponible, cantidad_total_adquirida, actualizado_en)
+  VALUES (NEW.id, '9ad86f75-1279-4783-8efc-05f0a36c50ac', NOW(), 1, 1, NOW());
+  -- Dejar registro en el historial de movimientos
+  INSERT INTO public.inventario_movimientos (user_id, producto_id, tipo_movimiento, cantidad, creado_en)
+  VALUES (NEW.id, '9ad86f75-1279-4783-8efc-05f0a36c50ac', 'intento_gratis_registro', 1, NOW());
+  RETURN NEW;
+END;
+
+DECLARE
+  v_filas_afectadas INTEGER;
+BEGIN
+  UPDATE inventario_usuario
+  SET cantidad_disponible = cantidad_disponible - 1, actualizado_en = timezone('utc', now())
+  WHERE user_id = p_user_id AND producto_id = p_producto_id AND cantidad_disponible > 0;
+  GET DIAGNOSTICS v_filas_afectadas = ROW_COUNT;
+  IF v_filas_afectadas = 1 THEN
+    INSERT INTO inventario_movimientos (user_id, producto_id, tipo_movimiento, cantidad)
+    VALUES (p_user_id, p_producto_id, 'uso', -1);
+    RETURN true;
+  ELSE
+    RETURN false; -- no tenía saldo disponible
+  END IF;
+END;
+
+DECLARE
+    v_transaccion RECORD;
+BEGIN
+    -- 1. Buscar la transacción pendiente
+    SELECT * INTO v_transaccion FROM transacciones 
+    WHERE stripe_intent_id = p_stripe_intent_id AND estado_pago = 'pendiente';
+    IF NOT FOUND THEN
+        RAISE EXCEPTION 'Transacción no encontrada o ya fue procesada';
+    END IF;
+    -- 2. Marcar transacción como completada
+    UPDATE transacciones 
+    SET estado_pago = 'completado', actualizado_en = NOW() 
+    WHERE id = v_transaccion.id;
+    -- 3. Actualizar o insertar en inventario_usuario
+    INSERT INTO inventario_usuario (user_id, producto_id, fecha_adquisicion, cantidad_disponible, cantidad_total_adquirida, actualizado_en, adquirido_via_transaccion_id)
+    VALUES (v_transaccion.user_id, v_transaccion.producto_id, NOW(), v_transaccion.cantidad, v_transaccion.cantidad, NOW(), v_transaccion.id)
+    ON CONFLICT (user_id, producto_id) 
+    DO UPDATE SET 
+        cantidad_disponible = inventario_usuario.cantidad_disponible + v_transaccion.cantidad,
+        cantidad_total_adquirida = inventario_usuario.cantidad_total_adquirida + v_transaccion.cantidad,
+        actualizado_en = NOW();
+    -- 4. Registrar en inventario_movimientos
+    INSERT INTO inventario_movimientos (user_id, producto_id, tipo_movimiento, cantidad, transaccion_id, creado_en)
+    VALUES (v_transaccion.user_id, v_transaccion.producto_id, 'compra_stripe', v_transaccion.cantidad, v_transaccion.id, NOW());
+END;

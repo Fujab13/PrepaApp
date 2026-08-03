@@ -1,6 +1,7 @@
-import { createContext, useContext, useState, useEffect, useCallback } from 'react'
+import { createContext, useContext, useState, useEffect, useCallback, useMemo } from 'react'
 import { supabase } from '../services/supabaseClient'
-import { STORE_ITEMS } from '../data/storeItems'
+import { fetchProductosActivos } from '../services/productos'
+import { COIN_ITEMS, productoAStoreItem } from '../data/storeItems'
 
 const StoreContext = createContext(null)
 
@@ -31,6 +32,28 @@ export function StoreProvider({ children }) {
   // --- Inventario real, leído de Supabase (fuente de verdad para compras con dinero) ---
   const [dbInventory, setDbInventory] = useState([]) // [{ producto_id, cantidad_disponible, cantidad_total_adquirida }]
   const [dbInventoryLoading, setDbInventoryLoading] = useState(false)
+
+  // --- Catálogo real, leído de la tabla `productos` de Supabase ---
+  const [productos, setProductos] = useState([])
+  const [productosLoading, setProductosLoading] = useState(true)
+
+  const fetchProductos = useCallback(async () => {
+    setProductosLoading(true)
+    const data = await fetchProductosActivos()
+    setProductos(data)
+    setProductosLoading(false)
+  }, [])
+
+  useEffect(() => {
+    fetchProductos()
+  }, [fetchProductos])
+
+  // Catálogo completo que consume Store.jsx: items de gamificación (fijos)
+  // + items reales (nombre/precio/disponibilidad vienen de Supabase, no hardcodeados)
+  const items = useMemo(
+    () => [...COIN_ITEMS, ...productos.map(productoAStoreItem)],
+    [productos]
+  )
 
   useEffect(() => {
     localStorage.setItem(COINS_KEY, String(coins))
@@ -112,7 +135,7 @@ export function StoreProvider({ children }) {
   //  - type: 'coins'  -> revisa el arreglo local `inventory`
   //  - type: 'real'   -> revisa `dbInventory` (la verdad la tiene Supabase)
   const ownsItem = useCallback((itemId) => {
-    const item = STORE_ITEMS.find(i => i.id === itemId)
+    const item = items.find(i => i.id === itemId)
 
     if (item?.productoId) {
       return dbInventory.some(
@@ -121,18 +144,18 @@ export function StoreProvider({ children }) {
     }
 
     return inventory.includes(itemId)
-  }, [inventory, dbInventory])
+  }, [inventory, dbInventory, items])
 
   // Cuántas unidades le quedan disponibles de un producto consumible
   // (útil más adelante para cosas como "intentos de examen"). Si el item
   // no es de tipo 'real' o no tiene productoId, devuelve null.
   const saldoDisponible = useCallback((itemId) => {
-    const item = STORE_ITEMS.find(i => i.id === itemId)
+    const item = items.find(i => i.id === itemId)
     if (!item?.productoId) return null
 
     const fila = dbInventory.find(row => row.producto_id === item.productoId)
     return fila ? fila.cantidad_disponible : 0
-  }, [dbInventory])
+  }, [dbInventory, items])
 
   // Compra con monedas internas (gamificación, sin dinero real)
   const purchaseWithCoins = useCallback((item) => {
@@ -155,6 +178,23 @@ export function StoreProvider({ children }) {
     return { ok: false, reason: 'payment_gateway_not_implemented' }
   }, [])
 
+  // Reclama un producto de precio $0 (ej. "Medicina lección") sin pasar por
+  // Stripe, vía el RPC `reclamar_producto_gratis` (SECURITY DEFINER: la
+  // tabla `inventario_usuario` no admite INSERT directo del cliente).
+  const claimFreeProduct = useCallback(async (productoId) => {
+    const { error } = await supabase.rpc('reclamar_producto_gratis', {
+      p_producto_id: productoId,
+    })
+
+    if (error) {
+      console.error('[Store] No se pudo reclamar el producto gratis:', error.message)
+      return { ok: false, reason: error.message }
+    }
+
+    await fetchDbInventory(user?.id)
+    return { ok: true }
+  }, [fetchDbInventory, user])
+
   const grantPurchase = useCallback((itemId) => {
     setInventory(prev => prev.includes(itemId) ? prev : [...prev, itemId])
   }, [])
@@ -168,12 +208,15 @@ export function StoreProvider({ children }) {
       saldoDisponible,
       purchaseWithCoins,
       startRealPayment,
+      claimFreeProduct,
       grantPurchase,
       user,
       authLoading,
       dbInventory,
       dbInventoryLoading,
       refreshInventory,
+      items,
+      productosLoading,
     }}>
       {children}
     </StoreContext.Provider>
