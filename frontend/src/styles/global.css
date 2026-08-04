@@ -213,6 +213,22 @@ display: flex;
   box-sizing: border-box;
 }
 
+/* Cabecera y contenido de las paginas secundarias (Inventario, Store, Leccion,
+   Lectura, Examen): mismo patron que .page-topbar/.page-content pero con
+   margenes laterales mas angostos, para diferenciarlas de Home.jsx. */
+.page-topbar-compact {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 24px 16px 0;
+  box-sizing: border-box;
+}
+
+.page-content-compact {
+  padding: 24px 16px;
+  box-sizing: border-box;
+}
+
 /* Barra de acciones fija en la parte inferior, inspirada en Examen.jsx.
    Evita que los botones queden ocultos bajo el viewport en movil. */
 .page-footer-fixed {
@@ -227,7 +243,7 @@ display: flex;
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 10px 14px 16px;
+  padding: 10px 16px 16px;
   box-sizing: border-box;
   z-index: 30;
 }

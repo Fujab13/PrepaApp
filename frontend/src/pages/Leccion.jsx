@@ -13,12 +13,54 @@ import { getPreguntasDeUnidad } from '../data/unidades'
 import { obtenerLeccionDeSesion } from '../services/leccionesPremium';
 
 import { IoMdClose } from "react-icons/io";
-import { AiOutlineClose } from "react-icons/ai";
+import { AiOutlineClose, AiOutlineLoading3Quarters } from "react-icons/ai";
 import { MdFullscreen } from "react-icons/md";
 import { VscDebugRestart } from "react-icons/vsc";
 import { MdRestartAlt } from "react-icons/md";
-import { PiCopy } from "react-icons/pi";
+import { PiCopy, PiCheckBold } from "react-icons/pi";
+import { MdOutlineReplay } from "react-icons/md";
 
+const COLOR_REFUERZO = '#f59e0b'
+
+// --- Persistencia local de preguntas falladas, por materia y por unidad ---
+// No usa Supabase: es una mejora de UX local, no progreso "oficial".
+function leerFallosGuardados(materiaId) {
+  try {
+    const raw = localStorage.getItem(`refuerzo_${materiaId}`)
+    return raw ? JSON.parse(raw) : {}
+  } catch {
+    return {}
+  }
+}
+
+function guardarFalloEnUnidad(materiaId, unidad, preguntaObj) {
+  const todos = leerFallosGuardados(materiaId)
+  const lista = todos[unidad] || []
+  if (lista.some(p => p.pregunta === preguntaObj.pregunta)) return
+
+  todos[unidad] = [
+    ...lista,
+    { pregunta: preguntaObj.pregunta, opciones: preguntaObj.opciones, correcta: preguntaObj.correcta }
+  ].slice(-6)
+
+  localStorage.setItem(`refuerzo_${materiaId}`, JSON.stringify(todos))
+}
+
+// Extrae hasta `cantidad` preguntas falladas de una unidad (al azar) y las
+// retira de la reserva para no repetirlas en el siguiente repaso.
+function tomarFallosDeUnidad(materiaId, unidad, cantidad) {
+  const todos = leerFallosGuardados(materiaId)
+  const lista = todos[unidad] || []
+  if (lista.length === 0) return []
+
+  const barajada = [...lista].sort(() => Math.random() - 0.5)
+  const elegidas = barajada.slice(0, cantidad)
+
+  todos[unidad] = lista.filter(p => !elegidas.includes(p))
+  localStorage.setItem(`refuerzo_${materiaId}`, JSON.stringify(todos))
+
+  return elegidas
+}
 
 export default function Leccion() {
   const { materiaId } = useParams()
@@ -26,7 +68,7 @@ export default function Leccion() {
   const [materia, setMateria] = useState(null)
   const [cargando, setCargando] = useState(true)
   const [errorCarga, setErrorCarga] = useState('')
-  const { unidad, elemento, guardarProgreso, reiniciar } = useProgreso(materiaId)
+  const { unidad, elemento, cargando: cargandoProgreso, guardarProgreso, reiniciar } = useProgreso(materiaId)
 
   const [cola, setCola]                             = useState(null)
   const [correctasIniciales, setCorrectasIniciales]  = useState(0)
@@ -35,10 +77,17 @@ export default function Leccion() {
   const [feedback, setFeedback]                      = useState('')
   const [estados, setEstados]                        = useState(['normal', 'normal', 'normal'])
   const [esFullscreen, setEsFullscreen]              = useState(false)
+  const [enRepaso, setEnRepaso]                      = useState(false)
+  const [colaRepaso, setColaRepaso]                  = useState([])
+  const [copiado, setCopiado]                        = useState(false)
   const inicializadoRef = useRef(false)
 
   useEffect(() => {
-    if (cargando || elemento === undefined || !materia || inicializadoRef.current) return
+    // Espera tanto a que cargue la lección como a que useProgreso termine de
+    // leer la unidad/elemento reales (Supabase o localStorage); si no, este
+    // efecto corre primero con los valores por defecto (unidad 1, elemento 0)
+    // y se alcanza a ver un parpadeo de la unidad 1 antes de corregirse.
+    if (cargando || cargandoProgreso || elemento === undefined || !materia || inicializadoRef.current) return
 
     const total = getPreguntasDeUnidad(materia.preguntas, unidad).length
     if (total === 0) return
@@ -51,10 +100,12 @@ export default function Leccion() {
     setCola(restantes.length > 0 ? restantes : Array.from({ length: total }, (_, i) => i))
 
     inicializadoRef.current = true
-  }, [cargando, elemento, materia, unidad])
+  }, [cargando, cargandoProgreso, elemento, materia, unidad])
 
   useEffect(() => {
     inicializadoRef.current = false
+    setEnRepaso(false)
+    setColaRepaso([])
   }, [materiaId, unidad])
 
   useEffect(() => {
@@ -133,15 +184,38 @@ export default function Leccion() {
 
   if (!materia) return null
 
-  const preguntas = cargando ? [] : getPreguntasDeUnidad(materia.preguntas, unidad)
+  const preguntas = (cargando || cargandoProgreso) ? [] : getPreguntasDeUnidad(materia.preguntas, unidad)
   const colaLista = cola !== null
   const idxActual = colaLista && cola.length > 0 ? cola[0] : null
-  const pregunta  = idxActual !== null ? preguntas[idxActual] : null
+  const pregunta  = enRepaso
+    ? (colaRepaso[0] || null)
+    : (idxActual !== null ? preguntas[idxActual] : null)
 
-  if (cargando || !colaLista || preguntas.length === 0 || !pregunta) {
+  if (cargando || cargandoProgreso || !colaLista || preguntas.length === 0 || !pregunta) {
     return (
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '100vh', color: 'var(--text-muted)', fontSize: '0.9rem' }}>
-        {errorCarga || 'Cargando . . .'}
+      <div style={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        gap: 14,
+        minHeight: '100vh',
+        padding: '24px',
+        textAlign: 'center',
+      }}>
+        {errorCarga ? (
+          <p style={{ color: 'var(--wrong)', fontSize: '0.9rem', margin: 0 }}>{errorCarga}</p>
+        ) : (
+          <>
+            <AiOutlineLoading3Quarters
+              className="spin"
+              style={{ fontSize: '1.8rem', color: materia?.color || '#7c5cbf' }}
+            />
+            <p style={{ color: 'var(--text-muted)', fontSize: '0.85rem', margin: 0 }}>
+              Preparando tu lección…
+            </p>
+          </>
+        )}
       </div>
     )
   }
@@ -149,7 +223,7 @@ export default function Leccion() {
   const totalCorrectas = correctasIniciales + correctasNuevas
   const avance      = Math.round((totalCorrectas / preguntas.length) * 100)
   const progresoHex = Math.round((totalCorrectas / preguntas.length) * 6)
-  const esUltima    = cola.length === 1 // && totalCorrectas === preguntas.length - 1
+  const esUltima    = enRepaso ? colaRepaso.length === 1 : cola.length === 1
 
   function responder(i) {
     if (respondido) return
@@ -163,10 +237,38 @@ export default function Leccion() {
     setEstados(nuevos)
     setRespondido(true)
     setFeedback(esCorrecta ? '✅ ¡Correcto!' : '❌ Incorrecto. Corrigela al final.')
+
+    if (!esCorrecta) {
+      // En repaso, guarda de nuevo bajo la unidad de origen para que
+      // vuelva a aparecer más adelante si aún no se domina.
+      const unidadClave = enRepaso ? unidad - 1 : unidad
+      guardarFalloEnUnidad(materiaId, unidadClave, pregunta)
+    }
   }
 
   async function siguiente() {
     const respondioMal = estados.includes('incorrecto')
+
+    if (enRepaso) {
+      let nuevaColaRepaso = colaRepaso.slice(1)
+      if (respondioMal) {
+        nuevaColaRepaso = [...nuevaColaRepaso, colaRepaso[0]]
+      }
+
+      setRespondido(false)
+      setFeedback('')
+
+      if (nuevaColaRepaso.length === 0) {
+        setEnRepaso(false)
+        await guardarProgreso(unidad + 1, 0)
+        navigate('/')
+        return
+      }
+
+      setColaRepaso(nuevaColaRepaso)
+      setEstados(Array(nuevaColaRepaso[0].opciones.length).fill('normal'))
+      return
+    }
 
     let nuevaCola = cola.slice(1)
     let nuevasCorrectas = correctasNuevas
@@ -182,6 +284,16 @@ export default function Leccion() {
     setFeedback('')
 
     if (nuevaCola.length === 0) {
+      // Unidad terminada: si en la unidad anterior hubo preguntas falladas,
+      // se hace un repaso de refuerzo antes de avanzar de verdad.
+      const fallosPrevios = unidad > 1 ? tomarFallosDeUnidad(materiaId, unidad - 1, 3) : []
+      if (fallosPrevios.length > 0) {
+        setEnRepaso(true)
+        setColaRepaso(fallosPrevios)
+        setEstados(Array(fallosPrevios[0].opciones.length).fill('normal'))
+        return
+      }
+
       await guardarProgreso(unidad + 1, 0)
       navigate('/')
       return
@@ -199,9 +311,12 @@ export default function Leccion() {
   async function borrarProgresoTemporal() {
     if (window.confirm('Esto borrará todo el progreso de esta materia. ¿Continuar?')) {
       await reiniciar()
+      localStorage.removeItem(`refuerzo_${materiaId}`)
       setCola(null)
       setCorrectasIniciales(0)
       setCorrectasNuevas(0)
+      setEnRepaso(false)
+      setColaRepaso([])
       setEstados(['normal', 'normal', 'normal'])
       setRespondido(false)
       setFeedback('')
@@ -212,6 +327,8 @@ export default function Leccion() {
   function copiarPregunta() {
     const texto = `${pregunta.pregunta}\n\n${pregunta.opciones.map((op, i) => `${i + 1}. ${op}`).join('\n')}\n\nRespuesta correcta: ${pregunta.opciones[pregunta.correcta]}`
     navigator.clipboard.writeText(texto)
+    setCopiado(true)
+    setTimeout(() => setCopiado(false), 1500)
   }
 
   function toggleFullscreen() {
@@ -254,7 +371,7 @@ export default function Leccion() {
       boxSizing: 'border-box',
     }}>
 
-      <div className="page-topbar" style={{ paddingBottom: 12 }}>
+      <div className="page-topbar-compact" style={{ paddingBottom: 12 }}>
         {/* 1. Botón Salir */}
         <button
           onClick={() => navigate('/')}
@@ -309,35 +426,52 @@ export default function Leccion() {
         <div className="page-topbar-actions" style={{ gap: '4px' }}>
           {[
             { label: <MdRestartAlt />, title: 'Reiniciar', action: borrarProgresoTemporal },
-            { label: <PiCopy />, title: 'Copiar pregunta', action: copiarPregunta },
+            { label: copiado ? <PiCheckBold /> : <PiCopy />, title: 'Copiar pregunta', action: copiarPregunta },
             { label: esFullscreen ? <MdFullscreen /> : <MdFullscreen />, action: toggleFullscreen },
           ].map(({ label, title, action }) => (
-            <button
-              key={title}
-              onClick={action}
-              title={title}
-              className="util-btn"
-              style={{
-                background: 'transparent',
-                border: 'none',
-                color: 'var(--text-muted)',
-                fontSize: '1.2rem', 
-                cursor: 'pointer',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                padding: '6px', 
-                borderRadius: '6px',
-                transition: 'background 0.2s ease',
-              }}
-            >
-              {label}
-            </button>
+            <div key={title} style={{ position: 'relative', display: 'flex' }}>
+              <button
+                onClick={action}
+                title={title}
+                className="util-btn"
+                style={{
+                  background: 'transparent',
+                  border: 'none',
+                  color: title === 'Copiar pregunta' && copiado ? 'var(--correct)' : 'var(--text-muted)',
+                  fontSize: '1.2rem',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  padding: '6px',
+                  borderRadius: '6px',
+                  transition: 'background 0.2s ease',
+                }}
+              >
+                {label}
+              </button>
+              {title === 'Copiar pregunta' && copiado && (
+                <span style={{
+                  position: 'absolute',
+                  top: '100%',
+                  left: '50%',
+                  transform: 'translateX(-50%)',
+                  marginTop: 2,
+                  color: 'var(--correct)',
+                  fontSize: '0.68rem',
+                  fontWeight: 700,
+                  whiteSpace: 'nowrap',
+                  pointerEvents: 'none',
+                }}>
+                  ¡Copiado!
+                </span>
+              )}
+            </div>
           ))}
         </div>
       </div>
 
-      <div className="page-content" style={{ paddingTop: 18, display: 'flex', flexDirection: 'column', flex: 1, paddingBottom: 100 }}>
+      <div className="page-content-compact" style={{ paddingTop: 18, display: 'flex', flexDirection: 'column', flex: 1, paddingBottom: 100 }}>
 
       <div style={{
         display: 'flex',
@@ -346,13 +480,30 @@ export default function Leccion() {
         marginBottom: 18,
       }}>
         <div style={{ flex: 1 }}>
-          <p style={{ color: 'var(--text)', fontWeight: 600, fontSize: '0.9rem', margin: '0 0 2px' }}>
-            Correctas {totalCorrectas}
-            <span style={{ color: 'var(--text-muted)', fontWeight: 400 }}> / {preguntas.length}</span>
-          </p>
-          <p style={{ color: 'var(--text-muted)', fontSize: '0.75rem', margin: 0 }}>
-            Unidad {unidad}
-          </p>
+          {enRepaso ? (
+            <>
+              <p style={{
+                color: COLOR_REFUERZO, fontWeight: 700, fontSize: '0.78rem', margin: '0 0 2px',
+                display: 'inline-flex', alignItems: 'center', gap: 5,
+                textTransform: 'uppercase', letterSpacing: '0.04em'
+              }}>
+                <MdOutlineReplay /> Refuerzo
+              </p>
+              <p style={{ color: 'var(--text-muted)', fontSize: '0.75rem', margin: 0 }}>
+                Repasando la unidad {unidad - 1} · {colaRepaso.length} restante{colaRepaso.length === 1 ? '' : 's'}
+              </p>
+            </>
+          ) : (
+            <>
+              <p style={{ color: 'var(--text)', fontWeight: 600, fontSize: '0.9rem', margin: '0 0 2px' }}>
+                Correctas {totalCorrectas}
+                <span style={{ color: 'var(--text-muted)', fontWeight: 400 }}> / {preguntas.length}</span>
+              </p>
+              <p style={{ color: 'var(--text-muted)', fontSize: '0.75rem', margin: 0 }}>
+                Unidad {unidad}
+              </p>
+            </>
+          )}
         </div>
       </div>
       {/* SVG de la pregunta (si existe) */}
@@ -383,7 +534,7 @@ export default function Leccion() {
         borderRadius: 'var(--radius)',
         padding: '16px 18px',
         marginBottom: 14,
-        borderLeft: `3px solid ${materia.color}`,
+        borderLeft: `3px solid ${enRepaso ? COLOR_REFUERZO : materia.color}`,
       }}>
         <p style={{
           fontSize: '1rem',
@@ -425,7 +576,7 @@ export default function Leccion() {
           <button
             onClick={siguiente}
             style={{
-              background: materia.color,
+              background: enRepaso ? COLOR_REFUERZO : materia.color,
               color: '#000',
               fontWeight: 700,
               border: 'none',
@@ -437,7 +588,7 @@ export default function Leccion() {
               letterSpacing: '0.01em',
             }}
           >
-            {esUltima ? ' Finalizar lección' : 'Siguiente'}
+            {esUltima ? (enRepaso ? 'Finalizar repaso' : 'Finalizar lección') : 'Siguiente'}
           </button>
         </div>
       )}

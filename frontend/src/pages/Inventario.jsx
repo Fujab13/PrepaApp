@@ -83,14 +83,14 @@ export default function Inventario({ onClose, onNavigateStore }) {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', width: '100%' }}>
 
-      <div className="page-topbar">
+      <div className="page-topbar-compact">
         <button onClick={handleClose} title="Salir" className="page-topbar-btn">
           <AiOutlineClose />
         </button>
         <h2 className="page-topbar-title">Inventario</h2>
       </div>
 
-      <div className="page-content" style={{ display: 'flex', flexDirection: 'column', gap: '20px', flex: 1 }}>
+      <div className="page-content-compact" style={{ display: 'flex', flexDirection: 'column', gap: '20px', flex: 1 }}>
         {errorLeccion && (
           <p style={{ color: 'salmon' }}>{errorLeccion}</p>
         )}
