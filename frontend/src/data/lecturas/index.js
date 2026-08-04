@@ -1,7 +1,9 @@
 import lecturaEspanol from './espanol'
+import lecturaMatematicas from './matematicas'
 
 export const LECTURAS = [
-  lecturaEspanol
+  lecturaEspanol,
+  lecturaMatematicas
 ]
 
 export function getLectura(materiaId) {

@@ -5,769 +5,1274 @@
   "descripcion": "Álgebra, geometría y aritmética",
   "preguntas": [
     {
-      "pregunta": "Haga clic en el inciso b)",
-      "opciones": [
-        "Inciso a",
-        "Inciso b",
-        "Inciso c"
-      ],
+      "pregunta": "¿Cuál es el conjunto numérico más pequeño al que pertenece el número -7?",
+      "opciones": ["Números naturales", "Números enteros", "Números irracionales"],
       "correcta": 1
     },
     {
-      "pregunta": "Seleccione la opción correspondiente al inciso b)",
-      "opciones": [
-        "Inciso a",
-        "Inciso b",
-        "Inciso c"
-      ],
+      "pregunta": "¿Cuál de los siguientes números es irracional?",
+      "opciones": ["0.333... (periódico)", "√2", "3/4"],
       "correcta": 1
     },
     {
-      "pregunta": "Marque la opción que indica el inciso b)",
-      "opciones": [
-        "Inciso a",
-        "Inciso b",
-        "Inciso c"
-      ],
+      "pregunta": "¿A qué conjunto numérico pertenece 5/2?",
+      "opciones": ["Números enteros", "Números racionales", "Números irracionales"],
       "correcta": 1
     },
     {
-      "pregunta": "Elija el inciso b)",
-      "opciones": [
-        "Inciso a",
-        "Inciso b",
-        "Inciso c"
-      ],
+      "pregunta": "Aplicando la jerarquía de operaciones, ¿cuál es el resultado de 3 + 4 × 2?",
+      "opciones": ["14", "11", "10"],
       "correcta": 1
     },
     {
-      "pregunta": "Presione sobre el inciso b)",
-      "opciones": [
-        "Inciso a",
-        "Inciso b",
-        "Inciso c"
-      ],
-      "correcta": 1
+      "pregunta": "Calcula: 20 − 3 × (4 − 2)",
+      "opciones": ["14", "34", "8"],
+      "correcta": 0
     },
     {
-      "pregunta": "Haga clic en el inciso b)",
-      "opciones": [
-        "Inciso a",
-        "Inciso b",
-        "Inciso c"
-      ],
-      "correcta": 1
+      "pregunta": "¿Cuál es el resultado de (6 + 2) × (5 − 3)?",
+      "opciones": ["16", "13", "10"],
+      "correcta": 0
     },
     {
-      "pregunta": "Seleccione la opción correspondiente al inciso b)",
-      "opciones": [
-        "Inciso a",
-        "Inciso b",
-        "Inciso c"
-      ],
+      "pregunta": "El valor absoluto de −9 es:",
+      "opciones": ["−9", "9", "0"],
       "correcta": 1
     },
     {
-      "pregunta": "Marque la opción que indica el inciso b)",
-      "opciones": [
-        "Inciso a",
-        "Inciso b",
-        "Inciso c"
-      ],
-      "correcta": 1
+      "pregunta": "¿Cuál es el resultado de |−5| + |−3|?",
+      "opciones": ["8", "2", "−8"],
+      "correcta": 0
     },
     {
-      "pregunta": "Elija el inciso b)",
-      "opciones": [
-        "Inciso a",
-        "Inciso b",
-        "Inciso c"
-      ],
-      "correcta": 1
+      "pregunta": "¿Cuál de estos números reales no es racional ni entero?",
+      "opciones": ["π (pi)", "−4", "7/8"],
+      "correcta": 0
     },
     {
-      "pregunta": "Presione sobre el inciso b)",
-      "opciones": [
-        "Inciso a",
-        "Inciso b",
-        "Inciso c"
-      ],
-      "correcta": 1
+      "pregunta": "Resuelve aplicando la jerarquía de operaciones: 2 + 3² × 2",
+      "opciones": ["20", "22", "30"],
+      "correcta": 0
     },
     {
-      "pregunta": "Haga clic en el inciso b)",
-      "opciones": [
-        "Inciso a",
-        "Inciso b",
-        "Inciso c"
-      ],
-      "correcta": 1
+      "pregunta": "Sin usar paréntesis, ¿cuál de estas operaciones se resuelve primero según la jerarquía de operaciones?",
+      "opciones": ["Suma", "Multiplicación", "Potenciación"],
+      "correcta": 2
     },
     {
-      "pregunta": "Seleccione la opción correspondiente al inciso b)",
-      "opciones": [
-        "Inciso a",
-        "Inciso b",
-        "Inciso c"
-      ],
-      "correcta": 1
+      "pregunta": "Calcula: 15 ÷ 3 + 2 × 4",
+      "opciones": ["13", "20", "10"],
+      "correcta": 0
     },
     {
-      "pregunta": "Marque la opción que indica el inciso b)",
-      "opciones": [
-        "Inciso a",
-        "Inciso b",
-        "Inciso c"
-      ],
-      "correcta": 1
+      "pregunta": "¿Cuál de las siguientes opciones es un número natural?",
+      "opciones": ["−3", "0.5", "7"],
+      "correcta": 2
     },
     {
-      "pregunta": "Elija el inciso b)",
-      "opciones": [
-        "Inciso a",
-        "Inciso b",
-        "Inciso c"
-      ],
+      "pregunta": "El conjunto de los números reales está formado por:",
+      "opciones": ["Solo los números racionales", "Los números racionales y los irracionales", "Solo los números enteros"],
       "correcta": 1
     },
     {
-      "pregunta": "Presione sobre el inciso b)",
-      "opciones": [
-        "Inciso a",
-        "Inciso b",
-        "Inciso c"
-      ],
-      "correcta": 1
+      "pregunta": "¿Qué signo resulta al multiplicar dos números negativos entre sí?",
+      "opciones": ["Positivo", "Negativo", "Depende del valor"],
+      "correcta": 0
     },
     {
-      "pregunta": "Haga clic en el inciso b)",
-      "opciones": [
-        "Inciso a",
-        "Inciso b",
-        "Inciso c"
-      ],
-      "correcta": 1
+      "pregunta": "¿Cuál es el resultado de −8 + 3?",
+      "opciones": ["−5", "5", "−11"],
+      "correcta": 0
     },
     {
-      "pregunta": "Seleccione la opción correspondiente al inciso b)",
-      "opciones": [
-        "Inciso a",
-        "Inciso b",
-        "Inciso c"
-      ],
+      "pregunta": "¿Cuál es el resultado de −4 × (−2)?",
+      "opciones": ["−8", "8", "−6"],
       "correcta": 1
     },
     {
-      "pregunta": "Marque la opción que indica el inciso b)",
-      "opciones": [
-        "Inciso a",
-        "Inciso b",
-        "Inciso c"
-      ],
-      "correcta": 1
+      "pregunta": "¿Cuál es el resultado de −12 ÷ 4?",
+      "opciones": ["−3", "3", "−8"],
+      "correcta": 0
     },
     {
-      "pregunta": "Elija el inciso b)",
-      "opciones": [
-        "Inciso a",
-        "Inciso b",
-        "Inciso c"
-      ],
+      "pregunta": "¿Cuál de los siguientes números es primo?",
+      "opciones": ["21", "29", "33"],
       "correcta": 1
     },
     {
-      "pregunta": "Presione sobre el inciso b)",
-      "opciones": [
-        "Inciso a",
-        "Inciso b",
-        "Inciso c"
-      ],
+      "pregunta": "¿Cuál de los siguientes números es compuesto?",
+      "opciones": ["17", "24", "31"],
       "correcta": 1
     },
     {
-      "pregunta": "Haga clic en el inciso b)",
-      "opciones": [
-        "Inciso a",
-        "Inciso b",
-        "Inciso c"
-      ],
+      "pregunta": "Según los criterios de divisibilidad, un número es divisible entre 3 cuando:",
+      "opciones": ["Termina en 0 o 5", "La suma de sus dígitos es múltiplo de 3", "Es un número par"],
       "correcta": 1
     },
     {
-      "pregunta": "Seleccione la opción correspondiente al inciso b)",
-      "opciones": [
-        "Inciso a",
-        "Inciso b",
-        "Inciso c"
-      ],
-      "correcta": 1
+      "pregunta": "El número 402 es divisible entre 3 porque:",
+      "opciones": ["4 + 0 + 2 = 6, que es múltiplo de 3", "Termina en 2", "Es un número par"],
+      "correcta": 0
     },
     {
-      "pregunta": "Marque la opción que indica el inciso b)",
-      "opciones": [
-        "Inciso a",
-        "Inciso b",
-        "Inciso c"
-      ],
+      "pregunta": "¿Cuál de los siguientes números es divisible entre 5?",
+      "opciones": ["342", "455", "231"],
       "correcta": 1
     },
     {
-      "pregunta": "Elija el inciso b)",
-      "opciones": [
-        "Inciso a",
-        "Inciso b",
-        "Inciso c"
-      ],
-      "correcta": 1
+      "pregunta": "La factorización prima de 60 es:",
+      "opciones": ["2² × 3 × 5", "2 × 3² × 5", "2³ × 5"],
+      "correcta": 0
     },
     {
-      "pregunta": "Presione sobre el inciso b)",
-      "opciones": [
-        "Inciso a",
-        "Inciso b",
-        "Inciso c"
-      ],
-      "correcta": 1
+      "pregunta": "¿Cuál es el Máximo Común Divisor (MCD) de 12 y 18?",
+      "opciones": ["6", "3", "36"],
+      "correcta": 0
     },
     {
-      "pregunta": "Haga clic en el inciso b)",
-      "opciones": [
-        "Inciso a",
-        "Inciso b",
-        "Inciso c"
-      ],
+      "pregunta": "¿Cuál es el Mínimo Común Múltiplo (MCM) de 4 y 6?",
+      "opciones": ["24", "12", "10"],
       "correcta": 1
     },
     {
-      "pregunta": "Seleccione la opción correspondiente al inciso b)",
-      "opciones": [
-        "Inciso a",
-        "Inciso b",
-        "Inciso c"
-      ],
-      "correcta": 1
+      "pregunta": "¿Cuál es el MCD de 15 y 20?",
+      "opciones": ["5", "10", "15"],
+      "correcta": 0
     },
     {
-      "pregunta": "Marque la opción que indica el inciso b)",
-      "opciones": [
-        "Inciso a",
-        "Inciso b",
-        "Inciso c"
-      ],
-      "correcta": 1
+      "pregunta": "¿Cuál es el MCM de 8 y 12?",
+      "opciones": ["24", "48", "16"],
+      "correcta": 0
     },
     {
-      "pregunta": "Elija el inciso b)",
-      "opciones": [
-        "Inciso a",
-        "Inciso b",
-        "Inciso c"
-      ],
-      "correcta": 1
+      "pregunta": "Al simplificar la fracción 8/12 a su mínima expresión se obtiene:",
+      "opciones": ["2/3", "4/6", "1/2"],
+      "correcta": 0
     },
     {
-      "pregunta": "Presione sobre el inciso b)",
-      "opciones": [
-        "Inciso a",
-        "Inciso b",
-        "Inciso c"
-      ],
-      "correcta": 1
+      "pregunta": "¿Cuál es el resultado de 1/2 + 1/3?",
+      "opciones": ["5/6", "2/5", "1/6"],
+      "correcta": 0
     },
     {
-      "pregunta": "Haga clic en el inciso b)",
-      "opciones": [
-        "Inciso a",
-        "Inciso b",
-        "Inciso c"
-      ],
-      "correcta": 1
+      "pregunta": "¿Cuál es el resultado de 3/4 − 1/4?",
+      "opciones": ["1/2", "2/8", "1/4"],
+      "correcta": 0
     },
     {
-      "pregunta": "Seleccione la opción correspondiente al inciso b)",
-      "opciones": [
-        "Inciso a",
-        "Inciso b",
-        "Inciso c"
-      ],
-      "correcta": 1
+      "pregunta": "¿Cuál es el resultado de 2/3 × 3/5?",
+      "opciones": ["2/5", "5/8", "1/2"],
+      "correcta": 0
     },
     {
-      "pregunta": "Marque la opción que indica el inciso b)",
-      "opciones": [
-        "Inciso a",
-        "Inciso b",
-        "Inciso c"
-      ],
-      "correcta": 1
+      "pregunta": "¿Cuál es el resultado de 4/5 ÷ 2/3?",
+      "opciones": ["6/5", "8/15", "2/5"],
+      "correcta": 0
     },
     {
-      "pregunta": "Elija el inciso b)",
-      "opciones": [
-        "Inciso a",
-        "Inciso b",
-        "Inciso c"
-      ],
-      "correcta": 1
+      "pregunta": "¿Cuál es la fracción equivalente a 0.75?",
+      "opciones": ["3/4", "7/5", "3/5"],
+      "correcta": 0
     },
     {
-      "pregunta": "Presione sobre el inciso b)",
-      "opciones": [
-        "Inciso a",
-        "Inciso b",
-        "Inciso c"
-      ],
-      "correcta": 1
+      "pregunta": "¿Cuál es la forma decimal de 3/8?",
+      "opciones": ["0.375", "0.38", "0.325"],
+      "correcta": 0
     },
     {
-      "pregunta": "Haga clic en el inciso b)",
-      "opciones": [
-        "Inciso a",
-        "Inciso b",
-        "Inciso c"
-      ],
-      "correcta": 1
+      "pregunta": "¿Cuál de las siguientes fracciones es mayor: 2/3 o 3/5?",
+      "opciones": ["2/3 es mayor", "3/5 es mayor", "Son iguales"],
+      "correcta": 0
     },
     {
-      "pregunta": "Seleccione la opción correspondiente al inciso b)",
-      "opciones": [
-        "Inciso a",
-        "Inciso b",
-        "Inciso c"
-      ],
-      "correcta": 1
+      "pregunta": "¿Cuál de los siguientes números es divisor común de 24 y 36?",
+      "opciones": ["6", "9", "8"],
+      "correcta": 0
     },
     {
-      "pregunta": "Marque la opción que indica el inciso b)",
-      "opciones": [
-        "Inciso a",
-        "Inciso b",
-        "Inciso c"
-      ],
+      "pregunta": "¿Cuál de los siguientes números NO es primo?",
+      "opciones": ["13", "51", "23"],
       "correcta": 1
     },
     {
-      "pregunta": "Elija el inciso b)",
-      "opciones": [
-        "Inciso a",
-        "Inciso b",
-        "Inciso c"
-      ],
-      "correcta": 1
+      "pregunta": "¿Cuál es el resultado de 2³?",
+      "opciones": ["8", "6", "9"],
+      "correcta": 0
     },
     {
-      "pregunta": "Presione sobre el inciso b)",
-      "opciones": [
-        "Inciso a",
-        "Inciso b",
-        "Inciso c"
-      ],
-      "correcta": 1
+      "pregunta": "Según las leyes de los exponentes, x³ × x² es igual a:",
+      "opciones": ["x⁵", "x⁶", "x¹"],
+      "correcta": 0
     },
     {
-      "pregunta": "Haga clic en el inciso b)",
-      "opciones": [
-        "Inciso a",
-        "Inciso b",
-        "Inciso c"
-      ],
-      "correcta": 1
+      "pregunta": "¿Cuál es el resultado de x⁷ ÷ x³?",
+      "opciones": ["x⁴", "x¹⁰", "x²"],
+      "correcta": 0
     },
     {
-      "pregunta": "Seleccione la opción correspondiente al inciso b)",
-      "opciones": [
-        "Inciso a",
-        "Inciso b",
-        "Inciso c"
-      ],
-      "correcta": 1
+      "pregunta": "¿Cuál es el resultado de (x²)³?",
+      "opciones": ["x⁶", "x⁵", "x⁸"],
+      "correcta": 0
     },
     {
-      "pregunta": "Marque la opción que indica el inciso b)",
-      "opciones": [
-        "Inciso a",
-        "Inciso b",
-        "Inciso c"
-      ],
+      "pregunta": "¿Cuál es el valor de 5⁰?",
+      "opciones": ["0", "1", "5"],
       "correcta": 1
     },
     {
-      "pregunta": "Elija el inciso b)",
-      "opciones": [
-        "Inciso a",
-        "Inciso b",
-        "Inciso c"
-      ],
-      "correcta": 1
+      "pregunta": "¿Cuál es el valor de 2⁻²?",
+      "opciones": ["1/4", "−4", "4"],
+      "correcta": 0
     },
     {
-      "pregunta": "Presione sobre el inciso b)",
-      "opciones": [
-        "Inciso a",
-        "Inciso b",
-        "Inciso c"
-      ],
-      "correcta": 1
+      "pregunta": "¿Cuál es la raíz cuadrada de 81?",
+      "opciones": ["9", "8", "18"],
+      "correcta": 0
     },
     {
-      "pregunta": "Haga clic en el inciso b)",
-      "opciones": [
-        "Inciso a",
-        "Inciso b",
-        "Inciso c"
-      ],
-      "correcta": 1
+      "pregunta": "¿Cuál es la raíz cúbica de 27?",
+      "opciones": ["3", "9", "6"],
+      "correcta": 0
     },
     {
-      "pregunta": "Seleccione la opción correspondiente al inciso b)",
-      "opciones": [
-        "Inciso a",
-        "Inciso b",
-        "Inciso c"
-      ],
-      "correcta": 1
+      "pregunta": "Al simplificar √50, el radical queda expresado como:",
+      "opciones": ["5√2", "10√5", "25√2"],
+      "correcta": 0
     },
     {
-      "pregunta": "Marque la opción que indica el inciso b)",
-      "opciones": [
-        "Inciso a",
-        "Inciso b",
-        "Inciso c"
-      ],
-      "correcta": 1
+      "pregunta": "La notación científica de 4,500,000 es:",
+      "opciones": ["4.5 × 10⁶", "4.5 × 10⁵", "45 × 10⁵"],
+      "correcta": 0
     },
     {
-      "pregunta": "Elija el inciso b)",
-      "opciones": [
-        "Inciso a",
-        "Inciso b",
-        "Inciso c"
-      ],
-      "correcta": 1
+      "pregunta": "¿Cuál es el valor de 0.00032 en notación científica?",
+      "opciones": ["3.2 × 10⁻⁴", "3.2 × 10⁴", "32 × 10⁻⁵"],
+      "correcta": 0
     },
     {
-      "pregunta": "Presione sobre el inciso b)",
-      "opciones": [
-        "Inciso a",
-        "Inciso b",
-        "Inciso c"
-      ],
-      "correcta": 1
+      "pregunta": "En la proporción 3/4 = x/8, el valor de x es:",
+      "opciones": ["6", "5", "24"],
+      "correcta": 0
     },
     {
-      "pregunta": "Haga clic en el inciso b)",
-      "opciones": [
-        "Inciso a",
-        "Inciso b",
-        "Inciso c"
-      ],
-      "correcta": 1
+      "pregunta": "Si 5 obreros construyen un muro en 12 días, ¿cuántos días tardarán 10 obreros trabajando al mismo ritmo?",
+      "opciones": ["6", "24", "10"],
+      "correcta": 0
     },
     {
-      "pregunta": "Seleccione la opción correspondiente al inciso b)",
-      "opciones": [
-        "Inciso a",
-        "Inciso b",
-        "Inciso c"
-      ],
-      "correcta": 1
+      "pregunta": "Un mapa tiene escala 1:50,000. Si dos ciudades están a 4 cm en el mapa, ¿cuál es la distancia real entre ellas?",
+      "opciones": ["2 km", "4 km", "20 km"],
+      "correcta": 0
     },
     {
-      "pregunta": "Marque la opción que indica el inciso b)",
-      "opciones": [
-        "Inciso a",
-        "Inciso b",
-        "Inciso c"
-      ],
-      "correcta": 1
+      "pregunta": "¿Qué porcentaje representa 45 de 180?",
+      "opciones": ["25%", "45%", "20%"],
+      "correcta": 0
     },
     {
-      "pregunta": "Elija el inciso b)",
-      "opciones": [
-        "Inciso a",
-        "Inciso b",
-        "Inciso c"
-      ],
-      "correcta": 1
+      "pregunta": "El 15% de 240 es:",
+      "opciones": ["36", "24", "30"],
+      "correcta": 0
     },
     {
-      "pregunta": "Presione sobre el inciso b)",
-      "opciones": [
-        "Inciso a",
-        "Inciso b",
-        "Inciso c"
-      ],
-      "correcta": 1
+      "pregunta": "Un artículo cuesta $500 y tiene un descuento del 20%. ¿Cuál es el precio final?",
+      "opciones": ["$400", "$480", "$380"],
+      "correcta": 0
     },
     {
-      "pregunta": "Haga clic en el inciso b)",
-      "opciones": [
-        "Inciso a",
-        "Inciso b",
-        "Inciso c"
-      ],
-      "correcta": 1
+      "pregunta": "Si inviertes $2,000 a un interés simple anual del 5%, ¿cuánto interés generarás en 3 años?",
+      "opciones": ["$300", "$100", "$2,300"],
+      "correcta": 0
     },
     {
-      "pregunta": "Seleccione la opción correspondiente al inciso b)",
-      "opciones": [
-        "Inciso a",
-        "Inciso b",
-        "Inciso c"
-      ],
-      "correcta": 1
+      "pregunta": "En una regla de tres simple directa: si 6 kg de manzanas cuestan $180, ¿cuánto cuestan 10 kg?",
+      "opciones": ["$300", "$260", "$1800"],
+      "correcta": 0
     },
     {
-      "pregunta": "Marque la opción que indica el inciso b)",
-      "opciones": [
-        "Inciso a",
-        "Inciso b",
-        "Inciso c"
-      ],
+      "pregunta": "La variación entre dos magnitudes es inversa cuando:",
+      "opciones": ["Al aumentar una, la otra aumenta en la misma proporción", "Al aumentar una, la otra disminuye en la misma proporción", "Ambas permanecen constantes"],
       "correcta": 1
     },
     {
-      "pregunta": "Elija el inciso b)",
-      "opciones": [
-        "Inciso a",
-        "Inciso b",
-        "Inciso c"
-      ],
-      "correcta": 1
+      "pregunta": "¿Cuál es el grado del monomio 5x³y²?",
+      "opciones": ["5", "3", "2"],
+      "correcta": 0
     },
     {
-      "pregunta": "Presione sobre el inciso b)",
-      "opciones": [
-        "Inciso a",
-        "Inciso b",
-        "Inciso c"
-      ],
-      "correcta": 1
+      "pregunta": "¿Cuántos términos tiene el polinomio 3x² − 5x + 7?",
+      "opciones": ["3", "2", "4"],
+      "correcta": 0
     },
     {
-      "pregunta": "Haga clic en el inciso b)",
-      "opciones": [
-        "Inciso a",
-        "Inciso b",
-        "Inciso c"
-      ],
-      "correcta": 1
+      "pregunta": "Al sumar (3x + 5) + (2x − 3), el resultado es:",
+      "opciones": ["5x + 2", "5x + 8", "x + 2"],
+      "correcta": 0
     },
     {
-      "pregunta": "Seleccione la opción correspondiente al inciso b)",
-      "opciones": [
-        "Inciso a",
-        "Inciso b",
-        "Inciso c"
-      ],
-      "correcta": 1
+      "pregunta": "Al restar (7x − 4) − (3x + 2), el resultado es:",
+      "opciones": ["4x − 6", "4x − 2", "10x − 6"],
+      "correcta": 0
     },
     {
-      "pregunta": "Marque la opción que indica el inciso b)",
-      "opciones": [
-        "Inciso a",
-        "Inciso b",
-        "Inciso c"
-      ],
-      "correcta": 1
+      "pregunta": "El resultado de multiplicar (2x)(3x²) es:",
+      "opciones": ["6x³", "6x²", "5x³"],
+      "correcta": 0
     },
     {
-      "pregunta": "Elija el inciso b)",
-      "opciones": [
-        "Inciso a",
-        "Inciso b",
-        "Inciso c"
-      ],
-      "correcta": 1
+      "pregunta": "Simplifica la expresión: 4x + 3y − 2x + y",
+      "opciones": ["2x + 4y", "6x + 4y", "2x + 3y"],
+      "correcta": 0
     },
     {
-      "pregunta": "Presione sobre el inciso b)",
-      "opciones": [
-        "Inciso a",
-        "Inciso b",
-        "Inciso c"
-      ],
-      "correcta": 1
+      "pregunta": "El producto notable (a + b)² es igual a:",
+      "opciones": ["a² + 2ab + b²", "a² + b²", "a² − 2ab + b²"],
+      "correcta": 0
     },
     {
-      "pregunta": "Haga clic en el inciso b)",
-      "opciones": [
-        "Inciso a",
-        "Inciso b",
-        "Inciso c"
-      ],
-      "correcta": 1
+      "pregunta": "El producto notable (a − b)² es igual a:",
+      "opciones": ["a² − 2ab + b²", "a² − b²", "a² + b²"],
+      "correcta": 0
     },
     {
-      "pregunta": "Seleccione la opción correspondiente al inciso b)",
-      "opciones": [
-        "Inciso a",
-        "Inciso b",
-        "Inciso c"
-      ],
-      "correcta": 1
+      "pregunta": "El producto notable (a + b)(a − b) es igual a:",
+      "opciones": ["a² − b²", "a² + b²", "a² − 2ab − b²"],
+      "correcta": 0
     },
     {
-      "pregunta": "Marque la opción que indica el inciso b)",
-      "opciones": [
-        "Inciso a",
-        "Inciso b",
-        "Inciso c"
-      ],
-      "correcta": 1
+      "pregunta": "Al factorizar 6x² + 9x extrayendo el máximo factor común, se obtiene:",
+      "opciones": ["3x(2x + 3)", "3(2x² + 3x)", "x(6x + 9)"],
+      "correcta": 0
     },
     {
-      "pregunta": "Elija el inciso b)",
-      "opciones": [
-        "Inciso a",
-        "Inciso b",
-        "Inciso c"
-      ],
-      "correcta": 1
+      "pregunta": "La factorización de x² − 16 (diferencia de cuadrados) es:",
+      "opciones": ["(x − 4)(x + 4)", "(x − 8)(x + 8)", "(x − 4)²"],
+      "correcta": 0
     },
     {
-      "pregunta": "Presione sobre el inciso b)",
-      "opciones": [
-        "Inciso a",
-        "Inciso b",
-        "Inciso c"
-      ],
-      "correcta": 1
+      "pregunta": "La factorización de 9x² − 25 es:",
+      "opciones": ["(3x − 5)(3x + 5)", "(9x − 5)(x + 5)", "(3x − 5)²"],
+      "correcta": 0
     },
     {
-      "pregunta": "Haga clic en el inciso b)",
-      "opciones": [
-        "Inciso a",
-        "Inciso b",
-        "Inciso c"
-      ],
-      "correcta": 1
+      "pregunta": "¿Cuál de las siguientes expresiones es un trinomio cuadrado perfecto?",
+      "opciones": ["x² + 6x + 9", "x² + 6x + 8", "x² + 9x + 6"],
+      "correcta": 0
     },
     {
-      "pregunta": "Seleccione la opción correspondiente al inciso b)",
-      "opciones": [
-        "Inciso a",
-        "Inciso b",
-        "Inciso c"
-      ],
-      "correcta": 1
+      "pregunta": "La factorización de x² + 10x + 25 es:",
+      "opciones": ["(x + 5)²", "(x + 10)(x + 5)", "(x + 25)(x + 1)"],
+      "correcta": 0
     },
     {
-      "pregunta": "Marque la opción que indica el inciso b)",
-      "opciones": [
-        "Inciso a",
-        "Inciso b",
-        "Inciso c"
-      ],
-      "correcta": 1
+      "pregunta": "Al factorizar x² − 8x + 15 (dos números que multiplicados den 15 y sumados den −8), se obtiene:",
+      "opciones": ["(x − 3)(x − 5)", "(x + 3)(x + 5)", "(x − 15)(x + 1)"],
+      "correcta": 0
     },
     {
-      "pregunta": "Elija el inciso b)",
-      "opciones": [
-        "Inciso a",
-        "Inciso b",
-        "Inciso c"
-      ],
-      "correcta": 1
+      "pregunta": "Al factorizar x² + 2x − 15, se obtiene:",
+      "opciones": ["(x + 5)(x − 3)", "(x − 5)(x + 3)", "(x + 15)(x − 1)"],
+      "correcta": 0
     },
     {
-      "pregunta": "Presione sobre el inciso b)",
-      "opciones": [
-        "Inciso a",
-        "Inciso b",
-        "Inciso c"
-      ],
-      "correcta": 1
+      "pregunta": "¿Cuál es el resultado de multiplicar (x + 3)(x + 4)?",
+      "opciones": ["x² + 7x + 12", "x² + 12x + 7", "x² + 7"],
+      "correcta": 0
     },
     {
-      "pregunta": "Haga clic en el inciso b)",
-      "opciones": [
-        "Inciso a",
-        "Inciso b",
-        "Inciso c"
-      ],
-      "correcta": 1
+      "pregunta": "¿Cuál es el resultado de multiplicar (x − 2)(x + 5)?",
+      "opciones": ["x² + 3x − 10", "x² − 3x − 10", "x² + 3x + 10"],
+      "correcta": 0
     },
     {
-      "pregunta": "Seleccione la opción correspondiente al inciso b)",
-      "opciones": [
-        "Inciso a",
-        "Inciso b",
-        "Inciso c"
-      ],
-      "correcta": 1
+      "pregunta": "El grado de un polinomio se determina por:",
+      "opciones": ["El mayor exponente de la variable", "El número de términos", "El coeficiente principal"],
+      "correcta": 0
     },
     {
-      "pregunta": "Marque la opción que indica el inciso b)",
-      "opciones": [
-        "Inciso a",
-        "Inciso b",
-        "Inciso c"
-      ],
+      "pregunta": "Un binomio es una expresión algebraica con:",
+      "opciones": ["Un término", "Dos términos", "Tres términos"],
       "correcta": 1
     },
     {
-      "pregunta": "Elija el inciso b)",
-      "opciones": [
-        "Inciso a",
-        "Inciso b",
-        "Inciso c"
-      ],
-      "correcta": 1
+      "pregunta": "Simplifica la fracción algebraica 4x²/2x:",
+      "opciones": ["2x", "2x²", "4x"],
+      "correcta": 0
     },
     {
-      "pregunta": "Presione sobre el inciso b)",
-      "opciones": [
-        "Inciso a",
-        "Inciso b",
-        "Inciso c"
-      ],
-      "correcta": 1
+      "pregunta": "Simplifica: (x² − 9)/(x − 3)",
+      "opciones": ["x + 3", "x − 3", "x² − 3"],
+      "correcta": 0
     },
     {
-      "pregunta": "Haga clic en el inciso b)",
-      "opciones": [
-        "Inciso a",
-        "Inciso b",
-        "Inciso c"
-      ],
-      "correcta": 1
+      "pregunta": "¿Cuál es el resultado de (2/x) × (x/5)?",
+      "opciones": ["2/5", "2/(5x)", "x²/5"],
+      "correcta": 0
     },
     {
-      "pregunta": "Seleccione la opción correspondiente al inciso b)",
-      "opciones": [
-        "Inciso a",
-        "Inciso b",
-        "Inciso c"
-      ],
-      "correcta": 1
+      "pregunta": "¿Cuál es el resultado de (3/x) + (2/x)?",
+      "opciones": ["5/x", "5/x²", "6/x"],
+      "correcta": 0
     },
     {
-      "pregunta": "Marque la opción que indica el inciso b)",
-      "opciones": [
-        "Inciso a",
-        "Inciso b",
-        "Inciso c"
-      ],
-      "correcta": 1
+      "pregunta": "¿Cuál es el resultado de (1/x) + (1/y)?",
+      "opciones": ["(x + y)/(xy)", "1/(x + y)", "2/(xy)"],
+      "correcta": 0
     },
     {
-      "pregunta": "Elija el inciso b)",
-      "opciones": [
-        "Inciso a",
-        "Inciso b",
-        "Inciso c"
-      ],
-      "correcta": 1
+      "pregunta": "Simplifica: (x² + 5x)/x",
+      "opciones": ["x + 5", "5x", "x² + 5"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Una fracción algebraica compleja es aquella que:",
+      "opciones": ["Contiene otra fracción en el numerador y/o denominador", "Tiene coeficientes negativos", "No tiene variable"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Resuelve: 2x + 5 = 13",
+      "opciones": ["4", "8", "9"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Resuelve: 3x − 7 = 5x + 1",
+      "opciones": ["−4", "4", "−8"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Resuelve: (x/3) + 2 = 6",
+      "opciones": ["12", "4", "18"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Resuelve: 5(x − 2) = 15",
+      "opciones": ["5", "3", "7"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Resuelve: x² − 9 = 0",
+      "opciones": ["x = 3 o x = −3", "x = 9", "x = −9"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Resuelve x² − 5x + 6 = 0 factorizando (busca dos números que multiplicados den 6 y sumados den −5):",
+      "opciones": ["x = 2 o x = 3", "x = −2 o x = −3", "x = 1 o x = 6"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "¿Cuál es el discriminante (b² − 4ac) de la ecuación x² + 2x − 3 = 0?",
+      "opciones": ["16", "4", "−8"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Resuelve x² + 2x − 3 = 0 factorizando:",
+      "opciones": ["x = −3 o x = 1", "x = 3 o x = −1", "x = −3 o x = −1"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Resuelve el sistema: x + y = 10, x − y = 2. ¿Cuál es el valor de x?",
+      "opciones": ["6", "4", "5"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "En el sistema x + y = 10, x − y = 2, ¿cuál es el valor de y?",
+      "opciones": ["4", "6", "2"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Resuelve por sustitución: y = 2x, x + y = 12. ¿Cuál es el valor de x?",
+      "opciones": ["4", "6", "3"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Resuelve la inecuación: x + 3 > 7",
+      "opciones": ["x > 4", "x > 10", "x < 4"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Resuelve la inecuación −2x < 8 (recuerda invertir el signo al dividir entre un número negativo):",
+      "opciones": ["x > −4", "x < −4", "x < 4"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "¿Qué ocurre con el signo de una desigualdad al multiplicar o dividir ambos lados por un número negativo?",
+      "opciones": ["Se invierte", "Permanece igual", "Se elimina"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "'El doble de un número, aumentado en 5' se representa algebraicamente como:",
+      "opciones": ["2x + 5", "x + 5", "2(x + 5)"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "'La mitad de un número, disminuido en 3' se representa como:",
+      "opciones": ["x/2 − 3", "3 − x/2", "(x − 3)/2"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Un número más 7 es igual a 15. ¿Cuál es el número?",
+      "opciones": ["8", "22", "7"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "La edad de Juan es el doble de la de su hermano. Si entre los dos suman 24 años, ¿cuántos años tiene el hermano?",
+      "opciones": ["8", "16", "12"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Un rectángulo tiene un largo que es el triple de su ancho. Si el perímetro es 40 cm, ¿cuál es el ancho?",
+      "opciones": ["5 cm", "10 cm", "15 cm"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "La suma de tres números enteros consecutivos es 33. ¿Cuál es el menor de ellos?",
+      "opciones": ["10", "11", "9"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Pedro tiene $50 más que María. Juntos tienen $250. ¿Cuánto dinero tiene María?",
+      "opciones": ["$100", "$150", "$125"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "El precio de un libro más el precio de una libreta es $180. El libro cuesta $60 más que la libreta. ¿Cuánto cuesta la libreta?",
+      "opciones": ["$60", "$120", "$90"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Si el ancho de un terreno rectangular es x y el largo es (x + 4), ¿qué expresión representa su área?",
+      "opciones": ["x² + 4x", "2x + 4", "x² + 4"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Un tren viaja a una velocidad de x km/h durante 3 horas. ¿Qué expresión representa la distancia recorrida?",
+      "opciones": ["3x", "x/3", "x + 3"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Si un número se multiplica por 4 y al resultado se le resta 6, se obtiene 18. ¿Cuál es el número?",
+      "opciones": ["6", "4.5", "8"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "La suma de las edades de un padre y su hijo es 50 años. El padre tiene 4 veces la edad del hijo. ¿Cuántos años tiene el hijo?",
+      "opciones": ["10", "40", "12"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Un examen tiene 40 preguntas. Si un estudiante contestó correctamente el 75% del total, ¿cuántas preguntas contestó bien?",
+      "opciones": ["30", "35", "25"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Se reparten $600 entre dos personas de forma que una reciba el doble que la otra. ¿Cuánto recibe la persona que recibe menos?",
+      "opciones": ["$200", "$300", "$400"],
+      "correcta": 0
     },
     {
-      "pregunta": "Presione sobre el inciso b)",
-      "opciones": [
-        "Inciso a",
-        "Inciso b",
-        "Inciso c"
-      ],
+      "pregunta": "Una relación se convierte en función cuando:",
+      "opciones": ["Cada elemento del dominio tiene exactamente una imagen en el rango", "Cada elemento del rango tiene una sola preimagen", "Todos los elementos del dominio son iguales"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "En la función f(x) = 2x + 3, ¿cuál es el valor de f(4)?",
+      "opciones": ["11", "8", "14"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "En la función f(x) = x² − 1, ¿cuál es el valor de f(3)?",
+      "opciones": ["8", "9", "6"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "El dominio de una función es:",
+      "opciones": ["El conjunto de valores de entrada (x) para los que la función está definida", "El conjunto de valores de salida (y)", "El valor máximo de la función"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "El rango de una función es:",
+      "opciones": ["El conjunto de valores de entrada", "El conjunto de valores de salida que toma la función", "La pendiente de la función"],
       "correcta": 1
+    },
+    {
+      "pregunta": "¿Cuál es el dominio de la función f(x) = 1/x?",
+      "opciones": ["Todos los reales excepto x = 0", "Todos los reales", "Solo los números positivos"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Una función lineal tiene la forma general:",
+      "opciones": ["f(x) = mx + b", "f(x) = ax² + bx + c", "f(x) = a/x"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Una función cuadrática tiene la forma general:",
+      "opciones": ["f(x) = ax² + bx + c", "f(x) = mx + b", "f(x) = k"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "En la función f(x) = 5 (el mismo valor para cualquier x), se trata de una función:",
+      "opciones": ["Constante", "Lineal", "Cuadrática"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "¿Cuál de las siguientes es una función afín (mx + b con b ≠ 0)?",
+      "opciones": ["f(x) = 3x + 2", "f(x) = 3", "f(x) = x²"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "En la función f(x) = −2x + 7, ¿cuál es el valor de f(0)?",
+      "opciones": ["7", "0", "−2"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Si f(x) = x² + 2x, ¿cuál es el valor de f(−1)?",
+      "opciones": ["−1", "1", "3"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "¿Qué tipo de gráfica genera una función lineal?",
+      "opciones": ["Una línea recta", "Una parábola", "Una curva cerrada"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "¿Qué tipo de gráfica genera una función cuadrática?",
+      "opciones": ["Una parábola", "Una línea recta", "Un círculo"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Si la gráfica de y = x² se desplaza 3 unidades hacia arriba, la nueva función es:",
+      "opciones": ["y = x² + 3", "y = (x + 3)²", "y = 3x²"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Dado el conjunto de pares ordenados {(1,2), (1,5), (2,4)}, ¿por qué esta relación NO es una función?",
+      "opciones": ["Porque el valor 1 tiene dos imágenes distintas (2 y 5)", "Porque sí es una función", "Porque no tiene dominio"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Un segmento de recta se diferencia de una recta en que:",
+      "opciones": ["El segmento tiene dos extremos definidos y longitud finita", "El segmento no tiene extremos", "La recta tiene longitud finita"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Una semirrecta se caracteriza por tener:",
+      "opciones": ["Un solo extremo y extenderse infinitamente en una dirección", "Dos extremos definidos", "Ningún extremo"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Un ángulo recto mide:",
+      "opciones": ["90°", "180°", "45°"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Un ángulo agudo es aquel que mide:",
+      "opciones": ["Menos de 90°", "Exactamente 90°", "Más de 90° y menos de 180°"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Un ángulo obtuso es aquel que mide:",
+      "opciones": ["Más de 90° y menos de 180°", "Menos de 90°", "Exactamente 180°"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Un ángulo llano mide:",
+      "opciones": ["180°", "90°", "360°"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Dos ángulos son complementarios cuando su suma es:",
+      "opciones": ["90°", "180°", "360°"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Dos ángulos son suplementarios cuando su suma es:",
+      "opciones": ["180°", "90°", "270°"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Si un ángulo mide 35°, ¿cuánto mide su complemento?",
+      "opciones": ["55°", "145°", "65°"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Si un ángulo mide 110°, ¿cuánto mide su suplemento?",
+      "opciones": ["70°", "90°", "250°"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Los ángulos opuestos por el vértice, formados por dos rectas que se cruzan, son:",
+      "opciones": ["Siempre iguales entre sí", "Siempre complementarios", "Siempre suplementarios"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Un triángulo cuyos tres lados tienen diferente longitud se llama:",
+      "opciones": ["Escaleno", "Isósceles", "Equilátero"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Un triángulo con dos lados iguales se llama:",
+      "opciones": ["Isósceles", "Escaleno", "Equilátero"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Un triángulo con sus tres lados iguales se llama:",
+      "opciones": ["Equilátero", "Isósceles", "Escaleno"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "La suma de los ángulos internos de cualquier triángulo es:",
+      "opciones": ["180°", "360°", "90°"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Si un triángulo tiene ángulos internos de 50° y 60°, ¿cuánto mide el tercer ángulo?",
+      "opciones": ["70°", "80°", "60°"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Un triángulo que tiene un ángulo interno de 90° se llama:",
+      "opciones": ["Rectángulo", "Acutángulo", "Obtusángulo"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Un cuadrilátero con todos sus lados y ángulos iguales es un:",
+      "opciones": ["Cuadrado", "Rectángulo", "Rombo"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Un cuadrilátero con lados opuestos iguales y paralelos, pero sin ángulos de 90°, se llama:",
+      "opciones": ["Romboide o rombo (paralelogramo)", "Cuadrado", "Trapecio"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "La suma de los ángulos internos de cualquier cuadrilátero es:",
+      "opciones": ["360°", "180°", "270°"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Un polígono regular se caracteriza por tener:",
+      "opciones": ["Todos sus lados y ángulos iguales", "Solo los lados iguales", "Solo los ángulos iguales"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Un polígono de 5 lados se llama:",
+      "opciones": ["Pentágono", "Hexágono", "Heptágono"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Un polígono de 6 lados se llama:",
+      "opciones": ["Hexágono", "Pentágono", "Octágono"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Un trapecio se define como un cuadrilátero que tiene:",
+      "opciones": ["Exactamente un par de lados paralelos", "Dos pares de lados paralelos", "Ningún lado paralelo"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "El radio de una circunferencia es:",
+      "opciones": ["La distancia del centro a cualquier punto de la circunferencia", "La distancia entre dos puntos cualquiera de la circunferencia", "El doble del diámetro"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "El diámetro de una circunferencia es:",
+      "opciones": ["El doble del radio", "La mitad del radio", "Igual al radio"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Si el radio de una circunferencia es 7 cm, ¿cuál es su diámetro?",
+      "opciones": ["14 cm", "7 cm", "21 cm"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "La fórmula para calcular la longitud (perímetro) de una circunferencia es:",
+      "opciones": ["2πr", "πr²", "πr"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "¿Cuál es la longitud aproximada de una circunferencia con radio 5 cm? (usa π ≈ 3.14)",
+      "opciones": ["31.4 cm", "15.7 cm", "78.5 cm"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "La fórmula para calcular el área de un círculo es:",
+      "opciones": ["πr²", "2πr", "πd"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "¿Cuál es el área aproximada de un círculo con radio 4 cm? (usa π ≈ 3.14)",
+      "opciones": ["50.24 cm²", "25.12 cm²", "12.56 cm²"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Una cuerda de una circunferencia es:",
+      "opciones": ["Un segmento que une dos puntos de la circunferencia", "La distancia del centro al borde", "El área encerrada por la circunferencia"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "El perímetro de un rectángulo con lados de 8 cm y 5 cm es:",
+      "opciones": ["26 cm", "40 cm", "13 cm"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "El área de un rectángulo con base 6 cm y altura 4 cm es:",
+      "opciones": ["24 cm²", "20 cm²", "10 cm²"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "El área de un triángulo con base 10 cm y altura 6 cm es:",
+      "opciones": ["30 cm²", "60 cm²", "16 cm²"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "El área de un cuadrado con lado de 9 cm es:",
+      "opciones": ["81 cm²", "36 cm²", "18 cm²"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "El perímetro de un cuadrado con lado de 7 cm es:",
+      "opciones": ["28 cm", "49 cm", "14 cm"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "El volumen de un cubo con arista de 3 cm es:",
+      "opciones": ["27 cm³", "9 cm³", "18 cm³"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "El volumen de un prisma rectangular con dimensiones 4 cm × 3 cm × 2 cm es:",
+      "opciones": ["24 cm³", "9 cm³", "48 cm³"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "El teorema de Pitágoras se aplica específicamente a:",
+      "opciones": ["Triángulos rectángulos", "Cualquier triángulo", "Solo triángulos equiláteros"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Según el teorema de Pitágoras, la relación entre los catetos (a, b) y la hipotenusa (c) es:",
+      "opciones": ["a² + b² = c²", "a + b = c", "a² − b² = c²"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Un triángulo rectángulo tiene catetos de 3 cm y 4 cm. ¿Cuánto mide la hipotenusa?",
+      "opciones": ["5 cm", "7 cm", "6 cm"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Un triángulo rectángulo tiene catetos de 6 cm y 8 cm. ¿Cuánto mide la hipotenusa?",
+      "opciones": ["10 cm", "14 cm", "12 cm"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Un triángulo rectángulo tiene hipotenusa de 13 cm y un cateto de 5 cm. ¿Cuánto mide el otro cateto?",
+      "opciones": ["12 cm", "8 cm", "18 cm"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "En un triángulo rectángulo, la hipotenusa es siempre:",
+      "opciones": ["El lado más largo, opuesto al ángulo recto", "El lado más corto", "Igual a uno de los catetos"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "En el plano cartesiano, el punto (3, 5) tiene como primera coordenada (abscisa):",
+      "opciones": ["3", "5", "8"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "En el par ordenado (x, y), la coordenada 'y' se conoce como:",
+      "opciones": ["Ordenada", "Abscisa", "Pendiente"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "El punto (0, 0) en el plano cartesiano se llama:",
+      "opciones": ["Origen", "Cuadrante I", "Eje X"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "El punto (4, −2) se ubica en el cuadrante:",
+      "opciones": ["IV", "I", "III"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "El punto (−3, 5) se ubica en el cuadrante:",
+      "opciones": ["II", "I", "III"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "La pendiente de una recta mide:",
+      "opciones": ["La inclinación de la recta", "La longitud de la recta", "El punto donde cruza el eje Y"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "La pendiente de la recta que pasa por los puntos (1, 2) y (3, 6) es:",
+      "opciones": ["2", "4", "1/2"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "La ecuación de la recta en su forma pendiente-ordenada al origen es:",
+      "opciones": ["y = mx + b", "y = mx²", "x = my + b"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "En la ecuación y = 3x − 2, ¿cuál es la pendiente?",
+      "opciones": ["3", "−2", "2"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "En la ecuación y = 3x − 2, ¿cuál es la ordenada al origen (el valor donde la recta cruza el eje Y)?",
+      "opciones": ["−2", "3", "0"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Si una recta tiene pendiente 0, la recta es:",
+      "opciones": ["Horizontal", "Vertical", "Diagonal"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "La distancia entre los puntos (0, 0) y (3, 4) es:",
+      "opciones": ["5", "7", "6"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "La distancia entre los puntos (1, 1) y (4, 5) es:",
+      "opciones": ["5", "4", "6"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "El punto medio entre (2, 4) y (6, 8) es:",
+      "opciones": ["(4, 6)", "(8, 12)", "(2, 2)"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "El punto medio entre (0, 0) y (10, 6) es:",
+      "opciones": ["(5, 3)", "(10, 6)", "(5, 6)"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Dos rectas son paralelas cuando:",
+      "opciones": ["Tienen la misma pendiente", "Sus pendientes son recíprocas negativas", "Se cruzan en un punto"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Dos rectas son perpendiculares cuando:",
+      "opciones": ["El producto de sus pendientes es −1", "Tienen la misma pendiente", "Nunca se cruzan"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "La media (promedio) de un conjunto de datos se calcula:",
+      "opciones": ["Sumando todos los datos y dividiendo entre el número de datos", "Ordenando los datos y tomando el valor central", "Identificando el valor que más se repite"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "¿Cuál es la media de los siguientes datos: 4, 8, 6, 10, 2?",
+      "opciones": ["6", "8", "5"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "La mediana de un conjunto de datos es:",
+      "opciones": ["El valor central cuando los datos están ordenados", "El promedio de todos los datos", "El valor que más se repite"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "¿Cuál es la mediana de: 3, 7, 9, 12, 15?",
+      "opciones": ["9", "7", "12"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "¿Cuál es la mediana de: 2, 4, 6, 8?",
+      "opciones": ["5", "4", "6"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "La moda de un conjunto de datos es:",
+      "opciones": ["El valor que más se repite", "El valor central", "El promedio de los datos"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "¿Cuál es la moda de: 2, 3, 3, 5, 7, 3, 8?",
+      "opciones": ["3", "5", "7"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "El rango de un conjunto de datos se calcula:",
+      "opciones": ["Restando el valor mínimo al valor máximo", "Sumando todos los datos", "Dividiendo el mayor entre el menor"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "¿Cuál es el rango de: 12, 45, 8, 23, 67?",
+      "opciones": ["59", "55", "67"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "En una tabla de frecuencias, la frecuencia absoluta representa:",
+      "opciones": ["El número de veces que se repite un dato", "El porcentaje que representa un dato", "El valor promedio"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "En una gráfica de barras, la altura de cada barra generalmente representa:",
+      "opciones": ["La frecuencia de cada categoría", "El orden alfabético", "El tiempo transcurrido"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Una gráfica circular (de pastel) es útil principalmente para representar:",
+      "opciones": ["Proporciones o porcentajes de un total", "Cambios a lo largo del tiempo", "Relaciones de causa y efecto"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Una gráfica lineal es la más adecuada para representar:",
+      "opciones": ["La evolución de un dato a lo largo del tiempo", "Porcentajes de un total", "Datos sin ningún orden"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Si en una encuesta a 200 personas, 50 prefieren café, ¿qué porcentaje del total representa esta preferencia?",
+      "opciones": ["25%", "50%", "20%"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "La frecuencia relativa de un dato se obtiene:",
+      "opciones": ["Dividiendo la frecuencia absoluta entre el total de datos", "Multiplicando la frecuencia por 100", "Sumando todas las frecuencias"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "En un conjunto de datos con valores muy dispersos (extremos), la medida más afectada por esos valores es:",
+      "opciones": ["La media", "La moda", "La mediana"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "El espacio muestral de un experimento aleatorio es:",
+      "opciones": ["El conjunto de todos los resultados posibles", "Un solo resultado posible", "La probabilidad de un evento"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Al lanzar un dado de 6 caras, ¿cuántos elementos tiene el espacio muestral?",
+      "opciones": ["6", "1", "12"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Un evento, en probabilidad, se define como:",
+      "opciones": ["Un subconjunto del espacio muestral", "El resultado de multiplicar dos probabilidades", "El total de resultados posibles"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "La probabilidad de un evento se calcula como:",
+      "opciones": ["Casos favorables entre casos posibles", "Casos posibles entre casos favorables", "Casos favorables más casos posibles"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Al lanzar un dado, ¿cuál es la probabilidad de obtener un número par?",
+      "opciones": ["1/2", "1/3", "1/6"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Al lanzar una moneda, ¿cuál es la probabilidad de obtener 'águila'?",
+      "opciones": ["1/2", "1/4", "1"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "En una bolsa hay 4 canicas rojas y 6 azules. ¿Cuál es la probabilidad de sacar una canica roja?",
+      "opciones": ["2/5", "4/6", "1/2"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "La probabilidad de un evento siempre está en el rango:",
+      "opciones": ["Entre 0 y 1", "Entre −1 y 1", "Entre 1 y 100"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Si la probabilidad de que llueva mañana es 0.3, ¿cuál es la probabilidad complementaria de que NO llueva?",
+      "opciones": ["0.7", "0.3", "1.3"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Dos eventos son independientes cuando:",
+      "opciones": ["El resultado de uno no afecta la probabilidad del otro", "Ambos ocurren siempre al mismo tiempo", "Nunca pueden ocurrir juntos"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Al lanzar dos monedas, ¿cuál es la probabilidad de obtener 'águila' en ambas?",
+      "opciones": ["1/4", "1/2", "1"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Al lanzar un dado, ¿cuál es la probabilidad de obtener un 7?",
+      "opciones": ["0", "1/6", "1"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Al lanzar un dado, ¿cuál es la probabilidad de obtener un número menor a 7?",
+      "opciones": ["1", "0", "1/6"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "En una baraja estándar de 52 cartas, ¿cuál es la probabilidad de sacar un as?",
+      "opciones": ["1/13", "1/4", "4/13"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "¿Cuál es el siguiente número en la secuencia: 2, 5, 8, 11, ___?",
+      "opciones": ["14", "13", "15"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "¿Cuál es el siguiente número en la secuencia: 3, 6, 12, 24, ___?",
+      "opciones": ["48", "36", "30"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "¿Cuál es el siguiente número en la secuencia: 1, 4, 9, 16, ___?",
+      "opciones": ["25", "20", "36"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "¿Cuál es el siguiente número en la secuencia: 100, 90, 80, 70, ___?",
+      "opciones": ["60", "65", "50"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "¿Cuál es el término que falta en la secuencia: 5, 10, 20, __, 80?",
+      "opciones": ["40", "35", "45"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "En la secuencia aritmética 4, 9, 14, 19..., ¿cuál es la razón (diferencia) entre términos consecutivos?",
+      "opciones": ["5", "4", "9"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "En la secuencia geométrica 2, 6, 18, 54..., ¿cuál es la razón entre términos consecutivos?",
+      "opciones": ["3", "2", "6"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Usando aₙ = a₁ + (n − 1)d, ¿cuál es el décimo término de la secuencia aritmética que empieza en 3 y aumenta de 4 en 4?",
+      "opciones": ["39", "43", "36"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Completa la analogía: Perro es a Cachorro como Gato es a ___",
+      "opciones": ["Gatito", "Felino", "Ratón"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Completa la analogía numérica (relación: elevar al cuadrado): 4 es a 16 como 5 es a ___",
+      "opciones": ["25", "20", "10"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Completa la analogía numérica (relación: elevar al cuadrado): 3 es a 9 como 7 es a ___",
+      "opciones": ["49", "14", "21"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "¿Qué número no pertenece a la serie: 2, 4, 6, 9, 8, 10?",
+      "opciones": ["9", "6", "10"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "En el patrón numérico 1, 3, 6, 10, 15 (la diferencia entre términos aumenta en uno cada vez), ¿cuál es el siguiente término?",
+      "opciones": ["21", "20", "18"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Tres amigos tienen edades consecutivas y suman 36 años entre los tres. ¿Cuál es la edad del menor?",
+      "opciones": ["11", "12", "10"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Si todos los cuadrados son rectángulos, y una figura dada es un cuadrado, ¿qué se puede deducir lógicamente?",
+      "opciones": ["Que también es un rectángulo", "Que no es un rectángulo", "Que es un triángulo"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "En una fila de personas, Marta está justo detrás de Luis y justo delante de Ana. Si Luis es el segundo de la fila, ¿en qué posición está Ana?",
+      "opciones": ["Cuarta", "Tercera", "Quinta"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "¿Cuántos metros hay en 3.5 kilómetros?",
+      "opciones": ["3500 m", "350 m", "35 m"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "¿Cuántos centímetros hay en 2 metros?",
+      "opciones": ["200 cm", "20 cm", "2000 cm"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "¿Cuántos gramos hay en 4.5 kilogramos?",
+      "opciones": ["4500 g", "450 g", "45 g"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "¿Cuántos mililitros hay en 2.5 litros?",
+      "opciones": ["2500 ml", "250 ml", "25 ml"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "¿Cuántos minutos hay en 3 horas y media?",
+      "opciones": ["210 minutos", "180 minutos", "190 minutos"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "¿Cuántos segundos hay en 5 minutos?",
+      "opciones": ["300 segundos", "500 segundos", "50 segundos"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Un terreno mide 3 hectáreas. Si 1 hectárea equivale a 10,000 m², ¿cuántos metros cuadrados mide el terreno?",
+      "opciones": ["30,000 m²", "3,000 m²", "300,000 m²"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "¿Cuántos metros cúbicos hay en 5,000 litros? (1 m³ = 1,000 L)",
+      "opciones": ["5 m³", "50 m³", "500 m³"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Si un objeto pesa 2,300 gramos, ¿cuántos kilogramos son?",
+      "opciones": ["2.3 kg", "23 kg", "0.23 kg"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "¿Cuántos milímetros hay en 7.2 centímetros?",
+      "opciones": ["72 mm", "7.2 mm", "720 mm"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Un auto recorre 240 km en 4 horas. ¿Cuál es su velocidad promedio?",
+      "opciones": ["60 km/h", "40 km/h", "100 km/h"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Si un litro de pintura cubre 8 m², ¿cuántos litros se necesitan para pintar una pared de 32 m²?",
+      "opciones": ["4 litros", "8 litros", "2 litros"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Un tinaco de agua se llena a razón de 20 litros por minuto. ¿Cuánto tardará en llenarse un tinaco de 500 litros?",
+      "opciones": ["25 minutos", "20 minutos", "10 minutos"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Se estima que un salón tiene capacidad para 4 personas por m². Si el salón mide 50 m², ¿cuál es una estimación razonable de su capacidad?",
+      "opciones": ["Alrededor de 200 personas", "Alrededor de 50 personas", "Alrededor de 800 personas"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Si 3 kg de manzanas cuestan $90, aproximadamente ¿cuánto costarán 7 kg al mismo precio por kilogramo?",
+      "opciones": ["$210", "$180", "$250"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Redondea 348.67 a la unidad entera más cercana:",
+      "opciones": ["349", "348", "350"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Al estimar el resultado de 198 × 5 redondeando 198 a 200, ¿cuál es la aproximación más razonable?",
+      "opciones": ["Aproximadamente 1000", "Aproximadamente 900", "Aproximadamente 1200"],
+      "correcta": 0
     }
   ]
 }
