@@ -251,48 +251,21 @@ export default function Leccion() {
       flexDirection: 'column',
       minHeight: '100vh',
       width: '100%',
-      maxWidth: '480px',
-      margin: '0 auto',
-      padding: '0 16px',
       boxSizing: 'border-box',
-      overflow: 'hidden',
     }}>
 
-      <div style={{
-        display: 'flex',
-        alignItems: 'center',
-        gap: 12,
-        padding: '16px 0 12px',
-        marginTop: '15px',
-      }}>
+      <div className="page-topbar" style={{ paddingBottom: 12 }}>
         {/* 1. Botón Salir */}
         <button
           onClick={() => navigate('/')}
           title="Salir"
-          style={{ 
-            background: 'transparent', 
-            border: 'none', 
-            color: 'var(--text)', 
-            fontSize: '1.4rem', 
-            cursor: 'pointer', 
-            display: 'flex',
-            alignItems: 'center',
-            padding: 0 
-          }}
+          className="page-topbar-btn"
         >
           <AiOutlineClose />
         </button>
 
         {/* 2. Icono de la Materia */}
-        <span style={{ 
-          background: 'transparent', 
-          border: 'none', 
-          color: 'var(--text)', 
-          fontSize: '1.35rem', 
-          display: 'flex',
-          alignItems: 'center',
-          padding: 0 
-        }}>
+        <span className="page-topbar-btn" style={{ fontSize: '1.35rem' }}>
           {renderIconoMateria(materia.icono)}
         </span>
 
@@ -333,12 +306,7 @@ export default function Leccion() {
         </div>
 
         {/* 4. Contenedor de Botones de Utilidad (Alineado a la derecha) */}
-        <div style={{ 
-          display: 'flex', 
-          alignItems: 'center', 
-          gap: '4px',
-          marginLeft: 'auto',
-        }}>
+        <div className="page-topbar-actions" style={{ gap: '4px' }}>
           {[
             { label: <MdRestartAlt />, title: 'Reiniciar', action: borrarProgresoTemporal },
             { label: <PiCopy />, title: 'Copiar pregunta', action: copiarPregunta },
@@ -368,6 +336,8 @@ export default function Leccion() {
           ))}
         </div>
       </div>
+
+      <div className="page-content" style={{ paddingTop: 18, display: 'flex', flexDirection: 'column', flex: 1, paddingBottom: 100 }}>
 
       <div style={{
         display: 'flex',
@@ -448,8 +418,10 @@ export default function Leccion() {
         ))}
       </div>
 
-      <div style={{ padding: '14px 0 20px', minHeight: 62 }}>
-        {respondido && (
+      </div>
+
+      {respondido && (
+        <div className="page-footer-fixed">
           <button
             onClick={siguiente}
             style={{
@@ -467,8 +439,8 @@ export default function Leccion() {
           >
             {esUltima ? ' Finalizar lección' : 'Siguiente'}
           </button>
-        )}
-      </div>
+        </div>
+      )}
 
     </div>
   )

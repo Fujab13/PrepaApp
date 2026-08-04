@@ -229,7 +229,7 @@ export default function Examen() {
   top: 0,
   zIndex: 30,
   background: "var(--bg)",
-  padding: "10px 14px",
+  padding: "14px 24px",
 }}>
   <div style={{
     display: 'flex',
@@ -239,7 +239,7 @@ export default function Examen() {
     <button
       onClick={() => navigate('/')}
       title="Salir"
-      style={{ background: 'transparent', border: 'none', color: 'var(--text)', fontSize: '1.4rem', cursor: 'pointer', padding: 5}}
+      className="page-topbar-btn"
     >
     <AiOutlineClose />
     </button>
@@ -274,11 +274,8 @@ export default function Examen() {
     </div>
 
     {/* Contador de preguntas + cronómetro, estilo "util-btn" */}
-    <div style={{
-      display: 'flex',
-      alignItems: 'center',
+    <div className="page-topbar-actions" style={{
       gap: '10px',
-      marginLeft: 'auto',
       fontSize: '0.75rem',
       color: 'var(--text-muted)',
     }}>
@@ -299,7 +296,7 @@ export default function Examen() {
 </header>
 
       {/* ── CUERPO PRINCIPAL ── */}
-      <main style={{ flex: 1, overflowY: "auto", padding: "16px 14px 90px" }}>
+      <main style={{ flex: 1, overflowY: "auto", padding: "16px 24px 90px" }}>
 
         {/* Número + cronómetro de pregunta */}
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 14 }}>
@@ -450,21 +447,7 @@ export default function Examen() {
       </main>
 
       {/* ── BARRA INFERIOR ── */}
-      <footer style={{
-        position: "fixed",
-        bottom: 0,
-        left: "50%",
-        transform: "translateX(-50%)",
-        width: "100%",
-        maxWidth: 480,
-        background: "var(--bg)",
-        borderTop: "0.5px solid var(--surface2)",
-        display: "flex",
-        alignItems: "center",
-        gap: 8,
-        padding: "10px 14px 16px",
-        zIndex: 30,
-      }}>
+      <footer className="page-footer-fixed">
         {/* Anterior */}
         <button
           onClick={anterior}

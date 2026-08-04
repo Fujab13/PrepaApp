@@ -173,6 +173,72 @@ display: flex;
   to { transform: rotate(360deg); }
 }
 /*---------------------------------------------------------------*/
+/* Cabecera superior estandar de las paginas, inspirada en Home.jsx */
+.page-topbar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 24px 24px 0;
+  box-sizing: border-box;
+}
+
+.page-topbar-btn {
+  background: transparent;
+  border: none;
+  color: var(--text);
+  font-size: 1.4rem;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+}
+
+.page-topbar-title {
+  color: var(--text);
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.page-topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+}
+
+/* Contenedor de contenido estandar, mismo margen horizontal que Home.jsx */
+.page-content {
+  padding: 24px;
+  box-sizing: border-box;
+}
+
+/* Barra de acciones fija en la parte inferior, inspirada en Examen.jsx.
+   Evita que los botones queden ocultos bajo el viewport en movil. */
+.page-footer-fixed {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 480px;
+  background: var(--bg);
+  border-top: 0.5px solid var(--surface2);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px 16px;
+  box-sizing: border-box;
+  z-index: 30;
+}
+
+/* Panel a pantalla completa que respeta la altura visible real en movil
+   (evita que el contenido quede oculto bajo la barra de direcciones) */
+.sidenav-panel {
+  height: 100vh;
+  height: 100dvh;
+}
+/*---------------------------------------------------------------*/
 .suspension-temporal {
   position: relative;
   user-select: none;

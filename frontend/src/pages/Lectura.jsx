@@ -70,52 +70,22 @@ export default function Lectura() {
       flexDirection: 'column',
       minHeight: '100vh',
       width: '100%',
-      maxWidth: '480px',
-      margin: '0 auto',
-      padding: '0 16px',
       boxSizing: 'border-box',
-      overflow: 'hidden',}}>
-    <div style={{
-      display: 'flex',
-      alignItems: 'center', // Alinea verticalmente los centros de los tres elementos
-      gap: 10,
-      padding: '16px 0 12px',
-      marginTop: '15px',
     }}>
+    <div className="page-topbar" style={{ paddingBottom: 12 }}>
       <button
         onClick={() => navigate('/')}
         title="Salir"
-        style={{ 
-          background: 'transparent', 
-          border: 'none', 
-          color: 'var(--text)', 
-          fontSize: '1.4rem', 
-          cursor: 'pointer', 
-          display: 'flex',      // Forzamos al botón a centrar internamente su icono
-          alignItems: 'center',
-          padding: 0            // Quitamos el padding para evitar desfases
-        }}
+        className="page-topbar-btn"
       >
         <AiOutlineClose />
       </button>
-      
-      <span style={{ 
-        background: 'transparent', 
-        border: 'none', 
-        color: 'var(--text)', 
-        fontSize: '1.35rem', 
-        display: 'flex',        // Forzamos al span a centrar internamente el emoji/icono
-        alignItems: 'center',
-        padding: 0              // Quitamos el padding para alineación perfecta
-      }}>
+
+      <span className="page-topbar-btn" style={{ fontSize: '1.35rem' }}>
         {renderIconoMateria(materia.icono, { size: 20 })}
       </span>
-      
-      <span style={{ 
-        fontWeight: 700, 
-        fontSize: '1.1rem',
-        lineHeight: 1           // Evita que el interlineado del texto empuje la caja hacia abajo
-      }}>
+
+      <span className="page-topbar-title">
         {materia.nombre}
       </span>
     </div>
@@ -144,50 +114,52 @@ export default function Lectura() {
         ))}
       </div>
 
-      <div style={{ padding: '24px', flex: 1 }}>
+      <div className="page-content" style={{ flex: 1, paddingBottom: 90 }}>
         <Tarjeta
           tema={tema}
           color={materia.color}
           completados={completados}
           onToggleSubtema={handleToggleSubtema}
         />
+      </div>
 
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: 20, gap: 12 }}>
-          <button
-            onClick={() => setTemaIdx(i => Math.max(0, i - 1))}
-            disabled={temaIdx === 0}
-            style={{
-              flex: 1, background: 'var(--surface)', color: 'var(--text)',
-              border: 'none', borderRadius: '12px', padding: '12px',
-              opacity: temaIdx === 0 ? 0.3 : 1, cursor: temaIdx === 0 ? 'default' : 'pointer',
-              transition: 'opacity 300ms ease'
-            }}
-          >
-           Anterior
-          </button>
+      <div className="page-footer-fixed">
+        <button
+          onClick={() => setTemaIdx(i => Math.max(0, i - 1))}
+          disabled={temaIdx === 0}
+          className="btn-footer-scroll"
+          style={{
+            flex: 1,
+            opacity: temaIdx === 0 ? 0.35 : 1,
+            color: 'var(--text-muted)',
+            border: '0.5px solid var(--surface2)',
+          }}
+        >
+         Anterior
+        </button>
 
-          {/* Indicador de paginación: dots si hay pocos temas, "x de y" si hay muchos */}
-          <PaginacionIndicador
-            total={totalTemas}
-            actual={temaIdx}
-            color={materia.color}
-            onSelect={setTemaIdx}
-          />
+        {/* Indicador de paginación: dots si hay pocos temas, "x de y" si hay muchos */}
+        <PaginacionIndicador
+          total={totalTemas}
+          actual={temaIdx}
+          color={materia.color}
+          onSelect={setTemaIdx}
+        />
 
-          <button
-            onClick={() => setTemaIdx(i => Math.min(totalTemas - 1, i + 1))}
-            disabled={temaIdx === totalTemas - 1}
-            style={{
-              flex: 1, background: materia.color, color: '#000', fontWeight: 700,
-              border: 'none', borderRadius: '12px', padding: '12px',
-              opacity: temaIdx === totalTemas - 1 ? 0.3 : 1,
-              cursor: temaIdx === totalTemas - 1 ? 'default' : 'pointer',
-              transition: 'opacity 300ms ease'
-            }}
-          >
-          Siguiente
-          </button>
-        </div>
+        <button
+          onClick={() => setTemaIdx(i => Math.min(totalTemas - 1, i + 1))}
+          disabled={temaIdx === totalTemas - 1}
+          className="btn-footer-scroll"
+          style={{
+            flex: 1,
+            background: materia.color,
+            color: '#000',
+            fontWeight: 700,
+            opacity: temaIdx === totalTemas - 1 ? 0.35 : 1,
+          }}
+        >
+        Siguiente
+        </button>
       </div>
 
     </div>

@@ -49,11 +49,10 @@ export default function Sidenav({ open, onClose }) {
       )}
 
       {/* Contenedor Lateral (Sidenav) */}
-      <div style={{
-        position: 'fixed', 
-        top: 0, 
-        left: 0, 
-        height: '100vh', 
+      <div className="sidenav-panel" style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
         width: '290px',
         background: 'var(--surface)', 
         zIndex: 100,

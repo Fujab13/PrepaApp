@@ -81,37 +81,18 @@ export default function Inventario({ onClose, onNavigateStore }) {
   };
 
   return (
-    <div style={{ padding: '24px 24px 0', display: 'flex', alignItems: 'center', gap: 10, width: '100%' }}>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '0', minHeight: '100vh', width: '100%' }}>
-        
-        <div style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: 12,
-                padding: '16px 0 12px',
-                marginTop: '15px',
-              }}>
-                {/* 1. Botón Salir */}
-                <button
-                  onClick={handleClose}
-                  title="Salir"
-                  style={{ 
-                    background: 'transparent', 
-                    border: 'none', 
-                    color: 'var(--text)', 
-                    fontSize: '1.4rem', 
-                    cursor: 'pointer', 
-                    display: 'flex',
-                    alignItems: 'center',
-                    padding: 0 
-                  }}
-                >
-                  <AiOutlineClose />
-                </button>
-                <h2 style={{ color: 'var(--text)', fontSize: '1.2rem', margin: 0 }}>Inventario</h2>
-                </div>
+    <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', width: '100%' }}>
+
+      <div className="page-topbar">
+        <button onClick={handleClose} title="Salir" className="page-topbar-btn">
+          <AiOutlineClose />
+        </button>
+        <h2 className="page-topbar-title">Inventario</h2>
+      </div>
+
+      <div className="page-content" style={{ display: 'flex', flexDirection: 'column', gap: '20px', flex: 1 }}>
         {errorLeccion && (
-          <p style={{ color: 'salmon', padding: '0 16px' }}>{errorLeccion}</p>
+          <p style={{ color: 'salmon' }}>{errorLeccion}</p>
         )}
         {loading ? (
           <p style={styles.loadingText}>Cargando inventario...</p>
@@ -146,26 +127,6 @@ export default function Inventario({ onClose, onNavigateStore }) {
 
 // Estilos basados estrictamente en las variables solicitadas
 const styles = {
-  header: {
-    display: 'flex',
-    alignItems: 'center',
-    padding: '20px',
-    borderBottom: '1px solid #1a1a2e',
-  },
-  closeBtn: {
-    background: 'none',
-    border: 'none',
-    color: '#f0f0f0',
-    fontSize: '18px',
-    cursor: 'pointer',
-    marginRight: '15px',
-  },
-  title: {
-    color: '#f0f0f0',
-    fontSize: '20px',
-    margin: 0,
-    fontWeight: '600',
-  },
   loadingText: {
     color: '#846c89',
     textAlign: 'center',

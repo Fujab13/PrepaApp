@@ -93,8 +93,8 @@ export default function Home() {
 
       <Sidenav open={sidenavOpen} onClose={() => setSidenavOpen(false)} />
 
-      <div style={{ padding: '24px 24px 0', display: 'flex', alignItems: 'center', gap: 10, color: featured.color }}>
-        <button onClick={() => setSidenavOpen(true)} style={{background: 'transparent', border: 'none', color: 'var(--text)', fontSize: '1.4rem', cursor: 'pointer', padding: 0}}>
+      <div className="page-topbar" style={{ color: featured.color }}>
+        <button onClick={() => setSidenavOpen(true)} className="page-topbar-btn">
           <RiMenuFill />
         </button>
                 
@@ -125,18 +125,7 @@ export default function Home() {
         }}>
           Prepa<span style={{ fontWeight: 300, opacity: 0.6 }}>App</span>
         </h1>
-        <div style={{ 
-          display: 'flex', 
-          alignItems: 'center', 
-          gap: '8px', 
-          color: 'var(--text-muted)', 
-          fontSize: '0.75rem', 
-          marginLeft: 'auto',
-          textTransform: 'uppercase', 
-          letterSpacing: '1.5px', 
-          padding: 7
-          
-        }}>
+        <div className="page-topbar-actions">
           <button className="util-btn" 
           onClick={() => {
             const nuevoEstado = !vibracionActiva;
@@ -160,7 +149,7 @@ export default function Home() {
           </button>
         </div>
       </div>
-      <div style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '20px', flex: 1 }}>
+      <div className="page-content" style={{ display: 'flex', flexDirection: 'column', gap: '20px', flex: 1 }}>
 
         <div style={{background: 'var(--surface)', borderRadius: 'var(--radius)', padding: '28px 20px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px'}}>
         <p style={{ color: 'var(--text-muted)', fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '1.5px' }}>
