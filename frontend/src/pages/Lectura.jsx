@@ -72,7 +72,7 @@ export default function Lectura() {
       width: '100%',
       boxSizing: 'border-box',
     }}>
-    <div className="page-topbar" style={{ paddingBottom: 12 }}>
+    <div className="page-topbar-compact" style={{ paddingBottom: 12 }}>
       <button
         onClick={() => navigate('/')}
         title="Salir"
@@ -90,7 +90,7 @@ export default function Lectura() {
       </span>
     </div>
 
-      <div style={{ padding: '16px 24px 0', display: 'flex', gap: 8, overflowX: 'auto' }}>
+      <div style={{ padding: '16px 16px 0', display: 'flex', gap: 8, overflowX: 'auto' }}>
         {lectura.temas.map((t, i) => (
           <button
             key={t.id}
@@ -114,7 +114,7 @@ export default function Lectura() {
         ))}
       </div>
 
-      <div className="page-content" style={{ flex: 1, paddingBottom: 90 }}>
+      <div className="page-content-compact" style={{ flex: 1, paddingBottom: 90 }}>
         <Tarjeta
           tema={tema}
           color={materia.color}

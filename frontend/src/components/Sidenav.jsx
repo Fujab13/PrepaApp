@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom'
 import { supabase } from '../services/supabaseClient'
 import { useAuth } from '../context/AuthContext'
+import { useMusic } from '../context/MusicContext'
 import { MATERIAS } from '../data/leccionesGratis'
 import { renderIconoMateria } from '../utils/renderIconoMateria'
 
@@ -14,11 +15,13 @@ import { PiShoppingCartSimpleFill } from "react-icons/pi";
 import { RiUser3Fill } from "react-icons/ri";
 import { FaClock } from "react-icons/fa6";
 import { MdSdStorage } from "react-icons/md";
+import { FaVolumeUp, FaVolumeMute } from "react-icons/fa";
 
 
 export default function Sidenav({ open, onClose }) {
   const navigate = useNavigate()
   const { user } = useAuth()
+  const music = useMusic()
   const [hoveredBtn, setHoveredBtn] = useState(null);
 
   async function cerrarSesion() {
@@ -231,6 +234,29 @@ export default function Sidenav({ open, onClose }) {
           boxShadow: '0 -12px 20px -10px rgba(0, 0, 0, 0.25)', // Logra el efecto de separación/elevación del fondo
           zIndex: 5
         }}>
+          {music && (
+            <button
+              onClick={music.toggleMuted}
+              onMouseEnter={() => setHoveredBtn('musica')}
+              onMouseLeave={() => setHoveredBtn(null)}
+              className="btn-sidernav"
+              style={{ marginBottom: 0 }}
+              aria-label={music.muted ? 'Activar música' : 'Silenciar música'}
+            >
+              <span style={{
+                fontSize: '1.1rem',
+                width: '32px', height: '32px',
+                background: 'rgba(124, 92, 191, 0.15)',
+                color: '#7c5cbf',
+                borderRadius: '10px',
+                display: 'flex', alignItems: 'center',
+                justifyContent: 'center', flexShrink: 0
+              }}>
+                {music.muted ? <FaVolumeMute /> : <FaVolumeUp />}
+              </span>
+              <span>{music.muted ? 'Música silenciada' : 'Silenciar música'}</span>
+            </button>
+          )}
           {user ? (
             <button 
               onClick={cerrarSesion} 

@@ -224,12 +224,12 @@ export default function Examen() {
     <div style={{ display: 'flex', flexDirection: 'column', gap: '0', minHeight: '100vh' }}>
       
       {/* ── BARRA SUPERIOR ── */}
-<header style={{
+<header className="page-topbar-compact" style={{
   position: "sticky",
   top: 0,
   zIndex: 30,
   background: "var(--bg)",
-  padding: "14px 24px",
+  paddingTop: 14,
 }}>
   <div style={{
     display: 'flex',
@@ -296,7 +296,7 @@ export default function Examen() {
 </header>
 
       {/* ── CUERPO PRINCIPAL ── */}
-      <main style={{ flex: 1, overflowY: "auto", padding: "16px 24px 90px" }}>
+      <main className="page-content-compact" style={{ flex: 1, overflowY: "auto", paddingTop: 16, paddingBottom: 90 }}>
 
         {/* Número + cronómetro de pregunta */}
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 14 }}>

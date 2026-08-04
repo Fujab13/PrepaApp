@@ -121,7 +121,7 @@ export default function Store() {
   return (
     // className="suspension-temporal" inert="true" 
     <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
-      <div className="sp-header" style={{ padding: '16px 24px', display: 'flex', alignItems: 'center', gap: 10 }}>
+      <div className="sp-header page-topbar-compact" style={{ paddingTop: 16, paddingBottom: 16, display: 'flex', alignItems: 'center', gap: 10 }}>
         <button
           onClick={() => navigate('/')}
           title="Salir"
@@ -159,7 +159,7 @@ export default function Store() {
         </div>
       </div>
 
-      <div style={{ padding: '20px 24px 28px', display: 'flex', flexDirection: 'column', gap: '28px', flex: 1 }}>
+      <div className="page-content-compact" style={{ paddingTop: 20, paddingBottom: 28, display: 'flex', flexDirection: 'column', gap: '28px', flex: 1 }}>
 
         {productosLoading && (
           <p style={{ color: 'var(--text-muted)', fontSize: '0.8rem', textAlign: 'center' }}>

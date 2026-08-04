@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import { StoreProvider } from './context/StoreContext'
+import { MusicProvider } from './context/MusicContext'
 
 import Home from './pages/Home';
 import Leccion from './pages/Leccion';
@@ -37,6 +38,7 @@ export default function App() {
   return (
     <AuthProvider>
       <StoreProvider>
+      <MusicProvider>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/leccion/:materiaId" element={<Leccion />} />
@@ -48,6 +50,7 @@ export default function App() {
         <Route path="/resultados" element={<Resultados />} />
         <Route path="/inventario" element={<Inventario />} />
       </Routes>
+      </MusicProvider>
       </StoreProvider>
     </AuthProvider>
   );
