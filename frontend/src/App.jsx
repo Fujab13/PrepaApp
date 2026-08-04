@@ -7,6 +7,7 @@ import Home from './pages/Home';
 import Leccion from './pages/Leccion';
 import Lectura from './pages/Lectura';
 import Login from './pages/Login';
+import ActualizarPassword from './pages/ActualizarPassword';
 import Store from './pages/Store'
 import Examen from './pages/Examen';
 import Resultados from './pages/Resultados';
@@ -41,6 +42,7 @@ export default function App() {
         <Route path="/leccion/:materiaId" element={<Leccion />} />
         <Route path="/lectura/:materiaId" element={<Lectura />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/actualizar-password" element={<ActualizarPassword />} />
         <Route path="/tienda" element={<Store />} />
         <Route path="/examen" element={<Examen />} />
         <Route path="/resultados" element={<Resultados />} />
