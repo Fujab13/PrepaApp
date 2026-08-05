@@ -9,6 +9,9 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { PREGUNTAS, SECCIONES } from "../data/examen.js";
 import SidenavMatrix from "../components/SidenavMatrix";
+import { useAuth } from "../context/AuthContext";
+import { supabase } from "../services/supabaseClient";
+import { calcularStatsPorSeccion } from "../utils/examenStats";
 
 import { AiOutlineClose } from "react-icons/ai";
 import { IoIosArrowBack } from "react-icons/io";
@@ -56,6 +59,7 @@ const getSectionIndex = (id) =>
 // ════════════════════════════════════════════════════════════════════════════
 export default function Examen() {
   const navigate   = useNavigate();
+  const { user }   = useAuth();
 
   // ── Estado del examen ────────────────────────────────────────────────────
   const [indexActual, setIndexActual] = useState(0);     // índice en PREGUNTAS
@@ -112,6 +116,37 @@ export default function Examen() {
     tiemposRef.current[id] = (tiemposRef.current[id] ?? 0) + segundosUsados;
   }, []);
 
+  // ── Persistencia del resultado (solo si hay sesión) ───────────────────────
+  // Sin esto, /tutorias no tendría forma de verificar server-side que el
+  // examen ya se completó, ni de mandarle el reporte a un maestro. No se
+  // espera (fire-and-forget): un insert de más no debe retrasar el cierre
+  // de un examen contra reloj, y Resultados.jsx igual se pinta desde el
+  // state de navegación, no desde esto.
+  const guardarResultadoExamen = useCallback(({ respuestasFinal, tiempoTotalSegundos }) => {
+    if (!user) return;
+    const statsPorSeccion = calcularStatsPorSeccion({
+      preguntas: PREGUNTAS,
+      secciones: SECCIONES,
+      respuestas: respuestasFinal,
+    });
+    const correctas = PREGUNTAS.filter(p => respuestasFinal[p.id] === p.inciso_correcto).length;
+    const precisionGlobal = PREGUNTAS.length > 0 ? Math.round((correctas / PREGUNTAS.length) * 100) : 0;
+
+    supabase
+      .from("resultados_examen")
+      .insert({
+        user_id: user.id,
+        precision_global: precisionGlobal,
+        stats_por_seccion: statsPorSeccion.map(s => ({
+          nombre: s.nombre, correctas: s.correctas, total: s.total, color: s.color,
+        })),
+        tiempo_total_segundos: tiempoTotalSegundos,
+      })
+      .then(({ error }) => {
+        if (error) console.error("No se pudo guardar el resultado del examen:", error);
+      });
+  }, [user]);
+
   // ── Navegación ────────────────────────────────────────────────────────────
   const irA = useCallback((idObjetivo) => {
     guardarTiempoPregunta(pregunta.id);
@@ -148,6 +183,7 @@ export default function Examen() {
       );
       if (!confirmado) return;
       guardarTiempoPregunta(pregunta.id);
+      guardarResultadoExamen({ respuestasFinal: respuestas, tiempoTotalSegundos: TIEMPO_GLOBAL_INICIAL - tiempoGlobal });
       navigate("/Resultados", {
         state: {
           respuestas,
@@ -172,7 +208,7 @@ export default function Examen() {
 
     guardarTiempoPregunta(pregunta.id);
     setIndexActual(i => i + 1);
-  }, [indexActual, totalPreguntas, seccionIdx, seccion, pregunta.id, respuestas, marcadas, tiempoGlobal, guardarTiempoPregunta, navigate]);
+  }, [indexActual, totalPreguntas, seccionIdx, seccion, pregunta.id, respuestas, marcadas, tiempoGlobal, guardarTiempoPregunta, guardarResultadoExamen, navigate]);
 
   // ── Seleccionar respuesta ─────────────────────────────────────────────────
   const seleccionarRespuesta = (inciso) => {
@@ -192,6 +228,7 @@ export default function Examen() {
   useEffect(() => {
     if (tiempoGlobal <= 0) {
       guardarTiempoPregunta(pregunta.id);
+      guardarResultadoExamen({ respuestasFinal: respuestas, tiempoTotalSegundos: TIEMPO_GLOBAL_INICIAL });
       navigate("/Resultados", {
         state: {
           respuestas,

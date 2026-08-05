@@ -11,6 +11,7 @@
 
 import { useMemo } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { calcularStatsPorSeccion } from "../utils/examenStats";
 
 import { GiJewelCrown } from "react-icons/gi";
 import { GiQueenCrown } from "react-icons/gi";
@@ -136,13 +137,10 @@ export default function Resultados() {
   }, [respuestas, tiemposPregunta, preguntas]);
 
   // ── Estadísticas por sección ────────────────────────────────────────────
-  const statsPorSeccion = useMemo(() =>
-    secciones.map(sec => {
-      const pregsSec = preguntas.filter(p => p.id >= sec.id_inicio && p.id <= sec.id_fin);
-      const correctas = pregsSec.filter(p => respuestas[p.id] === p.inciso_correcto).length;
-      return { ...sec, total: pregsSec.length, correctas };
-    }),
-  [secciones, preguntas, respuestas]);
+  const statsPorSeccion = useMemo(
+    () => calcularStatsPorSeccion({ preguntas, secciones, respuestas }),
+    [secciones, preguntas, respuestas]
+  );
 
   // ── Nivel de desempeño ──────────────────────────────────────────────────
   const nivel = stats.precision >= 97 ? { texto: "A+", color: "#22c55e", emoji: <GiJewelCrown />} 

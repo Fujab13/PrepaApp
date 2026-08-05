@@ -15,11 +15,16 @@ import { BiMobileVibration } from "react-icons/bi";
 import { RxEnterFullScreen } from "react-icons/rx";
 import { MdFullscreen } from "react-icons/md";
 import { RiMenuFill } from "react-icons/ri";
-import { FaInstagram, FaFacebook, FaEnvelope, FaWhatsapp } from 'react-icons/fa'
+import { FaInstagram, FaFacebook, FaEnvelope, FaWhatsapp, FaRegCommentDots } from 'react-icons/fa'
 
 const animacionLunas = ['🌑', '🌒', '🌓', '🌔', '🌕', '🌖', '🌗', '🌘'];
 {/*{animacionLunas[frameIdx]}*/}
 const animacionCarga = ['▱▱▱▱', '▰▱▱▱', '▰▰▱▱', '▰▰▰▱', '▰▰▰▰', '▰▰▰▱', '▰▰▱▱', '▰▱▱▱'];
+
+// El hexágono de progreso muestra el avance de "hoy" (0-6) y se reinicia
+// solo visualmente cada 24h; el progreso real de lecciones (unidadesCompletas)
+// nunca se toca, solo se guarda un punto de referencia (baseline) por materia.
+const HEX_RESET_MS = 24 * 60 * 60 * 1000
 
 export default function Home() {
   const navigate = useNavigate()
@@ -39,6 +44,28 @@ export default function Home() {
   const [frameIdx, setFrameIdx] = useState(0)
   const { unidadesCompletas } = useProgreso(featuredId)
   const featured = MATERIAS.find(m => m.id === featuredId) || MATERIAS[0]
+
+  // Baseline diario del hexágono: cuántas unidades ya estaban completas
+  // cuando arrancó la ventana de 24h actual. progresoHex = lo avanzado desde ahí.
+  const [hexBaseline, setHexBaseline] = useState(null)
+  useEffect(() => {
+    if (!featuredId) return
+    const key = `hex_diario_${featuredId}`
+    let baseline
+    try {
+      const guardado = JSON.parse(localStorage.getItem(key) || 'null')
+      if (guardado && Date.now() < guardado.expira) baseline = guardado.valor
+    } catch {
+      baseline = undefined
+    }
+    if (baseline === undefined) {
+      baseline = unidadesCompletas
+      localStorage.setItem(key, JSON.stringify({ valor: baseline, expira: Date.now() + HEX_RESET_MS }))
+    }
+    setHexBaseline(baseline)
+  }, [featuredId, unidadesCompletas])
+
+  const progresoHex = hexBaseline === null ? 0 : Math.min(Math.max(unidadesCompletas - hexBaseline, 0), 6)
   const cambiarFeatured = (id) => {
     setFeaturedId(id)
     localStorage.setItem('featured_materia_id', id)
@@ -126,7 +153,12 @@ export default function Home() {
           Prepa<span style={{ fontWeight: 300, opacity: 0.6 }}>App</span>
         </h1>
         <div className="page-topbar-actions">
-          <button className="util-btn" 
+          <button className="util-btn"
+          title="Déjanos tu feedback"
+          onClick={() => window.open('https://docs.google.com/forms/d/e/1FAIpQLSeoEBlg6L-kp1X1IbuaHFaHa85eL0X2ph0XEX0Hu6wFGpL-Pw/viewform?pli=1', '_blank', 'noopener,noreferrer')}>
+            <FaRegCommentDots />
+          </button>
+          <button className="util-btn"
           onClick={() => {
             const nuevoEstado = !vibracionActiva;
             setVibracionActiva(nuevoEstado);
@@ -156,7 +188,7 @@ export default function Home() {
           progreso en {featured.nombre}</p>
           
           <Hexagono
-          progreso={unidadesCompletas}
+          progreso={progresoHex}
           color={featured.color}
           onClick={() => navigate(`/leccion/${featured.id}`)}
           />
@@ -264,8 +296,8 @@ export default function Home() {
       <FaEnvelope size={22} />
     </a>
 
-    <a href="https://wa.me/527331274538" target="_blank" rel="noopener noreferrer" 
-      style={{ 
+    <a href="https://wa.me/527331274538" target="_blank" rel="noopener noreferrer"
+      style={{
         color: 'var(--text)',
         opacity: 0.9
       }}>

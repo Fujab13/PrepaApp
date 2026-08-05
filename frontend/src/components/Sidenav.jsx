@@ -16,6 +16,7 @@ import { RiUser3Fill } from "react-icons/ri";
 import { FaClock } from "react-icons/fa6";
 import { MdSdStorage } from "react-icons/md";
 import { FaVolumeUp, FaVolumeMute } from "react-icons/fa";
+import { PiChalkboardTeacher } from "react-icons/pi";
 
 
 export default function Sidenav({ open, onClose }) {
@@ -153,6 +154,48 @@ export default function Sidenav({ open, onClose }) {
               <FaClock />
             </span>
             <span>Examen Simulador</span>
+          </button>
+
+          {/* Botón Formulario Área */}
+          <button
+            onClick={() => ir('/formulario-area')}
+            onMouseEnter={() => setHoveredBtn('formulario-area')}
+            onMouseLeave={() => setHoveredBtn(null)}
+            className="btn-sidernav"
+          >
+            <span style={{
+              fontSize: '1.1rem',
+              width: '32px', height: '32px',
+              background: 'rgba(16, 185, 129, 0.15)',
+              color: '#10b981',
+              borderRadius: '10px',
+              display: 'flex', alignItems: 'center', justifyindex: 'center',
+              justifyContent: 'center', flexShrink: 0
+            }}>
+              <FaUserGraduate />
+            </span>
+            <span>Formulario Área</span>
+          </button>
+
+          {/* Botón Tutorías */}
+          <button
+            onClick={() => ir('/tutorias')}
+            onMouseEnter={() => setHoveredBtn('tutorias')}
+            onMouseLeave={() => setHoveredBtn(null)}
+            className="btn-sidernav"
+          >
+            <span style={{
+              fontSize: '1.1rem',
+              width: '32px', height: '32px',
+              background: 'rgba(59, 130, 246, 0.15)',
+              color: '#3b82f6',
+              borderRadius: '10px',
+              display: 'flex', alignItems: 'center', justifyindex: 'center',
+              justifyContent: 'center', flexShrink: 0
+            }}>
+              <PiChalkboardTeacher />
+            </span>
+            <span>Tutorías</span>
           </button>
 
           {/* Botón Inventario */}
