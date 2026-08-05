@@ -8,19 +8,20 @@ import * as MdIcons from 'react-icons/md'
 import * as RiIcons from 'react-icons/ri'
 import Hexagono from '../components/Hexagono'
 import OpcionBtn from '../components/OpcionBtn'
+import TarjetaRepaso from '../components/TarjetaRepaso'
 import { useProgreso } from '../hooks/useProgreso'
 import { getPreguntasDeUnidad } from '../data/unidades'
 import { obtenerLeccionDeSesion } from '../services/leccionesPremium';
 
 import { IoMdClose } from "react-icons/io";
 import { AiOutlineClose, AiOutlineLoading3Quarters } from "react-icons/ai";
-import { MdFullscreen } from "react-icons/md";
+import { MdFullscreen, MdFullscreenExit } from "react-icons/md";
 import { VscDebugRestart } from "react-icons/vsc";
 import { MdRestartAlt } from "react-icons/md";
 import { PiCopy, PiCheckBold } from "react-icons/pi";
 import { MdOutlineReplay } from "react-icons/md";
 
-const COLOR_REFUERZO = '#f59e0b'
+const COLOR_REFUERZO = '#26d1e8' // mismo azul que la lección de español, por coincidencia
 
 // --- Persistencia local de preguntas falladas, por materia y por unidad ---
 // No usa Supabase: es una mejora de UX local, no progreso "oficial".
@@ -427,7 +428,7 @@ export default function Leccion() {
           {[
             { label: <MdRestartAlt />, title: 'Reiniciar', action: borrarProgresoTemporal },
             { label: copiado ? <PiCheckBold /> : <PiCopy />, title: 'Copiar pregunta', action: copiarPregunta },
-            { label: esFullscreen ? <MdFullscreen /> : <MdFullscreen />, action: toggleFullscreen },
+            { label: esFullscreen ? <MdFullscreenExit /> : <MdFullscreen />, title: 'Pantalla completa', action: toggleFullscreen },
           ].map(({ label, title, action }) => (
             <div key={title} style={{ position: 'relative', display: 'flex' }}>
               <button
@@ -529,25 +530,27 @@ export default function Leccion() {
             />
           </div>
         )}
-      <div style={{
-        background: 'var(--surface)',
-        borderRadius: 'var(--radius)',
-        padding: '16px 18px',
-        marginBottom: 14,
-        borderLeft: `3px solid ${enRepaso ? COLOR_REFUERZO : materia.color}`,
-      }}>
-        <p style={{
-          fontSize: '1rem',
-          lineHeight: 1.65,
-          fontWeight: 500,
-          margin: 0,
-          color: 'var(--text)',
-          wordBreak: 'break-word',
-          overflowWrap: 'break-word',
+      {!enRepaso && (
+        <div style={{
+          background: 'var(--surface)',
+          borderRadius: 'var(--radius)',
+          padding: '16px 18px',
+          marginBottom: 14,
+          borderLeft: `3px solid ${materia.color}`,
         }}>
-          {pregunta.pregunta}
-        </p>
-      </div>
+          <p style={{
+            fontSize: '1rem',
+            lineHeight: 1.65,
+            fontWeight: 500,
+            margin: 0,
+            color: 'var(--text)',
+            wordBreak: 'break-word',
+            overflowWrap: 'break-word',
+          }}>
+            {pregunta.pregunta}
+          </p>
+        </div>
+      )}
 
       <div style={{ minHeight: 22, marginBottom: 10 }}>
         {feedback && (
@@ -563,11 +566,21 @@ export default function Leccion() {
         )}
       </div>
 
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 10, flex: 1 }}>
-        {pregunta.opciones.map((op, i) => (
-          <OpcionBtn key={i} texto={op} estado={estados[i]} onClick={() => responder(i)} />
-        ))}
-      </div>
+      {enRepaso ? (
+        <TarjetaRepaso
+          pregunta={pregunta}
+          estados={estados}
+          respondido={respondido}
+          color={COLOR_REFUERZO}
+          onResponder={responder}
+        />
+      ) : (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 10, flex: 1 }}>
+          {pregunta.opciones.map((op, i) => (
+            <OpcionBtn key={i} texto={op} estado={estados[i]} onClick={() => responder(i)} />
+          ))}
+        </div>
+      )}
 
       </div>
 

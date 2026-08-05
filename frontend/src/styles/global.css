@@ -295,3 +295,18 @@ display: flex;
   cursor: not-allowed;
 }
 /*---------------------------------------------------------------*/
+/* Impresion de informes (Informe.jsx): oculta la navegacion y re-tematiza
+   las variables de color a una paleta clara, para que el mismo diseño
+   oscuro de PrepaApp salga limpio en PDF/papel. */
+@media print {
+  .no-print { display: none !important; }
+  body, #root { background: #ffffff; display: block; max-width: none; }
+  .informe-print {
+    --bg: #ffffff;
+    --surface: #ffffff;
+    --surface2: #e5e7eb;
+    --text: #111827;
+    --text-muted: #4b5563;
+  }
+}
+/*---------------------------------------------------------------*/

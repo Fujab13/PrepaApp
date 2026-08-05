@@ -13,6 +13,10 @@ import Store from './pages/Store'
 import Examen from './pages/Examen';
 import Resultados from './pages/Resultados';
 import Inventario from './pages/Inventario';
+import FormularioArea from './pages/FormularioArea';
+import Informe from './pages/Informe';
+import Tutorias from './pages/Tutorias';
+import TutoriaConfirmada from './pages/TutoriaConfirmada';
 
 import 'katex/dist/katex.min.css';
 import { triggerVibration } from './utils/haptics';
@@ -49,6 +53,10 @@ export default function App() {
         <Route path="/examen" element={<Examen />} />
         <Route path="/resultados" element={<Resultados />} />
         <Route path="/inventario" element={<Inventario />} />
+        <Route path="/formulario-area" element={<FormularioArea />} />
+        <Route path="/informe" element={<Informe />} />
+        <Route path="/tutorias" element={<Tutorias />} />
+        <Route path="/tutoria-confirmada" element={<TutoriaConfirmada />} />
       </Routes>
       </MusicProvider>
       </StoreProvider>
