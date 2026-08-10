@@ -146,7 +146,7 @@ Deno.serve(async (req: Request) => {
         user_id: user.id,
       },
       success_url: `${frontendUrl}/tutoria-confirmada?solicitud=${solicitud.id}`,
-      cancel_url: `${frontendUrl}/tutorias`,
+      cancel_url: `${frontendUrl}/tutorias/alumno`,
     })
 
     await supabaseAdmin

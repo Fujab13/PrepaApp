@@ -89,7 +89,7 @@ export default function TutoriaConfirmada() {
           <div style={{ textAlign: "center" }}>
             <p style={{ color: "var(--wrong)", fontSize: 14, marginBottom: 16 }}>{errorCarga}</p>
             <button
-              onClick={() => navigate("/tutorias")}
+              onClick={() => navigate("/tutorias/alumno")}
               style={{ minHeight: 44, padding: "0 20px", borderRadius: 10, border: "none", background: "#7c5cbf", color: "#fff", fontWeight: 600, cursor: "pointer" }}
             >
               Volver a tutorías

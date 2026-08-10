@@ -446,3 +446,9 @@ enabled = true
 verify_jwt = false
 import_map = "./functions/onboardear-profesor/deno.json"
 entrypoint = "./functions/onboardear-profesor/index.ts"
+
+[functions.conectar-pagos-maestro]
+enabled = true
+verify_jwt = false
+import_map = "./functions/conectar-pagos-maestro/deno.json"
+entrypoint = "./functions/conectar-pagos-maestro/index.ts"

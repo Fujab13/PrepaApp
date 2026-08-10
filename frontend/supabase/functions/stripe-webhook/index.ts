@@ -70,7 +70,45 @@ async function enviarNotificacionesTutoria(data: any) {
       .map((s: any) => `<li>${escapeHtml(s.nombre)}: ${s.correctas}/${s.total} (${s.pct}%)</li>`)
       .join('')
 
-    await enviarCorreo({
+    // Archivos que el alumno haya adjuntado al reservar (opcionales). El
+    // bucket es privado, así que el maestro necesita una liga firmada -
+    // generarla aquí es más simple que exponer un endpoint aparte, y una
+    // liga individual que falle no debe tumbar el resto del correo.
+    const { data: archivos } = await supabaseAdmin
+      .from('tutoria_archivos')
+      .select('storage_path, nombre_original')
+      .eq('solicitud_id', solicitud.id)
+
+    const ligasArchivos = (
+      await Promise.allSettled(
+        (archivos ?? []).map(async (archivo: any) => {
+          const { data: firmada, error: firmaError } = await supabaseAdmin
+            .storage
+            .from('tutoria-archivos')
+            .createSignedUrl(archivo.storage_path, 60 * 60 * 24 * 7)
+          if (firmaError || !firmada?.signedUrl) throw firmaError ?? new Error('sin_url')
+          return { nombre: archivo.nombre_original, url: firmada.signedUrl }
+        })
+      )
+    )
+      .filter((r): r is PromiseFulfilledResult<{ nombre: string; url: string }> => r.status === 'fulfilled')
+      .map((r) => r.value)
+
+    const archivosHtml = ligasArchivos.length > 0
+      ? `<p><strong>Archivos que subió el alumno:</strong></p><ul>${ligasArchivos
+          .map((a) => `<li><a href="${a.url}">${escapeHtml(a.nombre)}</a></li>`)
+          .join('')}</ul>`
+      : ''
+
+    // `enviarCorreo` nunca lanza (atrapa su propio error de red/API y regresa
+    // {ok:false}), así que hay que revisar `.ok` explícitamente y escalarlo a
+    // una excepción — si no, un fallo de Resend (dominio no verificado, rate
+    // limit, etc.) se marcaría igual como "notificaciones_enviadas" sin que
+    // el correo haya salido, y nunca se reintentaría. Nota: si el correo del
+    // alumno sale bien pero el del profesor falla, el reintento (redelivery
+    // de Stripe) vuelve a mandar el del alumno también — aceptable frente a
+    // que el profesor se quede sin avisar.
+    const correoAlumno = await enviarCorreo({
       to: alumno.email,
       subject: `Tu tutoría de ${nombreMateria} está confirmada`,
       html: `
@@ -84,8 +122,11 @@ async function enviarNotificacionesTutoria(data: any) {
         <p>Únete a tu clase aquí: <a href="${solicitud.meeting_url}">${solicitud.meeting_url}</a></p>
       `,
     })
+    if (!correoAlumno.ok) {
+      throw new Error(`No se pudo enviar el correo al alumno: ${correoAlumno.error}`)
+    }
 
-    await enviarCorreo({
+    const correoProfesor = await enviarCorreo({
       to: profesor.email_contacto,
       subject: `Nueva clase confirmada: ${nombreMateria}`,
       html: `
@@ -108,8 +149,12 @@ async function enviarNotificacionesTutoria(data: any) {
         ${solicitud.notas_alumno ? `<p><strong>Notas del alumno sobre la clase:</strong> ${escapeHtml(solicitud.notas_alumno)}</p>` : ''}
         <p><strong>Resultados del examen diagnóstico (${examen?.precision_global ?? '—'}% global) — conviene enfocar la clase en lo más débil primero:</strong></p>
         <ul>${statsHtml}</ul>
+        ${archivosHtml}
       `,
     })
+    if (!correoProfesor.ok) {
+      throw new Error(`No se pudo enviar el correo al profesor: ${correoProfesor.error}`)
+    }
 
     await supabaseAdmin
       .from('solicitudes_tutoria')
