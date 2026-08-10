@@ -16,7 +16,11 @@ import Inventario from './pages/Inventario';
 import FormularioArea from './pages/FormularioArea';
 import Informe from './pages/Informe';
 import Tutorias from './pages/Tutorias';
+import TutoriasAlumno from './pages/TutoriasAlumno';
+import TutoriasMaestro from './pages/TutoriasMaestro';
 import TutoriaConfirmada from './pages/TutoriaConfirmada';
+import Ofertas from './pages/Ofertas';
+import PublicarOferta from './pages/PublicarOferta';
 
 import 'katex/dist/katex.min.css';
 import { triggerVibration } from './utils/haptics';
@@ -56,7 +60,11 @@ export default function App() {
         <Route path="/formulario-area" element={<FormularioArea />} />
         <Route path="/informe" element={<Informe />} />
         <Route path="/tutorias" element={<Tutorias />} />
+        <Route path="/tutorias/alumno" element={<TutoriasAlumno />} />
+        <Route path="/tutorias/maestro" element={<TutoriasMaestro />} />
         <Route path="/tutoria-confirmada" element={<TutoriaConfirmada />} />
+        <Route path="/ofertas" element={<Ofertas />} />
+        <Route path="/ofertas/publicar" element={<PublicarOferta />} />
       </Routes>
       </MusicProvider>
       </StoreProvider>
