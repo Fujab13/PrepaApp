@@ -1,6 +1,6 @@
 export default function OpcionBtn({ texto, estado, onClick }) {
   const colores = {
-    normal:     { border: 'var(--surface2)', bg: 'var(--surface)' },
+    normal:     { border: 'var(--surface)', bg: 'var(--surface2)' },
     correcto:   { border: 'var(--correct)',  bg: 'rgba(74,222,128,0.1)' },
     incorrecto: { border: 'var(--wrong)',    bg: 'rgba(248,113,113,0.1)' },
   }

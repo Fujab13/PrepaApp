@@ -97,7 +97,7 @@ export default function Lectura() {
             ref={i === temaIdx ? activeTabRef : null}
             onClick={() => setTemaIdx(i)}
             style={{
-              background: i === temaIdx ? materia.color : 'var(--surface)',
+              background: i === temaIdx ? materia.color : 'var(--surface2)',
               color: i === temaIdx ? '#000' : 'var(--text-muted)',
               border: 'none',
               borderRadius: '20px',
@@ -132,7 +132,7 @@ export default function Lectura() {
             flex: 1,
             opacity: temaIdx === 0 ? 0.35 : 1,
             color: 'var(--text-muted)',
-            border: '0.5px solid var(--surface2)',
+            border: '0.5px solid var(--surface)',
           }}
         >
          Anterior
@@ -203,7 +203,7 @@ function PaginacionIndicador({ total, actual, color, onSelect }) {
             height: 8,
             width: i === actual ? 22 : 8,
             borderRadius: 999,
-            background: i === actual ? color : 'var(--surface)',
+            background: i === actual ? color : 'var(--surface2)',
             transition: 'width 300ms ease, background 300ms ease'
           }}
         />

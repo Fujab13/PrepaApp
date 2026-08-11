@@ -367,8 +367,8 @@ export default function Examen() {
           <div 
           className="reloj-minimal"
           style={{
-            background: tiempoNegativo ? "#450a0a" : "var(--surface)",
-            border: `1px solid ${tiempoNegativo ? "#7f1d1d" : "var(--surface2)"}`,
+            background: tiempoNegativo ? "#450a0a" : "var(--surface2)",
+            border: `1px solid ${tiempoNegativo ? "#7f1d1d" : "var(--surface)"}`,
             borderRadius: 8,
             padding: "4px 10px",
             textAlign: "center",
@@ -386,8 +386,8 @@ export default function Examen() {
 
         {/* Texto de la pregunta */}
         <div style={{
-          background: "var(--surface)",
-          border: "0.5px solid var(--surface2)",
+          background: "var(--surface2)",
+          border: "0.5px solid var(--surface)",
           borderRadius: 12,
           padding: "14px 16px",
           marginBottom: 14,
@@ -406,8 +406,8 @@ export default function Examen() {
         {/* SVG de la pregunta (si existe) */}
         {pregunta.enlace_svg && (
           <div style={{
-            background: "var(--surface)",
-            border: "0.5px solid var(--surface2)",
+            background: "var(--surface2)",
+            border: "0.5px solid var(--surface)",
             borderRadius: 12,
             padding: 12,
             marginBottom: 14,
@@ -441,10 +441,10 @@ export default function Examen() {
                   display: "flex",
                   alignItems: "flex-start",
                   gap: 12,
-                  background: esSelected ? `${seccion?.color ?? "#4f8ef7"}18` : "var(--surface)",
+                  background: esSelected ? `${seccion?.color ?? "#4f8ef7"}18` : "var(--surface2)",
                   border: esSelected
                     ? `1.5px solid ${seccion?.color ?? "#4f8ef7"}`
-                    : "0.5px solid var(--surface2)",
+                    : "0.5px solid var(--surface)",
                   borderRadius: 12,
                   padding: "12px 14px",
                   cursor: "pointer",
@@ -460,8 +460,8 @@ export default function Examen() {
                   height: 26,
                   borderRadius: 6,
                   flexShrink: 0,
-                  background: esSelected ? (seccion?.color ?? "#4f8ef7") : "var(--surface2)",
-                  border: `1px solid ${esSelected ? "transparent" : "var(--surface2)"}`,
+                  background: esSelected ? (seccion?.color ?? "#4f8ef7") : "var(--surface)",
+                  border: `1px solid ${esSelected ? "transparent" : "var(--surface)"}`,
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
@@ -494,7 +494,7 @@ export default function Examen() {
             flex: 1,
             opacity: indexActual === 0 ? 0.35 : 1,
             color: "var(--text-muted)",
-            border: "0.5px solid var(--surface2)"
+            border: "0.5px solid var(--surface)"
           }}
         >
           <IoIosArrowBack /> Anterior
@@ -509,8 +509,8 @@ export default function Examen() {
             width: 44,
             padding: "10px 0",
             flexShrink: 0,
-            background: esMarcada ? "#451a03" : "var(--surface)",
-            border: esMarcada ? "1px solid #92400e" : "0.5px solid var(--surface2)",
+            background: esMarcada ? "#451a03" : "var(--surface2)",
+            border: esMarcada ? "1px solid #92400e" : "0.5px solid var(--surface)",
             color: esMarcada ? "#fcd34d" : "var(--text-muted)",
             fontSize: 18,
           }}
@@ -527,8 +527,8 @@ export default function Examen() {
             width: 44,
             padding: "10px 0",
             flexShrink: 0,
-            background: matrizOpen ? "#1e3a5f" : "var(--surface)",
-            border: matrizOpen ? "1px solid #1d4ed8" : "0.5px solid var(--surface2)",
+            background: matrizOpen ? "#1e3a5f" : "var(--surface2)",
+            border: matrizOpen ? "1px solid #1d4ed8" : "0.5px solid var(--surface)",
             color: matrizOpen ? "#60a5fa" : "var(--text-muted)",
             fontSize: 18,
           }}

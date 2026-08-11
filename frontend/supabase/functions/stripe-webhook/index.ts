@@ -225,6 +225,24 @@ Deno.serve(async (req: Request) => {
         return new Response(JSON.stringify({ error: error.message }), { status: 500 })
       }
     }
+  } else if (event.type === 'checkout.session.expired') {
+    // Escenario B (rollback) del flujo de reservas de ofertas_maestro: la
+    // sesión de Stripe expiró sin pago. El asiento normalmente ya se liberó
+    // solo mucho antes (el TTL interno de 10-15 min corre independiente de
+    // esto, ver 20260810130000), pero esto cierra el registro contable a
+    // 'cancelado' en vez de dejarlo 'pendiente' para siempre si nadie volvió
+    // a consultar esa oferta.
+    const session = event.data.object as { id?: string; metadata?: Record<string, string> }
+
+    if (session.id && session.metadata?.tipo === 'oferta_maestro') {
+      const { error } = await supabaseAdmin.rpc('marcar_reserva_fallida', {
+        p_stripe_intent_id: session.id,
+      })
+
+      if (error) {
+        console.error('Error liberando reserva expirada de oferta_maestro:', error)
+      }
+    }
   } else if (event.type === 'account.updated') {
     const account = event.data.object as { id: string; charges_enabled?: boolean; payouts_enabled?: boolean }
     const completo = Boolean(account.charges_enabled && account.payouts_enabled)

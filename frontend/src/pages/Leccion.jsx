@@ -510,8 +510,8 @@ export default function Leccion() {
       {/* SVG de la pregunta (si existe) */}
         {pregunta.enlace_svg && (
           <div style={{
-            background: "var(--surface)",
-            border: "0.5px solid var(--surface2)",
+            background: "var(--surface2)",
+            border: "0.5px solid var(--surface)",
             borderRadius: 12,
             padding: 12,
             marginBottom: 14,
@@ -532,7 +532,7 @@ export default function Leccion() {
         )}
       {!enRepaso && (
         <div style={{
-          background: 'var(--surface)',
+          background: 'var(--surface2)',
           borderRadius: 'var(--radius)',
           padding: '16px 18px',
           marginBottom: 14,

@@ -21,6 +21,7 @@ import TutoriasMaestro from './pages/TutoriasMaestro';
 import TutoriaConfirmada from './pages/TutoriaConfirmada';
 import Ofertas from './pages/Ofertas';
 import PublicarOferta from './pages/PublicarOferta';
+import OfertaConfirmada from './pages/OfertaConfirmada';
 
 import 'katex/dist/katex.min.css';
 import { triggerVibration } from './utils/haptics';
@@ -65,6 +66,7 @@ export default function App() {
         <Route path="/tutoria-confirmada" element={<TutoriaConfirmada />} />
         <Route path="/ofertas" element={<Ofertas />} />
         <Route path="/ofertas/publicar" element={<PublicarOferta />} />
+        <Route path="/oferta-confirmada" element={<OfertaConfirmada />} />
       </Routes>
       </MusicProvider>
       </StoreProvider>

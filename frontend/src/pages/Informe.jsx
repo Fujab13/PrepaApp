@@ -49,7 +49,7 @@ function Section({ title, children }) {
 function MetricCard({ icono, label, valor, color = "#7c5cbf" }) {
   return (
     <div style={{
-      background: "var(--surface)",
+      background: "var(--surface2)",
       borderLeft: `3px solid ${color}`,
       borderRadius: 10,
       padding: "10px 12px",
@@ -75,7 +75,7 @@ function BarraCategoria({ label, valor, color }) {
         <span style={{ fontSize: 13, color: "var(--text)" }}>{label}</span>
         <span style={{ fontSize: 12, color: "var(--text-muted)" }}>{valor ? `${valor}/5` : "—"}</span>
       </div>
-      <div style={{ height: 8, background: "var(--surface2)", borderRadius: 4, overflow: "hidden" }}>
+      <div style={{ height: 8, background: "var(--surface)", borderRadius: 4, overflow: "hidden" }}>
         <div style={{ height: "100%", width: `${pct}%`, background: color, borderRadius: 4, transition: "width 0.6s ease" }} />
       </div>
     </div>
@@ -85,7 +85,7 @@ function BarraCategoria({ label, valor, color }) {
 function FilaDato({ label, valor }) {
   if (!valor) return null;
   return (
-    <div style={{ display: "flex", justifyContent: "space-between", gap: 12, padding: "9px 0", borderBottom: "0.5px solid var(--surface2)" }}>
+    <div style={{ display: "flex", justifyContent: "space-between", gap: 12, padding: "9px 0", borderBottom: "0.5px solid var(--surface)" }}>
       <span style={{ fontSize: 12.5, color: "var(--text-muted)" }}>{label}</span>
       <span style={{ fontSize: 12.5, color: "var(--text)", fontWeight: 600, textAlign: "right" }}>{valor}</span>
     </div>
@@ -94,7 +94,7 @@ function FilaDato({ label, valor }) {
 
 function Tarjeta({ children }) {
   return (
-    <div style={{ background: "var(--surface)", border: "0.5px solid var(--surface2)", borderRadius: "var(--radius)", padding: "12px 16px" }}>
+    <div style={{ background: "var(--surface2)", border: "0.5px solid var(--surface)", borderRadius: "var(--radius)", padding: "12px 16px" }}>
       {children}
     </div>
   );
@@ -172,7 +172,7 @@ export default function Informe() {
           <div style={{
             border: `1px solid ${nivelPreparacion.color}40`,
             borderLeft: `4px solid ${nivelPreparacion.color}`,
-            background: "var(--surface)",
+            background: "var(--surface2)",
             borderRadius: "var(--radius)",
             padding: "16px",
             display: "flex",
@@ -236,7 +236,7 @@ export default function Informe() {
 
         {/* ── Acciones (no se imprimen) ── */}
         <div className="no-print" style={{ display: "flex", gap: 10, marginTop: 22 }}>
-          <button onClick={() => navigate("/")} style={{ flex: 1, minHeight: 44, borderRadius: 10, border: "0.5px solid var(--surface2)", background: "var(--surface)", color: "var(--text)", fontWeight: 600, fontSize: 14, cursor: "pointer" }}>
+          <button onClick={() => navigate("/")} style={{ flex: 1, minHeight: 44, borderRadius: 10, border: "0.5px solid var(--surface)", background: "var(--surface2)", color: "var(--text)", fontWeight: 600, fontSize: 14, cursor: "pointer" }}>
             Volver al inicio
           </button>
           <button onClick={() => window.print()} style={{ flex: 1, minHeight: 44, borderRadius: 10, border: "none", background: "#7c5cbf", color: "#fff", fontWeight: 600, fontSize: 14, cursor: "pointer" }}>
