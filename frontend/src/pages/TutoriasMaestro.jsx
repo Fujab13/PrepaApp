@@ -32,6 +32,22 @@ import {
   HiCheckCircle,
 } from "react-icons/hi2";
 
+// En móvil, el teclado se come la mitad inferior de la pantalla. Sin esto,
+// un campo cerca del final del formulario (p.ej. "Cupo de alumnos" o toda la
+// sección "Tus datos y cobro", que es la última) queda tapado por el
+// teclado al enfocarlo, y como es la última sección no hay nada más abajo
+// hacia dónde el navegador pueda desplazarse para compensar. El setTimeout
+// espera a que el teclado termine de abrirse (y el viewport visual haya
+// terminado de encogerse) antes de medir dónde centrar el campo.
+function manejarFocoCampo(e) {
+  const tag = e.target.tagName;
+  if (tag !== "INPUT" && tag !== "TEXTAREA") return;
+  const el = e.target;
+  setTimeout(() => {
+    el.scrollIntoView({ behavior: "smooth", block: "center" });
+  }, 300);
+}
+
 function pad(n) {
   return String(n).padStart(2, "0");
 }
@@ -66,7 +82,7 @@ export default function TutoriasMaestro() {
   const [hora, setHora] = useState("");
   const [precioMxn, setPrecioMxn] = useState("");
   const [duracionMin, setDuracionMin] = useState(60);
-  const [cupo, setCupo] = useState(1);
+  const [cupo, setCupo] = useState("");
   const [profesor, setProfesor] = useState("");
   const [notas, setNotas] = useState("");
   const [cuentaClave, setCuentaClave] = useState("");
@@ -203,7 +219,7 @@ export default function TutoriasMaestro() {
     setHora("");
     setPrecioMxn("");
     setDuracionMin(60);
-    setCupo(1);
+    setCupo("");
     setProfesor(perfil?.nombre || "");
     setNotas("");
     setCuentaClave("");
@@ -286,7 +302,11 @@ export default function TutoriasMaestro() {
         <h2 className="page-topbar-title" style={{ fontSize: "1rem" }}>Maestros</h2>
       </header>
 
-      <main className="page-content-compact" style={{ flex: 1, paddingBottom: 60, display: "flex", flexDirection: "column", gap: 16 }}>
+      <main
+        className="page-content-compact"
+        onFocus={manejarFocoCampo}
+        style={{ flex: 1, paddingBottom: "45vh", display: "flex", flexDirection: "column", gap: 16 }}
+      >
 
         {cargandoAuth && (
           <p style={{ color: "var(--text-muted)", fontSize: 13, textAlign: "center" }}>Cargando…</p>
@@ -538,7 +558,7 @@ export default function TutoriasMaestro() {
                   <button
                     type="button"
                     onClick={limpiarFormulario}
-                    style={{ minHeight: 44, borderRadius: 10, border: "1px solid var(--surface2)", background: "transparent", color: "var(--text)", fontWeight: 700, fontSize: 14, cursor: "pointer" }}
+                    style={{ minHeight: 44, borderRadius: 10, border: "1px solid var(--surface)", background: "transparent", color: "var(--text)", fontWeight: 700, fontSize: 14, cursor: "pointer" }}
                   >
                     Cancelar
                   </button>
@@ -559,7 +579,7 @@ export default function TutoriasMaestro() {
                   const materia = MATERIAS_TUTORIA.find((m) => m.id === s.materia_id);
                   const forma = formCalificacion[s.id] ?? {};
                   return (
-                    <div key={s.id} style={{ display: "flex", flexDirection: "column", gap: 8, paddingBottom: 10, borderBottom: "1px solid var(--surface2)" }}>
+                    <div key={s.id} style={{ display: "flex", flexDirection: "column", gap: 8, paddingBottom: 10, borderBottom: "1px solid var(--surface)" }}>
                       <p style={{ fontSize: 13, fontWeight: 700, color: "var(--text)", margin: 0 }}>
                         {materia?.nombre ?? s.materia_id} ·{" "}
                         {new Date(s.fecha_hora_solicitada).toLocaleDateString("es-MX", { dateStyle: "medium" })}

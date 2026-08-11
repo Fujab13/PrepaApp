@@ -117,8 +117,8 @@ export default function TarjetaRepaso({ pregunta, estados, respondido, color, on
   function estiloZona(zonaId, indiceOriginal) {
     const estado = estados?.[indiceOriginal]
     const esElegida = zonaElegida === zonaId
-    let borde = 'var(--surface2)'
-    let fondo = 'var(--surface)'
+    let borde = 'var(--surface)'
+    let fondo = 'var(--surface2)'
     let texto = 'var(--text)'
 
     if (respondido) {
@@ -165,7 +165,7 @@ export default function TarjetaRepaso({ pregunta, estados, respondido, color, on
           width: 'min(46%, 175px)',
           aspectRatio: '65 / 85.6', // proporción de una tarjeta de crédito (ISO/IEC 7810 ID-1), en vertical
           transform: cartaTransform,
-          background: 'var(--surface)',
+          background: 'var(--surface2)',
           border: `2px solid ${color}`,
           borderRadius: 16,
           padding: '18px 14px',

@@ -8,7 +8,7 @@ export default function MateriaCard({ materia }) {
     <div
       onClick={() => navigate(`/leccion/${materia.id}`)}
       style={{
-        background: 'var(--surface)',
+        background: 'var(--surface2)',
         borderRadius: 'var(--radius)',
         padding: '20px',
         display: 'flex',

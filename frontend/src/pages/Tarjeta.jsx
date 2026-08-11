@@ -6,7 +6,7 @@ export default function Tarjeta({ tema, color, completados, onToggleSubtema }) {
   const progreso = total === 0 ? 0 : Math.round((completadosCount / total) * 100)
 
   return (
-    <div style={{ background: 'var(--surface)', borderRadius: 'var(--radius)', padding: '20px', overflow: 'hidden' }}>
+    <div style={{ background: 'var(--surface2)', borderRadius: 'var(--radius)', padding: '20px', overflow: 'hidden' }}>
 
       {/* Barra de progreso */}
       <div style={{ marginBottom: 18 }}>

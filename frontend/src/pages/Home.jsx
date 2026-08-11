@@ -183,7 +183,7 @@ export default function Home() {
       </div>
       <div className="page-content" style={{ display: 'flex', flexDirection: 'column', gap: '20px', flex: 1 }}>
 
-        <div style={{background: 'var(--surface)', borderRadius: 'var(--radius)', padding: '28px 20px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px'}}>
+        <div style={{background: 'var(--surface2)', borderRadius: 'var(--radius)', padding: '28px 20px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px'}}>
         <p style={{ color: 'var(--text-muted)', fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '1.5px' }}>
           progreso en {featured.nombre}</p>
           

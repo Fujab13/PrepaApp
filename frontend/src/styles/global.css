@@ -48,8 +48,8 @@ a { text-decoration: none; color: inherit; }
 }
 
 .btn-footer-scroll {
-  background: var(--surface);
-  border: 0.5px solid var(--surface2);
+  background: var(--surface2);
+  border: 0.5px solid var(--surface);
   border-radius: 10px; /* Corregido: guion bajo y añadido 'px' */
   color: var(--text);
   font-size: 13px;     /* Corregido: guion bajo y añadido 'px' */
@@ -97,7 +97,7 @@ display: flex;
 }
 
 .sp-card {
-  background: var(--surface);
+  background: var(--surface2);
   border-radius: var(--radius);
   padding: 16px;
   display: flex;
@@ -146,7 +146,7 @@ display: flex;
 /*---------------------------------------------------------------*/
 .auth-input {
   width: 100%;
-  background: var(--surface);
+  background: var(--surface2);
   border: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: 12px;
   padding: 14px 16px 14px 46px;

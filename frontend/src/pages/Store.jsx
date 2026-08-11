@@ -226,9 +226,9 @@ export default function Store() {
                       disabled={owned || isLoading || (item.type === 'coins' && !puedeComprar)}
                       style={{
                         background: owned
-                          ? 'var(--surface2)'
+                          ? 'var(--surface)'
                           : item.type === 'coins'
-                            ? (puedeComprar ? '#facc15' : 'var(--surface2)')
+                            ? (puedeComprar ? '#facc15' : 'var(--surface)')
                             : '#7c5cbf',
                         color: owned
                           ? 'var(--text-muted)'

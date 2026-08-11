@@ -1,5 +1,6 @@
 import Stripe from 'stripe'
 import { createClient } from '@supabase/supabase-js'
+import { resolverFrontendUrl } from '../_shared/frontendUrl.ts'
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -46,7 +47,7 @@ Deno.serve(async (req: Request) => {
     const supabaseUrl = getEnv('SUPABASE_URL')
     const supabaseAnonKey = getEnv('SUPABASE_ANON_KEY')
     const supabaseServiceRoleKey = getEnv('SUPABASE_SERVICE_ROLE_KEY')
-    const frontendUrl = Deno.env.get('FRONTEND_URL') ?? 'http://localhost:5173'
+    const frontendUrl = resolverFrontendUrl(req)
 
     const supabaseClient = createClient(supabaseUrl, supabaseAnonKey, {
       global: { headers: { Authorization: authHeader } },

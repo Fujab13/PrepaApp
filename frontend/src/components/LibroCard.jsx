@@ -66,7 +66,7 @@ export default function LibroCard({ libro, onClick }) {
     <div
       onClick={onClick}
       style={{
-        background: 'var(--surface)',
+        background: 'var(--surface2)',
         borderRadius: 'var(--radius)',
         padding: '16px',
         display: 'flex',

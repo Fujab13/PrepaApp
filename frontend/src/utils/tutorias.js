@@ -53,7 +53,7 @@ export function mensajeError(err) {
 export const inputStyle = {
   width: "100%",
   minHeight: 44,
-  background: "var(--surface2)",
+  background: "var(--surface)",
   border: "1px solid rgba(255,255,255,0.06)",
   borderRadius: 12,
   padding: "12px 14px",

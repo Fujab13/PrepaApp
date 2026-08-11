@@ -41,6 +41,20 @@ const CATEGORIAS_AUTOEVALUACION = [
 
 const NIVEL_LABELS = { 1: "Muy bajo", 2: "Bajo", 3: "Regular", 4: "Bueno", 5: "Muy bueno" };
 
+// En móvil, el teclado tapa la mitad inferior de la pantalla: sin esto, un
+// campo cerca del final del formulario queda oculto al enfocarlo y, al ser
+// la última sección, no hay nada más abajo hacia dónde desplazarse para
+// compensar. El setTimeout espera a que el teclado termine de abrirse antes
+// de medir dónde centrar el campo.
+function manejarFocoCampo(e) {
+  const tag = e.target.tagName;
+  if (tag !== "INPUT" && tag !== "TEXTAREA") return;
+  const el = e.target;
+  setTimeout(() => {
+    el.scrollIntoView({ behavior: "smooth", block: "center" });
+  }, 300);
+}
+
 const HORAS_ESTUDIO = ["Menos de 2h", "2 a 5h", "5 a 10h", "Más de 10h"];
 const HORARIOS = ["Mañana", "Tarde", "Noche"];
 const MODALIDADES = ["Presencial", "En línea", "Mixta"];
@@ -50,7 +64,7 @@ const DECISION_CARRERA = ["Sí, ya la sé", "Tengo dudas", "No, aún no"];
 const inputStyle = {
   width: "100%",
   minHeight: 44,
-  background: "var(--surface2)",
+  background: "var(--surface)",
   border: "1px solid rgba(255,255,255,0.06)",
   borderRadius: 12,
   padding: "12px 14px",
@@ -102,8 +116,8 @@ function Escala({ label, valor, onChange, color }) {
               borderRadius: 10,
               fontWeight: 700,
               fontSize: 13,
-              border: valor === n ? `1.5px solid ${color}` : "0.5px solid var(--surface2)",
-              background: valor === n ? color : "var(--surface2)",
+              border: valor === n ? `1.5px solid ${color}` : "0.5px solid var(--surface)",
+              background: valor === n ? color : "var(--surface)",
               color: valor === n ? "#fff" : "var(--text-muted)",
               transition: "all 0.15s",
             }}
@@ -199,7 +213,11 @@ export default function FormularioArea() {
       </header>
 
       {/* ── CUERPO ── */}
-      <main className="page-content-compact" style={{ flex: 1, paddingBottom: 100, display: "flex", flexDirection: "column", gap: 16 }}>
+      <main
+        className="page-content-compact"
+        onFocus={manejarFocoCampo}
+        style={{ flex: 1, paddingBottom: "45vh", display: "flex", flexDirection: "column", gap: 16 }}
+      >
 
         <Seccion icono={<HiOutlineUser />} color="#4f8ef7" title="Datos personales">
           <input style={inputStyle} placeholder="Nombre completo *" value={nombre} onChange={(e) => setNombre(e.target.value)} />

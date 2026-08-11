@@ -207,7 +207,7 @@ export default function Login() {
           </form>
         ) : (
           <>
-            <div style={{ display: 'flex', background: 'var(--surface)', borderRadius: '14px', padding: 4, marginBottom: 20 }}>
+            <div style={{ display: 'flex', background: 'var(--surface2)', borderRadius: '14px', padding: 4, marginBottom: 20 }}>
               {['login', 'registro'].map(m => (
                 <button
                   key={m}
@@ -326,7 +326,7 @@ export default function Login() {
               onClick={handleGoogle}
               disabled={cargandoGoogle}
               style={{
-                background: 'var(--surface)', color: 'var(--text)', fontWeight: 700,
+                background: 'var(--surface2)', color: 'var(--text)', fontWeight: 700,
                 border: '1px solid rgba(255,255,255,0.06)',
                 borderRadius: '12px', padding: '13px', fontSize: '0.92rem',
                 display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10,

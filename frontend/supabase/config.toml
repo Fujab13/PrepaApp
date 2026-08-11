@@ -452,3 +452,15 @@ enabled = true
 verify_jwt = false
 import_map = "./functions/conectar-pagos-maestro/deno.json"
 entrypoint = "./functions/conectar-pagos-maestro/index.ts"
+
+[functions.crear-sesion-pago-oferta-maestro]
+enabled = true
+verify_jwt = false
+import_map = "./functions/crear-sesion-pago-oferta-maestro/deno.json"
+entrypoint = "./functions/crear-sesion-pago-oferta-maestro/index.ts"
+
+[functions.verificar-pago-oferta-maestro]
+enabled = true
+verify_jwt = false
+import_map = "./functions/verificar-pago-oferta-maestro/deno.json"
+entrypoint = "./functions/verificar-pago-oferta-maestro/index.ts"
