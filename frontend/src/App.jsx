@@ -11,10 +11,13 @@ import Login from './pages/Login';
 import ActualizarPassword from './pages/ActualizarPassword';
 import Store from './pages/Store'
 import Examen from './pages/Examen';
-import Resultados from './pages/Resultados';
 import Inventario from './pages/Inventario';
 import FormularioArea from './pages/FormularioArea';
-import Informe from './pages/Informe';
+import InformeResultados from './pages/InformeResultados';
+import AlumnosOfertas from './pages/AlumnosOfertas';
+import AdminPagos from './pages/AdminPagos';
+import AdminMaestros from './pages/AdminMaestros';
+import MisGanancias from './pages/MisGanancias';
 import Tutorias from './pages/Tutorias';
 import TutoriasAlumno from './pages/TutoriasAlumno';
 import TutoriasMaestro from './pages/TutoriasMaestro';
@@ -56,10 +59,13 @@ export default function App() {
         <Route path="/actualizar-password" element={<ActualizarPassword />} />
         <Route path="/tienda" element={<Store />} />
         <Route path="/examen" element={<Examen />} />
-        <Route path="/resultados" element={<Resultados />} />
         <Route path="/inventario" element={<Inventario />} />
         <Route path="/formulario-area" element={<FormularioArea />} />
-        <Route path="/informe" element={<Informe />} />
+        <Route path="/informe-resultados" element={<InformeResultados />} />
+        <Route path="/tutorias/maestro/alumnos" element={<AlumnosOfertas />} />
+        <Route path="/tutorias/maestro/ganancias" element={<MisGanancias />} />
+        <Route path="/admin/pagos" element={<AdminPagos />} />
+        <Route path="/admin/maestros" element={<AdminMaestros />} />
         <Route path="/tutorias" element={<Tutorias />} />
         <Route path="/tutorias/alumno" element={<TutoriasAlumno />} />
         <Route path="/tutorias/maestro" element={<TutoriasMaestro />} />

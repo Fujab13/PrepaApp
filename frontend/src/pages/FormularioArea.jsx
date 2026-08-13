@@ -185,16 +185,19 @@ export default function FormularioArea() {
       }
     }
 
-    navigate("/informe", {
+    navigate("/informe-resultados", {
       state: {
-        datosPersonales: { nombre: nombre.trim(), edad: edad.trim(), email: email.trim(), telefono: telefono.trim() },
-        grado,
-        areaInteres,
-        carreraInteres: carreraInteres.trim(),
-        autoevaluacion,
-        horasEstudio,
-        preferencias: { horarioPreferido, modalidadPreferida, decisionCarrera },
-        generadoEn: Date.now(),
+        tipo: "formulario",
+        formulario: {
+          datosPersonales: { nombre: nombre.trim(), edad: edad.trim(), email: email.trim(), telefono: telefono.trim() },
+          grado,
+          areaInteres,
+          carreraInteres: carreraInteres.trim(),
+          autoevaluacion,
+          horasEstudio,
+          preferencias: { horarioPreferido, modalidadPreferida, decisionCarrera },
+          generadoEn: Date.now(),
+        },
       },
     });
   }

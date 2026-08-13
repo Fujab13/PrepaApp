@@ -114,15 +114,33 @@ create table public.solicitudes_tutoria (
   notificaciones_en_proceso boolean not null default false,
   creado_en timestamptz not null default now(),
   confirmada_en timestamptz,
-  rango_horario tstzrange generated always as (
-    tstzrange(
-      fecha_hora_solicitada,
-      fecha_hora_solicitada + (duracion_minutos || ' minutes')::interval,
-      '[)'
-    )
-  ) stored,
+  -- No puede ser "generated always as (...) stored": timestamptz + interval
+  -- es STABLE (depende del GUC de timezone), no IMMUTABLE, y Postgres exige
+  -- IMMUTABLE en columnas generadas. Se calcula en su lugar con un trigger
+  -- BEFORE INSERT/UPDATE (ver más abajo), que corre antes de que se evalúe
+  -- el exclusion constraint de abajo, así que el efecto es idéntico.
+  rango_horario tstzrange,
   constraint monto_cuadra check (monto_profesor_mxn + comision_mxn = precio_total_mxn)
 );
+
+create or replace function public.calcular_rango_horario_solicitud_tutoria()
+returns trigger
+language plpgsql
+as $$
+begin
+  new.rango_horario := tstzrange(
+    new.fecha_hora_solicitada,
+    new.fecha_hora_solicitada + (new.duracion_minutos || ' minutes')::interval,
+    '[)'
+  );
+  return new;
+end;
+$$;
+
+create trigger trg_calcular_rango_horario_solicitud_tutoria
+  before insert or update of fecha_hora_solicitada, duracion_minutos
+  on public.solicitudes_tutoria
+  for each row execute function public.calcular_rango_horario_solicitud_tutoria();
 
 -- Estructuralmente imposible que un mismo maestro tenga dos solicitudes
 -- activas (pendiente de pago o confirmada) que se traslapen en el tiempo.

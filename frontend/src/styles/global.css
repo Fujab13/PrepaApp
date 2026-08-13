@@ -295,6 +295,41 @@ display: flex;
   cursor: not-allowed;
 }
 /*---------------------------------------------------------------*/
+/* Tarjeta interactiva reutilizable: extiende .sp-card con feedback de
+   hover/active/focus vía pseudo-clases (sin JS ni handlers por página), para
+   tarjetas que además son botones de navegación. Úsala combinada con
+   className="sp-card sp-card-interactive" (ver las tarjetas Alumnos/Maestros
+   en Tutorias.jsx) en cualquier página nueva que quiera el mismo pulido. */
+.sp-card-interactive {
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+}
+
+.sp-card-interactive:hover {
+  transform: translateY(-3px);
+  border-color: rgba(255, 255, 255, 0.16);
+  background: var(--surface);
+  box-shadow: 0 14px 28px -10px rgba(0, 0, 0, 0.45);
+}
+
+.sp-card-interactive:active {
+  transform: translateY(0) scale(0.97);
+  box-shadow: 0 6px 14px -6px rgba(0, 0, 0, 0.4);
+}
+
+.sp-card-interactive:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(124, 92, 191, 0.35);
+}
+
+.sp-card-interactive .sp-card-icon {
+  transition: transform 0.18s ease;
+}
+
+.sp-card-interactive:hover .sp-card-icon {
+  transform: scale(1.08);
+}
+/*---------------------------------------------------------------*/
 /* Impresion de informes (Informe.jsx): oculta la navegacion y re-tematiza
    las variables de color a una paleta clara, para que el mismo diseño
    oscuro de PrepaApp salga limpio en PDF/papel. */
