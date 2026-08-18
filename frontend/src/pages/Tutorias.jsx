@@ -180,7 +180,7 @@ export default function Tutorias() {
           <AiOutlineClose />
         </button>
         <span className="page-topbar-btn" style={{ fontSize: "1.35rem" }}>
-          <PiChalkboardTeacher />
+          <PiStudent />
         </span>
         <h2 className="page-topbar-title" style={{ fontSize: "1rem" }}>Tutorías</h2>
       </header>
@@ -191,7 +191,10 @@ export default function Tutorias() {
       >
         {!tutorialAbajo && <TutorialAlumno onCerrar={moverTutorialAbajo} />}
 
-        <p style={{ fontSize: 13, color: "var(--text-muted)", textAlign: "center", margin: "0 0 4px" }}>
+        <p style={{
+          fontSize: 11, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase",
+          color: "var(--text-muted)", textAlign: "center", margin: "4px 0 2px",
+        }}>
           ¿Qué te gustaría hacer?
         </p>
 
@@ -201,25 +204,26 @@ export default function Tutorias() {
             distinto alto. Grid sí las estira parejo en ambos ejes, y
             aspectRatio (en vez de un minHeight fijo en px) hace que el
             tamaño escale bien tanto en un iPhone SE angosto como en el
-            máximo de 480px que usa toda la app (#root en global.css). */}
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+            máximo de 480px que usa toda la app (#root en global.css).
+            sp-card-interactive (global.css) da el hover/active/focus con
+            pseudo-clases; queda disponible para reusar en otras páginas. */}
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 }}>
           {OPCIONES.map((op) => (
             <button
               key={op.to}
               type="button"
               onClick={() => navigate(op.to)}
-              className="sp-card"
+              className="sp-card sp-card-interactive"
               style={{
                 width: "100%",
                 height: "100%",
-                aspectRatio: "0.85",
+                aspectRatio: "0.72",
                 alignItems: "center",
                 justifyContent: "center",
                 textAlign: "center",
                 cursor: "pointer",
-                border: "none",
                 margin: 0,
-                padding: 12,
+                padding: 16,
                 font: "inherit",
                 color: "inherit",
                 WebkitTapHighlightColor: "transparent",
@@ -228,11 +232,18 @@ export default function Tutorias() {
             >
               <div
                 className="sp-card-icon"
-                style={{ width: 48, height: 48, fontSize: "1.5rem", background: `${op.color}22`, color: op.color }}
+                style={{
+                  width: 68,
+                  height: 68,
+                  fontSize: "2.3rem",
+                  background: `radial-gradient(circle at 32% 28%, ${op.color}3d, ${op.color}17)`,
+                  color: op.color,
+                  boxShadow: `0 0 0 1px ${op.color}2a inset`,
+                }}
               >
                 {op.icono}
               </div>
-              <p className="sp-card-title" style={{ fontSize: "0.9rem" }}>{op.titulo}</p>
+              <p className="sp-card-title" style={{ fontSize: "0.95rem", marginTop: 4 }}>{op.titulo}</p>
               <p className="sp-card-description" style={{ textAlign: "center" }}>{op.subtitulo}</p>
             </button>
           ))}

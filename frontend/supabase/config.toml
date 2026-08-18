@@ -464,3 +464,9 @@ enabled = true
 verify_jwt = false
 import_map = "./functions/verificar-pago-oferta-maestro/deno.json"
 entrypoint = "./functions/verificar-pago-oferta-maestro/index.ts"
+
+[functions.registrar-maestro]
+enabled = true
+verify_jwt = false
+import_map = "./functions/registrar-maestro/deno.json"
+entrypoint = "./functions/registrar-maestro/index.ts"

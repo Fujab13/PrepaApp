@@ -22,7 +22,7 @@ export const PREGUNTAS = [
   {
     id: 1,
     pregunta: "¿Cuál de las siguientes oraciones tiene un sujeto compuesto?",
-    enlace_svg: "ranger_dorado.svg",
+    enlace_svg: "recomendados.svg",
     respuestas: [
       "A. El perro con su dueño caminaba lentamente por el parque.",
       "B. Juan y Ana llegaron tarde a la reunión.",

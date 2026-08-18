@@ -11,13 +11,11 @@ import { useAuth } from "../context/AuthContext";
 import { supabase } from "../services/supabaseClient";
 import { FilaChips } from "../components/FilaChips";
 import { Seccion } from "../components/Seccion";
-import { Estrellas } from "../components/Estrellas";
 import { MATERIAS_TUTORIA } from "../data/materiasTutoria";
 import {
   DURACIONES,
   PRECIO_MIN_MXN,
   PRECIO_MAX_MXN,
-  mensajeError,
   inputStyle,
 } from "../utils/tutorias";
 
@@ -29,7 +27,10 @@ import {
   HiOutlineTrash,
   HiOutlineCurrencyDollar,
   HiOutlineBanknotes,
-  HiCheckCircle,
+  HiOutlineClipboardDocumentList,
+  HiOutlineUserGroup,
+  HiChevronDown,
+  HiChevronUp,
 } from "react-icons/hi2";
 
 // En móvil, el teclado se come la mitad inferior de la pantalla. Sin esto,
@@ -60,22 +61,17 @@ function horaInput(date) {
 
 export default function TutoriasMaestro() {
   const navigate = useNavigate();
-  const { user, cargando: cargandoAuth, perfil, refrescarPerfil } = useAuth();
+  const { user, cargando: cargandoAuth, perfil, esMaestro, refrescarPerfil } = useAuth();
 
   const [nombreInput, setNombreInput] = useState("");
   const [guardandoNombre, setGuardandoNombre] = useState(false);
 
-  const [estadoPagos, setEstadoPagos] = useState(null);
-  const [conectando, setConectando] = useState(false);
-
   const [misOfertas, setMisOfertas] = useState([]);
   const [cargandoOfertas, setCargandoOfertas] = useState(true);
-  const [clasesPorCalificar, setClasesPorCalificar] = useState([]);
+  const [mostrarOfertas, setMostrarOfertas] = useState(false);
 
   const [borrandoId, setBorrandoId] = useState(null);
   const [editandoId, setEditandoId] = useState(null);
-  const [calificandoId, setCalificandoId] = useState(null);
-  const [formCalificacion, setFormCalificacion] = useState({});
 
   const [materiaId, setMateriaId] = useState("");
   const [fecha, setFecha] = useState("");
@@ -96,12 +92,6 @@ export default function TutoriasMaestro() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [perfil?.nombre]);
 
-  async function cargarEstadoPagos() {
-    const { data } = await supabase.rpc("obtener_estado_pagos_propio");
-    setEstadoPagos(data);
-    return data;
-  }
-
   async function cargarMisOfertas() {
     setCargandoOfertas(true);
     const { data, error: fetchError } = await supabase
@@ -114,44 +104,11 @@ export default function TutoriasMaestro() {
     setMisOfertas(data ?? []);
   }
 
-  async function cargarClasesPorCalificar(profesorId) {
-    if (!profesorId) {
-      setClasesPorCalificar([]);
-      return;
-    }
-    const ahora = Date.now();
-    const [{ data: solicitudes }, { data: propiasCalificaciones }] = await Promise.all([
-      supabase
-        .from("solicitudes_tutoria")
-        .select("id, materia_id, fecha_hora_solicitada, duracion_minutos")
-        .eq("profesor_id", profesorId)
-        .eq("estado", "confirmada")
-        .order("fecha_hora_solicitada", { ascending: false })
-        .limit(30),
-      supabase.from("calificaciones").select("solicitud_id").eq("calificador_id", user.id),
-    ]);
-    const yaCalificadas = new Set((propiasCalificaciones ?? []).map((c) => c.solicitud_id));
-    const pendientes = (solicitudes ?? []).filter((s) => {
-      const fin = new Date(s.fecha_hora_solicitada).getTime() + s.duracion_minutos * 60000;
-      return fin < ahora && !yaCalificadas.has(s.id);
-    });
-    setClasesPorCalificar(pendientes);
-  }
-
   useEffect(() => {
     if (!user) return;
     cargarMisOfertas();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
-
-  useEffect(() => {
-    if (!user || !perfil?.nombre) return;
-    (async () => {
-      const estado = await cargarEstadoPagos();
-      cargarClasesPorCalificar(estado?.profesor_id);
-    })();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user, perfil?.nombre]);
 
   async function guardarNombre() {
     if (!nombreInput.trim() || !user) return;
@@ -159,32 +116,6 @@ export default function TutoriasMaestro() {
     await supabase.from("perfiles").update({ nombre: nombreInput.trim() }).eq("id", user.id);
     setGuardandoNombre(false);
     await refrescarPerfil();
-  }
-
-  async function conectarPagos() {
-    setConectando(true);
-    setError("");
-    try {
-      const { data: { session } } = await supabase.auth.getSession();
-      const res = await fetch(
-        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/conectar-pagos-maestro`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json", Authorization: `Bearer ${session.access_token}` },
-        }
-      );
-      const data = await res.json();
-      if (!res.ok || data.error || !data.url) {
-        setError(data.error || "No se pudo conectar tu cuenta de pagos.");
-        setConectando(false);
-        return;
-      }
-      window.location.href = data.url;
-    } catch (err) {
-      console.error(err);
-      setError("No se pudo conectar tu cuenta de pagos.");
-      setConectando(false);
-    }
   }
 
   async function borrarOferta(oferta) {
@@ -273,20 +204,6 @@ export default function TutoriasMaestro() {
     cargarMisOfertas();
   }
 
-  async function calificar(solicitudId) {
-    const forma = formCalificacion[solicitudId];
-    if (!forma?.estrellas) return;
-    setCalificandoId(solicitudId);
-    const { error: rpcError } = await supabase.rpc("calificar_tutoria", {
-      p_solicitud_id: solicitudId,
-      p_estrellas: forma.estrellas,
-      p_comentario: forma.comentario?.trim() || null,
-    });
-    setCalificandoId(null);
-    if (rpcError) return setError(mensajeError(rpcError));
-    cargarClasesPorCalificar(estadoPagos?.profesor_id);
-  }
-
   const materiaElegida = MATERIAS_TUTORIA.find((m) => m.id === materiaId);
   const faltaNombre = Boolean(user) && perfil !== null && !perfil?.nombre;
 
@@ -345,24 +262,51 @@ export default function TutoriasMaestro() {
           </Seccion>
         )}
 
-        {!cargandoAuth && user && !faltaNombre && (
+        {!cargandoAuth && user && !faltaNombre && !esMaestro && (
+          <div className="sp-card" style={{ textAlign: "center" }}>
+            <p style={{ fontSize: 14, color: "var(--text)", margin: 0, lineHeight: 1.5 }}>
+              Este portal es solo para maestros registrados. Si ya diste de alta tu clase con nosotros, contáctanos
+              para revisar tu acceso.
+            </p>
+          </div>
+        )}
+
+        {!cargandoAuth && user && !faltaNombre && esMaestro && (
           <>
-            {estadoPagos && !estadoPagos.onboarding_completo && (
-              <Seccion icono={<HiOutlineBanknotes />} color="#f59e0b" title="Conecta tu cuenta de pagos" subtitle="Necesitas esto antes de poder aceptar (o que te acepten) una clase paga.">
-                <button
-                  onClick={conectarPagos}
-                  disabled={conectando}
-                  style={{ minHeight: 44, borderRadius: 10, border: "none", background: "#f59e0b", color: "#fff", fontWeight: 700, cursor: "pointer", opacity: conectando ? 0.6 : 1 }}
-                >
-                  {conectando ? "Redirigiendo…" : "Conectar con Stripe"}
-                </button>
-              </Seccion>
-            )}
+            <Seccion icono={<HiOutlineBanknotes />} color="#4f8ef7" title="Mis ganancias" subtitle="Cuánto te deben, cuánto ya te pagamos y tus recibos por quincena.">
+              <button
+                type="button"
+                onClick={() => navigate("/tutorias/maestro/ganancias")}
+                style={{ minHeight: 44, borderRadius: 10, border: "none", background: "#4f8ef7", color: "#fff", fontWeight: 700, fontSize: 14, cursor: "pointer" }}
+              >
+                Ver mis ganancias
+              </button>
+            </Seccion>
 
             <p style={{ fontSize: 13, color: "var(--text-muted)", lineHeight: 1.5, margin: 0 }}>
               Publica tu disponibilidad para que los alumnos la vean en su portal. El grupo de WhatsApp y el pago se
               coordinan directamente contigo.
             </p>
+
+            <Seccion icono={<HiOutlineClipboardDocumentList />} color="#22c55e" title="Informes de alumnos" subtitle="Consulta el formulario de área y el examen simulador de un alumno por su correo.">
+              <button
+                type="button"
+                onClick={() => navigate("/informe-resultados")}
+                style={{ minHeight: 44, borderRadius: 10, border: "none", background: "#22c55e", color: "#fff", fontWeight: 700, fontSize: 14, cursor: "pointer" }}
+              >
+                Buscar por correo
+              </button>
+            </Seccion>
+
+            <Seccion icono={<HiOutlineUserGroup />} color="#06b6d4" title="Alumnos inscritos" subtitle="Correo, nombre y teléfono de quienes ya compraron un cupo en tus ofertas.">
+              <button
+                type="button"
+                onClick={() => navigate("/tutorias/maestro/alumnos")}
+                style={{ minHeight: 44, borderRadius: 10, border: "none", background: "#06b6d4", color: "#fff", fontWeight: 700, fontSize: 14, cursor: "pointer" }}
+              >
+                Ver alumnos inscritos
+              </button>
+            </Seccion>
 
             {error && <p style={{ color: "var(--wrong)", fontSize: 13, textAlign: "center", margin: 0 }}>{error}</p>}
 
@@ -373,7 +317,22 @@ export default function TutoriasMaestro() {
                 {!cargandoOfertas && misOfertas.length === 0 && (
                   <p style={{ fontSize: 13, color: "var(--text-muted)", margin: 0 }}>Todavía no has publicado ninguna oferta.</p>
                 )}
-                {misOfertas.map((oferta) => {
+                {!cargandoOfertas && misOfertas.length > 0 && (
+                  <button
+                    type="button"
+                    onClick={() => setMostrarOfertas((v) => !v)}
+                    style={{
+                      minHeight: 44, borderRadius: 10, border: "1px solid #7c5cbf",
+                      background: mostrarOfertas ? "rgba(124,92,191,0.15)" : "transparent",
+                      color: "#7c5cbf", fontWeight: 700, fontSize: 14, cursor: "pointer",
+                      display: "flex", alignItems: "center", justifyContent: "center", gap: 8,
+                    }}
+                  >
+                    {mostrarOfertas ? "Ocultar mis ofertas" : `Ver mis ofertas (${misOfertas.length})`}
+                    {mostrarOfertas ? <HiChevronUp /> : <HiChevronDown />}
+                  </button>
+                )}
+                {mostrarOfertas && misOfertas.map((oferta) => {
                   const materia = MATERIAS_TUTORIA.find((m) => m.id === oferta.materia_id);
                   const color = materia?.color ?? "#7c5cbf";
                   const fechaObj = new Date(oferta.fecha_hora);
@@ -572,42 +531,6 @@ export default function TutoriasMaestro() {
                 </button>
               </div>
             </Seccion>
-
-            {clasesPorCalificar.length > 0 && (
-              <Seccion icono={<HiCheckCircle />} color="#22c55e" title="Clases pasadas por calificar">
-                {clasesPorCalificar.map((s) => {
-                  const materia = MATERIAS_TUTORIA.find((m) => m.id === s.materia_id);
-                  const forma = formCalificacion[s.id] ?? {};
-                  return (
-                    <div key={s.id} style={{ display: "flex", flexDirection: "column", gap: 8, paddingBottom: 10, borderBottom: "1px solid var(--surface)" }}>
-                      <p style={{ fontSize: 13, fontWeight: 700, color: "var(--text)", margin: 0 }}>
-                        {materia?.nombre ?? s.materia_id} ·{" "}
-                        {new Date(s.fecha_hora_solicitada).toLocaleDateString("es-MX", { dateStyle: "medium" })}
-                      </p>
-                      <Estrellas
-                        value={forma.estrellas ?? 0}
-                        onChange={(n) => setFormCalificacion((prev) => ({ ...prev, [s.id]: { ...prev[s.id], estrellas: n } }))}
-                      />
-                      <textarea
-                        style={{ ...inputStyle, minHeight: 50, resize: "vertical" }}
-                        maxLength={300}
-                        placeholder="Comentario opcional…"
-                        value={forma.comentario ?? ""}
-                        onChange={(e) => setFormCalificacion((prev) => ({ ...prev, [s.id]: { ...prev[s.id], comentario: e.target.value } }))}
-                      />
-                      <button
-                        type="button"
-                        disabled={!forma.estrellas || calificandoId === s.id}
-                        onClick={() => calificar(s.id)}
-                        style={{ minHeight: 40, borderRadius: 10, border: "none", background: "#22c55e", color: "#fff", fontWeight: 700, fontSize: 13, cursor: "pointer", opacity: !forma.estrellas || calificandoId === s.id ? 0.6 : 1 }}
-                      >
-                        {calificandoId === s.id ? "Enviando…" : "Enviar calificación"}
-                      </button>
-                    </div>
-                  );
-                })}
-              </Seccion>
-            )}
           </>
         )}
       </main>

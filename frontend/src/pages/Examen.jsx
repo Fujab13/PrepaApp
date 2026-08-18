@@ -122,7 +122,7 @@ export default function Examen() {
   // espera (fire-and-forget): un insert de más no debe retrasar el cierre
   // de un examen contra reloj, y Resultados.jsx igual se pinta desde el
   // state de navegación, no desde esto.
-  const guardarResultadoExamen = useCallback(({ respuestasFinal, tiempoTotalSegundos }) => {
+  const guardarResultadoExamen = useCallback(({ respuestasFinal, tiempoTotalSegundos, marcadasFinal }) => {
     if (!user) return;
     const statsPorSeccion = calcularStatsPorSeccion({
       preguntas: PREGUNTAS,
@@ -141,6 +141,9 @@ export default function Examen() {
           nombre: s.nombre, correctas: s.correctas, total: s.total, color: s.color,
         })),
         tiempo_total_segundos: tiempoTotalSegundos,
+        respuestas: respuestasFinal,
+        tiempos_pregunta: tiemposRef.current,
+        marcadas: marcadasFinal,
       })
       .then(({ error }) => {
         if (error) console.error("No se pudo guardar el resultado del examen:", error);
@@ -183,15 +186,22 @@ export default function Examen() {
       );
       if (!confirmado) return;
       guardarTiempoPregunta(pregunta.id);
-      guardarResultadoExamen({ respuestasFinal: respuestas, tiempoTotalSegundos: TIEMPO_GLOBAL_INICIAL - tiempoGlobal });
-      navigate("/Resultados", {
+      guardarResultadoExamen({
+        respuestasFinal: respuestas,
+        tiempoTotalSegundos: TIEMPO_GLOBAL_INICIAL - tiempoGlobal,
+        marcadasFinal: [...marcadas],
+      });
+      navigate("/informe-resultados", {
         state: {
-          respuestas,
-          tiemposPregunta : tiemposRef.current,
-          marcadas        : [...marcadas],
-          preguntas       : PREGUNTAS,
-          secciones       : SECCIONES,
-          tiempoTotalSegundos: TIEMPO_GLOBAL_INICIAL - tiempoGlobal,
+          tipo: "examen",
+          examen: {
+            respuestas,
+            tiemposPregunta : tiemposRef.current,
+            marcadas        : [...marcadas],
+            preguntas       : PREGUNTAS,
+            secciones       : SECCIONES,
+            tiempoTotalSegundos: TIEMPO_GLOBAL_INICIAL - tiempoGlobal,
+          },
         },
       });
       return;
@@ -228,15 +238,22 @@ export default function Examen() {
   useEffect(() => {
     if (tiempoGlobal <= 0) {
       guardarTiempoPregunta(pregunta.id);
-      guardarResultadoExamen({ respuestasFinal: respuestas, tiempoTotalSegundos: TIEMPO_GLOBAL_INICIAL });
-      navigate("/Resultados", {
+      guardarResultadoExamen({
+        respuestasFinal: respuestas,
+        tiempoTotalSegundos: TIEMPO_GLOBAL_INICIAL,
+        marcadasFinal: [...marcadas],
+      });
+      navigate("/informe-resultados", {
         state: {
-          respuestas,
-          tiemposPregunta : tiemposRef.current,
-          marcadas        : [...marcadas],
-          preguntas       : PREGUNTAS,
-          secciones       : SECCIONES,
-          tiempoTotalSegundos: TIEMPO_GLOBAL_INICIAL,
+          tipo: "examen",
+          examen: {
+            respuestas,
+            tiemposPregunta : tiemposRef.current,
+            marcadas        : [...marcadas],
+            preguntas       : PREGUNTAS,
+            secciones       : SECCIONES,
+            tiempoTotalSegundos: TIEMPO_GLOBAL_INICIAL,
+          },
         },
       });
     }

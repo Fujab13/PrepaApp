@@ -14,14 +14,15 @@ import { SlUser } from "react-icons/sl";
 import { PiShoppingCartSimpleFill } from "react-icons/pi";
 import { RiUser3Fill } from "react-icons/ri";
 import { FaClock } from "react-icons/fa6";
-import { MdSdStorage } from "react-icons/md";
+import { MdSdStorage, MdLibraryBooks } from "react-icons/md";
 import { FaVolumeUp, FaVolumeMute } from "react-icons/fa";
 import { PiChalkboardTeacher } from "react-icons/pi";
+import { HiOutlineShieldCheck, HiOutlineUserPlus } from "react-icons/hi2";
 
 
 export default function Sidenav({ open, onClose }) {
   const navigate = useNavigate()
-  const { user } = useAuth()
+  const { user, esAdmin } = useAuth()
   const music = useMusic()
   const [hoveredBtn, setHoveredBtn] = useState(null);
 
@@ -114,27 +115,28 @@ export default function Sidenav({ open, onClose }) {
         {/* Cuerpo con Scroll para las materias si exceden la pantalla */}
         <div style={{ flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: 8, paddingRight: '4px' }}>
           
-          {/* Botón Tienda */}
-          <button 
-            onClick={() => ir('/tienda')} 
-            onMouseEnter={() => setHoveredBtn('tienda')}
+
+          {/* Botón Tutorías */}
+          <button
+            onClick={() => ir('/tutorias')}
+            onMouseEnter={() => setHoveredBtn('tutorias')}
             onMouseLeave={() => setHoveredBtn(null)}
             className="btn-sidernav"
           >
             <span style={{
               fontSize: '1.1rem',
               width: '32px', height: '32px',
-              background: 'rgba(124, 92, 191, 0.15)',
-              color: '#7c5cbf',
+              background: 'rgba(59, 130, 246, 0.15)',
+              color: '#3b82f6',
               borderRadius: '10px',
               display: 'flex', alignItems: 'center', justifyindex: 'center',
               justifyContent: 'center', flexShrink: 0
             }}>
-              <PiShoppingCartSimpleFill />
+              <FaUserGraduate />
             </span>
-            <span>Tienda</span>
+            <span>Tutorías</span>
           </button>
-
+          
           {/* Botón Examen Simulador */}
           <button 
             onClick={() => ir('/examen')} 
@@ -172,30 +174,9 @@ export default function Sidenav({ open, onClose }) {
               display: 'flex', alignItems: 'center', justifyindex: 'center',
               justifyContent: 'center', flexShrink: 0
             }}>
-              <FaUserGraduate />
+              <MdLibraryBooks />
             </span>
             <span>Formulario Área</span>
-          </button>
-
-          {/* Botón Tutorías */}
-          <button
-            onClick={() => ir('/tutorias')}
-            onMouseEnter={() => setHoveredBtn('tutorias')}
-            onMouseLeave={() => setHoveredBtn(null)}
-            className="btn-sidernav"
-          >
-            <span style={{
-              fontSize: '1.1rem',
-              width: '32px', height: '32px',
-              background: 'rgba(59, 130, 246, 0.15)',
-              color: '#3b82f6',
-              borderRadius: '10px',
-              display: 'flex', alignItems: 'center', justifyindex: 'center',
-              justifyContent: 'center', flexShrink: 0
-            }}>
-              <PiChalkboardTeacher />
-            </span>
-            <span>Tutorías</span>
           </button>
 
           {/* Botón Inventario */}
@@ -218,6 +199,79 @@ export default function Sidenav({ open, onClose }) {
             </span>
             <span>Inventario</span>
           </button>
+
+          {/* Botón Tienda — desactivado temporalmente: suspension-temporal
+              (global.css) la deja semivisible con overlay "En desarrollo" y
+              bloquea clics (pointer-events: none), sin necesidad de tocar
+              la ruta /tienda ni StoreContext. */}
+          <button
+            type="button"
+            disabled
+            aria-disabled="true"
+            className="btn-sidernav suspension-temporal"
+          >
+            <span style={{
+              fontSize: '1.1rem',
+              width: '32px', height: '32px',
+              background: 'rgba(124, 92, 191, 0.15)',
+              color: '#7c5cbf',
+              borderRadius: '10px',
+              display: 'flex', alignItems: 'center', justifyindex: 'center',
+              justifyContent: 'center', flexShrink: 0
+            }}>
+              <PiShoppingCartSimpleFill />
+            </span>
+            <span>Tienda</span>
+          </button>
+
+          {/* Botones de Administración: solo visibles para correos en la
+              tabla `admins` (ver migración 20260812130000) — la seguridad
+              real vive en el backend (cada RPC de admin revalida
+              es_admin_actual), esto solo evita mostrar el enlace a quien no
+              lo puede usar. */}
+          {esAdmin && (
+            <>
+              <button
+                onClick={() => ir('/admin/pagos')}
+                onMouseEnter={() => setHoveredBtn('admin-pagos')}
+                onMouseLeave={() => setHoveredBtn(null)}
+                className="btn-sidernav"
+              >
+                <span style={{
+                  fontSize: '1.1rem',
+                  width: '32px', height: '32px',
+                  background: 'rgba(234, 179, 8, 0.15)',
+                  color: '#eab308',
+                  borderRadius: '10px',
+                  display: 'flex', alignItems: 'center', justifyindex: 'center',
+                  justifyContent: 'center', flexShrink: 0
+                }}>
+                  <HiOutlineShieldCheck />
+                </span>
+                <span>Pagos a profesores</span>
+              </button>
+
+              <button
+                onClick={() => ir('/admin/maestros')}
+                onMouseEnter={() => setHoveredBtn('admin-maestros')}
+                onMouseLeave={() => setHoveredBtn(null)}
+                className="btn-sidernav"
+              >
+                <span style={{
+                  fontSize: '1.1rem',
+                  width: '32px', height: '32px',
+                  background: 'rgba(234, 179, 8, 0.15)',
+                  color: '#eab308',
+                  borderRadius: '10px',
+                  display: 'flex', alignItems: 'center', justifyindex: 'center',
+                  justifyContent: 'center', flexShrink: 0
+                }}>
+                  <HiOutlineUserPlus />
+                </span>
+                <span>Maestros</span>
+              </button>
+            </>
+          )}
 
           {/* Sección Cuestionarios */}
           <p style={{ 
