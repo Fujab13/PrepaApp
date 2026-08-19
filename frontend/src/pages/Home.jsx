@@ -121,7 +121,7 @@ export default function Home() {
       <Sidenav open={sidenavOpen} onClose={() => setSidenavOpen(false)} />
 
       <div className="page-topbar" style={{ color: featured.color }}>
-        <button onClick={() => setSidenavOpen(true)} className="page-topbar-btn">
+        <button onClick={() => setSidenavOpen(true)} className="page-topbar-btn" data-gamificacion="bajo">
           <RiMenuFill />
         </button>
                 
@@ -155,10 +155,12 @@ export default function Home() {
         <div className="page-topbar-actions">
           <button className="util-btn"
           title="Déjanos tu feedback"
+          data-gamificacion="bajo"
           onClick={() => window.open('https://docs.google.com/forms/d/e/1FAIpQLSeoEBlg6L-kp1X1IbuaHFaHa85eL0X2ph0XEX0Hu6wFGpL-Pw/viewform?pli=1', '_blank', 'noopener,noreferrer')}>
             <FaRegCommentDots />
           </button>
           <button className="util-btn"
+          data-gamificacion="manual"
           onClick={() => {
             const nuevoEstado = !vibracionActiva;
             setVibracionActiva(nuevoEstado);
@@ -167,7 +169,8 @@ export default function Home() {
           }}>
             {vibracionActiva ? <BiMobileVibration /> : <BiMobileVibration />}
           </button>
-          <button className="util-btn" 
+          <button className="util-btn"
+          data-gamificacion="bajo"
           onClick={() => {
             if (!document.fullscreenElement) {
               document.documentElement.requestFullscreen();
@@ -195,6 +198,7 @@ export default function Home() {
 
           <button
             onClick={() => navigate(`/leccion/${featured.id}`)}
+            className="gm-cta"
             style={{
               background: `linear-gradient(355deg, ${featured.color}, #ffffffbe)`,
               //background: featured.color,
@@ -205,7 +209,7 @@ export default function Home() {
               padding: '14px 32px',
               fontSize: '1rem',
               width: '100%',
-              transition: 'opacity 0.2s'
+              boxShadow: `0 6px 18px -6px ${featured.color}80`,
             }}
           >
             ▶ Empezar lección

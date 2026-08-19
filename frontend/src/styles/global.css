@@ -165,6 +165,56 @@ display: flex;
   color: var(--text-muted);
 }
 
+.opcion-btn {
+  transition: transform 0.12s ease, border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+}
+
+.opcion-btn:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+/*---------------------------------------------------------------*/
+/* Gamificación: feedback por niveles (ver src/App.jsx, data-gamificacion) */
+
+/* Tier alto: CTAs que arrancan o cierran un logro (empezar/continuar
+   lección, siguiente/finalizar, alta de cuenta). */
+.gm-cta {
+  transition: transform 0.12s ease, box-shadow 0.2s ease;
+}
+
+.gm-cta:active:not(:disabled) {
+  transform: scale(0.96);
+}
+
+/* Transición minimalista al pasar de una pregunta a otra en Lección
+   (modo normal; el repaso ya tiene su propia animación de tarjeta). */
+@keyframes gm-entrada {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.gm-entrada {
+  animation: gm-entrada 0.28s ease-out both;
+}
+
+/* Estallido de puntos para Celebracion.jsx: terminar una lección, alta
+   de cuenta. Cada punto usa la variable --a (ángulo) para su dirección. */
+.gm-punto {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 7px;
+  height: 7px;
+  margin: -3.5px;
+  border-radius: 50%;
+  animation: gm-estallido 0.6s ease-out forwards;
+}
+
+@keyframes gm-estallido {
+  0%   { transform: rotate(var(--a, 0deg)) translateY(0) scale(1); opacity: 1; }
+  100% { transform: rotate(var(--a, 0deg)) translateY(-42px) scale(0.4); opacity: 0; }
+}
+
 .spin {
   animation: spin 0.8s linear infinite;
 }

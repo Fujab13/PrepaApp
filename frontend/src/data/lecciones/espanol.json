@@ -5,64 +5,67 @@
   "descripcion": "Gramática, ortografía y comprensión",
   "preguntas": [
     {
-      "pregunta": "¿Cuál de las siguientes palabras es esdrújula (lleva el acento en la antepenúltima sílaba)?",
-      "opciones": ["Máquina", "Camión", "Feliz"],
-      "correcta": 0
+      "pregunta": "Bienvenido, adjuntamos la imagen de unos estudiantes felices, estudiar nunca será divertido, pero puede ser satisfactorio ... ",
+      "enlace_svg": "estudiantes.svg",
+      "intro": true
     },
     {
-      "pregunta": "¿Cuál palabra aguda necesita tilde por terminar en 'n'?",
-      "opciones": ["Corazon", "Papel", "Reloj"],
-      "correcta": 0
+      "pregunta": "Servicios listados",
+      "opciones": ["Examen Simulador", "Asesorías", "Guías", "Temarios", "Lecciones", "Publicación de ofertas"],
+      "enlace_svg": "interfaz.svg",
+      "intro": true
     },
     {
-      "pregunta": "¿Cuál palabra grave (llana) necesita tilde?",
-      "opciones": ["Azucar", "Silla", "Pizarra"],
-      "correcta": 0
+      "pregunta": "El aprendizaje busca ser dinámico, la idea es hacértelo digerible, si prometes estudiar, prometemos encargarnos del resto ...",
+      "enlace_svg": "mapa.svg",
+      "intro": true
     },
     {
-      "pregunta": "¿Cuál de las siguientes opciones está correctamente acentuada?",
-      "opciones": ["Íbamos", "Ibamos", "Ìbamos"],
-      "correcta": 0
+      "pregunta": "Buscamos simular tanto como sea posible la experiencia de tu acceso a la universidad ... ",
+      "enlace_svg": "examen.svg",
+      "intro": true
     },
     {
-      "pregunta": "Selecciona la palabra sobresdrújula:",
-      "opciones": ["Repítemelo", "Difícil", "Áspero"],
-      "correcta": 0
+      "pregunta": "¡Los profesores son una idea muy buena! Busca uno en el apartado de Tutorías y resérvalo ... ",
+      "enlace_svg": "profesor.svg",
+      "intro": true
     },
     {
-      "pregunta": "¿Qué palabra necesita tilde diacrítica en la oración 'El trajo el te para su abuela'?",
-      "opciones": ["El → Él (pronombre, no artículo)", "Trajo", "Abuela"],
-      "correcta": 0
+      "pregunta": "Recuerda iniciar sesión. No es obligatorio, pero eventualmente tendrás que hacerlo ... jaja",
+      "enlace_svg": "sidenav.svg",
+      "intro": true
     },
     {
-      "pregunta": "Elige la opción correctamente acentuada: '¿_____ es tu nombre?'",
-      "opciones": ["Cuál", "Cual", "Cuàl"],
-      "correcta": 0
+      "pregunta": "Todo o casi todo lo que necesitas en un solo lugar, excepto el examen de admisión ... ",
+      "enlace_svg": "cajafuerte.svg",
+      "intro": true
     },
     {
-      "pregunta": "Completa correctamente: 'El ___ del edificio es muy alto.'",
-      "opciones": ["nivel", "nibel", "nivell"],
-      "correcta": 0
+      "pregunta": "No te recomendamos estudiar a tu ritmo, mejor estudia un mínimo de una hora diaria. Sabemos de buenas fuentes que muchos de tus rivales estudian mucho más ... ",
+      "enlace_svg": "determinacion.svg",
+      "intro": true
     },
     {
-      "pregunta": "¿Cuál palabra está escrita correctamente?",
-      "opciones": ["Ecsepción", "Excepción", "Exepción"],
-      "correcta": 1
+      "pregunta": "Privacidad de tu cuenta, el almacenamiento seguro de tu progreso y la protección de tus sesiones ... ",
+      "enlace_svg": "seguridad.svg",
+      "intro": true
     },
     {
-      "pregunta": "Elige la forma correcta del verbo 'haber' en pretérito (recuerda que en su uso impersonal no se pluraliza):",
-      "opciones": ["Hubo mucha gente en el concierto", "Hubieron muchas personas en el concierto", "Habieron muchas personas en el concierto"],
-      "correcta": 0
+      "pregunta": "Traducir ideas a palabras obliga al cerebro a organizar, analizar y estructurar la información con claridad ... ",
+      "enlace_svg": "pluma.svg",
+      "intro": true
     },
     {
-      "pregunta": "¿Cuál oración distingue correctamente 'ha' (del verbo haber) de 'a' (preposición)?",
-      "opciones": ["Ha llegado a tiempo", "A llegado ha tiempo", "Ha llegado ha tiempo"],
-      "correcta": 0
+      "pregunta": "Familiarízate con tu entorno, prueba botones y observa qué sucede ...",
+      "opciones": ["Correcto", "Incorrecto", "Erróneo"],
+      "correcta": 0,
+      "intro": true
     },
     {
-      "pregunta": "Selecciona la palabra correctamente escrita con 'll':",
+      "pregunta": "A partir de ahora puedes comenzar a vivir tu experiencia de aprendizaje, recuerda que la constancia es la clave del éxito ...",
       "opciones": ["Botella", "Boteya", "Botellia"],
-      "correcta": 0
+      "correcta": 0,
+      "intro": true
     },
     {
       "pregunta": "¿Cuál es la ortografía correcta para referirse al recipiente que se pone sobre el techo de un auto?",

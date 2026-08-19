@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import { renderIconoMateria } from '../utils/renderIconoMateria'
+import { triggerVibration } from '../utils/haptics'
 
 export default function MateriaCard({ materia }) {
   const navigate = useNavigate()
@@ -26,6 +27,12 @@ export default function MateriaCard({ materia }) {
         e.currentTarget.style.borderColor = 'transparent'
         e.currentTarget.style.transform = 'translateY(0)'
       }}
+      onPointerDown={e => { e.currentTarget.style.transform = 'scale(0.98)' }}
+      onPointerUp={e => {
+        e.currentTarget.style.transform = 'translateY(-2px)'
+        triggerVibration('success')
+      }}
+      onPointerCancel={e => { e.currentTarget.style.transform = 'translateY(0)' }}
     >
       <div style={{
         fontSize: '2rem',

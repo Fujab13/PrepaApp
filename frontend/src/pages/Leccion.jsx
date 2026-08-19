@@ -9,9 +9,11 @@ import * as RiIcons from 'react-icons/ri'
 import Hexagono from '../components/Hexagono'
 import OpcionBtn from '../components/OpcionBtn'
 import TarjetaRepaso from '../components/TarjetaRepaso'
+import Celebracion from '../components/Celebracion'
 import { useProgreso } from '../hooks/useProgreso'
 import { getPreguntasDeUnidad } from '../data/unidades'
 import { obtenerLeccionDeSesion } from '../services/leccionesPremium';
+import { triggerVibration } from '../utils/haptics';
 
 import { IoMdClose } from "react-icons/io";
 import { AiOutlineClose, AiOutlineLoading3Quarters } from "react-icons/ai";
@@ -69,7 +71,7 @@ export default function Leccion() {
   const [materia, setMateria] = useState(null)
   const [cargando, setCargando] = useState(true)
   const [errorCarga, setErrorCarga] = useState('')
-  const { unidad, elemento, cargando: cargandoProgreso, guardarProgreso, reiniciar } = useProgreso(materiaId)
+  const { unidad, elemento, cargando: cargandoProgreso, guardarProgreso } = useProgreso(materiaId)
 
   const [cola, setCola]                             = useState(null)
   const [correctasIniciales, setCorrectasIniciales]  = useState(0)
@@ -81,6 +83,7 @@ export default function Leccion() {
   const [enRepaso, setEnRepaso]                      = useState(false)
   const [colaRepaso, setColaRepaso]                  = useState([])
   const [copiado, setCopiado]                        = useState(false)
+  const [celebrando, setCelebrando]                  = useState(false)
   const inicializadoRef = useRef(false)
 
   useEffect(() => {
@@ -226,11 +229,20 @@ export default function Leccion() {
   const progresoHex = Math.round((totalCorrectas / preguntas.length) * 6)
   const esUltima    = enRepaso ? colaRepaso.length === 1 : cola.length === 1
 
+  // Tolerancia a preguntas incompletas: cualquiera de estos campos puede
+  // faltar sin detener el flujo de la lección (ver responder/siguiente).
+  const tieneOpciones      = Array.isArray(pregunta.opciones) && pregunta.opciones.length > 0
+  const tieneCorrecta      = typeof pregunta.correcta === 'number'
+  const tienePreguntaTexto = typeof pregunta.pregunta === 'string' && pregunta.pregunta.trim() !== ''
+  const avanceDirecto      = !enRepaso && !tieneOpciones
+
   function responder(i) {
     if (respondido) return
     const correcta = pregunta.correcta
-    const esCorrecta = i === correcta
+    // Sin "correcta" definida, cualquier opción cuenta como válida.
+    const esCorrecta = !tieneCorrecta || i === correcta
     const nuevos = pregunta.opciones.map((_, j) => {
+      if (!tieneCorrecta) return j === i ? 'correcto' : 'normal'
       if (j === correcta) return 'correcto'
       if (j === i && i !== correcta) return 'incorrecto'
       return 'normal'
@@ -238,13 +250,27 @@ export default function Leccion() {
     setEstados(nuevos)
     setRespondido(true)
     setFeedback(esCorrecta ? '✅ ¡Correcto!' : '❌ Incorrecto. Corrigela al final.')
+    triggerVibration(esCorrecta ? 'success' : 'error')
 
-    if (!esCorrecta) {
+    if (!esCorrecta && !pregunta.intro) {
+      // Las preguntas "intro" (bienvenida/tutorial) nunca van a repaso: no
+      // son contenido que se deba dominar ni repetir más adelante.
       // En repaso, guarda de nuevo bajo la unidad de origen para que
       // vuelva a aparecer más adelante si aún no se domina.
       const unidadClave = enRepaso ? unidad - 1 : unidad
       guardarFalloEnUnidad(materiaId, unidadClave, pregunta)
     }
+  }
+
+  // Terminar una unidad es el logro más grande dentro de la lección: se
+  // retrasa un poco la salida para que la celebración alcance a verse.
+  function celebrarYNavegar() {
+    setCelebrando(true)
+    triggerVibration('celebracion')
+    setTimeout(async () => {
+      await guardarProgreso(unidad + 1, 0)
+      navigate('/')
+    }, 550)
   }
 
   async function siguiente() {
@@ -256,16 +282,15 @@ export default function Leccion() {
         nuevaColaRepaso = [...nuevaColaRepaso, colaRepaso[0]]
       }
 
-      setRespondido(false)
-      setFeedback('')
-
       if (nuevaColaRepaso.length === 0) {
-        setEnRepaso(false)
-        await guardarProgreso(unidad + 1, 0)
-        navigate('/')
+        // Se deja "respondido" y colaRepaso tal cual (sin resetear) para que
+        // la última tarjeta siga visible detrás de la celebración.
+        celebrarYNavegar()
         return
       }
 
+      setRespondido(false)
+      setFeedback('')
       setColaRepaso(nuevaColaRepaso)
       setEstados(Array(nuevaColaRepaso[0].opciones.length).fill('normal'))
       return
@@ -281,38 +306,44 @@ export default function Leccion() {
       setCorrectasNuevas(nuevasCorrectas)
     }
 
-    setRespondido(false)
-    setFeedback('')
-
     if (nuevaCola.length === 0) {
       // Unidad terminada: si en la unidad anterior hubo preguntas falladas,
       // se hace un repaso de refuerzo antes de avanzar de verdad.
       const fallosPrevios = unidad > 1 ? tomarFallosDeUnidad(materiaId, unidad - 1, 3) : []
       if (fallosPrevios.length > 0) {
+        setRespondido(false)
+        setFeedback('')
         setEnRepaso(true)
         setColaRepaso(fallosPrevios)
         setEstados(Array(fallosPrevios[0].opciones.length).fill('normal'))
         return
       }
 
-      await guardarProgreso(unidad + 1, 0)
-      navigate('/')
+      // Se deja "respondido" y "cola" tal cual (sin resetear) para que la
+      // última pregunta siga visible detrás de la celebración.
+      celebrarYNavegar()
       return
     }
 
+    setRespondido(false)
+    setFeedback('')
     setCola(nuevaCola)
     const siguienteIdx = nuevaCola[0]
-    setEstados(Array(preguntas[siguienteIdx].opciones.length).fill('normal'))
+    const siguientesOpciones = preguntas[siguienteIdx].opciones
+    setEstados(Array(Array.isArray(siguientesOpciones) ? siguientesOpciones.length : 0).fill('normal'))
 
     if (!respondioMal) {
       await guardarProgreso(unidad, correctasIniciales + nuevasCorrectas)
     }
   }
 
-  async function borrarProgresoTemporal() {
-    if (window.confirm('Esto borrará todo el progreso de esta materia. ¿Continuar?')) {
-      await reiniciar()
-      localStorage.removeItem(`refuerzo_${materiaId}`)
+  async function retrocederUnidad() {
+    const unidadDestino = Math.max(1, unidad - 1)
+    const mensaje = unidadDestino === unidad
+      ? 'Esto reiniciará tu progreso en la unidad actual. ¿Continuar?'
+      : `Esto te regresará a la unidad ${unidadDestino}. ¿Continuar?`
+    if (window.confirm(mensaje)) {
+      await guardarProgreso(unidadDestino, 0)
       setCola(null)
       setCorrectasIniciales(0)
       setCorrectasNuevas(0)
@@ -326,8 +357,13 @@ export default function Leccion() {
   }
 
   function copiarPregunta() {
-    const texto = `${pregunta.pregunta}\n\n${pregunta.opciones.map((op, i) => `${i + 1}. ${op}`).join('\n')}\n\nRespuesta correcta: ${pregunta.opciones[pregunta.correcta]}`
-    navigator.clipboard.writeText(texto)
+    const partes = []
+    if (tienePreguntaTexto) partes.push(pregunta.pregunta)
+    if (tieneOpciones) {
+      partes.push(pregunta.opciones.map((op, i) => `${i + 1}. ${op}`).join('\n'))
+      if (tieneCorrecta) partes.push(`Respuesta correcta: ${pregunta.opciones[pregunta.correcta]}`)
+    }
+    navigator.clipboard.writeText(partes.join('\n\n'))
     setCopiado(true)
     setTimeout(() => setCopiado(false), 1500)
   }
@@ -372,12 +408,13 @@ export default function Leccion() {
       boxSizing: 'border-box',
     }}>
 
-      <div className="page-topbar-compact" style={{ paddingBottom: 12 }}>
+      <div className="page-topbar-compact" style={{ paddingBottom: 12, borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
         {/* 1. Botón Salir */}
         <button
           onClick={() => navigate('/')}
           title="Salir"
           className="page-topbar-btn"
+          data-gamificacion="bajo"
         >
           <AiOutlineClose />
         </button>
@@ -426,7 +463,7 @@ export default function Leccion() {
         {/* 4. Contenedor de Botones de Utilidad (Alineado a la derecha) */}
         <div className="page-topbar-actions" style={{ gap: '4px' }}>
           {[
-            { label: <MdRestartAlt />, title: 'Reiniciar', action: borrarProgresoTemporal },
+            { label: <MdRestartAlt />, title: 'Regresar unidad', action: retrocederUnidad },
             { label: copiado ? <PiCheckBold /> : <PiCopy />, title: 'Copiar pregunta', action: copiarPregunta },
             { label: esFullscreen ? <MdFullscreenExit /> : <MdFullscreen />, title: 'Pantalla completa', action: toggleFullscreen },
           ].map(({ label, title, action }) => (
@@ -435,6 +472,7 @@ export default function Leccion() {
                 onClick={action}
                 title={title}
                 className="util-btn"
+                data-gamificacion="bajo"
                 style={{
                   background: 'transparent',
                   border: 'none',
@@ -507,102 +545,155 @@ export default function Leccion() {
           )}
         </div>
       </div>
-      {/* SVG de la pregunta (si existe) */}
-        {pregunta.enlace_svg && (
-          <div style={{
-            background: "var(--surface2)",
-            border: "0.5px solid var(--surface)",
-            borderRadius: 12,
-            padding: 12,
-            marginBottom: 14,
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            minHeight: 120,
-          }}>
-
-            {/* , filter: "brightness(0) invert(1)" */}
-            <img
-              src={`/svgs/${pregunta.enlace_svg}`}
-              alt={`Imagen de la pregunta ${pregunta.id}`}
-              style={{ maxWidth: "100%", maxHeight: 220, objectFit: "contain"}}
-              onError={e => { e.currentTarget.style.display = "none"; }}
-            />
-          </div>
-        )}
-      {!enRepaso && (
-        <div style={{
-          background: 'var(--surface2)',
-          borderRadius: 'var(--radius)',
-          padding: '16px 18px',
-          marginBottom: 14,
-          borderLeft: `3px solid ${materia.color}`,
-        }}>
-          <p style={{
-            fontSize: '1rem',
-            lineHeight: 1.65,
-            fontWeight: 500,
-            margin: 0,
-            color: 'var(--text)',
-            wordBreak: 'break-word',
-            overflowWrap: 'break-word',
-          }}>
-            {pregunta.pregunta}
-          </p>
-        </div>
-      )}
-
-      <div style={{ minHeight: 22, marginBottom: 10 }}>
-        {feedback && (
-          <p style={{
-            textAlign: 'center',
-            fontWeight: 600,
-            fontSize: '0.88rem',
-            margin: 0,
-            color: feedback.startsWith('✅') ? 'var(--correct)' : 'var(--wrong)',
-          }}>
-            {feedback}
-          </p>
-        )}
-      </div>
-
+      {/* En repaso, TarjetaRepaso ya trae su propia animación de "tarjeta
+          que cae"; en modo normal, el bloque completo (imagen + pregunta +
+          opciones) entra con un fundido minimalista por cada pregunta nueva,
+          usando el índice como key para forzar el remount. */}
       {enRepaso ? (
-        <TarjetaRepaso
-          pregunta={pregunta}
-          estados={estados}
-          respondido={respondido}
-          color={COLOR_REFUERZO}
-          onResponder={responder}
-        />
+        <>
+          {pregunta.enlace_svg && (
+            <div style={{
+              background: "linear-gradient(135deg, var(--surface2), var(--surface))",
+              border: "1px solid rgba(255,255,255,0.06)",
+              borderRadius: 6,
+              marginBottom: 14,
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              minHeight: 120,
+              boxShadow: "0 4px 16px -10px rgba(0,0,0,0.6)",
+            }}>
+              <img
+                src={`/svgs/${pregunta.enlace_svg}`}
+                alt={`Imagen de la pregunta ${pregunta.id}`}
+                style={{ maxWidth: "100%", maxHeight: 400, width: "100%", objectFit: "contain", margin: 4 }}
+                onError={e => { e.currentTarget.style.display = "none"; }}
+              />
+            </div>
+          )}
+
+          <div style={{ minHeight: 22, marginBottom: 10 }}>
+            {feedback && (
+              <p style={{
+                textAlign: 'center',
+                fontWeight: 600,
+                fontSize: '0.88rem',
+                margin: 0,
+                color: feedback.startsWith('✅') ? 'var(--correct)' : 'var(--wrong)',
+              }}>
+                {feedback}
+              </p>
+            )}
+          </div>
+
+          <TarjetaRepaso
+            pregunta={pregunta}
+            estados={estados}
+            respondido={respondido}
+            color={COLOR_REFUERZO}
+            onResponder={responder}
+          />
+        </>
       ) : (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 10, flex: 1 }}>
-          {pregunta.opciones.map((op, i) => (
-            <OpcionBtn key={i} texto={op} estado={estados[i]} onClick={() => responder(i)} />
-          ))}
+        <div key={idxActual} className="gm-entrada" style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
+          {pregunta.enlace_svg && (
+            <div style={{
+              background: "linear-gradient(135deg, var(--surface2), var(--surface))",
+              border: "1px solid rgba(255,255,255,0.06)",
+              borderRadius: 6,
+              marginBottom: 14,
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              minHeight: 120,
+              boxShadow: "0 4px 16px -10px rgba(0,0,0,0.6)",
+            }}>
+              <img
+                src={`/svgs/${pregunta.enlace_svg}`}
+                alt={`Imagen de la pregunta ${pregunta.id}`}
+                style={{ maxWidth: "100%", maxHeight: 400, width: "100%", objectFit: "contain", margin: 4 }}
+                onError={e => { e.currentTarget.style.display = "none"; }}
+              />
+            </div>
+          )}
+
+          {tienePreguntaTexto && (
+            <div style={{
+              background: 'linear-gradient(135deg, var(--surface2), var(--surface))',
+              borderRadius: 6,
+              padding: '18px 20px',
+              marginBottom: 14,
+              borderLeft: `4px solid ${materia.color}`,
+              boxShadow: '0 4px 16px -10px rgba(0,0,0,0.6)',
+            }}>
+              <p style={{
+                fontSize: '1rem',
+                lineHeight: 1.65,
+                fontWeight: 500,
+                margin: 0,
+                color: 'var(--text)',
+                wordBreak: 'break-word',
+                overflowWrap: 'break-word',
+              }}>
+                {pregunta.pregunta}
+              </p>
+            </div>
+          )}
+
+          <div style={{ minHeight: 22, marginBottom: 10 }}>
+            {feedback && (
+              <p style={{
+                textAlign: 'center',
+                fontWeight: 600,
+                fontSize: '0.88rem',
+                margin: 0,
+                color: feedback.startsWith('✅') ? 'var(--correct)' : 'var(--wrong)',
+              }}>
+                {feedback}
+              </p>
+            )}
+          </div>
+
+          {tieneOpciones && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 10, flex: 1 }}>
+              {pregunta.opciones.map((op, i) => (
+                <OpcionBtn key={i} texto={op} estado={estados[i]} onClick={() => responder(i)} />
+              ))}
+            </div>
+          )}
         </div>
       )}
 
       </div>
 
-      {respondido && (
+      {(respondido || avanceDirecto) && (
         <div className="page-footer-fixed">
-          <button
-            onClick={siguiente}
-            style={{
-              background: enRepaso ? COLOR_REFUERZO : materia.color,
-              color: '#000',
-              fontWeight: 700,
-              border: 'none',
-              borderRadius: '12px',
-              padding: '13px',
-              fontSize: '0.95rem',
-              width: '100%',
-              cursor: 'pointer',
-              letterSpacing: '0.01em',
-            }}
-          >
-            {esUltima ? (enRepaso ? 'Finalizar repaso' : 'Finalizar lección') : 'Siguiente'}
-          </button>
+          <div style={{ position: 'relative', width: '100%' }}>
+            <Celebracion activo={celebrando} color={enRepaso ? COLOR_REFUERZO : materia.color} />
+            <button
+              onClick={siguiente}
+              disabled={celebrando}
+              className="gm-cta"
+              style={{
+                background: enRepaso ? COLOR_REFUERZO : materia.color,
+                color: '#000',
+                fontWeight: 700,
+                border: 'none',
+                borderRadius: '12px',
+                padding: '13px',
+                fontSize: '0.95rem',
+                width: '100%',
+                cursor: celebrando ? 'default' : 'pointer',
+                letterSpacing: '0.01em',
+                boxShadow: `0 6px 18px -6px ${enRepaso ? COLOR_REFUERZO : materia.color}80`,
+                opacity: celebrando ? 0.85 : 1,
+              }}
+            >
+              {esUltima
+                ? (enRepaso ? 'Finalizar repaso' : 'Finalizar lección')
+                : (avanceDirecto && !respondido ? 'Continuar' : 'Siguiente')}
+            </button>
+          </div>
         </div>
       )}
 

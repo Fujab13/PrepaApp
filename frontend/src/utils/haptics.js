@@ -13,6 +13,9 @@ export const triggerVibration = (type = 'success') => {
     case 'warning':
       navigator.vibrate(200)
       break
+    case 'celebracion':
+      navigator.vibrate([40, 40, 40, 40, 90])
+      break
     default:
       navigator.vibrate(50)
   }

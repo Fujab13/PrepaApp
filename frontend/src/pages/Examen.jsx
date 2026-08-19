@@ -425,8 +425,6 @@ export default function Examen() {
           <div style={{
             background: "var(--surface2)",
             border: "0.5px solid var(--surface)",
-            borderRadius: 12,
-            padding: 12,
             marginBottom: 14,
             display: "flex",
             justifyContent: "center",
@@ -438,7 +436,7 @@ export default function Examen() {
             <img
               src={`/svgs/${pregunta.enlace_svg}`}
               alt={`Imagen de la pregunta ${pregunta.id}`}
-              style={{ maxWidth: "100%", maxHeight: 220, objectFit: "contain"}}
+              style={{ maxWidth: "100%", maxHeight: 400, width: "100%", objectFit: "contain", margin: 4 }}
               onError={e => { e.currentTarget.style.display = "none"; }}
             />
           </div>

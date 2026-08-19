@@ -36,6 +36,11 @@ export default function App() {
       const botonClickeado = e.target.closest('button');
 
       if (botonClickeado && !botonClickeado.disabled) {
+        // 'bajo': acciones menores que no quieren ni el tap por defecto.
+        // 'manual': el propio componente ya llama a triggerVibration con un
+        // patrón específico (ej. acierto/fallo), evita duplicar el tap.
+        const nivel = botonClickeado.dataset.gamificacion;
+        if (nivel === 'bajo' || nivel === 'manual') return;
         triggerVibration();
       }
     };

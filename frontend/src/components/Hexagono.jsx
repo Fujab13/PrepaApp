@@ -1,4 +1,5 @@
 import { useId } from 'react'
+import { triggerVibration } from '../utils/haptics'
 
 export default function Hexagono({ progreso = 0, color = '#ff00ae', onClick, size = 200 }) {
   const uid = useId().replace(/:/g, '')
@@ -21,9 +22,16 @@ export default function Hexagono({ progreso = 0, color = '#ff00ae', onClick, siz
       width={size} height={size}
       viewBox="0 0 200 200"
       onClick={onClick}
-      style={{ cursor: onClick ? 'pointer' : 'default', transition: 'transform 0.2s' }}
+      style={{ cursor: onClick ? 'pointer' : 'default', transition: 'transform 0.15s' }}
       onMouseEnter={e => onClick && (e.currentTarget.style.transform = 'scale(1.05)')}
       onMouseLeave={e => (e.currentTarget.style.transform = 'scale(1)')}
+      onPointerDown={e => onClick && (e.currentTarget.style.transform = 'scale(0.94)')}
+      onPointerUp={e => {
+        if (!onClick) return
+        e.currentTarget.style.transform = 'scale(1)'
+        triggerVibration('success')
+      }}
+      onPointerCancel={e => onClick && (e.currentTarget.style.transform = 'scale(1)')}
     >
       <defs>
         <clipPath id={`hg-clip-${uid}`}>
