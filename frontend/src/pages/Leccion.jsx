@@ -10,18 +10,22 @@ import Hexagono from '../components/Hexagono'
 import OpcionBtn from '../components/OpcionBtn'
 import TarjetaRepaso from '../components/TarjetaRepaso'
 import Celebracion from '../components/Celebracion'
+import ConfirmDialog from '../components/ConfirmDialog'
 import { useProgreso } from '../hooks/useProgreso'
 import { getPreguntasDeUnidad } from '../data/unidades'
 import { obtenerLeccionDeSesion } from '../services/leccionesPremium';
 import { triggerVibration } from '../utils/haptics';
+import { hablarTexto, detenerLectura } from '../utils/tts';
 
 import { IoMdClose } from "react-icons/io";
+import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { AiOutlineClose, AiOutlineLoading3Quarters } from "react-icons/ai";
-import { MdFullscreen, MdFullscreenExit } from "react-icons/md";
+import { MdFullscreen, MdFullscreenExit, MdSkipNext } from "react-icons/md";
 import { VscDebugRestart } from "react-icons/vsc";
 import { MdRestartAlt } from "react-icons/md";
 import { PiCopy, PiCheckBold } from "react-icons/pi";
 import { MdOutlineReplay } from "react-icons/md";
+import { FaVolumeUp, FaGoogle } from "react-icons/fa";
 
 const COLOR_REFUERZO = '#26d1e8' // mismo azul que la lección de español, por coincidencia
 
@@ -84,7 +88,16 @@ export default function Leccion() {
   const [colaRepaso, setColaRepaso]                  = useState([])
   const [copiado, setCopiado]                        = useState(false)
   const [celebrando, setCelebrando]                  = useState(false)
+  const [confirmacion, setConfirmacion]              = useState(null)
+  const [menuAbierto, setMenuAbierto]                = useState(false)
+  const [historial, setHistorial]                    = useState([])
+  const [leyendo, setLeyendo]                        = useState(false)
   const inicializadoRef = useRef(false)
+
+  // Detiene cualquier lectura en curso al salir de la lección.
+  useEffect(() => {
+    return () => detenerLectura()
+  }, [])
 
   useEffect(() => {
     // Espera tanto a que cargue la lección como a que useProgreso termine de
@@ -273,8 +286,28 @@ export default function Leccion() {
     }, 550)
   }
 
-  async function siguiente() {
-    const respondioMal = estados.includes('incorrecto')
+  function alternarLectura(texto) {
+    if (leyendo) {
+      detenerLectura()
+      setLeyendo(false)
+      return
+    }
+    const iniciado = hablarTexto(texto, { onEnd: () => setLeyendo(false) })
+    if (iniciado) setLeyendo(true)
+  }
+
+  async function siguiente({ saltada = false } = {}) {
+    // Guarda una foto del estado actual (a qué pregunta se llegó) para que
+    // el botón "pregunta anterior" del menú del ícono pueda deshacerlo.
+    setHistorial(h => [...h, { cola, colaRepaso, enRepaso, correctasNuevas }])
+    detenerLectura()
+    setLeyendo(false)
+
+    // "saltada" es el atajo "siguiente pregunta" del menú del ícono cuando
+    // se usa sobre una pregunta sin responder: se trata igual que una
+    // respuesta incorrecta (vuelve más adelante en la cola) en vez de
+    // darla por buena.
+    const respondioMal = saltada || estados.includes('incorrecto')
 
     if (enRepaso) {
       let nuevaColaRepaso = colaRepaso.slice(1)
@@ -337,35 +370,109 @@ export default function Leccion() {
     }
   }
 
-  async function retrocederUnidad() {
+  function retrocederUnidad() {
     const unidadDestino = Math.max(1, unidad - 1)
     const mensaje = unidadDestino === unidad
-      ? 'Esto reiniciará tu progreso en la unidad actual. ¿Continuar?'
-      : `Esto te regresará a la unidad ${unidadDestino}. ¿Continuar?`
-    if (window.confirm(mensaje)) {
-      await guardarProgreso(unidadDestino, 0)
-      setCola(null)
-      setCorrectasIniciales(0)
-      setCorrectasNuevas(0)
-      setEnRepaso(false)
-      setColaRepaso([])
-      setEstados(['normal', 'normal', 'normal'])
-      setRespondido(false)
-      setFeedback('')
-      navigate('/')
-    }
+      ? 'Esto reiniciará tu progreso en la unidad actual.'
+      : `Esto te regresará a la unidad ${unidadDestino} y perderás el progreso de la unidad actual.`
+
+    setConfirmacion({
+      titulo: 'Regresar de unidad',
+      mensaje,
+      textoConfirmar: 'Regresar',
+      colorConfirmar: 'var(--wrong)',
+      accion: async () => {
+        await guardarProgreso(unidadDestino, 0)
+        setCola(null)
+        setCorrectasIniciales(0)
+        setCorrectasNuevas(0)
+        setEnRepaso(false)
+        setColaRepaso([])
+        setEstados(['normal', 'normal', 'normal'])
+        setRespondido(false)
+        setFeedback('')
+        navigate('/')
+      },
+    })
   }
 
-  function copiarPregunta() {
+  // Deshace el último avance registrado en el historial (ver siguiente()),
+  // devolviendo la cola/colaRepaso a como estaban en la pregunta previa.
+  function preguntaAnterior() {
+    if (historial.length === 0) return
+    const anterior = historial[historial.length - 1]
+    setHistorial(h => h.slice(0, -1))
+    detenerLectura()
+    setLeyendo(false)
+    setCola(anterior.cola)
+    setColaRepaso(anterior.colaRepaso)
+    setEnRepaso(anterior.enRepaso)
+    setCorrectasNuevas(anterior.correctasNuevas)
+    setRespondido(false)
+    setFeedback('')
+    setCelebrando(false)
+    const opcionesPrevias = anterior.enRepaso
+      ? anterior.colaRepaso[0]?.opciones
+      : preguntas[anterior.cola?.[0]]?.opciones
+    setEstados(Array(Array.isArray(opcionesPrevias) ? opcionesPrevias.length : 0).fill('normal'))
+  }
+
+  // Atajo del menú del ícono: a diferencia del botón "Siguiente/Continuar"
+  // del pie de página, permite saltar la pregunta aunque todavía no se haya
+  // respondido (o se haya respondido mal); una pregunta saltada sin
+  // responder se trata como incorrecta y vuelve más adelante en la cola.
+  function avanzarPregunta() {
+    const saltada = tieneOpciones && !respondido
+    siguiente({ saltada })
+  }
+
+  function omitirUnidad() {
+    setConfirmacion({
+      titulo: 'Omitir unidad',
+      mensaje: `Esto te adelantará a la unidad ${unidad + 1} sin terminar la unidad actual.`,
+      textoConfirmar: 'Omitir',
+      colorConfirmar: 'var(--wrong)',
+      accion: async () => {
+        await guardarProgreso(unidad + 1, 0)
+        setCola(null)
+        setCorrectasIniciales(0)
+        setCorrectasNuevas(0)
+        setEnRepaso(false)
+        setColaRepaso([])
+        setEstados(['normal', 'normal', 'normal'])
+        setRespondido(false)
+        setFeedback('')
+        setHistorial([])
+        navigate('/')
+      },
+    })
+  }
+
+  function construirTextoPregunta() {
     const partes = []
     if (tienePreguntaTexto) partes.push(pregunta.pregunta)
     if (tieneOpciones) {
       partes.push(pregunta.opciones.map((op, i) => `${i + 1}. ${op}`).join('\n'))
       if (tieneCorrecta) partes.push(`Respuesta correcta: ${pregunta.opciones[pregunta.correcta]}`)
     }
-    navigator.clipboard.writeText(partes.join('\n\n'))
+    return partes.join('\n\n')
+  }
+
+  function copiarPregunta() {
+    navigator.clipboard.writeText(construirTextoPregunta())
     setCopiado(true)
     setTimeout(() => setCopiado(false), 1500)
+  }
+
+  // Arma un prompt con la pregunta actual (y sus opciones/respuesta si las
+  // tiene) y abre una búsqueda de Google con él, para que el usuario reciba
+  // ahí mismo el resumen con IA de Google sobre el tema.
+  function explicarConIA() {
+    const contexto = construirTextoPregunta()
+    if (!contexto) return
+    const prompt = `Explícame esto de forma clara y sencilla:\n\n${contexto}`
+    navigator.clipboard?.writeText(prompt)?.catch(() => {})
+    window.open(`https://www.google.com/search?q=${encodeURIComponent(prompt)}`, '_blank', 'noopener,noreferrer')
   }
 
   function toggleFullscreen() {
@@ -419,10 +526,89 @@ export default function Leccion() {
           <AiOutlineClose />
         </button>
 
-        {/* 2. Icono de la Materia */}
-        <span className="page-topbar-btn" style={{ fontSize: '1.35rem' }}>
-          {renderIconoMateria(materia.icono)}
-        </span>
+        {/* 2. Icono de la Materia: abre un menú rápido de navegación */}
+        <div style={{ position: 'relative', display: 'flex' }}>
+          <button
+            onClick={() => setMenuAbierto(v => !v)}
+            title="Navegación rápida"
+            className="page-topbar-btn"
+            data-gamificacion="bajo"
+            style={{ fontSize: '1.35rem', background: 'transparent', border: 'none' }}
+          >
+            {renderIconoMateria(materia.icono)}
+          </button>
+
+          {menuAbierto && (
+            <>
+              <div
+                onClick={() => setMenuAbierto(false)}
+                style={{ position: 'fixed', inset: 0, zIndex: 40 }}
+              />
+              <div style={{
+                position: 'absolute',
+                top: '100%',
+                left: 0,
+                marginTop: 8,
+                display: 'flex',
+                gap: 6,
+                padding: 6,
+                background: 'var(--surface2)',
+                border: '1px solid rgba(255,255,255,0.08)',
+                borderRadius: 14,
+                boxShadow: '0 14px 30px -10px rgba(0,0,0,0.6)',
+                zIndex: 45,
+              }}>
+                <button
+                  onClick={() => { preguntaAnterior(); setMenuAbierto(false) }}
+                  disabled={historial.length === 0}
+                  title="Pregunta anterior"
+                  className="util-btn"
+                  style={{
+                    width: 44, height: 44,
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    borderRadius: 10,
+                    background: 'var(--surface)',
+                    color: historial.length === 0 ? 'var(--text-muted)' : 'var(--text)',
+                    opacity: historial.length === 0 ? 0.4 : 1,
+                    fontSize: '1.1rem',
+                  }}
+                >
+                  <IoIosArrowBack />
+                </button>
+                <button
+                  onClick={() => { setMenuAbierto(false); omitirUnidad() }}
+                  title="Omitir unidad"
+                  className="util-btn"
+                  style={{
+                    width: 44, height: 44,
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    borderRadius: 10,
+                    background: 'var(--surface)',
+                    color: 'var(--wrong)',
+                    fontSize: '1.1rem',
+                  }}
+                >
+                  <MdSkipNext />
+                </button>
+                <button
+                  onClick={() => { avanzarPregunta(); setMenuAbierto(false) }}
+                  title="Saltar a la siguiente pregunta"
+                  className="util-btn"
+                  style={{
+                    width: 44, height: 44,
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    borderRadius: 10,
+                    background: 'var(--surface)',
+                    color: 'var(--text)',
+                    fontSize: '1.1rem',
+                  }}
+                >
+                  <IoIosArrowForward />
+                </button>
+              </div>
+            </>
+          )}
+        </div>
 
         <span style={{ 
           position: 'relative',
@@ -592,6 +778,9 @@ export default function Leccion() {
             respondido={respondido}
             color={COLOR_REFUERZO}
             onResponder={responder}
+            leyendo={leyendo}
+            onLeer={() => alternarLectura(pregunta.pregunta)}
+            onExplicar={explicarConIA}
           />
         </>
       ) : (
@@ -634,9 +823,46 @@ export default function Leccion() {
                 color: 'var(--text)',
                 wordBreak: 'break-word',
                 overflowWrap: 'break-word',
+                whiteSpace: 'pre-line',
               }}>
                 {pregunta.pregunta}
               </p>
+              <div style={{ display: 'flex', justifyContent: 'flex-end', gap: 8, marginTop: 10 }}>
+                <button
+                  onClick={explicarConIA}
+                  title="Explicar con IA (Google)"
+                  className="util-btn"
+                  data-gamificacion="bajo"
+                  style={{
+                    width: 36, height: 36,
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    borderRadius: '50%',
+                    background: 'rgba(255,255,255,0.08)',
+                    color: 'var(--text-muted)',
+                    fontSize: '0.92rem',
+                    transition: 'background 0.2s ease, color 0.2s ease',
+                  }}
+                >
+                  <FaGoogle />
+                </button>
+                <button
+                  onClick={() => alternarLectura(pregunta.pregunta)}
+                  title={leyendo ? 'Detener lectura' : 'Leer en voz alta'}
+                  className="util-btn"
+                  data-gamificacion="bajo"
+                  style={{
+                    width: 36, height: 36,
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    borderRadius: '50%',
+                    background: leyendo ? materia.color : 'rgba(255,255,255,0.08)',
+                    color: leyendo ? '#000' : 'var(--text-muted)',
+                    fontSize: '1rem',
+                    transition: 'background 0.2s ease, color 0.2s ease',
+                  }}
+                >
+                  <FaVolumeUp />
+                </button>
+              </div>
             </div>
           )}
 
@@ -696,6 +922,20 @@ export default function Leccion() {
           </div>
         </div>
       )}
+
+      <ConfirmDialog
+        abierto={!!confirmacion}
+        titulo={confirmacion?.titulo}
+        mensaje={confirmacion?.mensaje}
+        textoConfirmar={confirmacion?.textoConfirmar}
+        colorConfirmar={confirmacion?.colorConfirmar}
+        onCancelar={() => setConfirmacion(null)}
+        onConfirmar={async () => {
+          const accion = confirmacion?.accion
+          setConfirmacion(null)
+          if (accion) await accion()
+        }}
+      />
 
     </div>
   )

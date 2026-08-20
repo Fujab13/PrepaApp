@@ -11,6 +11,7 @@
 // (onResponder recibe el índice ORIGINAL de la opción, igual que OpcionBtn).
 
 import { useEffect, useMemo, useRef, useState } from 'react'
+import { FaVolumeUp, FaGoogle } from 'react-icons/fa'
 
 const UMBRAL_SALIDA = 0.7 // fracción de la tarjeta que debe salir del contenedor para contar como respuesta
 
@@ -68,7 +69,7 @@ function calcularOffsetSalida(zonaId, ancho, alto) {
   return { x: 0, y: alto * 0.91 }
 }
 
-export default function TarjetaRepaso({ pregunta, estados, respondido, color, onResponder }) {
+export default function TarjetaRepaso({ pregunta, estados, respondido, color, onResponder, leyendo, onLeer, onExplicar }) {
   const contenedorRef = useRef(null)
   const arrastreRef = useRef(null) // { inicioX, inicioY, activo }
 
@@ -226,6 +227,51 @@ export default function TarjetaRepaso({ pregunta, estados, respondido, color, on
           deshabilitada={respondido}
         />
       ))}
+
+      {onExplicar && (
+        <button
+          onClick={onExplicar}
+          title="Explicar con IA (Google)"
+          className="util-btn"
+          style={{
+            position: 'absolute',
+            top: 10,
+            right: 56,
+            width: 36, height: 36,
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            borderRadius: '50%',
+            background: 'rgba(255,255,255,0.1)',
+            color: 'var(--text-muted)',
+            fontSize: '0.92rem',
+            zIndex: 6,
+          }}
+        >
+          <FaGoogle />
+        </button>
+      )}
+
+      {onLeer && (
+        <button
+          onClick={onLeer}
+          title={leyendo ? 'Detener lectura' : 'Leer en voz alta'}
+          className="util-btn"
+          style={{
+            position: 'absolute',
+            top: 10,
+            right: 10,
+            width: 36, height: 36,
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            borderRadius: '50%',
+            background: leyendo ? color : 'rgba(255,255,255,0.1)',
+            color: leyendo ? '#000' : 'var(--text-muted)',
+            fontSize: '1rem',
+            transition: 'background 0.2s ease, color 0.2s ease',
+            zIndex: 6,
+          }}
+        >
+          <FaVolumeUp />
+        </button>
+      )}
 
       {/* Tarjeta que cae */}
       <div

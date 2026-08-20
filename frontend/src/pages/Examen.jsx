@@ -9,6 +9,7 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { PREGUNTAS, SECCIONES } from "../data/examen.js";
 import SidenavMatrix from "../components/SidenavMatrix";
+import ConfirmDialog from "../components/ConfirmDialog";
 import { useAuth } from "../context/AuthContext";
 import { supabase } from "../services/supabaseClient";
 import { calcularStatsPorSeccion } from "../utils/examenStats";
@@ -66,6 +67,7 @@ export default function Examen() {
   const [respuestas,  setRespuestas]  = useState({});    // { id: 'A'|'B'|'C'... }
   const [marcadas,    setMarcadas]    = useState(new Set()); // ids marcados
   const [matrizOpen,  setMatrizOpen]  = useState(false);
+  const [confirmacion, setConfirmacion] = useState(null);
 
   // Tiempos por pregunta (en segundos usados)
   const tiemposRef = useRef({});
@@ -160,64 +162,84 @@ export default function Examen() {
   const anterior = useCallback(() => {
     if (indexActual === 0) return;
 
+    const retroceder = () => {
+      guardarTiempoPregunta(pregunta.id);
+      setIndexActual(i => i - 1);
+    };
+
     // Verificar si hay cambio de sección (retroceso)
     const prevSec = getSectionIndex(PREGUNTAS[indexActual - 1].id);
     const currSec = seccionIdx;
 
-    if (prevSec !== currSec) {
-      // Primera pregunta de sección actual → advertir
-      if (PREGUNTAS[indexActual].id === seccion.id_inicio) {
-        const confirmado = window.confirm(
-          `Regresar a ${SECCIONES[prevSec]?.nombre}`
-        );
-        if (!confirmado) return;
-      }
+    // Primera pregunta de sección actual → advertir
+    if (prevSec !== currSec && PREGUNTAS[indexActual].id === seccion.id_inicio) {
+      setConfirmacion({
+        titulo: "Cambiar de sección",
+        mensaje: `¿Regresar a ${SECCIONES[prevSec]?.nombre}?`,
+        textoConfirmar: "Regresar",
+        colorConfirmar: SECCIONES[prevSec]?.color ?? seccion?.color,
+        accion: retroceder,
+      });
+      return;
     }
 
-    guardarTiempoPregunta(pregunta.id);
-    setIndexActual(i => i - 1);
+    retroceder();
   }, [indexActual, seccionIdx, seccion, pregunta.id, guardarTiempoPregunta]);
 
   const siguiente = useCallback(() => {
     if (indexActual === totalPreguntas - 1) {
       // Última pregunta → ir a resultados
-      const confirmado = window.confirm(
-        "¿Terminar y enviar el examen?"
-      );
-      if (!confirmado) return;
-      guardarTiempoPregunta(pregunta.id);
-      guardarResultadoExamen({
-        respuestasFinal: respuestas,
-        tiempoTotalSegundos: TIEMPO_GLOBAL_INICIAL - tiempoGlobal,
-        marcadasFinal: [...marcadas],
-      });
-      navigate("/informe-resultados", {
-        state: {
-          tipo: "examen",
-          examen: {
-            respuestas,
-            tiemposPregunta : tiemposRef.current,
-            marcadas        : [...marcadas],
-            preguntas       : PREGUNTAS,
-            secciones       : SECCIONES,
-            tiempoTotalSegundos: TIEMPO_GLOBAL_INICIAL - tiempoGlobal,
+      const enviar = () => {
+        guardarTiempoPregunta(pregunta.id);
+        guardarResultadoExamen({
+          respuestasFinal: respuestas,
+          tiempoTotalSegundos: TIEMPO_GLOBAL_INICIAL - tiempoGlobal,
+          marcadasFinal: [...marcadas],
+        });
+        navigate("/informe-resultados", {
+          state: {
+            tipo: "examen",
+            examen: {
+              respuestas,
+              tiemposPregunta : tiemposRef.current,
+              marcadas        : [...marcadas],
+              preguntas       : PREGUNTAS,
+              secciones       : SECCIONES,
+              tiempoTotalSegundos: TIEMPO_GLOBAL_INICIAL - tiempoGlobal,
+            },
           },
-        },
+        });
+      };
+
+      setConfirmacion({
+        titulo: "Terminar examen",
+        mensaje: "¿Terminar y enviar el examen? No podrás modificar tus respuestas después.",
+        textoConfirmar: "Terminar",
+        colorConfirmar: "var(--wrong)",
+        accion: enviar,
       });
       return;
     }
 
+    const avanzar = () => {
+      guardarTiempoPregunta(pregunta.id);
+      setIndexActual(i => i + 1);
+    };
+
     // Cambio de sección (avance) → confirmación de no retorno
     const nextSec = getSectionIndex(PREGUNTAS[indexActual + 1].id);
     if (nextSec !== seccionIdx && PREGUNTAS[indexActual + 1].id === SECCIONES[nextSec]?.id_inicio) {
-      const confirmado = window.confirm(
-        `Continuar a ${SECCIONES[nextSec]?.nombre}`
-      );
-      if (!confirmado) return;
+      setConfirmacion({
+        titulo: "Cambiar de sección",
+        mensaje: `¿Continuar a ${SECCIONES[nextSec]?.nombre}? No podrás regresar después.`,
+        textoConfirmar: "Continuar",
+        colorConfirmar: SECCIONES[nextSec]?.color ?? seccion?.color,
+        accion: avanzar,
+      });
+      return;
     }
 
-    guardarTiempoPregunta(pregunta.id);
-    setIndexActual(i => i + 1);
+    avanzar();
   }, [indexActual, totalPreguntas, seccionIdx, seccion, pregunta.id, respuestas, marcadas, tiempoGlobal, guardarTiempoPregunta, guardarResultadoExamen, navigate]);
 
   // ── Seleccionar respuesta ─────────────────────────────────────────────────
@@ -583,6 +605,20 @@ export default function Examen() {
           onCerrar={() => setMatrizOpen(false)}
         />
       )}
+
+      <ConfirmDialog
+        abierto={!!confirmacion}
+        titulo={confirmacion?.titulo}
+        mensaje={confirmacion?.mensaje}
+        textoConfirmar={confirmacion?.textoConfirmar}
+        colorConfirmar={confirmacion?.colorConfirmar}
+        onCancelar={() => setConfirmacion(null)}
+        onConfirmar={() => {
+          const accion = confirmacion?.accion;
+          setConfirmacion(null);
+          if (accion) accion();
+        }}
+      />
     </div>
   );
 }

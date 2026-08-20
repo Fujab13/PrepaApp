@@ -395,3 +395,50 @@ display: flex;
   }
 }
 /*---------------------------------------------------------------*/
+/* ConfirmDialog.jsx: modal minimalista de confirmación, reemplazo estético
+   de window.confirm()/alert() (ver Leccion.jsx y Examen.jsx). */
+@keyframes cd-overlay-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes cd-card-in {
+  from { opacity: 0; transform: translateY(10px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.cd-overlay {
+  animation: cd-overlay-in 0.18s ease-out both;
+}
+
+.cd-card {
+  animation: cd-card-in 0.22s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.cd-btn {
+  min-height: 44px;
+  transition: transform 0.12s ease, opacity 0.15s ease, background 0.15s ease;
+}
+
+.cd-btn:active {
+  transform: scale(0.97);
+  opacity: 0.85;
+}
+/*---------------------------------------------------------------*/
+/* Hexagono.jsx: brillo metálico. Barra diagonal (glint) que atraviesa el
+   hexágono una vez cada 7s y queda oculta fuera de él el resto del ciclo.
+   transform-box: fill-box hace que los porcentajes sean relativos al propio
+   rect (ver el <rect className="hg-brillo-barra"> en Hexagono.jsx), así que
+   el recorrido escala solo con el tamaño del hexágono. */
+@keyframes hg-brillo-sweep {
+  0%   { transform: translate(-100%, -100%); }
+  16%  { transform: translate(100%, 100%); }
+  100% { transform: translate(100%, 100%); }
+}
+
+.hg-brillo-barra {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: hg-brillo-sweep 7s ease-in-out infinite;
+}
+/*---------------------------------------------------------------*/
