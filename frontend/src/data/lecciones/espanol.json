@@ -11,7 +11,14 @@
     },
     {
       "pregunta": "Servicios listados",
-      "opciones": ["Examen Simulador", "Asesorías", "Guías", "Temarios", "Lecciones", "Publicación de ofertas"],
+      "opciones": [
+        "Examen Simulador",
+        "Asesorías",
+        "Guías",
+        "Temarios",
+        "Lecciones",
+        "Publicación de ofertas"
+      ],
       "enlace_svg": "interfaz.svg",
       "intro": true
     },
@@ -57,1584 +64,3805 @@
     },
     {
       "pregunta": "Familiarízate con tu entorno, prueba botones y observa qué sucede ...",
-      "opciones": ["Correcto", "Incorrecto", "Erróneo"],
+      "opciones": [
+        "Correcto",
+        "Incorrecto",
+        "Erróneo"
+      ],
       "correcta": 0,
       "intro": true
     },
     {
       "pregunta": "A partir de ahora puedes comenzar a vivir tu experiencia de aprendizaje, recuerda que la constancia es la clave del éxito ...",
-      "opciones": ["Botella", "Boteya", "Botellia"],
+      "opciones": [
+        "Botella",
+        "Boteya",
+        "Botellia"
+      ],
       "correcta": 0,
       "intro": true
     },
     {
+      "pregunta": "Los sustantivos son palabras que nombran personas, animales, objetos, lugares, ideas o sentimientos."
+    },
+    {
+      "pregunta": "¿Cuál de las siguientes palabras es un sustantivo propio?",
+      "opciones": [
+        "Ciudad",
+        "México",
+        "País"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Funciones del sustantivo:\n• Sujeto: quien realiza la acción.\n• Complemento directo: recibe la acción del verbo.\n• Complemento indirecto: recibe el beneficio o perjuicio.\n• Complemento circunstancial: indica lugar, tiempo o modo."
+    },
+    {
+      "pregunta": "¿Qué función cumple 'María' en la oración 'María compró un cuaderno'?",
+      "opciones": [
+        "Sujeto",
+        "Complemento directo",
+        "Complemento circunstancial"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Tipos de sustantivos:\n• Comunes y propios\n• Concretos y abstractos\n• Individuales y colectivos\n• Contables e incontables\n• Simples y compuestos"
+    },
+    {
+      "pregunta": "¿Cuál de los siguientes es un sustantivo abstracto?",
+      "opciones": [
+        "Árbol",
+        "Felicidad",
+        "Computadora"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "¿Cuál de los siguientes es un sustantivo colectivo?",
+      "opciones": [
+        "Abeja",
+        "Enjambre",
+        "Insecto"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Los pronombres son palabras que sustituyen a un sustantivo para evitar su repetición y hacer más clara la comunicación."
+    },
+    {
+      "pregunta": "¿Cuál de las siguientes palabras es un pronombre personal?",
+      "opciones": [
+        "Nosotros",
+        "Escuela",
+        "Bonito"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Funciones del pronombre:\n• Sujeto: reemplaza al sustantivo que realiza la acción.\n• Complemento directo: sustituye al que recibe la acción.\n• Complemento indirecto: sustituye al que recibe el beneficio o perjuicio.\n• Término de preposición: acompaña a una preposición."
+    },
+    {
+      "pregunta": "¿Qué función cumple 'Ella' en la oración 'Ella estudia para el examen'?",
+      "opciones": [
+        "Sujeto",
+        "Complemento directo",
+        "Complemento indirecto"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Tipos de pronombres:\n• Personales, posesivos, demostrativos\n• Indefinidos, numerales\n• Interrogativos, exclamativos\n• Relativos: conectan una oración con otra"
+    },
+    {
+      "pregunta": "¿Cuál de los siguientes es un pronombre posesivo?",
+      "opciones": [
+        "Mío",
+        "Este",
+        "Alguien"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "¿Cuál de los siguientes es un pronombre interrogativo?",
+      "opciones": [
+        "Quién",
+        "Nadie",
+        "Nosotros"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Los adjetivos son palabras que acompañan al sustantivo para describirlo, calificarlo o aportar información sobre sus características, cantidad o relación."
+    },
+    {
+      "pregunta": "¿Cuál de las siguientes palabras es un adjetivo calificativo?",
+      "opciones": [
+        "Hermoso",
+        "Casa",
+        "Nosotros"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Funciones del adjetivo:\n• Calificativa: describe cualidades.\n• Determinativa: precisa cantidad, posesión o ubicación.\n• Atributo: complementa con un verbo copulativo (ser, estar, parecer).\n• Complemento del sustantivo: amplía su información."
+    },
+    {
+      "pregunta": "¿Qué función cumple 'nuevo' en la oración 'El automóvil nuevo está en el estacionamiento'?",
+      "opciones": [
+        "Complemento del sustantivo",
+        "Sujeto",
+        "Complemento directo"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Tipos de adjetivos:\n• Calificativos, demostrativos, posesivos\n• Numerales, indefinidos\n• Interrogativos, exclamativos\n• Relacionales: vinculan con un ámbito o actividad"
+    },
+    {
+      "pregunta": "¿Cuál de los siguientes es un adjetivo posesivo?",
+      "opciones": [
+        "Mi",
+        "Grande",
+        "Cinco"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "¿Cuál de los siguientes es un adjetivo numeral?",
+      "opciones": [
+        "Segundo",
+        "Aquella",
+        "Feliz"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Los artículos son palabras que acompañan al sustantivo para indicar su género, número y si se refiere a algo conocido o no conocido."
+    },
+    {
+      "pregunta": "¿Cuál de las siguientes palabras es un artículo definido?",
+      "opciones": [
+        "El",
+        "Un",
+        "De"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Funciones del artículo:\n• Determinar: precisa si el sustantivo es específico o general.\n• Concordancia: coincide en género y número con el sustantivo.\n• Introducir al sustantivo dentro de la oración."
+    },
+    {
+      "pregunta": "¿Qué función cumple 'La' en la oración 'La maestra explicó el tema'?",
+      "opciones": [
+        "Determinar al sustantivo",
+        "Sustituir al sustantivo",
+        "Expresar una acción"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Tipos de artículos:\n• Definidos: sustantivo conocido.\n• Indefinidos: sustantivo no conocido.\n• Contractos: unión de preposición + artículo (al, del).\n• Neutro (lo): convierte una idea en concepto general."
+    },
+    {
+      "pregunta": "¿Cuál de los siguientes es un artículo indefinido?",
+      "opciones": [
+        "Una",
+        "Los",
+        "Lo"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "¿Cuál de los siguientes es un artículo contracto?",
+      "opciones": [
+        "Del",
+        "La",
+        "Un"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Los adverbios son palabras invariables que modifican a un verbo, un adjetivo, otro adverbio o una oración entera."
+    },
+    {
+      "pregunta": "¿Cuál de las siguientes palabras es un adverbio de tiempo?",
+      "opciones": [
+        "Ayer",
+        "Grande",
+        "Mesa"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Funciones del adverbio:\n• Modificar al verbo: cómo, cuándo, dónde o con qué frecuencia.\n• Modificar al adjetivo: intensifica una cualidad.\n• Modificar a otro adverbio.\n• Modificar a la oración: afirmación, negación o duda."
+    },
+    {
+      "pregunta": "¿Qué función cumple 'temprano' en la oración 'María llegó temprano'?",
+      "opciones": [
+        "Modificar al verbo",
+        "Modificar al sustantivo",
+        "Sustituir al sustantivo"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Tipos de adverbios:\n• Lugar, tiempo, modo\n• Cantidad\n• Afirmación, negación, duda"
+    },
+    {
+      "pregunta": "¿Cuál de los siguientes es un adverbio de lugar?",
+      "opciones": [
+        "Aquí",
+        "Mucho",
+        "Feliz"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "¿Cuál de los siguientes es un adverbio de negación?",
+      "opciones": [
+        "Nunca",
+        "Sí",
+        "Muy"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Las preposiciones son palabras invariables que relacionan palabras o grupos de palabras dentro de una oración."
+    },
+    {
+      "pregunta": "¿Cuál de las siguientes palabras es una preposición?",
+      "opciones": [
+        "Sobre",
+        "Bonito",
+        "Nosotros"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Funciones de la preposición:\n• Relacionar palabras entre sí.\n• Introducir complementos que amplían un sustantivo, verbo o adjetivo.\n• Precisar relaciones de lugar, tiempo, causa o finalidad."
+    },
+    {
+      "pregunta": "¿Qué función cumple 'sobre' en la oración 'El libro está sobre la mesa'?",
+      "opciones": [
+        "Relacionar palabras",
+        "Sustituir al sustantivo",
+        "Expresar una acción"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Tipos de relación que expresan las preposiciones:\n• Lugar, tiempo, dirección\n• Origen, causa, finalidad\n• Compañía\n• Instrumento o medio"
+    },
+    {
+      "pregunta": "¿Cuál de las siguientes preposiciones expresa compañía?",
+      "opciones": [
+        "Con",
+        "Desde",
+        "Hasta"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "¿Cuál de las siguientes preposiciones expresa origen?",
+      "opciones": [
+        "Desde",
+        "Para",
+        "En"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Las conjunciones son palabras invariables que unen palabras, grupos de palabras u oraciones."
+    },
+    {
+      "pregunta": "¿Cuál de las siguientes palabras es una conjunción?",
+      "opciones": [
+        "Y",
+        "Casa",
+        "Rápido"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Funciones de la conjunción:\n• Unir elementos con la misma función.\n• Unir oraciones para formar estructuras más amplias.\n• Establecer relaciones de unión, oposición, elección, causa o consecuencia."
+    },
+    {
+      "pregunta": "¿Qué función cumple 'y' en la oración 'María estudia y trabaja'?",
+      "opciones": [
+        "Unir elementos",
+        "Sustituir al sustantivo",
+        "Indicar una cualidad"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Tipos de conjunciones:\n• Copulativas (unión) y disyuntivas (elección)\n• Adversativas (oposición)\n• Causales y consecutivas\n• Condicionales y concesivas\n• Finales"
+    },
+    {
+      "pregunta": "¿Cuál de las siguientes es una conjunción adversativa?",
+      "opciones": [
+        "Pero",
+        "O",
+        "Y"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "¿Cuál de las siguientes conjunciones expresa una alternativa?",
+      "opciones": [
+        "O",
+        "Porque",
+        "Aunque"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Las interjecciones son palabras o expresiones invariables que comunican emociones, reacciones o llamados de forma inmediata."
+    },
+    {
+      "pregunta": "¿Cuál de las siguientes palabras es una interjección?",
+      "opciones": [
+        "¡Ay!",
+        "Mesa",
+        "Rápido"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Funciones de la interjección:\n• Expresar emociones (alegría, sorpresa, dolor, miedo).\n• Expresar una reacción espontánea.\n• Llamar la atención.\n• Imitar sonidos."
+    },
+    {
+      "pregunta": "¿Qué función cumple '¡Eh!' en la expresión '¡Eh! Ven aquí'?",
+      "opciones": [
+        "Llamar la atención",
+        "Indicar una cualidad",
+        "Sustituir al sustantivo"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Tipos de interjecciones:\n• Propias e impropias\n• Expresivas y apelativas\n• Onomatopéyicas: imitan sonidos"
+    },
+    {
+      "pregunta": "¿Cuál de las siguientes es una interjección expresiva?",
+      "opciones": [
+        "¡Uf!",
+        "Casa",
+        "Desde"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "¿Qué tipo de interjección imita un sonido?",
+      "opciones": [
+        "Onomatopéyica",
+        "Apelativa",
+        "Impropia"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "La conjugación verbal es el conjunto de cambios que experimenta un verbo para expresar persona, número, tiempo, modo y aspecto."
+    },
+    {
+      "pregunta": "¿En cuál de las siguientes oraciones el verbo está conjugado en modo subjuntivo?",
+      "opciones": [
+        "Espero que \"apruebes\" el examen.",
+        "Tú \"apruebas\" el examen todos los años.",
+        "Mañana \"aprobarás\" el examen."
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Elementos de la conjugación:\n• Persona: quién realiza la acción.\n• Número: singular o plural.\n• Tiempo: cuándo ocurre.\n• Modo: actitud del hablante.\n• Aspecto: si la acción está terminada o en desarrollo."
+    },
+    {
+      "pregunta": "¿En cuál de las siguientes oraciones el verbo pertenece a la tercera conjugación?",
+      "opciones": [
+        "Ellos \"escribieron\" una carta.",
+        "Nosotros \"cantamos\" en el evento.",
+        "Ustedes \"comieron\" muy temprano."
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Tipos de conjugación según la terminación:\n• Primera: verbos en -ar\n• Segunda: verbos en -er\n• Tercera: verbos en -ir\n\nModos: indicativo (hechos reales), subjuntivo (deseos, dudas) e imperativo (órdenes)."
+    },
+    {
+      "pregunta": "¿Qué elemento de la conjugación verbal cambia entre las formas \"cantábamos\" y \"cantaremos\", mientras se mantiene la misma persona y número?",
+      "opciones": [
+        "El tiempo verbal",
+        "La persona gramatical",
+        "El número gramatical"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "La persona y el número son elementos de la conjugación verbal que indican quién realiza la acción y cuántos participantes intervienen."
+    },
+    {
+      "pregunta": "¿En cuál de las siguientes oraciones el verbo está conjugado en tercera persona del plural?",
+      "opciones": [
+        "Nosotros \"estudiamos\" para el examen.",
+        "Ellos \"estudiaron\" durante toda la noche.",
+        "Tú \"estudias\" todos los días."
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Persona gramatical:\n• Primera: quien habla.\n• Segunda: quien escucha.\n• Tercera: de quien se habla.\n\nNúmero: singular (una persona) o plural (dos o más)."
+    },
+    {
+      "pregunta": "¿En cuál de las siguientes oraciones el verbo está conjugado en primera persona del singular?",
+      "opciones": [
+        "Yo \"resolveré\" el problema mañana.",
+        "Nosotros \"resolveremos\" el problema mañana.",
+        "Ellos \"resolverán\" el problema mañana."
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Relación entre persona y número:\n• 1.ª singular: yo\n• 2.ª singular: tú, usted\n• 3.ª singular: él, ella\n• 1.ª plural: nosotros\n• 2.ª plural: ustedes\n• 3.ª plural: ellos, ellas"
+    },
+    {
+      "pregunta": "¿Qué opción presenta un cambio únicamente en el número gramatical, conservando la misma persona?",
+      "opciones": [
+        "Yo \"leo\" – Nosotros \"leemos\"",
+        "Tú \"lees\" – Él \"lee\"",
+        "Nosotros \"leemos\" – Ustedes \"leen\""
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "¿En cuál de las siguientes oraciones el verbo está conjugado en segunda persona del singular?",
+      "opciones": [
+        "Usted \"participará\" en la conferencia.",
+        "Tú \"participas\" activamente en clase.",
+        "Ellos \"participan\" en el concurso."
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Los tiempos verbales indican el momento en que ocurre una acción: pasado, presente o futuro."
+    },
+    {
+      "pregunta": "¿En cuál de las siguientes oraciones el verbo está conjugado en pretérito pluscuamperfecto del modo indicativo?",
+      "opciones": [
+        "Cuando llegué, ellos \"habían salido\" de la oficina.",
+        "Cuando llegué, ellos \"salieron\" de la oficina.",
+        "Cuando llegué, ellos \"salían\" de la oficina."
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Tiempos del modo indicativo:\n• Presente: acción actual o habitual.\n• Pretérito perfecto simple: terminada en el pasado.\n• Pretérito imperfecto: habitual o en desarrollo en el pasado.\n• Pretérito perfecto compuesto: pasada relacionada con el presente.\n• Pretérito pluscuamperfecto: anterior a otra acción pasada.\n• Futuro simple y futuro compuesto.\n• Condicional simple y compuesto."
+    },
+    {
+      "pregunta": "¿En cuál de las siguientes oraciones el verbo está conjugado en pretérito perfecto compuesto?",
+      "opciones": [
+        "Este año \"he leído\" cinco novelas.",
+        "El año pasado \"leí\" cinco novelas.",
+        "Ayer \"leía\" una novela."
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Tiempos del subjuntivo e imperativo:\n• Presente: deseos o posibilidades.\n• Pretérito imperfecto: hipótesis o situaciones improbables.\n• Pretérito perfecto: pasado relacionado con deseos o dudas.\n• Pretérito pluscuamperfecto: hipótesis anterior a otra acción pasada.\n\nEl imperativo solo tiene forma de presente."
+    },
+    {
+      "pregunta": "¿En cuál de las siguientes oraciones el verbo expresa una acción habitual en tiempo presente?",
+      "opciones": [
+        "Todos los días \"camina\" cinco kilómetros antes de ir al trabajo.",
+        "Ayer \"caminó\" cinco kilómetros antes de ir al trabajo.",
+        "Mañana \"caminará\" cinco kilómetros antes de ir al trabajo."
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "¿En cuál de las siguientes oraciones el verbo está conjugado en tiempo pasado?",
+      "opciones": [
+        "El próximo semestre \"cursaré\" cinco materias.",
+        "El semestre pasado \"cursé\" cinco materias.",
+        "Este semestre \"curso\" cinco materias."
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Los modos verbales expresan la actitud del hablante frente a la acción: si es real, posible o una orden."
+    },
+    {
+      "pregunta": "¿En cuál de las siguientes oraciones el verbo está conjugado en modo subjuntivo?",
+      "opciones": [
+        "Ojalá \"encuentres\" la información que necesitas.",
+        "Siempre \"encuentras\" la información rápidamente.",
+        "Mañana \"encontrarás\" la información."
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Tipos de modo verbal:\n• Indicativo: hechos reales u objetivos; narra y describe.\n• Subjuntivo: deseos, dudas o hipótesis; aparece tras expresiones de duda o necesidad.\n• Imperativo: órdenes, consejos o ruegos dirigidos al receptor."
+    },
+    {
+      "pregunta": "¿En cuál de las siguientes oraciones el verbo está conjugado en modo imperativo?",
+      "opciones": [
+        "\"Apaga\" la computadora antes de salir.",
+        "Tú \"apagas\" la computadora antes de salir.",
+        "Tú \"apagarás\" la computadora antes de salir."
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "¿Qué oración está completamente escrita en modo indicativo?",
+      "opciones": [
+        "El investigador \"analizó\" los resultados y \"publicó\" sus conclusiones.",
+        "Espero que el investigador \"analice\" los resultados.",
+        "\"Analiza\" cuidadosamente los resultados antes de responder."
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "La voz verbal indica si el sujeto realiza la acción (voz activa) o la recibe (voz pasiva)."
+    },
+    {
+      "pregunta": "¿En cuál de las siguientes oraciones el verbo está en voz pasiva?",
+      "opciones": [
+        "El informe \"fue elaborado\" por los investigadores.",
+        "Los investigadores \"elaboraron\" el informe.",
+        "Los investigadores \"elaboran\" el informe cada año."
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Voz activa: sujeto + verbo + complemento directo.\nEjemplo: 'Los investigadores publicaron los resultados.'"
+    },
+    {
+      "pregunta": "¿Cuál de las siguientes oraciones está escrita en voz activa?",
+      "opciones": [
+        "La carretera fue construida por la empresa.",
+        "El edificio será inaugurado por las autoridades.",
+        "Los ingenieros construyeron la carretera."
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "Voz pasiva: sujeto paciente + verbo ser + participio + complemento agente.\nEjemplo: 'Los resultados fueron publicados por los investigadores.'\n\nSolo puede pasarse a voz pasiva un verbo transitivo con complemento directo."
+    },
+    {
+      "pregunta": "¿Qué elemento desempeña la función de sujeto paciente en la siguiente oración? \"La conferencia fue impartida por la especialista.\"",
+      "opciones": [
+        "La conferencia.",
+        "La especialista.",
+        "Fue impartida."
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "¿Cuál de las siguientes transformaciones de voz activa a voz pasiva es correcta?",
+      "opciones": [
+        "Los estudiantes resolvieron el examen → El examen fue resuelto por los estudiantes.",
+        "Los estudiantes resolvieron el examen → Los estudiantes fueron resueltos por el examen.",
+        "Los estudiantes resolvieron el examen → El examen resolvió a los estudiantes."
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Verbos regulares: conservan la misma raíz durante toda su conjugación y solo cambian la terminación (-ar, -er, -ir).\nEjemplo: 'analizar' → analizaron."
+    },
+    {
+      "pregunta": "¿Cuál de las siguientes oraciones contiene un verbo irregular?",
+      "opciones": [
+        "Los investigadores \"obtuvieron\" resultados concluyentes después de varios años de estudio.",
+        "Los investigadores \"analizaron\" cuidadosamente cada una de las muestras.",
+        "Los investigadores \"clasificaron\" la información en diferentes categorías."
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Verbos irregulares: cambian la raíz, la terminación o ambas, apartándose del modelo regular.\nEjemplo: 'obtener' → obtuvo (la raíz 'obten' cambia a 'obtuv').\n\nAlgunos verbos, como 'imprimir', tienen doble participio: uno regular ('imprimido') y uno irregular ('impreso')."
+    },
+    {
+      "pregunta": "¿Qué característica permite identificar que el verbo \"hizo\" es irregular en la oración \"El director hizo modificaciones al proyecto\"?",
+      "opciones": [
+        "Presenta un cambio en la raíz con respecto al infinitivo \"hacer\".",
+        "Está conjugado en tiempo pasado.",
+        "Expresa una acción realizada por el sujeto."
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "¿En cuál de las siguientes opciones todos los verbos pertenecen al grupo de los verbos regulares?",
+      "opciones": [
+        "Analizar, clasificar, organizar.",
+        "Tener, venir, poder.",
+        "Hacer, decir, poner."
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "¿Cuál de las siguientes afirmaciones describe correctamente la diferencia entre un verbo regular y uno irregular?",
+      "opciones": [
+        "El verbo regular conserva su raíz durante la conjugación, mientras que el irregular puede modificar la raíz, las terminaciones o ambas.",
+        "El verbo regular solo puede conjugarse en presente, mientras que el irregular puede conjugarse en todos los tiempos.",
+        "El verbo irregular siempre pertenece a la tercera conjugación, mientras que el regular solo puede pertenecer a la primera."
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Las perífrasis verbales son construcciones de dos o más verbos que funcionan como una sola unidad y expresan obligación, posibilidad, inicio, duración o final de una acción."
+    },
+    {
+      "pregunta": "¿En cuál de las siguientes oraciones aparece una perífrasis verbal de obligación?",
+      "opciones": [
+        "Los estudiantes \"deben entregar\" el informe antes del viernes.",
+        "Los estudiantes \"entregaron\" el informe antes del viernes.",
+        "Los estudiantes \"entregan\" el informe cada semana."
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Elementos de la perífrasis:\n• Verbo auxiliar: conjugado, aporta persona, tiempo y modo.\n• Nexo: preposición o conjunción (a veces se omite).\n• Verbo principal: infinitivo, gerundio o participio."
+    },
+    {
+      "pregunta": "¿Qué función desempeña 'comenzó' en la perífrasis verbal de la oración \"La investigadora comenzó a redactar el artículo científico\"?",
+      "opciones": [
+        "Verbo auxiliar.",
+        "Verbo principal.",
+        "Complemento directo."
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Tipos de perífrasis:\n• Obligación y posibilidad\n• Incoativas e ingresivas (inicio)\n• Durativas (en desarrollo)\n• Terminativas (final)\n• Reiterativas y resultativas\n\nEn una perífrasis los verbos forman una sola unidad ('tiene que revisar'); en una sucesión de verbos, cada uno conserva su función ('quiere revisar')."
+    },
+    {
+      "pregunta": "¿Cuál de las siguientes oraciones contiene una perífrasis verbal durativa?",
+      "opciones": [
+        "El laboratorio \"sigue realizando\" pruebas para confirmar la hipótesis.",
+        "El laboratorio \"realizó\" pruebas para confirmar la hipótesis.",
+        "El laboratorio \"realizará\" nuevas pruebas la próxima semana."
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "¿Cuál de las siguientes opciones presenta una sucesión de verbos y no una perífrasis verbal?",
+      "opciones": [
+        "El profesor \"quiere explicar\" el procedimiento.",
+        "El investigador \"salió a revisar\" las instalaciones del laboratorio.",
+        "El equipo \"acaba de concluir\" el experimento."
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "La sintaxis estudia cómo se organizan y relacionan las palabras dentro de una oración para construir mensajes con sentido, analizando la función que cumple cada una."
+    },
+    {
+      "pregunta": "La concordancia es la correspondencia gramatical entre elementos de la oración (género, número o persona) que evita ambigüedades.\n\nExisten dos tipos:\n• Concordancia nominal: entre el sustantivo y sus acompañantes.\n• Concordancia verbal: entre el sujeto y el verbo."
+    },
+    {
+      "pregunta": "La concordancia nominal es la relación gramatical entre un sustantivo y las palabras que lo acompañan (artículo, adjetivo, pronombre), de manera que coincidan en género y número."
+    },
+    {
+      "pregunta": "¿En cuál de las siguientes oraciones existe una concordancia nominal correcta?",
+      "opciones": [
+        "Las principales investigaciones científicas fueron publicadas este año.",
+        "Las principal investigaciones científicas fueron publicadas este año.",
+        "Los principales investigaciones científicas fueron publicadas este año."
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Reglas principales:\n• El artículo y el sustantivo coinciden en género y número.\n• El adjetivo adopta el género y número del sustantivo.\n• Si un adjetivo modifica sustantivos de distinto género, se usa el masculino plural.\n• Con sustantivos colectivos, la concordancia sigue al núcleo del sujeto."
+    },
+    {
+      "pregunta": "¿Qué palabra rompe la concordancia nominal en la siguiente oración? \"El análisis estadística permitió interpretar correctamente los resultados.\"",
+      "opciones": [
+        "El",
+        "análisis",
+        "estadística"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "¿En cuál de las siguientes opciones el adjetivo concuerda correctamente con dos sustantivos de distinto género?",
+      "opciones": [
+        "La teoría y el experimento fueron fundamentales para la investigación.",
+        "La teoría y el experimento fueron fundamentaleses para la investigación.",
+        "La teoría y el experimento fue fundamental para la investigación."
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "¿Cuál de las siguientes oraciones presenta una concordancia nominal incorrecta?",
+      "opciones": [
+        "Aquellas estudiantes destacadas obtuvieron una beca de investigación.",
+        "Ese problema matemático requiere una solución precisa.",
+        "La fenómeno natural fue observado desde distintos puntos del país."
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "La concordancia verbal es la relación gramatical entre el sujeto y el verbo, de manera que coincidan en persona y número."
+    },
+    {
+      "pregunta": "¿En cuál de las siguientes oraciones la concordancia verbal es correcta?",
+      "opciones": [
+        "El director y la coordinadora aprobaron el proyecto de investigación.",
+        "El director y la coordinadora aprobó el proyecto de investigación.",
+        "El director y la coordinadora aprobaba el proyecto de investigación."
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Reglas principales:\n• Sujeto simple: el verbo coincide con él en persona y número.\n• Sujeto compuesto: el verbo suele ir en plural.\n• Sujeto colectivo: el verbo concuerda con el colectivo, no con sus elementos.\n• Con varias personas gramaticales, prevalece la primera sobre la segunda, y la segunda sobre la tercera."
+    },
+    {
+      "pregunta": "¿Cuál de las siguientes oraciones presenta un error de concordancia verbal?",
+      "opciones": [
+        "El conjunto de datos fue analizado por los especialistas.",
+        "La mayoría de los estudiantes aprobaron el examen.",
+        "El grupo de investigadores presentaron el informe final."
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "¿En cuál de las siguientes oraciones el verbo concuerda correctamente con un sujeto colectivo?",
+      "opciones": [
+        "El equipo de investigación publicó los resultados en una revista científica.",
+        "El equipo de investigación publicaron los resultados en una revista científica.",
+        "El equipo de investigación publicaban los resultados en una revista científica."
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "¿Cuál de las siguientes oraciones mantiene correctamente la concordancia entre el sujeto y el verbo?",
+      "opciones": [
+        "Tú y yo resolveremos el caso utilizando el método experimental.",
+        "Tú y yo resolverá el caso utilizando el método experimental.",
+        "Tú y yo resolverán el caso utilizando el método experimental."
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "El sujeto es la palabra o conjunto de palabras que indica quién realiza la acción del verbo, quién la recibe o de quién se dice algo. Concuerda con el verbo en persona y número."
+    },
+    {
+      "pregunta": "¿Cuál es el núcleo del sujeto en la siguiente oración? \"Los reconocidos especialistas en biotecnología desarrollaron un nuevo método para el diagnóstico molecular.\"",
+      "opciones": [
+        "Especialistas",
+        "Biotecnología",
+        "Método"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Elementos del sujeto:\n• Núcleo: sustantivo o pronombre; determina la concordancia.\n• Modificador directo: artículos y adjetivos.\n• Modificador indirecto: complementa mediante preposición.\n• Aposición: precisa al núcleo."
+    },
+    {
+      "pregunta": "¿Qué tipo de sujeto presenta la siguiente oración? \"Presentaremos los resultados de la investigación durante el congreso internacional.\"",
+      "opciones": [
+        "Sujeto expreso simple",
+        "Sujeto tácito",
+        "Sujeto compuesto"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Tipos de sujeto:\n• Expreso y tácito\n• Simple y compuesto\n• Indeterminado\n• Agente (voz activa) y paciente (voz pasiva)"
+    },
+    {
+      "pregunta": "¿Cuál de las siguientes oraciones contiene un sujeto compuesto?",
+      "opciones": [
+        "El director y la coordinadora aprobaron el proyecto de investigación.",
+        "La coordinadora aprobó el proyecto de investigación.",
+        "Aprobaron el proyecto de investigación."
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "¿Cuál de las siguientes opciones identifica correctamente todos los elementos del sujeto en la oración \"Los jóvenes investigadores del laboratorio obtuvieron resultados satisfactorios\"?",
+      "opciones": [
+        "Núcleo: investigadores | Modificador directo: Los, jóvenes | Modificador indirecto: del laboratorio",
+        "Núcleo: laboratorio | Modificador directo: Los | Modificador indirecto: investigadores",
+        "Núcleo: resultados | Modificador directo: satisfactorios | Modificador indirecto: del laboratorio"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "El predicado expresa la acción, el estado o la característica del sujeto. Su núcleo es siempre un verbo conjugado y concuerda con el sujeto en persona y número."
+    },
+    {
+      "pregunta": "¿Cuál es el núcleo del predicado en la siguiente oración? \"Los investigadores analizaron cuidadosamente cada una de las muestras obtenidas durante el estudio.\"",
+      "opciones": [
+        "Analizaron",
+        "Cuidadosamente",
+        "Muestras"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Elementos del predicado:\n• Complemento directo: recibe la acción (lo/la/los/las).\n• Complemento indirecto: beneficio o perjuicio (le/les).\n• Complemento circunstancial: lugar, tiempo, modo, etc.\n• Complemento agente: en voz pasiva, introducido por 'por'.\n• Atributo: acompaña a ser, estar o parecer."
+    },
+    {
+      "pregunta": "¿Qué función desempeña \"el protocolo de investigación\" en la siguiente oración? \"El comité científico aprobó el protocolo de investigación después de varias revisiones.\"",
+      "opciones": [
+        "Complemento directo",
+        "Complemento indirecto",
+        "Complemento circunstancial"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Tipos de predicado:\n• Predicado verbal: núcleo con verbo predicativo (acción o proceso).\n• Predicado nominal: núcleo con verbo copulativo + atributo que describe al sujeto."
+    },
+    {
+      "pregunta": "¿Cuál de las siguientes oraciones contiene un predicado nominal?",
+      "opciones": [
+        "La evidencia científica es concluyente.",
+        "Los investigadores recopilaron información durante varios meses.",
+        "El laboratorio desarrolló un nuevo procedimiento experimental."
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "¿Qué elemento del predicado está representado por \"por un comité internacional de especialistas\" en la siguiente oración? \"El artículo fue revisado por un comité internacional de especialistas.\"",
+      "opciones": [
+        "Complemento agente",
+        "Complemento directo",
+        "Complemento indirecto"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "El complemento directo recibe de manera directa la acción del verbo. Responde a ¿qué? o ¿a quién? y solo aparece con verbos transitivos."
+    },
+    {
+      "pregunta": "¿Cuál es el complemento directo en la siguiente oración? \"El comité científico evaluó las propuestas de investigación antes de emitir el dictamen.\"",
+      "opciones": [
+        "Las propuestas de investigación",
+        "El comité científico",
+        "Antes de emitir el dictamen"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Cómo identificarlo:\n• Se sustituye por lo, la, los o las.\n• Se construye sin preposición, salvo con personas determinadas ('a').\n• Al pasar a voz pasiva, se convierte en sujeto paciente."
+    },
+    {
+      "pregunta": "¿En cuál de las siguientes oraciones \"a los estudiantes\" desempeña la función de complemento directo?",
+      "opciones": [
+        "El profesor felicitó a los estudiantes por su excelente desempeño académico.",
+        "El profesor entregó los resultados a los estudiantes.",
+        "El profesor explicó el tema con mucha claridad."
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "¿Cuál de las siguientes opciones permite comprobar correctamente que \"el informe final\" funciona como complemento directo en la oración \"La investigadora redactó el informe final\"?",
+      "opciones": [
+        "La investigadora lo redactó.",
+        "La investigadora le redactó.",
+        "La investigadora se redactó."
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "¿Qué elemento de la siguiente oración se convierte en sujeto paciente al transformarla a voz pasiva? \"Los especialistas desarrollaron un nuevo modelo de inteligencia artificial.\"",
+      "opciones": [
+        "Un nuevo modelo de inteligencia artificial.",
+        "Los especialistas.",
+        "Desarrollaron."
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "El complemento indirecto indica quién recibe el beneficio o el perjuicio de la acción. Responde a ¿a quién? o ¿para quién?."
+    },
+    {
+      "pregunta": "¿Cuál es el complemento indirecto en la siguiente oración? \"El investigador presentó los resultados del estudio a la comunidad científica.\"",
+      "opciones": [
+        "Los resultados del estudio",
+        "A la comunidad científica",
+        "El investigador"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Cómo identificarlo:\n• Suele ir introducido por 'a' o 'para'.\n• Se sustituye por le o les.\n• No se convierte en sujeto paciente al pasar a voz pasiva.\n• Puede aparecer junto con un complemento directo."
+    },
+    {
+      "pregunta": "¿En cuál de las siguientes oraciones \"a los estudiantes\" desempeña la función de complemento indirecto?",
+      "opciones": [
+        "La profesora explicó el procedimiento a los estudiantes.",
+        "La profesora observó a los estudiantes durante el experimento.",
+        "La profesora realizó el experimento con los estudiantes."
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "¿Cuál de las siguientes opciones demuestra correctamente que \"al investigador\" funciona como complemento indirecto en la oración \"La universidad otorgó un reconocimiento al investigador\"?",
+      "opciones": [
+        "La universidad lo otorgó.",
+        "La universidad le otorgó un reconocimiento.",
+        "La universidad fue otorgada al investigador."
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "¿Cuál de las siguientes oraciones contiene simultáneamente un complemento directo y un complemento indirecto?",
+      "opciones": [
+        "El coordinador entregó los certificados a los participantes del seminario.",
+        "El coordinador llegó temprano al seminario.",
+        "El coordinador habló sobre los resultados del proyecto."
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "El complemento circunstancial aporta información sobre las circunstancias de la acción: lugar, tiempo, modo, causa, finalidad, instrumento, compañía, entre otras."
+    },
+    {
+      "pregunta": "¿Cuál es el complemento circunstancial de lugar en la siguiente oración? \"Los investigadores realizaron el experimento en el laboratorio central durante la tarde.\"",
+      "opciones": [
+        "En el laboratorio central",
+        "Durante la tarde",
+        "El experimento"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Características:\n• Puede eliminarse sin afectar la estructura gramatical (aunque cambia el significado).\n• Puede ir al inicio, en medio o al final de la oración.\n• Una oración puede tener varios.\n\nPara identificarlo, pregunta ¿dónde?, ¿cuándo?, ¿cómo?, ¿por qué? o ¿con quién?."
+    },
+    {
+      "pregunta": "¿Qué tipo de complemento circunstancial es \"con absoluta objetividad\" en la siguiente oración? \"El comité científico evaluó el proyecto con absoluta objetividad.\"",
+      "opciones": [
+        "Modo",
+        "Tiempo",
+        "Compañía"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "¿En cuál de las siguientes oraciones \"para elaborar el informe final\" funciona como complemento circunstancial de finalidad?",
+      "opciones": [
+        "Los investigadores recopilaron información para elaborar el informe final.",
+        "Los investigadores recopilaron información con los estudiantes.",
+        "Los investigadores recopilaron información durante el semestre."
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "¿Cuál de las siguientes oraciones contiene dos complementos circunstanciales de diferente tipo?",
+      "opciones": [
+        "El profesor explicó detalladamente el procedimiento en el laboratorio.",
+        "El profesor explicó el procedimiento a los estudiantes.",
+        "El profesor explicó el procedimiento."
+      ],
+      "correcta": 0
+    },
+    {
       "pregunta": "¿Cuál es la ortografía correcta para referirse al recipiente que se pone sobre el techo de un auto?",
-      "opciones": ["Baca", "Vaca", "Bacca"],
+      "opciones": [
+        "Baca",
+        "Vaca",
+        "Bacca"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "Completa: 'Ese gesto fue una gran ___ de cariño.'",
-      "opciones": ["muestra", "muestrra", "muestla"],
+      "opciones": [
+        "muestra",
+        "muestrra",
+        "muestla"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "¿Qué signo de puntuación falta en: 'Cuando termine la clase iremos al parque'?",
-      "opciones": ["Una coma después de 'clase'", "Un punto y coma", "Dos puntos"],
+      "opciones": [
+        "Una coma después de 'clase'",
+        "Un punto y coma",
+        "Dos puntos"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "¿Cuál oración usa correctamente la coma en una enumeración?",
-      "opciones": ["Compré pan, leche y huevos.", "Compré pan leche, y huevos.", "Compré, pan leche y huevos."],
+      "opciones": [
+        "Compré pan, leche y huevos.",
+        "Compré pan leche, y huevos.",
+        "Compré, pan leche y huevos."
+      ],
       "correcta": 0
     },
     {
       "pregunta": "¿Cuál oración usa correctamente las comillas para una cita textual?",
-      "opciones": ["Él dijo: \"Nos vemos mañana\".", "Él dijo Nos vemos mañana.", "Él, dijo, nos vemos mañana."],
+      "opciones": [
+        "Él dijo: \"Nos vemos mañana\".",
+        "Él dijo Nos vemos mañana.",
+        "Él, dijo, nos vemos mañana."
+      ],
       "correcta": 0
     },
     {
       "pregunta": "En la oración 'El tren llega puntual', la palabra 'puntual' es:",
-      "opciones": ["Adjetivo", "Adverbio", "Sustantivo"],
+      "opciones": [
+        "Adjetivo",
+        "Adverbio",
+        "Sustantivo"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "Identifica el sustantivo en la oración 'El viejo puente de piedra se derrumbó':",
-      "opciones": ["Puente", "Viejo", "Derrumbó"],
+      "opciones": [
+        "Puente",
+        "Viejo",
+        "Derrumbó"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "En 'Ayer terminé mi tarea', la palabra 'terminé' es un verbo en tiempo:",
-      "opciones": ["Pasado", "Presente", "Futuro"],
+      "opciones": [
+        "Pasado",
+        "Presente",
+        "Futuro"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "¿Cuál palabra funciona como adjetivo en 'El auto rojo se detuvo en la esquina'?",
-      "opciones": ["Rojo", "Auto", "Esquina"],
+      "opciones": [
+        "Rojo",
+        "Auto",
+        "Esquina"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "Identifica el pronombre en la oración 'Tú siempre llegas a tiempo':",
-      "opciones": ["Tú", "Siempre", "Llegas"],
+      "opciones": [
+        "Tú",
+        "Siempre",
+        "Llegas"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "¿Qué tipo de palabra es 'no obstante' en un texto?",
-      "opciones": ["Conjunción/conector adversativo", "Sustantivo compuesto", "Verbo auxiliar"],
+      "opciones": [
+        "Conjunción/conector adversativo",
+        "Sustantivo compuesto",
+        "Verbo auxiliar"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "Selecciona la oración con concordancia correcta:",
-      "opciones": ["Las mesas son grandes", "Las mesa son grande", "Las mesas es grandes"],
+      "opciones": [
+        "Las mesas son grandes",
+        "Las mesa son grande",
+        "Las mesas es grandes"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "¿Cuál oración presenta un error de concordancia?",
-      "opciones": ["Los libros están ordenados", "Los libros está ordenado", "Los libros estaban ordenados"],
+      "opciones": [
+        "Los libros están ordenados",
+        "Los libros está ordenado",
+        "Los libros estaban ordenados"
+      ],
       "correcta": 1
     },
     {
       "pregunta": "Elige la forma verbal correcta: 'Ellos ___ temprano ayer.'",
-      "opciones": ["llegó", "llegaron", "llegamos"],
+      "opciones": [
+        "llegó",
+        "llegaron",
+        "llegamos"
+      ],
       "correcta": 1
     },
     {
       "pregunta": "¿Cuál es un sinónimo de 'diligente'?",
-      "opciones": ["Perezoso", "Aplicado", "Distraído"],
+      "opciones": [
+        "Perezoso",
+        "Aplicado",
+        "Distraído"
+      ],
       "correcta": 1
     },
     {
       "pregunta": "¿Cuál es el antónimo de 'audaz'?",
-      "opciones": ["Cobarde", "Valiente", "Atrevido"],
+      "opciones": [
+        "Cobarde",
+        "Valiente",
+        "Atrevido"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "Selecciona el sinónimo de 'sereno':",
-      "opciones": ["Agitado", "Tranquilo", "Furioso"],
+      "opciones": [
+        "Agitado",
+        "Tranquilo",
+        "Furioso"
+      ],
       "correcta": 1
     },
     {
       "pregunta": "¿Cuál palabra es antónimo de 'unir'?",
-      "opciones": ["Juntar", "Separar", "Enlazar"],
+      "opciones": [
+        "Juntar",
+        "Separar",
+        "Enlazar"
+      ],
       "correcta": 1
     },
     {
       "pregunta": "Elige el conector adecuado: 'Se preparó todo el año, ___ ganó la competencia.'",
-      "opciones": ["por lo tanto", "sin embargo", "aunque"],
+      "opciones": [
+        "por lo tanto",
+        "sin embargo",
+        "aunque"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "¿Qué conector expresa consecuencia?",
-      "opciones": ["Aunque", "Por consiguiente", "Pero"],
+      "opciones": [
+        "Aunque",
+        "Por consiguiente",
+        "Pero"
+      ],
       "correcta": 1
     },
     {
       "pregunta": "Selecciona el conector que indica contraste:",
-      "opciones": ["Sin embargo", "Por lo tanto", "Porque"],
+      "opciones": [
+        "Sin embargo",
+        "Por lo tanto",
+        "Porque"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "¿Cuál de las siguientes es una oración compuesta?",
-      "opciones": ["El sol brilla.", "El sol brilla y las flores crecen.", "El sol brilla mucho."],
+      "opciones": [
+        "El sol brilla.",
+        "El sol brilla y las flores crecen.",
+        "El sol brilla mucho."
+      ],
       "correcta": 1
     },
     {
       "pregunta": "Identifica la oración simple:",
-      "opciones": ["La lluvia cayó toda la noche.", "La lluvia cayó y el río creció.", "Cuando llovía, el río crecía."],
+      "opciones": [
+        "La lluvia cayó toda la noche.",
+        "La lluvia cayó y el río creció.",
+        "Cuando llovía, el río crecía."
+      ],
       "correcta": 0
     },
     {
       "pregunta": "'Tus palabras son puñales' es un ejemplo de:",
-      "opciones": ["Metáfora", "Símil", "Onomatopeya"],
+      "opciones": [
+        "Metáfora",
+        "Símil",
+        "Onomatopeya"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "'Sus manos parecían de hielo' es un ejemplo de:",
-      "opciones": ["Metáfora", "Símil", "Hipérbole"],
+      "opciones": [
+        "Metáfora",
+        "Símil",
+        "Hipérbole"
+      ],
       "correcta": 1
     },
     {
       "pregunta": "'Te lo he dicho un millón de veces' es un ejemplo de:",
-      "opciones": ["Hipérbole", "Personificación", "Anáfora"],
+      "opciones": [
+        "Hipérbole",
+        "Personificación",
+        "Anáfora"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "Texto: 'La contaminación del aire en las grandes ciudades ha aumentado los casos de enfermedades respiratorias.' ¿Cuál es la idea principal?",
-      "opciones": ["Las enfermedades respiratorias han disminuido", "La contaminación del aire incrementa las enfermedades respiratorias", "Las ciudades pequeñas no tienen contaminación"],
+      "opciones": [
+        "Las enfermedades respiratorias han disminuido",
+        "La contaminación del aire incrementa las enfermedades respiratorias",
+        "Las ciudades pequeñas no tienen contaminación"
+      ],
       "correcta": 1
     },
     {
       "pregunta": "Texto: 'Aunque hacer ejercicio mejora la salud, practicarlo en exceso sin descanso puede causar lesiones.' ¿Qué ideas contrasta el autor?",
-      "opciones": ["Los beneficios del ejercicio frente a los riesgos del exceso sin descanso", "El ejercicio frente a la alimentación", "El descanso frente al trabajo"],
+      "opciones": [
+        "Los beneficios del ejercicio frente a los riesgos del exceso sin descanso",
+        "El ejercicio frente a la alimentación",
+        "El descanso frente al trabajo"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "Texto: 'Es fundamental leer todos los días para ampliar el vocabulario y mejorar la comprensión de textos.' ¿Cuál es el propósito del texto?",
-      "opciones": ["Narrar una anécdota personal", "Persuadir sobre los beneficios de la lectura diaria", "Describir un paisaje"],
+      "opciones": [
+        "Narrar una anécdota personal",
+        "Persuadir sobre los beneficios de la lectura diaria",
+        "Describir un paisaje"
+      ],
       "correcta": 1
     },
     {
       "pregunta": "Un texto que narra hechos ocurridos en orden cronológico se llama:",
-      "opciones": ["Narrativo", "Descriptivo", "Argumentativo"],
+      "opciones": [
+        "Narrativo",
+        "Descriptivo",
+        "Argumentativo"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "Un texto cuyo propósito es informar de manera objetiva sobre un tema se llama principalmente:",
-      "opciones": ["Expositivo", "Narrativo", "Lírico"],
+      "opciones": [
+        "Expositivo",
+        "Narrativo",
+        "Lírico"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "Un texto que detalla las características de un lugar, persona u objeto es:",
-      "opciones": ["Narrativo", "Argumentativo", "Descriptivo"],
+      "opciones": [
+        "Narrativo",
+        "Argumentativo",
+        "Descriptivo"
+      ],
       "correcta": 2
     },
     {
       "pregunta": "'Bajar para abajo' es un ejemplo de:",
-      "opciones": ["Pleonasmo (redundancia)", "Metáfora", "Elipsis"],
+      "opciones": [
+        "Pleonasmo (redundancia)",
+        "Metáfora",
+        "Elipsis"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "El uso incorrecto de palabras extranjeras sin necesidad se llama:",
-      "opciones": ["Barbarismo", "Sinonimia", "Polisemia"],
+      "opciones": [
+        "Barbarismo",
+        "Sinonimia",
+        "Polisemia"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "¿Cuál oración es ambigua por su construcción (anfibología)?",
-      "opciones": ["Encontré a la niña con el perro en el parque", "La niña que encontré tenía un perro", "En el parque encontré a la niña"],
+      "opciones": [
+        "Encontré a la niña con el perro en el parque",
+        "La niña que encontré tenía un perro",
+        "En el parque encontré a la niña"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "En la oración 'El gato duerme en la caja', ¿cuál palabra es el artículo?",
-      "opciones": ["El", "Gato", "En"],
+      "opciones": [
+        "El",
+        "Gato",
+        "En"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "Los artículos 'un', 'una', 'unos', 'unas' se clasifican como:",
-      "opciones": ["Artículos indeterminados (indefinidos)", "Artículos determinados (definidos)", "Pronombres"],
+      "opciones": [
+        "Artículos indeterminados (indefinidos)",
+        "Artículos determinados (definidos)",
+        "Pronombres"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "¿Cuál es el artículo determinado femenino plural?",
-      "opciones": ["Las", "Los", "Unas"],
+      "opciones": [
+        "Las",
+        "Los",
+        "Unas"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "En la oración 'Compré manzanas para el pastel', la palabra 'para' funciona como:",
-      "opciones": ["Preposición", "Conjunción", "Adverbio"],
+      "opciones": [
+        "Preposición",
+        "Conjunción",
+        "Adverbio"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "¿Cuál de las siguientes palabras es una preposición?",
-      "opciones": ["Entre", "Rápidamente", "Y"],
+      "opciones": [
+        "Entre",
+        "Rápidamente",
+        "Y"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "Identifica la conjunción coordinante en: 'Quiero café o té.'",
-      "opciones": ["O", "Café", "Té"],
+      "opciones": [
+        "O",
+        "Café",
+        "Té"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "¿Qué tipo de palabra es '¡Ay!' en la oración '¡Ay! Me lastimé el pie'?",
-      "opciones": ["Interjección", "Adverbio", "Conjunción"],
+      "opciones": [
+        "Interjección",
+        "Adverbio",
+        "Conjunción"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "Las interjecciones se utilizan principalmente para:",
-      "opciones": ["Expresar emociones o sensaciones de forma espontánea", "Unir dos oraciones", "Modificar a un sustantivo"],
+      "opciones": [
+        "Expresar emociones o sensaciones de forma espontánea",
+        "Unir dos oraciones",
+        "Modificar a un sustantivo"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "En 'La niña alta corre', la palabra 'alta' funciona como:",
-      "opciones": ["Adjetivo calificativo", "Sustantivo", "Adverbio"],
+      "opciones": [
+        "Adjetivo calificativo",
+        "Sustantivo",
+        "Adverbio"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "¿Cuál de las siguientes palabras es un pronombre posesivo?",
-      "opciones": ["Mío", "Corre", "Bonito"],
+      "opciones": [
+        "Mío",
+        "Corre",
+        "Bonito"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "En la oración '¿Quién llegó tarde?', la palabra 'quién' es un pronombre:",
-      "opciones": ["Interrogativo", "Posesivo", "Demostrativo"],
+      "opciones": [
+        "Interrogativo",
+        "Posesivo",
+        "Demostrativo"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "¿Cuál de las siguientes es un pronombre demostrativo?",
-      "opciones": ["Aquel", "Mi", "Que"],
+      "opciones": [
+        "Aquel",
+        "Mi",
+        "Que"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "En 'Camina lentamente hacia la puerta', la palabra 'lentamente' modifica a:",
-      "opciones": ["Al verbo 'camina'", "Al sustantivo 'puerta'", "Al artículo 'la'"],
+      "opciones": [
+        "Al verbo 'camina'",
+        "Al sustantivo 'puerta'",
+        "Al artículo 'la'"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "¿Cuál de las siguientes palabras es un adverbio de tiempo?",
-      "opciones": ["Ayer", "Casa", "Feliz"],
+      "opciones": [
+        "Ayer",
+        "Casa",
+        "Feliz"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "¿Cuál de las siguientes palabras es un adverbio de lugar?",
-      "opciones": ["Aquí", "Rápido", "Nunca"],
+      "opciones": [
+        "Aquí",
+        "Rápido",
+        "Nunca"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "Un sustantivo propio se diferencia de uno común porque:",
-      "opciones": ["Nombra a un ser único y se escribe con mayúscula inicial", "Siempre es plural", "Nunca lleva artículo"],
+      "opciones": [
+        "Nombra a un ser único y se escribe con mayúscula inicial",
+        "Siempre es plural",
+        "Nunca lleva artículo"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "¿Cuál de las siguientes palabras es un sustantivo colectivo?",
-      "opciones": ["Manada", "Perro", "Corre"],
+      "opciones": [
+        "Manada",
+        "Perro",
+        "Corre"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "En la oración 'Nosotros llegamos temprano', 'nosotros' es un pronombre:",
-      "opciones": ["Personal", "Posesivo", "Relativo"],
+      "opciones": [
+        "Personal",
+        "Posesivo",
+        "Relativo"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "En la oración 'Ella comió una manzana', el verbo 'comió' está conjugado en:",
-      "opciones": ["Pretérito perfecto simple (pasado)", "Presente", "Futuro"],
+      "opciones": [
+        "Pretérito perfecto simple (pasado)",
+        "Presente",
+        "Futuro"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "¿En qué persona y número está conjugado el verbo en 'Nosotros cantamos'?",
-      "opciones": ["Primera persona del plural", "Segunda persona del singular", "Tercera persona del plural"],
+      "opciones": [
+        "Primera persona del plural",
+        "Segunda persona del singular",
+        "Tercera persona del plural"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "El verbo 'cantaré' está conjugado en tiempo:",
-      "opciones": ["Futuro", "Presente", "Pretérito"],
+      "opciones": [
+        "Futuro",
+        "Presente",
+        "Pretérito"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "El modo verbal que se usa para expresar hechos objetivos o reales es el:",
-      "opciones": ["Indicativo", "Subjuntivo", "Imperativo"],
+      "opciones": [
+        "Indicativo",
+        "Subjuntivo",
+        "Imperativo"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "El modo verbal que expresa duda, deseo o posibilidad es el:",
-      "opciones": ["Subjuntivo", "Indicativo", "Imperativo"],
+      "opciones": [
+        "Subjuntivo",
+        "Indicativo",
+        "Imperativo"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "El modo verbal que se utiliza para dar órdenes es el:",
-      "opciones": ["Imperativo", "Indicativo", "Subjuntivo"],
+      "opciones": [
+        "Imperativo",
+        "Indicativo",
+        "Subjuntivo"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "En la oración 'Ojalá llueva mañana', el verbo 'llueva' está en modo:",
-      "opciones": ["Subjuntivo", "Indicativo", "Imperativo"],
+      "opciones": [
+        "Subjuntivo",
+        "Indicativo",
+        "Imperativo"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "En la oración '¡Cierra la puerta!', el verbo 'cierra' está en modo:",
-      "opciones": ["Imperativo", "Subjuntivo", "Indicativo"],
+      "opciones": [
+        "Imperativo",
+        "Subjuntivo",
+        "Indicativo"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "En la oración 'El pastel fue comido por los niños', la oración está en voz:",
-      "opciones": ["Pasiva", "Activa", "Ninguna de las anteriores"],
+      "opciones": [
+        "Pasiva",
+        "Activa",
+        "Ninguna de las anteriores"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "En la oración 'Los niños comieron el pastel', la oración está en voz:",
-      "opciones": ["Activa", "Pasiva", "Reflexiva"],
+      "opciones": [
+        "Activa",
+        "Pasiva",
+        "Reflexiva"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "Un verbo regular es aquel que:",
-      "opciones": ["Sigue el patrón normal de conjugación de su terminación (-ar, -er, -ir)", "Cambia su raíz en algunas conjugaciones", "Solo existe en infinitivo"],
+      "opciones": [
+        "Sigue el patrón normal de conjugación de su terminación (-ar, -er, -ir)",
+        "Cambia su raíz en algunas conjugaciones",
+        "Solo existe en infinitivo"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "¿Cuál de los siguientes es un verbo irregular?",
-      "opciones": ["Tener (tengo, tuve...)", "Cantar", "Comer"],
+      "opciones": [
+        "Tener (tengo, tuve...)",
+        "Cantar",
+        "Comer"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "En 'Voy a estudiar toda la tarde', la construcción 'voy a estudiar' es un ejemplo de:",
-      "opciones": ["Perífrasis verbal (ir a + infinitivo)", "Verbo simple", "Modo imperativo"],
+      "opciones": [
+        "Perífrasis verbal (ir a + infinitivo)",
+        "Verbo simple",
+        "Modo imperativo"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "En 'Estoy leyendo un libro', la perífrasis 'estoy leyendo' expresa:",
-      "opciones": ["Una acción en progreso (perífrasis de gerundio)", "Una acción futura", "Una orden"],
+      "opciones": [
+        "Una acción en progreso (perífrasis de gerundio)",
+        "Una acción futura",
+        "Una orden"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "En 'Tengo que terminar la tarea', la perífrasis 'tengo que terminar' expresa:",
-      "opciones": ["Obligación", "Duda", "Posibilidad"],
+      "opciones": [
+        "Obligación",
+        "Duda",
+        "Posibilidad"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "El infinitivo del verbo 'jugaba' es:",
-      "opciones": ["Jugar", "Jugando", "Jugado"],
+      "opciones": [
+        "Jugar",
+        "Jugando",
+        "Jugado"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "El gerundio del verbo 'comer' es:",
-      "opciones": ["Comiendo", "Comido", "Comer"],
+      "opciones": [
+        "Comiendo",
+        "Comido",
+        "Comer"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "El participio del verbo 'escribir' es:",
-      "opciones": ["Escrito", "Escribiendo", "Escribir"],
+      "opciones": [
+        "Escrito",
+        "Escribiendo",
+        "Escribir"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "En la oración 'Tú cantas muy bien', el verbo está conjugado en:",
-      "opciones": ["Segunda persona del singular", "Primera persona del singular", "Tercera persona del plural"],
+      "opciones": [
+        "Segunda persona del singular",
+        "Primera persona del singular",
+        "Tercera persona del plural"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "El pretérito imperfecto se usa para expresar:",
-      "opciones": ["Acciones habituales o continuas en el pasado", "Acciones que ocurrirán en el futuro", "Órdenes directas"],
+      "opciones": [
+        "Acciones habituales o continuas en el pasado",
+        "Acciones que ocurrirán en el futuro",
+        "Órdenes directas"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "En la oración 'El perro ladra fuerte', ¿cuál es el sujeto?",
-      "opciones": ["El perro", "Ladra", "Fuerte"],
+      "opciones": [
+        "El perro",
+        "Ladra",
+        "Fuerte"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "En la oración 'María estudia medicina', ¿cuál es el predicado?",
-      "opciones": ["Estudia medicina", "María", "Medicina"],
+      "opciones": [
+        "Estudia medicina",
+        "María",
+        "Medicina"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "En la oración 'Juan compró un libro', ¿cuál es el complemento directo?",
-      "opciones": ["Un libro", "Juan", "Compró"],
+      "opciones": [
+        "Un libro",
+        "Juan",
+        "Compró"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "En la oración 'Le regalé flores a mi madre', ¿cuál es el complemento indirecto?",
-      "opciones": ["A mi madre", "Flores", "Regalé"],
+      "opciones": [
+        "A mi madre",
+        "Flores",
+        "Regalé"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "En la oración 'Viajamos a la playa en verano', ¿cuál es el complemento circunstancial de tiempo?",
-      "opciones": ["En verano", "A la playa", "Viajamos"],
+      "opciones": [
+        "En verano",
+        "A la playa",
+        "Viajamos"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "En la oración 'Viajamos a la playa en verano', ¿cuál es el complemento circunstancial de lugar?",
-      "opciones": ["A la playa", "En verano", "Viajamos"],
+      "opciones": [
+        "A la playa",
+        "En verano",
+        "Viajamos"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "En la oración 'El cielo está nublado', la palabra 'nublado' funciona como:",
-      "opciones": ["Atributo", "Complemento directo", "Sujeto"],
+      "opciones": [
+        "Atributo",
+        "Complemento directo",
+        "Sujeto"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "El atributo es un complemento que acompaña típicamente a los verbos:",
-      "opciones": ["Copulativos (ser, estar, parecer)", "Transitivos", "Irregulares"],
+      "opciones": [
+        "Copulativos (ser, estar, parecer)",
+        "Transitivos",
+        "Irregulares"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "En la oración 'Los niños llegaron cansados', la palabra 'cansados' funciona como:",
-      "opciones": ["Predicativo", "Atributo", "Complemento indirecto"],
+      "opciones": [
+        "Predicativo",
+        "Atributo",
+        "Complemento indirecto"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "La concordancia nominal se refiere a que:",
-      "opciones": ["El sustantivo y sus modificadores coincidan en género y número", "El verbo coincida con el sujeto", "El adjetivo siempre vaya después del sustantivo"],
+      "opciones": [
+        "El sustantivo y sus modificadores coincidan en género y número",
+        "El verbo coincida con el sujeto",
+        "El adjetivo siempre vaya después del sustantivo"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "La concordancia verbal se refiere a que:",
-      "opciones": ["El verbo concuerde con el sujeto en persona y número", "El sustantivo concuerde con el adjetivo", "El adverbio modifique al verbo"],
+      "opciones": [
+        "El verbo concuerde con el sujeto en persona y número",
+        "El sustantivo concuerde con el adjetivo",
+        "El adverbio modifique al verbo"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "Selecciona la oración con concordancia nominal correcta:",
-      "opciones": ["Las casas blancas", "Las casa blanca", "Los casas blancos"],
+      "opciones": [
+        "Las casas blancas",
+        "Las casa blanca",
+        "Los casas blancos"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "¿Cuál es el sujeto en la oración 'Corren los atletas por la pista'? (sujeto pospuesto)",
-      "opciones": ["Los atletas", "Corren", "La pista"],
+      "opciones": [
+        "Los atletas",
+        "Corren",
+        "La pista"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "En la oración 'Llegamos tarde a la fiesta', el sujeto es:",
-      "opciones": ["Tácito: nosotros", "Tarde", "La fiesta"],
+      "opciones": [
+        "Tácito: nosotros",
+        "Tarde",
+        "La fiesta"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "Cuando el sujeto no aparece explícito en la oración pero se identifica por la terminación verbal, se llama sujeto:",
-      "opciones": ["Tácito o elíptico", "Compuesto", "Predicativo"],
+      "opciones": [
+        "Tácito o elíptico",
+        "Compuesto",
+        "Predicativo"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "En la oración 'Juan y Pedro juegan fútbol', el sujeto es:",
-      "opciones": ["Compuesto: Juan y Pedro", "Simple: Juan", "Tácito"],
+      "opciones": [
+        "Compuesto: Juan y Pedro",
+        "Simple: Juan",
+        "Tácito"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "Una oración simple se caracteriza por tener:",
-      "opciones": ["Un solo verbo conjugado", "Dos o más verbos conjugados", "Ningún verbo"],
+      "opciones": [
+        "Un solo verbo conjugado",
+        "Dos o más verbos conjugados",
+        "Ningún verbo"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "Una oración compuesta se caracteriza por tener:",
-      "opciones": ["Dos o más verbos conjugados", "Un solo sujeto", "Ningún predicado"],
+      "opciones": [
+        "Dos o más verbos conjugados",
+        "Un solo sujeto",
+        "Ningún predicado"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "En las oraciones coordinadas, las cláusulas se unen:",
-      "opciones": ["Con el mismo nivel de importancia, mediante conjunciones como 'y', 'o', 'pero'", "De forma que una depende gramaticalmente de la otra", "Sin ningún nexo"],
+      "opciones": [
+        "Con el mismo nivel de importancia, mediante conjunciones como 'y', 'o', 'pero'",
+        "De forma que una depende gramaticalmente de la otra",
+        "Sin ningún nexo"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "En las oraciones subordinadas, una proposición:",
-      "opciones": ["Depende gramaticalmente de otra (la principal)", "Tiene el mismo peso que la otra", "Nunca lleva verbo"],
+      "opciones": [
+        "Depende gramaticalmente de otra (la principal)",
+        "Tiene el mismo peso que la otra",
+        "Nunca lleva verbo"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "¿Cuál de las siguientes es una oración subordinada?",
-      "opciones": ["Quiero que vengas a la fiesta", "Quiero café y pan", "Llegué tarde pero entré"],
+      "opciones": [
+        "Quiero que vengas a la fiesta",
+        "Quiero café y pan",
+        "Llegué tarde pero entré"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "¿Cuál de las siguientes es una oración coordinada?",
-      "opciones": ["Estudié mucho, pero no aprobé", "Espero que estudies mucho", "El libro que compré es interesante"],
+      "opciones": [
+        "Estudié mucho, pero no aprobé",
+        "Espero que estudies mucho",
+        "El libro que compré es interesante"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "Una oración enunciativa se caracteriza por:",
-      "opciones": ["Afirmar o negar un hecho de forma objetiva", "Expresar una pregunta", "Expresar una orden"],
+      "opciones": [
+        "Afirmar o negar un hecho de forma objetiva",
+        "Expresar una pregunta",
+        "Expresar una orden"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "'¿Vendrás a la reunión?' es un ejemplo de oración:",
-      "opciones": ["Interrogativa", "Enunciativa", "Exclamativa"],
+      "opciones": [
+        "Interrogativa",
+        "Enunciativa",
+        "Exclamativa"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "'¡Qué hermoso paisaje!' es un ejemplo de oración:",
-      "opciones": ["Exclamativa", "Interrogativa", "Desiderativa"],
+      "opciones": [
+        "Exclamativa",
+        "Interrogativa",
+        "Desiderativa"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "'Cierra la ventana, por favor' es un ejemplo de oración:",
-      "opciones": ["Exhortativa", "Dubitativa", "Enunciativa"],
+      "opciones": [
+        "Exhortativa",
+        "Dubitativa",
+        "Enunciativa"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "'Quizás llueva mañana' es un ejemplo de oración:",
-      "opciones": ["Dubitativa", "Exhortativa", "Exclamativa"],
+      "opciones": [
+        "Dubitativa",
+        "Exhortativa",
+        "Exclamativa"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "'Ojalá apruebe el examen' es un ejemplo de oración:",
-      "opciones": ["Desiderativa (expresa deseo)", "Interrogativa", "Enunciativa"],
+      "opciones": [
+        "Desiderativa (expresa deseo)",
+        "Interrogativa",
+        "Enunciativa"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "Las oraciones enunciativas se dividen en:",
-      "opciones": ["Afirmativas y negativas", "Directas e indirectas", "Simples y compuestas"],
+      "opciones": [
+        "Afirmativas y negativas",
+        "Directas e indirectas",
+        "Simples y compuestas"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "¿Cuál de las siguientes es una oración enunciativa negativa?",
-      "opciones": ["No iré a la fiesta", "Iré a la fiesta", "¿Iré a la fiesta?"],
+      "opciones": [
+        "No iré a la fiesta",
+        "Iré a la fiesta",
+        "¿Iré a la fiesta?"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "Las oraciones exhortativas se utilizan para:",
-      "opciones": ["Dar órdenes, ruegos o consejos", "Formular preguntas", "Expresar sorpresa"],
+      "opciones": [
+        "Dar órdenes, ruegos o consejos",
+        "Formular preguntas",
+        "Expresar sorpresa"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "¿Cuál de las siguientes oraciones contiene un error gramatical?",
-      "opciones": ["Los alumno estudia mucho", "Los alumnos estudian mucho", "El alumno estudia mucho"],
+      "opciones": [
+        "Los alumno estudia mucho",
+        "Los alumnos estudian mucho",
+        "El alumno estudia mucho"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "Identifica el orden lógico correcto para: 'Ayer / fuimos / al cine / con mis amigos'",
-      "opciones": ["Ayer fuimos al cine con mis amigos", "Fuimos ayer amigos con al cine mis", "Con mis amigos ayer cine al fuimos"],
+      "opciones": [
+        "Ayer fuimos al cine con mis amigos",
+        "Fuimos ayer amigos con al cine mis",
+        "Con mis amigos ayer cine al fuimos"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "¿Cuál oración utiliza el vocabulario más preciso?",
-      "opciones": ["El médico diagnosticó la enfermedad", "El médico dijo cosas sobre la enfermedad", "El médico habló de la enfermedad de forma general"],
+      "opciones": [
+        "El médico diagnosticó la enfermedad",
+        "El médico dijo cosas sobre la enfermedad",
+        "El médico habló de la enfermedad de forma general"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "¿Cuál es la reescritura más clara de: 'La cosa que compré ayer se rompió'?",
-      "opciones": ["El objeto que compré ayer se rompió", "La cosa se rompió que compré ayer", "Se rompió la cosa ayer comprada"],
+      "opciones": [
+        "El objeto que compré ayer se rompió",
+        "La cosa se rompió que compré ayer",
+        "Se rompió la cosa ayer comprada"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "Un solecismo es:",
-      "opciones": ["Un error de construcción sintáctica que rompe las reglas gramaticales", "Una repetición innecesaria de palabras", "El uso de una palabra extranjera"],
+      "opciones": [
+        "Un error de construcción sintáctica que rompe las reglas gramaticales",
+        "Una repetición innecesaria de palabras",
+        "El uso de una palabra extranjera"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "¿Cuál de las siguientes oraciones contiene un solecismo?",
-      "opciones": ["Habían muchas personas en la fiesta", "Había muchas personas en la fiesta", "Hay muchas personas en la fiesta"],
+      "opciones": [
+        "Habían muchas personas en la fiesta",
+        "Había muchas personas en la fiesta",
+        "Hay muchas personas en la fiesta"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "Un pleonasmo es:",
-      "opciones": ["Una redundancia innecesaria de palabras", "Un error de concordancia", "El uso incorrecto de una preposición"],
+      "opciones": [
+        "Una redundancia innecesaria de palabras",
+        "Un error de concordancia",
+        "El uso incorrecto de una preposición"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "¿Cuál de las siguientes frases es un pleonasmo?",
-      "opciones": ["Subir para arriba", "Subir la escalera", "Subir rápido"],
+      "opciones": [
+        "Subir para arriba",
+        "Subir la escalera",
+        "Subir rápido"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "Una cacofonía es:",
-      "opciones": ["La repetición de sonidos que produce un efecto desagradable al oído", "Un error de concordancia verbal", "Una palabra mal acentuada"],
+      "opciones": [
+        "La repetición de sonidos que produce un efecto desagradable al oído",
+        "Un error de concordancia verbal",
+        "Una palabra mal acentuada"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "¿Cuál de las siguientes oraciones presenta cacofonía?",
-      "opciones": ["Ana anda con Ana a Ancón", "Ana camina despacio", "Ana llegó temprano"],
+      "opciones": [
+        "Ana anda con Ana a Ancón",
+        "Ana camina despacio",
+        "Ana llegó temprano"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "Un barbarismo es:",
-      "opciones": ["El uso incorrecto de una palabra, por pronunciación, escritura o extranjerismo innecesario", "La repetición de una idea", "Una oración mal ordenada"],
+      "opciones": [
+        "El uso incorrecto de una palabra, por pronunciación, escritura o extranjerismo innecesario",
+        "La repetición de una idea",
+        "Una oración mal ordenada"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "¿Cuál de las siguientes palabras es un barbarismo (forma incorrecta)?",
-      "opciones": ["Haiga (por 'haya')", "Haya", "Vaya"],
+      "opciones": [
+        "Haiga (por 'haya')",
+        "Haya",
+        "Vaya"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "El dequeísmo consiste en:",
-      "opciones": ["Usar 'de que' cuando no se requiere la preposición 'de'", "Omitir la preposición 'de' cuando sí se requiere", "Confundir dos palabras homófonas"],
+      "opciones": [
+        "Usar 'de que' cuando no se requiere la preposición 'de'",
+        "Omitir la preposición 'de' cuando sí se requiere",
+        "Confundir dos palabras homófonas"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "¿Cuál oración presenta dequeísmo?",
-      "opciones": ["Pienso de que tienes razón", "Pienso que tienes razón", "Estoy seguro de que tienes razón"],
+      "opciones": [
+        "Pienso de que tienes razón",
+        "Pienso que tienes razón",
+        "Estoy seguro de que tienes razón"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "El queísmo consiste en:",
-      "opciones": ["Omitir la preposición 'de' cuando la construcción sí la requiere", "Usar 'de que' de forma innecesaria", "Repetir una palabra dos veces"],
+      "opciones": [
+        "Omitir la preposición 'de' cuando la construcción sí la requiere",
+        "Usar 'de que' de forma innecesaria",
+        "Repetir una palabra dos veces"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "¿Cuál oración presenta queísmo (omite 'de' indebidamente)?",
-      "opciones": ["Me acuerdo que fuimos al cine", "Me acuerdo de que fuimos al cine", "No me acuerdo de nada"],
+      "opciones": [
+        "Me acuerdo que fuimos al cine",
+        "Me acuerdo de que fuimos al cine",
+        "No me acuerdo de nada"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "La anfibología es:",
-      "opciones": ["Una ambigüedad en el significado de una oración por su construcción", "Un error de ortografía", "La repetición de una palabra"],
+      "opciones": [
+        "Una ambigüedad en el significado de una oración por su construcción",
+        "Un error de ortografía",
+        "La repetición de una palabra"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "¿Cuál de las siguientes oraciones es ambigua (anfibología)?",
-      "opciones": ["Vi al hombre con el telescopio", "Vi al hombre que llevaba un telescopio", "El hombre que vi tenía un telescopio"],
+      "opciones": [
+        "Vi al hombre con el telescopio",
+        "Vi al hombre que llevaba un telescopio",
+        "El hombre que vi tenía un telescopio"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "Una muletilla es:",
-      "opciones": ["Una palabra o frase que se repite de forma innecesaria por costumbre al hablar", "Un error de concordancia", "Una palabra en desuso"],
+      "opciones": [
+        "Una palabra o frase que se repite de forma innecesaria por costumbre al hablar",
+        "Un error de concordancia",
+        "Una palabra en desuso"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "¿Cuál de las siguientes es un ejemplo típico de muletilla?",
-      "opciones": ["'O sea' repetido constantemente sin aportar significado", "Un sinónimo preciso", "Una palabra técnica"],
+      "opciones": [
+        "'O sea' repetido constantemente sin aportar significado",
+        "Un sinónimo preciso",
+        "Una palabra técnica"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "¿Cuántas sílabas tiene la palabra 'computadora'?",
-      "opciones": ["5", "4", "6"],
+      "opciones": [
+        "5",
+        "4",
+        "6"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "¿Cuántas sílabas tiene la palabra 'aire'?",
-      "opciones": ["2", "3", "1"],
+      "opciones": [
+        "2",
+        "3",
+        "1"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "Un diptongo se forma cuando:",
-      "opciones": ["Se juntan una vocal fuerte y una débil (o dos débiles) en la misma sílaba", "Se juntan dos vocales fuertes en la misma sílaba", "Se juntan tres vocales en la misma sílaba"],
+      "opciones": [
+        "Se juntan una vocal fuerte y una débil (o dos débiles) en la misma sílaba",
+        "Se juntan dos vocales fuertes en la misma sílaba",
+        "Se juntan tres vocales en la misma sílaba"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "¿Cuál de las siguientes palabras tiene un diptongo?",
-      "opciones": ["Aire", "Poeta", "Caos"],
+      "opciones": [
+        "Aire",
+        "Poeta",
+        "Caos"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "Un hiato se forma cuando:",
-      "opciones": ["Se juntan dos vocales fuertes, o una fuerte y una débil tildada, en sílabas distintas", "Se juntan tres vocales en la misma sílaba", "Nunca hay vocales juntas"],
+      "opciones": [
+        "Se juntan dos vocales fuertes, o una fuerte y una débil tildada, en sílabas distintas",
+        "Se juntan tres vocales en la misma sílaba",
+        "Nunca hay vocales juntas"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "¿Cuál de las siguientes palabras tiene un hiato?",
-      "opciones": ["Poeta", "Aire", "Cielo"],
+      "opciones": [
+        "Poeta",
+        "Aire",
+        "Cielo"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "Un triptongo se forma cuando:",
-      "opciones": ["Se juntan tres vocales (débil-fuerte-débil) en la misma sílaba", "Se juntan dos vocales fuertes", "Se juntan cuatro vocales"],
+      "opciones": [
+        "Se juntan tres vocales (débil-fuerte-débil) en la misma sílaba",
+        "Se juntan dos vocales fuertes",
+        "Se juntan cuatro vocales"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "¿Cuál de las siguientes palabras tiene un triptongo?",
-      "opciones": ["Buey", "Aire", "Poema"],
+      "opciones": [
+        "Buey",
+        "Aire",
+        "Poema"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "Las palabras agudas llevan tilde cuando terminan en:",
-      "opciones": ["N, S o vocal", "Cualquier consonante excepto N o S", "Siempre llevan tilde"],
+      "opciones": [
+        "N, S o vocal",
+        "Cualquier consonante excepto N o S",
+        "Siempre llevan tilde"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "¿Cuál de las siguientes palabras agudas necesita tilde?",
-      "opciones": ["Cancion", "Reloj", "Feliz"],
+      "opciones": [
+        "Cancion",
+        "Reloj",
+        "Feliz"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "Las palabras graves (llanas) llevan tilde cuando terminan en:",
-      "opciones": ["Cualquier consonante excepto N o S, o en Y", "Vocal, N o S", "Siempre llevan tilde"],
+      "opciones": [
+        "Cualquier consonante excepto N o S, o en Y",
+        "Vocal, N o S",
+        "Siempre llevan tilde"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "¿Cuál de las siguientes palabras graves necesita tilde?",
-      "opciones": ["Facil", "Casa", "Mesa"],
+      "opciones": [
+        "Facil",
+        "Casa",
+        "Mesa"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "Las palabras esdrújulas:",
-      "opciones": ["Siempre llevan tilde", "Nunca llevan tilde", "Solo llevan tilde si terminan en vocal"],
+      "opciones": [
+        "Siempre llevan tilde",
+        "Nunca llevan tilde",
+        "Solo llevan tilde si terminan en vocal"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "¿Cuál de las siguientes es una palabra esdrújula?",
-      "opciones": ["Médico", "Reloj", "Pastel"],
+      "opciones": [
+        "Médico",
+        "Reloj",
+        "Pastel"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "Las palabras sobresdrújulas llevan el acento en:",
-      "opciones": ["La sílaba anterior a la antepenúltima", "La última sílaba", "La penúltima sílaba"],
+      "opciones": [
+        "La sílaba anterior a la antepenúltima",
+        "La última sílaba",
+        "La penúltima sílaba"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "¿Cuál de las siguientes es una palabra sobresdrújula?",
-      "opciones": ["Cuéntaselo", "Rápido", "Fácilmente"],
+      "opciones": [
+        "Cuéntaselo",
+        "Rápido",
+        "Fácilmente"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "El acento enfático se utiliza en palabras como '¿qué?', '¿cómo?' y '¿dónde?' para:",
-      "opciones": ["Marcar que se trata de preguntas o exclamaciones", "Diferenciar el género", "Indicar plural"],
+      "opciones": [
+        "Marcar que se trata de preguntas o exclamaciones",
+        "Diferenciar el género",
+        "Indicar plural"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "¿Cuál oración usa correctamente el acento enfático?",
-      "opciones": ["No sé cómo llegar a tu casa", "No sé como llegar a tu casa", "No se cómo llegar a tu casa"],
+      "opciones": [
+        "No sé cómo llegar a tu casa",
+        "No sé como llegar a tu casa",
+        "No se cómo llegar a tu casa"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "La división silábica de la palabra 'examen' es:",
-      "opciones": ["e-xa-men", "ex-a-men", "exa-men"],
+      "opciones": [
+        "e-xa-men",
+        "ex-a-men",
+        "exa-men"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "La división silábica de la palabra 'transporte' es:",
-      "opciones": ["trans-por-te", "tran-spor-te", "transpor-te"],
+      "opciones": [
+        "trans-por-te",
+        "tran-spor-te",
+        "transpor-te"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "¿Cuál es la forma correcta?",
-      "opciones": ["Absorber", "Absorver", "Absoveer"],
+      "opciones": [
+        "Absorber",
+        "Absorver",
+        "Absoveer"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "¿Cuál es la forma correcta?",
-      "opciones": ["Hervir", "Ervir", "Herbir"],
+      "opciones": [
+        "Hervir",
+        "Ervir",
+        "Herbir"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "¿Cuál palabra está correctamente escrita con V (sonido de la voz)?",
-      "opciones": ["Voz", "Boz", "Bhoz"],
+      "opciones": [
+        "Voz",
+        "Boz",
+        "Bhoz"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "¿Cuál palabra está correctamente escrita con B?",
-      "opciones": ["Bicicleta", "Vicicleta", "Vissicleta"],
+      "opciones": [
+        "Bicicleta",
+        "Vicicleta",
+        "Vissicleta"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "¿Cuál palabra está correctamente escrita con V?",
-      "opciones": ["Nueve", "Nuebe", "Nuevve"],
+      "opciones": [
+        "Nueve",
+        "Nuebe",
+        "Nuevve"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "Completa correctamente: 'Voy a ___ la carne.' (cocinar, no coser con hilo)",
-      "opciones": ["Cocer", "Coser", "Cozer"],
+      "opciones": [
+        "Cocer",
+        "Coser",
+        "Cozer"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "¿Cuál palabra usa correctamente la C?",
-      "opciones": ["Cielo", "Sielo", "Zielo"],
+      "opciones": [
+        "Cielo",
+        "Sielo",
+        "Zielo"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "¿Cuál palabra usa correctamente la S?",
-      "opciones": ["Sensación", "Censación", "Sensasión"],
+      "opciones": [
+        "Sensación",
+        "Censación",
+        "Sensasión"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "¿Cuál palabra usa correctamente la Z?",
-      "opciones": ["Zapato", "Sapato", "Çapato"],
+      "opciones": [
+        "Zapato",
+        "Sapato",
+        "Çapato"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "¿Cuál palabra está correctamente escrita con G?",
-      "opciones": ["General", "Jeneral", "Guenerál"],
+      "opciones": [
+        "General",
+        "Jeneral",
+        "Guenerál"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "¿Cuál palabra está correctamente escrita con J?",
-      "opciones": ["Jirafa", "Girafa", "Yirafa"],
+      "opciones": [
+        "Jirafa",
+        "Girafa",
+        "Yirafa"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "¿Cuál palabra está correctamente escrita con LL?",
-      "opciones": ["Lluvia", "Yuvia", "Lluvya"],
+      "opciones": [
+        "Lluvia",
+        "Yuvia",
+        "Lluvya"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "¿Cuál palabra está correctamente escrita con Y?",
-      "opciones": ["Yo", "Llo", "Io"],
+      "opciones": [
+        "Yo",
+        "Llo",
+        "Io"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "¿En cuál de las siguientes palabras la H es muda pero obligatoria por ortografía?",
-      "opciones": ["Hormiga", "Ormiga", "Formiga"],
+      "opciones": [
+        "Hormiga",
+        "Ormiga",
+        "Formiga"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "¿Cuál palabra usa correctamente la X?",
-      "opciones": ["Examen", "Esamen", "Ecsamen"],
+      "opciones": [
+        "Examen",
+        "Esamen",
+        "Ecsamen"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "¿Cuál oración distingue correctamente 'carro' (vehículo) de 'caro' (costoso)?",
-      "opciones": ["Ese carro es muy caro", "Ese caro es muy carro", "Ese carro es muy carro"],
+      "opciones": [
+        "Ese carro es muy caro",
+        "Ese caro es muy carro",
+        "Ese carro es muy carro"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "¿Cuándo se usa doble RR en español?",
-      "opciones": ["Cuando el sonido fuerte de la R va entre vocales", "Al inicio de cualquier palabra", "Nunca se usa doble RR"],
+      "opciones": [
+        "Cuando el sonido fuerte de la R va entre vocales",
+        "Al inicio de cualquier palabra",
+        "Nunca se usa doble RR"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "Según la regla ortográfica, antes de P y B siempre se escribe:",
-      "opciones": ["M (nunca N)", "N (nunca M)", "Indistintamente M o N"],
+      "opciones": [
+        "M (nunca N)",
+        "N (nunca M)",
+        "Indistintamente M o N"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "¿Cuál palabra respeta la regla de escribir M antes de P y B?",
-      "opciones": ["Tambor", "Tanbor", "Tambhor"],
+      "opciones": [
+        "Tambor",
+        "Tanbor",
+        "Tambhor"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "¿Cuál palabra respeta la regla de escribir M antes de P y B?",
-      "opciones": ["Campo", "Canpo", "Campho"],
+      "opciones": [
+        "Campo",
+        "Canpo",
+        "Campho"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "¿Cuándo se escribe con mayúscula inicial la primera palabra de un texto u oración?",
-      "opciones": ["Siempre, al inicio de cualquier escrito o después de un punto", "Solo si es un sustantivo propio", "Nunca se usa mayúscula al inicio"],
+      "opciones": [
+        "Siempre, al inicio de cualquier escrito o después de un punto",
+        "Solo si es un sustantivo propio",
+        "Nunca se usa mayúscula al inicio"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "¿Cuál de las siguientes palabras SIEMPRE debe escribirse con mayúscula inicial?",
-      "opciones": ["México (nombre propio de país)", "Ciudad (sustantivo común)", "País (sustantivo común)"],
+      "opciones": [
+        "México (nombre propio de país)",
+        "Ciudad (sustantivo común)",
+        "País (sustantivo común)"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "Los nombres de instituciones, como 'Universidad Nacional Autónoma de México', se escriben:",
-      "opciones": ["Con mayúscula inicial en las palabras principales", "Todo en minúsculas", "Solo la primera letra de la oración"],
+      "opciones": [
+        "Con mayúscula inicial en las palabras principales",
+        "Todo en minúsculas",
+        "Solo la primera letra de la oración"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "¿Cuál es la forma correcta de escribir el título de una obra dentro de un texto?",
-      "opciones": ["Cien años de soledad (en cursiva, con mayúscula solo en la primera palabra y nombres propios)", "CIEN AÑOS DE SOLEDAD", "Cien Años De Soledad"],
+      "opciones": [
+        "Cien años de soledad (en cursiva, con mayúscula solo en la primera palabra y nombres propios)",
+        "CIEN AÑOS DE SOLEDAD",
+        "Cien Años De Soledad"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "Las abreviaturas como 'Sr.', 'Dr.', 'Lic.' se escriben:",
-      "opciones": ["Con mayúscula inicial y punto final", "Todo en mayúsculas sin punto", "Todo en minúsculas sin punto"],
+      "opciones": [
+        "Con mayúscula inicial y punto final",
+        "Todo en mayúsculas sin punto",
+        "Todo en minúsculas sin punto"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "¿Cuál de las siguientes palabras NO debe escribirse con mayúscula en español, a diferencia del inglés?",
-      "opciones": ["lunes (los días de la semana van en minúscula)", "México", "Juan"],
+      "opciones": [
+        "lunes (los días de la semana van en minúscula)",
+        "México",
+        "Juan"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "¿Cuándo se usa el punto y seguido?",
-      "opciones": ["Para separar oraciones dentro de un mismo párrafo que tratan del mismo tema", "Para terminar un texto completo", "Para separar sílabas"],
+      "opciones": [
+        "Para separar oraciones dentro de un mismo párrafo que tratan del mismo tema",
+        "Para terminar un texto completo",
+        "Para separar sílabas"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "¿Cuál es el uso correcto de la coma en una enumeración?",
-      "opciones": ["Manzanas, peras, plátanos y uvas", "Manzanas peras, plátanos, y uvas", "Manzanas, peras plátanos y, uvas"],
+      "opciones": [
+        "Manzanas, peras, plátanos y uvas",
+        "Manzanas peras, plátanos, y uvas",
+        "Manzanas, peras plátanos y, uvas"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "Los puntos suspensivos se utilizan para:",
-      "opciones": ["Indicar una pausa, duda o que el enunciado queda incompleto", "Separar el sujeto del predicado", "Reemplazar la coma siempre"],
+      "opciones": [
+        "Indicar una pausa, duda o que el enunciado queda incompleto",
+        "Separar el sujeto del predicado",
+        "Reemplazar la coma siempre"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "¿Cuál oración usa correctamente los signos de interrogación?",
-      "opciones": ["¿Cómo te llamas?", "Como te llamas?", "¿Cómo te llamas."],
+      "opciones": [
+        "¿Cómo te llamas?",
+        "Como te llamas?",
+        "¿Cómo te llamas."
+      ],
       "correcta": 0
     },
     {
       "pregunta": "En español, los signos de interrogación y exclamación se escriben:",
-      "opciones": ["De apertura y cierre (¿ ? / ¡ !)", "Solo de cierre, como en inglés", "Solo de apertura"],
+      "opciones": [
+        "De apertura y cierre (¿ ? / ¡ !)",
+        "Solo de cierre, como en inglés",
+        "Solo de apertura"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "¿Para qué se usan los paréntesis?",
-      "opciones": ["Para insertar información aclaratoria o adicional", "Para finalizar una oración", "Para unir dos palabras"],
+      "opciones": [
+        "Para insertar información aclaratoria o adicional",
+        "Para finalizar una oración",
+        "Para unir dos palabras"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "¿Cuándo se usan los corchetes en un texto?",
-      "opciones": ["Para insertar una aclaración dentro de un texto que ya está entre paréntesis, o señalar una omisión", "Para finalizar un párrafo", "Para separar sílabas"],
+      "opciones": [
+        "Para insertar una aclaración dentro de un texto que ya está entre paréntesis, o señalar una omisión",
+        "Para finalizar un párrafo",
+        "Para separar sílabas"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "Las comillas se utilizan para:",
-      "opciones": ["Citar textualmente las palabras de alguien o señalar un uso especial de una palabra", "Separar oraciones largas", "Indicar una pausa breve"],
+      "opciones": [
+        "Citar textualmente las palabras de alguien o señalar un uso especial de una palabra",
+        "Separar oraciones largas",
+        "Indicar una pausa breve"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "¿Cuál es la función principal del guion (guion corto) en español?",
-      "opciones": ["Unir palabras compuestas o dividir palabras al final de un renglón", "Introducir un diálogo", "Separar oraciones independientes"],
+      "opciones": [
+        "Unir palabras compuestas o dividir palabras al final de un renglón",
+        "Introducir un diálogo",
+        "Separar oraciones independientes"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "La raya (guion largo) se utiliza principalmente para:",
-      "opciones": ["Introducir un diálogo o un inciso aclaratorio", "Separar sílabas", "Escribir números"],
+      "opciones": [
+        "Introducir un diálogo o un inciso aclaratorio",
+        "Separar sílabas",
+        "Escribir números"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "¿Cuál oración utiliza correctamente la coma vocativa?",
-      "opciones": ["Pedro, por favor cierra la puerta", "Pedro por favor, cierra la puerta", "Pedro por favor cierra, la puerta"],
+      "opciones": [
+        "Pedro, por favor cierra la puerta",
+        "Pedro por favor, cierra la puerta",
+        "Pedro por favor cierra, la puerta"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "¿Cuál es un sinónimo de 'arduo'?",
-      "opciones": ["Difícil", "Fácil", "Sencillo"],
+      "opciones": [
+        "Difícil",
+        "Fácil",
+        "Sencillo"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "¿Cuál es un sinónimo de 'efímero'?",
-      "opciones": ["Pasajero", "Duradero", "Eterno"],
+      "opciones": [
+        "Pasajero",
+        "Duradero",
+        "Eterno"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "¿Cuál es el antónimo de 'escaso'?",
-      "opciones": ["Abundante", "Poco", "Limitado"],
+      "opciones": [
+        "Abundante",
+        "Poco",
+        "Limitado"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "¿Cuál es el antónimo de 'humilde'?",
-      "opciones": ["Arrogante", "Sencillo", "Modesto"],
+      "opciones": [
+        "Arrogante",
+        "Sencillo",
+        "Modesto"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "Los homónimos son palabras que:",
-      "opciones": ["Se pronuncian o escriben igual pero tienen distinto significado", "Tienen el mismo significado", "Son opuestas en significado"],
+      "opciones": [
+        "Se pronuncian o escriben igual pero tienen distinto significado",
+        "Tienen el mismo significado",
+        "Son opuestas en significado"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "Los homófonos son palabras que:",
-      "opciones": ["Se pronuncian igual pero se escriben diferente y tienen distinto significado", "Se escriben igual pero se pronuncian diferente", "Tienen el mismo significado exacto"],
+      "opciones": [
+        "Se pronuncian igual pero se escriben diferente y tienen distinto significado",
+        "Se escriben igual pero se pronuncian diferente",
+        "Tienen el mismo significado exacto"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "¿Cuál de los siguientes pares es un ejemplo de homófonos?",
-      "opciones": ["Hola / Ola", "Casa / Hogar", "Grande / Enorme"],
+      "opciones": [
+        "Hola / Ola",
+        "Casa / Hogar",
+        "Grande / Enorme"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "¿Cuál de los siguientes pares es un ejemplo de homófonos?",
-      "opciones": ["Vaca / Baca", "Perro / Can", "Feliz / Triste"],
+      "opciones": [
+        "Vaca / Baca",
+        "Perro / Can",
+        "Feliz / Triste"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "Los homógrafos son palabras que:",
-      "opciones": ["Se escriben igual pero tienen distinto significado", "Se pronuncian igual y se escriben diferente", "Son sinónimos exactos"],
+      "opciones": [
+        "Se escriben igual pero tienen distinto significado",
+        "Se pronuncian igual y se escriben diferente",
+        "Son sinónimos exactos"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "La palabra 'vino' es un ejemplo de homógrafo porque puede significar:",
-      "opciones": ["La bebida o el verbo 'venir' en pasado", "Solo la bebida alcohólica", "Solo el color rojizo"],
+      "opciones": [
+        "La bebida o el verbo 'venir' en pasado",
+        "Solo la bebida alcohólica",
+        "Solo el color rojizo"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "Los parónimos son palabras que:",
-      "opciones": ["Se parecen en su escritura o pronunciación pero tienen significados distintos", "Son exactamente iguales", "Son antónimos"],
+      "opciones": [
+        "Se parecen en su escritura o pronunciación pero tienen significados distintos",
+        "Son exactamente iguales",
+        "Son antónimos"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "¿Cuál de los siguientes pares es un ejemplo de parónimos?",
-      "opciones": ["Actitud / Aptitud", "Perro / Gato", "Grande / Pequeño"],
+      "opciones": [
+        "Actitud / Aptitud",
+        "Perro / Gato",
+        "Grande / Pequeño"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "¿Cuál de los siguientes pares es un ejemplo de parónimos?",
-      "opciones": ["Adoptar / Adaptar", "Casa / Hogar", "Feliz / Contento"],
+      "opciones": [
+        "Adoptar / Adaptar",
+        "Casa / Hogar",
+        "Feliz / Contento"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "La polisemia se refiere a que:",
-      "opciones": ["Una misma palabra tiene varios significados relacionados entre sí", "Dos palabras distintas tienen el mismo significado", "Una palabra no tiene significado"],
+      "opciones": [
+        "Una misma palabra tiene varios significados relacionados entre sí",
+        "Dos palabras distintas tienen el mismo significado",
+        "Una palabra no tiene significado"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "La palabra 'banco' es un ejemplo de polisemia porque puede significar:",
-      "opciones": ["Una institución financiera o un asiento", "Solo un tipo de árbol", "Solo un color"],
+      "opciones": [
+        "Una institución financiera o un asiento",
+        "Solo un tipo de árbol",
+        "Solo un color"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "La palabra 'hoja' es un ejemplo de polisemia porque puede referirse a:",
-      "opciones": ["La parte de una planta o una lámina de papel", "Solo un instrumento musical", "Solo un animal"],
+      "opciones": [
+        "La parte de una planta o una lámina de papel",
+        "Solo un instrumento musical",
+        "Solo un animal"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "¿Cuál es un sinónimo de 'meticuloso'?",
-      "opciones": ["Minucioso", "Descuidado", "Apresurado"],
+      "opciones": [
+        "Minucioso",
+        "Descuidado",
+        "Apresurado"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "¿Cuál es el antónimo de 'abundante'?",
-      "opciones": ["Escaso", "Numeroso", "Amplio"],
+      "opciones": [
+        "Escaso",
+        "Numeroso",
+        "Amplio"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "La denotación de una palabra es:",
-      "opciones": ["Su significado literal y objetivo, tal como aparece en el diccionario", "Su significado subjetivo o emocional", "Un sinónimo de la palabra"],
+      "opciones": [
+        "Su significado literal y objetivo, tal como aparece en el diccionario",
+        "Su significado subjetivo o emocional",
+        "Un sinónimo de la palabra"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "La connotación de una palabra es:",
-      "opciones": ["Un significado subjetivo o emocional asociado a la palabra, según el contexto", "Su significado literal en el diccionario", "La raíz de la palabra"],
+      "opciones": [
+        "Un significado subjetivo o emocional asociado a la palabra, según el contexto",
+        "Su significado literal en el diccionario",
+        "La raíz de la palabra"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "En la frase 'Tiene un corazón de piedra', la palabra 'piedra' se usa con un sentido:",
-      "opciones": ["Connotativo (dureza, insensibilidad)", "Denotativo (el material)", "Diacrítico"],
+      "opciones": [
+        "Connotativo (dureza, insensibilidad)",
+        "Denotativo (el material)",
+        "Diacrítico"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "Un campo semántico agrupa palabras que:",
-      "opciones": ["Comparten un mismo tema o categoría de significado", "Tienen la misma raíz", "Se pronuncian igual"],
+      "opciones": [
+        "Comparten un mismo tema o categoría de significado",
+        "Tienen la misma raíz",
+        "Se pronuncian igual"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "¿Cuál de los siguientes grupos de palabras forma un campo semántico relacionado con la cocina?",
-      "opciones": ["Sartén, cuchara, olla, estufa", "Sartén, avión, río, libro", "Cuchara, montaña, nube, coche"],
+      "opciones": [
+        "Sartén, cuchara, olla, estufa",
+        "Sartén, avión, río, libro",
+        "Cuchara, montaña, nube, coche"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "Una familia léxica agrupa palabras que:",
-      "opciones": ["Comparten la misma raíz o lexema", "Tienen el mismo significado exacto", "Pertenecen al mismo campo semántico aunque no compartan raíz"],
+      "opciones": [
+        "Comparten la misma raíz o lexema",
+        "Tienen el mismo significado exacto",
+        "Pertenecen al mismo campo semántico aunque no compartan raíz"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "¿Cuál de las siguientes palabras pertenece a la familia léxica de 'tierra'?",
-      "opciones": ["Terrenal", "Marino", "Celestial"],
+      "opciones": [
+        "Terrenal",
+        "Marino",
+        "Celestial"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "Un neologismo es:",
-      "opciones": ["Una palabra de creación reciente que se incorpora al idioma", "Una palabra en desuso", "Un préstamo de otro idioma antiguo"],
+      "opciones": [
+        "Una palabra de creación reciente que se incorpora al idioma",
+        "Una palabra en desuso",
+        "Un préstamo de otro idioma antiguo"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "¿Cuál de las siguientes palabras es un neologismo relacionado con la tecnología?",
-      "opciones": ["Selfi", "Casa", "Río"],
+      "opciones": [
+        "Selfi",
+        "Casa",
+        "Río"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "Un arcaísmo es:",
-      "opciones": ["Una palabra que ha caído en desuso", "Una palabra de reciente creación", "Un término técnico"],
+      "opciones": [
+        "Una palabra que ha caído en desuso",
+        "Una palabra de reciente creación",
+        "Un término técnico"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "¿Cuál de las siguientes palabras es un arcaísmo?",
-      "opciones": ["Vusted (por 'usted')", "Computadora", "Internet"],
+      "opciones": [
+        "Vusted (por 'usted')",
+        "Computadora",
+        "Internet"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "Un tecnicismo es:",
-      "opciones": ["Una palabra propia de un campo especializado del conocimiento", "Una palabra de uso coloquial", "Una palabra en desuso"],
+      "opciones": [
+        "Una palabra propia de un campo especializado del conocimiento",
+        "Una palabra de uso coloquial",
+        "Una palabra en desuso"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "¿Cuál de las siguientes palabras es un tecnicismo médico?",
-      "opciones": ["Cardiología", "Mesa", "Casa"],
+      "opciones": [
+        "Cardiología",
+        "Mesa",
+        "Casa"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "Un extranjerismo es:",
-      "opciones": ["Una palabra tomada de otro idioma", "Una palabra inventada", "Un error ortográfico"],
+      "opciones": [
+        "Una palabra tomada de otro idioma",
+        "Una palabra inventada",
+        "Un error ortográfico"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "¿Cuál de las siguientes palabras es un extranjerismo del inglés?",
-      "opciones": ["Marketing", "Mesa", "Ventana"],
+      "opciones": [
+        "Marketing",
+        "Mesa",
+        "Ventana"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "La raíz de una palabra es:",
-      "opciones": ["El elemento que contiene el significado básico, común a toda su familia léxica", "Un sufijo que se agrega al final", "Un prefijo que se agrega al inicio"],
+      "opciones": [
+        "El elemento que contiene el significado básico, común a toda su familia léxica",
+        "Un sufijo que se agrega al final",
+        "Un prefijo que se agrega al inicio"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "Los prefijos son morfemas que:",
-      "opciones": ["Se colocan antes de la raíz para modificar su significado", "Se colocan después de la raíz", "Reemplazan por completo a la raíz"],
+      "opciones": [
+        "Se colocan antes de la raíz para modificar su significado",
+        "Se colocan después de la raíz",
+        "Reemplazan por completo a la raíz"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "¿Cuál es el prefijo en la palabra 'reconstruir'?",
-      "opciones": ["Re-", "Construir", "-ir"],
+      "opciones": [
+        "Re-",
+        "Construir",
+        "-ir"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "Los sufijos son morfemas que:",
-      "opciones": ["Se colocan después de la raíz para modificar su significado o función", "Se colocan antes de la raíz", "Nunca cambian el significado"],
+      "opciones": [
+        "Se colocan después de la raíz para modificar su significado o función",
+        "Se colocan antes de la raíz",
+        "Nunca cambian el significado"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "¿Cuál es el sufijo en la palabra 'lentamente'?",
-      "opciones": ["-mente", "Lenta-", "Lento"],
+      "opciones": [
+        "-mente",
+        "Lenta-",
+        "Lento"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "La composición es un proceso de formación de palabras que consiste en:",
-      "opciones": ["Unir dos palabras para formar una nueva (ej. 'sacapuntas')", "Añadir solo un sufijo", "Añadir solo un prefijo"],
+      "opciones": [
+        "Unir dos palabras para formar una nueva (ej. 'sacapuntas')",
+        "Añadir solo un sufijo",
+        "Añadir solo un prefijo"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "¿Cuál de las siguientes es una palabra compuesta?",
-      "opciones": ["Paraguas", "Rápidamente", "Reconstruir"],
+      "opciones": [
+        "Paraguas",
+        "Rápidamente",
+        "Reconstruir"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "La derivación es un proceso de formación de palabras que consiste en:",
-      "opciones": ["Agregar prefijos o sufijos a una raíz para crear una palabra nueva", "Unir dos palabras completas", "Repetir una palabra"],
+      "opciones": [
+        "Agregar prefijos o sufijos a una raíz para crear una palabra nueva",
+        "Unir dos palabras completas",
+        "Repetir una palabra"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "La parasíntesis es un proceso de formación de palabras que combina:",
-      "opciones": ["Composición y derivación al mismo tiempo (ej. 'picapedrero')", "Solo sinónimos", "Solo antónimos"],
+      "opciones": [
+        "Composición y derivación al mismo tiempo (ej. 'picapedrero')",
+        "Solo sinónimos",
+        "Solo antónimos"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "El registro formal se utiliza principalmente en:",
-      "opciones": ["Contextos académicos, profesionales o institucionales", "Conversaciones entre amigos cercanos", "Mensajes de texto informales"],
+      "opciones": [
+        "Contextos académicos, profesionales o institucionales",
+        "Conversaciones entre amigos cercanos",
+        "Mensajes de texto informales"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "El registro informal se caracteriza por:",
-      "opciones": ["Un lenguaje coloquial, cercano y espontáneo", "Un lenguaje técnico y objetivo", "Evitar cualquier tipo de expresión emocional"],
+      "opciones": [
+        "Un lenguaje coloquial, cercano y espontáneo",
+        "Un lenguaje técnico y objetivo",
+        "Evitar cualquier tipo de expresión emocional"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "¿Cuál oración pertenece al registro formal?",
-      "opciones": ["Estimado señor, le informo que su solicitud ha sido aprobada", "Oye, ya te aprobaron eso", "Ya está, todo bien"],
+      "opciones": [
+        "Estimado señor, le informo que su solicitud ha sido aprobada",
+        "Oye, ya te aprobaron eso",
+        "Ya está, todo bien"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "¿Cuál oración pertenece al registro informal?",
-      "opciones": ["¿Qué onda? ¿Vamos por unos tacos?", "Por medio de la presente, solicito su atención", "Se le comunica que el trámite ha concluido"],
+      "opciones": [
+        "¿Qué onda? ¿Vamos por unos tacos?",
+        "Por medio de la presente, solicito su atención",
+        "Se le comunica que el trámite ha concluido"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "La adecuación del vocabulario significa:",
-      "opciones": ["Elegir las palabras apropiadas según el contexto y el destinatario", "Usar siempre palabras técnicas", "Usar siempre sinónimos"],
+      "opciones": [
+        "Elegir las palabras apropiadas según el contexto y el destinatario",
+        "Usar siempre palabras técnicas",
+        "Usar siempre sinónimos"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "¿Cuál oración presenta un error de precisión léxica (palabra inadecuada para el contexto)?",
-      "opciones": ["El médico curó al paciente con una operación", "El médico arregló al paciente con una operación", "El médico trató al paciente con una operación"],
+      "opciones": [
+        "El médico curó al paciente con una operación",
+        "El médico arregló al paciente con una operación",
+        "El médico trató al paciente con una operación"
+      ],
       "correcta": 1
     },
     {
       "pregunta": "Completa la analogía por relación de función: Llave es a Abrir como Cuchillo es a ___",
-      "opciones": ["Cortar", "Comer", "Cocinar"],
+      "opciones": [
+        "Cortar",
+        "Comer",
+        "Cocinar"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "Completa la analogía por relación de causa-efecto: Fuego es a Calor como Hielo es a ___",
-      "opciones": ["Frío", "Agua", "Nieve"],
+      "opciones": [
+        "Frío",
+        "Agua",
+        "Nieve"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "Completa la analogía por relación de pertenencia: Rueda es a Automóvil como Hoja es a ___",
-      "opciones": ["Árbol", "Papel", "Libro"],
+      "opciones": [
+        "Árbol",
+        "Papel",
+        "Libro"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "Completa la analogía por relación de oposición: Día es a Noche como Caliente es a ___",
-      "opciones": ["Frío", "Cálido", "Templado"],
+      "opciones": [
+        "Frío",
+        "Cálido",
+        "Templado"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "Completa la analogía: Médico es a Hospital como Maestro es a ___",
-      "opciones": ["Escuela", "Libro", "Pizarrón"],
+      "opciones": [
+        "Escuela",
+        "Libro",
+        "Pizarrón"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "Completa la analogía: Pez es a Agua como Ave es a ___",
-      "opciones": ["Aire", "Nido", "Árbol"],
+      "opciones": [
+        "Aire",
+        "Nido",
+        "Árbol"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "Completa la analogía: Autor es a Libro como Pintor es a ___",
-      "opciones": ["Cuadro", "Pincel", "Museo"],
+      "opciones": [
+        "Cuadro",
+        "Pincel",
+        "Museo"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "Completa la analogía: Semilla es a Árbol como Huevo es a ___",
-      "opciones": ["Ave", "Nido", "Pluma"],
+      "opciones": [
+        "Ave",
+        "Nido",
+        "Pluma"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "Completa la analogía por sinonimia: Feliz es a Contento como Triste es a ___",
-      "opciones": ["Apenado", "Alegre", "Enojado"],
+      "opciones": [
+        "Apenado",
+        "Alegre",
+        "Enojado"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "Completa la analogía por antonimia: Alto es a Bajo como Grueso es a ___",
-      "opciones": ["Delgado", "Ancho", "Pesado"],
+      "opciones": [
+        "Delgado",
+        "Ancho",
+        "Pesado"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "Completa de forma coherente: 'Aunque estudió mucho, ___ no aprobó el examen.'",
-      "opciones": ["sorprendentemente", "por lo tanto", "debido a esto"],
+      "opciones": [
+        "sorprendentemente",
+        "por lo tanto",
+        "debido a esto"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "Completa de forma coherente: 'El clima estaba tan frío que decidimos ___'",
-      "opciones": ["quedarnos en casa", "salir a nadar", "usar ropa ligera"],
+      "opciones": [
+        "quedarnos en casa",
+        "salir a nadar",
+        "usar ropa ligera"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "Completa de forma coherente: 'Como no tenía dinero, ___'",
-      "opciones": ["no pudo comprar el boleto", "compró varios boletos", "viajó en primera clase"],
+      "opciones": [
+        "no pudo comprar el boleto",
+        "compró varios boletos",
+        "viajó en primera clase"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "Completa de forma gramaticalmente correcta: 'Ella es la persona ___ más admiro.'",
-      "opciones": ["que", "quien", "cual"],
+      "opciones": [
+        "que",
+        "quien",
+        "cual"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "Completa de forma gramaticalmente correcta: 'Los estudiantes ___ llegaron tarde no pudieron presentar el examen.'",
-      "opciones": ["que", "quienes", "cuales"],
+      "opciones": [
+        "que",
+        "quienes",
+        "cuales"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "Ordena lógicamente para formar un párrafo coherente: (1) Finalmente, agregó la sal. (2) Primero, cortó las verduras. (3) Después, las puso a cocer.",
-      "opciones": ["2, 3, 1", "1, 2, 3", "3, 1, 2"],
+      "opciones": [
+        "2, 3, 1",
+        "1, 2, 3",
+        "3, 1, 2"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "¿Cuál es el orden lógico correcto para reconstruir el párrafo? (1) Por eso, se recomienda dormir al menos 8 horas. (2) El sueño es esencial para la salud. (3) La falta de sueño afecta la concentración.",
-      "opciones": ["2, 3, 1", "1, 2, 3", "3, 2, 1"],
+      "opciones": [
+        "2, 3, 1",
+        "1, 2, 3",
+        "3, 2, 1"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "En un texto argumentativo, el orden lógico habitual es:",
-      "opciones": ["Introducción, desarrollo (argumentos) y conclusión", "Conclusión, desarrollo e introducción", "Desarrollo, conclusión e introducción"],
+      "opciones": [
+        "Introducción, desarrollo (argumentos) y conclusión",
+        "Conclusión, desarrollo e introducción",
+        "Desarrollo, conclusión e introducción"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "¿Cuál conector sería más adecuado para iniciar un párrafo que presenta una conclusión?",
-      "opciones": ["En conclusión", "Por ejemplo", "Además"],
+      "opciones": [
+        "En conclusión",
+        "Por ejemplo",
+        "Además"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "¿Qué oración debe eliminarse por ser redundante? 'El agua es esencial para la vida. El agua es un líquido vital. Sin agua no podríamos sobrevivir.'",
-      "opciones": ["'El agua es un líquido vital' (repite la idea de la primera oración)", "'El agua es esencial para la vida'", "'Sin agua no podríamos sobrevivir'"],
+      "opciones": [
+        "'El agua es un líquido vital' (repite la idea de la primera oración)",
+        "'El agua es esencial para la vida'",
+        "'Sin agua no podríamos sobrevivir'"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "¿Qué oración es impertinente (no pertenece al tema) en este párrafo? 'Los volcanes son formaciones geológicas. Entran en erupción liberando lava. Mi comida favorita es la pizza. Su actividad puede ser peligrosa.'",
-      "opciones": ["'Mi comida favorita es la pizza'", "'Los volcanes son formaciones geológicas'", "'Su actividad puede ser peligrosa'"],
+      "opciones": [
+        "'Mi comida favorita es la pizza'",
+        "'Los volcanes son formaciones geológicas'",
+        "'Su actividad puede ser peligrosa'"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "¿Qué oración presenta una inconsistencia temática en este párrafo? 'El reciclaje ayuda al medio ambiente. Reduce la contaminación. Los gatos son animales domésticos. Ahorra recursos naturales.'",
-      "opciones": ["'Los gatos son animales domésticos'", "'El reciclaje ayuda al medio ambiente'", "'Ahorra recursos naturales'"],
+      "opciones": [
+        "'Los gatos son animales domésticos'",
+        "'El reciclaje ayuda al medio ambiente'",
+        "'Ahorra recursos naturales'"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "La redundancia en un texto se refiere a:",
-      "opciones": ["Repetir una idea innecesariamente con distintas palabras", "Presentar ideas contradictorias", "Usar palabras técnicas"],
+      "opciones": [
+        "Repetir una idea innecesariamente con distintas palabras",
+        "Presentar ideas contradictorias",
+        "Usar palabras técnicas"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "La impertinencia en un texto se refiere a:",
-      "opciones": ["Incluir información que no tiene relación con el tema central", "Repetir la misma idea", "Usar un lenguaje muy formal"],
+      "opciones": [
+        "Incluir información que no tiene relación con el tema central",
+        "Repetir la misma idea",
+        "Usar un lenguaje muy formal"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "Un texto expositivo tiene como propósito principal:",
-      "opciones": ["Explicar o informar sobre un tema de manera objetiva", "Narrar una historia con personajes", "Convencer al lector de una opinión"],
+      "opciones": [
+        "Explicar o informar sobre un tema de manera objetiva",
+        "Narrar una historia con personajes",
+        "Convencer al lector de una opinión"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "¿Cuál de las siguientes es un ejemplo de texto expositivo?",
-      "opciones": ["Un artículo enciclopédico sobre el sistema solar", "Una novela de aventuras", "Un poema de amor"],
+      "opciones": [
+        "Un artículo enciclopédico sobre el sistema solar",
+        "Una novela de aventuras",
+        "Un poema de amor"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "Un texto literario se caracteriza principalmente por:",
-      "opciones": ["Tener una función estética y usar recursos como metáforas o figuras retóricas", "Presentar solo datos objetivos y estadísticas", "Seguir un formato estrictamente legal"],
+      "opciones": [
+        "Tener una función estética y usar recursos como metáforas o figuras retóricas",
+        "Presentar solo datos objetivos y estadísticas",
+        "Seguir un formato estrictamente legal"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "¿Cuál de los siguientes es un ejemplo de texto periodístico?",
-      "opciones": ["Una noticia sobre un evento reciente", "Un cuento de hadas", "Una fórmula matemática"],
+      "opciones": [
+        "Una noticia sobre un evento reciente",
+        "Un cuento de hadas",
+        "Una fórmula matemática"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "Un texto académico se caracteriza por:",
-      "opciones": ["Usar un lenguaje formal, objetivo y con base en fuentes o investigación", "Usar un lenguaje coloquial y subjetivo", "Estar escrito exclusivamente en verso"],
+      "opciones": [
+        "Usar un lenguaje formal, objetivo y con base en fuentes o investigación",
+        "Usar un lenguaje coloquial y subjetivo",
+        "Estar escrito exclusivamente en verso"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "¿Cuál de los siguientes es un ejemplo de texto administrativo?",
-      "opciones": ["Una solicitud formal o un oficio", "Un poema", "Un cuento corto"],
+      "opciones": [
+        "Una solicitud formal o un oficio",
+        "Un poema",
+        "Un cuento corto"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "La idea principal de un texto es:",
-      "opciones": ["El planteamiento central alrededor del cual gira toda la información", "Un dato secundario mencionado una sola vez", "Un ejemplo aislado del texto"],
+      "opciones": [
+        "El planteamiento central alrededor del cual gira toda la información",
+        "Un dato secundario mencionado una sola vez",
+        "Un ejemplo aislado del texto"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "Las ideas secundarias en un texto:",
-      "opciones": ["Apoyan, explican o amplían la idea principal", "Son siempre más importantes que la idea principal", "No tienen relación con el texto"],
+      "opciones": [
+        "Apoyan, explican o amplían la idea principal",
+        "Son siempre más importantes que la idea principal",
+        "No tienen relación con el texto"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "El tema central de un texto es:",
-      "opciones": ["El asunto general del que trata el texto, expresado en pocas palabras", "Un ejemplo específico mencionado en el texto", "La opinión personal del lector"],
+      "opciones": [
+        "El asunto general del que trata el texto, expresado en pocas palabras",
+        "Un ejemplo específico mencionado en el texto",
+        "La opinión personal del lector"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "Un título adecuado para un texto debe:",
-      "opciones": ["Reflejar de forma breve y precisa el contenido central del texto", "Ser lo más largo posible para incluir todos los detalles", "No tener relación con el contenido"],
+      "opciones": [
+        "Reflejar de forma breve y precisa el contenido central del texto",
+        "Ser lo más largo posible para incluir todos los detalles",
+        "No tener relación con el contenido"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "El propósito del autor en un texto se refiere a:",
-      "opciones": ["La intención comunicativa que busca lograr (informar, persuadir, entretener, etc.)", "El número de párrafos del texto", "El tipo de letra utilizado"],
+      "opciones": [
+        "La intención comunicativa que busca lograr (informar, persuadir, entretener, etc.)",
+        "El número de párrafos del texto",
+        "El tipo de letra utilizado"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "Texto: 'Se recomienda encarecidamente reducir el consumo de azúcar para prevenir enfermedades.' ¿Cuál es la intención comunicativa del autor?",
-      "opciones": ["Persuadir o aconsejar al lector", "Narrar una historia", "Describir un paisaje"],
+      "opciones": [
+        "Persuadir o aconsejar al lector",
+        "Narrar una historia",
+        "Describir un paisaje"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "El tono de un autor en un texto se refiere a:",
-      "opciones": ["La actitud o emoción que transmite hacia el tema (irónico, serio, humorístico, etc.)", "El número de páginas del texto", "El idioma en que está escrito"],
+      "opciones": [
+        "La actitud o emoción que transmite hacia el tema (irónico, serio, humorístico, etc.)",
+        "El número de páginas del texto",
+        "El idioma en que está escrito"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "Texto: 'Ay, sí, seguro que llegará puntual... como siempre.' ¿Qué tono predomina en esta oración?",
-      "opciones": ["Irónico o sarcástico", "Serio y formal", "Alegre y entusiasta"],
+      "opciones": [
+        "Irónico o sarcástico",
+        "Serio y formal",
+        "Alegre y entusiasta"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "La coherencia local en un texto se refiere a:",
-      "opciones": ["La relación lógica entre oraciones cercanas dentro de un párrafo", "La relación entre todos los párrafos del texto completo", "El uso correcto de la ortografía"],
+      "opciones": [
+        "La relación lógica entre oraciones cercanas dentro de un párrafo",
+        "La relación entre todos los párrafos del texto completo",
+        "El uso correcto de la ortografía"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "La coherencia global en un texto se refiere a:",
-      "opciones": ["La relación lógica de todas las ideas a lo largo de todo el texto", "La relación entre dos palabras dentro de una oración", "El uso de mayúsculas"],
+      "opciones": [
+        "La relación lógica de todas las ideas a lo largo de todo el texto",
+        "La relación entre dos palabras dentro de una oración",
+        "El uso de mayúsculas"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "Los marcadores discursivos son palabras o frases que:",
-      "opciones": ["Organizan y conectan las ideas de un texto (por ejemplo, 'en primer lugar', 'por otro lado')", "Solo se usan en poesía", "Nunca aparecen en textos académicos"],
+      "opciones": [
+        "Organizan y conectan las ideas de un texto (por ejemplo, 'en primer lugar', 'por otro lado')",
+        "Solo se usan en poesía",
+        "Nunca aparecen en textos académicos"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "En 'Juan llegó a la fiesta. Él estaba muy contento', la palabra 'él' funciona como:",
-      "opciones": ["Una referencia (pronombre) que sustituye a 'Juan'", "Un conector de causa", "Un adjetivo"],
+      "opciones": [
+        "Una referencia (pronombre) que sustituye a 'Juan'",
+        "Un conector de causa",
+        "Un adjetivo"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "Los deícticos son palabras que:",
-      "opciones": ["Señalan algo dependiendo del contexto (aquí, ahora, yo, esto)", "Siempre indican un lugar fijo", "Son sinónimos de otra palabra"],
+      "opciones": [
+        "Señalan algo dependiendo del contexto (aquí, ahora, yo, esto)",
+        "Siempre indican un lugar fijo",
+        "Son sinónimos de otra palabra"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "La elipsis en un texto consiste en:",
-      "opciones": ["Omitir una palabra o frase que se sobreentiende por el contexto", "Repetir una palabra varias veces", "Usar una palabra con doble significado"],
+      "opciones": [
+        "Omitir una palabra o frase que se sobreentiende por el contexto",
+        "Repetir una palabra varias veces",
+        "Usar una palabra con doble significado"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "En 'Pedro compró manzanas y María, peras', ¿qué palabra se omitió por elipsis antes de 'peras'?",
-      "opciones": ["El verbo 'compró'", "El sujeto 'María'", "El conector 'y'"],
+      "opciones": [
+        "El verbo 'compró'",
+        "El sujeto 'María'",
+        "El conector 'y'"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "La sustitución léxica consiste en:",
-      "opciones": ["Reemplazar una palabra por un sinónimo o expresión equivalente para evitar la repetición", "Repetir la misma palabra varias veces", "Eliminar palabras del texto"],
+      "opciones": [
+        "Reemplazar una palabra por un sinónimo o expresión equivalente para evitar la repetición",
+        "Repetir la misma palabra varias veces",
+        "Eliminar palabras del texto"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "En 'El perro corría. El animal parecía feliz', la palabra 'animal' es un ejemplo de:",
-      "opciones": ["Sustitución léxica de 'perro'", "Elipsis", "Deíctico"],
+      "opciones": [
+        "Sustitución léxica de 'perro'",
+        "Elipsis",
+        "Deíctico"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "La repetición léxica, usada de forma intencional, sirve para:",
-      "opciones": ["Dar énfasis o claridad a una idea importante", "Confundir al lector", "Acortar el texto"],
+      "opciones": [
+        "Dar énfasis o claridad a una idea importante",
+        "Confundir al lector",
+        "Acortar el texto"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "¿Qué tipo de conector es 'además' en una oración?",
-      "opciones": ["De adición", "De contraste", "De causa"],
+      "opciones": [
+        "De adición",
+        "De contraste",
+        "De causa"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "¿Qué tipo de conector es 'sin embargo'?",
-      "opciones": ["De contraste", "De adición", "De consecuencia"],
+      "opciones": [
+        "De contraste",
+        "De adición",
+        "De consecuencia"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "¿Qué tipo de conector es 'porque'?",
-      "opciones": ["De causa", "De consecuencia", "De comparación"],
+      "opciones": [
+        "De causa",
+        "De consecuencia",
+        "De comparación"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "¿Qué tipo de conector es 'por lo tanto'?",
-      "opciones": ["De consecuencia", "De causa", "De adición"],
+      "opciones": [
+        "De consecuencia",
+        "De causa",
+        "De adición"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "¿Qué tipo de conector es 'al igual que'?",
-      "opciones": ["De comparación", "De finalidad", "De condición"],
+      "opciones": [
+        "De comparación",
+        "De finalidad",
+        "De condición"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "¿Qué tipo de conector es 'por ejemplo'?",
-      "opciones": ["De ejemplificación", "De temporalidad", "De condición"],
+      "opciones": [
+        "De ejemplificación",
+        "De temporalidad",
+        "De condición"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "¿Qué tipo de conector es 'mientras tanto'?",
-      "opciones": ["De temporalidad", "De finalidad", "De causa"],
+      "opciones": [
+        "De temporalidad",
+        "De finalidad",
+        "De causa"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "En 'Si estudias, aprobarás', la palabra 'si' funciona como un conector:",
-      "opciones": ["De condición", "De finalidad", "De contraste"],
+      "opciones": [
+        "De condición",
+        "De finalidad",
+        "De contraste"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "¿Qué tipo de conector es 'para que'?",
-      "opciones": ["De finalidad", "De condición", "De adición"],
+      "opciones": [
+        "De finalidad",
+        "De condición",
+        "De adición"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "Texto: 'Los delfines duermen con un hemisferio cerebral a la vez, manteniendo el otro alerta para poder respirar y detectar peligros.' ¿Qué información es explícita en el texto?",
-      "opciones": ["Los delfines duermen con un hemisferio cerebral a la vez", "Los delfines son los animales más inteligentes", "Los delfines nunca duermen"],
+      "opciones": [
+        "Los delfines duermen con un hemisferio cerebral a la vez",
+        "Los delfines son los animales más inteligentes",
+        "Los delfines nunca duermen"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "Texto: 'Marta llegó empapada a la oficina, se disculpó por el retraso y comentó que el tráfico había sido terrible.' ¿Qué se puede inferir del texto?",
-      "opciones": ["Probablemente estaba lloviendo cuando Marta salió de su casa", "Marta llegó temprano", "Marta trabaja desde casa"],
+      "opciones": [
+        "Probablemente estaba lloviendo cuando Marta salió de su casa",
+        "Marta llegó temprano",
+        "Marta trabaja desde casa"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "Texto: 'Después de la reunión, todos los empleados salieron con una sonrisa y comentaban emocionados sobre los bonos anunciados.' ¿Qué se puede deducir?",
-      "opciones": ["La reunión trajo buenas noticias para los empleados", "La reunión fue cancelada", "Los empleados fueron despedidos"],
+      "opciones": [
+        "La reunión trajo buenas noticias para los empleados",
+        "La reunión fue cancelada",
+        "Los empleados fueron despedidos"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "Una inferencia es:",
-      "opciones": ["Una conclusión que el lector obtiene a partir de pistas del texto, aunque no esté dicho explícitamente", "Una copia textual del contenido", "Un dato mencionado literalmente"],
+      "opciones": [
+        "Una conclusión que el lector obtiene a partir de pistas del texto, aunque no esté dicho explícitamente",
+        "Una copia textual del contenido",
+        "Un dato mencionado literalmente"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "La información implícita en un texto es aquella que:",
-      "opciones": ["No está dicha directamente, pero se puede deducir del contexto", "Aparece de forma literal y directa", "Nunca puede deducirse"],
+      "opciones": [
+        "No está dicha directamente, pero se puede deducir del contexto",
+        "Aparece de forma literal y directa",
+        "Nunca puede deducirse"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "Texto: 'A pesar de que el equipo entrenó todo el año, perdió la final por un solo punto.' ¿Cuál es una conclusión razonable?",
-      "opciones": ["El esfuerzo no siempre garantiza la victoria", "El equipo nunca entrenó", "El equipo ganó la final"],
+      "opciones": [
+        "El esfuerzo no siempre garantiza la victoria",
+        "El equipo nunca entrenó",
+        "El equipo ganó la final"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "Sintetizar un texto significa:",
-      "opciones": ["Reducirlo a sus ideas esenciales, expresadas de forma breve", "Copiarlo palabra por palabra", "Ampliarlo con más ejemplos"],
+      "opciones": [
+        "Reducirlo a sus ideas esenciales, expresadas de forma breve",
+        "Copiarlo palabra por palabra",
+        "Ampliarlo con más ejemplos"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "Parafrasear un texto significa:",
-      "opciones": ["Expresar la misma idea con palabras distintas a las del autor original", "Copiar el texto exactamente", "Traducirlo a otro idioma"],
+      "opciones": [
+        "Expresar la misma idea con palabras distintas a las del autor original",
+        "Copiar el texto exactamente",
+        "Traducirlo a otro idioma"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "¿Cuál es una paráfrasis adecuada de 'El calentamiento global provoca el derretimiento de los glaciares'?",
-      "opciones": ["El aumento de la temperatura del planeta hace que los glaciares se derritan", "Los glaciares provocan el calentamiento global", "El calentamiento global no afecta a los glaciares"],
+      "opciones": [
+        "El aumento de la temperatura del planeta hace que los glaciares se derritan",
+        "Los glaciares provocan el calentamiento global",
+        "El calentamiento global no afecta a los glaciares"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "Resumir un texto implica:",
-      "opciones": ["Presentar de forma breve las ideas más importantes, sin perder el sentido original", "Agregar opiniones personales no mencionadas en el texto", "Copiar únicamente la introducción"],
+      "opciones": [
+        "Presentar de forma breve las ideas más importantes, sin perder el sentido original",
+        "Agregar opiniones personales no mencionadas en el texto",
+        "Copiar únicamente la introducción"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "Al comparar dos textos sobre un mismo tema, es importante identificar:",
-      "opciones": ["Las similitudes y diferencias en sus argumentos o enfoques", "Solo la extensión de cada texto", "El tipo de letra utilizado"],
+      "opciones": [
+        "Las similitudes y diferencias en sus argumentos o enfoques",
+        "Solo la extensión de cada texto",
+        "El tipo de letra utilizado"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "Texto: 'El uso excesivo de pesticidas ha reducido la población de abejas, afectando la polinización de muchos cultivos.' Si la tendencia continúa, ¿qué se puede inferir sobre esos cultivos?",
-      "opciones": ["Podrían disminuir su producción por falta de polinización", "Aumentarán sin ningún problema", "No se verán afectados en absoluto"],
+      "opciones": [
+        "Podrían disminuir su producción por falta de polinización",
+        "Aumentarán sin ningún problema",
+        "No se verán afectados en absoluto"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "Un hecho, en un texto, se caracteriza por:",
-      "opciones": ["Ser verificable y objetivo", "Ser una opinión personal", "Ser siempre falso"],
+      "opciones": [
+        "Ser verificable y objetivo",
+        "Ser una opinión personal",
+        "Ser siempre falso"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "Una opinión, a diferencia de un hecho, se caracteriza por:",
-      "opciones": ["Expresar un punto de vista subjetivo que puede variar entre personas", "Ser siempre comprobable", "Ser un dato estadístico"],
+      "opciones": [
+        "Expresar un punto de vista subjetivo que puede variar entre personas",
+        "Ser siempre comprobable",
+        "Ser un dato estadístico"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "¿Cuál de las siguientes oraciones es un hecho (dato objetivo)?",
-      "opciones": ["El agua hierve a 100°C al nivel del mar", "La pizza es la mejor comida del mundo", "El azul es el color más bonito"],
+      "opciones": [
+        "El agua hierve a 100°C al nivel del mar",
+        "La pizza es la mejor comida del mundo",
+        "El azul es el color más bonito"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "¿Cuál de las siguientes oraciones es una opinión?",
-      "opciones": ["Esta película es la mejor de todos los tiempos", "La Tierra gira alrededor del Sol", "El agua está compuesta por hidrógeno y oxígeno"],
+      "opciones": [
+        "Esta película es la mejor de todos los tiempos",
+        "La Tierra gira alrededor del Sol",
+        "El agua está compuesta por hidrógeno y oxígeno"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "Un juicio de valor es:",
-      "opciones": ["Una evaluación subjetiva basada en las creencias o preferencias de quien lo emite", "Un dato científico comprobado", "Una cita textual"],
+      "opciones": [
+        "Una evaluación subjetiva basada en las creencias o preferencias de quien lo emite",
+        "Un dato científico comprobado",
+        "Una cita textual"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "La objetividad en un texto implica:",
-      "opciones": ["Presentar la información sin influencia de sentimientos o preferencias personales", "Expresar libremente las emociones del autor", "Basarse únicamente en opiniones"],
+      "opciones": [
+        "Presentar la información sin influencia de sentimientos o preferencias personales",
+        "Expresar libremente las emociones del autor",
+        "Basarse únicamente en opiniones"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "La subjetividad en un texto implica:",
-      "opciones": ["Que la información está influida por los sentimientos, juicios o perspectivas personales del autor", "Que la información es completamente verificable", "Que el texto no tiene autor"],
+      "opciones": [
+        "Que la información está influida por los sentimientos, juicios o perspectivas personales del autor",
+        "Que la información es completamente verificable",
+        "Que el texto no tiene autor"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "Para evaluar la confiabilidad de una fuente de información, es importante considerar:",
-      "opciones": ["Si el autor es experto en el tema y si la información puede verificarse", "Únicamente la extensión del texto", "El color con el que está impreso"],
+      "opciones": [
+        "Si el autor es experto en el tema y si la información puede verificarse",
+        "Únicamente la extensión del texto",
+        "El color con el que está impreso"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "La tesis de un texto argumentativo es:",
-      "opciones": ["La idea central que el autor defiende o propone", "Un ejemplo aislado", "La conclusión de otro autor"],
+      "opciones": [
+        "La idea central que el autor defiende o propone",
+        "Un ejemplo aislado",
+        "La conclusión de otro autor"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "Los argumentos en un texto sirven para:",
-      "opciones": ["Sustentar o defender la tesis planteada por el autor", "Contradecir siempre la tesis", "Adornar el texto sin ningún propósito"],
+      "opciones": [
+        "Sustentar o defender la tesis planteada por el autor",
+        "Contradecir siempre la tesis",
+        "Adornar el texto sin ningún propósito"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "Un contraargumento es:",
-      "opciones": ["Una idea que se opone o cuestiona la tesis principal", "Una repetición de la tesis", "Un sinónimo del argumento principal"],
+      "opciones": [
+        "Una idea que se opone o cuestiona la tesis principal",
+        "Una repetición de la tesis",
+        "Un sinónimo del argumento principal"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "Las evidencias en un texto argumentativo son:",
-      "opciones": ["Datos, ejemplos o pruebas que respaldan un argumento", "Opiniones sin fundamento", "Adornos literarios"],
+      "opciones": [
+        "Datos, ejemplos o pruebas que respaldan un argumento",
+        "Opiniones sin fundamento",
+        "Adornos literarios"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "La conclusión en un texto argumentativo debe:",
-      "opciones": ["Cerrar el argumento reafirmando la tesis a partir de lo expuesto", "Introducir un tema completamente nuevo", "Contradecir todo lo dicho antes"],
+      "opciones": [
+        "Cerrar el argumento reafirmando la tesis a partir de lo expuesto",
+        "Introducir un tema completamente nuevo",
+        "Contradecir todo lo dicho antes"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "Una falacia argumentativa es:",
-      "opciones": ["Un razonamiento que parece válido pero contiene un error lógico", "Un argumento sólido y bien fundamentado", "Una cita textual correcta"],
+      "opciones": [
+        "Un razonamiento que parece válido pero contiene un error lógico",
+        "Un argumento sólido y bien fundamentado",
+        "Una cita textual correcta"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "¿Cuál de las siguientes oraciones es un ejemplo de falacia de ataque personal (ad hominem)?",
-      "opciones": ["No puedes creerle sobre economía, si ni siquiera terminó la escuela", "Su argumento sobre economía tiene datos incorrectos", "Estoy de acuerdo con su argumento sobre economía"],
+      "opciones": [
+        "No puedes creerle sobre economía, si ni siquiera terminó la escuela",
+        "Su argumento sobre economía tiene datos incorrectos",
+        "Estoy de acuerdo con su argumento sobre economía"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "¿Cuál de las siguientes oraciones es un ejemplo de falacia de generalización apresurada?",
-      "opciones": ["Conocí a dos personas de esa ciudad y eran groseras, así que todos ahí deben ser groseros", "Algunas personas de esa ciudad son groseras", "Esas dos personas en particular fueron groseras conmigo"],
+      "opciones": [
+        "Conocí a dos personas de esa ciudad y eran groseras, así que todos ahí deben ser groseros",
+        "Algunas personas de esa ciudad son groseras",
+        "Esas dos personas en particular fueron groseras conmigo"
+      ],
       "correcta": 0
     }
   ]
