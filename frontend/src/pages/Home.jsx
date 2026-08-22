@@ -8,12 +8,13 @@ import Hexagono from '../components/Hexagono'
 import LibroCard from '../components/LibroCard'
 import Sidenav from '../components/Sidenav'
 import TemariosCards from '../components/TemariosCards'
-import { triggerVibration } from '../utils/haptics'
+import { triggerVibration, esVibracionSoportada } from '../utils/haptics'
+import { useFullscreen } from '../hooks/useFullscreen'
 import { obtenerLeccionDeSesion } from '../services/leccionesPremium'
 
 import { BiMobileVibration } from "react-icons/bi";
 import { RxEnterFullScreen } from "react-icons/rx";
-import { MdFullscreen } from "react-icons/md";
+import { MdFullscreen, MdFullscreenExit } from "react-icons/md";
 import { RiMenuFill } from "react-icons/ri";
 import { FaInstagram, FaFacebook, FaEnvelope, FaWhatsapp, FaRegCommentDots } from 'react-icons/fa'
 
@@ -37,7 +38,8 @@ export default function Home() {
   const [premiumLessonLoading, setPremiumLessonLoading] = useState(false)
   const [premiumLessonError, setPremiumLessonError] = useState('')
 
-  const [esFullscreen, setEsFullscreen] = useState(false)
+  const { esFullscreen, toggleFullscreen, soportado: fullscreenSoportado } = useFullscreen()
+  const vibracionSoportada = esVibracionSoportada()
   const [vibracionActiva, setVibracionActiva] = useState(
   localStorage.getItem('hapticsEnabled') !== 'false'
   );
@@ -159,29 +161,25 @@ export default function Home() {
           onClick={() => window.open('https://docs.google.com/forms/d/e/1FAIpQLSeoEBlg6L-kp1X1IbuaHFaHa85eL0X2ph0XEX0Hu6wFGpL-Pw/viewform?pli=1', '_blank', 'noopener,noreferrer')}>
             <FaRegCommentDots />
           </button>
-          <button className="util-btn"
-          data-gamificacion="manual"
-          onClick={() => {
-            const nuevoEstado = !vibracionActiva;
-            setVibracionActiva(nuevoEstado);
-            localStorage.setItem('hapticsEnabled', String(nuevoEstado));
-            if (nuevoEstado) triggerVibration('success');
-          }}>
-            {vibracionActiva ? <BiMobileVibration /> : <BiMobileVibration />}
-          </button>
-          <button className="util-btn"
-          data-gamificacion="bajo"
-          onClick={() => {
-            if (!document.fullscreenElement) {
-              document.documentElement.requestFullscreen();
-              setEsFullscreen(true);
-            } else {
-              document.exitFullscreen();
-              setEsFullscreen(false);
-            }
-          }}>
-            {esFullscreen ? <MdFullscreen /> : <MdFullscreen />}
-          </button>
+          {vibracionSoportada && (
+            <button className="util-btn"
+            data-gamificacion="manual"
+            onClick={() => {
+              const nuevoEstado = !vibracionActiva;
+              setVibracionActiva(nuevoEstado);
+              localStorage.setItem('hapticsEnabled', String(nuevoEstado));
+              if (nuevoEstado) triggerVibration('success');
+            }}>
+              {vibracionActiva ? <BiMobileVibration /> : <BiMobileVibration />}
+            </button>
+          )}
+          {fullscreenSoportado && (
+            <button className="util-btn"
+            data-gamificacion="bajo"
+            onClick={toggleFullscreen}>
+              {esFullscreen ? <MdFullscreenExit /> : <MdFullscreen />}
+            </button>
+          )}
         </div>
       </div>
       <div className="page-content" style={{ display: 'flex', flexDirection: 'column', gap: '20px', flex: 1 }}>

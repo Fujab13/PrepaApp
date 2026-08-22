@@ -14,7 +14,7 @@ const CLAVE_TUTORIAL_VISTO = "prepaapp_tutorial_tutorias_visto";
 
 const PASOS_TUTORIAL = [
   {
-    titulo: "¿Cómo funcionan las Tutorías 1-a-1?",
+    titulo: "¿Cómo funcionan las Tutorías?",
     texto: "En el portal de Alumnos ves las clases individuales que tus maestros publican: materia, horario, duración y precio. Tú eliges cuál te conviene.",
   },
   {
@@ -27,7 +27,7 @@ const PASOS_TUTORIAL = [
   },
   {
     titulo: "Después de pagar",
-    texto: "Tu maestro te agrega a un grupo de WhatsApp para mandarte la liga de la clase y coordinar cualquier detalle extra directamente contigo.",
+    texto: "El sistema te agrega a un grupo de WhatsApp, donde podrás encontrar a tu maestro y otros compañeros para mandarte la liga de la clase y coordinar cualquier detalle extra directamente contigo.",
   },
 ];
 
@@ -138,7 +138,7 @@ const OPCIONES = [
     icono: <PiStudent />,
     color: "#7c5cbf",
     titulo: "Alumnos",
-    subtitulo: "Reserva una clase 1-a-1 con un maestro.",
+    subtitulo: "Reserva una clase con un maestro.",
   },
   {
     to: "/tutorias/maestro",

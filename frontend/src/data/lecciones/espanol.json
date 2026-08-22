@@ -83,7 +83,7 @@
       "intro": true
     },
     {
-      "pregunta": "Los sustantivos son palabras que nombran personas, animales, objetos, lugares, ideas o sentimientos."
+      "pregunta": "Los sustantivos son palabras que nombran personas, animales, objetos, lugares, ideas o sentimientos, funcionando como el núcleo de los sintagmas nominales. Varían en género y número, y pueden ser concretos (tangibles) o abstractos (intangibles). En la oración 'El conocimiento, la amistad y el cansancio son sentimientos humanos', las palabras 'conocimiento', 'amistad' y 'cansancio' son sustantivos que nombran conceptos abstractos."
     },
     {
       "pregunta": "¿Cuál de las siguientes palabras es un sustantivo propio?",
@@ -128,7 +128,7 @@
       "correcta": 1
     },
     {
-      "pregunta": "Los pronombres son palabras que sustituyen a un sustantivo para evitar su repetición y hacer más clara la comunicación."
+      "pregunta": "Los pronombres son palabras que sustituyen a un sustantivo para evitar su repetición y hacer más clara la comunicación. Varían según la persona gramatical y número, adoptando diferentes formas: personales, posesivos, demostrativos, entre otros. Por ejemplo, en la oración 'Marco estudia, pero él necesita descansar', el pronombre personal 'él' reemplaza a 'Marco' para evitar la redundancia."
     },
     {
       "pregunta": "¿Cuál de las siguientes palabras es un pronombre personal?",
@@ -173,7 +173,7 @@
       "correcta": 0
     },
     {
-      "pregunta": "Los adjetivos son palabras que acompañan al sustantivo para describirlo, calificarlo o aportar información sobre sus características, cantidad o relación."
+      "pregunta": "Los adjetivos son palabras que acompañan al sustantivo para describirlo, calificarlo o aportar información sobre sus características, cantidad o relación. Concuerdan en género y número con el sustantivo al cual modifican, y pueden adoptar diferentes posiciones dentro de la frase según el énfasis. En 'Los exámenes difíciles requieren una preparación rigurosa', tanto 'difíciles' como 'rigurosa' son adjetivos que califican respectivamente al sustantivo."
     },
     {
       "pregunta": "¿Cuál de las siguientes palabras es un adjetivo calificativo?",
@@ -218,7 +218,7 @@
       "correcta": 0
     },
     {
-      "pregunta": "Los artículos son palabras que acompañan al sustantivo para indicar su género, número y si se refiere a algo conocido o no conocido."
+      "pregunta": "Los artículos son palabras que acompañan al sustantivo para indicar su género, número y si se refiere a algo conocido o no conocido. Existen dos clases principales: los definidos (el, la, los, las) que presentan algo ya mencionado o conocido, y los indefinidos (un, una, unos, unas) que presentan algo nuevo. Por ejemplo, 'Encontré un libro en la biblioteca' usa el artículo indefinido 'un' porque el libro es nuevo, mientras 'El libro que encontré' usa 'el' porque ya se conoce."
     },
     {
       "pregunta": "¿Cuál de las siguientes palabras es un artículo definido?",
@@ -263,7 +263,7 @@
       "correcta": 0
     },
     {
-      "pregunta": "Los adverbios son palabras invariables que modifican a un verbo, un adjetivo, otro adverbio o una oración entera."
+      "pregunta": "Los adverbios son palabras invariables que modifican a un verbo, un adjetivo, otro adverbio o una oración entera. No cambian su forma según género, número o persona, y aportan información sobre el cómo, cuándo, dónde o en qué medida ocurre una acción. En la oración 'Los investigadores trabajaron muy cuidadosamente durante toda la noche', el adverbio 'cuidadosamente' modifica al verbo y 'muy' intensifica al adverbio anterior."
     },
     {
       "pregunta": "¿Cuál de las siguientes palabras es un adverbio de tiempo?",
@@ -308,7 +308,7 @@
       "correcta": 0
     },
     {
-      "pregunta": "Las preposiciones son palabras invariables que relacionan palabras o grupos de palabras dentro de una oración."
+      "pregunta": "Las preposiciones son palabras invariables que relacionan palabras o grupos de palabras dentro de una oración. Establecen vínculos de lugar, tiempo, causa, modo, compañía o posesión entre los elementos que conectan. En 'El investigador trabajó con sus colegas en el laboratorio durante tres meses', las preposiciones 'con', 'en' y 'durante' relacionan el verbo con sus complementos de compañía, lugar y tiempo respectivamente."
     },
     {
       "pregunta": "¿Cuál de las siguientes palabras es una preposición?",
@@ -353,7 +353,7 @@
       "correcta": 0
     },
     {
-      "pregunta": "Las conjunciones son palabras invariables que unen palabras, grupos de palabras u oraciones."
+      "pregunta": "Las conjunciones son palabras invariables que unen palabras, grupos de palabras u oraciones, estableciendo relaciones lógicas entre ellas. Pueden expresar unión (y, e), alternancia (o, u), oposición (pero, sino), causa-consecuencia (porque, luego), o condición (si, aunque). Por ejemplo, en 'Los estudiantes estudiaron porque querían aprobar y obtuvieron los resultados esperados', las conjunciones 'porque' y 'y' estructuran la relación entre acciones."
     },
     {
       "pregunta": "¿Cuál de las siguientes palabras es una conjunción?",
@@ -398,7 +398,7 @@
       "correcta": 0
     },
     {
-      "pregunta": "Las interjecciones son palabras o expresiones invariables que comunican emociones, reacciones o llamados de forma inmediata."
+      "pregunta": "Las interjecciones son palabras o expresiones invariables que comunican emociones, reacciones o llamados de forma inmediata. Pueden ser propias (¡ay!, ¡oh!, ¡uf!) o impropias (¡cuidado!, ¡excelente!), y suelen aparecer entre signos de exclamación. En la oración '¡Ay! Me duele el brazo', la interjección '¡Ay!' expresa espontáneamente una sensación de dolor sin necesidad de estructura gramatical compleja."
     },
     {
       "pregunta": "¿Cuál de las siguientes palabras es una interjección?",
@@ -443,7 +443,7 @@
       "correcta": 0
     },
     {
-      "pregunta": "La conjugación verbal es el conjunto de cambios que experimenta un verbo para expresar persona, número, tiempo, modo y aspecto."
+      "pregunta": "La conjugación verbal es el conjunto de cambios que experimenta un verbo para expresar persona, número, tiempo, modo y aspecto. Cada cambio refleja información importante sobre quién realiza la acción, cuántas personas intervienen, cuándo ocurre y la actitud del hablante frente a ella. En 'Yo cantaré, tú cantabas, ellos cantaban', cada forma del verbo 'cantar' varía según persona, número y tiempo para precisar la información."
     },
     {
       "pregunta": "¿En cuál de las siguientes oraciones el verbo está conjugado en modo subjuntivo?",
@@ -479,7 +479,7 @@
       "correcta": 0
     },
     {
-      "pregunta": "La persona y el número son elementos de la conjugación verbal que indican quién realiza la acción y cuántos participantes intervienen."
+      "pregunta": "La persona y el número son elementos de la conjugación verbal que indican quién realiza la acción y cuántos participantes intervienen. La persona puede ser primera (hablante), segunda (oyente) o tercera (de quien se habla), mientras que el número especifica si es singular o plural. Por ejemplo, en 'Nosotros escribimos' la primera persona plural indica que son varios los que realizan la acción de escribir."
     },
     {
       "pregunta": "¿En cuál de las siguientes oraciones el verbo está conjugado en tercera persona del plural?",
@@ -524,7 +524,7 @@
       "correcta": 1
     },
     {
-      "pregunta": "Los tiempos verbales indican el momento en que ocurre una acción: pasado, presente o futuro."
+      "pregunta": "Los tiempos verbales indican el momento en que ocurre una acción: pasado, presente o futuro. Dentro de cada momento pueden existir múltiples formas que matizan la duración o la relación con otras acciones. Por ejemplo, 'Cuando llegué a la casa, mi hermana había cocinado la comida' utiliza el pretérito pluscuamperfecto para indicar que la acción de cocinar ocurrió antes de la acción de llegar, ambas en el pasado."
     },
     {
       "pregunta": "¿En cuál de las siguientes oraciones el verbo está conjugado en pretérito pluscuamperfecto del modo indicativo?",
@@ -569,7 +569,7 @@
       "correcta": 1
     },
     {
-      "pregunta": "Los modos verbales expresan la actitud del hablante frente a la acción: si es real, posible o una orden."
+      "pregunta": "Los modos verbales expresan la actitud del hablante frente a la acción: si es real, posible o una orden. El indicativo presenta hechos objetivos, el subjuntivo expresa deseos o dudas, y el imperativo comunica órdenes o ruegos. En 'Estudio mucho' (indicativo) afirmo un hecho, pero en 'Espero que estudies' (subjuntivo) expreso un deseo, demostrando cómo el modo cambia el significado."
     },
     {
       "pregunta": "¿En cuál de las siguientes oraciones el verbo está conjugado en modo subjuntivo?",
@@ -602,7 +602,7 @@
       "correcta": 0
     },
     {
-      "pregunta": "La voz verbal indica si el sujeto realiza la acción (voz activa) o la recibe (voz pasiva)."
+      "pregunta": "La voz verbal indica si el sujeto realiza la acción (voz activa) o la recibe (voz pasiva). En la voz activa, el sujeto es agente y el verbo predicativo; en la voz pasiva, el sujeto es paciente y se utiliza ser más participio. Por ejemplo, 'Los arquitectos diseñaron el edificio' está en voz activa, mientras que 'El edificio fue diseñado por los arquitectos' está en voz pasiva, mostrando el cambio de perspectiva."
     },
     {
       "pregunta": "¿En cuál de las siguientes oraciones el verbo está en voz pasiva?",
@@ -689,7 +689,7 @@
       "correcta": 0
     },
     {
-      "pregunta": "Las perífrasis verbales son construcciones de dos o más verbos que funcionan como una sola unidad y expresan obligación, posibilidad, inicio, duración o final de una acción."
+      "pregunta": "Las perífrasis verbales son construcciones de dos o más verbos que funcionan como una sola unidad y expresan obligación, posibilidad, inicio, duración o final de una acción. El verbo auxiliar aporta la información de tiempo y modo, mientras el verbo principal mantiene su forma de infinitivo, gerundio o participio. En 'Los investigadores deben completar el informe', la perífrasis 'deben completar' expresa una obligación como una unidad verbal única."
     },
     {
       "pregunta": "¿En cuál de las siguientes oraciones aparece una perífrasis verbal de obligación?",
@@ -734,13 +734,13 @@
       "correcta": 1
     },
     {
-      "pregunta": "La sintaxis estudia cómo se organizan y relacionan las palabras dentro de una oración para construir mensajes con sentido, analizando la función que cumple cada una."
+      "pregunta": "La sintaxis estudia cómo se organizan y relacionan las palabras dentro de una oración para construir mensajes con sentido, analizando la función que cumple cada una. Examina estructuras como el sujeto y predicado, así como los complementos verbales y sus modificadores, permitiendo reconocer cómo se construye la coherencia. En 'La estudiante brillante resolvió el problema matemático', la sintaxis identifica que 'estudiante' es sujeto, 'resolvió' es verbo y 'problema' es complemento directo."
     },
     {
       "pregunta": "La concordancia es la correspondencia gramatical entre elementos de la oración (género, número o persona) que evita ambigüedades.\n\nExisten dos tipos:\n• Concordancia nominal: entre el sustantivo y sus acompañantes.\n• Concordancia verbal: entre el sujeto y el verbo."
     },
     {
-      "pregunta": "La concordancia nominal es la relación gramatical entre un sustantivo y las palabras que lo acompañan (artículo, adjetivo, pronombre), de manera que coincidan en género y número."
+      "pregunta": "La concordancia nominal es la relación gramatical entre un sustantivo y las palabras que lo acompañan (artículo, adjetivo, pronombre), de manera que coincidan en género y número. Esta correspondencia es fundamental para la corrección gramatical y la claridad del mensaje. Por ejemplo, en 'Las investigaciones científicas fueron exitosas', todas las palabras concuerdan en género femenino y número plural con el sustantivo 'investigaciones'."
     },
     {
       "pregunta": "¿En cuál de las siguientes oraciones existe una concordancia nominal correcta?",
@@ -782,7 +782,7 @@
       "correcta": 2
     },
     {
-      "pregunta": "La concordancia verbal es la relación gramatical entre el sujeto y el verbo, de manera que coincidan en persona y número."
+      "pregunta": "La concordancia verbal es la relación gramatical entre el sujeto y el verbo, de manera que coincidan en persona y número. Esta correspondencia asegura que la información sea consistente y el mensaje sea claro. En 'Nosotros estudiamos diligentemente para la prueba', el verbo 'estudiamos' en primera persona plural concuerda con el sujeto 'nosotros', demostrando la relación de dependencia entre ambos elementos."
     },
     {
       "pregunta": "¿En cuál de las siguientes oraciones la concordancia verbal es correcta?",
@@ -998,7 +998,7 @@
       "correcta": 0
     },
     {
-      "pregunta": "El complemento circunstancial aporta información sobre las circunstancias de la acción: lugar, tiempo, modo, causa, finalidad, instrumento, compañía, entre otras."
+      "pregunta": "El complemento circunstancial aporta información sobre las circunstancias de la acción: lugar, tiempo, modo, causa, finalidad, instrumento, compañía, entre otras. Se puede reconocer respondiendo preguntas como ¿dónde?, ¿cuándo?, ¿cómo? o ¿por qué?, y puede omitirse sin alterar la estructura fundamental de la oración, aunque cambie el significado. En 'El experimento se realizó en el laboratorio ayer con mucha precisión', los complementos circunstanciales 'en el laboratorio' (lugar), 'ayer' (tiempo) y 'con mucha precisión' (modo) especifican las circunstancias."
     },
     {
       "pregunta": "¿Cuál es el complemento circunstancial de lugar en la siguiente oración? \"Los investigadores realizaron el experimento en el laboratorio central durante la tarde.\"",

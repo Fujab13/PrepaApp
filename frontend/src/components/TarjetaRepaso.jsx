@@ -12,6 +12,7 @@
 
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { FaVolumeUp, FaGoogle } from 'react-icons/fa'
+import Latex from './Latex'
 
 const UMBRAL_SALIDA = 0.7 // fracción de la tarjeta que debe salir del contenedor para contar como respuesta
 
@@ -304,9 +305,9 @@ export default function TarjetaRepaso({ pregunta, estados, respondido, color, on
           zIndex: 5,
         }}
       >
-        <p style={{ margin: 0, fontSize: 14, lineHeight: 1.45, color: 'var(--text)', fontWeight: 600, textAlign: 'center' }}>
-          {pregunta.pregunta}
-        </p>
+        <div style={{ fontSize: 14, lineHeight: 1.45, color: 'var(--text)', fontWeight: 600, textAlign: 'center' }}>
+          <Latex texto={pregunta.pregunta} />
+        </div>
       </div>
     </div>
   )
@@ -335,7 +336,7 @@ function Zona({ zonaId, opcion, indiceOriginal, estiloZona, onClick, deshabilita
         zIndex: 2,
       }}
     >
-      <span style={{
+      <div style={{
         position: 'absolute',
         left: forma.texto.left,
         top: forma.texto.top,
@@ -349,8 +350,8 @@ function Zona({ zonaId, opcion, indiceOriginal, estiloZona, onClick, deshabilita
         pointerEvents: 'none',
         transition: 'color 0.15s ease',
       }}>
-        {opcion}
-      </span>
+        <Latex texto={opcion} />
+      </div>
     </button>
   )
 }

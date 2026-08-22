@@ -1,0 +1,774 @@
+1. La tripulación del Apolo XI tuvo que recorrer en tres días la distancia de 3.8 × 10¹⁵ km para llegar a la Luna. ¿Cuál fue la rapidez promedio de la nave?
+A) 53 × 10¹³ km/día
+B) 5.3 × 10¹³ km/h
+C) 5.3 × 10¹¹ km/h
+D) 53 × 10¹¹ km/día
+
+2. Durante 15 segundos un motociclista se desplaza a 20 m/s, después, durante 20 segundos se mueve a 15 m/s, posteriormente se detiene durante 25 segundos y, finalmente, durante 18 segundos se traslada a 10 m/s. Con base en estos datos, la rapidez media es de
+A) 25 m/s
+B) 15 m/s
+C) 20 m/s
+D) 10 m/s
+
+3. Si se considera el carácter vectorial de dos fuerzas perpendiculares, la magnitud de la fuerza resultante con respecto a las magnitudes de las fuerzas componentes es ______ que la suma algebraica de las componentes.
+A) menor
+B) igual
+C) mayor
+D) inversa
+
+4. Una caja de 50 kg está dentro de un elevador cuando se rompe la cuerda de acero y cae. Durante la caída, ¿cuál es la fuerza en Newtons que el piso del elevador ejerce sobre la base de la caja?
+
+Considera g = 10 m/s²
+A) 5,000 N
+B) 50 N
+C) 5 N
+D) 0 N
+
+5. Si se deja caer una piedra desde la misma altura sobre la superficie lunar y sobre la superficie terrestre, ¿qué afirmación es correcta?
+A) En la Luna la piedra se queda flotando a la altura donde se soltó porque no hay atmósfera.
+B) En la Luna tarda más tiempo en llegar al suelo que en la Tierra, porque en la Luna disminuye la densidad de la piedra.
+C) En la Luna la piedra cae más rápido porque no hay fricción debida a la atmósfera.
+D) En la Luna tarda más tiempo en llegar al suelo que en la Tierra, porque en la Luna es menor la fuerza de gravedad.
+
+6. Suponiendo que la aceleración gravitatoria en la Luna es seis veces menor que en la Tierra, la energía potencial que posee un cuerpo en la Luna es ______ que la energía potencial que éste tendría en la Tierra.
+A) 6 veces mayor
+B) 6 veces menor
+C) 0.5 veces menor
+D) igual
+
+7. Selecciona la situación que ejemplifica la realización de un trabajo mecánico.
+A) La energía empleada para elevar la temperatura de un gas a volumen constante.
+B) Los kilowatts hora gastados para mantener encendido un foco durante cierto tiempo.
+C) El aumento en la energía cinética de un objeto en movimiento circular uniforme.
+D) Al empujar una caja con fuerza constante para moverla una cierta distancia.
+
+8. Un niño está parado sobre un carrito, ambos en reposo. El primero pesa 30 kg y cuando salta hacia adelante a 2 m/s, el carrito es lanzado hacia atrás a 12 m/s. Si se desprecia la fricción, ¿cuál es la masa del carrito?
+A) 6.0 kg
+B) 5.0 kg
+C) 2.5 kg
+D) 0.8 kg
+
+9. Para convertir un valor de temperatura Celsius Tc a su valor equivalente en la escala Kelvin Tk de temperaturas, se emplea la expresión
+A) Tk = (Tc − 32) / 1.8
+B) Tk = Tc + 273
+C) Tk = Tc − 273
+D) Tk = 1.8(Tc + 273)
+
+10. A la cantidad de calor que necesita un gramo de una sustancia para elevar su temperatura un grado Celsius, se le conoce como
+A) capacidad térmica.
+B) calor latente de fusión.
+C) calor latente de vaporización.
+D) capacidad térmica específica.
+
+11. Una onda formada en una cuerda tiene una longitud de onda de 10 cm y un periodo de 2 s, ¿con qué velocidad se propaga?
+A) 20.00 cm/s
+B) 0.25 cm/s
+C) 5.00 cm/s
+D) 2.00 cm/s
+
+12. Para explicar la interferencia constructiva o destructiva de dos ondas, se debe considerar ______ ambas ondas.
+A) la frecuencia entre
+B) la superposición entre
+C) que sean longitudinales
+D) que sean transversales
+
+13. El campo eléctrico es una cantidad vectorial y su magnitud se mide en
+A) N/kg
+B) N/C
+C) N/s
+D) J/s
+
+14. A una resistencia eléctrica R se aplica una diferencia de potencial V, por lo que circula por la resistencia una corriente eléctrica I. Si R y V cambian su valor al doble, ambos simultáneamente, entonces el valor de la corriente eléctrica se
+A) reduce a la mitad.
+B) mantiene sin cambio.
+C) incrementa al doble.
+D) incrementa al cuádruple.
+
+15. ¿En cuánto tiempo se llenará una alberca olímpica de 50 m × 25 m × 3 m, si se usa un tubo de 40 cm de diámetro por el que fluye agua a una velocidad de 4 m/s?
+A) 0.0052 horas.
+B) 0.020 horas.
+C) 1.63 horas.
+D) 2.07 horas.
+
+16. ¿Qué tipo de imagen forma un espejo convexo?
+A) Virtual, derecha y menor que el objeto.
+B) Real, invertida y mayor que el objeto.
+C) Real, invertida y menor que el objeto.
+D) Virtual, derecha y mayor que el objeto.
+
+17. Cuando el usuario de la lengua utiliza un lenguaje apropiado al contexto para comunicarse, reconocemos una propiedad textual denominada
+A) coherencia.
+B) cabalidad.
+C) cohesión.
+D) adecuación.
+
+18. Identifica el inciso que se refiere a las características esenciales del texto periodístico.
+A) Informativa, periodicidad y actualidad.
+B) Originalidad, subjetividad y lúdica.
+C) Ejemplificación, variedad y argumentación.
+D) Universalidad, objetividad y verificabilidad.
+
+19. En el siguiente fragmento la autora quiere expresar que:
+
+Aquella vida de arriba,
+que es la vida verdadera,
+hasta que esta vida muera,
+no se goza estando viva:
+muerte, no me seas esquiva;
+viva muriendo primero,
+que muero porque no muero.
+A) está deseosa de morir en esta vida para nacer a la verdadera.
+B) va a quitarse la vida porque ya no goza de ella.
+C) está molesta porque nadie viene a salvarla.
+D) piensa que es mejor la muerte por la propia mano que llegar a la vejez.
+
+20. ¿A qué género literario pertenece el siguiente fragmento?
+
+Canto XX
+
+Mientras los aqueos se armaban junto a los corvos bajeles, alrededor de ti, oh hijo de Peleo, incansable en la batalla, los teucros se apercibían también para el combate en una eminencia de la llanura.
+A) Lírico.
+B) Épico.
+C) Dramático.
+D) Narrativo.
+
+21. El término corriente literaria se define como
+A) un grupo de autores que comparten idioma, nacionalidad y un espacio físico, como por ejemplo la escuela, donde desarrollan una ideología.
+B) una clasificación de escritores que comparten edad y circunstancias históricas, por lo tanto, las mismas temáticas al escribir.
+C) un conjunto de características en la temática y forma de escribir de un grupo de autores, en relación con las condiciones sociales de una determinada época.
+D) una suma de literatos de la misma nacionalidad relacionados por una serie de temáticas y estilos, en un periodo aproximado de quince años.
+
+22. Balzac y Stendhal son autores representativos del
+A) Romanticismo.
+B) Realismo.
+C) Neoclasicismo.
+D) Surrealismo.
+
+23. Autor representativo del llamado "Realismo Mágico".
+A) Carlos Fuentes.
+B) José Agustín.
+C) Horacio Quiroga.
+D) Rafael F. Muñoz.
+
+24. Un cuento se diferencia de una novela porque éste tiene
+A) personajes complejos y diversos clímax.
+B) desarrollo elaborado y varios personajes.
+C) brevedad y rápido desenlace.
+D) intensidad y múltiples hilos narrativos.
+
+25. ¿Qué tipo de ficha es la siguiente?
+
+Fernández Moreno, C. (1976). América Latina en su literatura. Siglo XXI Editores.
+A) Bibliográfica.
+B) De resumen.
+C) Hemerográfica.
+D) De cita.
+
+26. Identifica el tipo de ficha de trabajo mostrada en el ejemplo.
+
+Clarke, R (1990). Aprendizaje basado en resolución de problemas, pp. 55-62.
+En: K. Cox y C. Ewan (eds.)
+La docencia en medicina. Barcelona.
+
+Evolución del aprendizaje
+
+Este aprendizaje coloca la responsabilidad del aprendizaje en manos de los estudiantes y estimula el examen de los procesos de razonamiento clínico y de estudio autodirigido. Las funciones del profesor se modifican, ya que evolucionan de informador a consultor. Las oportunidades de desarrollo intelectual, que ofrecen al profesorado y los estudiantes, pueden superar las reconocidas dificultades de su planificación y puesta en práctica.
+A) Textual.
+B) Comentario.
+C) Reseña.
+D) Resumen.
+
+27. Cuando dos o más tipos de átomos se unen químicamente en proporciones definidas se forma
+A) una mezcla heterogénea.
+B) un compuesto.
+C) un elemento.
+D) una mezcla homogénea.
+
+28. Familia de elementos que tienden a perder sus electrones por poseer baja energía de ionización.
+A) VII A
+B) I A
+C) III A
+D) VIII A
+
+29. ¿Cuál de las siguientes estructuras de Lewis corresponde al H₂O₂? (pregunta con diagramas de puntos; se describe cada opción)
+A) H—O—O—H, con cada oxígeno unido a 2 pares de electrones libres (enlace sencillo O–O).
+B) H—O=O—H, con cada oxígeno unido a 1 par de electrones libres (enlace doble O=O, forma lineal).
+C) H—O=O con el segundo H unido debajo del oxígeno derecho (enlace doble O=O, forma angular).
+D) Dos fragmentos separados, sin enlace O–O: O(H) y (H)O, cada oxígeno con 3 pares de electrones libres.
+
+30. Es la fórmula de un óxido ácido.
+A) LiOH
+B) CaO
+C) CO₂
+D) KClO₄
+
+31. ¿Cuántas moléculas de H₂O hay en 36 g de esta sustancia?
+A) 6.023 × 10²⁴
+B) 1.20 × 10²⁴
+C) 6.023 × 10²³
+D) 1.20 × 10²³
+
+32. Se coloca HCl(ac) en un recipiente al introducir los cables que cierran un circuito eléctrico para encender un foco, éste se enciende intensamente. Si se sustituye por el compuesto CH₃COOH, la luz del foco baja de intensidad. Con base en lo anterior se puede decir que el
+A) CH₃COOH es un ácido débil por lo que se ioniza completamente.
+B) HCl(ac) es un ácido débil por lo que se ioniza parcialmente.
+C) CH₃COOH es un ácido fuerte por lo que se ioniza parcialmente.
+D) HCl(ac) es un ácido fuerte por lo que se ioniza completamente.
+
+33. Una disolución cuyo valor de pH = 2, presenta un comportamiento
+A) neutro.
+B) básico.
+C) anfótero.
+D) ácido.
+
+34. Para que se lleve a cabo una reacción de combustión además de la energía, es necesario
+A) combustible.
+B) oxígeno.
+C) combustible y comburente.
+D) oxígeno y comburente.
+
+35. Grupos funcionales presentes en los carbohidratos.
+A) Amida y aldehído.
+B) Aldehído y alcohol.
+C) Cetona y nitrilo.
+D) Amina y alcohol.
+
+36. La ecuación MgO(s) + C(grafito) → Mg(s) + CO(g) representa una reacción endotérmica, por lo que su ΔH°r es
+A) −490.7 kJ.
+B) +490.7 kJ.
+C) menor a 0.
+D) igual a 0.
+
+37. La Geografía es una disciplina integral que relaciona conocimientos que pertenecen a las ciencias
+A) políticas y económicas.
+B) económicas y sociales.
+C) sociales y naturales.
+D) políticas y naturales.
+
+38. ¿Qué hora y fecha son en Upolu, Samoa (GMT +13), si en Ankara, Turquía (GMT +3), son las 14:15 horas del 31 de diciembre?
+A) 03:15 h del 1 de enero.
+B) 00:15 h del 1 de enero.
+C) 01:15 h del 31 de diciembre.
+D) 04:15 h del 31 de diciembre.
+
+39. Se conoce como __________ a la separación de las placas tectónicas impulsadas por las corrientes convectivas en el manto terrestre.
+A) divergencia
+B) convergencia
+C) transformación
+D) subducción
+
+40. Si vas de la Ciudad de México a Cuernavaca, la cadena montañosa que tienes que atravesar es
+A) el Sistema Montañoso de Guadalupe.
+B) la Sierra Madre Occidental.
+C) la Sierra Madre Oriental.
+D) el Sistema Volcánico Transversal.
+
+41. El cambio climático global tiene como principal consecuencia
+A) el derretimiento de glaciares.
+B) el aumento de la temperatura.
+C) la degradación de los bosques.
+D) la desertificación de los suelos.
+
+42. En la distribución poblacional de México en el siglo XXI influye
+A) la existencia de amplios litorales.
+B) el desarrollo de la frontera norte.
+C) la pesca en las costas del Golfo.
+D) la centralización del poder político.
+
+43. Países que se independizaron de la Unión de Repúblicas Socialistas Soviéticas.
+A) Suecia, Noruega y Finlandia.
+B) Polonia, República Checa y Hungría.
+C) Rumania, Bulgaria y Albania.
+D) Letonia, Ucrania y Estonia.
+
+44. Es el número de entidades federativas en México.
+A) 29
+B) 28
+C) 31
+D) 32
+
+45. Región económica de México que se caracteriza por tener una mayor producción agrícola, ganadera y pesquera.
+A) Península de Yucatán.
+B) Pacífico Sur.
+C) Noreste.
+D) Noroeste.
+
+46. Especies pesqueras que exporta México.
+A) Jurel, anchoveta y tiburón.
+B) Peto, carpa y trucha.
+C) Sardina, mojarra y langosta.
+D) Abulón, atún y camarón.
+
+47. A las 3 a.m. de un día de invierno se reporta una temperatura de −3 °C, a las 12 del día la temperatura ya es de 15 °C, ¿de cuántos grados fue la diferencia de temperaturas?
+A) 18 °C
+B) 12 °C
+C) −18 °C
+D) −12 °C
+
+48. ¿Cuál es el resultado de la siguiente operación?
+
+3[2⁻¹ − (−3/2)] + 2⁰
+A) 25/2
+B) 9
+C) 7
+D) 1/2
+
+49. Simplifica la siguiente expresión algebraica.
+
+g²/(s−g)² − s²/(s−g)²
+A) (g+s)/(s+g)
+B) (g−s)/(s−g)
+C) (g−s)/(g+s)
+D) (g+s)/(g−s)
+
+50. La expresión 2x + 3 = 7 es una
+A) inecuación.
+B) desigualdad.
+C) ecuación.
+D) identidad.
+
+51. Al resolver 3x + 2 = 4. ¿Cuál es el valor de x?
+A) x = 2/3
+B) x = 3/6
+C) x = 3/2
+D) x = 6/3
+
+52. La solución de la desigualdad 3x − 5 > x + 6 es
+A) x > 11/2
+B) x > −11/2
+C) x > 2/11
+D) x > −2/11
+
+53. Resuelve el siguiente sistema de ecuaciones.
+
+3x + 5y = 7
+2x − y = −4
+A) x = −2, y = 1
+B) x = −2, y = −1
+C) x = −1, y = 2
+D) x = 1, y = −1
+
+54. Encuentra el dominio de la función que tiene regla de correspondencia f(x) = x² + 1 y rango Rf = ∀f(x) ∈ [1, 17].
+A) Df = ∀x ∈ [0, 4]
+B) Df = ∀x ∈ (0, 4)
+C) Df = ∀x ∈ (−4, 4)
+D) Df = ∀x ∈ [−4, 4]
+
+55. ¿A cuántos grados equivalen 11π/18 radianes?
+A) 220°
+B) 110°
+C) 169°
+D) 198°
+
+56. ¿Cuál es el seno del ángulo A en el siguiente triángulo rectángulo?
+
+Triángulo rectángulo BCA con el ángulo recto en C. Cateto CB = 3, cateto CA = 4, hipotenusa BA = 5.
+A) 3/5
+B) 4/5
+C) 5/3
+D) 5/4
+
+57. Calcula el rango de la función
+
+y = e^(−6x − 1/6) + 6
+A) (6, ∞)
+B) (−6, ∞)
+C) [6, ∞)
+D) [−6, ∞)
+
+58. Encuentra las coordenadas del punto S que divide por la mitad al segmento conformado por los puntos P (−1, 2) y Q (−2, 5).
+A) S (−0.5, 3.5)
+B) S (−1.5, 2.5)
+C) S (−2.5, 3.5)
+D) S (−1.5, 3.5)
+
+59. La pendiente de la recta 3x + 6y − 1 = 0 es
+A) −3
+B) −1/2
+C) 1/2
+D) 3
+
+60. En un marco de referencia representado por un plano XY, se localiza un gasoducto sobre la recta 3x + 4y = 2 con una fábrica en el punto (6, 6). ¿Qué longitud, en metros, se requiere para conectar perpendicularmente a la fábrica con el gasoducto?
+A) 7.0 m
+B) 8.2 m
+C) 8.0 m
+D) 7.2 m
+
+61. ¿Cuál de las siguientes circunferencias tiene radio igual a 3?
+A) x² + y² − 2x − 6y + 1 = 0
+B) x² + y² − 6x + 9y + 1 = 0
+C) x² + y² − 4x + 2y + 4 = 0
+D) x² + y² − 4x − 2y + 4 = 0
+
+62. La ecuación de la parábola cuyo eje focal es el eje y, con el parámetro p = −5 y vértice en el origen es
+A) x² − 20y = 0
+B) y² − 20x = 0
+C) y² + 20x = 0
+D) x² + 20y = 0
+
+63. Determina la expresión algebraica que cumplen las coordenadas de los puntos P(x, y), si la suma de sus distancias a los puntos F₁(0, −2) y F₂(0, 2) es igual a 8.
+A) 3x² + 4y² − 48 = 0
+B) 4x² + 3y² − 48 = 0
+C) 16x² + 12y² − 19 = 0
+D) 12x² + 16y² − 19 = 0
+
+64. Obtén el valor del parámetro a, de una hipérbola cuya ecuación es x²/a² − y²/b² = 1, b es igual a 5 m y la distancia entre sus focos es de 26 m.
+A) a = 12 m
+B) a = 13 m
+C) a = 5 m
+D) a = 10 m
+
+65. La ecuación y² + 8x − 6y + 25 = 0 representa una
+A) parábola.
+B) elipse.
+C) hipérbola.
+D) circunferencia.
+
+66. El lim (x→−∞) (2x² + x + 1) es
+A) −∞
+B) −2
+C) 0
+D) +∞
+
+67. La función f(x) = |x| es derivable en todo punto de su dominio, excepto en
+A) −2
+B) −1
+C) 0
+D) 2
+
+68. Determina la recta normal a la gráfica de la función f(x) = sen(x) en el punto x = 3π/2.
+A) y = −1
+B) y = 1
+C) x = 3π/2
+D) x = 2π/3
+
+69. La d/dx (x³ + 8x + 5) es igual a
+A) 3x² + 8x
+B) 3x² + 8
+C) 3x² + x
+D) 3x² + 13
+
+70. La función f(x) = x³ − 3x² + 1 tiene un mínimo en el punto de abscisa
+A) 0
+B) 1
+C) 2
+D) 3
+
+71. ¿Cuál es la integral definida de ∫ (de 1 a 4) dx/x ?
+A) 2
+B) 3
+C) 6
+D) 4
+
+72. La ∫ (2x − 1)³ dx es igual a
+A) (2x−1)²/6 + c
+B) (2x−1)⁴/4 + c
+C) (2x−1)²/2 + c
+D) (2x−1)⁴/8 + c
+
+73. ¿Qué función de la lengua ejemplifica el siguiente texto?
+
+¡SI ES 03, RENUEVA! Con tu credencial para votar renovada nuestra democracia crece: IFE.
+A) Apelativa.
+B) Metalingüística.
+C) Referencial.
+D) Fática.
+
+74. En el siguiente enunciado se ejemplifica la función ______ de la lengua.
+
+Contra el silencio y el bullicio invento la Palabra, libertad que se inventa y me inventa cada día.
+A) referencial
+B) emotiva
+C) fática
+D) poética
+
+75. Identifica la forma del discurso que predomina en el siguiente fragmento.
+
+En verdad, el aspecto externo de Momo era un poco extraño y tal vez podía asustar algo a la gente que da mucha importancia al aseo y al orden. Era pequeña y bastante flaca, de modo que ni con la mejor voluntad se podía decir si tenía ocho años o ya doce. Tenía el pelo muy ensortijado, negro como la brea, y parecía no haberse enfrentado nunca a un peine o unas tijeras. Tenía unos ojos muy grandes, muy hermosos y también negros como la brea y unos pies del mismo color, pues casi siempre iba descalza.
+A) Argumentativa.
+B) Descriptiva.
+C) Narrativa.
+D) Expositiva.
+
+76. Identifica la forma del discurso que se emplea en el siguiente fragmento.
+
+Nuestro derecho permite al empresario despedir a los trabajadores por embriaguez; pero esto no significa que se pueda "echar a la calle" al trabajador que llega un día al trabajo en estado etílico. Para poder proceder al despido de trabajador válidamente por esta causa se exige algo más que alguna borrachera ocasional, sin perjuicio de la posibilidad de imponer otra sanción. El Estatuto de los Trabajadores define como causa de despido "la embriaguez habitual que repercuta negativamente en el trabajo". A la hora de determinar qué conducta se entiende por habitual hay que señalar que los tribunales vienen estimando que no basta con acreditar que el trabajador se ha embriagado varios días aislados, sino que se exige una conducta persistente, con intervalos normales más o menos regulares, frecuente, con continuación, o por hábito. También se requerirá que repercuta negativamente en el trabajo. Dicha repercusión deberá ser probada.
+A) Argumentativo.
+B) Narrativo.
+C) Expositivo.
+D) Descriptivo.
+
+77. Selecciona la opción que indica la estructura del texto.
+A) Presentación del tema, referencias sobre el tema, argumentos y conclusión.
+B) Introducción al tema, referencias sobre el tema, datos y conclusión.
+C) Presentación del tema, datos, desarrollo del tema y conclusión.
+D) Introducción al tema, desarrollo del tema, argumentos y conclusión.
+
+Lectura para las preguntas 78 a 81: "Ciencia y filosofía"
+
+78. ¿Cuál de los siguientes enunciados sintetiza mejor la idea principal del texto?
+A) Los científicos deben conocer la reflexión que ofrece la filosofía sobre el quehacer científico; de este modo podrán realizar mejor su trabajo.
+B) Dado que las diferentes ciencias surgieron históricamente como parte de la filosofía, debe haber una complementariedad entre ciencia y filosofía.
+C) Aunque da resultados más prácticos que otras formas de conocimiento, la ciencia no debe considerarse la única forma de explicar la realidad.
+D) Los científicos deben comprender que sin filosofía no hay ciencia; y los filósofos, que la ciencia llega a conclusiones y resultados prácticos muy efectivos.
+
+79. Con la expresión "eso es muy filosófico", el científico
+A) manifiesta su desconocimiento de la filosofía.
+B) acepta que la filosofía tiene su propio campo de estudio.
+C) admite que la ciencia no puede explicarlo todo.
+D) refleja su indiferencia hacia la filosofía.
+
+80. Si las ciencias son actividades centradas en la experimentación, se puede inferir que tienen como última finalidad ______ la realidad.
+A) medir
+B) observar
+C) explicar
+D) clasificar
+
+81. En el texto se dice que "los filósofos siguen siendo esos enamorados de la sabiduría", en este sentido, se piensa que éstos a diferencia de los científicos
+A) tienen una concepción romántica del conocimiento.
+B) no se interesan por asuntos prácticos.
+C) llegan a saberes más universales.
+D) prefieren el saber universal que la experimentación.
+
+82. A partir de la siguiente oración, identifica el sujeto.
+
+En el partido del domingo, en el estadio universitario, la multitud enardecida coreó el gol del Toluca.
+A) la multitud enardecida
+B) En el partido del domingo
+C) el gol del Toluca
+D) en el estadio universitario
+
+83. En el siguiente enunciado la función de las palabras en mayúsculas corresponde al complemento
+
+EN NUESTRO PAÍS la cultura sexual tiene gran relación con la religión católica.
+A) directo.
+B) indirecto.
+C) circunstancial.
+D) adnominal.
+
+84. Identifica los errores que se encuentran en el siguiente texto.
+
+¿Vistes que únicamente la quinta parte de las solicitudes fueron aceptadas?
+A) Fueron y solicitudes.
+B) Solicitudes y quinta.
+C) Aceptadas y vistes.
+D) Vistes y fueron.
+
+85. Elige la opción que contenga los elementos de un párrafo introductorio de un texto argumentativo.
+A) Tema, idea principal y contexto.
+B) Idea principal, contraargumento y resumen.
+C) Tema, argumento y contraargumento.
+D) Anécdota, resumen y contexto.
+
+86. ¿Cuál de los siguientes párrafos está redactado correctamente?
+A) En la reunión se abordarán tres asuntos: el diseño de un manual de operaciones; el seguimiento a los pedidos de los nuevos clientes; buscar proveedores más cumplidos; y también se harán propuestas para abrir nuevas sucursales.
+B) En la reunión se abordarán tres asuntos: el diseño de un manual de operaciones; el seguimiento a los pedidos de los nuevos clientes y la búsqueda de proveedores más cumplidos. También se harán propuestas para abrir nuevas sucursales.
+C) En la reunión se abordarán tres asuntos: diseñar un manual de operaciones; el seguimiento a los pedidos de los nuevos clientes; y buscar proveedores más cumplidos. También se harán propuestas para abrir nuevas sucursales.
+D) En la reunión se abordarán tres asuntos: cómo diseñar un manual de operaciones; el seguimiento a los pedidos de los nuevos clientes y la búsqueda de proveedores más cumplidos. También, se harán propuestas para abrir nuevas sucursales.
+
+87. Selecciona la opción que presenta una relación similar a la analogía establecida entre las palabras en mayúsculas.
+
+BIEN — VALOR
+A) gula — pecado
+B) verdad — escándalo
+C) poder — orgullo
+D) sereno — serenidad
+
+88. Sinónimo de AGENCIAR.
+A) Emplear.
+B) Obtener.
+C) Solicitar.
+D) Perder.
+
+89. Elige la opción con el uso correcto de la grafía h.
+A) Inhibir, prohibir, truhan y hexágono.
+B) Inhestable, inhumar, inherente y exágono.
+C) Háinco, hidrográfico, ahijado y hexágono.
+D) Hostilizar, alcohol, haínco y exágono.
+
+90. En el siguiente enunciado la palabra está se acentúa porque es
+
+La planta asclepia está ligada con la migración de la mariposa monarca, debido a la polinización.
+A) un adjetivo demostrativo.
+B) una palabra grave.
+C) un adjetivo explicativo.
+D) una palabra aguda.
+
+91. Son estructuras presentes en los cloroplastos.
+A) Estroma, membrana interna y crestas.
+B) Matriz, membrana externa y granos de almidón.
+C) Estroma, grana y tilacoides.
+D) Matriz, membrana externa y membrana interna.
+
+92. Se denomina anabolismo al proceso metabólico de
+A) construcción, en el que se obtienen moléculas grandes a partir de otras más pequeñas.
+B) degradación, en el que se obtienen moléculas grandes a partir de otras más pequeñas.
+C) degradación, en el que las moléculas grandes se transforman en pequeñas.
+D) construcción, en el que las moléculas grandes se transforman en pequeñas.
+
+93. Producto energético elaborado por las plantas en el proceso de la fotosíntesis, que parte de moléculas orgánicas de carbono.
+A) Clorofila.
+B) Glucosa.
+C) Luz.
+D) CO₂.
+
+94. ¿Cuál es la secuencia correcta de las fases de la mitosis?
+A) Interfase, anafase, telofase y metafase.
+B) Metafase, profase, telofase y anafase.
+C) Anafase, metafase, profase y telofase.
+D) Profase, metafase, anafase y telofase.
+
+95. De acuerdo con la nomenclatura de Mendel los caracteres recesivos están representados en letras
+A) minúsculas (b).
+B) mayúsculas y minúsculas (Bb).
+C) minúsculas y mayúsculas (bB).
+D) minúsculas, mayúsculas y minúsculas (bBb).
+
+96. Número de cromosomas que tienen los gametos masculinos humanos.
+A) 22
+B) 23
+C) 44
+D) 46
+
+97. Postuló que las mitocondrias y los cloroplastos proceden de bacterias que se hospedaron en una célula procarionte, ésta los fagocitó para tener alimento.
+A) L. Margulis.
+B) Oparin.
+C) C. Darwin.
+D) G. Mendel.
+
+98. Un ecosistema es la unidad formada por factores abióticos y ______ en la que existen ______, donde fluye la energía y circula la materia.
+A) ambientales — razas
+B) ambientales — interacciones
+C) bióticos — razas
+D) bióticos — interacciones
+
+99. La dinámica y el posible equilibrio de un ecosistema depende de la interacción entre los factores ______ y ______.
+A) biótico — abiótico
+B) biótico — físico
+C) abiótico — químico
+D) abiótico — ecológico
+
+100. Principal contaminante que daña la capa de ozono.
+A) Metano.
+B) Óxido nitroso.
+C) Bióxido de carbono.
+D) Clorofluorocarbono.
+
+101. Realizar un examen de la autenticidad del documento es una característica de la ________, mientras que la búsqueda de causas y efectos es representativa de ________.
+A) revisión externa — explicación
+B) revisión interna — divulgación
+C) explicación — revisión externa
+D) divulgación — revisión interna
+
+102. Las revoluciones burguesas de los siglos XVIII y XIX consolidaron al capitalismo porque
+A) fortalecieron el liberalismo económico.
+B) permitieron el surgimiento del mercantilismo.
+C) lograron la igualdad económico-social entre la población.
+D) favorecieron la mecanización de la agricultura.
+
+103. Identifica en el orden respectivo los nombres de los creadores del socialismo utópico, el socialismo científico y el anarquismo.
+A) Friedrich Engels, León XIII y Robert Owen.
+B) Fernand Braudel, Friedrich Engels y Karl Popper.
+C) Louis Blanc, Karl Marx y Mijail Bakunin.
+D) Louis Fourier, Charles Owen y Henri de Saint Simon.
+
+104. Las acciones de ______ para unificar a los reinos germanos dio como resultado el segundo imperio alemán en el siglo XIX.
+A) Otto Von Bismarck
+B) William Orange
+C) Peter Brueghel
+D) Joseph Menghele
+
+105. Acuerdos que se firman para dar fin a la Primera Guerra Mundial.
+A) Saint-Germain y el Tratado de Versalles.
+B) La política de Apaciguamiento y el Tratado Sykes-Picot.
+C) La Conferencia de Berlín y El Cairo.
+D) La doctrina Truman y la Conferencia de Teherán.
+
+106. Una característica del nacional socialismo en Alemania es
+A) fomentó la expansión de sus fronteras.
+B) apoyó económicamente a la clase trabajadora.
+C) limitó la intervención militar.
+D) estableció un gobierno democrático.
+
+107. La división del mundo en bloques, la formación de la ONU y de asociaciones económicas internacionales fueron resultado de
+A) Primera Guerra Mundial.
+B) Guerra Fría.
+C) Guerra de Medio Oriente.
+D) Segunda Guerra Mundial.
+
+108. Alianzas militares con fines defensivos que se formaron como consecuencia de la rivalidad entre los dos bloques durante la Guerra Fría.
+A) OTAN y ONU.
+B) ONU y Pacto de Varsovia.
+C) OMC y OEA.
+D) Pacto de Varsovia y OTAN.
+
+109. La Revolución Comunista China, el Bloqueo terrestre a Berlín, la Guerra de Corea y la Crisis de los Misiles ocurrieron durante la Guerra
+A) del Golfo Pérsico.
+B) Fría.
+C) Árabe-Israelí.
+D) de los Seis Días.
+
+110. Selecciona la opción que presenta de manera cronológica la desintegración del bloque comunista.
+A) Llegada al poder de Boris Yeltsin, la aplicación de la Perestroika rusa y la Crisis de los Misiles.
+B) Aplicación de reformas en la URSS, la caída del Muro de Berlín y la creación de la Comunidad de Estados Independientes.
+C) Guerra en Yugoslavia, la división de Checoslovaquia y la caída del muro de Berlín.
+D) Guerra de Kosovo, la llegada al gobierno alemán de Helmut Kohl y la Crisis de los Misiles.
+
+111. Son instituciones científicas y culturales del siglo XVIII.
+A) Bellas Artes y Museo de Historia Natural.
+B) Colegio de San Ildefonso y Hospital de Jesús.
+C) Academia de San Carlos y Colegio de Minería.
+D) San José de los Naturales y Universidad de México.
+
+112. Objetivo de la Conspiración de Querétaro.
+A) Constituir una junta gubernativa a nombre de Fernando VII.
+B) Llevar al poder al corregidor Miguel Domínguez.
+C) Desconocer la soberanía de la Corona Española.
+D) Establecer una república independiente gobernada por Agustín de Iturbide.
+
+113. Una de las consecuencias de la guerra contra Estados Unidos de América fue la
+A) Guerra de Castas.
+B) firma del Tratado de Guadalupe Hidalgo.
+C) firma del Tratado McLane-Ocampo.
+D) pérdida de El Chamizal.
+
+114. Movimiento que comenzó en los actuales territorios de Guerrero a cargo del general Juan Álvarez, cuyo objetivo fue derrocar la dictadura Santanista.
+A) Revolución de Acapulco.
+B) Congreso de Chilpancingo.
+C) Sitio de Cuautla.
+D) Revolución de Ayutla.
+
+115. Grupo de oposición al régimen porfirista que peleaba por el apego a la Constitución y a la legalidad, así como por el respeto al voto y a la no reelección.
+A) Maderistas.
+B) Obregonistas.
+C) Carrancistas.
+D) Villistas.
+
+116. Venustiano Carranza se levantó en armas contra Victoriano Huerta apoyándose en el Plan de
+A) Ayala.
+B) Agua Prieta.
+C) Guadalupe.
+D) Texcoco.
+
+117. Presidente que creó la Secretaría de Educación Pública.
+A) Lázaro Cárdenas.
+B) Álvaro Obregón.
+C) Venustiano Carranza.
+D) Victoriano Huerta.
+
+118. Nombre que adoptó el PNR en 1938 al asumir un contenido más democrático y popular.
+A) Partido Acción Nacional.
+B) Partido de la Revolución Mexicana.
+C) Partido Popular Socialista.
+D) Partido Auténtico de la Revolución Mexicana.
+
+119. Acontecimiento ocurrido durante el gobierno de Manuel Ávila Camacho.
+A) Aplicación de la política de Unidad Nacional.
+B) Destierro de Plutarco Elías Calles.
+C) Huelga de ferrocarrileros.
+D) Movimiento magisterial.
+
+120. Por medio del Tratado de Libre Comercio de América del Norte se estableció la
+A) renegociación de la deuda externa de México.
+B) elevación de impuestos en las materias primas.
+C) eliminación de aranceles entre los países firmantes.
+D) igualdad de precios de mercancías entre los miembros.

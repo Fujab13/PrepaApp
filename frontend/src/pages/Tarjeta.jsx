@@ -1,6 +1,6 @@
 import SubtemaItem from '../components/SubtemaItem'
 
-export default function Tarjeta({ tema, color, completados, onToggleSubtema }) {
+export default function Tarjeta({ tema, color, completados, onToggleSubtema, subtemaResaltado, conceptoResaltado }) {
   const total = tema.subtemas.length
   const completadosCount = tema.subtemas.filter(s => completados.has(s.id)).length
   const progreso = total === 0 ? 0 : Math.round((completadosCount / total) * 100)
@@ -40,6 +40,8 @@ export default function Tarjeta({ tema, color, completados, onToggleSubtema }) {
             color={color}
             completado={completados.has(subtema.id)}
             onToggleCompletado={() => onToggleSubtema(subtema.id)}
+            autoAbrir={subtema.id === subtemaResaltado}
+            conceptoResaltado={subtema.id === subtemaResaltado ? conceptoResaltado : null}
           />
         ))}
       </div>

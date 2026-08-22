@@ -5,63 +5,72 @@
   "descripcion": "Álgebra, geometría y aritmética",
   "preguntas": [
     {
-      "pregunta": "¿Cuál es el conjunto numérico más pequeño al que pertenece el número -7?",
-      "opciones": ["Números naturales", "Números enteros", "Números irracionales"],
+      "pregunta": "Los números se agrupan en conjuntos según sus características. Los naturales ($\\mathbb{N}$) sirven para contar (0, 1, 2, 3...); los enteros ($\\mathbb{Z}$) agregan los negativos; los racionales ($\\mathbb{Q}$) son los que se escriben como fracción $\\frac{a}{b}$, con decimal exacto o periódico; los irracionales tienen decimal infinito sin patrón, como $\\sqrt{2}$ o $\\pi$. La unión de racionales e irracionales forma los números reales ($\\mathbb{R}$)."
+    },
+    {
+      "pregunta": "¿Cuál de los siguientes números es racional?",
+      "opciones": ["$\\sqrt{3}$", "$\\frac{5}{2}$", "$\\pi$"],
       "correcta": 1
     },
     {
-      "pregunta": "¿Cuál de los siguientes números es irracional?",
-      "opciones": ["0.333... (periódico)", "√2", "3/4"],
-      "correcta": 1
-    },
-    {
-      "pregunta": "¿A qué conjunto numérico pertenece 5/2?",
-      "opciones": ["Números enteros", "Números racionales", "Números irracionales"],
-      "correcta": 1
-    },
-    {
-      "pregunta": "Aplicando la jerarquía de operaciones, ¿cuál es el resultado de 3 + 4 × 2?",
-      "opciones": ["14", "11", "10"],
-      "correcta": 1
-    },
-    {
-      "pregunta": "Calcula: 20 − 3 × (4 − 2)",
-      "opciones": ["14", "34", "8"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "¿Cuál es el resultado de (6 + 2) × (5 − 3)?",
-      "opciones": ["16", "13", "10"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "El valor absoluto de −9 es:",
-      "opciones": ["−9", "9", "0"],
-      "correcta": 1
-    },
-    {
-      "pregunta": "¿Cuál es el resultado de |−5| + |−3|?",
-      "opciones": ["8", "2", "−8"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "¿Cuál de estos números reales no es racional ni entero?",
-      "opciones": ["π (pi)", "−4", "7/8"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "Resuelve aplicando la jerarquía de operaciones: 2 + 3² × 2",
-      "opciones": ["20", "22", "30"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "Sin usar paréntesis, ¿cuál de estas operaciones se resuelve primero según la jerarquía de operaciones?",
-      "opciones": ["Suma", "Multiplicación", "Potenciación"],
+      "pregunta": "El número $-\\frac{8}{3}$ pertenece al conjunto de los:",
+      "opciones": ["Naturales", "Enteros", "Racionales"],
       "correcta": 2
     },
     {
-      "pregunta": "Calcula: 15 ÷ 3 + 2 × 4",
-      "opciones": ["13", "20", "10"],
+      "pregunta": "¿Cuál de estos números es irracional?",
+      "opciones": ["$0.5$", "$\\sqrt{9}$", "$\\sqrt{7}$"],
+      "correcta": 2
+    },
+    {
+      "pregunta": "Si un número tiene una representación decimal periódica como $0.\\overline{3} = 0.333...$, ¿a qué conjunto pertenece?",
+      "opciones": ["Irracionales", "Racionales", "Naturales"],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Cuando una expresión combina varias operaciones, deben resolverse en un orden específico: primero paréntesis, después potencias y raíces, luego multiplicaciones y divisiones, y al final sumas y restas. Entre operaciones del mismo nivel, se resuelve de izquierda a derecha. Por ejemplo, en $5 + 2 \\times (8-3)^2$ primero se resuelve el paréntesis, luego la potencia, después la multiplicación y al final la suma, dando como resultado $55$."
+    },
+    {
+      "pregunta": "Calcula: $7 + 3 \\times 2$",
+      "opciones": ["13", "20", "15"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "¿Cuál es el resultado de $2^3 + 4 \\times 2$?",
+      "opciones": ["16", "12", "8"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Resuelve: $6 \\times (4 - 1) - 2$",
+      "opciones": ["16", "10", "20"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "¿Cuál es el resultado de $10 \\div 2 + 3^2$?",
+      "opciones": ["14", "8", "24"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "El valor absoluto de un número representa su distancia al cero en la recta numérica, y siempre es positivo o cero. Se escribe entre barras verticales: $|x|$. Por ejemplo, $|-8| = 8$ y $|8| = 8$, porque ambos están a 8 unidades del cero, sin importar la dirección. Es útil para medir diferencias sin que el signo afecte el resultado."
+    },
+    {
+      "pregunta": "¿Cuál es el resultado de $|-12|$?",
+      "opciones": ["12", "-12", "0"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Si $|x| = 5$, ¿cuáles son los valores posibles de $x$?",
+      "opciones": ["Solo $5$", "$5$ y $-5$", "Solo $-5$"],
+      "correcta": 1
+    },
+    {
+      "pregunta": "¿Cuál de las siguientes igualdades es correcta?",
+      "opciones": ["$|-3| = 3$", "$|-3| = -3$", "$|-3| = 0$"],
+      "correcta": 0
+    },
+    {
+      "pregunta": "¿Cuál es el resultado de $|-9| + |3|$?",
+      "opciones": ["12", "6", "-12"],
       "correcta": 0
     },
     {

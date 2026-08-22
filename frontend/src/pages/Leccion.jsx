@@ -9,6 +9,7 @@ import * as RiIcons from 'react-icons/ri'
 import Hexagono from '../components/Hexagono'
 import OpcionBtn from '../components/OpcionBtn'
 import TarjetaRepaso from '../components/TarjetaRepaso'
+import Latex from '../components/Latex'
 import Celebracion from '../components/Celebracion'
 import ConfirmDialog from '../components/ConfirmDialog'
 import { useProgreso } from '../hooks/useProgreso'
@@ -16,6 +17,9 @@ import { getPreguntasDeUnidad } from '../data/unidades'
 import { obtenerLeccionDeSesion } from '../services/leccionesPremium';
 import { triggerVibration } from '../utils/haptics';
 import { hablarTexto, detenerLectura } from '../utils/tts';
+import { getLectura } from '../data/lecturas/index';
+import { buscarConceptoSimilar } from '../utils/buscarConcepto';
+import { useFullscreen } from '../hooks/useFullscreen';
 
 import { IoMdClose } from "react-icons/io";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
@@ -26,6 +30,7 @@ import { MdRestartAlt } from "react-icons/md";
 import { PiCopy, PiCheckBold } from "react-icons/pi";
 import { MdOutlineReplay } from "react-icons/md";
 import { FaVolumeUp, FaGoogle } from "react-icons/fa";
+import { FiSearch } from "react-icons/fi";
 
 const COLOR_REFUERZO = '#26d1e8' // mismo azul que la lección de español, por coincidencia
 
@@ -83,7 +88,7 @@ export default function Leccion() {
   const [respondido, setRespondido]                  = useState(false)
   const [feedback, setFeedback]                      = useState('')
   const [estados, setEstados]                        = useState(['normal', 'normal', 'normal'])
-  const [esFullscreen, setEsFullscreen]              = useState(false)
+  const { esFullscreen, toggleFullscreen, soportado: fullscreenSoportado } = useFullscreen()
   const [enRepaso, setEnRepaso]                      = useState(false)
   const [colaRepaso, setColaRepaso]                  = useState([])
   const [copiado, setCopiado]                        = useState(false)
@@ -311,7 +316,11 @@ export default function Leccion() {
 
     if (enRepaso) {
       let nuevaColaRepaso = colaRepaso.slice(1)
-      if (respondioMal) {
+      // Solo se reencola si queda algo más primero: si era la última tarjeta
+      // de repaso, reencolarla la dejaría como única tarjeta otra vez y
+      // "saltar" parecería no hacer nada (la misma tarjeta reaparece sin
+      // avanzar). En ese caso se deja vacía y el repaso se da por terminado.
+      if (respondioMal && nuevaColaRepaso.length > 0) {
         nuevaColaRepaso = [...nuevaColaRepaso, colaRepaso[0]]
       }
 
@@ -333,7 +342,14 @@ export default function Leccion() {
     let nuevasCorrectas = correctasNuevas
 
     if (respondioMal) {
-      nuevaCola = [...nuevaCola, idxActual]
+      // Igual que en el repaso: solo se reencola si queda algo más primero.
+      // Si era la última pregunta de la unidad, reencolarla la dejaría como
+      // única pregunta otra vez, y saltar/omitir se sentiría como que no
+      // hace nada (la misma pregunta vuelve a aparecer sin avanzar). En ese
+      // caso se deja la cola vacía y la unidad se da por terminada.
+      if (nuevaCola.length > 0) {
+        nuevaCola = [...nuevaCola, idxActual]
+      }
     } else {
       nuevasCorrectas = correctasNuevas + 1
       setCorrectasNuevas(nuevasCorrectas)
@@ -475,14 +491,21 @@ export default function Leccion() {
     window.open(`https://www.google.com/search?q=${encodeURIComponent(prompt)}`, '_blank', 'noopener,noreferrer')
   }
 
-  function toggleFullscreen() {
-    if (!document.fullscreenElement) {
-      document.documentElement.requestFullscreen()
-      setEsFullscreen(true)
-    } else {
-      document.exitFullscreen()
-      setEsFullscreen(false)
+  // Toma el texto de la pregunta actual y busca, dentro del temario de
+  // Lecturas (misma materiaId), el subtema cuyo título/conceptos comparten
+  // más palabras con ella. Si lo encuentra, abre Lectura ya ubicado ahí.
+  function buscarEnTemario() {
+    const lectura = getLectura(materiaId)
+    if (!lectura) return
+
+    const resultado = buscarConceptoSimilar(lectura, construirTextoPregunta())
+    if (!resultado) {
+      navigate(`/lectura/${materiaId}`)
+      return
     }
+
+    const concepto = resultado.conceptoIdx !== null ? `&concepto=${resultado.conceptoIdx}` : ''
+    navigate(`/lectura/${materiaId}?tema=${resultado.temaId}&subtema=${resultado.subtemaId}${concepto}`)
   }
 
   const renderIconoMateria = (icono) => {
@@ -559,7 +582,7 @@ export default function Leccion() {
                 zIndex: 45,
               }}>
                 <button
-                  onClick={() => { preguntaAnterior(); setMenuAbierto(false) }}
+                  onClick={preguntaAnterior}
                   disabled={historial.length === 0}
                   title="Pregunta anterior"
                   className="util-btn"
@@ -574,6 +597,21 @@ export default function Leccion() {
                   }}
                 >
                   <IoIosArrowBack />
+                </button>
+                <button
+                  onClick={() => { setMenuAbierto(false); retrocederUnidad() }}
+                  title="Regresar unidad"
+                  className="util-btn"
+                  style={{
+                    width: 44, height: 44,
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    borderRadius: 10,
+                    background: 'var(--surface)',
+                    color: 'var(--wrong)',
+                    fontSize: '1.1rem',
+                  }}
+                >
+                  <MdRestartAlt />
                 </button>
                 <button
                   onClick={() => { setMenuAbierto(false); omitirUnidad() }}
@@ -591,7 +629,7 @@ export default function Leccion() {
                   <MdSkipNext />
                 </button>
                 <button
-                  onClick={() => { avanzarPregunta(); setMenuAbierto(false) }}
+                  onClick={avanzarPregunta}
                   title="Saltar a la siguiente pregunta"
                   className="util-btn"
                   style={{
@@ -649,14 +687,19 @@ export default function Leccion() {
         {/* 4. Contenedor de Botones de Utilidad (Alineado a la derecha) */}
         <div className="page-topbar-actions" style={{ gap: '4px' }}>
           {[
-            { label: <MdRestartAlt />, title: 'Regresar unidad', action: retrocederUnidad },
+            { label: <FiSearch />, title: 'Buscar en la lectura', action: buscarEnTemario, deshabilitado: !getLectura(materiaId) },
             { label: copiado ? <PiCheckBold /> : <PiCopy />, title: 'Copiar pregunta', action: copiarPregunta },
-            { label: esFullscreen ? <MdFullscreenExit /> : <MdFullscreen />, title: 'Pantalla completa', action: toggleFullscreen },
-          ].map(({ label, title, action }) => (
+            // Oculto por completo donde la Fullscreen API no existe (Safari en iPhone),
+            // en vez de mostrar un botón que ahí nunca podría funcionar.
+            fullscreenSoportado
+              ? { label: esFullscreen ? <MdFullscreenExit /> : <MdFullscreen />, title: 'Pantalla completa', action: toggleFullscreen }
+              : null,
+          ].filter(Boolean).map(({ label, title, action, deshabilitado }) => (
             <div key={title} style={{ position: 'relative', display: 'flex' }}>
               <button
                 onClick={action}
-                title={title}
+                disabled={deshabilitado}
+                title={deshabilitado ? 'No hay lectura disponible para esta materia' : title}
                 className="util-btn"
                 data-gamificacion="bajo"
                 style={{
@@ -664,7 +707,8 @@ export default function Leccion() {
                   border: 'none',
                   color: title === 'Copiar pregunta' && copiado ? 'var(--correct)' : 'var(--text-muted)',
                   fontSize: '1.2rem',
-                  cursor: 'pointer',
+                  cursor: deshabilitado ? 'default' : 'pointer',
+                  opacity: deshabilitado ? 0.4 : 1,
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
@@ -815,18 +859,16 @@ export default function Leccion() {
               borderLeft: `4px solid ${materia.color}`,
               boxShadow: '0 4px 16px -10px rgba(0,0,0,0.6)',
             }}>
-              <p style={{
+              <div style={{
                 fontSize: '1rem',
                 lineHeight: 1.65,
                 fontWeight: 500,
-                margin: 0,
                 color: 'var(--text)',
                 wordBreak: 'break-word',
                 overflowWrap: 'break-word',
-                whiteSpace: 'pre-line',
               }}>
-                {pregunta.pregunta}
-              </p>
+                <Latex texto={pregunta.pregunta} />
+              </div>
               <div style={{ display: 'flex', justifyContent: 'flex-end', gap: 8, marginTop: 10 }}>
                 <button
                   onClick={explicarConIA}

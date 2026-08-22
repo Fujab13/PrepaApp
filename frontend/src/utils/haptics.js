@@ -1,3 +1,9 @@
+// Safari en iOS (iPhone y iPad) nunca implementó la Vibration API — no es un
+// bug puntual, es una decisión permanente de Apple/WebKit. Úsalo para ocultar
+// controles de vibración en vez de mostrar un botón que ahí nunca hará nada.
+export const esVibracionSoportada = () =>
+  typeof navigator !== 'undefined' && 'vibrate' in navigator
+
 export const triggerVibration = (type = 'success') => {
   if (typeof window === 'undefined' || !('vibrate' in navigator)) return
   const isHapticsEnabled = localStorage.getItem('hapticsEnabled')

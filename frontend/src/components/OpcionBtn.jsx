@@ -1,3 +1,5 @@
+import Latex from './Latex'
+
 export default function OpcionBtn({ texto, estado, onClick }) {
   const colores = {
     normal:     { border: 'rgba(255,255,255,0.08)', bg: 'linear-gradient(180deg, var(--surface2), var(--surface))', sombra: 'rgba(0,0,0,0.45)' },
@@ -25,7 +27,7 @@ export default function OpcionBtn({ texto, estado, onClick }) {
         boxShadow: `0 3px 10px -4px ${c.sombra}`,
       }}
     >
-      {texto}
+      <Latex texto={texto} />
     </button>
   )
 }

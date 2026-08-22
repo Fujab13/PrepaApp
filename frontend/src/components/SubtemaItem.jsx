@@ -12,11 +12,24 @@ import { useRef, useState, useEffect } from 'react'
  * - completado: boolean
  * - onToggleCompletado: () => void
  * - color: string (color de acento de la materia, ej. '#22d3ee')
+ * - autoAbrir: boolean (llega abierto y con un resalte breve, usado por el
+ *   buscador de la Lección para señalar el subtema encontrado)
+ * - conceptoResaltado: índice del concepto puntual a resaltar dentro de la
+ *   lista (el que el buscador identificó como la línea más parecida)
  */
-export default function SubtemaItem({ subtema, completado, onToggleCompletado, color }) {
-  const [abierto, setAbierto] = useState(false)
+export default function SubtemaItem({ subtema, completado, onToggleCompletado, color, autoAbrir, conceptoResaltado }) {
+  const [abierto, setAbierto] = useState(!!autoAbrir)
+  const [resaltado, setResaltado] = useState(!!autoAbrir)
   const contentRef = useRef(null)
   const [maxHeight, setMaxHeight] = useState('0px')
+
+  useEffect(() => {
+    if (!autoAbrir) return
+    setAbierto(true)
+    setResaltado(true)
+    const t = setTimeout(() => setResaltado(false), 60000)
+    return () => clearTimeout(t)
+  }, [autoAbrir])
 
   // Recalcula la altura real del contenido cada vez que se abre/cierra,
   // así la transición de max-height es siempre suave sin importar cuánto texto haya.
@@ -30,10 +43,12 @@ export default function SubtemaItem({ subtema, completado, onToggleCompletado, c
 
   return (
     <div
+      id={`subtema-${subtema.id}`}
       style={{
         borderRadius: 14,
         background: abierto ? 'var(--surface-2, rgba(255,255,255,0.04))' : 'transparent',
-        transition: 'background 300ms ease',
+        boxShadow: resaltado ? `0 0 0 2px ${color}` : '0 0 0 0px transparent',
+        transition: 'background 300ms ease, box-shadow 500ms ease',
         overflow: 'hidden'
       }}
     >
@@ -133,22 +148,31 @@ export default function SubtemaItem({ subtema, completado, onToggleCompletado, c
       >
         <div ref={contentRef} style={{ padding: '2px 8px 14px 50px' }}>
           <ul style={{ margin: 0, padding: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 6 }}>
-            {subtema.conceptos.map((concepto, idx) => (
-              <li
-                key={idx}
-                style={{
-                  fontSize: '0.82rem',
-                  color: 'var(--text-muted, #9ca3af)',
-                  display: 'flex',
-                  alignItems: 'flex-start',
-                  gap: 8,
-                  lineHeight: 1.5
-                }}
-              >
-                <span style={{ color, marginTop: 2 }}>•</span>
-                <span>{concepto}</span>
-              </li>
-            ))}
+            {subtema.conceptos.map((concepto, idx) => {
+              const destacado = resaltado && idx === conceptoResaltado
+              return (
+                <li
+                  key={idx}
+                  style={{
+                    fontSize: '0.82rem',
+                    color: destacado ? 'var(--text, #fff)' : 'var(--text-muted, #9ca3af)',
+                    display: 'flex',
+                    alignItems: 'flex-start',
+                    gap: 8,
+                    lineHeight: 1.5,
+                    borderLeft: `3px solid ${destacado ? color : 'transparent'}`,
+                    background: destacado ? 'rgba(255,255,255,0.06)' : 'transparent',
+                    borderRadius: 6,
+                    padding: '2px 6px',
+                    margin: '0 -6px',
+                    transition: 'border-color 500ms ease, background 500ms ease, color 500ms ease'
+                  }}
+                >
+                  <span style={{ color, marginTop: 2 }}>•</span>
+                  <span>{concepto}</span>
+                </li>
+              )
+            })}
           </ul>
         </div>
       </div>
