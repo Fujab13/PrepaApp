@@ -139,6 +139,8 @@ function textoRaiz(radicando, indice) {
 // prefijo de "\infty" e "\int") debe ir DESPUÉS del más largo, o el más
 // largo nunca se reconocería completo.
 const SIMBOLOS = [
+  ['\\ldots', ' etcétera '],
+  ['\\dots', ' etcétera '],
   ['\\rightarrow', ' produce '],
   ['\\Rightarrow', ' implica '],
   ['\\leftrightarrow', ' equivale a '],
@@ -267,10 +269,22 @@ function convertirFormula(latex) {
   // se descartan antes que nada para que no queden como texto suelto.
   texto = texto.replace(/\\[,;!]|\\quad|\\qquad/g, ' ')
 
+  // \dfrac y \tfrac son variantes de \frac (fuerzan tamaño de displaystyle o
+  // textstyle respectivamente; ver components/Latex.jsx), y \cfrac se usa
+  // para fracciones continuas: las tres se leen igual que \frac. Van antes
+  // que "frac" a propósito: aunque "\dfrac"/"\tfrac"/"\cfrac" no contienen a
+  // "\frac" como subcadena (por la letra intermedia), procesarlas primero
+  // evita depender de ese detalle si en el futuro cambia el patrón de busca.
+  texto = aplicarComando(texto, 'dfrac', 2, (num, den) => `${num} entre ${den}`)
+  texto = aplicarComando(texto, 'tfrac', 2, (num, den) => `${num} entre ${den}`)
+  texto = aplicarComando(texto, 'cfrac', 2, (num, den) => `${num} entre ${den}`)
   texto = aplicarComando(texto, 'frac', 2, (num, den) => `${num} entre ${den}`)
   texto = aplicarComando(texto, 'sqrt', 1, (radicando, indice) => textoRaiz(radicando, indice))
   texto = aplicarComando(texto, 'vec', 1, (v) => `vector ${v}`)
   texto = aplicarComando(texto, 'overline', 1, (v) => `${v} periódico`)
+  // \text{...} es prosa normal metida en modo matemático (p. ej. "casos
+  // favorables" dentro de una fracción de probabilidad): se lee tal cual.
+  texto = aplicarComando(texto, 'text', 1, (contenido) => contenido)
 
   // \left y \right son solo pistas de tamaño para KaTeX; el paréntesis o
   // corchete que acompañan se deja tal cual (la mayoría de los lectores de
@@ -291,12 +305,16 @@ function convertirFormula(latex) {
 
   texto = resolverSimbolos(texto)
 
-  // El signo menos ("-" o el signo Unicode "−"), tanto restando dos
-  // operandos ("4 - 1") como pegado a un número negativo ("-1"), muchos
-  // motores de voz lo leen mal o de plano lo omiten en silencio (así "4 - 1"
-  // termina sonando "cuatro uno"). Se hace explícito en vez de confiar en
-  // que el lector lo interprete solo.
+  // Operadores y relaciones sueltos ("+", "-"/"−", ">", "<", "="): igual que
+  // el signo menos, muchos motores de voz los leen mal, los omiten en
+  // silencio o los pronuncian en inglés (así "2x+3 > 11" puede sonar
+  // "dos equis tres once", sin el "más" ni el "mayor que"). Se hacen
+  // explícitos en vez de confiar en que el lector los interprete solo.
+  texto = texto.replace(/\+/g, ' más ')
   texto = texto.replace(/[-−]/g, ' menos ')
+  texto = texto.replace(/>/g, ' mayor que ')
+  texto = texto.replace(/</g, ' menor que ')
+  texto = texto.replace(/=/g, ' igual a ')
 
   // Limpieza final: llaves sueltas que hayan quedado de un comando no
   // reconocido, y espacios repetidos.

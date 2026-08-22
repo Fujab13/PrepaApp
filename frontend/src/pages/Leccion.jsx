@@ -97,6 +97,8 @@ export default function Leccion() {
   const [menuAbierto, setMenuAbierto]                = useState(false)
   const [historial, setHistorial]                    = useState([])
   const [leyendo, setLeyendo]                        = useState(false)
+  const [indicesFallados, setIndicesFallados]        = useState(() => new Set())
+  const [errorAnteriorVisible, setErrorAnteriorVisible] = useState(false)
   const inicializadoRef = useRef(false)
 
   // Detiene cualquier lectura en curso al salir de la lección.
@@ -128,7 +130,24 @@ export default function Leccion() {
     inicializadoRef.current = false
     setEnRepaso(false)
     setColaRepaso([])
+    setIndicesFallados(new Set())
+    setErrorAnteriorVisible(false)
   }, [materiaId, unidad])
+
+  // Congela el aviso "Error anterior" en el momento en que cambia la
+  // pregunta que se está mostrando (la cabeza de "cola"), en vez de leer
+  // "indicesFallados" en cada render. Si se leyera en vivo, el aviso
+  // aparecería de inmediato al fallar la pregunta actual (responder() la
+  // agrega a indicesFallados en el momento), cuando debe aparecer solo la
+  // próxima vez que esa pregunta se vuelva a mostrar tras haber fallado.
+  useEffect(() => {
+    const idx = cola && cola.length > 0 ? cola[0] : null
+    setErrorAnteriorVisible(!enRepaso && idx !== null && indicesFallados.has(idx))
+    // "indicesFallados" se omite a propósito: solo debe tomarse en cuenta la
+    // instantánea vigente cuando cambia la pregunta mostrada (cola/enRepaso),
+    // no cada vez que se marca un fallo mientras se sigue viendo la misma.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [cola, enRepaso])
 
   useEffect(() => {
     let activo = true
@@ -253,6 +272,7 @@ export default function Leccion() {
   const tieneCorrecta      = typeof pregunta.correcta === 'number'
   const tienePreguntaTexto = typeof pregunta.pregunta === 'string' && pregunta.pregunta.trim() !== ''
   const avanceDirecto      = !enRepaso && !tieneOpciones
+  const esErrorAnterior    = errorAnteriorVisible
 
   function responder(i) {
     if (respondido) return
@@ -269,6 +289,13 @@ export default function Leccion() {
     setRespondido(true)
     setFeedback(esCorrecta ? '✅ ¡Correcto!' : '❌ Incorrecto. Corrigela al final.')
     triggerVibration(esCorrecta ? 'success' : 'error')
+
+    if (!esCorrecta && !enRepaso) {
+      // Marca esta pregunta como "ya fallada" en la sesión: al fallar vuelve
+      // a encolarse (ver siguiente()), y la próxima vez que aparezca se le
+      // mostrará el aviso "Error anterior" junto al contador de Correctas.
+      setIndicesFallados(prev => new Set(prev).add(idxActual))
+    }
 
     if (!esCorrecta && !pregunta.intro) {
       // Las preguntas "intro" (bienvenida/tutorial) nunca van a repaso: no
@@ -774,6 +801,19 @@ export default function Leccion() {
             </>
           )}
         </div>
+
+        {esErrorAnterior && (
+          <span style={{
+            color: 'var(--wrong)',
+            fontWeight: 700,
+            fontSize: '0.72rem',
+            textTransform: 'uppercase',
+            letterSpacing: '0.03em',
+            whiteSpace: 'nowrap',
+          }}>
+            Error anterior
+          </span>
+        )}
       </div>
       {/* En repaso, TarjetaRepaso ya trae su propia animación de "tarjeta
           que cae"; en modo normal, el bloque completo (imagen + pregunta +

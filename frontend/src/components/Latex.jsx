@@ -26,6 +26,19 @@
 // debe ser un <div> (o similar), nunca un <p>. Si el texto trae "$$...$$",
 // Latex termina generando un <div> internamente (así renderiza BlockMath en
 // react-katex) y un <div> dentro de un <p> es HTML inválido.
+//
+// Fracciones en línea:
+// Dentro de una fórmula $...$, KaTeX usa por defecto "textstyle" (el mismo
+// estilo compacto que usaría un \frac dentro de una ecuación en línea de un
+// artículo en LaTeX): el numerador y denominador se ven chicos, y si hay una
+// fracción de fracción, la interior queda casi ilegible. En vez de simular
+// una fracción como texto plano "a/b" (lo que se ve peor y dificulta anidar),
+// promoverFraccionesDeNivelSuperior() reescribe cada \frac de nivel superior
+// de la fórmula a \dfrac -equivalente estándar de LaTeX/amsmath para forzar
+// tamaño de displaystyle en una fracción puntual-, dejando intactas las
+// fracciones que ya vienen anidadas dentro de otra (numerador/denominador,
+// exponente, etc.), que siguen viéndose proporcionalmente más chicas, tal
+// como se vería una fracción de fracciones tipeada a mano en un documento.
 
 import { Component } from 'react'
 import { InlineMath, BlockMath } from 'react-katex'
@@ -34,6 +47,42 @@ import { InlineMath, BlockMath } from 'react-katex'
 // interprete por error como dos fórmulas en línea consecutivas. La fórmula en
 // línea no puede cruzar saltos de línea ni contener un "$" suelto.
 const REGEX_MATH = /\$\$([\s\S]+?)\$\$|\$([^$\n]+?)\$/g
+
+// Solo promueve el \frac que está al nivel superior de la fórmula (fuera de
+// cualquier {...}); un \frac que ya está dentro de otro grupo -el
+// numerador/denominador de otra fracción, un exponente, una raíz- se deja
+// como está, para que KaTeX lo siga dibujando más chico según el contexto,
+// igual que en LaTeX real.
+function promoverFraccionesDeNivelSuperior(formula) {
+  if (!formula.includes('\\frac')) return formula
+
+  let resultado = ''
+  let profundidad = 0
+
+  for (let i = 0; i < formula.length; i++) {
+    const c = formula[i]
+
+    // "\{" y "\}" son llaves literales (p. ej. notación de conjuntos), no
+    // delimitadores de grupo: se copian tal cual y no afectan la profundidad.
+    if (c === '\\' && (formula[i + 1] === '{' || formula[i + 1] === '}')) {
+      resultado += c + formula[i + 1]
+      i += 1
+      continue
+    }
+
+    if (profundidad === 0 && c === '\\' && formula.startsWith('\\frac', i)) {
+      resultado += '\\dfrac'
+      i += 4 // el for ya suma 1: en total salta las 5 letras de "\frac"
+      continue
+    }
+
+    if (c === '{') profundidad++
+    else if (c === '}') profundidad--
+    resultado += c
+  }
+
+  return resultado
+}
 
 function FormulaConError({ textoOriginal }) {
   return (
@@ -91,13 +140,28 @@ function LatexContenido({ texto }) {
         </ContenedorBloque>
       )
     } else {
-      partes.push(
+      const formula = enLinea.trim()
+      const tieneFraccion = /\\d?c?frac/.test(formula)
+      const math = (
         <InlineMath
-          key={clave++}
-          math={enLinea.trim()}
+          math={promoverFraccionesDeNivelSuperior(formula)}
           renderError={() => <FormulaConError textoOriginal={coincidencia} />}
         />
       )
+
+      if (tieneFraccion) {
+        // Una fracción en displaystyle es más alta que una línea de texto
+        // normal; envolverla en inline-block con un pequeño margen vertical
+        // le da aire respecto al renglón de arriba y de abajo, en vez de
+        // quedar apretada contra el texto como si fuera un carácter más.
+        partes.push(
+          <span key={clave++} style={{ display: 'inline-block', verticalAlign: 'middle', margin: '0.18em 0.05em' }}>
+            {math}
+          </span>
+        )
+      } else {
+        partes.push(<span key={clave++}>{math}</span>)
+      }
     }
 
     ultimoIndice = match.index + coincidencia.length

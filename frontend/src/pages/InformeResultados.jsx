@@ -154,21 +154,31 @@ function adaptarExamen(e, desdeState) {
   };
 }
 
-// ── Piezas de UI compartidas (densidad pensada para lectura de maestro) ────
+// ── Piezas de UI compartidas ────────────────────────────────────────────────
+// Mismo lenguaje visual que Home.jsx (etiquetas de sección uppercase con
+// letter-spacing amplio) y Leccion.jsx (tarjetas en degradado surface2→surface
+// con sombra suave, en vez del surface2 plano que tenía esta página antes).
 function Section({ title, children }) {
   return (
     <div style={{ marginBottom: 18 }}>
-      <h3 style={{ margin: "0 0 10px", fontSize: 11.5, fontWeight: 700, color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: "0.08em" }}>
+      <p style={{ margin: "0 0 10px", color: "var(--text-muted)", fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "1.5px" }}>
         {title}
-      </h3>
+      </p>
       {children}
     </div>
   );
 }
 
-function Tarjeta({ children }) {
+function Tarjeta({ children, style }) {
   return (
-    <div style={{ background: "var(--surface2)", border: "0.5px solid var(--surface)", borderRadius: "var(--radius)", padding: "12px 14px" }}>
+    <div style={{
+      background: "linear-gradient(135deg, var(--surface2), var(--surface))",
+      border: "0.5px solid var(--surface)",
+      borderRadius: "var(--radius)",
+      padding: "14px 16px",
+      boxShadow: "0 4px 16px -10px rgba(0,0,0,0.6)",
+      ...style,
+    }}>
       {children}
     </div>
   );
@@ -176,13 +186,20 @@ function Tarjeta({ children }) {
 
 function MetricCard({ icono, label, valor, sub, color = "#7c5cbf" }) {
   return (
-    <div style={{ background: "var(--surface2)", borderLeft: `3px solid ${color}`, borderRadius: 10, padding: "9px 11px", display: "flex", flexDirection: "column", gap: 2, minHeight: 44 }}>
-      <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-        <span style={{ fontSize: 12, color }}>{icono}</span>
-        <span style={{ fontSize: 10, color: "var(--text-muted)", letterSpacing: 0.3 }}>{label}</span>
+    <div style={{
+      background: "linear-gradient(135deg, var(--surface2), var(--surface))",
+      borderLeft: `3px solid ${color}`,
+      borderRadius: 6,
+      padding: "14px 16px",
+      display: "flex", flexDirection: "column", gap: 4, minHeight: 62,
+      boxShadow: "0 4px 16px -10px rgba(0,0,0,0.6)",
+    }}>
+      <div style={{ display: "flex", alignItems: "center", gap: 7 }}>
+        <span style={{ fontSize: 15, color }}>{icono}</span>
+        <span style={{ fontSize: 11.5, color: "var(--text-muted)", letterSpacing: 0.3 }}>{label}</span>
       </div>
-      <span style={{ fontSize: 13.5, fontWeight: 700, color: "var(--text)", lineHeight: 1.25 }}>{valor ?? "—"}</span>
-      {sub && <span style={{ fontSize: 10, color: "var(--text-muted)" }}>{sub}</span>}
+      <span style={{ fontSize: 17, fontWeight: 700, color: "var(--text)", lineHeight: 1.25 }}>{valor ?? "—"}</span>
+      {sub && <span style={{ fontSize: 11, color: "var(--text-muted)" }}>{sub}</span>}
     </div>
   );
 }
@@ -194,8 +211,8 @@ function Barra({ label, valorTexto, pct, color }) {
         <span style={{ fontSize: 12.5, color: "var(--text)" }}>{label}</span>
         <span style={{ fontSize: 11.5, color: "var(--text-muted)" }}>{valorTexto}</span>
       </div>
-      <div style={{ height: 7, background: "var(--surface)", borderRadius: 4, overflow: "hidden" }}>
-        <div style={{ height: "100%", width: `${pct}%`, background: color, borderRadius: 4 }} />
+      <div style={{ height: 6, background: "var(--surface)", borderRadius: "99px", overflow: "hidden" }}>
+        <div style={{ height: "100%", width: `${pct}%`, background: color, borderRadius: "99px", transition: "width 0.4s ease" }} />
       </div>
     </div>
   );
@@ -216,17 +233,29 @@ function VistaFormulario({ datos }) {
   const nivel = useMemo(() => nivelPreparacion(datos.autoevaluacion), [datos.autoevaluacion]);
   return (
     <div>
-      <Section title="Índice de preparación">
-        <div style={{ border: `1px solid ${nivel.color}40`, borderLeft: `4px solid ${nivel.color}`, background: "var(--surface2)", borderRadius: "var(--radius)", padding: 14, display: "flex", alignItems: "center", gap: 14 }}>
-          <div style={{ fontSize: 24, fontWeight: 800, color: nivel.color, minWidth: 54 }}>
+      <div style={{
+        background: "var(--surface2)", borderRadius: "var(--radius)", padding: "26px 20px",
+        display: "flex", flexDirection: "column", alignItems: "center", gap: 8, marginBottom: 20,
+      }}>
+        <p style={{ color: "var(--text-muted)", fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "1.5px", margin: 0 }}>
+          Índice de preparación
+        </p>
+        <div style={{
+          width: 96, height: 96, borderRadius: "50%",
+          display: "flex", alignItems: "center", justifyContent: "center",
+          background: `conic-gradient(${nivel.color} ${nivel.pct ?? 0}%, var(--surface) 0)`,
+        }}>
+          <div style={{
+            width: 78, height: 78, borderRadius: "50%", background: "var(--surface2)",
+            display: "flex", alignItems: "center", justifyContent: "center",
+            fontSize: "1.3rem", fontWeight: 800, color: nivel.color,
+          }}>
             {nivel.pct !== null ? `${nivel.pct}%` : "—"}
           </div>
-          <div>
-            <div style={{ fontSize: 13, fontWeight: 700, color: nivel.color }}>{nivel.texto}</div>
-            <div style={{ fontSize: 11, color: "var(--text-muted)", marginTop: 2 }}>Basado en su autoevaluación por área</div>
-          </div>
         </div>
-      </Section>
+        <div style={{ fontSize: "0.95rem", fontWeight: 700, color: nivel.color, marginTop: 2 }}>{nivel.texto}</div>
+        <div style={{ fontSize: "0.75rem", color: "var(--text-muted)" }}>Basado en su autoevaluación por área</div>
+      </div>
 
       <Section title="Datos clave">
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
@@ -304,7 +333,7 @@ function VistaExamen({ datos }) {
       )}
 
       <Section title="Por área">
-        <Tarjeta>
+        <Tarjeta style={{ borderRadius: 6 }}>
           {(datos.statsPorSeccion ?? []).map((sec) => {
             const pct = sec.total > 0 ? Math.round((sec.correctas / sec.total) * 100) : 0;
             return <Barra key={sec.nombre} label={sec.nombre} valorTexto={`${sec.correctas}/${sec.total} · ${pct}%`} pct={pct} color={sec.color} />;
@@ -325,7 +354,12 @@ function VistaExamen({ datos }) {
               const p = datos.preguntas.find((q) => q.id === id);
               const esCor = datos.respuestas[id] === p?.inciso_correcto;
               return (
-                <div key={id} style={{ background: esCor ? "#14532d" : "#450a0a", border: `1px solid ${esCor ? "#166534" : "#7f1d1d"}`, borderRadius: 8, padding: "5px 10px", fontSize: 11.5, color: esCor ? "#86efac" : "#fca5a5" }}>
+                <div key={id} style={{
+                  background: esCor ? "rgba(74,222,128,0.12)" : "rgba(248,113,113,0.12)",
+                  border: `1px solid ${esCor ? "var(--correct)" : "var(--wrong)"}`,
+                  borderRadius: 8, padding: "5px 10px", fontSize: 11.5,
+                  color: esCor ? "var(--correct)" : "var(--wrong)",
+                }}>
                   {id}
                 </div>
               );
@@ -336,7 +370,7 @@ function VistaExamen({ datos }) {
 
       {datos.tieneDetalle && (
         <Section title="Detalle de respuestas">
-          <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
             {datos.preguntas.map((p) => {
               const resp = datos.respuestas[p.id];
               const correc = p.inciso_correcto;
@@ -344,16 +378,16 @@ function VistaExamen({ datos }) {
               const tiempo = datos.tiemposPregunta?.[p.id];
               let estado;
               if (!resp) estado = { bg: "var(--surface2)", border: "var(--surface)", dot: "#6b7280" };
-              else if (acierto) estado = { bg: "#14532d", border: "#166534", dot: "#22c55e" };
-              else estado = { bg: "#450a0a", border: "#7f1d1d", dot: "#ef4444" };
+              else if (acierto) estado = { bg: "rgba(74,222,128,0.1)", border: "var(--correct)", dot: "var(--correct)" };
+              else estado = { bg: "rgba(248,113,113,0.1)", border: "var(--wrong)", dot: "var(--wrong)" };
               return (
-                <div key={p.id} style={{ background: estado.bg, border: `0.5px solid ${estado.border}`, borderRadius: 10, padding: "8px 12px", display: "flex", alignItems: "center", gap: 10 }}>
-                  <div style={{ width: 7, height: 7, borderRadius: "50%", background: estado.dot, flexShrink: 0 }} />
-                  <div style={{ flex: 1, minWidth: 0, fontSize: 11.5 }}>
+                <div key={p.id} style={{ background: estado.bg, border: `0.5px solid ${estado.border}`, borderRadius: 6, padding: "12px 14px", display: "flex", alignItems: "center", gap: 12 }}>
+                  <div style={{ width: 9, height: 9, borderRadius: "50%", background: estado.dot, flexShrink: 0 }} />
+                  <div style={{ flex: 1, minWidth: 0, fontSize: 13.5 }}>
                     <span style={{ color: "var(--text-muted)" }}>{p.id} </span>
                     <span style={{ color: "var(--text)" }}>{p.pregunta.slice(0, 55)}{p.pregunta.length > 55 ? "…" : ""}</span>
                   </div>
-                  <div style={{ textAlign: "right", flexShrink: 0, fontSize: 11 }}>
+                  <div style={{ textAlign: "right", flexShrink: 0, fontSize: 12.5 }}>
                     <div style={{ color: "var(--text-muted)" }}>
                       {resp ? `Su: ${resp}` : "Sin resp."}{!acierto && resp && ` · Cor: ${correc}`}
                     </div>
@@ -404,10 +438,10 @@ function PaginaFormulario({ formulario, navigate }) {
         </div>
         <VistaFormulario datos={datos} />
         <div className="no-print" style={{ display: "flex", gap: 10, marginTop: 20 }}>
-          <button onClick={() => navigate("/")} style={{ flex: 1, minHeight: 44, borderRadius: 10, border: "0.5px solid var(--surface)", background: "var(--surface2)", color: "var(--text)", fontWeight: 600, fontSize: 14 }}>
+          <button onClick={() => navigate("/")} className="gm-cta" style={{ flex: 1, minHeight: 44, borderRadius: 12, border: "0.5px solid var(--surface)", background: "var(--surface2)", color: "var(--text)", fontWeight: 600, fontSize: 14 }}>
             Volver al inicio
           </button>
-          <button onClick={() => window.print()} style={{ flex: 1, minHeight: 44, borderRadius: 10, border: "none", background: "#7c5cbf", color: "#fff", fontWeight: 600, fontSize: 14 }}>
+          <button onClick={() => window.print()} className="gm-cta" style={{ flex: 1, minHeight: 44, borderRadius: 12, border: "none", background: "linear-gradient(355deg, #7c5cbf, #ffffffbe)", color: "#000", fontWeight: 700, fontSize: 14, boxShadow: "0 6px 18px -6px #7c5cbf80" }}>
             Imprimir informe
           </button>
         </div>
@@ -425,10 +459,10 @@ function PaginaExamen({ examen, navigate }) {
       <main className="page-content-compact" style={{ flex: 1, paddingBottom: 40 }}>
         <VistaExamen datos={datos} />
         <div className="no-print" style={{ display: "flex", gap: 10, marginTop: 20 }}>
-          <button onClick={() => navigate("/")} style={{ flex: 1, minHeight: 44, borderRadius: 10, border: "0.5px solid var(--surface)", background: "var(--surface2)", color: "var(--text)", fontWeight: 600, fontSize: 14 }}>
+          <button onClick={() => navigate("/")} className="gm-cta" style={{ flex: 1, minHeight: 44, borderRadius: 12, border: "0.5px solid var(--surface)", background: "var(--surface2)", color: "var(--text)", fontWeight: 600, fontSize: 14 }}>
             Volver al inicio
           </button>
-          <button onClick={() => window.print()} style={{ flex: 1, minHeight: 44, borderRadius: 10, border: "none", background: "#4f8ef7", color: "#fff", fontWeight: 600, fontSize: 14 }}>
+          <button onClick={() => window.print()} className="gm-cta" style={{ flex: 1, minHeight: 44, borderRadius: 12, border: "none", background: "linear-gradient(355deg, #4f8ef7, #ffffffbe)", color: "#000", fontWeight: 700, fontSize: 14, boxShadow: "0 6px 18px -6px #4f8ef780" }}>
             Imprimir resultados
           </button>
         </div>
@@ -589,7 +623,8 @@ function PaginaMaestro({ user, navigate }) {
           <button
             onClick={buscar}
             disabled={cargando}
-            style={{ marginTop: 10, minHeight: 44, borderRadius: 10, border: "none", background: "#22c55e", color: "#fff", fontWeight: 700, fontSize: 14, display: "flex", alignItems: "center", justifyContent: "center", gap: 8, opacity: cargando ? 0.7 : 1 }}
+            className="gm-cta"
+            style={{ marginTop: 10, minHeight: 44, borderRadius: 12, border: "none", background: "linear-gradient(355deg, #22c55e, #ffffffbe)", color: "#000", fontWeight: 700, fontSize: 14, display: "flex", alignItems: "center", justifyContent: "center", gap: 8, opacity: cargando ? 0.7 : 1, boxShadow: "0 6px 18px -6px #22c55e80" }}
           >
             <HiOutlineMagnifyingGlass /> {cargando ? "Buscando…" : "Buscar"}
           </button>

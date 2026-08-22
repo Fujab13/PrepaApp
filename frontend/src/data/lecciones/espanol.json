@@ -3864,6 +3864,888 @@
         "Esas dos personas en particular fueron groseras conmigo"
       ],
       "correcta": 0
+    },
+    {
+      "pregunta": "¿Cuántas sílabas tiene la palabra 'murciélago'?",
+      "opciones": [
+        "5",
+        "3",
+        "4"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "¿Cuál de las siguientes palabras contiene un diptongo?",
+      "opciones": [
+        "País",
+        "Aceite",
+        "Poeta"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "¿Cuál de las siguientes palabras contiene un hiato?",
+      "opciones": [
+        "Cielo",
+        "País",
+        "Aceite"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "¿Cuál de las siguientes palabras es esdrújula?",
+      "opciones": [
+        "Camión",
+        "Matemáticas",
+        "Árbol"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "¿Cuál de las siguientes palabras es sobresdrújula?",
+      "opciones": [
+        "Explícamelo",
+        "Explícale",
+        "Cuéntame"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "La palabra 'ruina' se divide silábicamente como",
+      "opciones": [
+        "Ru-in-a",
+        "Ru-i-na",
+        "Rui-na"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "¿Cuál palabra está correctamente escrita?",
+      "opciones": [
+        "Exhuberante",
+        "Exuberante",
+        "Exuverante"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Completa correctamente: 'Espero que ___ a la fiesta' (verbo ir, presente de subjuntivo)",
+      "opciones": [
+        "Valla",
+        "Vaya",
+        "Baya"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Completa correctamente: 'El ganado saltó la ___' (cerca de madera)",
+      "opciones": [
+        "Valla",
+        "Vaya",
+        "Baya"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "¿Cuál es el significado correcto de 'ingerir'?",
+      "opciones": [
+        "Tragar o consumir algo, como un alimento",
+        "Entrometerse en un asunto ajeno",
+        "Sembrar una planta"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "¿Cuál palabra está correctamente escrita?",
+      "opciones": [
+        "Espontaneo",
+        "Espontáneo",
+        "Expontáneo"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Completa correctamente: 'Espero que ___ buenos resultados' (verbo haber, presente de subjuntivo)",
+      "opciones": [
+        "Halla",
+        "Aya",
+        "Haya"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "¿En qué oración el uso de la coma es correcto?",
+      "opciones": [
+        "Compré, manzanas peras y uvas",
+        "Compré manzanas peras, y uvas",
+        "Compré manzanas, peras y uvas"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "¿Cuál oración usa correctamente el punto y coma?",
+      "opciones": [
+        "Juan estudia medicina; su hermana, arquitectura",
+        "Juan estudia medicina; y su hermana arquitectura",
+        "Juan estudia medicina, su hermana; arquitectura"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "¿Cuál es el uso correcto de los dos puntos?",
+      "opciones": [
+        "Necesito tres cosas: tiempo, dinero y paciencia",
+        "Necesito tres cosas tiempo, dinero: y paciencia",
+        "Necesito: tres cosas tiempo dinero y paciencia"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "¿Cuál oración utiliza correctamente la coma para aislar un vocativo?",
+      "opciones": [
+        "María, ven un momento",
+        "María ven un, momento",
+        "María ven, un momento"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "¿Cuál oración utiliza correctamente la coma antes de una conjunción adversativa?",
+      "opciones": [
+        "Quería salir pero, llovía mucho",
+        "Quería salir, pero llovía mucho",
+        "Quería, salir pero llovía mucho"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "¿Cuál de las siguientes oraciones separa incorrectamente el sujeto del verbo con una coma?",
+      "opciones": [
+        "Los alumnos de nuevo ingreso, deben presentar su documentación",
+        "Los alumnos de nuevo ingreso deben presentar su documentación, antes del viernes",
+        "Antes del viernes, los alumnos de nuevo ingreso deben presentar su documentación"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "¿Cuál de las siguientes oraciones está gramaticalmente correcta?",
+      "opciones": [
+        "Habían varios problemas sin resolver",
+        "Había varios problemas sin resolver",
+        "Habían varios problema sin resolver"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Identifica el orden lógico correcto para: 'rápidamente / el problema / resolvió / el ingeniero'",
+      "opciones": [
+        "Resolvió el ingeniero rápidamente el problema",
+        "El ingeniero resolvió rápidamente el problema",
+        "El ingeniero el problema resolvió rápidamente"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "¿Cuál es la palabra más adecuada para completar: 'El médico ___ al paciente antes de operarlo'?",
+      "opciones": [
+        "Examinó",
+        "Miró",
+        "Vio"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "¿Cuál es la reescritura más clara de: 'El motivo por el cual no vine fue debido a que estaba enfermo'?",
+      "opciones": [
+        "No vine porque estaba enfermo",
+        "El motivo por el que no vine es que estaba enfermo",
+        "No vine, la razón fue que por estar enfermo"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "¿Cuál oración es gramaticalmente correcta?",
+      "opciones": [
+        "Pienso que de tienes razón",
+        "Pienso de que tienes razón",
+        "Pienso que tienes razón"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "¿Cuál oración presenta concordancia correcta entre sujeto y verbo?",
+      "opciones": [
+        "Cada unos de los participantes recibió su diploma",
+        "Cada uno de los participantes recibieron su diploma",
+        "Cada uno de los participantes recibió su diploma"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "¿Cuál oración usa el término más preciso en español, evitando un anglicismo innecesario?",
+      "opciones": [
+        "Voy a reservar una mesa para la cena",
+        "Voy a agendar una mesa para la cena",
+        "Voy a bookear una mesa para la cena"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "¿Cuál de las siguientes oraciones contiene un solecismo?",
+      "opciones": [
+        "Me se olvidó comprar el pan",
+        "Se me olvidó comprar el pan",
+        "Me olvidé de comprar el pan"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "¿Cuál de las siguientes expresiones NO es un pleonasmo?",
+      "opciones": [
+        "Volar alto",
+        "Entrar adentro",
+        "Salir afuera"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "¿Cuál oración presenta cacofonía por la repetición de sonidos?",
+      "opciones": [
+        "Tu tutor te tutela tu turno",
+        "El profesor explicó el tema con claridad",
+        "Tu maestro te ayuda a estudiar cada día"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "¿Cuál de las siguientes palabras es un barbarismo por acentuación incorrecta?",
+      "opciones": [
+        "Vayamos",
+        "Váyamos",
+        "Vamos"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "¿Cuál de las siguientes oraciones NO presenta dequeísmo ni queísmo?",
+      "opciones": [
+        "Me dijo de que no vendría",
+        "Estoy segura de que vendrá",
+        "Me alegro que hayas venido"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "¿Cuál de las siguientes oraciones es ambigua (anfibología)?",
+      "opciones": [
+        "Vi al hombre que llevaba un telescopio",
+        "Vi al hombre desde la ventana",
+        "Vi al hombre con el telescopio"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "¿Cuál de las siguientes expresiones NO es una muletilla?",
+      "opciones": [
+        "Este... eh...",
+        "O sea, o sea",
+        "Sin embargo"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "¿Cuál de los siguientes pares es un ejemplo de homófonos?",
+      "opciones": [
+        "Perro / Perra",
+        "Gato / Gata",
+        "Tuvo / Tubo"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "¿Cuál de los siguientes pares es un ejemplo de parónimos?",
+      "opciones": [
+        "Infringir / Infligir",
+        "Rápido / Veloz",
+        "Grande / Enorme"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "La palabra 'hecho' (participio de 'hacer') es homófona de",
+      "opciones": [
+        "Techo",
+        "Echo",
+        "Hecho mismo, no tiene homófono"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Completa correctamente: 'Voy a ___ un vistazo antes de decidir' (verbo echar)",
+      "opciones": [
+        "Echar",
+        "Hecha",
+        "Hechar"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "¿Cuál es el significado de 'rayar' en la oración 'El niño rayó la pared con un crayón'?",
+      "opciones": [
+        "Amanecer o comenzar el día",
+        "Cortar algo en tiras finas, como el queso",
+        "Hacer líneas o marcas sobre una superficie"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "¿Cuál de las siguientes oraciones usa correctamente el parónimo 'absolver'?",
+      "opciones": [
+        "La esponja puede absolver grandes cantidades de agua",
+        "El profesor pidió a los alumnos absolver todas las dudas antes del examen",
+        "El juez decidió absolver al acusado por falta de pruebas"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "¿Cuál es el prefijo en la palabra 'deshacer'?",
+      "opciones": [
+        "Des-",
+        "Hacer-",
+        "De-"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "¿Qué significado aporta el prefijo 'in-' en la palabra 'inmóvil'?",
+      "opciones": [
+        "Exceso",
+        "Repetición",
+        "Negación (no móvil)"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "¿Cuál es el sufijo en la palabra 'panadería'?",
+      "opciones": [
+        "-ería",
+        "-ción",
+        "-dad"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "¿Qué tipo de palabra se forma con el sufijo '-oso' en 'cariñoso'?",
+      "opciones": [
+        "Un sustantivo abstracto",
+        "Un verbo",
+        "Un adjetivo que indica cualidad o abundancia"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "¿Cuál de las siguientes es una palabra formada por composición (unión de dos palabras completas)?",
+      "opciones": [
+        "Sacapuntas",
+        "Jardinero",
+        "Reforzar"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "La palabra 'empobrecer' (de 'pobre') es un ejemplo de",
+      "opciones": [
+        "Parasíntesis: prefijo y sufijo agregados a la vez a la raíz",
+        "Un préstamo del latín sin modificación",
+        "Composición simple de dos palabras"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "¿Cuál oración pertenece claramente al registro formal?",
+      "opciones": [
+        "Oye, ¿me haces un paro con esto?",
+        "Le agradezco de antemano su atención a la presente solicitud",
+        "Nomás dime qué onda y ya"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "¿Cuál oración pertenece al registro informal?",
+      "opciones": [
+        "El evento deportivo resultó sumamente satisfactorio",
+        "¡Qué chido estuvo el partido de ayer!",
+        "Los organizadores consideraron exitoso el encuentro"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "En un correo dirigido a un director universitario, ¿cuál despedida es más adecuada?",
+      "opciones": [
+        "Nos vemos, cuídate mucho",
+        "Quedo a su disposición para cualquier aclaración. Atentamente,",
+        "Bye, saludos"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "¿Cuál oración usa incorrectamente la palabra 'ratificar' en lugar de 'rectificar'?",
+      "opciones": [
+        "El profesor tuvo que rectificar la calificación mal asignada",
+        "El comité decidió ratificar el acuerdo firmado la semana pasada",
+        "El director tuvo que ratificar su error después de la queja"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "¿Cuál es la palabra más precisa para completar: 'El testigo ___ que había visto el accidente'?",
+      "opciones": [
+        "Comentó",
+        "Declaró",
+        "Dijo"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Completa la analogía por relación de parte a todo: Página es a Libro como Eslabón es a ___",
+      "opciones": [
+        "Metal",
+        "Cadena",
+        "Anillo"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Completa la analogía: Bisturí es a Cirujano como Batuta es a ___",
+      "opciones": [
+        "Director de orquesta",
+        "Compositor",
+        "Músico"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Completa la analogía: Uva es a Vino como Leche es a ___",
+      "opciones": [
+        "Vaca",
+        "Botella",
+        "Queso"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "Completa la analogía: Mueble es a Silla como Fruta es a ___",
+      "opciones": [
+        "Ensalada",
+        "Árbol",
+        "Manzana"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "Completa la analogía: Estudiar es a Aprender como Sembrar es a ___",
+      "opciones": [
+        "Cosechar",
+        "Regar",
+        "Cultivar"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Completa la analogía: Tibio es a Caliente como Fresco es a ___",
+      "opciones": [
+        "Helado",
+        "Templado",
+        "Frío"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "Completa la analogía: Capitán es a Barco como Piloto es a ___",
+      "opciones": [
+        "Cabina",
+        "Avión",
+        "Aeropuerto"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Completa la analogía: Ejercicio es a Fuerza como Lectura es a ___",
+      "opciones": [
+        "Escuela",
+        "Conocimiento",
+        "Libro"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Completa de forma coherente: 'A pesar de la lluvia, ___'",
+      "opciones": [
+        "Decidimos salir a caminar",
+        "Compramos un paraguas nuevo el mes pasado",
+        "El sol brillaba con fuerza"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Completa de forma coherente: 'Como llegó tarde a la entrevista, ___'",
+      "opciones": [
+        "Se preparó con mucha anticipación",
+        "No obtuvo el empleo",
+        "Decidió mudarse a otra ciudad"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Completa gramaticalmente: 'Este es el libro ___ te hablé la semana pasada'",
+      "opciones": [
+        "Del que",
+        "Que",
+        "Del cual que"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Completa gramaticalmente: 'No hay nadie ___ pueda ayudarte mejor que él'",
+      "opciones": [
+        "Quien",
+        "Que",
+        "Cual"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Completa de forma coherente: 'Dado que el presupuesto es limitado, el proyecto ___'",
+      "opciones": [
+        "No depende del presupuesto en absoluto",
+        "Tendrá que reducirse en algunas áreas",
+        "Se ampliará considerablemente"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Completa de forma coherente: 'Aunque el examen era difícil, María ___'",
+      "opciones": [
+        "Logró aprobarlo con una buena calificación",
+        "Nunca estudió para él",
+        "Decidió no presentarlo"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Ordena lógicamente para formar un párrafo coherente: (1) Finalmente, el volcán entró en erupción. (2) Durante semanas, los sismólogos registraron temblores cada vez más frecuentes. (3) Las autoridades evacuaron a la población cercana como medida preventiva. (4) Un volcán inactivo desde hace décadas comenzó a mostrar actividad inusual",
+      "opciones": [
+        "4, 3, 2, 1",
+        "4, 2, 3, 1",
+        "1, 2, 3, 4"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Ordena lógicamente para formar un párrafo coherente: (1) Como resultado, la empresa decidió capacitar a todo el personal. (2) Una fábrica reportó una caída en la calidad de sus productos. (3) Tras investigar, se determinó que el problema era falta de capacitación. (4) La gerencia inició una revisión exhaustiva del proceso de producción",
+      "opciones": [
+        "1, 2, 3, 4",
+        "2, 3, 4, 1",
+        "2, 4, 3, 1"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "¿Cuál es el orden lógico correcto para reconstruir el párrafo? (1) Por ello, los expertos recomiendan dormir al menos siete horas diarias. (2) La falta de sueño afecta la memoria y la capacidad de concentración. (3) Numerosos estudios han analizado los efectos del sueño en el rendimiento cognitivo. (4) Además, incrementa el riesgo de sufrir enfermedades cardiovasculares",
+      "opciones": [
+        "2, 3, 4, 1",
+        "3, 4, 2, 1",
+        "3, 2, 4, 1"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "En un texto argumentativo, ¿cuál es el orden lógico habitual de sus partes?",
+      "opciones": [
+        "Argumentos, tesis, conclusión y contraargumentos",
+        "Conclusión, argumentos, tesis y contraargumentos",
+        "Tesis, argumentos, contraargumentos y conclusión"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "¿Qué conector sería más adecuado para iniciar el párrafo final de un texto argumentativo que resume lo expuesto?",
+      "opciones": [
+        "En conclusión",
+        "Sin embargo",
+        "Por ejemplo"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "¿Qué oración debe eliminarse por ser redundante? 'El reciclaje ayuda a cuidar el medio ambiente. Reciclar es una forma de proteger el ambiente natural. Además, reduce la cantidad de basura en los vertederos'",
+      "opciones": [
+        "El reciclaje ayuda a cuidar el medio ambiente",
+        "Reciclar es una forma de proteger el ambiente natural",
+        "Además, reduce la cantidad de basura en los vertederos"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "¿Qué oración es impertinente (no pertenece al tema) en este párrafo? 'Las abejas son polinizadoras esenciales para los ecosistemas. Sin ellas, muchas plantas no podrían reproducirse. Mi tía tiene una colección de estampillas muy antigua. La disminución de las poblaciones de abejas preocupa a los científicos'",
+      "opciones": [
+        "Mi tía tiene una colección de estampillas muy antigua",
+        "La disminución de las poblaciones de abejas preocupa a los científicos",
+        "Las abejas son polinizadoras esenciales para los ecosistemas"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "¿Qué oración presenta una inconsistencia temática en este párrafo? 'El café es una de las bebidas más consumidas en el mundo. Se cultiva principalmente en zonas tropicales. El café, sin embargo, no contiene cafeína en ninguna de sus presentaciones. Su aroma y sabor varían según la región de cultivo'",
+      "opciones": [
+        "Su aroma y sabor varían según la región de cultivo",
+        "El café es una de las bebidas más consumidas en el mundo",
+        "El café, sin embargo, no contiene cafeína en ninguna de sus presentaciones"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "La inconsistencia temática en un texto ocurre cuando",
+      "opciones": [
+        "Una oración repite lo que ya se dijo con otras palabras",
+        "Una oración utiliza vocabulario demasiado técnico para el lector",
+        "Una oración contradice o se aparta del hecho central que el resto del texto sostiene"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "Al revisar un párrafo para eliminar enunciados innecesarios, ¿cuál es el criterio MENOS relevante a considerar?",
+      "opciones": [
+        "Que la oración se relacione directamente con el tema central",
+        "Que la oración use palabras largas o complejas",
+        "Que la oración aporte información nueva y relevante"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Texto: 'Sostengo que la educación a distancia, lejos de ser una alternativa inferior, ofrece ventajas de flexibilidad que la educación presencial no puede igualar'. ¿A qué tipo de texto pertenece principalmente?",
+      "opciones": [
+        "Argumentativo",
+        "Narrativo",
+        "Descriptivo"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Texto: 'La tormenta se desató sin previo aviso; los relámpagos iluminaban el cielo mientras el viento arrancaba las hojas de los árboles'. ¿Qué tipo de texto es?",
+      "opciones": [
+        "Argumentativo",
+        "Expositivo",
+        "Descriptivo"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "Texto: 'Salió de casa temprano, tomó el autobús equivocado y terminó llegando tarde a su primer día de trabajo'. ¿Qué tipo de texto es?",
+      "opciones": [
+        "Descriptivo",
+        "Narrativo",
+        "Expositivo"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "¿Cuál de las siguientes características distingue a un texto académico de uno periodístico?",
+      "opciones": [
+        "El académico siempre es más breve que el periodístico",
+        "El periodístico nunca incluye opiniones, solo hechos",
+        "El académico cita fuentes y sigue una metodología rigurosa; el periodístico prioriza la inmediatez de la noticia"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "Un contrato de arrendamiento es un ejemplo de texto",
+      "opciones": [
+        "Administrativo",
+        "Literario",
+        "Narrativo"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "¿Qué distingue principalmente a un texto expositivo de uno argumentativo?",
+      "opciones": [
+        "El argumentativo nunca presenta datos ni evidencias",
+        "El expositivo busca informar de forma objetiva; el argumentativo busca persuadir defendiendo una postura",
+        "El expositivo siempre es más largo que el argumentativo"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "¿Cuál de las siguientes oraciones es un hecho (dato verificable)?",
+      "opciones": [
+        "El café es la mejor bebida para empezar el día",
+        "Las mañanas frías son las más agradables para trabajar",
+        "El agua hierve a 100°C al nivel del mar"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "¿Cuál de las siguientes oraciones es una opinión?",
+      "opciones": [
+        "El banco central modificó la tasa de interés ayer",
+        "La nueva política económica es, sin duda, un error",
+        "La inflación aumentó dos puntos porcentuales el mes pasado"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Texto: 'Sofía revisó su reloj por tercera vez en cinco minutos y siguió mirando hacia la puerta'. ¿Qué se puede inferir sobre Sofía?",
+      "opciones": [
+        "Está aburrida y quiere irse a casa",
+        "Está esperando a alguien con impaciencia",
+        "No sabe qué hora es"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Texto: 'Aunque el restaurante tenía muy buenas reseñas, decidimos no volver'. ¿Qué tono predomina en esta oración?",
+      "opciones": [
+        "Entusiasmo",
+        "Indiferencia total",
+        "Decepción o insatisfacción implícita"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "Texto: 'Vaya, qué puntual llegaste... solo una hora tarde'. ¿Qué tono predomina?",
+      "opciones": [
+        "Irónico o sarcástico",
+        "Alegre",
+        "Neutral e informativo"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Texto: 'Llevaba puesto un abrigo grueso, bufanda y guantes al salir de casa'. ¿Qué se puede inferir sobre el clima?",
+      "opciones": [
+        "Era temporada de verano",
+        "Estaba lloviendo intensamente",
+        "Hacía mucho frío"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "Al identificar si una oración es un hecho o una opinión, la pregunta clave que debe hacerse el lector es",
+      "opciones": [
+        "¿La oración es larga o corta?",
+        "¿Se puede comprobar o verificar objetivamente esta afirmación?",
+        "¿Está la oración escrita en tiempo presente?"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "¿Qué tipo de conector es 'por el contrario'?",
+      "opciones": [
+        "Contraste",
+        "Adición",
+        "Causa"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "¿Qué tipo de conector es 'en consecuencia'?",
+      "opciones": [
+        "Consecuencia",
+        "Condición",
+        "Comparación"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "¿Qué tipo de conector es 'de igual manera'?",
+      "opciones": [
+        "Temporalidad",
+        "Comparación",
+        "Finalidad"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "¿Qué tipo de conector es 'a fin de que'?",
+      "opciones": [
+        "Contraste",
+        "Finalidad",
+        "Causa"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "¿Qué tipo de conector es 'en caso de que'?",
+      "opciones": [
+        "Adición",
+        "Consecuencia",
+        "Condición"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "¿Qué tipo de conector es 'posteriormente'?",
+      "opciones": [
+        "Ejemplificación",
+        "Causa",
+        "Temporalidad"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "¿Cuál de las siguientes oraciones es un ejemplo de falacia de falsa causa?",
+      "opciones": [
+        "El estudio demostró que fumar aumenta el riesgo de cáncer",
+        "Los accidentes de tráfico han disminuido gracias a las nuevas leyes de tránsito, según los datos oficiales",
+        "Desde que se instaló el nuevo semáforo, han aumentado los accidentes; por lo tanto, el semáforo los causa"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "¿Cuál de las siguientes oraciones es un ejemplo de falacia de falso dilema?",
+      "opciones": [
+        "O apoyas esta reforma por completo, o simplemente no te importa el país",
+        "Algunos aspectos de la reforma son positivos, aunque otros requieren ajustes",
+        "La reforma tiene tanto defensores como críticos entre los especialistas"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "¿Cuál de las siguientes oraciones es un ejemplo de falacia de apelación a la autoridad?",
+      "opciones": [
+        "El nutriólogo explicó los fundamentos científicos detrás de la dieta",
+        "Según varios estudios clínicos revisados por expertos, esta dieta reduce el colesterol",
+        "Debe ser cierto que esta dieta funciona, porque un actor famoso la recomendó en redes sociales"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "¿Cuál de las siguientes oraciones es un ejemplo de falacia de pendiente resbaladiza?",
+      "opciones": [
+        "Permitir un día de tolerancia podría afectar la planificación del curso",
+        "Si permitimos que los estudiantes entreguen la tarea un día tarde, pronto nadie entregará nada a tiempo y el sistema educativo colapsará",
+        "Las políticas de entrega flexible han mostrado resultados mixtos en distintas escuelas"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Al identificar una falacia argumentativa en un texto, es importante distinguir entre",
+      "opciones": [
+        "Un argumento largo y uno corto",
+        "Un argumento escrito en primera persona y uno en tercera persona",
+        "Un argumento que parece válido pero contiene un error de razonamiento, y uno que realmente sostiene la conclusión"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "¿Cuál de las siguientes oraciones NO contiene una falacia argumentativa?",
+      "opciones": [
+        "Los datos del estudio, revisados por varios expertos independientes, respaldan esta conclusión",
+        "Si no aceptas mi propuesta, es porque no te importa el equipo",
+        "Todos mis amigos piensan que esto es cierto, así que debe serlo"
+      ],
+      "correcta": 0
     }
   ]
 }

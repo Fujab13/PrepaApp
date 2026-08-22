@@ -2,1285 +2,2325 @@
   "titulo": "Matemáticas",
   "icono": "PiMathOperationsFill",
   "color": "#ff4b4b",
-  "descripcion": "Álgebra, geometría y aritmética",
+  "descripcion": "Álgebra, geometría, funciones, estadística y razonamiento matemático",
   "preguntas": [
     {
-      "pregunta": "Los números se agrupan en conjuntos según sus características. Los naturales ($\\mathbb{N}$) sirven para contar (0, 1, 2, 3...); los enteros ($\\mathbb{Z}$) agregan los negativos; los racionales ($\\mathbb{Q}$) son los que se escriben como fracción $\\frac{a}{b}$, con decimal exacto o periódico; los irracionales tienen decimal infinito sin patrón, como $\\sqrt{2}$ o $\\pi$. La unión de racionales e irracionales forma los números reales ($\\mathbb{R}$)."
+      "pregunta": "Los números se agrupan en conjuntos según sus características: los naturales ($\\mathbb{N}$) sirven para contar ($0, 1, 2, 3,\\ldots$); los enteros ($\\mathbb{Z}$) agregan los negativos; los racionales ($\\mathbb{Q}$) son los que se pueden escribir como una fracción $\\frac{a}{b}$, con decimal exacto o periódico; los irracionales tienen un decimal infinito sin patrón, como $\\sqrt{2}$ o $\\pi$. La unión de racionales e irracionales forma los números reales ($\\mathbb{R}$)."
     },
     {
       "pregunta": "¿Cuál de los siguientes números es racional?",
-      "opciones": ["$\\sqrt{3}$", "$\\frac{5}{2}$", "$\\pi$"],
+      "opciones": [
+        "$\\pi$",
+        "$\\frac{7}{3}$",
+        "$\\sqrt{5}$"
+      ],
       "correcta": 1
     },
     {
-      "pregunta": "El número $-\\frac{8}{3}$ pertenece al conjunto de los:",
-      "opciones": ["Naturales", "Enteros", "Racionales"],
+      "pregunta": "El número $-\\frac{9}{4}$ pertenece al conjunto de los:",
+      "opciones": [
+        "Naturales",
+        "Enteros",
+        "Racionales"
+      ],
       "correcta": 2
     },
     {
       "pregunta": "¿Cuál de estos números es irracional?",
-      "opciones": ["$0.5$", "$\\sqrt{9}$", "$\\sqrt{7}$"],
-      "correcta": 2
-    },
-    {
-      "pregunta": "Si un número tiene una representación decimal periódica como $0.\\overline{3} = 0.333...$, ¿a qué conjunto pertenece?",
-      "opciones": ["Irracionales", "Racionales", "Naturales"],
+      "opciones": [
+        "$\\sqrt{16}$",
+        "$\\sqrt{11}$",
+        "$0.6$"
+      ],
       "correcta": 1
     },
     {
-      "pregunta": "Cuando una expresión combina varias operaciones, deben resolverse en un orden específico: primero paréntesis, después potencias y raíces, luego multiplicaciones y divisiones, y al final sumas y restas. Entre operaciones del mismo nivel, se resuelve de izquierda a derecha. Por ejemplo, en $5 + 2 \\times (8-3)^2$ primero se resuelve el paréntesis, luego la potencia, después la multiplicación y al final la suma, dando como resultado $55$."
+      "pregunta": "Si un número tiene una representación decimal periódica como $0.\\overline{6} = 0.666\\ldots$, pertenece al conjunto de los:",
+      "opciones": [
+        "Irracionales",
+        "Racionales",
+        "Naturales"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "¿Cuál de las siguientes afirmaciones es falsa?",
+      "opciones": [
+        "Todo número natural es entero",
+        "Todo número entero es racional",
+        "Todo número irracional es racional"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "De los números $-5,\\ \\frac{2}{3},\\ \\sqrt{7},\\ 0,\\ 4$, ¿cuántos son números enteros?",
+      "opciones": [
+        "2",
+        "4",
+        "3"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "Cuando una expresión combina varias operaciones, deben resolverse en un orden específico: primero lo que está entre paréntesis, después potencias y raíces, luego multiplicaciones y divisiones, y al final sumas y restas; entre operaciones del mismo nivel se resuelve de izquierda a derecha. Por ejemplo, en $5 + 2 \\times (8-3)^2$ primero se resuelve el paréntesis, luego la potencia, después la multiplicación y al final la suma: el resultado es $55$."
     },
     {
       "pregunta": "Calcula: $7 + 3 \\times 2$",
-      "opciones": ["13", "20", "15"],
-      "correcta": 0
+      "opciones": [
+        "20",
+        "10",
+        "13"
+      ],
+      "correcta": 2
     },
     {
       "pregunta": "¿Cuál es el resultado de $2^3 + 4 \\times 2$?",
-      "opciones": ["16", "12", "8"],
+      "opciones": [
+        "16",
+        "10",
+        "12"
+      ],
       "correcta": 0
     },
     {
-      "pregunta": "Resuelve: $6 \\times (4 - 1) - 2$",
-      "opciones": ["16", "10", "20"],
+      "pregunta": "Resuelve: $6 \\times (4-1) - 2$",
+      "opciones": [
+        "16",
+        "10",
+        "20"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "¿Cuál es el resultado de $10 \\div 2 + 3^2$?",
-      "opciones": ["14", "8", "24"],
+      "opciones": [
+        "8",
+        "24",
+        "14"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "¿Cuál es el resultado de $3 + [2 \\times (5-2)]^2 - 1$?",
+      "opciones": [
+        "35",
+        "41",
+        "38"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "¿Cuál es el resultado de $(2+3)^2 - 2 \\times (7-4)$?",
+      "opciones": [
+        "25",
+        "13",
+        "19"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "Al sumar o restar números con signo, el resultado conserva el signo del número con mayor valor absoluto; al multiplicar o dividir, el resultado es positivo si ambos factores tienen el mismo signo, y negativo si los signos son distintos."
+    },
+    {
+      "pregunta": "¿Cuál es el resultado de $-8 + 3$?",
+      "opciones": [
+        "5",
+        "-11",
+        "-5"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "¿Cuál es el resultado de $-4 \\times (-2)$?",
+      "opciones": [
+        "8",
+        "-8",
+        "-6"
+      ],
       "correcta": 0
     },
     {
-      "pregunta": "El valor absoluto de un número representa su distancia al cero en la recta numérica, y siempre es positivo o cero. Se escribe entre barras verticales: $|x|$. Por ejemplo, $|-8| = 8$ y $|8| = 8$, porque ambos están a 8 unidades del cero, sin importar la dirección. Es útil para medir diferencias sin que el signo afecte el resultado."
+      "pregunta": "¿Cuál es el resultado de $-12 \\div 4$?",
+      "opciones": [
+        "3",
+        "-8",
+        "-3"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "¿Cuál es el resultado de $(-3)^2 - (-3)$?",
+      "opciones": [
+        "-12",
+        "12",
+        "6"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Un submarino está a $-120\\,m$ respecto al nivel del mar y desciende $45\\,m$ más. ¿A qué profundidad queda?",
+      "opciones": [
+        "165 m",
+        "-165 m",
+        "-75 m"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "El valor absoluto de un número representa su distancia al cero en la recta numérica, y siempre es positivo o cero. Se escribe entre barras verticales: $|x|$. Por ejemplo, $|-8| = 8$ y $|8| = 8$, porque ambos están a $8$ unidades del cero, sin importar la dirección."
     },
     {
       "pregunta": "¿Cuál es el resultado de $|-12|$?",
-      "opciones": ["12", "-12", "0"],
+      "opciones": [
+        "12",
+        "-12",
+        "0"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "Si $|x| = 5$, ¿cuáles son los valores posibles de $x$?",
-      "opciones": ["Solo $5$", "$5$ y $-5$", "Solo $-5$"],
-      "correcta": 1
+      "opciones": [
+        "$5$ y $-5$",
+        "Solo $-5$",
+        "Solo $5$"
+      ],
+      "correcta": 0
     },
     {
       "pregunta": "¿Cuál de las siguientes igualdades es correcta?",
-      "opciones": ["$|-3| = 3$", "$|-3| = -3$", "$|-3| = 0$"],
-      "correcta": 0
+      "opciones": [
+        "$|-3| = 0$",
+        "$|-3| = 3$",
+        "$|-3| = -3$"
+      ],
+      "correcta": 1
     },
     {
       "pregunta": "¿Cuál es el resultado de $|-9| + |3|$?",
-      "opciones": ["12", "6", "-12"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "¿Cuál de las siguientes opciones es un número natural?",
-      "opciones": ["−3", "0.5", "7"],
-      "correcta": 2
-    },
-    {
-      "pregunta": "El conjunto de los números reales está formado por:",
-      "opciones": ["Solo los números racionales", "Los números racionales y los irracionales", "Solo los números enteros"],
+      "opciones": [
+        "6",
+        "12",
+        "-12"
+      ],
       "correcta": 1
     },
     {
-      "pregunta": "¿Qué signo resulta al multiplicar dos números negativos entre sí?",
-      "opciones": ["Positivo", "Negativo", "Depende del valor"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "¿Cuál es el resultado de −8 + 3?",
-      "opciones": ["−5", "5", "−11"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "¿Cuál es el resultado de −4 × (−2)?",
-      "opciones": ["−8", "8", "−6"],
+      "pregunta": "¿Cuál es el resultado de $|4 - 10| - |{-2}|$?",
+      "opciones": [
+        "-4",
+        "4",
+        "8"
+      ],
       "correcta": 1
     },
     {
-      "pregunta": "¿Cuál es el resultado de −12 ÷ 4?",
-      "opciones": ["−3", "3", "−8"],
-      "correcta": 0
+      "pregunta": "Un número primo solo es divisible entre $1$ y sí mismo; si tiene más divisores, es compuesto. Los criterios de divisibilidad ayudan a detectarlo rápido: un número es divisible entre $2$ si termina en cifra par, entre $3$ si la suma de sus dígitos es múltiplo de $3$, y entre $5$ si termina en $0$ o $5$. Descomponer un número en sus factores primos permite calcular el Máximo Común Divisor (MCD) y el Mínimo Común Múltiplo (MCM) entre dos o más números."
     },
     {
       "pregunta": "¿Cuál de los siguientes números es primo?",
-      "opciones": ["21", "29", "33"],
+      "opciones": [
+        "21",
+        "29",
+        "33"
+      ],
       "correcta": 1
     },
     {
-      "pregunta": "¿Cuál de los siguientes números es compuesto?",
-      "opciones": ["17", "24", "31"],
+      "pregunta": "El número $402$ es divisible entre $3$ porque:",
+      "opciones": [
+        "Es un número par",
+        "Termina en 2",
+        "$4+0+2=6$, que es múltiplo de $3$"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "La factorización prima de $60$ es:",
+      "opciones": [
+        "$2^3 \\times 5$",
+        "$2 \\times 3^2 \\times 5$",
+        "$2^2 \\times 3 \\times 5$"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "¿Cuál es el Máximo Común Divisor (MCD) de $36$ y $48$?",
+      "opciones": [
+        "12",
+        "6",
+        "24"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "¿Cuál es el Mínimo Común Múltiplo (MCM) de $8$ y $12$?",
+      "opciones": [
+        "48",
+        "16",
+        "24"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "Dos autobuses salen juntos de la central: uno regresa cada $18$ minutos y otro cada $24$ minutos. ¿Después de cuántos minutos volverán a coincidir?",
+      "opciones": [
+        "144 minutos",
+        "36 minutos",
+        "72 minutos"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "Para sumar o restar fracciones se necesita un común denominador; para multiplicarlas se multiplican numeradores y denominadores por separado, y para dividirlas se multiplica por el recíproco de la segunda fracción. Toda fracción tiene una representación decimal: se obtiene dividiendo el numerador entre el denominador."
+    },
+    {
+      "pregunta": "¿Cuál es el resultado de $\\frac{1}{2} + \\frac{1}{3}$?",
+      "opciones": [
+        "$\\frac{2}{5}$",
+        "$\\frac{1}{6}$",
+        "$\\frac{5}{6}$"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "¿Cuál es el resultado de $\\frac{2}{3} \\times \\frac{3}{5}$?",
+      "opciones": [
+        "$\\frac{5}{8}$",
+        "$\\frac{2}{5}$",
+        "$\\frac{1}{2}$"
+      ],
       "correcta": 1
     },
     {
-      "pregunta": "Según los criterios de divisibilidad, un número es divisible entre 3 cuando:",
-      "opciones": ["Termina en 0 o 5", "La suma de sus dígitos es múltiplo de 3", "Es un número par"],
+      "pregunta": "¿Cuál es el resultado de $\\frac{4}{5} \\div \\frac{2}{3}$?",
+      "opciones": [
+        "$\\frac{8}{15}$",
+        "$\\frac{2}{5}$",
+        "$\\frac{6}{5}$"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "¿Cuál es la forma decimal de $\\frac{3}{8}$?",
+      "opciones": [
+        "0.325",
+        "0.375",
+        "0.38"
+      ],
       "correcta": 1
     },
     {
-      "pregunta": "El número 402 es divisible entre 3 porque:",
-      "opciones": ["4 + 0 + 2 = 6, que es múltiplo de 3", "Termina en 2", "Es un número par"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "¿Cuál de los siguientes números es divisible entre 5?",
-      "opciones": ["342", "455", "231"],
+      "pregunta": "¿Cuál de las siguientes fracciones es mayor: $\\frac{2}{3}$ o $\\frac{3}{5}$?",
+      "opciones": [
+        "$\\frac{3}{5}$ es mayor",
+        "$\\frac{2}{3}$ es mayor",
+        "Son iguales"
+      ],
       "correcta": 1
     },
     {
-      "pregunta": "La factorización prima de 60 es:",
-      "opciones": ["2² × 3 × 5", "2 × 3² × 5", "2³ × 5"],
+      "pregunta": "Un tinaco está lleno hasta $\\frac{3}{4}$ de su capacidad. Si se consume $\\frac{1}{3}$ de lo que contiene, ¿qué fracción del tinaco queda llena?",
+      "opciones": [
+        "$\\frac{1}{2}$",
+        "$\\frac{5}{12}$",
+        "$\\frac{2}{3}$"
+      ],
       "correcta": 0
     },
     {
-      "pregunta": "¿Cuál es el Máximo Común Divisor (MCD) de 12 y 18?",
-      "opciones": ["6", "3", "36"],
-      "correcta": 0
+      "pregunta": "Las leyes de los exponentes permiten simplificar expresiones con potencias: al multiplicar potencias de la misma base se suman los exponentes ($x^a \\times x^b = x^{a+b}$), al dividir se restan ($x^a \\div x^b = x^{a-b}$) y al elevar una potencia a otra se multiplican ($(x^a)^b = x^{ab}$). Todo número elevado a la $0$ es igual a $1$, y un exponente negativo indica un recíproco: $x^{-n} = \\frac{1}{x^n}$."
     },
     {
-      "pregunta": "¿Cuál es el Mínimo Común Múltiplo (MCM) de 4 y 6?",
-      "opciones": ["24", "12", "10"],
+      "pregunta": "Según las leyes de los exponentes, $x^3 \\times x^4$ es igual a:",
+      "opciones": [
+        "$x^1$",
+        "$x^7$",
+        "$x^{12}$"
+      ],
       "correcta": 1
     },
     {
-      "pregunta": "¿Cuál es el MCD de 15 y 20?",
-      "opciones": ["5", "10", "15"],
+      "pregunta": "¿Cuál es el resultado de $x^9 \\div x^3$?",
+      "opciones": [
+        "$x^6$",
+        "$x^{27}$",
+        "$x^3$"
+      ],
       "correcta": 0
     },
     {
-      "pregunta": "¿Cuál es el MCM de 8 y 12?",
-      "opciones": ["24", "48", "16"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "Al simplificar la fracción 8/12 a su mínima expresión se obtiene:",
-      "opciones": ["2/3", "4/6", "1/2"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "¿Cuál es el resultado de 1/2 + 1/3?",
-      "opciones": ["5/6", "2/5", "1/6"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "¿Cuál es el resultado de 3/4 − 1/4?",
-      "opciones": ["1/2", "2/8", "1/4"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "¿Cuál es el resultado de 2/3 × 3/5?",
-      "opciones": ["2/5", "5/8", "1/2"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "¿Cuál es el resultado de 4/5 ÷ 2/3?",
-      "opciones": ["6/5", "8/15", "2/5"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "¿Cuál es la fracción equivalente a 0.75?",
-      "opciones": ["3/4", "7/5", "3/5"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "¿Cuál es la forma decimal de 3/8?",
-      "opciones": ["0.375", "0.38", "0.325"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "¿Cuál de las siguientes fracciones es mayor: 2/3 o 3/5?",
-      "opciones": ["2/3 es mayor", "3/5 es mayor", "Son iguales"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "¿Cuál de los siguientes números es divisor común de 24 y 36?",
-      "opciones": ["6", "9", "8"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "¿Cuál de los siguientes números NO es primo?",
-      "opciones": ["13", "51", "23"],
+      "pregunta": "¿Cuál es el valor de $2^{-3}$?",
+      "opciones": [
+        "$-8$",
+        "$\\frac{1}{8}$",
+        "$8$"
+      ],
       "correcta": 1
     },
     {
-      "pregunta": "¿Cuál es el resultado de 2³?",
-      "opciones": ["8", "6", "9"],
+      "pregunta": "Al simplificar $\\sqrt{72}$, el radical queda expresado como:",
+      "opciones": [
+        "$36\\sqrt{2}$",
+        "$8\\sqrt{3}$",
+        "$6\\sqrt{2}$"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "La notación científica de $0.000047$ es:",
+      "opciones": [
+        "$47 \\times 10^{-6}$",
+        "$4.7 \\times 10^{5}$",
+        "$4.7 \\times 10^{-5}$"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "¿Cuál es el valor de $\\left(\\frac{2}{3}\\right)^{-2}$?",
+      "opciones": [
+        "$-\\frac{9}{4}$",
+        "$\\frac{4}{9}$",
+        "$\\frac{9}{4}$"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "Una proporción es la igualdad entre dos razones, como $\\frac{a}{b} = \\frac{c}{d}$, y se resuelve con el producto cruzado ($a \\times d = b \\times c$). Cuando dos magnitudes son directamente proporcionales, al aumentar una la otra aumenta en la misma razón; si son inversamente proporcionales, al aumentar una la otra disminuye. Un porcentaje es una razón especial con denominador $100$: el $x\\%$ de una cantidad $C$ equivale a $\\frac{x}{100} \\times C$."
+    },
+    {
+      "pregunta": "En la proporción $\\frac{3}{4} = \\frac{x}{20}$, el valor de $x$ es:",
+      "opciones": [
+        "12",
+        "16",
+        "15"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "Si $8$ obreros construyen una barda en $15$ días, ¿cuántos días tardarán $12$ obreros trabajando al mismo ritmo?",
+      "opciones": [
+        "10 días",
+        "12 días",
+        "20 días"
+      ],
       "correcta": 0
     },
     {
-      "pregunta": "Según las leyes de los exponentes, x³ × x² es igual a:",
-      "opciones": ["x⁵", "x⁶", "x¹"],
+      "pregunta": "Un mapa tiene escala $1:25{,}000$. Si dos pueblos están a $6\\,cm$ en el mapa, ¿cuál es la distancia real entre ellos?",
+      "opciones": [
+        "1.5 km",
+        "150 m",
+        "15 km"
+      ],
       "correcta": 0
     },
     {
-      "pregunta": "¿Cuál es el resultado de x⁷ ÷ x³?",
-      "opciones": ["x⁴", "x¹⁰", "x²"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "¿Cuál es el resultado de (x²)³?",
-      "opciones": ["x⁶", "x⁵", "x⁸"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "¿Cuál es el valor de 5⁰?",
-      "opciones": ["0", "1", "5"],
+      "pregunta": "¿Qué porcentaje representa $54$ de $180$?",
+      "opciones": [
+        "20%",
+        "30%",
+        "54%"
+      ],
       "correcta": 1
     },
     {
-      "pregunta": "¿Cuál es el valor de 2⁻²?",
-      "opciones": ["1/4", "−4", "4"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "¿Cuál es la raíz cuadrada de 81?",
-      "opciones": ["9", "8", "18"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "¿Cuál es la raíz cúbica de 27?",
-      "opciones": ["3", "9", "6"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "Al simplificar √50, el radical queda expresado como:",
-      "opciones": ["5√2", "10√5", "25√2"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "La notación científica de 4,500,000 es:",
-      "opciones": ["4.5 × 10⁶", "4.5 × 10⁵", "45 × 10⁵"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "¿Cuál es el valor de 0.00032 en notación científica?",
-      "opciones": ["3.2 × 10⁻⁴", "3.2 × 10⁴", "32 × 10⁻⁵"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "En la proporción 3/4 = x/8, el valor de x es:",
-      "opciones": ["6", "5", "24"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "Si 5 obreros construyen un muro en 12 días, ¿cuántos días tardarán 10 obreros trabajando al mismo ritmo?",
-      "opciones": ["6", "24", "10"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "Un mapa tiene escala 1:50,000. Si dos ciudades están a 4 cm en el mapa, ¿cuál es la distancia real entre ellas?",
-      "opciones": ["2 km", "4 km", "20 km"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "¿Qué porcentaje representa 45 de 180?",
-      "opciones": ["25%", "45%", "20%"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "El 15% de 240 es:",
-      "opciones": ["36", "24", "30"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "Un artículo cuesta $500 y tiene un descuento del 20%. ¿Cuál es el precio final?",
-      "opciones": ["$400", "$480", "$380"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "Si inviertes $2,000 a un interés simple anual del 5%, ¿cuánto interés generarás en 3 años?",
-      "opciones": ["$300", "$100", "$2,300"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "En una regla de tres simple directa: si 6 kg de manzanas cuestan $180, ¿cuánto cuestan 10 kg?",
-      "opciones": ["$300", "$260", "$1800"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "La variación entre dos magnitudes es inversa cuando:",
-      "opciones": ["Al aumentar una, la otra aumenta en la misma proporción", "Al aumentar una, la otra disminuye en la misma proporción", "Ambas permanecen constantes"],
+      "pregunta": "Un artículo cuesta 850 pesos y tiene un descuento del 20%. ¿Cuál es el precio final?",
+      "opciones": [
+        "630 pesos",
+        "680 pesos",
+        "750 pesos"
+      ],
       "correcta": 1
     },
     {
-      "pregunta": "¿Cuál es el grado del monomio 5x³y²?",
-      "opciones": ["5", "3", "2"],
+      "pregunta": "Si inviertes 3,000 pesos a un interés simple anual del 6%, ¿cuánto interés generarás en 4 años?",
+      "opciones": [
+        "720 pesos",
+        "3,720 pesos",
+        "180 pesos"
+      ],
       "correcta": 0
     },
     {
-      "pregunta": "¿Cuántos términos tiene el polinomio 3x² − 5x + 7?",
-      "opciones": ["3", "2", "4"],
+      "pregunta": "En una variación directa, dos magnitudes cambian en la misma proporción: si una aumenta al doble, la otra también lo hace, y su cociente se mantiene constante ($\\frac{y}{x}=k$). En una variación inversa ocurre lo contrario: cuando una magnitud aumenta, la otra disminuye en la misma proporción, y es su producto el que se mantiene constante ($x \\times y = k$). Cuando un problema relaciona tres o más magnitudes a la vez -algunas de forma directa y otras de forma inversa respecto a la incógnita- se resuelve con una regla de tres compuesta: se plantea una razón por cada magnitud, cuidando el sentido (directo o inverso) de cada una respecto a lo que se busca."
+    },
+    {
+      "pregunta": "Si el número de horas trabajadas y el salario recibido cambian en la misma proporción (a más horas, más dinero, en la misma razón), esta es una relación de variación:",
+      "opciones": [
+        "Inversa",
+        "Constante",
+        "Directa"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "La cantidad de obreros asignados a una obra y los días que tardarán en terminarla, trabajando todos al mismo ritmo, mantienen una variación:",
+      "opciones": [
+        "Ninguna: no guardan relación",
+        "Inversa",
+        "Directa"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "El costo de una llamada telefónica es directamente proporcional a su duración. Si una llamada de $8$ minutos cuesta 24 pesos, ¿cuánto costará una llamada de $20$ minutos al mismo precio por minuto?",
+      "opciones": [
+        "60 pesos",
+        "66 pesos",
+        "48 pesos"
+      ],
       "correcta": 0
     },
     {
-      "pregunta": "Al sumar (3x + 5) + (2x − 3), el resultado es:",
-      "opciones": ["5x + 2", "5x + 8", "x + 2"],
+      "pregunta": "Si $6$ llaves de agua, abiertas al mismo ritmo, llenan un tinaco en $10$ horas, ¿cuánto tardarán $4$ llaves en llenar el mismo tinaco?",
+      "opciones": [
+        "15 horas",
+        "24 horas",
+        "6.67 horas"
+      ],
       "correcta": 0
     },
     {
-      "pregunta": "Al restar (7x − 4) − (3x + 2), el resultado es:",
-      "opciones": ["4x − 6", "4x − 2", "10x − 6"],
+      "pregunta": "Si $5$ máquinas producen $300$ piezas en $4$ horas trabajando todas al mismo ritmo, ¿cuántas horas tardarán $6$ máquinas en producir $450$ piezas?",
+      "opciones": [
+        "6 horas",
+        "4.5 horas",
+        "5 horas"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "Si $8$ obreros, trabajando $6$ horas diarias, terminan una barda en $10$ días, ¿cuántos días tardarán $4$ obreros trabajando $8$ horas diarias en terminar la misma barda?",
+      "opciones": [
+        "12 días",
+        "15 días",
+        "20 días"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Un monomio es una expresión algebraica con un solo término, como $5x^3y^2$; un polinomio tiene varios términos separados por sumas o restas. Para sumar o restar polinomios se combinan los términos semejantes (mismos literales y exponentes); para multiplicarlos se aplica la propiedad distributiva."
+    },
+    {
+      "pregunta": "¿Cuál es el grado del monomio $5x^3y^2$?",
+      "opciones": [
+        "5",
+        "2",
+        "3"
+      ],
       "correcta": 0
     },
     {
-      "pregunta": "El resultado de multiplicar (2x)(3x²) es:",
-      "opciones": ["6x³", "6x²", "5x³"],
+      "pregunta": "Al sumar $(3x+5)+(2x-3)$, el resultado es:",
+      "opciones": [
+        "$5x+8$",
+        "$x+2$",
+        "$5x+2$"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "Al restar $(7x-4)-(3x+2)$, el resultado es:",
+      "opciones": [
+        "$4x-6$",
+        "$10x-6$",
+        "$4x-2$"
+      ],
       "correcta": 0
     },
     {
-      "pregunta": "Simplifica la expresión: 4x + 3y − 2x + y",
-      "opciones": ["2x + 4y", "6x + 4y", "2x + 3y"],
+      "pregunta": "El resultado de multiplicar $(2x)(3x^2)$ es:",
+      "opciones": [
+        "$6x^2$",
+        "$5x^3$",
+        "$6x^3$"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "Simplifica la expresión: $4x+3y-2x+y$",
+      "opciones": [
+        "$2x+4y$",
+        "$2x+3y$",
+        "$6x+4y$"
+      ],
       "correcta": 0
     },
     {
-      "pregunta": "El producto notable (a + b)² es igual a:",
-      "opciones": ["a² + 2ab + b²", "a² + b²", "a² − 2ab + b²"],
+      "pregunta": "Los productos notables evitan multiplicar término por término: $(a+b)^2 = a^2+2ab+b^2$, $(a-b)^2 = a^2-2ab+b^2$ y $(a+b)(a-b) = a^2-b^2$. Factorizar es el proceso inverso: escribir un polinomio como producto de factores más simples, por ejemplo extrayendo el factor común o reconociendo una diferencia de cuadrados o un trinomio cuadrado perfecto."
+    },
+    {
+      "pregunta": "El producto notable $(a-b)^2$ es igual a:",
+      "opciones": [
+        "$a^2-2ab+b^2$",
+        "$a^2+2ab+b^2$",
+        "$a^2-b^2$"
+      ],
       "correcta": 0
     },
     {
-      "pregunta": "El producto notable (a − b)² es igual a:",
-      "opciones": ["a² − 2ab + b²", "a² − b²", "a² + b²"],
-      "correcta": 0
+      "pregunta": "Al factorizar $8x^2+12x$ extrayendo el máximo factor común, se obtiene:",
+      "opciones": [
+        "$4(2x^2+3x)$",
+        "$4x(2x+3)$",
+        "$x(8x+12)$"
+      ],
+      "correcta": 1
     },
     {
-      "pregunta": "El producto notable (a + b)(a − b) es igual a:",
-      "opciones": ["a² − b²", "a² + b²", "a² − 2ab − b²"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "Al factorizar 6x² + 9x extrayendo el máximo factor común, se obtiene:",
-      "opciones": ["3x(2x + 3)", "3(2x² + 3x)", "x(6x + 9)"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "La factorización de x² − 16 (diferencia de cuadrados) es:",
-      "opciones": ["(x − 4)(x + 4)", "(x − 8)(x + 8)", "(x − 4)²"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "La factorización de 9x² − 25 es:",
-      "opciones": ["(3x − 5)(3x + 5)", "(9x − 5)(x + 5)", "(3x − 5)²"],
-      "correcta": 0
+      "pregunta": "La factorización de $x^2-49$ (diferencia de cuadrados) es:",
+      "opciones": [
+        "$(x-7)^2$",
+        "$(x-7)(x+7)$",
+        "$(x-14)(x+14)$"
+      ],
+      "correcta": 1
     },
     {
       "pregunta": "¿Cuál de las siguientes expresiones es un trinomio cuadrado perfecto?",
-      "opciones": ["x² + 6x + 9", "x² + 6x + 8", "x² + 9x + 6"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "La factorización de x² + 10x + 25 es:",
-      "opciones": ["(x + 5)²", "(x + 10)(x + 5)", "(x + 25)(x + 1)"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "Al factorizar x² − 8x + 15 (dos números que multiplicados den 15 y sumados den −8), se obtiene:",
-      "opciones": ["(x − 3)(x − 5)", "(x + 3)(x + 5)", "(x − 15)(x + 1)"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "Al factorizar x² + 2x − 15, se obtiene:",
-      "opciones": ["(x + 5)(x − 3)", "(x − 5)(x + 3)", "(x + 15)(x − 1)"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "¿Cuál es el resultado de multiplicar (x + 3)(x + 4)?",
-      "opciones": ["x² + 7x + 12", "x² + 12x + 7", "x² + 7"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "¿Cuál es el resultado de multiplicar (x − 2)(x + 5)?",
-      "opciones": ["x² + 3x − 10", "x² − 3x − 10", "x² + 3x + 10"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "El grado de un polinomio se determina por:",
-      "opciones": ["El mayor exponente de la variable", "El número de términos", "El coeficiente principal"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "Un binomio es una expresión algebraica con:",
-      "opciones": ["Un término", "Dos términos", "Tres términos"],
+      "opciones": [
+        "$x^2+8x+12$",
+        "$x^2+8x+16$",
+        "$x^2+16x+8$"
+      ],
       "correcta": 1
     },
     {
-      "pregunta": "Simplifica la fracción algebraica 4x²/2x:",
-      "opciones": ["2x", "2x²", "4x"],
+      "pregunta": "Al factorizar $x^2-2x-15$ (busca dos números que multiplicados den $-15$ y sumados den $-2$), se obtiene:",
+      "opciones": [
+        "$(x-5)(x+3)$",
+        "$(x+5)(x-3)$",
+        "$(x-15)(x+1)$"
+      ],
       "correcta": 0
     },
     {
-      "pregunta": "Simplifica: (x² − 9)/(x − 3)",
-      "opciones": ["x + 3", "x − 3", "x² − 3"],
+      "pregunta": "¿Cuál es el resultado de multiplicar $(x-3)(x+7)$?",
+      "opciones": [
+        "$x^2+4x+21$",
+        "$x^2-4x-21$",
+        "$x^2+4x-21$"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "Una fracción algebraica se simplifica igual que una fracción numérica: se factorizan numerador y denominador y se cancelan los factores comunes. Al sumarlas se necesita un denominador común, y al multiplicarlas o dividirlas se opera igual que con fracciones numéricas."
+    },
+    {
+      "pregunta": "Simplifica: $\\dfrac{x^2-9}{x-3}$",
+      "opciones": [
+        "$x^2-3$",
+        "$x+3$",
+        "$x-3$"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "¿Cuál es el resultado de $\\dfrac{4}{x} + \\dfrac{3}{x}$?",
+      "opciones": [
+        "$\\frac{12}{x}$",
+        "$\\frac{7}{x^2}$",
+        "$\\frac{7}{x}$"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "¿Cuál es el resultado de $\\dfrac{1}{x} + \\dfrac{1}{y}$?",
+      "opciones": [
+        "$\\frac{1}{x+y}$",
+        "$\\frac{2}{xy}$",
+        "$\\frac{x+y}{xy}$"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "Simplifica: $\\dfrac{x^2+6x}{x}$",
+      "opciones": [
+        "$x^2+6$",
+        "$x+6$",
+        "$6x$"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Simplifica: $\\dfrac{2x^2-8}{x-2}$",
+      "opciones": [
+        "$2x-4$",
+        "$x+2$",
+        "$2x+4$"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "Resolver una ecuación de primer grado significa despejar la variable, aplicando la misma operación a ambos lados de la igualdad hasta dejarla sola: se agrupan los términos con la variable de un lado y los términos independientes del otro."
+    },
+    {
+      "pregunta": "Resuelve: $3x+5=20$",
+      "opciones": [
+        "5",
+        "8",
+        "6"
+      ],
       "correcta": 0
     },
     {
-      "pregunta": "¿Cuál es el resultado de (2/x) × (x/5)?",
-      "opciones": ["2/5", "2/(5x)", "x²/5"],
+      "pregunta": "Resuelve: $4x-7=5x+1$",
+      "opciones": [
+        "-8",
+        "-6",
+        "8"
+      ],
       "correcta": 0
     },
     {
-      "pregunta": "¿Cuál es el resultado de (3/x) + (2/x)?",
-      "opciones": ["5/x", "5/x²", "6/x"],
+      "pregunta": "Resuelve: $\\dfrac{x}{4}+3=8$",
+      "opciones": [
+        "32",
+        "12",
+        "20"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "Resuelve: $6(x-2)=18$",
+      "opciones": [
+        "7",
+        "3",
+        "5"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "Resuelve: $2(x+3) - 4 = 3x - 1$",
+      "opciones": [
+        "-3",
+        "1",
+        "3"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "Una ecuación cuadrática tiene la forma $ax^2+bx+c=0$. Puede resolverse factorizando, o con la fórmula general $x = \\dfrac{-b \\pm \\sqrt{b^2-4ac}}{2a}$; el discriminante $b^2-4ac$ indica cuántas soluciones reales tiene: dos si es positivo, una si es cero, y ninguna real si es negativo."
+    },
+    {
+      "pregunta": "Resuelve $x^2-16=0$",
+      "opciones": [
+        "$x=-16$",
+        "$x=4$ o $x=-4$",
+        "$x=16$"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Resuelve $x^2-7x+12=0$ factorizando (dos números que multiplicados den $12$ y sumados den $-7$):",
+      "opciones": [
+        "$x=3$ o $x=4$",
+        "$x=-3$ o $x=-4$",
+        "$x=1$ o $x=12$"
+      ],
       "correcta": 0
     },
     {
-      "pregunta": "¿Cuál es el resultado de (1/x) + (1/y)?",
-      "opciones": ["(x + y)/(xy)", "1/(x + y)", "2/(xy)"],
+      "pregunta": "¿Cuál es el discriminante ($b^2-4ac$) de la ecuación $x^2+3x-4=0$?",
+      "opciones": [
+        "9",
+        "25",
+        "-7"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Resuelve $x^2+x-6=0$ factorizando:",
+      "opciones": [
+        "$x=-3$ o $x=-2$",
+        "$x=-3$ o $x=2$",
+        "$x=3$ o $x=-2$"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Usando la fórmula general, ¿cuáles son las soluciones de $x^2-5x+6=0$?",
+      "opciones": [
+        "$x=2$ o $x=3$",
+        "$x=-2$ o $x=-3$",
+        "$x=1$ o $x=6$"
+      ],
       "correcta": 0
     },
     {
-      "pregunta": "Simplifica: (x² + 5x)/x",
-      "opciones": ["x + 5", "5x", "x² + 5"],
+      "pregunta": "Un sistema de dos ecuaciones con dos incógnitas se resuelve encontrando los valores que satisfacen ambas ecuaciones a la vez, ya sea por sustitución, igualación o suma y resta. Una inecuación se resuelve como una ecuación, con una diferencia clave: al multiplicar o dividir ambos lados entre un número negativo, el sentido de la desigualdad se invierte."
+    },
+    {
+      "pregunta": "Resuelve el sistema: $x+y=12$, $x-y=4$. ¿Cuál es el valor de $x$?",
+      "opciones": [
+        "4",
+        "6",
+        "8"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "En el sistema $x+y=12$, $x-y=4$, ¿cuál es el valor de $y$?",
+      "opciones": [
+        "2",
+        "4",
+        "8"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Resuelve por sustitución: $y=3x$, $x+y=16$. ¿Cuál es el valor de $x$?",
+      "opciones": [
+        "3",
+        "4",
+        "12"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Resuelve la inecuación: $2x+3 > 11$",
+      "opciones": [
+        "$x>4$",
+        "$x<4$",
+        "$x>7$"
+      ],
       "correcta": 0
     },
     {
-      "pregunta": "Una fracción algebraica compleja es aquella que:",
-      "opciones": ["Contiene otra fracción en el numerador y/o denominador", "Tiene coeficientes negativos", "No tiene variable"],
+      "pregunta": "Resuelve la inecuación $-3x < 15$ (recuerda invertir el signo al dividir entre un número negativo):",
+      "opciones": [
+        "$x<5$",
+        "$x>-5$",
+        "$x<-5$"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Resuelve el sistema: $2x+y=10$, $x-y=-1$. ¿Cuál es el valor de $x$?",
+      "opciones": [
+        "4",
+        "2",
+        "3"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "Para resolver un problema con ecuaciones, primero se traduce el enunciado a lenguaje algebraico (asignando una variable a la cantidad desconocida), después se plantea la ecuación que representa la relación descrita, y finalmente se despeja la incógnita."
+    },
+    {
+      "pregunta": "'El triple de un número, disminuido en 7' se representa algebraicamente como:",
+      "opciones": [
+        "$3(x-7)$",
+        "$3x-7$",
+        "$x-7$"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "La edad de Sofía es el triple de la de su hermano. Si entre las dos suman 32 años, ¿cuántos años tiene el hermano?",
+      "opciones": [
+        "24",
+        "16",
+        "8"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "Un rectángulo tiene un largo que es el doble de su ancho. Si el perímetro es 54 cm, ¿cuál es el ancho?",
+      "opciones": [
+        "9 cm",
+        "18 cm",
+        "6 cm"
+      ],
       "correcta": 0
     },
     {
-      "pregunta": "Resuelve: 2x + 5 = 13",
-      "opciones": ["4", "8", "9"],
-      "correcta": 0
+      "pregunta": "La suma de tres números enteros consecutivos es 48. ¿Cuál es el mayor de ellos?",
+      "opciones": [
+        "16",
+        "15",
+        "17"
+      ],
+      "correcta": 2
     },
     {
-      "pregunta": "Resuelve: 3x − 7 = 5x + 1",
-      "opciones": ["−4", "4", "−8"],
-      "correcta": 0
+      "pregunta": "El precio de una mochila más el precio de un cuaderno es 340 pesos. La mochila cuesta 220 pesos más que el cuaderno. ¿Cuánto cuesta el cuaderno?",
+      "opciones": [
+        "160 pesos",
+        "60 pesos",
+        "280 pesos"
+      ],
+      "correcta": 1
     },
     {
-      "pregunta": "Resuelve: (x/3) + 2 = 6",
-      "opciones": ["12", "4", "18"],
-      "correcta": 0
+      "pregunta": "Si el ancho de un terreno rectangular es $x$ y el largo es $(x+6)$, ¿qué expresión representa su área?",
+      "opciones": [
+        "$2x+6$",
+        "$x^2+6x$",
+        "$x^2+6$"
+      ],
+      "correcta": 1
     },
     {
-      "pregunta": "Resuelve: 5(x − 2) = 15",
-      "opciones": ["5", "3", "7"],
-      "correcta": 0
+      "pregunta": "Una relación se convierte en función cuando cada elemento del dominio (los valores de entrada) tiene asociado exactamente un elemento del rango (los valores de salida). El dominio es el conjunto de valores para los que la función está definida, y el rango es el conjunto de valores que efectivamente toma."
     },
     {
-      "pregunta": "Resuelve: x² − 9 = 0",
-      "opciones": ["x = 3 o x = −3", "x = 9", "x = −9"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "Resuelve x² − 5x + 6 = 0 factorizando (busca dos números que multiplicados den 6 y sumados den −5):",
-      "opciones": ["x = 2 o x = 3", "x = −2 o x = −3", "x = 1 o x = 6"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "¿Cuál es el discriminante (b² − 4ac) de la ecuación x² + 2x − 3 = 0?",
-      "opciones": ["16", "4", "−8"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "Resuelve x² + 2x − 3 = 0 factorizando:",
-      "opciones": ["x = −3 o x = 1", "x = 3 o x = −1", "x = −3 o x = −1"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "Resuelve el sistema: x + y = 10, x − y = 2. ¿Cuál es el valor de x?",
-      "opciones": ["6", "4", "5"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "En el sistema x + y = 10, x − y = 2, ¿cuál es el valor de y?",
-      "opciones": ["4", "6", "2"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "Resuelve por sustitución: y = 2x, x + y = 12. ¿Cuál es el valor de x?",
-      "opciones": ["4", "6", "3"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "Resuelve la inecuación: x + 3 > 7",
-      "opciones": ["x > 4", "x > 10", "x < 4"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "Resuelve la inecuación −2x < 8 (recuerda invertir el signo al dividir entre un número negativo):",
-      "opciones": ["x > −4", "x < −4", "x < 4"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "¿Qué ocurre con el signo de una desigualdad al multiplicar o dividir ambos lados por un número negativo?",
-      "opciones": ["Se invierte", "Permanece igual", "Se elimina"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "'El doble de un número, aumentado en 5' se representa algebraicamente como:",
-      "opciones": ["2x + 5", "x + 5", "2(x + 5)"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "'La mitad de un número, disminuido en 3' se representa como:",
-      "opciones": ["x/2 − 3", "3 − x/2", "(x − 3)/2"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "Un número más 7 es igual a 15. ¿Cuál es el número?",
-      "opciones": ["8", "22", "7"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "La edad de Juan es el doble de la de su hermano. Si entre los dos suman 24 años, ¿cuántos años tiene el hermano?",
-      "opciones": ["8", "16", "12"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "Un rectángulo tiene un largo que es el triple de su ancho. Si el perímetro es 40 cm, ¿cuál es el ancho?",
-      "opciones": ["5 cm", "10 cm", "15 cm"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "La suma de tres números enteros consecutivos es 33. ¿Cuál es el menor de ellos?",
-      "opciones": ["10", "11", "9"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "Pedro tiene $50 más que María. Juntos tienen $250. ¿Cuánto dinero tiene María?",
-      "opciones": ["$100", "$150", "$125"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "El precio de un libro más el precio de una libreta es $180. El libro cuesta $60 más que la libreta. ¿Cuánto cuesta la libreta?",
-      "opciones": ["$60", "$120", "$90"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "Si el ancho de un terreno rectangular es x y el largo es (x + 4), ¿qué expresión representa su área?",
-      "opciones": ["x² + 4x", "2x + 4", "x² + 4"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "Un tren viaja a una velocidad de x km/h durante 3 horas. ¿Qué expresión representa la distancia recorrida?",
-      "opciones": ["3x", "x/3", "x + 3"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "Si un número se multiplica por 4 y al resultado se le resta 6, se obtiene 18. ¿Cuál es el número?",
-      "opciones": ["6", "4.5", "8"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "La suma de las edades de un padre y su hijo es 50 años. El padre tiene 4 veces la edad del hijo. ¿Cuántos años tiene el hijo?",
-      "opciones": ["10", "40", "12"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "Un examen tiene 40 preguntas. Si un estudiante contestó correctamente el 75% del total, ¿cuántas preguntas contestó bien?",
-      "opciones": ["30", "35", "25"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "Se reparten $600 entre dos personas de forma que una reciba el doble que la otra. ¿Cuánto recibe la persona que recibe menos?",
-      "opciones": ["$200", "$300", "$400"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "Una relación se convierte en función cuando:",
-      "opciones": ["Cada elemento del dominio tiene exactamente una imagen en el rango", "Cada elemento del rango tiene una sola preimagen", "Todos los elementos del dominio son iguales"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "En la función f(x) = 2x + 3, ¿cuál es el valor de f(4)?",
-      "opciones": ["11", "8", "14"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "En la función f(x) = x² − 1, ¿cuál es el valor de f(3)?",
-      "opciones": ["8", "9", "6"],
-      "correcta": 0
+      "pregunta": "Dado el conjunto de pares ordenados $\\{(1,3), (2,5), (2,8)\\}$, ¿por qué esta relación NO es una función?",
+      "opciones": [
+        "Porque sí es una función",
+        "Porque no tiene dominio",
+        "Porque el valor $2$ tiene dos imágenes distintas ($5$ y $8$)"
+      ],
+      "correcta": 2
     },
     {
       "pregunta": "El dominio de una función es:",
-      "opciones": ["El conjunto de valores de entrada (x) para los que la función está definida", "El conjunto de valores de salida (y)", "El valor máximo de la función"],
-      "correcta": 0
+      "opciones": [
+        "El valor máximo de la función",
+        "El conjunto de valores de salida ($y$)",
+        "El conjunto de valores de entrada ($x$) para los que la función está definida"
+      ],
+      "correcta": 2
     },
     {
       "pregunta": "El rango de una función es:",
-      "opciones": ["El conjunto de valores de entrada", "El conjunto de valores de salida que toma la función", "La pendiente de la función"],
+      "opciones": [
+        "El conjunto de valores de salida que toma la función",
+        "La pendiente de la función",
+        "El conjunto de valores de entrada"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "¿Cuál es el dominio de la función $f(x) = \\dfrac{1}{x-3}$?",
+      "opciones": [
+        "Solo los números positivos",
+        "Todos los reales",
+        "Todos los reales excepto $x=3$"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "¿Cuál es el dominio de la función $f(x) = \\sqrt{x-2}$?",
+      "opciones": [
+        "$x \\geq 2$",
+        "Todos los reales",
+        "$x \\leq 2$"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Evaluar una función en un valor significa sustituir ese valor en lugar de la variable y simplificar. Según su forma, una función puede ser constante ($f(x)=k$), lineal ($f(x)=mx+b$) o cuadrática ($f(x)=ax^2+bx+c$, con $a \\neq 0$)."
+    },
+    {
+      "pregunta": "En la función $f(x)=3x-2$, ¿cuál es el valor de $f(5)$?",
+      "opciones": [
+        "13",
+        "10",
+        "15"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "En la función $f(x)=x^2-4$, ¿cuál es el valor de $f(-3)$?",
+      "opciones": [
+        "-5",
+        "5",
+        "13"
+      ],
       "correcta": 1
     },
     {
-      "pregunta": "¿Cuál es el dominio de la función f(x) = 1/x?",
-      "opciones": ["Todos los reales excepto x = 0", "Todos los reales", "Solo los números positivos"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "Una función lineal tiene la forma general:",
-      "opciones": ["f(x) = mx + b", "f(x) = ax² + bx + c", "f(x) = a/x"],
-      "correcta": 0
+      "pregunta": "Si $f(x)=2x^2-x$, ¿cuál es el valor de $f(-2)$?",
+      "opciones": [
+        "-10",
+        "10",
+        "6"
+      ],
+      "correcta": 1
     },
     {
       "pregunta": "Una función cuadrática tiene la forma general:",
-      "opciones": ["f(x) = ax² + bx + c", "f(x) = mx + b", "f(x) = k"],
+      "opciones": [
+        "$f(x)=ax^2+bx+c$",
+        "$f(x)=\\frac{a}{x}$",
+        "$f(x)=mx+b$"
+      ],
       "correcta": 0
     },
     {
-      "pregunta": "En la función f(x) = 5 (el mismo valor para cualquier x), se trata de una función:",
-      "opciones": ["Constante", "Lineal", "Cuadrática"],
+      "pregunta": "En la función $f(x)=5$ (el mismo valor para cualquier $x$), se trata de una función:",
+      "opciones": [
+        "Constante",
+        "Cuadrática",
+        "Lineal"
+      ],
       "correcta": 0
     },
     {
-      "pregunta": "¿Cuál de las siguientes es una función afín (mx + b con b ≠ 0)?",
-      "opciones": ["f(x) = 3x + 2", "f(x) = 3", "f(x) = x²"],
+      "pregunta": "Si $f(x)=x^2+3x$, ¿cuál de los siguientes valores de $x$ hace que $f(x) = 4$?",
+      "opciones": [
+        "1",
+        "2",
+        "3"
+      ],
       "correcta": 0
     },
     {
-      "pregunta": "En la función f(x) = −2x + 7, ¿cuál es el valor de f(0)?",
-      "opciones": ["7", "0", "−2"],
+      "pregunta": "Una función lineal tiene la forma $y=mx$ y siempre pasa por el origen (cuando $x=0$, $y=0$); una función afín tiene la forma $y=mx+b$ con $b \\neq 0$, por lo que su gráfica es una recta que NO pasa por el origen, sino que corta al eje $y$ en el punto $(0,b)$."
+    },
+    {
+      "pregunta": "¿Cuál de las siguientes funciones es lineal (no afín)?",
+      "opciones": [
+        "$y=3x$",
+        "$y=3x-5$",
+        "$y=3x+1$"
+      ],
       "correcta": 0
     },
     {
-      "pregunta": "Si f(x) = x² + 2x, ¿cuál es el valor de f(−1)?",
-      "opciones": ["−1", "1", "3"],
+      "pregunta": "¿Cuál de las siguientes funciones es afín?",
+      "opciones": [
+        "$y=2x-7$",
+        "$y=2x$",
+        "$y=-7$"
+      ],
       "correcta": 0
+    },
+    {
+      "pregunta": "La función $y=5x$ pasa por el origen porque:",
+      "opciones": [
+        "Su gráfica es una recta",
+        "Su pendiente es positiva",
+        "Cuando $x=0$, $y=0$"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "¿Cuál es la ordenada al origen de la función $y=4x$?",
+      "opciones": [
+        "No tiene",
+        "4",
+        "0"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "Si una función afín tiene la forma $y=mx+b$, ¿qué condición debe cumplir $b$ para que la función sea además lineal?",
+      "opciones": [
+        "$b=0$",
+        "$m=0$",
+        "$b=1$"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "¿Cuál de las siguientes funciones NO es afín?",
+      "opciones": [
+        "$y=6x$",
+        "$y=6x+2$",
+        "$y=6x-1$"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "La gráfica de una función lineal es siempre una línea recta, mientras que la de una función cuadrática es una parábola. Cuando a la expresión de una función se le suma o resta una constante, su gráfica se desplaza verticalmente hacia arriba o hacia abajo esa misma cantidad."
     },
     {
       "pregunta": "¿Qué tipo de gráfica genera una función lineal?",
-      "opciones": ["Una línea recta", "Una parábola", "Una curva cerrada"],
-      "correcta": 0
+      "opciones": [
+        "Una parábola",
+        "Una línea recta",
+        "Una curva cerrada"
+      ],
+      "correcta": 1
     },
     {
       "pregunta": "¿Qué tipo de gráfica genera una función cuadrática?",
-      "opciones": ["Una parábola", "Una línea recta", "Un círculo"],
+      "opciones": [
+        "Una parábola",
+        "Una línea recta",
+        "Un círculo"
+      ],
       "correcta": 0
     },
     {
-      "pregunta": "Si la gráfica de y = x² se desplaza 3 unidades hacia arriba, la nueva función es:",
-      "opciones": ["y = x² + 3", "y = (x + 3)²", "y = 3x²"],
+      "pregunta": "Si la gráfica de $y=x^2$ se desplaza $4$ unidades hacia abajo, la nueva función es:",
+      "opciones": [
+        "$y=-4x^2$",
+        "$y=x^2-4$",
+        "$y=(x-4)^2$"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Si la gráfica de $y=x^2$ se desplaza $2$ unidades a la derecha, la nueva función es:",
+      "opciones": [
+        "$y=(x-2)^2$",
+        "$y=(x+2)^2$",
+        "$y=x^2-2$"
+      ],
       "correcta": 0
     },
     {
-      "pregunta": "Dado el conjunto de pares ordenados {(1,2), (1,5), (2,4)}, ¿por qué esta relación NO es una función?",
-      "opciones": ["Porque el valor 1 tiene dos imágenes distintas (2 y 5)", "Porque sí es una función", "Porque no tiene dominio"],
+      "pregunta": "En la función $f(x)=-2x+7$, ¿cuál es el valor de $f(0)$, es decir, dónde cruza la gráfica al eje $y$?",
+      "opciones": [
+        "-2",
+        "0",
+        "7"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "Además de desplazarse, la gráfica de una función puede reflejarse: $y=-f(x)$ refleja la gráfica respecto al eje $x$ (lo que estaba arriba queda abajo, y viceversa), mientras que $y=f(-x)$ la refleja respecto al eje $y$ (lo que estaba a la derecha queda a la izquierda)."
+    },
+    {
+      "pregunta": "Si la gráfica de $y=x^2$ se refleja respecto al eje $x$, la nueva función es:",
+      "opciones": [
+        "$y=x^{-2}$",
+        "$y=-x^2$",
+        "$y=(-x)^2$"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "¿Qué transformación representa la función $y=-f(x)$ respecto a $y=f(x)$?",
+      "opciones": [
+        "Una reflexión respecto al eje $y$",
+        "Una reflexión respecto al eje $x$",
+        "Un desplazamiento hacia abajo"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "La gráfica de $y=2x+3$ se refleja respecto al eje $x$. ¿Cuál es la nueva función?",
+      "opciones": [
+        "$y=2x-3$",
+        "$y=-2x-3$",
+        "$y=-2x+3$"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Si $f(x)=x^2-4$, ¿cuál es el valor de $-f(x)$ en $x=1$?",
+      "opciones": [
+        "3",
+        "5",
+        "-3"
+      ],
       "correcta": 0
     },
     {
-      "pregunta": "Un segmento de recta se diferencia de una recta en que:",
-      "opciones": ["El segmento tiene dos extremos definidos y longitud finita", "El segmento no tiene extremos", "La recta tiene longitud finita"],
+      "pregunta": "¿Qué transformación representa $y=f(-x)$ respecto a $y=f(x)$?",
+      "opciones": [
+        "Un desplazamiento horizontal",
+        "Una reflexión respecto al eje $x$",
+        "Una reflexión respecto al eje $y$"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "Si $f(x)=|x|$, ¿cómo es la gráfica de $y=-f(x)$ respecto a la original?",
+      "opciones": [
+        "Es idéntica a la original",
+        "Es su reflejo respecto al eje $y$",
+        "Es su reflejo respecto al eje $x$ (una “V” invertida)"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "Un ángulo agudo mide menos de 90°, uno recto mide exactamente 90°, uno obtuso mide entre 90° y 180°, y uno llano mide 180°. Dos ángulos son complementarios si su suma es 90°, y suplementarios si su suma es 180°. Los ángulos opuestos por el vértice, formados por dos rectas que se cruzan, siempre son iguales entre sí."
+    },
+    {
+      "pregunta": "Si un ángulo mide 58°, ¿cuánto mide su complemento?",
+      "opciones": [
+        "42°",
+        "32°",
+        "122°"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Si un ángulo mide 125°, ¿cuánto mide su suplemento?",
+      "opciones": [
+        "235°",
+        "55°",
+        "65°"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Dos ángulos opuestos por el vértice miden $(3x+10)$° y $70$°. ¿Cuál es el valor de $x$?",
+      "opciones": [
+        "20",
+        "30",
+        "10"
+      ],
       "correcta": 0
     },
     {
-      "pregunta": "Una semirrecta se caracteriza por tener:",
-      "opciones": ["Un solo extremo y extenderse infinitamente en una dirección", "Dos extremos definidos", "Ningún extremo"],
-      "correcta": 0
+      "pregunta": "Un ángulo es el doble de su complemento. ¿Cuánto mide dicho ángulo?",
+      "opciones": [
+        "30°",
+        "120°",
+        "60°"
+      ],
+      "correcta": 2
     },
     {
-      "pregunta": "Un ángulo recto mide:",
-      "opciones": ["90°", "180°", "45°"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "Un ángulo agudo es aquel que mide:",
-      "opciones": ["Menos de 90°", "Exactamente 90°", "Más de 90° y menos de 180°"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "Un ángulo obtuso es aquel que mide:",
-      "opciones": ["Más de 90° y menos de 180°", "Menos de 90°", "Exactamente 180°"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "Un ángulo llano mide:",
-      "opciones": ["180°", "90°", "360°"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "Dos ángulos son complementarios cuando su suma es:",
-      "opciones": ["90°", "180°", "360°"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "Dos ángulos son suplementarios cuando su suma es:",
-      "opciones": ["180°", "90°", "270°"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "Si un ángulo mide 35°, ¿cuánto mide su complemento?",
-      "opciones": ["55°", "145°", "65°"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "Si un ángulo mide 110°, ¿cuánto mide su suplemento?",
-      "opciones": ["70°", "90°", "250°"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "Los ángulos opuestos por el vértice, formados por dos rectas que se cruzan, son:",
-      "opciones": ["Siempre iguales entre sí", "Siempre complementarios", "Siempre suplementarios"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "Un triángulo cuyos tres lados tienen diferente longitud se llama:",
-      "opciones": ["Escaleno", "Isósceles", "Equilátero"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "Un triángulo con dos lados iguales se llama:",
-      "opciones": ["Isósceles", "Escaleno", "Equilátero"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "Un triángulo con sus tres lados iguales se llama:",
-      "opciones": ["Equilátero", "Isósceles", "Escaleno"],
+      "pregunta": "Un ángulo llano se divide en dos ángulos adyacentes. Si uno mide 115°, ¿cuánto mide el otro?",
+      "opciones": [
+        "65°",
+        "245°",
+        "75°"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "La suma de los ángulos internos de cualquier triángulo es:",
-      "opciones": ["180°", "360°", "90°"],
+      "opciones": [
+        "180°",
+        "90°",
+        "360°"
+      ],
       "correcta": 0
     },
     {
-      "pregunta": "Si un triángulo tiene ángulos internos de 50° y 60°, ¿cuánto mide el tercer ángulo?",
-      "opciones": ["70°", "80°", "60°"],
+      "pregunta": "Los triángulos se clasifican según sus lados en escalenos (todos los lados diferentes), isósceles (dos lados iguales) y equiláteros (los tres lados iguales); y según sus ángulos en acutángulos, rectángulos (con un ángulo de 90°) y obtusángulos. En todo triángulo, la suma de sus ángulos internos siempre es 180°."
+    },
+    {
+      "pregunta": "Un triángulo cuyos tres lados tienen diferente longitud se llama:",
+      "opciones": [
+        "Escaleno",
+        "Isósceles",
+        "Equilátero"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Si un triángulo tiene ángulos internos de 47° y 65°, ¿cuánto mide el tercer ángulo?",
+      "opciones": [
+        "112°",
+        "78°",
+        "68°"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "En un triángulo isósceles, los dos ángulos de la base miden 52° cada uno. ¿Cuánto mide el ángulo restante?",
+      "opciones": [
+        "76°",
+        "52°",
+        "128°"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "Un triángulo que tiene un ángulo interno de 90° se llama:",
-      "opciones": ["Rectángulo", "Acutángulo", "Obtusángulo"],
+      "opciones": [
+        "Obtusángulo",
+        "Acutángulo",
+        "Rectángulo"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "En un triángulo, dos de sus ángulos son iguales y el tercero mide 40°. ¿Cuánto mide cada uno de los ángulos iguales?",
+      "opciones": [
+        "70°",
+        "80°",
+        "60°"
+      ],
       "correcta": 0
     },
     {
-      "pregunta": "Un cuadrilátero con todos sus lados y ángulos iguales es un:",
-      "opciones": ["Cuadrado", "Rectángulo", "Rombo"],
-      "correcta": 0
+      "pregunta": "Un cuadrilátero con todos sus lados y ángulos iguales es un cuadrado; si solo los ángulos son de 90° pero los lados no son todos iguales, es un rectángulo. La suma de los ángulos internos de cualquier cuadrilátero es 360°, y en un polígono regular todos los lados y todos los ángulos son iguales entre sí."
     },
     {
       "pregunta": "Un cuadrilátero con lados opuestos iguales y paralelos, pero sin ángulos de 90°, se llama:",
-      "opciones": ["Romboide o rombo (paralelogramo)", "Cuadrado", "Trapecio"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "La suma de los ángulos internos de cualquier cuadrilátero es:",
-      "opciones": ["360°", "180°", "270°"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "Un polígono regular se caracteriza por tener:",
-      "opciones": ["Todos sus lados y ángulos iguales", "Solo los lados iguales", "Solo los ángulos iguales"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "Un polígono de 5 lados se llama:",
-      "opciones": ["Pentágono", "Hexágono", "Heptágono"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "Un polígono de 6 lados se llama:",
-      "opciones": ["Hexágono", "Pentágono", "Octágono"],
+      "opciones": [
+        "Romboide (paralelogramo)",
+        "Cuadrado",
+        "Trapecio"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "Un trapecio se define como un cuadrilátero que tiene:",
-      "opciones": ["Exactamente un par de lados paralelos", "Dos pares de lados paralelos", "Ningún lado paralelo"],
+      "opciones": [
+        "Dos pares de lados paralelos",
+        "Ningún lado paralelo",
+        "Exactamente un par de lados paralelos"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "En un cuadrilátero, tres de sus ángulos miden 80°, 95° y 100°. ¿Cuánto mide el cuarto ángulo?",
+      "opciones": [
+        "85°",
+        "95°",
+        "75°"
+      ],
       "correcta": 0
     },
     {
-      "pregunta": "El radio de una circunferencia es:",
-      "opciones": ["La distancia del centro a cualquier punto de la circunferencia", "La distancia entre dos puntos cualquiera de la circunferencia", "El doble del diámetro"],
+      "pregunta": "Un polígono de 7 lados se llama:",
+      "opciones": [
+        "Heptágono",
+        "Hexágono",
+        "Octágono"
+      ],
       "correcta": 0
     },
     {
-      "pregunta": "El diámetro de una circunferencia es:",
-      "opciones": ["El doble del radio", "La mitad del radio", "Igual al radio"],
+      "pregunta": "¿Cuántos lados tiene un octágono?",
+      "opciones": [
+        "6",
+        "8",
+        "10"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Un polígono irregular no tiene todos sus lados ni todos sus ángulos iguales entre sí (a diferencia de un polígono regular). Su perímetro se calcula igual que en cualquier polígono: sumando la longitud de todos sus lados. Para el área, como no existe una fórmula única, se descompone la figura en triángulos, rectángulos u otras figuras conocidas, se calcula el área de cada una y se suman."
+    },
+    {
+      "pregunta": "Un polígono irregular con lados de $5\\,cm$, $7\\,cm$, $4\\,cm$, $6\\,cm$ y $3\\,cm$ tiene un perímetro de:",
+      "opciones": [
+        "24 cm",
+        "25 cm",
+        "20 cm"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Para calcular el área de un polígono irregular, generalmente se:",
+      "opciones": [
+        "Aplica la fórmula del polígono regular más parecido",
+        "Multiplica el perímetro por la altura",
+        "Descompone en triángulos u otras figuras conocidas y se suman sus áreas"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "Un terreno irregular se divide en un rectángulo de $8\\,m \\times 5\\,m$ y un triángulo de base $8\\,m$ y altura $3\\,m$ adosado a uno de sus lados. ¿Cuál es el área total del terreno?",
+      "opciones": [
+        "52 m²",
+        "44 m²",
+        "64 m²"
+      ],
       "correcta": 0
     },
     {
-      "pregunta": "Si el radio de una circunferencia es 7 cm, ¿cuál es su diámetro?",
-      "opciones": ["14 cm", "7 cm", "21 cm"],
+      "pregunta": "¿Cuál de las siguientes características distingue a un polígono irregular de uno regular?",
+      "opciones": [
+        "Tiene más de cuatro lados",
+        "No se le puede calcular el perímetro",
+        "No todos sus lados ni ángulos son iguales"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "Un jardín en forma de polígono irregular se divide en dos rectángulos: uno de $6\\,m \\times 4\\,m$ y otro de $3\\,m \\times 2\\,m$. ¿Cuál es el área total del jardín?",
+      "opciones": [
+        "36 m²",
+        "24 m²",
+        "30 m²"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "El perímetro de un polígono irregular con lados $6\\,cm$, $6\\,cm$, $9\\,cm$, $4\\,cm$ y $7\\,cm$ es:",
+      "opciones": [
+        "36 cm",
+        "30 cm",
+        "32 cm"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "El radio es la distancia del centro de la circunferencia a cualquier punto de ella, y el diámetro es el doble del radio. La longitud (perímetro) de una circunferencia se calcula con $2\\pi r$, y el área del círculo que encierra con $\\pi r^2$."
+    },
+    {
+      "pregunta": "Si el radio de una circunferencia es $9\\,cm$, ¿cuál es su diámetro?",
+      "opciones": [
+        "18 cm",
+        "9 cm",
+        "27 cm"
+      ],
       "correcta": 0
     },
     {
-      "pregunta": "La fórmula para calcular la longitud (perímetro) de una circunferencia es:",
-      "opciones": ["2πr", "πr²", "πr"],
-      "correcta": 0
+      "pregunta": "¿Cuál es la longitud aproximada de una circunferencia con radio $6\\,cm$? (usa $\\pi \\approx 3.14$)",
+      "opciones": [
+        "18.84 cm",
+        "37.68 cm",
+        "113.04 cm"
+      ],
+      "correcta": 1
     },
     {
-      "pregunta": "¿Cuál es la longitud aproximada de una circunferencia con radio 5 cm? (usa π ≈ 3.14)",
-      "opciones": ["31.4 cm", "15.7 cm", "78.5 cm"],
-      "correcta": 0
+      "pregunta": "¿Cuál es el área aproximada de un círculo con radio $5\\,cm$? (usa $\\pi \\approx 3.14$)",
+      "opciones": [
+        "15.7 cm²",
+        "31.4 cm²",
+        "78.5 cm²"
+      ],
+      "correcta": 2
     },
     {
-      "pregunta": "La fórmula para calcular el área de un círculo es:",
-      "opciones": ["πr²", "2πr", "πd"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "¿Cuál es el área aproximada de un círculo con radio 4 cm? (usa π ≈ 3.14)",
-      "opciones": ["50.24 cm²", "25.12 cm²", "12.56 cm²"],
-      "correcta": 0
+      "pregunta": "Si el área de un círculo es $50.24\\,cm^2$ (usa $\\pi \\approx 3.14$), ¿cuál es aproximadamente su radio?",
+      "opciones": [
+        "16 cm",
+        "4 cm",
+        "8 cm"
+      ],
+      "correcta": 1
     },
     {
       "pregunta": "Una cuerda de una circunferencia es:",
-      "opciones": ["Un segmento que une dos puntos de la circunferencia", "La distancia del centro al borde", "El área encerrada por la circunferencia"],
+      "opciones": [
+        "El área encerrada por la circunferencia",
+        "La distancia del centro al borde",
+        "Un segmento que une dos puntos de la circunferencia"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "El perímetro de una figura es la suma de las longitudes de todos sus lados, mientras que el área mide la superficie que encierra. El volumen, en cuerpos como el cubo o el prisma rectangular, mide el espacio tridimensional que ocupan y se calcula multiplicando sus tres dimensiones."
+    },
+    {
+      "pregunta": "El área de un rectángulo con base $9\\,cm$ y altura $5\\,cm$ es:",
+      "opciones": [
+        "45 cm²",
+        "40 cm²",
+        "28 cm²"
+      ],
       "correcta": 0
     },
     {
-      "pregunta": "El perímetro de un rectángulo con lados de 8 cm y 5 cm es:",
-      "opciones": ["26 cm", "40 cm", "13 cm"],
+      "pregunta": "El área de un triángulo con base $12\\,cm$ y altura $7\\,cm$ es:",
+      "opciones": [
+        "42 cm²",
+        "19 cm²",
+        "84 cm²"
+      ],
       "correcta": 0
     },
     {
-      "pregunta": "El área de un rectángulo con base 6 cm y altura 4 cm es:",
-      "opciones": ["24 cm²", "20 cm²", "10 cm²"],
+      "pregunta": "El perímetro de un cuadrado con lado de $11\\,cm$ es:",
+      "opciones": [
+        "44 cm",
+        "121 cm",
+        "22 cm"
+      ],
       "correcta": 0
     },
     {
-      "pregunta": "El área de un triángulo con base 10 cm y altura 6 cm es:",
-      "opciones": ["30 cm²", "60 cm²", "16 cm²"],
+      "pregunta": "El volumen de un cubo con arista de $4\\,cm$ es:",
+      "opciones": [
+        "16 cm³",
+        "64 cm³",
+        "12 cm³"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "El volumen de un prisma rectangular con dimensiones $5\\,cm \\times 3\\,cm \\times 4\\,cm$ es:",
+      "opciones": [
+        "60 cm³",
+        "12 cm³",
+        "120 cm³"
+      ],
       "correcta": 0
     },
     {
-      "pregunta": "El área de un cuadrado con lado de 9 cm es:",
-      "opciones": ["81 cm²", "36 cm²", "18 cm²"],
+      "pregunta": "Un jardín rectangular mide $14\\,m$ de largo y $8\\,m$ de ancho. Si se quiere colocar malla en todo su perímetro, ¿cuántos metros de malla se necesitan?",
+      "opciones": [
+        "112 m",
+        "22 m",
+        "44 m"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "El teorema de Pitágoras se aplica únicamente a triángulos rectángulos y relaciona sus tres lados: $a^2+b^2=c^2$, donde $c$ es la hipotenusa (el lado más largo, opuesto al ángulo recto) y $a$, $b$ son los catetos."
+    },
+    {
+      "pregunta": "Un triángulo rectángulo tiene catetos de $9\\,cm$ y $12\\,cm$. ¿Cuánto mide la hipotenusa?",
+      "opciones": [
+        "15 cm",
+        "18 cm",
+        "21 cm"
+      ],
       "correcta": 0
     },
     {
-      "pregunta": "El perímetro de un cuadrado con lado de 7 cm es:",
-      "opciones": ["28 cm", "49 cm", "14 cm"],
+      "pregunta": "Un triángulo rectángulo tiene hipotenusa de $17\\,cm$ y un cateto de $8\\,cm$. ¿Cuánto mide el otro cateto?",
+      "opciones": [
+        "15 cm",
+        "20 cm",
+        "9 cm"
+      ],
       "correcta": 0
     },
     {
-      "pregunta": "El volumen de un cubo con arista de 3 cm es:",
-      "opciones": ["27 cm³", "9 cm³", "18 cm³"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "El volumen de un prisma rectangular con dimensiones 4 cm × 3 cm × 2 cm es:",
-      "opciones": ["24 cm³", "9 cm³", "48 cm³"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "El teorema de Pitágoras se aplica específicamente a:",
-      "opciones": ["Triángulos rectángulos", "Cualquier triángulo", "Solo triángulos equiláteros"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "Según el teorema de Pitágoras, la relación entre los catetos (a, b) y la hipotenusa (c) es:",
-      "opciones": ["a² + b² = c²", "a + b = c", "a² − b² = c²"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "Un triángulo rectángulo tiene catetos de 3 cm y 4 cm. ¿Cuánto mide la hipotenusa?",
-      "opciones": ["5 cm", "7 cm", "6 cm"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "Un triángulo rectángulo tiene catetos de 6 cm y 8 cm. ¿Cuánto mide la hipotenusa?",
-      "opciones": ["10 cm", "14 cm", "12 cm"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "Un triángulo rectángulo tiene hipotenusa de 13 cm y un cateto de 5 cm. ¿Cuánto mide el otro cateto?",
-      "opciones": ["12 cm", "8 cm", "18 cm"],
-      "correcta": 0
+      "pregunta": "Una escalera de $10\\,m$ se apoya contra una pared; su base está a $6\\,m$ de la pared. ¿A qué altura de la pared llega la escalera?",
+      "opciones": [
+        "4 m",
+        "8 m",
+        "6 m"
+      ],
+      "correcta": 1
     },
     {
       "pregunta": "En un triángulo rectángulo, la hipotenusa es siempre:",
-      "opciones": ["El lado más largo, opuesto al ángulo recto", "El lado más corto", "Igual a uno de los catetos"],
+      "opciones": [
+        "El lado más corto",
+        "El lado más largo, opuesto al ángulo recto",
+        "Igual a uno de los catetos"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Un terreno rectangular mide $24\\,m$ de largo y $7\\,m$ de ancho. ¿Cuánto mide su diagonal?",
+      "opciones": [
+        "17 m",
+        "31 m",
+        "25 m"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "En el plano cartesiano, cada punto se ubica con un par ordenado $(x,y)$: la abscisa $x$ indica la posición horizontal y la ordenada $y$ la vertical. El punto $(0,0)$ se llama origen, y los ejes dividen al plano en cuatro cuadrantes."
+    },
+    {
+      "pregunta": "En el par ordenado $(x,y)$, la coordenada $y$ se conoce como:",
+      "opciones": [
+        "Pendiente",
+        "Ordenada",
+        "Abscisa"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "El punto $(5,-3)$ se ubica en el cuadrante:",
+      "opciones": [
+        "III",
+        "I",
+        "IV"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "El punto $(-4,-2)$ se ubica en el cuadrante:",
+      "opciones": [
+        "II",
+        "IV",
+        "III"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "El punto $(-2,6)$ se ubica en el cuadrante:",
+      "opciones": [
+        "I",
+        "III",
+        "II"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "¿Cuál es la primera coordenada (abscisa) del punto $(7,-1)$?",
+      "opciones": [
+        "7",
+        "6",
+        "-1"
+      ],
       "correcta": 0
     },
     {
-      "pregunta": "En el plano cartesiano, el punto (3, 5) tiene como primera coordenada (abscisa):",
-      "opciones": ["3", "5", "8"],
+      "pregunta": "La pendiente $m$ de una recta mide su inclinación y se calcula como $m = \\dfrac{y_2-y_1}{x_2-x_1}$ entre dos puntos de la recta. La ecuación de la recta en su forma pendiente-ordenada al origen es $y=mx+b$, donde $b$ es el punto donde la recta cruza el eje $y$. Dos rectas son paralelas cuando tienen la misma pendiente, y perpendiculares cuando el producto de sus pendientes es $-1$."
+    },
+    {
+      "pregunta": "La pendiente de la recta que pasa por los puntos $(2,3)$ y $(5,9)$ es:",
+      "opciones": [
+        "$\\frac{1}{2}$",
+        "2",
+        "3"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "En la ecuación $y=4x-5$, ¿cuál es la pendiente?",
+      "opciones": [
+        "4",
+        "5",
+        "-5"
+      ],
       "correcta": 0
     },
     {
-      "pregunta": "En el par ordenado (x, y), la coordenada 'y' se conoce como:",
-      "opciones": ["Ordenada", "Abscisa", "Pendiente"],
+      "pregunta": "En la ecuación $y=4x-5$, ¿cuál es la ordenada al origen?",
+      "opciones": [
+        "-5",
+        "4",
+        "0"
+      ],
       "correcta": 0
     },
     {
-      "pregunta": "El punto (0, 0) en el plano cartesiano se llama:",
-      "opciones": ["Origen", "Cuadrante I", "Eje X"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "El punto (4, −2) se ubica en el cuadrante:",
-      "opciones": ["IV", "I", "III"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "El punto (−3, 5) se ubica en el cuadrante:",
-      "opciones": ["II", "I", "III"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "La pendiente de una recta mide:",
-      "opciones": ["La inclinación de la recta", "La longitud de la recta", "El punto donde cruza el eje Y"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "La pendiente de la recta que pasa por los puntos (1, 2) y (3, 6) es:",
-      "opciones": ["2", "4", "1/2"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "La ecuación de la recta en su forma pendiente-ordenada al origen es:",
-      "opciones": ["y = mx + b", "y = mx²", "x = my + b"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "En la ecuación y = 3x − 2, ¿cuál es la pendiente?",
-      "opciones": ["3", "−2", "2"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "En la ecuación y = 3x − 2, ¿cuál es la ordenada al origen (el valor donde la recta cruza el eje Y)?",
-      "opciones": ["−2", "3", "0"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "Si una recta tiene pendiente 0, la recta es:",
-      "opciones": ["Horizontal", "Vertical", "Diagonal"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "La distancia entre los puntos (0, 0) y (3, 4) es:",
-      "opciones": ["5", "7", "6"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "La distancia entre los puntos (1, 1) y (4, 5) es:",
-      "opciones": ["5", "4", "6"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "El punto medio entre (2, 4) y (6, 8) es:",
-      "opciones": ["(4, 6)", "(8, 12)", "(2, 2)"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "El punto medio entre (0, 0) y (10, 6) es:",
-      "opciones": ["(5, 3)", "(10, 6)", "(5, 6)"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "Dos rectas son paralelas cuando:",
-      "opciones": ["Tienen la misma pendiente", "Sus pendientes son recíprocas negativas", "Se cruzan en un punto"],
-      "correcta": 0
+      "pregunta": "Si una recta tiene pendiente $0$, la recta es:",
+      "opciones": [
+        "Vertical",
+        "Horizontal",
+        "Diagonal"
+      ],
+      "correcta": 1
     },
     {
       "pregunta": "Dos rectas son perpendiculares cuando:",
-      "opciones": ["El producto de sus pendientes es −1", "Tienen la misma pendiente", "Nunca se cruzan"],
+      "opciones": [
+        "Nunca se cruzan",
+        "El producto de sus pendientes es $-1$",
+        "Tienen la misma pendiente"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "¿Cuál es la ecuación de la recta que pasa por el punto $(0,2)$ con pendiente $3$?",
+      "opciones": [
+        "$y=2x+3$",
+        "$y=3x+2$",
+        "$y=3x-2$"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Dos rectas son paralelas cuando tienen exactamente la misma pendiente ($m_1=m_2$); son perpendiculares cuando el producto de sus pendientes es $-1$ ($m_1 \\times m_2=-1$), es decir, la pendiente de una es el recíproco negativo de la otra."
+    },
+    {
+      "pregunta": "¿Cuál es la pendiente de una recta paralela a $y=3x-2$?",
+      "opciones": [
+        "$\\frac{1}{3}$",
+        "3",
+        "-3"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "¿Cuál es la pendiente de una recta perpendicular a $y=3x-2$?",
+      "opciones": [
+        "$-\\frac{1}{3}$",
+        "3",
+        "$\\frac{1}{3}$"
+      ],
       "correcta": 0
     },
     {
-      "pregunta": "La media (promedio) de un conjunto de datos se calcula:",
-      "opciones": ["Sumando todos los datos y dividiendo entre el número de datos", "Ordenando los datos y tomando el valor central", "Identificando el valor que más se repite"],
+      "pregunta": "Las rectas $y=2x+1$ y $y=2x-5$ son:",
+      "opciones": [
+        "Ni paralelas ni perpendiculares",
+        "Perpendiculares",
+        "Paralelas"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "Las rectas $y=\\frac{1}{2}x+3$ y $y=-2x+1$ son:",
+      "opciones": [
+        "Paralelas",
+        "Perpendiculares",
+        "Ni paralelas ni perpendiculares"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "¿Cuál es la pendiente de una recta perpendicular a una recta vertical?",
+      "opciones": [
+        "Es vertical también",
+        "0",
+        "No está definida"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "¿Cuál de las siguientes rectas es perpendicular a $y=-4x+1$?",
+      "opciones": [
+        "$y=-4x+5$",
+        "$y=\\frac{1}{4}x-3$",
+        "$y=4x-3$"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "La distancia entre dos puntos $(x_1,y_1)$ y $(x_2,y_2)$ se calcula con $d=\\sqrt{(x_2-x_1)^2+(y_2-y_1)^2}$, una aplicación directa del teorema de Pitágoras. El punto medio entre ellos se obtiene promediando sus coordenadas: $M=\\left(\\dfrac{x_1+x_2}{2}, \\dfrac{y_1+y_2}{2}\\right)$."
+    },
+    {
+      "pregunta": "La distancia entre los puntos $(0,0)$ y $(6,8)$ es:",
+      "opciones": [
+        "10",
+        "14",
+        "7"
+      ],
       "correcta": 0
     },
     {
-      "pregunta": "¿Cuál es la media de los siguientes datos: 4, 8, 6, 10, 2?",
-      "opciones": ["6", "8", "5"],
+      "pregunta": "La distancia entre los puntos $(1,2)$ y $(4,6)$ es:",
+      "opciones": [
+        "7",
+        "5",
+        "6"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "El punto medio entre $(2,4)$ y $(8,10)$ es:",
+      "opciones": [
+        "$(3,3)$",
+        "$(10,14)$",
+        "$(5,7)$"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "El punto medio entre $(-3,1)$ y $(5,7)$ es:",
+      "opciones": [
+        "$(-1,4)$",
+        "$(1,4)$",
+        "$(2,8)$"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Si el punto medio entre $A(2,3)$ y $B(x,7)$ es $(6,5)$, ¿cuál es el valor de $x$?",
+      "opciones": [
+        "8",
+        "10",
+        "12"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "La media es el promedio de los datos (se suman todos y se dividen entre el número de datos); la mediana es el valor central cuando los datos están ordenados; y la moda es el valor que más se repite. El rango se obtiene restando el valor mínimo al máximo."
+    },
+    {
+      "pregunta": "¿Cuál es la media de los siguientes datos: $5, 9, 7, 11, 3$?",
+      "opciones": [
+        "9",
+        "5",
+        "7"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "¿Cuál es la mediana de: $4, 8, 11, 15, 19$?",
+      "opciones": [
+        "8",
+        "11",
+        "15"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "¿Cuál es la mediana de: $3, 5, 7, 9$?",
+      "opciones": [
+        "6",
+        "5",
+        "7"
+      ],
       "correcta": 0
     },
     {
-      "pregunta": "La mediana de un conjunto de datos es:",
-      "opciones": ["El valor central cuando los datos están ordenados", "El promedio de todos los datos", "El valor que más se repite"],
-      "correcta": 0
+      "pregunta": "¿Cuál es la moda de: $2, 4, 4, 6, 9, 4, 7$?",
+      "opciones": [
+        "7",
+        "4",
+        "6"
+      ],
+      "correcta": 1
     },
     {
-      "pregunta": "¿Cuál es la mediana de: 3, 7, 9, 12, 15?",
-      "opciones": ["9", "7", "12"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "¿Cuál es la mediana de: 2, 4, 6, 8?",
-      "opciones": ["5", "4", "6"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "La moda de un conjunto de datos es:",
-      "opciones": ["El valor que más se repite", "El valor central", "El promedio de los datos"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "¿Cuál es la moda de: 2, 3, 3, 5, 7, 3, 8?",
-      "opciones": ["3", "5", "7"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "El rango de un conjunto de datos se calcula:",
-      "opciones": ["Restando el valor mínimo al valor máximo", "Sumando todos los datos", "Dividiendo el mayor entre el menor"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "¿Cuál es el rango de: 12, 45, 8, 23, 67?",
-      "opciones": ["59", "55", "67"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "En una tabla de frecuencias, la frecuencia absoluta representa:",
-      "opciones": ["El número de veces que se repite un dato", "El porcentaje que representa un dato", "El valor promedio"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "En una gráfica de barras, la altura de cada barra generalmente representa:",
-      "opciones": ["La frecuencia de cada categoría", "El orden alfabético", "El tiempo transcurrido"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "Una gráfica circular (de pastel) es útil principalmente para representar:",
-      "opciones": ["Proporciones o porcentajes de un total", "Cambios a lo largo del tiempo", "Relaciones de causa y efecto"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "Una gráfica lineal es la más adecuada para representar:",
-      "opciones": ["La evolución de un dato a lo largo del tiempo", "Porcentajes de un total", "Datos sin ningún orden"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "Si en una encuesta a 200 personas, 50 prefieren café, ¿qué porcentaje del total representa esta preferencia?",
-      "opciones": ["25%", "50%", "20%"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "La frecuencia relativa de un dato se obtiene:",
-      "opciones": ["Dividiendo la frecuencia absoluta entre el total de datos", "Multiplicando la frecuencia por 100", "Sumando todas las frecuencias"],
+      "pregunta": "¿Cuál es el rango de: $18, 42, 7, 29, 55$?",
+      "opciones": [
+        "48",
+        "37",
+        "55"
+      ],
       "correcta": 0
     },
     {
       "pregunta": "En un conjunto de datos con valores muy dispersos (extremos), la medida más afectada por esos valores es:",
-      "opciones": ["La media", "La moda", "La mediana"],
+      "opciones": [
+        "La mediana",
+        "La moda",
+        "La media"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "En una tabla de frecuencias, la frecuencia absoluta indica cuántas veces se repite un dato, y la frecuencia relativa se obtiene dividiendo esa frecuencia entre el total de datos. Las gráficas circulares son útiles para mostrar proporciones de un total, las de barras para comparar categorías, y las lineales para mostrar la evolución de un dato en el tiempo."
+    },
+    {
+      "pregunta": "En una tabla de frecuencias, la frecuencia absoluta representa:",
+      "opciones": [
+        "El valor promedio",
+        "El porcentaje que representa un dato",
+        "El número de veces que se repite un dato"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "Una gráfica circular (de pastel) es útil principalmente para representar:",
+      "opciones": [
+        "Proporciones o porcentajes de un total",
+        "Cambios a lo largo del tiempo",
+        "Relaciones de causa y efecto"
+      ],
       "correcta": 0
     },
     {
-      "pregunta": "El espacio muestral de un experimento aleatorio es:",
-      "opciones": ["El conjunto de todos los resultados posibles", "Un solo resultado posible", "La probabilidad de un evento"],
+      "pregunta": "Una gráfica lineal es la más adecuada para representar:",
+      "opciones": [
+        "Porcentajes de un total",
+        "Datos sin ningún orden",
+        "La evolución de un dato a lo largo del tiempo"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "Si en una encuesta a 250 personas, 75 prefieren series sobre películas, ¿qué porcentaje del total representa esta preferencia?",
+      "opciones": [
+        "75%",
+        "30%",
+        "25%"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "La frecuencia relativa de un dato se obtiene:",
+      "opciones": [
+        "Multiplicando la frecuencia por 100",
+        "Dividiendo la frecuencia absoluta entre el total de datos",
+        "Sumando todas las frecuencias"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "En una tabla de frecuencias de 40 datos, un valor tiene frecuencia absoluta 8. ¿Cuál es su frecuencia relativa?",
+      "opciones": [
+        "0.2",
+        "8",
+        "0.8"
+      ],
       "correcta": 0
     },
     {
-      "pregunta": "Al lanzar un dado de 6 caras, ¿cuántos elementos tiene el espacio muestral?",
-      "opciones": ["6", "1", "12"],
+      "pregunta": "Muchas preguntas de este tipo describen los datos de una tabla o gráfica en palabras: hay que leer con cuidado cada valor, identificar qué representa cada uno, y luego comparar, sumar o calcular lo que se pida, igual que si se tuviera la tabla o la gráfica dibujada enfrente."
+    },
+    {
+      "pregunta": "Una tienda registró sus ventas de café durante 4 meses: enero 120 tazas, febrero 150 tazas, marzo 90 tazas y abril 180 tazas. ¿En qué mes se vendió menos café?",
+      "opciones": [
+        "Marzo",
+        "Febrero",
+        "Enero"
+      ],
       "correcta": 0
     },
     {
-      "pregunta": "Un evento, en probabilidad, se define como:",
-      "opciones": ["Un subconjunto del espacio muestral", "El resultado de multiplicar dos probabilidades", "El total de resultados posibles"],
+      "pregunta": "Con los mismos datos (enero 120, febrero 150, marzo 90, abril 180 tazas), ¿cuál fue el total de tazas vendidas en los 4 meses?",
+      "opciones": [
+        "500",
+        "540",
+        "570"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Con los mismos datos, ¿cuántas tazas más se vendieron en abril que en marzo?",
+      "opciones": [
+        "100",
+        "60",
+        "90"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "En una gráfica de barras se compara el número de libros leídos por 5 estudiantes: Ana 8, Beto 5, Carla 12, Dani 5 y Elsa 9. ¿Cuántos estudiantes leyeron menos libros que Elsa?",
+      "opciones": [
+        "4",
+        "3",
+        "2"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Con los mismos datos de libros leídos (Ana 8, Beto 5, Carla 12, Dani 5, Elsa 9), ¿cuál es el promedio de libros leídos por los 5 estudiantes?",
+      "opciones": [
+        "8",
+        "7.8",
+        "7"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Una gráfica circular muestra cómo se reparte el presupuesto familiar: 40% renta, 25% comida, 20% transporte y el resto en “otros gastos”. Si el presupuesto total es de 12,000 pesos, ¿cuánto se destina a “otros gastos”?",
+      "opciones": [
+        "2,400 pesos",
+        "1,500 pesos",
+        "1,800 pesos"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "El espacio muestral es el conjunto de todos los resultados posibles de un experimento aleatorio, y un evento es cualquier subconjunto de ese espacio. La probabilidad de un evento se calcula como $P = \\dfrac{\\text{casos favorables}}{\\text{casos posibles}}$ y siempre está entre $0$ y $1$. Si dos eventos son independientes, la probabilidad de que ambos ocurran es el producto de sus probabilidades individuales."
+    },
+    {
+      "pregunta": "Al lanzar un dado de $6$ caras, ¿cuántos elementos tiene el espacio muestral?",
+      "opciones": [
+        "6",
+        "1",
+        "12"
+      ],
       "correcta": 0
     },
     {
-      "pregunta": "La probabilidad de un evento se calcula como:",
-      "opciones": ["Casos favorables entre casos posibles", "Casos posibles entre casos favorables", "Casos favorables más casos posibles"],
+      "pregunta": "Al lanzar un dado, ¿cuál es la probabilidad de obtener un número mayor a $4$?",
+      "opciones": [
+        "$\\frac{1}{2}$",
+        "$\\frac{1}{6}$",
+        "$\\frac{1}{3}$"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "En una bolsa hay $5$ canicas rojas y $7$ azules. ¿Cuál es la probabilidad de sacar una canica azul?",
+      "opciones": [
+        "$\\frac{1}{2}$",
+        "$\\frac{7}{12}$",
+        "$\\frac{5}{12}$"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Si la probabilidad de que un examen tenga preguntas de trigonometría es $0.35$, ¿cuál es la probabilidad complementaria de que NO las tenga?",
+      "opciones": [
+        "0.65",
+        "1.35",
+        "0.35"
+      ],
       "correcta": 0
     },
     {
-      "pregunta": "Al lanzar un dado, ¿cuál es la probabilidad de obtener un número par?",
-      "opciones": ["1/2", "1/3", "1/6"],
+      "pregunta": "Al lanzar dos monedas, ¿cuál es la probabilidad de obtener 'sol' en ambas?",
+      "opciones": [
+        "1",
+        "$\\frac{1}{4}$",
+        "$\\frac{1}{2}$"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "En una baraja estándar de $52$ cartas, ¿cuál es la probabilidad de sacar una carta de corazones?",
+      "opciones": [
+        "$\\frac{4}{13}$",
+        "$\\frac{1}{4}$",
+        "$\\frac{1}{13}$"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Al lanzar un dado dos veces, ¿cuál es la probabilidad de obtener un $6$ en ambos lanzamientos?",
+      "opciones": [
+        "$\\frac{1}{6}$",
+        "$\\frac{1}{36}$",
+        "$\\frac{2}{6}$"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "En un grupo de $30$ estudiantes, $18$ practican algún deporte. Si se elige uno al azar, ¿cuál es la probabilidad de que NO practique ningún deporte?",
+      "opciones": [
+        "$\\frac{2}{5}$",
+        "$\\frac{3}{5}$",
+        "$\\frac{1}{2}$"
+      ],
       "correcta": 0
     },
     {
-      "pregunta": "Al lanzar una moneda, ¿cuál es la probabilidad de obtener 'águila'?",
-      "opciones": ["1/2", "1/4", "1"],
+      "pregunta": "Cuando se busca la probabilidad de que ocurra el evento $A$ o el evento $B$ (unión), se usa $P(A \\cup B) = P(A) + P(B) - P(A \\cap B)$; el último término evita contar dos veces los resultados que pertenecen a ambos eventos. Si dos eventos no pueden ocurrir al mismo tiempo (no comparten ningún resultado), se llaman mutuamente excluyentes, y entonces $P(A \\cap B) = 0$, por lo que $P(A \\cup B) = P(A) + P(B)$."
+    },
+    {
+      "pregunta": "Al lanzar un dado, ¿cuál es la probabilidad de obtener un número par o un número mayor que $4$?",
+      "opciones": [
+        "$\\frac{5}{6}$",
+        "$\\frac{2}{3}$",
+        "$\\frac{1}{2}$"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Dos eventos son mutuamente excluyentes cuando:",
+      "opciones": [
+        "No pueden ocurrir al mismo tiempo",
+        "Tienen la misma probabilidad",
+        "Ocurren siempre juntos"
+      ],
       "correcta": 0
     },
     {
-      "pregunta": "En una bolsa hay 4 canicas rojas y 6 azules. ¿Cuál es la probabilidad de sacar una canica roja?",
-      "opciones": ["2/5", "4/6", "1/2"],
+      "pregunta": "Al lanzar un dado, obtener un número par y obtener un $3$ son eventos:",
+      "opciones": [
+        "Mutuamente excluyentes",
+        "Independientes pero no excluyentes",
+        "El mismo evento"
+      ],
       "correcta": 0
     },
     {
-      "pregunta": "La probabilidad de un evento siempre está en el rango:",
-      "opciones": ["Entre 0 y 1", "Entre −1 y 1", "Entre 1 y 100"],
+      "pregunta": "En una baraja de $52$ cartas, ¿cuál es la probabilidad de sacar un as o una carta de corazones?",
+      "opciones": [
+        "$\\frac{4}{13}$",
+        "$\\frac{1}{4}$",
+        "$\\frac{17}{52}$"
+      ],
       "correcta": 0
     },
     {
-      "pregunta": "Si la probabilidad de que llueva mañana es 0.3, ¿cuál es la probabilidad complementaria de que NO llueva?",
-      "opciones": ["0.7", "0.3", "1.3"],
+      "pregunta": "Si $P(A)=0.4$, $P(B)=0.3$ y $A$ y $B$ son mutuamente excluyentes, ¿cuál es $P(A \\cup B)$?",
+      "opciones": [
+        "0.12",
+        "0.7",
+        "1.0"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "En un grupo de $40$ estudiantes, $18$ juegan fútbol, $15$ juegan básquetbol y $6$ juegan ambos deportes. ¿Cuántos estudiantes juegan al menos uno de los dos deportes?",
+      "opciones": [
+        "33",
+        "27",
+        "21"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "En una secuencia aritmética, cada término se obtiene sumando siempre la misma cantidad (la razón o diferencia) al anterior; en una secuencia geométrica, cada término se obtiene multiplicando siempre por la misma razón. El término $n$ de una secuencia aritmética se calcula con $a_n = a_1+(n-1)d$."
+    },
+    {
+      "pregunta": "¿Cuál es el siguiente número en la secuencia: $3, 7, 11, 15, \\ldots$?",
+      "opciones": [
+        "19",
+        "18",
+        "20"
+      ],
       "correcta": 0
     },
     {
-      "pregunta": "Dos eventos son independientes cuando:",
-      "opciones": ["El resultado de uno no afecta la probabilidad del otro", "Ambos ocurren siempre al mismo tiempo", "Nunca pueden ocurrir juntos"],
+      "pregunta": "¿Cuál es el siguiente número en la secuencia: $2, 6, 18, 54, \\ldots$?",
+      "opciones": [
+        "216",
+        "162",
+        "108"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "En la secuencia aritmética $6, 11, 16, 21,\\ldots$, ¿cuál es la razón (diferencia) entre términos consecutivos?",
+      "opciones": [
+        "6",
+        "11",
+        "5"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "Usando $a_n=a_1+(n-1)d$, ¿cuál es el octavo término de la secuencia aritmética que empieza en $4$ y aumenta de $3$ en $3$?",
+      "opciones": [
+        "24",
+        "28",
+        "25"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "¿Cuál es el término que falta en la secuencia: $3, 9, 27, \\_\\_, 243$?",
+      "opciones": [
+        "54",
+        "81",
+        "90"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "En la secuencia geométrica $5, 15, 45, 135,\\ldots$, ¿cuál es la razón entre términos consecutivos?",
+      "opciones": [
+        "5",
+        "3",
+        "10"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "En una serie o patrón numérico, encontrar la regla que relaciona un término con el siguiente permite predecir los términos que faltan; esa regla puede ser una suma constante, una multiplicación, o incluso una diferencia que también cambia de forma regular, como en $1, 3, 6, 10, 15,\\ldots$, donde la diferencia entre términos aumenta en uno cada vez."
+    },
+    {
+      "pregunta": "¿Cuál es el siguiente número en la secuencia: $1, 4, 9, 16, \\_\\_$?",
+      "opciones": [
+        "25",
+        "20",
+        "36"
+      ],
       "correcta": 0
     },
     {
-      "pregunta": "Al lanzar dos monedas, ¿cuál es la probabilidad de obtener 'águila' en ambas?",
-      "opciones": ["1/4", "1/2", "1"],
+      "pregunta": "¿Qué número no pertenece a la serie: $3, 6, 9, 13, 12, 15$?",
+      "opciones": [
+        "9",
+        "13",
+        "15"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "En el patrón numérico $1, 3, 6, 10, 15$, ¿cuál es el siguiente término?",
+      "opciones": [
+        "21",
+        "20",
+        "18"
+      ],
       "correcta": 0
     },
     {
-      "pregunta": "Al lanzar un dado, ¿cuál es la probabilidad de obtener un 7?",
-      "opciones": ["0", "1/6", "1"],
+      "pregunta": "Completa la analogía numérica (relación: elevar al cuadrado): $6$ es a $36$ como $8$ es a $\\_\\_$",
+      "opciones": [
+        "64",
+        "16",
+        "48"
+      ],
       "correcta": 0
     },
     {
-      "pregunta": "Al lanzar un dado, ¿cuál es la probabilidad de obtener un número menor a 7?",
-      "opciones": ["1", "0", "1/6"],
+      "pregunta": "Completa la analogía numérica (relación: el doble más uno): $3$ es a $7$ como $5$ es a $\\_\\_$",
+      "opciones": [
+        "11",
+        "12",
+        "10"
+      ],
       "correcta": 0
     },
     {
-      "pregunta": "En una baraja estándar de 52 cartas, ¿cuál es la probabilidad de sacar un as?",
-      "opciones": ["1/13", "1/4", "4/13"],
+      "pregunta": "Tres amigos tienen edades consecutivas y suman $45$ años entre los tres. ¿Cuál es la edad del mayor?",
+      "opciones": [
+        "16",
+        "14",
+        "15"
+      ],
       "correcta": 0
     },
     {
-      "pregunta": "¿Cuál es el siguiente número en la secuencia: 2, 5, 8, 11, ___?",
-      "opciones": ["14", "13", "15"],
+      "pregunta": "Si todos los rectángulos son paralelogramos, y una figura dada es un rectángulo, ¿qué se puede deducir lógicamente?",
+      "opciones": [
+        "Que es un triángulo",
+        "Que no es un paralelogramo",
+        "Que también es un paralelogramo"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "En una fila de personas, Carla está justo detrás de Luis y justo delante de Ana. Si Luis es el tercero de la fila, ¿en qué posición está Ana?",
+      "opciones": [
+        "Sexta",
+        "Cuarta",
+        "Quinta"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "Un examen tiene $50$ preguntas. Si un estudiante contestó correctamente el $84\\%$ del total, ¿cuántas preguntas contestó bien?",
+      "opciones": [
+        "42",
+        "40",
+        "45"
+      ],
       "correcta": 0
     },
     {
-      "pregunta": "¿Cuál es el siguiente número en la secuencia: 3, 6, 12, 24, ___?",
-      "opciones": ["48", "36", "30"],
+      "pregunta": "Se reparten 900 pesos entre dos personas de forma que una reciba el doble que la otra. ¿Cuánto recibe la persona que recibe menos?",
+      "opciones": [
+        "450 pesos",
+        "600 pesos",
+        "300 pesos"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "La suma de las edades de una madre y su hija es 45 años. La madre tiene el cuádruple de la edad de la hija. ¿Cuántos años tiene la hija?",
+      "opciones": [
+        "12",
+        "36",
+        "9"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "En un razonamiento deductivo, si las premisas son verdaderas y el razonamiento sigue una estructura válida, la conclusión también debe serlo. Un caso común es el silogismo: dos premisas (una general y una particular) llevan a una conclusión, como 'Todos los A son B; C es A; por lo tanto, C es B'. También es frecuente el razonamiento condicional: si se sabe que 'si ocurre A, entonces ocurre B' y se confirma que A ocurrió, puede concluirse que B también ocurrió; y si se confirma que B NO ocurrió, puede concluirse que A tampoco ocurrió."
+    },
+    {
+      "pregunta": "Todos los múltiplos de $6$ son múltiplos de $3$. El número $18$ es múltiplo de $6$. ¿Qué se puede concluir?",
+      "opciones": [
+        "No se puede concluir nada",
+        "Que $18$ es múltiplo de $6$ pero no de $3$",
+        "Que $18$ es múltiplo de $3$"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "Todos los mamíferos son animales vertebrados. El delfín es un mamífero. Por lo tanto:",
+      "opciones": [
+        "El delfín es un animal vertebrado",
+        "El delfín no es un animal vertebrado",
+        "Todos los animales vertebrados son mamíferos"
+      ],
       "correcta": 0
     },
     {
-      "pregunta": "¿Cuál es el siguiente número en la secuencia: 1, 4, 9, 16, ___?",
-      "opciones": ["25", "20", "36"],
+      "pregunta": "Si llueve, entonces el suelo se moja. Hoy llovió. ¿Qué se puede concluir con certeza?",
+      "opciones": [
+        "El suelo se mojó",
+        "El suelo no se mojó",
+        "No llovió"
+      ],
       "correcta": 0
     },
     {
-      "pregunta": "¿Cuál es el siguiente número en la secuencia: 100, 90, 80, 70, ___?",
-      "opciones": ["60", "65", "50"],
+      "pregunta": "Si un número es divisible entre $4$, entonces es divisible entre $2$. El número $15$ no es divisible entre $2$. ¿Qué se puede concluir?",
+      "opciones": [
+        "$15$ no es divisible entre $4$",
+        "$15$ es divisible entre $4$",
+        "No se puede concluir nada"
+      ],
       "correcta": 0
     },
     {
-      "pregunta": "¿Cuál es el término que falta en la secuencia: 5, 10, 20, __, 80?",
-      "opciones": ["40", "35", "45"],
+      "pregunta": "Si un cuadrilátero es un cuadrado, entonces tiene cuatro ángulos rectos. Cierta figura tiene cuatro ángulos rectos. ¿Se puede concluir que es un cuadrado?",
+      "opciones": [
+        "No, un cuadrado nunca tiene cuatro ángulos rectos",
+        "Sí, siempre será un cuadrado",
+        "No necesariamente: podría ser un rectángulo que no es cuadrado"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "Todos los estudiantes de la lista aprobaron el examen. Mario no aprobó el examen. ¿Qué se puede concluir sobre Mario?",
+      "opciones": [
+        "No se puede concluir nada",
+        "Que Mario sí está en la lista",
+        "Que Mario no está en la lista"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "Para convertir entre unidades del mismo sistema métrico se multiplica o divide por potencias de $10$ según la relación entre ellas: por ejemplo, $1\\,km = 1000\\,m$, $1\\,m=100\\,cm$, $1\\,kg=1000\\,g$ y $1\\,L=1000\\,mL$."
+    },
+    {
+      "pregunta": "¿Cuántos metros hay en $4.2$ kilómetros?",
+      "opciones": [
+        "420 m",
+        "4200 m",
+        "42 m"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "¿Cuántos gramos hay en $3.8$ kilogramos?",
+      "opciones": [
+        "3800 g",
+        "38 g",
+        "380 g"
+      ],
       "correcta": 0
     },
     {
-      "pregunta": "En la secuencia aritmética 4, 9, 14, 19..., ¿cuál es la razón (diferencia) entre términos consecutivos?",
-      "opciones": ["5", "4", "9"],
+      "pregunta": "¿Cuántos mililitros hay en $1.75$ litros?",
+      "opciones": [
+        "1750 mL",
+        "17.5 mL",
+        "175 mL"
+      ],
       "correcta": 0
     },
     {
-      "pregunta": "En la secuencia geométrica 2, 6, 18, 54..., ¿cuál es la razón entre términos consecutivos?",
-      "opciones": ["3", "2", "6"],
+      "pregunta": "¿Cuántos minutos hay en $2$ horas y $45$ minutos?",
+      "opciones": [
+        "145 minutos",
+        "165 minutos",
+        "125 minutos"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Un terreno mide $4.5$ hectáreas. Si $1$ hectárea equivale a $10{,}000\\,m^2$, ¿cuántos metros cuadrados mide el terreno?",
+      "opciones": [
+        "450,000 m²",
+        "45,000 m²",
+        "4,500 m²"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Si un objeto pesa $3{,}450$ gramos, ¿cuántos kilogramos son?",
+      "opciones": [
+        "0.345 kg",
+        "34.5 kg",
+        "3.45 kg"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "Un auto recorre $315\\,km$ en $5$ horas. ¿Cuál es su velocidad promedio?",
+      "opciones": [
+        "70 km/h",
+        "60 km/h",
+        "63 km/h"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "Si un litro de pintura cubre $6\\,m^2$, ¿cuántos litros se necesitan para pintar una pared de $42\\,m^2$?",
+      "opciones": [
+        "7 litros",
+        "8 litros",
+        "6 litros"
+      ],
       "correcta": 0
     },
     {
-      "pregunta": "Usando aₙ = a₁ + (n − 1)d, ¿cuál es el décimo término de la secuencia aritmética que empieza en 3 y aumenta de 4 en 4?",
-      "opciones": ["39", "43", "36"],
+      "pregunta": "Un tinaco de agua se llena a razón de $25$ litros por minuto. ¿Cuánto tardará en llenarse un tinaco de $600$ litros?",
+      "opciones": [
+        "20 minutos",
+        "24 minutos",
+        "30 minutos"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Redondea $527.48$ a la unidad entera más cercana:",
+      "opciones": [
+        "527",
+        "530",
+        "528"
+      ],
       "correcta": 0
     },
     {
-      "pregunta": "Completa la analogía: Perro es a Cachorro como Gato es a ___",
-      "opciones": ["Gatito", "Felino", "Ratón"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "Completa la analogía numérica (relación: elevar al cuadrado): 4 es a 16 como 5 es a ___",
-      "opciones": ["25", "20", "10"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "Completa la analogía numérica (relación: elevar al cuadrado): 3 es a 9 como 7 es a ___",
-      "opciones": ["49", "14", "21"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "¿Qué número no pertenece a la serie: 2, 4, 6, 9, 8, 10?",
-      "opciones": ["9", "6", "10"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "En el patrón numérico 1, 3, 6, 10, 15 (la diferencia entre términos aumenta en uno cada vez), ¿cuál es el siguiente término?",
-      "opciones": ["21", "20", "18"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "Tres amigos tienen edades consecutivas y suman 36 años entre los tres. ¿Cuál es la edad del menor?",
-      "opciones": ["11", "12", "10"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "Si todos los cuadrados son rectángulos, y una figura dada es un cuadrado, ¿qué se puede deducir lógicamente?",
-      "opciones": ["Que también es un rectángulo", "Que no es un rectángulo", "Que es un triángulo"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "En una fila de personas, Marta está justo detrás de Luis y justo delante de Ana. Si Luis es el segundo de la fila, ¿en qué posición está Ana?",
-      "opciones": ["Cuarta", "Tercera", "Quinta"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "¿Cuántos metros hay en 3.5 kilómetros?",
-      "opciones": ["3500 m", "350 m", "35 m"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "¿Cuántos centímetros hay en 2 metros?",
-      "opciones": ["200 cm", "20 cm", "2000 cm"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "¿Cuántos gramos hay en 4.5 kilogramos?",
-      "opciones": ["4500 g", "450 g", "45 g"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "¿Cuántos mililitros hay en 2.5 litros?",
-      "opciones": ["2500 ml", "250 ml", "25 ml"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "¿Cuántos minutos hay en 3 horas y media?",
-      "opciones": ["210 minutos", "180 minutos", "190 minutos"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "¿Cuántos segundos hay en 5 minutos?",
-      "opciones": ["300 segundos", "500 segundos", "50 segundos"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "Un terreno mide 3 hectáreas. Si 1 hectárea equivale a 10,000 m², ¿cuántos metros cuadrados mide el terreno?",
-      "opciones": ["30,000 m²", "3,000 m²", "300,000 m²"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "¿Cuántos metros cúbicos hay en 5,000 litros? (1 m³ = 1,000 L)",
-      "opciones": ["5 m³", "50 m³", "500 m³"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "Si un objeto pesa 2,300 gramos, ¿cuántos kilogramos son?",
-      "opciones": ["2.3 kg", "23 kg", "0.23 kg"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "¿Cuántos milímetros hay en 7.2 centímetros?",
-      "opciones": ["72 mm", "7.2 mm", "720 mm"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "Un auto recorre 240 km en 4 horas. ¿Cuál es su velocidad promedio?",
-      "opciones": ["60 km/h", "40 km/h", "100 km/h"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "Si un litro de pintura cubre 8 m², ¿cuántos litros se necesitan para pintar una pared de 32 m²?",
-      "opciones": ["4 litros", "8 litros", "2 litros"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "Un tinaco de agua se llena a razón de 20 litros por minuto. ¿Cuánto tardará en llenarse un tinaco de 500 litros?",
-      "opciones": ["25 minutos", "20 minutos", "10 minutos"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "Se estima que un salón tiene capacidad para 4 personas por m². Si el salón mide 50 m², ¿cuál es una estimación razonable de su capacidad?",
-      "opciones": ["Alrededor de 200 personas", "Alrededor de 50 personas", "Alrededor de 800 personas"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "Si 3 kg de manzanas cuestan $90, aproximadamente ¿cuánto costarán 7 kg al mismo precio por kilogramo?",
-      "opciones": ["$210", "$180", "$250"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "Redondea 348.67 a la unidad entera más cercana:",
-      "opciones": ["349", "348", "350"],
-      "correcta": 0
-    },
-    {
-      "pregunta": "Al estimar el resultado de 198 × 5 redondeando 198 a 200, ¿cuál es la aproximación más razonable?",
-      "opciones": ["Aproximadamente 1000", "Aproximadamente 900", "Aproximadamente 1200"],
+      "pregunta": "Al estimar el resultado de $297 \\times 4$ redondeando $297$ a $300$, ¿cuál es la aproximación más razonable?",
+      "opciones": [
+        "Aproximadamente 1200",
+        "Aproximadamente 1000",
+        "Aproximadamente 900"
+      ],
       "correcta": 0
     }
   ]
