@@ -9,9 +9,15 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { supabase } from "../services/supabaseClient";
-import { FilaChips } from "../components/FilaChips";
+import { FilaChips, chip } from "../components/FilaChips";
 import { Seccion } from "../components/Seccion";
 import { MATERIAS_TUTORIA } from "../data/materiasTutoria";
+import {
+  registrarProfesorPropio,
+  actualizarProfesorPropio,
+  obtenerMiEstadoProfesor,
+  verificarLoginProfesor,
+} from "../services/profesores";
 import {
   DURACIONES,
   PRECIO_MIN_MXN,
@@ -29,9 +35,18 @@ import {
   HiOutlineBanknotes,
   HiOutlineClipboardDocumentList,
   HiOutlineUserGroup,
+  HiOutlineIdentification,
+  HiOutlineClock,
+  HiOutlineLockClosed,
   HiChevronDown,
   HiChevronUp,
 } from "react-icons/hi2";
+
+// Documentación que valida a un profesor: hoy se manda a mano por correo
+// porque todavía no existe un buzón dedicado ni un panel de admin para
+// recibirla (ver migración 20260826120000_registro_autoservicio_profesores).
+const CORREO_DOCUMENTOS_PROFESOR = "fujab13@gmail.com";
+const CURP_REGEX = /^[A-Z]{4}\d{6}[HM][A-Z]{5}[A-Z0-9]\d$/;
 
 // En móvil, el teclado se come la mitad inferior de la pantalla. Sin esto,
 // un campo cerca del final del formulario (p.ej. "Cupo de alumnos" o toda la
@@ -87,10 +102,147 @@ export default function TutoriasMaestro() {
   const [errorPublicar, setErrorPublicar] = useState("");
   const [error, setError] = useState("");
 
+  // Registro self-service de profesor (mientras no sea maestro verificado).
+  const [estadoProfesor, setEstadoProfesor] = useState(null);
+  const [cargandoEstadoProfesor, setCargandoEstadoProfesor] = useState(true);
+  const [regNombre, setRegNombre] = useState("");
+  const [regCurp, setRegCurp] = useState("");
+  const [regEmailContacto, setRegEmailContacto] = useState("");
+  const [regTelefono, setRegTelefono] = useState("");
+  const [regMaterias, setRegMaterias] = useState([]);
+  const [registrandoProfesor, setRegistrandoProfesor] = useState(false);
+  const [errorRegistro, setErrorRegistro] = useState("");
+  const [editandoRegistro, setEditandoRegistro] = useState(false);
+
+  // Login aparte (correo + contraseña de profesor) que desbloquea el
+  // portal una vez que la cuenta ya quedó verificada.
+  const [desbloqueado, setDesbloqueado] = useState(false);
+  const [loginEmail, setLoginEmail] = useState("");
+  const [loginContrasena, setLoginContrasena] = useState("");
+  const [verificandoLogin, setVerificandoLogin] = useState(false);
+  const [errorLogin, setErrorLogin] = useState("");
+
   useEffect(() => {
     if (perfil?.nombre && !profesor) setProfesor(perfil.nombre);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [perfil?.nombre]);
+
+  useEffect(() => {
+    if (!user || esMaestro) return;
+    let cancelado = false;
+    setCargandoEstadoProfesor(true);
+    obtenerMiEstadoProfesor()
+      .then((data) => { if (!cancelado) setEstadoProfesor(data); })
+      .catch(() => { if (!cancelado) setEstadoProfesor(null); })
+      .finally(() => { if (!cancelado) setCargandoEstadoProfesor(false); });
+    return () => { cancelado = true; };
+  }, [user, esMaestro]);
+
+  useEffect(() => {
+    if (!user) return;
+    if (sessionStorage.getItem(`profesorDesbloqueado_${user.id}`) === "1") setDesbloqueado(true);
+  }, [user]);
+
+  function alternarMateriaRegistro(id) {
+    setRegMaterias((prev) => (prev.includes(id) ? prev.filter((m) => m !== id) : [...prev, id]));
+  }
+
+  function validarFormularioRegistro() {
+    if (!regNombre.trim()) return "Escribe tu nombre completo.";
+    if (!CURP_REGEX.test(regCurp.trim().toUpperCase())) return "Escribe tu CURP completa (18 caracteres).";
+    if (!regEmailContacto.trim() || !regEmailContacto.includes("@")) return "Escribe un correo de contacto válido.";
+    if (regMaterias.length === 0) return "Elige al menos una materia que puedas impartir.";
+    return "";
+  }
+
+  function iniciarEdicionRegistro() {
+    if (!estadoProfesor) return;
+    setRegNombre(estadoProfesor.nombre || "");
+    setRegCurp(estadoProfesor.curp || "");
+    setRegEmailContacto(estadoProfesor.email_contacto || "");
+    setRegTelefono(estadoProfesor.telefono_contacto || "");
+    setRegMaterias(estadoProfesor.materias || []);
+    setErrorRegistro("");
+    setEditandoRegistro(true);
+  }
+
+  function cancelarEdicionRegistro() {
+    setEditandoRegistro(false);
+    setErrorRegistro("");
+  }
+
+  async function enviarRegistroProfesor() {
+    const errValidacion = validarFormularioRegistro();
+    setErrorRegistro(errValidacion);
+    if (errValidacion) return;
+
+    setRegistrandoProfesor(true);
+    try {
+      await registrarProfesorPropio({
+        nombre: regNombre.trim(),
+        curp: regCurp.trim().toUpperCase(),
+        emailContacto: regEmailContacto.trim(),
+        telefonoContacto: regTelefono.trim(),
+        materias: regMaterias,
+      });
+      setEstadoProfesor(await obtenerMiEstadoProfesor());
+    } catch (err) {
+      const msg = err.message || "";
+      setErrorRegistro(
+        msg.includes("ya_registrado")
+          ? "Ya tienes un registro de profesor con esta cuenta."
+          : msg.includes("curp") || err.code === "23505"
+            ? "Esa CURP ya está registrada."
+            : "No se pudo enviar tu registro. Intenta de nuevo."
+      );
+    }
+    setRegistrandoProfesor(false);
+  }
+
+  async function guardarEdicionRegistro() {
+    const errValidacion = validarFormularioRegistro();
+    setErrorRegistro(errValidacion);
+    if (errValidacion) return;
+
+    setRegistrandoProfesor(true);
+    try {
+      await actualizarProfesorPropio({
+        nombre: regNombre.trim(),
+        curp: regCurp.trim().toUpperCase(),
+        emailContacto: regEmailContacto.trim(),
+        telefonoContacto: regTelefono.trim(),
+        materias: regMaterias,
+      });
+      setEstadoProfesor(await obtenerMiEstadoProfesor());
+      setEditandoRegistro(false);
+    } catch (err) {
+      const msg = err.message || "";
+      setErrorRegistro(
+        msg.includes("ya_verificado")
+          ? "Tu cuenta ya fue verificada; contáctanos si necesitas corregir algo."
+          : msg.includes("curp") || err.code === "23505"
+            ? "Esa CURP ya está registrada."
+            : "No se pudieron guardar tus cambios. Intenta de nuevo."
+      );
+    }
+    setRegistrandoProfesor(false);
+  }
+
+  async function iniciarSesionProfesor() {
+    setErrorLogin("");
+    if (!loginEmail.trim() || !loginContrasena.trim()) {
+      return setErrorLogin("Escribe tu correo y tu contraseña de profesor.");
+    }
+    setVerificandoLogin(true);
+    try {
+      await verificarLoginProfesor(loginEmail.trim(), loginContrasena.trim());
+      sessionStorage.setItem(`profesorDesbloqueado_${user.id}`, "1");
+      setDesbloqueado(true);
+    } catch {
+      setErrorLogin("Correo o contraseña de profesor incorrectos.");
+    }
+    setVerificandoLogin(false);
+  }
 
   async function cargarMisOfertas() {
     setCargandoOfertas(true);
@@ -263,15 +415,172 @@ export default function TutoriasMaestro() {
         )}
 
         {!cargandoAuth && user && !faltaNombre && !esMaestro && (
-          <div className="sp-card" style={{ textAlign: "center" }}>
-            <p style={{ fontSize: 14, color: "var(--text)", margin: 0, lineHeight: 1.5 }}>
-              Este portal es solo para maestros registrados. Si ya diste de alta tu clase con nosotros, contáctanos
-              para revisar tu acceso.
-            </p>
-          </div>
+          <>
+            {cargandoEstadoProfesor && (
+              <p style={{ color: "var(--text-muted)", fontSize: 13, textAlign: "center" }}>Cargando…</p>
+            )}
+
+            {!cargandoEstadoProfesor && (!estadoProfesor || (estadoProfesor && !estadoProfesor.verificado && editandoRegistro)) && (
+              <Seccion
+                icono={<HiOutlineIdentification />}
+                color="#06b6d4"
+                title={estadoProfesor ? "Edita tu registro" : "Regístrate como profesor"}
+                subtitle={
+                  estadoProfesor
+                    ? "Corrige tus datos antes de que revisemos tu documentación."
+                    : "Llena tus datos; tu acceso se activa después de validar tu documentación."
+                }
+              >
+                <input
+                  style={inputStyle}
+                  placeholder="Nombre completo"
+                  value={regNombre}
+                  onChange={(e) => setRegNombre(e.target.value)}
+                  maxLength={80}
+                />
+                <input
+                  style={inputStyle}
+                  placeholder="CURP (18 caracteres)"
+                  value={regCurp}
+                  onChange={(e) => setRegCurp(e.target.value.toUpperCase().slice(0, 18))}
+                  maxLength={18}
+                />
+                <input
+                  style={inputStyle}
+                  type="email"
+                  placeholder="Correo de contacto (a dónde te buscamos, puede ser distinto al de tu cuenta)"
+                  value={regEmailContacto}
+                  onChange={(e) => setRegEmailContacto(e.target.value)}
+                />
+                <input
+                  style={inputStyle}
+                  type="tel"
+                  placeholder="Teléfono de contacto (opcional)"
+                  value={regTelefono}
+                  onChange={(e) => setRegTelefono(e.target.value)}
+                  maxLength={20}
+                />
+                <div>
+                  <p style={{ fontSize: 13, color: "var(--text-muted)", marginBottom: 8 }}>Materias que puedes impartir</p>
+                  <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+                    {MATERIAS_TUTORIA.map((m) => (
+                      <button
+                        key={m.id}
+                        type="button"
+                        style={chip(regMaterias.includes(m.id), m.color)}
+                        onClick={() => alternarMateriaRegistro(m.id)}
+                      >
+                        {m.nombre}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {errorRegistro && <p style={{ color: "var(--wrong)", fontSize: 13, margin: 0 }}>{errorRegistro}</p>}
+
+                <div style={{ display: "flex", gap: 8 }}>
+                  {estadoProfesor && (
+                    <button
+                      type="button"
+                      onClick={cancelarEdicionRegistro}
+                      style={{ minHeight: 44, borderRadius: 10, border: "1px solid var(--surface2)", background: "transparent", color: "var(--text)", fontWeight: 700, fontSize: 14, cursor: "pointer" }}
+                    >
+                      Cancelar
+                    </button>
+                  )}
+                  <button
+                    onClick={estadoProfesor ? guardarEdicionRegistro : enviarRegistroProfesor}
+                    disabled={registrandoProfesor}
+                    style={{ flex: 1, minHeight: 44, borderRadius: 10, border: "none", background: "#06b6d4", color: "#fff", fontWeight: 700, fontSize: 14, cursor: registrandoProfesor ? "default" : "pointer", opacity: registrandoProfesor ? 0.7 : 1 }}
+                  >
+                    {registrandoProfesor ? "Guardando…" : estadoProfesor ? "Guardar cambios" : "Enviar mi registro"}
+                  </button>
+                </div>
+              </Seccion>
+            )}
+
+            {!cargandoEstadoProfesor && estadoProfesor && !estadoProfesor.verificado && !editandoRegistro && (
+              <Seccion
+                icono={<HiOutlineClock />}
+                color="#eab308"
+                title="Tu registro está en revisión"
+                subtitle="Falta un paso: mándanos tu documentación para validar tu cuenta."
+              >
+                <div style={{ background: "var(--surface)", border: "1px solid var(--surface2)", borderRadius: 10, padding: 12, display: "flex", flexDirection: "column", gap: 6 }}>
+                  <p style={{ fontSize: 12, color: "var(--text-muted)", margin: 0, textTransform: "uppercase", letterSpacing: 0.5 }}>Lo que enviaste</p>
+                  <p style={{ fontSize: 13, color: "var(--text)", margin: 0 }}>Nombre: {estadoProfesor.nombre}</p>
+                  <p style={{ fontSize: 13, color: "var(--text)", margin: 0, fontFamily: "monospace" }}>CURP: {estadoProfesor.curp}</p>
+                  <p style={{ fontSize: 13, color: "var(--text)", margin: 0 }}>Correo de contacto: {estadoProfesor.email_contacto}</p>
+                  <p style={{ fontSize: 13, color: "var(--text)", margin: 0 }}>Teléfono: {estadoProfesor.telefono_contacto || "—"}</p>
+                  <p style={{ fontSize: 13, color: "var(--text)", margin: 0 }}>
+                    Materias: {(estadoProfesor.materias || []).map((id) => MATERIAS_TUTORIA.find((m) => m.id === id)?.nombre ?? id).join(", ") || "—"}
+                  </p>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={iniciarEdicionRegistro}
+                  style={{ minHeight: 44, borderRadius: 10, border: "1px solid #eab308", background: "transparent", color: "#eab308", fontWeight: 700, fontSize: 14, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: 8 }}
+                >
+                  <HiOutlinePencilSquare /> Editar mis datos
+                </button>
+
+                <p style={{ fontSize: 13, color: "var(--text)", lineHeight: 1.6, margin: 0 }}>
+                  Manda tu <strong>certificado de estudios, CURP, INE, acta de nacimiento y RFC</strong> a{" "}
+                  <a
+                    href={`mailto:${CORREO_DOCUMENTOS_PROFESOR}?subject=${encodeURIComponent(estadoProfesor.curp || "")}`}
+                    style={{ color: "#eab308" }}
+                  >
+                    {CORREO_DOCUMENTOS_PROFESOR}
+                  </a>
+                  , usando tu CURP como asunto del correo:
+                </p>
+                <p style={{ fontSize: 15, fontWeight: 800, color: "#eab308", margin: 0, fontFamily: "monospace" }}>
+                  {estadoProfesor.curp}
+                </p>
+                <p style={{ fontSize: 13, color: "var(--text-muted)", margin: 0, lineHeight: 1.5 }}>
+                  Cuando el equipo confirme tu documentación, te compartiremos por correo tu contraseña de profesor
+                  para que puedas entrar aquí.
+                </p>
+              </Seccion>
+            )}
+          </>
         )}
 
-        {!cargandoAuth && user && !faltaNombre && esMaestro && (
+        {!cargandoAuth && user && !faltaNombre && esMaestro && !desbloqueado && (
+          <Seccion
+            icono={<HiOutlineLockClosed />}
+            color="#4f8ef7"
+            title="Entra como profesor"
+            subtitle="Tu cuenta ya está verificada. Usa el correo y la contraseña de profesor que te compartimos por correo."
+          >
+            <input
+              style={inputStyle}
+              type="email"
+              placeholder="Tu correo"
+              value={loginEmail}
+              onChange={(e) => setLoginEmail(e.target.value)}
+            />
+            <input
+              style={inputStyle}
+              inputMode="numeric"
+              placeholder="Contraseña de profesor (6 dígitos)"
+              value={loginContrasena}
+              onChange={(e) => setLoginContrasena(e.target.value.replace(/\D/g, "").slice(0, 6))}
+              maxLength={6}
+            />
+            {errorLogin && <p style={{ color: "var(--wrong)", fontSize: 13, margin: 0 }}>{errorLogin}</p>}
+            <button
+              onClick={iniciarSesionProfesor}
+              disabled={verificandoLogin}
+              style={{ minHeight: 44, borderRadius: 10, border: "none", background: "#4f8ef7", color: "#fff", fontWeight: 700, fontSize: 14, cursor: verificandoLogin ? "default" : "pointer", opacity: verificandoLogin ? 0.7 : 1 }}
+            >
+              {verificandoLogin ? "Verificando…" : "Entrar"}
+            </button>
+          </Seccion>
+        )}
+
+        {!cargandoAuth && user && !faltaNombre && esMaestro && desbloqueado && (
           <>
             <Seccion icono={<HiOutlineBanknotes />} color="#4f8ef7" title="Mis ganancias" subtitle="Cuánto te deben, cuánto ya te pagamos y tus recibos por quincena.">
               <button

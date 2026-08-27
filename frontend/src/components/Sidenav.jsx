@@ -3,8 +3,6 @@ import { useNavigate } from 'react-router-dom'
 import { supabase } from '../services/supabaseClient'
 import { useAuth } from '../context/AuthContext'
 import { useMusic } from '../context/MusicContext'
-import { MATERIAS } from '../data/leccionesGratis'
-import { renderIconoMateria } from '../utils/renderIconoMateria'
 
 import { FaCreditCard } from "react-icons/fa6";
 import { FaUserGraduate } from "react-icons/fa";
@@ -17,7 +15,7 @@ import { FaClock } from "react-icons/fa6";
 import { MdSdStorage, MdLibraryBooks } from "react-icons/md";
 import { FaVolumeUp, FaVolumeMute } from "react-icons/fa";
 import { PiChalkboardTeacher } from "react-icons/pi";
-import { HiOutlineShieldCheck, HiOutlineUserPlus } from "react-icons/hi2";
+import { HiOutlineShieldCheck, HiOutlineUserPlus, HiOutlineFlag } from "react-icons/hi2";
 
 
 export default function Sidenav({ open, onClose }) {
@@ -224,13 +222,25 @@ export default function Sidenav({ open, onClose }) {
             <span>Tienda</span>
           </button>
 
-          {/* Botones de Administración: solo visibles para correos en la
-              tabla `admins` (ver migración 20260812130000) — la seguridad
-              real vive en el backend (cada RPC de admin revalida
+          {/* Sección Administración: solo visible para correos en la tabla
+              `admins` (ver migración 20260812130000) — la seguridad real
+              vive en el backend (cada RPC de admin revalida
               es_admin_actual), esto solo evita mostrar el enlace a quien no
               lo puede usar. */}
           {esAdmin && (
             <>
+              <p style={{
+                color: 'var(--text-muted)',
+                fontSize: '0.7rem',
+                textTransform: 'uppercase',
+                letterSpacing: '1.5px',
+                fontWeight: 700,
+                margin: '8px 0 6px 4px',
+                opacity: 0.8
+              }}>
+                Administración
+              </p>
+
               <button
                 onClick={() => ir('/admin/pagos')}
                 onMouseEnter={() => setHoveredBtn('admin-pagos')}
@@ -268,54 +278,30 @@ export default function Sidenav({ open, onClose }) {
                 }}>
                   <HiOutlineUserPlus />
                 </span>
-                <span>Maestros</span>
+                <span>Profesores</span>
+              </button>
+
+              <button
+                onClick={() => ir('/admin/reportes')}
+                onMouseEnter={() => setHoveredBtn('admin-reportes')}
+                onMouseLeave={() => setHoveredBtn(null)}
+                className="btn-sidernav"
+              >
+                <span style={{
+                  fontSize: '1.1rem',
+                  width: '32px', height: '32px',
+                  background: 'rgba(239, 68, 68, 0.15)',
+                  color: '#ef4444',
+                  borderRadius: '10px',
+                  display: 'flex', alignItems: 'center', justifyindex: 'center',
+                  justifyContent: 'center', flexShrink: 0
+                }}>
+                  <HiOutlineFlag />
+                </span>
+                <span>Reportes</span>
               </button>
             </>
           )}
-
-          {/* Sección Cuestionarios */}
-          <p style={{ 
-            color: 'var(--text-muted)', 
-            fontSize: '0.7rem', 
-            textTransform: 'uppercase', 
-            letterSpacing: '1.5px', 
-            fontWeight: 700, 
-            margin: '8px 0 6px 4px',
-            opacity: 0.8
-          }}>
-            Cuestionarios
-          </p>
-
-          {MATERIAS.map(m => (
-            <button 
-              key={m.id} 
-              onClick={() => ir(`/leccion/${m.id}`)} 
-              onMouseEnter={() => setHoveredBtn(m.id)}
-              onMouseLeave={() => setHoveredBtn(null)}
-              style={{
-                background: hoveredBtn === m.id ? 'var(--surface2)' : 'transparent', 
-                border: 'none', 
-                color: 'var(--text)',
-                textAlign: 'left', 
-                padding: '10px 12px', 
-                borderRadius: '10px',
-                fontSize: '0.9rem', 
-                fontWeight: 500,
-                cursor: 'pointer', 
-                display: 'flex', 
-                alignItems: 'center', 
-                gap: 12,
-                transition: 'all 0.15s ease'
-              }}
-            >
-              <span style={{ opacity: hoveredBtn === m.id ? 1 : 0.8, display: 'flex', alignItems: 'center' }}>
-                {renderIconoMateria(m.icono, { size: 18 })}
-              </span> 
-              <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                {m.nombre}
-              </span>
-            </button>
-          ))}
         </div>
 
         {/* Sección Inferior de Botones (Despegada con Sombra y Borde superior) */}

@@ -17,10 +17,12 @@ import InformeResultados from './pages/InformeResultados';
 import AlumnosOfertas from './pages/AlumnosOfertas';
 import AdminPagos from './pages/AdminPagos';
 import AdminMaestros from './pages/AdminMaestros';
+import AdminReportes from './pages/AdminReportes';
 import MisGanancias from './pages/MisGanancias';
 import Tutorias from './pages/Tutorias';
 import TutoriasAlumno from './pages/TutoriasAlumno';
 import TutoriasMaestro from './pages/TutoriasMaestro';
+import PerfilProfesor from './pages/PerfilProfesor';
 import TutoriaConfirmada from './pages/TutoriaConfirmada';
 import Ofertas from './pages/Ofertas';
 import PublicarOferta from './pages/PublicarOferta';
@@ -71,9 +73,11 @@ export default function App() {
         <Route path="/tutorias/maestro/ganancias" element={<MisGanancias />} />
         <Route path="/admin/pagos" element={<AdminPagos />} />
         <Route path="/admin/maestros" element={<AdminMaestros />} />
+        <Route path="/admin/reportes" element={<AdminReportes />} />
         <Route path="/tutorias" element={<Tutorias />} />
         <Route path="/tutorias/alumno" element={<TutoriasAlumno />} />
         <Route path="/tutorias/maestro" element={<TutoriasMaestro />} />
+        <Route path="/perfil-profesor/:profesorId" element={<PerfilProfesor />} />
         <Route path="/tutoria-confirmada" element={<TutoriaConfirmada />} />
         <Route path="/ofertas" element={<Ofertas />} />
         <Route path="/ofertas/publicar" element={<PublicarOferta />} />

@@ -28,17 +28,21 @@
 // de RLS solo exige que el autor sea quien la borra.
 
 import { useEffect, useRef, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { supabase } from "../services/supabaseClient";
 import { FilaChips } from "./FilaChips";
 import { Seccion } from "./Seccion";
+import { Estrellas } from "./Estrellas";
 import { MATERIAS_TUTORIA } from "../data/materiasTutoria";
 import {
+  HiOutlineAdjustmentsHorizontal,
   HiOutlineCreditCard,
   HiOutlineTrash,
   HiOutlineUserGroup,
   HiOutlineXCircle,
+  HiChevronDown,
+  HiChevronUp,
 } from "react-icons/hi2";
 
 const TTL_RESERVA_MINUTOS = 15;
@@ -92,6 +96,7 @@ function mensajeError(err) {
 }
 
 export function PublicacionOfertas({ permitirPublicar = false }) {
+  const navigate = useNavigate();
   const { user, perfil } = useAuth();
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -99,6 +104,17 @@ export function PublicacionOfertas({ permitirPublicar = false }) {
   const [cargando, setCargando] = useState(true);
   const [borrandoId, setBorrandoId] = useState(null);
   const [disponibilidad, setDisponibilidad] = useState({});
+  const [calificaciones, setCalificaciones] = useState({});
+
+  // Filtros del lado alumno (solo lectura + reservar): puramente client-side
+  // sobre la lista ya cargada, no vuelven a pegarle a Supabase.
+  const [mostrarFiltros, setMostrarFiltros] = useState(false);
+  const [filtroMateria, setFiltroMateria] = useState("");
+  const [filtroProfesor, setFiltroProfesor] = useState("");
+  const [filtroPrecioMin, setFiltroPrecioMin] = useState("");
+  const [filtroPrecioMax, setFiltroPrecioMax] = useState("");
+  const [filtroFechaDesde, setFiltroFechaDesde] = useState("");
+  const [filtroFechaHasta, setFiltroFechaHasta] = useState("");
   const [reserva, setReserva] = useState(null); // { transaccionId, ofertaId, expiraEn, montoTotal }
   const [reservandoId, setReservandoId] = useState(null);
   const [pagando, setPagando] = useState(false);
@@ -159,6 +175,26 @@ export function PublicacionOfertas({ permitirPublicar = false }) {
 
   useEffect(() => {
     if (!cargando) cargarDisponibilidad(ofertas);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [cargando, ofertas]);
+
+  // Calificación pública del profesor (una consulta por autor distinto,
+  // no por oferta): se muestra junto a su nombre, como el rating de un
+  // vendedor en Amazon, y enlaza a PerfilProfesor.jsx.
+  async function cargarCalificaciones(lista) {
+    const idsUnicos = [...new Set(lista.map((o) => o.creado_por))];
+    if (idsUnicos.length === 0) return;
+    const entradas = await Promise.all(
+      idsUnicos.map(async (id) => {
+        const { data } = await supabase.rpc("obtener_perfil_profesor", { p_profesor_user_id: id });
+        return [id, data?.[0] ?? null];
+      })
+    );
+    setCalificaciones(Object.fromEntries(entradas));
+  }
+
+  useEffect(() => {
+    if (!cargando) cargarCalificaciones(ofertas);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cargando, ofertas]);
 
@@ -343,6 +379,34 @@ export function PublicacionOfertas({ permitirPublicar = false }) {
   }
 
   const materiaElegida = MATERIAS_TUTORIA.find((m) => m.id === materiaId);
+  const materiaFiltro = MATERIAS_TUTORIA.find((m) => m.id === filtroMateria);
+
+  const hayFiltrosActivos = Boolean(
+    filtroMateria || filtroProfesor.trim() || filtroPrecioMin || filtroPrecioMax || filtroFechaDesde || filtroFechaHasta
+  );
+
+  const ofertasFiltradas = ofertas.filter((oferta) => {
+    if (filtroMateria && oferta.materia_id !== filtroMateria) return false;
+    if (filtroProfesor.trim() && !oferta.profesor.toLowerCase().includes(filtroProfesor.trim().toLowerCase())) return false;
+    const precio = Number(oferta.precio_mxn);
+    if (filtroPrecioMin && precio < Number(filtroPrecioMin)) return false;
+    if (filtroPrecioMax && precio > Number(filtroPrecioMax)) return false;
+    const fechaOferta = new Date(oferta.fecha_hora);
+    if (filtroFechaDesde && fechaOferta < new Date(`${filtroFechaDesde}T00:00:00`)) return false;
+    if (filtroFechaHasta && fechaOferta > new Date(`${filtroFechaHasta}T23:59:59`)) return false;
+    return true;
+  });
+
+  function limpiarFiltros() {
+    setFiltroMateria("");
+    setFiltroProfesor("");
+    setFiltroPrecioMin("");
+    setFiltroPrecioMax("");
+    setFiltroFechaDesde("");
+    setFiltroFechaHasta("");
+  }
+
+  const listaVisible = permitirPublicar ? ofertas : ofertasFiltradas;
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
@@ -448,6 +512,102 @@ export function PublicacionOfertas({ permitirPublicar = false }) {
         </Seccion>
       )}
 
+      {!permitirPublicar && (
+        <div className="sp-card" style={{ margin: 0 }}>
+          <button
+            type="button"
+            onClick={() => setMostrarFiltros((v) => !v)}
+            style={{
+              width: "100%", minHeight: 24, padding: 0, background: "transparent", border: "none",
+              display: "flex", alignItems: "center", justifyContent: "space-between", cursor: "pointer",
+              color: "var(--text)", fontWeight: 700, fontSize: 14,
+            }}
+          >
+            <span style={{ display: "flex", alignItems: "center", gap: 8 }}>
+              <HiOutlineAdjustmentsHorizontal style={{ fontSize: 17 }} />
+              Filtros
+              {hayFiltrosActivos && (
+                <span style={{ minWidth: 18, height: 18, padding: "0 5px", borderRadius: 999, background: "#06b6d4", color: "#fff", fontSize: 11, fontWeight: 800, display: "inline-flex", alignItems: "center", justifyContent: "center" }}>
+                  {[filtroMateria, filtroProfesor.trim(), filtroPrecioMin, filtroPrecioMax, filtroFechaDesde, filtroFechaHasta].filter(Boolean).length}
+                </span>
+              )}
+            </span>
+            {mostrarFiltros ? <HiChevronUp /> : <HiChevronDown />}
+          </button>
+
+          {mostrarFiltros && (
+            <div style={{ marginTop: 14, display: "flex", flexDirection: "column", gap: 12 }}>
+              <div>
+                <p style={{ fontSize: 12.5, color: "var(--text-muted)", marginBottom: 8 }}>Materia</p>
+                <FilaChips
+                  opciones={["Todas", ...MATERIAS_TUTORIA.map((m) => m.nombre)]}
+                  valor={materiaFiltro?.nombre ?? "Todas"}
+                  onChange={(nombre) => setFiltroMateria(nombre === "Todas" ? "" : MATERIAS_TUTORIA.find((m) => m.nombre === nombre)?.id ?? "")}
+                  color="#06b6d4"
+                />
+              </div>
+
+              <input
+                style={inputStyle}
+                placeholder="Buscar por profesor"
+                value={filtroProfesor}
+                onChange={(e) => setFiltroProfesor(e.target.value)}
+              />
+
+              <div>
+                <p style={{ fontSize: 12.5, color: "var(--text-muted)", marginBottom: 8 }}>Precio (MXN)</p>
+                <div style={{ display: "flex", gap: 10 }}>
+                  <input
+                    style={{ ...inputStyle, flex: 1, minWidth: 0 }}
+                    type="number"
+                    min={0}
+                    placeholder="Mínimo"
+                    value={filtroPrecioMin}
+                    onChange={(e) => setFiltroPrecioMin(e.target.value)}
+                  />
+                  <input
+                    style={{ ...inputStyle, flex: 1, minWidth: 0 }}
+                    type="number"
+                    min={0}
+                    placeholder="Máximo"
+                    value={filtroPrecioMax}
+                    onChange={(e) => setFiltroPrecioMax(e.target.value)}
+                  />
+                </div>
+              </div>
+
+              <div>
+                <p style={{ fontSize: 12.5, color: "var(--text-muted)", marginBottom: 8 }}>Fecha</p>
+                <div style={{ display: "flex", gap: 10 }}>
+                  <input
+                    style={{ ...inputStyle, flex: 1, minWidth: 0 }}
+                    type="date"
+                    value={filtroFechaDesde}
+                    onChange={(e) => setFiltroFechaDesde(e.target.value)}
+                  />
+                  <input
+                    style={{ ...inputStyle, flex: 1, minWidth: 0 }}
+                    type="date"
+                    value={filtroFechaHasta}
+                    onChange={(e) => setFiltroFechaHasta(e.target.value)}
+                  />
+                </div>
+              </div>
+
+              {hayFiltrosActivos && (
+                <button
+                  type="button"
+                  onClick={limpiarFiltros}
+                  style={{ minHeight: 40, borderRadius: 10, border: "1px solid var(--surface2)", background: "transparent", color: "var(--text-muted)", fontWeight: 700, fontSize: 13, cursor: "pointer" }}
+                >
+                  Limpiar filtros
+                </button>
+              )}
+            </div>
+          )}
+        </div>
+      )}
+
       <p style={{ fontSize: 13, fontWeight: 700, color: "var(--text)", margin: "4px 0 0" }}>
         {permitirPublicar ? "Ofertas publicadas" : "Ofertas disponibles"}
       </p>
@@ -456,8 +616,11 @@ export function PublicacionOfertas({ permitirPublicar = false }) {
       {!cargando && ofertas.length === 0 && (
         <p style={{ fontSize: 13, color: "var(--text-muted)", margin: 0 }}>Por ahora no hay ofertas disponibles.</p>
       )}
+      {!cargando && ofertas.length > 0 && listaVisible.length === 0 && (
+        <p style={{ fontSize: 13, color: "var(--text-muted)", margin: 0 }}>Ninguna oferta coincide con tus filtros.</p>
+      )}
 
-      {ofertas.map((oferta) => {
+      {listaVisible.map((oferta) => {
           const materia = MATERIAS_TUTORIA.find((m) => m.id === oferta.materia_id);
           const color = materia?.color ?? "#7c5cbf";
           const fechaObj = new Date(oferta.fecha_hora);
@@ -475,9 +638,23 @@ export function PublicacionOfertas({ permitirPublicar = false }) {
                   <p className="sp-card-description">
                     {fechaObj.toLocaleString("es-MX", { dateStyle: "medium", timeStyle: "short" })}
                   </p>
-                  <p style={{ fontSize: 12.5, color: "var(--text-muted)", margin: "4px 0 0" }}>
-                    {oferta.profesor} · Cupo: {oferta.cupo_maximo}
-                  </p>
+                  <div style={{ display: "flex", alignItems: "center", gap: 6, flexWrap: "wrap", marginTop: 4 }}>
+                    <button
+                      type="button"
+                      onClick={() => navigate(`/perfil-profesor/${oferta.creado_por}`)}
+                      style={{ background: "transparent", border: "none", padding: 0, color: "var(--text)", fontSize: 12.5, fontWeight: 700, cursor: "pointer", textDecoration: "underline", textUnderlineOffset: 2 }}
+                    >
+                      {oferta.profesor}
+                    </button>
+                    {calificaciones[oferta.creado_por] && (
+                      <Estrellas
+                        value={Number(calificaciones[oferta.creado_por].calificacion_promedio) || 0}
+                        count={calificaciones[oferta.creado_por].numero_calificaciones ?? 0}
+                        size={11}
+                      />
+                    )}
+                    <span style={{ fontSize: 12.5, color: "var(--text-muted)" }}>· Cupo: {oferta.cupo_maximo}</span>
+                  </div>
                 </div>
                 <p style={{ fontSize: 17, fontWeight: 800, color, margin: 0, whiteSpace: "nowrap" }}>
                   ${Number(oferta.precio_mxn).toFixed(0)}

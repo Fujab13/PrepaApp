@@ -470,3 +470,9 @@ enabled = true
 verify_jwt = false
 import_map = "./functions/registrar-maestro/deno.json"
 entrypoint = "./functions/registrar-maestro/index.ts"
+
+[functions.admin-acceso-profesor]
+enabled = true
+verify_jwt = false
+import_map = "./functions/admin-acceso-profesor/deno.json"
+entrypoint = "./functions/admin-acceso-profesor/index.ts"

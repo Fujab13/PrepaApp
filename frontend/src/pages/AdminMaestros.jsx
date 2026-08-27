@@ -1,19 +1,41 @@
 // AdminMaestros.jsx
-// Registro de maestros (edge function `registrar-maestro`, migración
-// 20260812140000): el admin da de alta nombre+correo, el sistema genera la
-// contraseña (nunca la elige el maestro) y este queda vinculado en la tabla
-// `maestros`, que es lo que le da acceso real a /tutorias/maestro (RLS de
-// ofertas_maestro exige `soy_maestro_actual()`). También permite
-// activar/desactivar acceso sin borrar su historial de ofertas/pagos.
+// Verificación de profesores (RPCs `admin_listar_profesores` /
+// `admin_set_profesor_verificado` / `admin_set_profesor_activo`, migración
+// 20260826120000_registro_autoservicio_profesores): el profesor se registra
+// solo desde /tutorias/maestro y manda su documentación por correo; aquí el
+// admin revisa esos datos, activa `verificado` cuando todo cuadra y le
+// reenvía a mano la contraseña de 6 dígitos que el sistema ya generó. Este
+// panel reemplaza el alta manual que antes vivía aquí (tabla `maestros` +
+// edge function `registrar-maestro`) — esa tabla y función se dejaron
+// intactas pero ya no se usan, ver la migración para el detalle.
+//
+// "Acceder a esta cuenta" (edge function `admin-acceso-profesor`) genera un
+// magic link real de Supabase Auth: el admin queda deslogueado de su propia
+// cuenta y entra como el profesor, para poder hacer cambios rápidos sin
+// pedirle su contraseña. Es un swap de sesión real, no una simulación —
+// recuperar la cuenta de admin requiere volver a iniciar sesión a mano.
 
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import { registrarMaestro, listarMaestros, establecerMaestroActivo } from "../services/maestros";
-import { inputStyle } from "../utils/tutorias";
+import { supabase } from "../services/supabaseClient";
+import ConfirmDialog from "../components/ConfirmDialog";
+import {
+  listarProfesoresAdmin,
+  establecerProfesorVerificado,
+  establecerProfesorActivo,
+  generarAccesoProfesor,
+} from "../services/profesores";
 
 import { AiOutlineClose } from "react-icons/ai";
-import { HiOutlineUserPlus, HiOutlineClipboardDocument, HiCheckCircle } from "react-icons/hi2";
+import {
+  HiOutlineUserPlus,
+  HiOutlineClipboardDocument,
+  HiCheckCircle,
+  HiOutlineMagnifyingGlass,
+  HiOutlineArrowRightOnRectangle,
+  HiOutlineFlag,
+} from "react-icons/hi2";
 
 function fmtFecha(ts) {
   return ts ? new Date(ts).toLocaleDateString("es-MX", { dateStyle: "medium" }) : "—";
@@ -23,25 +45,24 @@ export default function AdminMaestros() {
   const navigate = useNavigate();
   const { user, cargando: cargandoAuth, esAdmin } = useAuth();
 
-  const [maestros, setMaestros] = useState(null);
+  const [profesores, setProfesores] = useState(null);
   const [cargando, setCargando] = useState(true);
   const [error, setError] = useState("");
-
-  const [nombre, setNombre] = useState("");
-  const [email, setEmail] = useState("");
-  const [registrando, setRegistrando] = useState(false);
-  const [resultado, setResultado] = useState(null); // { email, password, correo_enviado }
-  const [copiado, setCopiado] = useState(false);
   const [procesandoId, setProcesandoId] = useState(null);
+  const [copiadoId, setCopiadoId] = useState(null);
+  const [busqueda, setBusqueda] = useState("");
+
+  const [accesoObjetivo, setAccesoObjetivo] = useState(null); // profesor a confirmar
+  const [accediendo, setAccediendo] = useState(false);
 
   async function cargar() {
     setCargando(true);
     setError("");
     try {
-      const data = await listarMaestros();
-      setMaestros(data);
+      const data = await listarProfesoresAdmin();
+      setProfesores(data);
     } catch {
-      setError("No se pudo cargar la lista de maestros.");
+      setError("No se pudo cargar la lista de profesores.");
     }
     setCargando(false);
   }
@@ -52,42 +73,173 @@ export default function AdminMaestros() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user, esAdmin]);
 
-  async function registrar() {
-    setError("");
-    if (!nombre.trim() || !email.trim()) return setError("Escribe el nombre y el correo del maestro.");
-    setRegistrando(true);
-    setResultado(null);
+  async function alternarVerificado(p) {
+    setProcesandoId(p.id);
     try {
-      const data = await registrarMaestro(nombre.trim(), email.trim());
-      setResultado(data);
-      setNombre("");
-      setEmail("");
-      cargar();
-    } catch (err) {
-      setError(err.message || "No se pudo registrar al maestro.");
+      await establecerProfesorVerificado(p.id, !p.verificado);
+      await cargar();
+    } catch {
+      setError("No se pudo actualizar la verificación de ese profesor.");
     }
-    setRegistrando(false);
+    setProcesandoId(null);
   }
 
-  async function copiarPassword() {
+  async function alternarActivo(p) {
+    setProcesandoId(p.id);
     try {
-      await navigator.clipboard.writeText(resultado.password);
-      setCopiado(true);
-      setTimeout(() => setCopiado(false), 2000);
+      await establecerProfesorActivo(p.id, !p.activo);
+      await cargar();
+    } catch {
+      setError("No se pudo actualizar el acceso de ese profesor.");
+    }
+    setProcesandoId(null);
+  }
+
+  async function copiarPassword(p) {
+    try {
+      await navigator.clipboard.writeText(p["contraseña"]);
+      setCopiadoId(p.id);
+      setTimeout(() => setCopiadoId(null), 2000);
     } catch {
       // Clipboard puede fallar sin HTTPS/permiso; la contraseña sigue visible en pantalla.
     }
   }
 
-  async function alternarActivo(m) {
-    setProcesandoId(m.user_id);
+  async function confirmarAcceso() {
+    if (!accesoObjetivo) return;
+    setAccediendo(true);
     try {
-      await establecerMaestroActivo(m.user_id, !m.activo);
-      await cargar();
-    } catch {
-      setError("No se pudo actualizar el acceso de ese maestro.");
+      const url = await generarAccesoProfesor(accesoObjetivo.email_cuenta);
+      await supabase.auth.signOut();
+      window.location.href = url;
+    } catch (err) {
+      setError(err.message || "No se pudo generar el acceso a esa cuenta.");
+      setAccediendo(false);
+      setAccesoObjetivo(null);
     }
-    setProcesandoId(null);
+  }
+
+  function coincideBusqueda(p) {
+    const q = busqueda.trim().toLowerCase();
+    if (!q) return true;
+    return (
+      p.nombre?.toLowerCase().includes(q) ||
+      p.email_cuenta?.toLowerCase().includes(q) ||
+      p.curp?.toLowerCase().includes(q)
+    );
+  }
+
+  const pendientes = profesores?.filter((p) => !p.verificado && coincideBusqueda(p)) ?? [];
+  const verificados = profesores?.filter((p) => p.verificado && coincideBusqueda(p)) ?? [];
+
+  function TarjetaProfesor({ p, esPendiente }) {
+    const tieneReportes = p.total_reportes > 0;
+    const colorBorde = tieneReportes ? "#ef4444" : esPendiente ? "#eab308" : "transparent";
+
+    return (
+      <div className="sp-card" style={{ margin: 0, border: `1.5px solid ${colorBorde}` }}>
+        <div className="sp-card-header">
+          <div
+            className="sp-card-icon"
+            style={{
+              background: tieneReportes ? "rgba(239,68,68,0.15)" : esPendiente ? "rgba(234,179,8,0.15)" : "rgba(124,92,191,0.15)",
+              color: tieneReportes ? "#ef4444" : esPendiente ? "#eab308" : "#7c5cbf",
+              flexShrink: 0,
+            }}
+          >
+            {esPendiente ? <HiOutlineUserPlus /> : (p.nombre?.[0]?.toUpperCase() ?? "?")}
+          </div>
+          <div className="sp-card-body" style={{ minWidth: 0 }}>
+            <p className="sp-card-title" style={{ wordBreak: "break-word" }}>{p.nombre}</p>
+            <p style={{ fontSize: 14, fontWeight: 700, color: "var(--text)", margin: "2px 0 0", wordBreak: "break-word" }}>
+              {p.email_cuenta}
+            </p>
+            <p className="sp-card-description" style={{ wordBreak: "break-word" }}>
+              CURP: {p.curp || "—"} · Desde {fmtFecha(p.creado_en)}
+            </p>
+          </div>
+        </div>
+
+        {tieneReportes && (
+          <div style={{ marginTop: 10, display: "flex", alignItems: "center", gap: 6, flexWrap: "wrap" }}>
+            <span
+              style={{
+                display: "inline-flex", alignItems: "center", gap: 6, fontSize: 11.5, fontWeight: 800,
+                color: "#fff", background: "#ef4444", borderRadius: 999, padding: "4px 10px",
+              }}
+            >
+              <HiOutlineFlag />
+              {p.reportes_pendientes > 0
+                ? `${p.reportes_pendientes} reporte${p.reportes_pendientes === 1 ? "" : "s"} sin revisar`
+                : `${p.total_reportes} reporte${p.total_reportes === 1 ? "" : "s"}`}
+            </span>
+          </div>
+        )}
+
+        <div style={{ marginTop: 10, fontSize: 12, color: "var(--text-muted)", lineHeight: 1.6, wordBreak: "break-word" }}>
+          <p style={{ margin: 0 }}>Contacto: {p.email_contacto || "—"} {p.telefono_contacto ? `· ${p.telefono_contacto}` : ""}</p>
+          <p style={{ margin: 0 }}>Materias: {(p.materias || []).join(", ") || "—"}</p>
+        </div>
+
+        <div style={{ marginTop: 10, background: "var(--surface)", border: "1px solid var(--surface2)", borderRadius: 10, padding: 10, display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
+          <span style={{ fontSize: 12, color: "var(--text-muted)", flex: 1, minWidth: 120 }}>Contraseña de profesor:</span>
+          <span style={{ fontSize: 15, fontWeight: 800, color: "#eab308", fontFamily: "monospace" }}>{p["contraseña"] || "—"}</span>
+          {p["contraseña"] && (
+            <button
+              type="button"
+              onClick={() => copiarPassword(p)}
+              style={{ minHeight: 36, padding: "0 10px", borderRadius: 8, border: "1px solid var(--surface2)", background: "transparent", color: "var(--text)", cursor: "pointer", display: "flex", alignItems: "center", gap: 6, fontSize: 12 }}
+            >
+              {copiadoId === p.id ? <HiCheckCircle /> : <HiOutlineClipboardDocument />} {copiadoId === p.id ? "Copiado" : "Copiar"}
+            </button>
+          )}
+        </div>
+
+        <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginTop: 10 }}>
+          {esPendiente ? (
+            <button
+              type="button"
+              disabled={procesandoId === p.id}
+              onClick={() => alternarVerificado(p)}
+              style={{
+                flex: "1 1 160px", minHeight: 44, borderRadius: 10, fontSize: 13, fontWeight: 700,
+                border: "1px solid var(--correct)", background: "transparent", color: "var(--correct)",
+                cursor: procesandoId === p.id ? "default" : "pointer", opacity: procesandoId === p.id ? 0.6 : 1,
+              }}
+            >
+              {procesandoId === p.id ? "…" : "Marcar como verificado"}
+            </button>
+          ) : (
+            <button
+              type="button"
+              disabled={procesandoId === p.id}
+              onClick={() => alternarActivo(p)}
+              style={{
+                flex: "1 1 160px", minHeight: 44, borderRadius: 10, fontSize: 13, fontWeight: 700,
+                border: p.activo ? "1px solid var(--wrong)" : "1px solid var(--correct)",
+                background: "transparent",
+                color: p.activo ? "var(--wrong)" : "var(--correct)",
+                cursor: procesandoId === p.id ? "default" : "pointer", opacity: procesandoId === p.id ? 0.6 : 1,
+              }}
+            >
+              {procesandoId === p.id ? "…" : p.activo ? "Desactivar" : "Activar"}
+            </button>
+          )}
+
+          <button
+            type="button"
+            onClick={() => setAccesoObjetivo(p)}
+            style={{
+              flex: "1 1 160px", minHeight: 44, borderRadius: 10, fontSize: 13, fontWeight: 700,
+              border: "1px solid #4f8ef7", background: "transparent", color: "#4f8ef7", cursor: "pointer",
+              display: "flex", alignItems: "center", justifyContent: "center", gap: 6,
+            }}
+          >
+            <HiOutlineArrowRightOnRectangle /> Acceder a esta cuenta
+          </button>
+        </div>
+      </div>
+    );
   }
 
   return (
@@ -96,7 +248,7 @@ export default function AdminMaestros() {
         <button onClick={() => navigate("/")} title="Salir" className="page-topbar-btn">
           <AiOutlineClose />
         </button>
-        <h2 className="page-topbar-title" style={{ fontSize: "1rem", flex: 1 }}>Maestros</h2>
+        <h2 className="page-topbar-title" style={{ fontSize: "1rem", flex: 1 }}>Profesores</h2>
       </header>
 
       <main className="page-content-compact" style={{ flex: 1, paddingBottom: 40, display: "flex", flexDirection: "column", gap: 14 }}>
@@ -124,86 +276,70 @@ export default function AdminMaestros() {
           <>
             {error && <p style={{ color: "var(--wrong)", fontSize: 13, textAlign: "center", margin: 0 }}>{error}</p>}
 
-            <div className="sp-card" style={{ margin: 0 }}>
-              <div className="sp-card-header">
-                <div className="sp-card-icon" style={{ background: "rgba(234,179,8,0.15)", color: "#eab308" }}>
-                  <HiOutlineUserPlus />
-                </div>
-                <div className="sp-card-body">
-                  <p className="sp-card-title">Registrar maestro</p>
-                  <p className="sp-card-description">Genera su contraseña de acceso al portal de maestros.</p>
-                </div>
-              </div>
-
-              <div style={{ marginTop: 14, display: "flex", flexDirection: "column", gap: 10 }}>
-                <input style={inputStyle} placeholder="Nombre del maestro" value={nombre} onChange={(e) => setNombre(e.target.value)} maxLength={80} />
-                <input style={inputStyle} type="email" placeholder="Correo del maestro" value={email} onChange={(e) => setEmail(e.target.value)} />
-                <button
-                  onClick={registrar}
-                  disabled={registrando}
-                  style={{ minHeight: 44, borderRadius: 10, border: "none", background: "#eab308", color: "#1a1a2e", fontWeight: 700, fontSize: 14, cursor: registrando ? "default" : "pointer", opacity: registrando ? 0.7 : 1 }}
-                >
-                  {registrando ? "Registrando…" : "Registrar y generar contraseña"}
-                </button>
-
-                {resultado && (
-                  <div style={{ background: "var(--surface)", border: "1px solid #eab308", borderRadius: 10, padding: 12, display: "flex", flexDirection: "column", gap: 6 }}>
-                    <p style={{ fontSize: 12, color: "var(--text-muted)", margin: 0 }}>
-                      Guarda esta contraseña — no se volverá a mostrar.
-                      {resultado.correo_enviado ? " También se le envió por correo." : " No se pudo enviar por correo; compártela tú mismo."}
-                    </p>
-                    <p style={{ fontSize: 13, color: "var(--text)", margin: 0 }}>{resultado.email}</p>
-                    <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                      <span style={{ fontSize: 16, fontWeight: 800, color: "#eab308", fontFamily: "monospace", flex: 1 }}>{resultado.password}</span>
-                      <button
-                        type="button"
-                        onClick={copiarPassword}
-                        style={{ minHeight: 36, padding: "0 10px", borderRadius: 8, border: "1px solid var(--surface2)", background: "transparent", color: "var(--text)", cursor: "pointer", display: "flex", alignItems: "center", gap: 6, fontSize: 12 }}
-                      >
-                        {copiado ? <HiCheckCircle /> : <HiOutlineClipboardDocument />} {copiado ? "Copiado" : "Copiar"}
-                      </button>
-                    </div>
-                  </div>
-                )}
-              </div>
+            <div style={{ position: "relative", display: "flex", alignItems: "center" }}>
+              <HiOutlineMagnifyingGlass style={{ position: "absolute", left: 14, color: "var(--text-muted)", fontSize: 16, pointerEvents: "none" }} />
+              <input
+                style={{
+                  width: "100%", minHeight: 44, boxSizing: "border-box", paddingLeft: 40, paddingRight: 14,
+                  background: "var(--surface)", border: "1px solid rgba(255,255,255,0.06)", borderRadius: 12,
+                  color: "var(--text)", fontSize: "0.9rem", outline: "none",
+                }}
+                placeholder="Buscar por correo, nombre o CURP…"
+                value={busqueda}
+                onChange={(e) => setBusqueda(e.target.value)}
+              />
             </div>
 
-            <p style={{ fontSize: 13, fontWeight: 700, color: "var(--text)", margin: "4px 0 0" }}>Maestros registrados</p>
-
             {cargando && <p style={{ fontSize: 13, color: "var(--text-muted)", margin: 0 }}>Cargando…</p>}
-            {!cargando && (maestros?.length ?? 0) === 0 && (
-              <p style={{ fontSize: 13, color: "var(--text-muted)", margin: 0 }}>Todavía no has registrado a ningún maestro.</p>
-            )}
 
-            {maestros?.map((m) => (
-              <div key={m.user_id} className="sp-card" style={{ margin: 0, display: "flex", flexDirection: "row", alignItems: "center", gap: 12 }}>
-                <div className="sp-card-icon" style={{ background: "rgba(124,92,191,0.15)", color: "#7c5cbf" }}>
-                  {m.nombre?.[0]?.toUpperCase() ?? "?"}
-                </div>
-                <div className="sp-card-body">
-                  <p className="sp-card-title">{m.nombre}</p>
-                  <p className="sp-card-description">{m.email} · Desde {fmtFecha(m.creado_en)}</p>
-                </div>
-                <button
-                  type="button"
-                  disabled={procesandoId === m.user_id}
-                  onClick={() => alternarActivo(m)}
-                  style={{
-                    minHeight: 36, padding: "0 12px", borderRadius: 8, fontSize: 12, fontWeight: 700, flexShrink: 0,
-                    border: m.activo ? "1px solid var(--wrong)" : "1px solid var(--correct)",
-                    background: "transparent",
-                    color: m.activo ? "var(--wrong)" : "var(--correct)",
-                    cursor: procesandoId === m.user_id ? "default" : "pointer",
-                    opacity: procesandoId === m.user_id ? 0.6 : 1,
-                  }}
-                >
-                  {procesandoId === m.user_id ? "…" : m.activo ? "Desactivar" : "Activar"}
-                </button>
-              </div>
-            ))}
+            {!cargando && (
+              <>
+                <p style={{ fontSize: 13, fontWeight: 700, color: "var(--text)", margin: 0 }}>
+                  Pendientes de verificar ({pendientes.length})
+                </p>
+
+                {pendientes.length === 0 && (
+                  <p style={{ fontSize: 13, color: "var(--text-muted)", margin: 0 }}>
+                    {busqueda.trim() ? "Ningún pendiente coincide con tu búsqueda." : "No hay registros pendientes."}
+                  </p>
+                )}
+
+                {pendientes.map((p) => (
+                  <TarjetaProfesor key={p.id} p={p} esPendiente />
+                ))}
+
+                <p style={{ fontSize: 13, fontWeight: 700, color: "var(--text)", margin: "8px 0 0" }}>
+                  Verificados ({verificados.length})
+                </p>
+
+                {verificados.length === 0 && (
+                  <p style={{ fontSize: 13, color: "var(--text-muted)", margin: 0 }}>
+                    {busqueda.trim() ? "Ningún verificado coincide con tu búsqueda." : "Todavía no hay profesores verificados."}
+                  </p>
+                )}
+
+                {verificados.map((p) => (
+                  <TarjetaProfesor key={p.id} p={p} esPendiente={false} />
+                ))}
+              </>
+            )}
           </>
         )}
       </main>
+
+      <ConfirmDialog
+        abierto={Boolean(accesoObjetivo)}
+        titulo="¿Entrar a esta cuenta?"
+        mensaje={
+          accesoObjetivo
+            ? `Vas a iniciar sesión como ${accesoObjetivo.nombre} (${accesoObjetivo.email_cuenta}). Se cerrará tu sesión de administrador y tendrás que volver a iniciar sesión para recuperarla.`
+            : ""
+        }
+        textoConfirmar={accediendo ? "Entrando…" : "Sí, entrar"}
+        colorConfirmar="#4f8ef7"
+        onConfirmar={confirmarAcceso}
+        onCancelar={() => { if (!accediendo) setAccesoObjetivo(null); }}
+      />
     </div>
   );
 }

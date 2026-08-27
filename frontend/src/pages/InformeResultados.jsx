@@ -606,10 +606,14 @@ function PaginaMaestro({ user, navigate }) {
 
   return (
     <div style={{ display: "flex", flexDirection: "column", minHeight: "100vh", background: "var(--bg)", color: "var(--text)" }}>
-      <Topbar titulo="Informes de alumnos" onSalir={() => navigate("/tutorias/maestro")} />
-      <main className="page-content-compact" style={{ flex: 1, paddingBottom: 40, display: "flex", flexDirection: "column", gap: 14 }}>
-
-        <div className="sp-card" style={{ margin: 0, position: "sticky", top: 60, zIndex: 20 }}>
+      {/* Encabezado + recuadro de búsqueda viven en UN solo contenedor sticky
+          (en vez de dos sticky independientes con un "top" adivinado a mano):
+          así el recuadro siempre queda pegado justo debajo del encabezado sin
+          importar cuánto mida este último, y no hay forma de que se
+          "desacoplen" al hacer scroll. */}
+      <div className="no-print" style={{ position: "sticky", top: 0, zIndex: 30, background: "var(--bg)", paddingBottom: 14 }}>
+        <Topbar titulo="Informes de alumnos" onSalir={() => navigate("/tutorias/maestro")} />
+        <div className="sp-card" style={{ margin: "0 16px" }}>
           <p style={{ fontSize: 12.5, color: "var(--text-muted)", margin: "0 0 10px", lineHeight: 1.5 }}>
             Pega uno o varios correos (separados por coma o salto de línea) para ver el formulario de área y el examen simulador de cada alumno.
           </p>
@@ -629,7 +633,9 @@ function PaginaMaestro({ user, navigate }) {
             <HiOutlineMagnifyingGlass /> {cargando ? "Buscando…" : "Buscar"}
           </button>
         </div>
+      </div>
 
+      <main className="page-content-compact" style={{ flex: 1, paddingBottom: 40, display: "flex", flexDirection: "column", gap: 14 }}>
         {alumnos && (
           <>
             <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
