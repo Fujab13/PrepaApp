@@ -2,12 +2,11 @@
 // Destino del `success_url` de Stripe tras pagar un asiento de ofertas_maestro
 // (ver supabase/functions/crear-sesion-pago-oferta-maestro). El webhook
 // confirma el pago de forma asíncrona (procesar_pago_completado puede tardar
-// unos segundos en llegar) — mismo patrón que TutoriaConfirmada.jsx, pero
-// contra `transacciones` (buscada por stripe_intent_id=session_id) en vez de
-// `solicitudes_tutoria`.
+// unos segundos en llegar) contra `transacciones` (buscada por
+// stripe_intent_id=session_id).
 //
-// A diferencia de TutoriaConfirmada.jsx, cada intento de polling AQUÍ
-// también llama a `verificar-pago-oferta-maestro` antes de releer la fila:
+// Cada intento de polling AQUÍ también llama a
+// `verificar-pago-oferta-maestro` antes de releer la fila:
 // esa función le pregunta a Stripe directamente si la sesión ya se pagó y,
 // si es así, confirma ella misma en vez de esperar al webhook. Sin esto, un
 // webhook que llega tarde, falla su verificación de firma (típico al
@@ -30,7 +29,8 @@ import { useEffect, useRef, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { supabase } from "../services/supabaseClient";
-import { MATERIAS_TUTORIA } from "../data/materiasTutoria";
+import { MATERIAS_TUTORIA, nombreMateriaOferta } from "../data/materiasTutoria";
+import { CORREO_CONTACTO_APP } from "../utils/contacto";
 
 import { AiOutlineClose, AiOutlineLoading3Quarters } from "react-icons/ai";
 import { HiOutlinePrinter, HiCheckCircle } from "react-icons/hi2";
@@ -91,7 +91,7 @@ function Recibo({ transaccion, oferta, materia, user, perfil }) {
           <p style={{ fontSize: 10.5, fontWeight: 700, color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: 0.5, margin: "6px 0 8px" }}>
             Detalle de la clase
           </p>
-          <FilaDato label="Materia" valor={materia?.nombre ?? oferta.materia_id} />
+          <FilaDato label="Materia" valor={nombreMateriaOferta(oferta.materia_id, oferta.materia_otro)} />
           <FilaDato label="Maestro" valor={oferta.profesor} />
           <FilaDato
             label="Fecha y hora"
@@ -278,7 +278,11 @@ export default function OfertaConfirmada() {
           <div style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center", textAlign: "center" }}>
             <p style={{ fontSize: 14, color: "var(--wrong)" }}>
               Esta reserva {transaccion.estado_pago === "expirado" ? "expiró" : "fue cancelada"} antes de poder
-              confirmarse. Si ya pagaste, contáctanos directamente para reembolsarte.
+              confirmarse. Si ya pagaste,{" "}
+              <a href={`mailto:${CORREO_CONTACTO_APP}`} style={{ color: "var(--wrong)", textDecoration: "underline" }}>
+                contáctanos directamente
+              </a>{" "}
+              para reembolsarte.
             </p>
           </div>
         )}

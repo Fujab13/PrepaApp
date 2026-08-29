@@ -18,7 +18,7 @@ import {
   marcarPagoProfesor,
   desmarcarPagoProfesor,
 } from "../services/adminPagos";
-import { MATERIAS_TUTORIA } from "../data/materiasTutoria";
+import { nombreMateriaOferta } from "../data/materiasTutoria";
 
 import { AiOutlineClose } from "react-icons/ai";
 import {
@@ -217,12 +217,11 @@ export default function AdminPagos() {
                   {expandido && (
                     <div style={{ borderTop: "0.5px solid var(--surface)", marginTop: 12, paddingTop: 12, display: "flex", flexDirection: "column", gap: 8 }}>
                       {p.transacciones.map((t) => {
-                        const materia = MATERIAS_TUTORIA.find((m) => m.id === t.materia_id);
                         return (
                           <div key={t.transaccion_id} style={{ background: "var(--surface2)", border: "0.5px solid var(--surface)", borderRadius: 10, padding: "10px 12px" }}>
                             <div style={{ display: "flex", justifyContent: "space-between", gap: 8 }}>
                               <p style={{ fontSize: 12.5, fontWeight: 700, color: "var(--text)", margin: 0 }}>
-                                {materia?.nombre ?? t.materia_id} · {fmtFecha(t.fecha_hora)}
+                                {nombreMateriaOferta(t.materia_id, t.materia_otro)} · {fmtFecha(t.fecha_hora)}
                               </p>
                               <p style={{ fontSize: 13, fontWeight: 800, color: "var(--text)", margin: 0, whiteSpace: "nowrap" }}>
                                 {fmtMoneda(t.monto_profesor_mxn)}

@@ -6,8 +6,9 @@
 // admin revisa esos datos, activa `verificado` cuando todo cuadra y le
 // reenvía a mano la contraseña de 6 dígitos que el sistema ya generó. Este
 // panel reemplaza el alta manual que antes vivía aquí (tabla `maestros` +
-// edge function `registrar-maestro`) — esa tabla y función se dejaron
-// intactas pero ya no se usan, ver la migración para el detalle.
+// edge function `registrar-maestro`) — ambas se borraron en la migración
+// 20260829130000_eliminar_sistema_maestros_viejo tras confirmar que ya no
+// se usaban en ningún lado.
 //
 // "Acceder a esta cuenta" (edge function `admin-acceso-profesor`) genera un
 // magic link real de Supabase Auth: el admin queda deslogueado de su propia
@@ -150,7 +151,17 @@ export default function AdminMaestros() {
             {esPendiente ? <HiOutlineUserPlus /> : (p.nombre?.[0]?.toUpperCase() ?? "?")}
           </div>
           <div className="sp-card-body" style={{ minWidth: 0 }}>
-            <p className="sp-card-title" style={{ wordBreak: "break-word" }}>{p.nombre}</p>
+            <button
+              type="button"
+              onClick={() => navigate(`/perfil-profesor/${p.user_id}`)}
+              className="sp-card-title"
+              style={{
+                wordBreak: "break-word", background: "transparent", border: "none", padding: 0, margin: 0,
+                color: "var(--text)", textAlign: "left", cursor: "pointer", textDecoration: "underline", textUnderlineOffset: 2,
+              }}
+            >
+              {p.nombre}
+            </button>
             <p style={{ fontSize: 14, fontWeight: 700, color: "var(--text)", margin: "2px 0 0", wordBreak: "break-word" }}>
               {p.email_cuenta}
             </p>

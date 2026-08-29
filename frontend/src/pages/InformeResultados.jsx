@@ -25,7 +25,6 @@ import { useAuth } from "../context/AuthContext";
 import { obtenerFormulariosPorEmail, obtenerResultadosPorEmail } from "../services/informes";
 import { calcularStatsPorSeccion } from "../utils/examenStats";
 import { PREGUNTAS } from "../data/examen";
-import { FilaChips } from "../components/FilaChips";
 import { inputStyle } from "../utils/tutorias";
 
 import { AiOutlineClose } from "react-icons/ai";
@@ -565,6 +564,12 @@ function SelectorHistorico({ items, idx, onChange, campoFecha, etiqueta }) {
   );
 }
 
+const FILTROS_ALUMNO = [
+  { id: "Todos", etiqueta: "Todos" },
+  { id: "Con formulario", etiqueta: "Con formulario" },
+  { id: "Con examen", etiqueta: "Con examen" },
+];
+
 function PaginaMaestro({ user, navigate }) {
   const [emailsInput, setEmailsInput] = useState("");
   const [alumnos, setAlumnos] = useState(null);
@@ -573,15 +578,16 @@ function PaginaMaestro({ user, navigate }) {
   const [busqueda, setBusqueda] = useState("");
   const [filtro, setFiltro] = useState("Todos");
 
+  const emailsDetectados = useMemo(() => Array.from(new Set(
+    emailsInput.split(/[\n,;]+/).map((e) => e.trim().toLowerCase()).filter(Boolean)
+  )), [emailsInput]);
+
   async function buscar() {
-    const emails = Array.from(new Set(
-      emailsInput.split(/[\n,;]+/).map((e) => e.trim().toLowerCase()).filter(Boolean)
-    ));
-    if (emails.length === 0) return setErrorBusqueda("Escribe al menos un correo.");
+    if (emailsDetectados.length === 0) return setErrorBusqueda("Escribe al menos un correo.");
     if (!user) return setErrorBusqueda("Inicia sesión para consultar informes.");
     setErrorBusqueda("");
     setCargando(true);
-    const resultado = await Promise.all(emails.map(async (email) => {
+    const resultado = await Promise.all(emailsDetectados.map(async (email) => {
       const [formularios, examenes] = await Promise.all([
         obtenerFormulariosPorEmail(email),
         obtenerResultadosPorEmail(email),
@@ -591,6 +597,15 @@ function PaginaMaestro({ user, navigate }) {
     setCargando(false);
     setAlumnos(resultado);
   }
+
+  const conteos = useMemo(() => {
+    if (!alumnos) return { Todos: 0, "Con formulario": 0, "Con examen": 0 };
+    return {
+      Todos: alumnos.length,
+      "Con formulario": alumnos.filter((a) => a.formularios.length > 0).length,
+      "Con examen": alumnos.filter((a) => a.examenes.length > 0).length,
+    };
+  }, [alumnos]);
 
   const alumnosFiltrados = useMemo(() => {
     if (!alumnos) return [];
@@ -606,51 +621,108 @@ function PaginaMaestro({ user, navigate }) {
 
   return (
     <div style={{ display: "flex", flexDirection: "column", minHeight: "100vh", background: "var(--bg)", color: "var(--text)" }}>
-      {/* Encabezado + recuadro de búsqueda viven en UN solo contenedor sticky
-          (en vez de dos sticky independientes con un "top" adivinado a mano):
-          así el recuadro siempre queda pegado justo debajo del encabezado sin
-          importar cuánto mida este último, y no hay forma de que se
-          "desacoplen" al hacer scroll. */}
-      <div className="no-print" style={{ position: "sticky", top: 0, zIndex: 30, background: "var(--bg)", paddingBottom: 14 }}>
-        <Topbar titulo="Informes de alumnos" onSalir={() => navigate("/tutorias/maestro")} />
-        <div className="sp-card" style={{ margin: "0 16px" }}>
-          <p style={{ fontSize: 12.5, color: "var(--text-muted)", margin: "0 0 10px", lineHeight: 1.5 }}>
-            Pega uno o varios correos (separados por coma o salto de línea) para ver el formulario de área y el examen simulador de cada alumno.
-          </p>
+      {/* Solo el encabezado angosto (botón salir + título) se queda fijo
+          arriba, igual que en el resto de la app (AdminMaestros.jsx,
+          AdminReportes.jsx): el recuadro "Buscar por correo" es contenido
+          normal de <main> y se desplaza con la página. */}
+      <Topbar titulo="Informes de alumnos" onSalir={() => navigate("/tutorias/maestro")} />
+
+      <main className="page-content-compact" style={{ flex: 1, paddingBottom: 40, display: "flex", flexDirection: "column", gap: 14 }}>
+        <div className="sp-card" style={{ margin: 0 }}>
+          <div style={{ display: "flex", alignItems: "flex-start", gap: 10, marginBottom: 12 }}>
+            <span style={{
+              width: 32, height: 32, borderRadius: 9, flexShrink: 0, marginTop: 1,
+              background: "rgba(34,197,94,0.15)", color: "#22c55e",
+              display: "flex", alignItems: "center", justifyContent: "center", fontSize: 16,
+            }}>
+              <HiOutlineMagnifyingGlass />
+            </span>
+            <div>
+              <p style={{ fontSize: 13.5, fontWeight: 700, color: "var(--text)", margin: 0 }}>Buscar por correo</p>
+              <p style={{ fontSize: 11.5, color: "var(--text-muted)", margin: "2px 0 0", lineHeight: 1.4 }}>
+                Pega uno o varios, separados por coma o salto de línea.
+              </p>
+            </div>
+          </div>
+
           <textarea
-            style={{ ...inputStyle, minHeight: 64, resize: "vertical" }}
+            style={{ ...inputStyle, minHeight: 64, maxHeight: 120, resize: "vertical" }}
             placeholder={"alumno1@correo.com\nalumno2@correo.com"}
             value={emailsInput}
             onChange={(e) => setEmailsInput(e.target.value)}
           />
-          {errorBusqueda && <p style={{ color: "var(--wrong)", fontSize: 12.5, margin: "8px 0 0" }}>{errorBusqueda}</p>}
+
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: 8, minHeight: 16 }}>
+            <span style={{ fontSize: 11, color: "var(--text-muted)" }}>
+              {emailsDetectados.length > 0
+                ? `${emailsDetectados.length} correo${emailsDetectados.length === 1 ? "" : "s"} listo${emailsDetectados.length === 1 ? "" : "s"}`
+                : ""}
+            </span>
+            {errorBusqueda && <span style={{ color: "var(--wrong)", fontSize: 11.5 }}>{errorBusqueda}</span>}
+          </div>
+
           <button
             onClick={buscar}
             disabled={cargando}
             className="gm-cta"
-            style={{ marginTop: 10, minHeight: 44, borderRadius: 12, border: "none", background: "linear-gradient(355deg, #22c55e, #ffffffbe)", color: "#000", fontWeight: 700, fontSize: 14, display: "flex", alignItems: "center", justifyContent: "center", gap: 8, opacity: cargando ? 0.7 : 1, boxShadow: "0 6px 18px -6px #22c55e80" }}
+            style={{
+              marginTop: 8, minHeight: 44, borderRadius: 12, border: "none",
+              background: "linear-gradient(355deg, #22c55e, #ffffffbe)", color: "#000", fontWeight: 700, fontSize: 14,
+              display: "flex", alignItems: "center", justifyContent: "center", gap: 8,
+              opacity: cargando ? 0.7 : 1, boxShadow: "0 6px 18px -6px #22c55e80", cursor: cargando ? "default" : "pointer",
+            }}
           >
             <HiOutlineMagnifyingGlass /> {cargando ? "Buscando…" : "Buscar"}
           </button>
         </div>
-      </div>
 
-      <main className="page-content-compact" style={{ flex: 1, paddingBottom: 40, display: "flex", flexDirection: "column", gap: 14 }}>
+        {!alumnos && !cargando && (
+          <div className="sp-card" style={{ margin: 0, alignItems: "center", textAlign: "center", padding: "32px 20px" }}>
+            <HiOutlineUserGroup style={{ fontSize: 30, color: "var(--text-muted)" }} />
+            <p style={{ fontSize: 13, color: "var(--text-muted)", margin: "10px 0 0", lineHeight: 1.5 }}>
+              Busca uno o varios correos arriba para ver sus informes.
+            </p>
+          </div>
+        )}
+
         {alumnos && (
           <>
-            <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-              <input
-                style={inputStyle}
-                placeholder="Filtrar por nombre o correo…"
-                value={busqueda}
-                onChange={(e) => setBusqueda(e.target.value)}
-              />
-              <FilaChips opciones={["Todos", "Con formulario", "Con examen"]} valor={filtro} onChange={setFiltro} color="#22c55e" />
-            </div>
+            <input
+              style={inputStyle}
+              placeholder="Filtrar por nombre o correo…"
+              value={busqueda}
+              onChange={(e) => setBusqueda(e.target.value)}
+            />
 
-            <p style={{ fontSize: 11.5, color: "var(--text-muted)", margin: 0, display: "flex", alignItems: "center", gap: 6 }}>
-              <HiOutlineUserGroup /> {alumnosFiltrados.length} de {alumnos.length} alumno(s)
-            </p>
+            <div style={{ display: "flex", gap: 8, overflowX: "auto", paddingBottom: 2, marginBottom: -2 }}>
+              {FILTROS_ALUMNO.map((f) => {
+                const activo = filtro === f.id;
+                return (
+                  <button
+                    key={f.id}
+                    type="button"
+                    onClick={() => setFiltro(f.id)}
+                    style={{
+                      flexShrink: 0, minHeight: 40, padding: "0 14px", borderRadius: 999, fontSize: 12.5, fontWeight: 700,
+                      display: "flex", alignItems: "center", gap: 6, whiteSpace: "nowrap",
+                      border: activo ? "1.5px solid #22c55e" : "1px solid var(--surface2)",
+                      background: activo ? "rgba(34,197,94,0.12)" : "var(--surface)",
+                      color: activo ? "#22c55e" : "var(--text-muted)",
+                      cursor: "pointer", transition: "all 0.15s",
+                    }}
+                  >
+                    {f.etiqueta}
+                    <span style={{
+                      minWidth: 18, height: 18, padding: "0 5px", borderRadius: 999, fontSize: 10.5, fontWeight: 800,
+                      display: "inline-flex", alignItems: "center", justifyContent: "center",
+                      background: activo ? "#22c55e" : "var(--surface2)", color: activo ? "#0f0f1a" : "var(--text-muted)",
+                    }}>
+                      {conteos[f.id] ?? 0}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
 
             {alumnosFiltrados.length === 0 && (
               <p style={{ fontSize: 13, color: "var(--text-muted)", textAlign: "center", margin: "20px 0" }}>

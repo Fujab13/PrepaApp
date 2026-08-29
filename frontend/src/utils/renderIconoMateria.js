@@ -1,50 +1,26 @@
 import { createElement, isValidElement } from 'react'
-import * as FaIcons from 'react-icons/fa'
-import * as Fa6Icons from 'react-icons/fa6'
-import * as FiIcons from 'react-icons/fi'
-import * as PiIcons from 'react-icons/pi'
-import * as BsIcons from 'react-icons/bs'
-import * as MdIcons from 'react-icons/md'
-import * as RiIcons from 'react-icons/ri'
-import * as BiIcons from 'react-icons/bi'
-import * as AiIcons from 'react-icons/ai'
-import * as IoIcons from 'react-icons/io'
-import * as Io5Icons from 'react-icons/io5'
-import * as LuIcons from 'react-icons/lu'
-import * as GiIcons from 'react-icons/gi'
-import * as CgIcons from 'react-icons/cg'
-import * as ImIcons from 'react-icons/im'
-import * as SiIcons from 'react-icons/si'
-import * as HiIcons from 'react-icons/hi'
-import * as Hi2Icons from 'react-icons/hi2'
-import * as LiaIcons from 'react-icons/lia'
-import * as SlIcons from 'react-icons/sl'
-import * as RxIcons from 'react-icons/rx'
-import * as VscIcons from 'react-icons/vsc'
+import { FaHeadset, FaClipboardList, FaBriefcaseMedical, FaBoxOpen, FaBookOpen } from 'react-icons/fa'
+import { PiMathOperationsFill } from 'react-icons/pi'
 
+// Antes este archivo hacía `import * as XIcons from 'react-icons/X'` de 21
+// paquetes distintos y armaba un iconSet gigante para buscar el ícono por
+// nombre (string) en tiempo de ejecución. Como el lookup es dinámico,
+// Rollup no puede saber cuáles íconos se usan y no podía eliminar el resto
+// de cada paquete (~4,000 íconos por paquete en varios de ellos) — eso
+// eran ~30MB del bundle final de producción para solo los 6 íconos que
+// realmente se usan (rastreados en data/unidades.js vía
+// leccionesGratis.js, los JSON de lecciones y storeItems.js).
+//
+// Si agregas una materia o producto con un ícono nuevo, impórtalo arriba
+// (named import de react-icons) y agrégalo a iconSet — así Rollup solo
+// empaqueta los íconos que de verdad usa la app.
 const iconSet = {
-  ...FaIcons,
-  ...Fa6Icons,
-  ...FiIcons,
-  ...PiIcons,
-  ...BsIcons,
-  ...MdIcons,
-  ...RiIcons,
-  ...BiIcons,
-  ...AiIcons,
-  ...IoIcons,
-  ...Io5Icons,
-  ...LuIcons,
-  ...GiIcons,
-  ...CgIcons,
-  ...ImIcons,
-  ...SiIcons,
-  ...HiIcons,
-  ...Hi2Icons,
-  ...LiaIcons,
-  ...SlIcons,
-  ...RxIcons,
-  ...VscIcons,
+  FaHeadset,
+  FaClipboardList,
+  FaBriefcaseMedical,
+  FaBoxOpen,
+  FaBookOpen,
+  PiMathOperationsFill,
 }
 
 export function renderIconoMateria(icono, props = {}) {

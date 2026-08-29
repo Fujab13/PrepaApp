@@ -15,3 +15,18 @@ export const MATERIAS_TUTORIA = [
   { id: "ingles", nombre: "Inglés", color: "#22c55e" },
   { id: "historia", nombre: "Historia", color: "#d8c468" },
 ];
+
+// "Otros" es EXCLUSIVO de `ofertas_maestro` (ver migración
+// 20260829120000_ofertas_maestro_materia_otro.sql) — esa tabla tiene su
+// propia columna `materia_otro` para el nombre libre. Deliberadamente no
+// se agrega a MATERIAS_TUTORIA: esa lista también alimenta el CHECK de
+// `solicitudes_tutoria`/`ofertas_tutoria` (tutorias_esquema.sql), que no
+// soporta materias libres.
+export const MATERIA_OTROS = { id: "otros", nombre: "Otros", color: "#7c5cbf" };
+
+// Nombre a mostrar de una oferta de `ofertas_maestro`, incluyendo el caso
+// materia_id === 'otros' (usa el texto libre que escribió el maestro).
+export function nombreMateriaOferta(materiaId, materiaOtro) {
+  if (materiaId === MATERIA_OTROS.id) return materiaOtro || MATERIA_OTROS.nombre;
+  return MATERIAS_TUTORIA.find((m) => m.id === materiaId)?.nombre ?? materiaId;
+}

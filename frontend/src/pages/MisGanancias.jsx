@@ -15,7 +15,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { obtenerMisTransaccionesOfertaMaestro } from "../services/maestros";
-import { MATERIAS_TUTORIA } from "../data/materiasTutoria";
+import { nombreMateriaOferta } from "../data/materiasTutoria";
 
 import { AiOutlineClose } from "react-icons/ai";
 import {
@@ -123,12 +123,11 @@ function ReciboQuincena({ grupo, nombre, onVolver }) {
               Detalle de transacciones
             </p>
             {grupo.transacciones.map((t) => {
-              const materia = MATERIAS_TUTORIA.find((m) => m.id === t.materia_id);
               return (
                 <div key={t.transaccion_id} style={{ padding: "8px 0", borderBottom: "0.5px solid var(--surface)" }}>
                   <div style={{ display: "flex", justifyContent: "space-between" }}>
                     <span style={{ fontSize: 12, color: "var(--text)", fontWeight: 600 }}>
-                      {materia?.nombre ?? t.materia_id} · {t.alumno_nombre || t.alumno_email}
+                      {nombreMateriaOferta(t.materia_id, t.materia_otro)} · {t.alumno_nombre || t.alumno_email}
                     </span>
                     <span style={{ fontSize: 12, color: "var(--text)", fontWeight: 700 }}>{fmtMoneda(t.monto_profesor_mxn)}</span>
                   </div>
@@ -286,12 +285,11 @@ export default function MisGanancias() {
                         <span>Pagado {fmtMoneda(totales.pagado)}</span>
                       </div>
                       {q.transacciones.map((t) => {
-                        const materia = MATERIAS_TUTORIA.find((m) => m.id === t.materia_id);
                         return (
                           <div key={t.transaccion_id} style={{ background: "var(--surface2)", border: "0.5px solid var(--surface)", borderRadius: 10, padding: "10px 12px" }}>
                             <div style={{ display: "flex", justifyContent: "space-between", gap: 8 }}>
                               <p style={{ fontSize: 12.5, fontWeight: 700, color: "var(--text)", margin: 0 }}>
-                                {materia?.nombre ?? t.materia_id} · {t.alumno_nombre || t.alumno_email}
+                                {nombreMateriaOferta(t.materia_id, t.materia_otro)} · {t.alumno_nombre || t.alumno_email}
                               </p>
                               <p style={{ fontSize: 13, fontWeight: 800, color: "var(--text)", margin: 0, whiteSpace: "nowrap" }}>{fmtMoneda(t.monto_profesor_mxn)}</p>
                             </div>

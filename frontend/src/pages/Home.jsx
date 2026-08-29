@@ -11,6 +11,7 @@ import TemariosCards from '../components/TemariosCards'
 import { triggerVibration, esVibracionSoportada } from '../utils/haptics'
 import { useFullscreen } from '../hooks/useFullscreen'
 import { obtenerLeccionDeSesion } from '../services/leccionesPremium'
+import { CORREO_CONTACTO_APP } from '../utils/contacto'
 
 import { BiMobileVibration } from "react-icons/bi";
 import { RxEnterFullScreen } from "react-icons/rx";
@@ -290,7 +291,7 @@ export default function Home() {
       <FaFacebook size={22} />
     </a>
 
-    <a href="mailto:fujab13@gmail.com" 
+    <a href={`mailto:${CORREO_CONTACTO_APP}`}
       style={{ 
         color: 'var(--text)',
         opacity: 0.9

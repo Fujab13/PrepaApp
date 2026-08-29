@@ -1,11 +1,5 @@
-import { useState, useEffect, useRef, isValidElement } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import * as FaIcons from 'react-icons/fa'
-import * as FiIcons from 'react-icons/fi'
-import * as PiIcons from 'react-icons/pi'
-import * as BsIcons from 'react-icons/bs'
-import * as MdIcons from 'react-icons/md'
-import * as RiIcons from 'react-icons/ri'
 import Hexagono from '../components/Hexagono'
 import OpcionBtn from '../components/OpcionBtn'
 import TarjetaRepaso from '../components/TarjetaRepaso'
@@ -20,6 +14,7 @@ import { hablarTexto, detenerLectura } from '../utils/tts';
 import { getLectura } from '../data/lecturas/index';
 import { buscarConceptoSimilar } from '../utils/buscarConcepto';
 import { useFullscreen } from '../hooks/useFullscreen';
+import { renderIconoMateria } from '../utils/renderIconoMateria';
 
 import { IoMdClose } from "react-icons/io";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
@@ -533,27 +528,6 @@ export default function Leccion() {
 
     const concepto = resultado.conceptoIdx !== null ? `&concepto=${resultado.conceptoIdx}` : ''
     navigate(`/lectura/${materiaId}?tema=${resultado.temaId}&subtema=${resultado.subtemaId}${concepto}`)
-  }
-
-  const renderIconoMateria = (icono) => {
-    if (!icono) return null
-
-    if (isValidElement(icono)) {
-      return icono
-    }
-
-    const iconName = typeof icono === 'string' ? icono : ''
-    const iconSet = {
-      ...FaIcons,
-      ...FiIcons,
-      ...PiIcons,
-      ...BsIcons,
-      ...MdIcons,
-      ...RiIcons,
-    }
-
-    const Icono = iconSet[iconName]
-    return Icono ? <Icono size={20} /> : null
   }
 
   return (

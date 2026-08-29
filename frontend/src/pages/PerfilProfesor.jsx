@@ -155,7 +155,11 @@ export default function PerfilProfesor() {
   }
 
   const materias = (perfil?.materias || []).map((id) => MATERIAS_TUTORIA.find((m) => m.id === id)?.nombre ?? id);
-  const avatarSrc = perfil?.avatar_url || (perfil?.avatar_hash ? `https://www.gravatar.com/avatar/${perfil.avatar_hash}?d=mp&s=176` : null);
+  // d=404 (no "mp"/mystery-person") para que Gravatar responda 404 cuando el
+  // correo no tiene foto registrada, y así sí dispare el onError de abajo y
+  // caiga al círculo con inicial — con "mp" Gravatar siempre regresa 200 con
+  // una silueta genérica y el fallback de inicial nunca se llegaba a usar.
+  const avatarSrc = perfil?.avatar_url || (perfil?.avatar_hash ? `https://www.gravatar.com/avatar/${perfil.avatar_hash}?d=404&s=176` : null);
 
   return (
     <div style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>

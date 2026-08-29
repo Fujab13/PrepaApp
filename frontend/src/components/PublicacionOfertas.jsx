@@ -34,7 +34,7 @@ import { supabase } from "../services/supabaseClient";
 import { FilaChips } from "./FilaChips";
 import { Seccion } from "./Seccion";
 import { Estrellas } from "./Estrellas";
-import { MATERIAS_TUTORIA } from "../data/materiasTutoria";
+import { MATERIAS_TUTORIA, MATERIA_OTROS, nombreMateriaOferta } from "../data/materiasTutoria";
 import {
   HiOutlineAdjustmentsHorizontal,
   HiOutlineCreditCard,
@@ -126,6 +126,7 @@ export function PublicacionOfertas({ permitirPublicar = false }) {
 
   const [profesor, setProfesor] = useState("");
   const [materiaId, setMateriaId] = useState("");
+  const [materiaOtro, setMateriaOtro] = useState("");
   const [fecha, setFecha] = useState("");
   const [hora, setHora] = useState("");
   const [duracionMin, setDuracionMin] = useState(60);
@@ -329,6 +330,9 @@ export function PublicacionOfertas({ permitirPublicar = false }) {
     setError("");
     if (!profesor.trim()) return setError("Escribe tu nombre.");
     if (!materiaId) return setError("Selecciona una materia.");
+    if (materiaId === MATERIA_OTROS.id && !materiaOtro.trim()) {
+      return setError("Escribe el nombre de la materia.");
+    }
     if (!fecha || !hora) return setError("Elige la fecha y la hora.");
 
     const fechaHora = new Date(`${fecha}T${hora}:00`);
@@ -348,6 +352,7 @@ export function PublicacionOfertas({ permitirPublicar = false }) {
     const { error: insertError } = await supabase.from("ofertas_maestro").insert({
       profesor: profesor.trim(),
       materia_id: materiaId,
+      materia_otro: materiaId === MATERIA_OTROS.id ? materiaOtro.trim() : null,
       fecha_hora: fechaHora.toISOString(),
       duracion_minutos: duracionMin,
       precio_mxn: precioNum,
@@ -360,6 +365,7 @@ export function PublicacionOfertas({ permitirPublicar = false }) {
     if (insertError) return setError(mensajeError(insertError));
 
     setMateriaId("");
+    setMateriaOtro("");
     setFecha("");
     setHora("");
     setDuracionMin(60);
@@ -378,8 +384,14 @@ export function PublicacionOfertas({ permitirPublicar = false }) {
     cargarOfertas();
   }
 
-  const materiaElegida = MATERIAS_TUTORIA.find((m) => m.id === materiaId);
-  const materiaFiltro = MATERIAS_TUTORIA.find((m) => m.id === filtroMateria);
+  const materiaElegida =
+    materiaId === MATERIA_OTROS.id
+      ? MATERIA_OTROS
+      : MATERIAS_TUTORIA.find((m) => m.id === materiaId);
+  const materiaFiltro =
+    filtroMateria === MATERIA_OTROS.id
+      ? MATERIA_OTROS
+      : MATERIAS_TUTORIA.find((m) => m.id === filtroMateria);
 
   const hayFiltrosActivos = Boolean(
     filtroMateria || filtroProfesor.trim() || filtroPrecioMin || filtroPrecioMax || filtroFechaDesde || filtroFechaHasta
@@ -431,11 +443,24 @@ export function PublicacionOfertas({ permitirPublicar = false }) {
           <div>
             <p style={{ fontSize: 13, color: "var(--text-muted)", marginBottom: 8 }}>Materia</p>
             <FilaChips
-              opciones={MATERIAS_TUTORIA.map((m) => m.nombre)}
+              opciones={[...MATERIAS_TUTORIA.map((m) => m.nombre), MATERIA_OTROS.nombre]}
               valor={materiaElegida?.nombre}
-              onChange={(nombre) => setMateriaId(MATERIAS_TUTORIA.find((m) => m.nombre === nombre)?.id ?? "")}
+              onChange={(nombre) => {
+                if (nombre === MATERIA_OTROS.nombre) return setMateriaId(MATERIA_OTROS.id);
+                setMateriaId(MATERIAS_TUTORIA.find((m) => m.nombre === nombre)?.id ?? "");
+                setMateriaOtro("");
+              }}
               color="#06b6d4"
             />
+            {materiaId === MATERIA_OTROS.id && (
+              <input
+                style={{ ...inputStyle, marginTop: 10 }}
+                placeholder="¿Qué materia? (ej. Robótica, Contabilidad…)"
+                value={materiaOtro}
+                onChange={(e) => setMateriaOtro(e.target.value.slice(0, 60))}
+                maxLength={60}
+              />
+            )}
           </div>
 
           <div style={{ display: "flex", gap: 10 }}>
@@ -540,9 +565,13 @@ export function PublicacionOfertas({ permitirPublicar = false }) {
               <div>
                 <p style={{ fontSize: 12.5, color: "var(--text-muted)", marginBottom: 8 }}>Materia</p>
                 <FilaChips
-                  opciones={["Todas", ...MATERIAS_TUTORIA.map((m) => m.nombre)]}
+                  opciones={["Todas", ...MATERIAS_TUTORIA.map((m) => m.nombre), MATERIA_OTROS.nombre]}
                   valor={materiaFiltro?.nombre ?? "Todas"}
-                  onChange={(nombre) => setFiltroMateria(nombre === "Todas" ? "" : MATERIAS_TUTORIA.find((m) => m.nombre === nombre)?.id ?? "")}
+                  onChange={(nombre) => {
+                    if (nombre === "Todas") return setFiltroMateria("");
+                    if (nombre === MATERIA_OTROS.nombre) return setFiltroMateria(MATERIA_OTROS.id);
+                    setFiltroMateria(MATERIAS_TUTORIA.find((m) => m.nombre === nombre)?.id ?? "");
+                  }}
                   color="#06b6d4"
                 />
               </div>
@@ -622,18 +651,19 @@ export function PublicacionOfertas({ permitirPublicar = false }) {
 
       {listaVisible.map((oferta) => {
           const materia = MATERIAS_TUTORIA.find((m) => m.id === oferta.materia_id);
-          const color = materia?.color ?? "#7c5cbf";
+          const color = materia?.color ?? MATERIA_OTROS.color;
+          const nombreMateria = nombreMateriaOferta(oferta.materia_id, oferta.materia_otro);
           const fechaObj = new Date(oferta.fecha_hora);
           const esPropia = permitirPublicar && user && oferta.creado_por === user.id;
           return (
             <div key={oferta.id} className="sp-card" style={{ margin: 0 }}>
               <div className="sp-card-header">
                 <div className="sp-card-icon" style={{ background: `${color}22`, color }}>
-                  {materia?.nombre?.[0] ?? "?"}
+                  {nombreMateria[0] ?? "?"}
                 </div>
                 <div className="sp-card-body">
                   <p className="sp-card-title">
-                    {materia?.nombre ?? oferta.materia_id} · {oferta.duracion_minutos} min
+                    {nombreMateria} · {oferta.duracion_minutos} min
                   </p>
                   <p className="sp-card-description">
                     {fechaObj.toLocaleString("es-MX", { dateStyle: "medium", timeStyle: "short" })}

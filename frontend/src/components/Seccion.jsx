@@ -2,9 +2,9 @@
 // Wrapper de tarjeta con icono+título+subtítulo usado por las páginas de
 // Tutorías (alumno y maestro comparten exactamente el mismo look).
 
-export function Seccion({ icono, color, title, subtitle, children }) {
+export function Seccion({ icono, color, title, subtitle, children, style }) {
   return (
-    <div className="sp-card">
+    <div className="sp-card" style={style}>
       <div className="sp-card-header">
         <div className="sp-card-icon" style={{ background: `${color}22`, color }}>
           {icono}

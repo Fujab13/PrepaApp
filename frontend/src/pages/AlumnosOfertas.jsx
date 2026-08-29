@@ -9,7 +9,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { obtenerAlumnosDeOfertas } from "../services/ofertasMaestro";
-import { MATERIAS_TUTORIA } from "../data/materiasTutoria";
+import { MATERIAS_TUTORIA, MATERIA_OTROS, nombreMateriaOferta } from "../data/materiasTutoria";
 
 import { AiOutlineClose } from "react-icons/ai";
 import { HiOutlineEnvelope, HiOutlinePhone } from "react-icons/hi2";
@@ -45,6 +45,7 @@ export default function AlumnosOfertas() {
         porOferta.set(fila.oferta_id, {
           oferta_id: fila.oferta_id,
           materia_id: fila.materia_id,
+          materia_otro: fila.materia_otro,
           fecha_hora: fila.fecha_hora,
           alumnos: [],
         });
@@ -100,15 +101,16 @@ export default function AlumnosOfertas() {
 
             {ofertas.map((oferta) => {
               const materia = MATERIAS_TUTORIA.find((m) => m.id === oferta.materia_id);
-              const color = materia?.color ?? "#06b6d4";
+              const color = materia?.color ?? MATERIA_OTROS.color;
+              const nombreMateria = nombreMateriaOferta(oferta.materia_id, oferta.materia_otro);
               return (
                 <div key={oferta.oferta_id} className="sp-card" style={{ margin: 0 }}>
                   <div className="sp-card-header">
                     <div className="sp-card-icon" style={{ background: `${color}22`, color }}>
-                      {materia?.nombre?.[0] ?? "?"}
+                      {nombreMateria[0] ?? "?"}
                     </div>
                     <div className="sp-card-body">
-                      <p className="sp-card-title">{materia?.nombre ?? oferta.materia_id}</p>
+                      <p className="sp-card-title">{nombreMateria}</p>
                       <p className="sp-card-description">{fmtFecha(oferta.fecha_hora)}</p>
                     </div>
                     <span style={{ fontSize: 11, fontWeight: 700, color, background: `${color}15`, padding: "4px 8px", borderRadius: 10, whiteSpace: "nowrap" }}>

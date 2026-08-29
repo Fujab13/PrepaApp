@@ -11,7 +11,7 @@ import { useAuth } from "../context/AuthContext";
 import { supabase } from "../services/supabaseClient";
 import { FilaChips, chip } from "../components/FilaChips";
 import { Seccion } from "../components/Seccion";
-import { MATERIAS_TUTORIA } from "../data/materiasTutoria";
+import { MATERIAS_TUTORIA, MATERIA_OTROS, nombreMateriaOferta } from "../data/materiasTutoria";
 import {
   registrarProfesorPropio,
   actualizarProfesorPropio,
@@ -24,6 +24,7 @@ import {
   PRECIO_MAX_MXN,
   inputStyle,
 } from "../utils/tutorias";
+import { CORREO_CONTACTO_APP } from "../utils/contacto";
 
 import { AiOutlineClose } from "react-icons/ai";
 import { PiChalkboardTeacher } from "react-icons/pi";
@@ -37,15 +38,18 @@ import {
   HiOutlineUserGroup,
   HiOutlineIdentification,
   HiOutlineClock,
+  HiOutlinePauseCircle,
   HiOutlineLockClosed,
   HiChevronDown,
   HiChevronUp,
 } from "react-icons/hi2";
 
 // Documentación que valida a un profesor: hoy se manda a mano por correo
-// porque todavía no existe un buzón dedicado ni un panel de admin para
-// recibirla (ver migración 20260826120000_registro_autoservicio_profesores).
-const CORREO_DOCUMENTOS_PROFESOR = "fujab13@gmail.com";
+// porque todavía no existe un panel de admin para recibirla (ver migración
+// 20260826120000_registro_autoservicio_profesores) — sí hay un buzón
+// dedicado (CORREO_CONTACTO_APP), separado de la cuenta personal del dueño
+// del proyecto.
+const CORREO_DOCUMENTOS_PROFESOR = CORREO_CONTACTO_APP;
 const CURP_REGEX = /^[A-Z]{4}\d{6}[HM][A-Z]{5}[A-Z0-9]\d$/;
 
 // En móvil, el teclado se come la mitad inferior de la pantalla. Sin esto,
@@ -76,10 +80,7 @@ function horaInput(date) {
 
 export default function TutoriasMaestro() {
   const navigate = useNavigate();
-  const { user, cargando: cargandoAuth, perfil, esMaestro, refrescarPerfil } = useAuth();
-
-  const [nombreInput, setNombreInput] = useState("");
-  const [guardandoNombre, setGuardandoNombre] = useState(false);
+  const { user, cargando: cargandoAuth, esMaestro } = useAuth();
 
   const [misOfertas, setMisOfertas] = useState([]);
   const [cargandoOfertas, setCargandoOfertas] = useState(true);
@@ -89,6 +90,7 @@ export default function TutoriasMaestro() {
   const [editandoId, setEditandoId] = useState(null);
 
   const [materiaId, setMateriaId] = useState("");
+  const [materiaOtro, setMateriaOtro] = useState("");
   const [fecha, setFecha] = useState("");
   const [hora, setHora] = useState("");
   const [precioMxn, setPrecioMxn] = useState("");
@@ -122,13 +124,19 @@ export default function TutoriasMaestro() {
   const [verificandoLogin, setVerificandoLogin] = useState(false);
   const [errorLogin, setErrorLogin] = useState("");
 
+  // El nombre que se muestra/publica como "profesor" sale siempre de
+  // profesores.nombre (el que dio al registrarse con su CURP) — antes se
+  // prellenaba desde perfiles.nombre (un nombre genérico de cuenta pedido
+  // aparte, en otra pantalla) y podía terminar siendo distinto del que ya
+  // había registrado como profesor, generando confusión sobre cuál era su
+  // nombre "real" en el portal.
   useEffect(() => {
-    if (perfil?.nombre && !profesor) setProfesor(perfil.nombre);
+    if (estadoProfesor?.nombre && !profesor) setProfesor(estadoProfesor.nombre);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [perfil?.nombre]);
+  }, [estadoProfesor?.nombre]);
 
   useEffect(() => {
-    if (!user || esMaestro) return;
+    if (!user) return;
     let cancelado = false;
     setCargandoEstadoProfesor(true);
     obtenerMiEstadoProfesor()
@@ -136,7 +144,7 @@ export default function TutoriasMaestro() {
       .catch(() => { if (!cancelado) setEstadoProfesor(null); })
       .finally(() => { if (!cancelado) setCargandoEstadoProfesor(false); });
     return () => { cancelado = true; };
-  }, [user, esMaestro]);
+  }, [user]);
 
   useEffect(() => {
     if (!user) return;
@@ -262,14 +270,6 @@ export default function TutoriasMaestro() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
-  async function guardarNombre() {
-    if (!nombreInput.trim() || !user) return;
-    setGuardandoNombre(true);
-    await supabase.from("perfiles").update({ nombre: nombreInput.trim() }).eq("id", user.id);
-    setGuardandoNombre(false);
-    await refrescarPerfil();
-  }
-
   async function borrarOferta(oferta) {
     setBorrandoId(oferta.id);
     const { error: deleteError } = await supabase.from("ofertas_maestro").delete().eq("id", oferta.id);
@@ -283,6 +283,7 @@ export default function TutoriasMaestro() {
     setErrorPublicar("");
     setEditandoId(oferta.id);
     setMateriaId(oferta.materia_id);
+    setMateriaOtro(oferta.materia_otro || "");
     const f = new Date(oferta.fecha_hora);
     setFecha(fechaInput(f));
     setHora(horaInput(f));
@@ -298,12 +299,13 @@ export default function TutoriasMaestro() {
     setEditandoId(null);
     setErrorPublicar("");
     setMateriaId("");
+    setMateriaOtro("");
     setFecha("");
     setHora("");
     setPrecioMxn("");
     setDuracionMin(60);
     setCupo("");
-    setProfesor(perfil?.nombre || "");
+    setProfesor(estadoProfesor?.nombre || "");
     setNotas("");
     setCuentaClave("");
   }
@@ -311,6 +313,9 @@ export default function TutoriasMaestro() {
   async function guardarOferta() {
     setErrorPublicar("");
     if (!materiaId) return setErrorPublicar("Selecciona una materia.");
+    if (materiaId === MATERIA_OTROS.id && !materiaOtro.trim()) {
+      return setErrorPublicar("Escribe el nombre de la materia.");
+    }
     if (!fecha || !hora) return setErrorPublicar("Elige la fecha y la hora de la clase.");
 
     const fechaHora = new Date(`${fecha}T${hora}:00`);
@@ -329,6 +334,7 @@ export default function TutoriasMaestro() {
 
     const datos = {
       materia_id: materiaId,
+      materia_otro: materiaId === MATERIA_OTROS.id ? materiaOtro.trim() : null,
       fecha_hora: fechaHora.toISOString(),
       precio_mxn: precio,
       duracion_minutos: duracionMin,
@@ -356,8 +362,10 @@ export default function TutoriasMaestro() {
     cargarMisOfertas();
   }
 
-  const materiaElegida = MATERIAS_TUTORIA.find((m) => m.id === materiaId);
-  const faltaNombre = Boolean(user) && perfil !== null && !perfil?.nombre;
+  const materiaElegida =
+    materiaId === MATERIA_OTROS.id
+      ? MATERIA_OTROS
+      : MATERIAS_TUTORIA.find((m) => m.id === materiaId);
 
   return (
     <div style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
@@ -395,26 +403,7 @@ export default function TutoriasMaestro() {
           </div>
         )}
 
-        {!cargandoAuth && user && faltaNombre && (
-          <Seccion icono={<PiChalkboardTeacher />} color="#06b6d4" title="¿Cómo te llamas?" subtitle="Tu nombre lo verán los alumnos al publicar o aceptar una oferta.">
-            <input
-              style={inputStyle}
-              placeholder="Tu nombre"
-              value={nombreInput}
-              onChange={(e) => setNombreInput(e.target.value)}
-              maxLength={80}
-            />
-            <button
-              onClick={guardarNombre}
-              disabled={guardandoNombre || !nombreInput.trim()}
-              style={{ minHeight: 44, borderRadius: 10, border: "none", background: "#06b6d4", color: "#fff", fontWeight: 700, cursor: "pointer", opacity: guardandoNombre || !nombreInput.trim() ? 0.6 : 1 }}
-            >
-              {guardandoNombre ? "Guardando…" : "Guardar"}
-            </button>
-          </Seccion>
-        )}
-
-        {!cargandoAuth && user && !faltaNombre && !esMaestro && (
+        {!cargandoAuth && user && !esMaestro && (
           <>
             {cargandoEstadoProfesor && (
               <p style={{ color: "var(--text-muted)", fontSize: 13, textAlign: "center" }}>Cargando…</p>
@@ -544,10 +533,40 @@ export default function TutoriasMaestro() {
                 </p>
               </Seccion>
             )}
+
+            {/* Verificado pero soy_maestro_actual() da false: la única causa
+                posible es que un admin te haya desactivado (ver
+                establecerProfesorActivo en AdminMaestros.jsx) — mi_estado_profesor()
+                no expone `activo`, así que no hay forma de distinguir esto de
+                otro estado; sin este bloque la pantalla se queda en blanco
+                porque ninguna otra condición de arriba/abajo aplica. */}
+            {!cargandoEstadoProfesor && estadoProfesor && estadoProfesor.verificado && !editandoRegistro && (
+              <Seccion
+                icono={<HiOutlinePauseCircle />}
+                color="#f97316"
+                title="Tu acceso está pausado"
+                subtitle="Estamos revisando tu perfil — no es nada que tengas que hacer."
+              >
+                <p style={{ fontSize: 13, color: "var(--text)", lineHeight: 1.6, margin: 0 }}>
+                  El equipo de PrepaApp pausó temporalmente tu acceso al portal de maestros mientras revisa tu perfil.
+                  En cuanto termine, tu acceso se restablece solo — no necesitas volver a registrarte.
+                </p>
+                <p style={{ fontSize: 12.5, color: "var(--text-muted)", margin: 0, lineHeight: 1.5 }}>
+                  Si tienes dudas, escríbenos a{" "}
+                  <a
+                    href={`mailto:${CORREO_DOCUMENTOS_PROFESOR}?subject=${encodeURIComponent(estadoProfesor.curp || "")}`}
+                    style={{ color: "#f97316" }}
+                  >
+                    {CORREO_DOCUMENTOS_PROFESOR}
+                  </a>{" "}
+                  usando tu CURP como asunto.
+                </p>
+              </Seccion>
+            )}
           </>
         )}
 
-        {!cargandoAuth && user && !faltaNombre && esMaestro && !desbloqueado && (
+        {!cargandoAuth && user && esMaestro && !desbloqueado && (
           <Seccion
             icono={<HiOutlineLockClosed />}
             color="#4f8ef7"
@@ -580,7 +599,7 @@ export default function TutoriasMaestro() {
           </Seccion>
         )}
 
-        {!cargandoAuth && user && !faltaNombre && esMaestro && desbloqueado && (
+        {!cargandoAuth && user && esMaestro && desbloqueado && (
           <>
             <Seccion icono={<HiOutlineBanknotes />} color="#4f8ef7" title="Mis ganancias" subtitle="Cuánto te deben, cuánto ya te pagamos y tus recibos por quincena.">
               <button
@@ -619,6 +638,134 @@ export default function TutoriasMaestro() {
 
             {error && <p style={{ color: "var(--wrong)", fontSize: 13, textAlign: "center", margin: 0 }}>{error}</p>}
 
+            <Seccion
+              icono={<HiOutlineChatBubbleLeftRight />}
+              color="#06b6d4"
+              title={editandoId ? "Editando oferta" : "Publicar una clase"}
+              subtitle="Materia, horario, cupo, y cómo te contactan y te pagan."
+              style={
+                editandoId
+                  ? { border: "1.5px solid #06b6d4", boxShadow: "0 0 0 4px rgba(6,182,212,0.18)" }
+                  : undefined
+              }
+            >
+              <div>
+                <p style={{ fontSize: 13, color: "var(--text-muted)", marginBottom: 8 }}>Materia</p>
+                <FilaChips
+                  opciones={[...MATERIAS_TUTORIA.map((m) => m.nombre), MATERIA_OTROS.nombre]}
+                  valor={materiaElegida?.nombre}
+                  onChange={(nombre) => {
+                    if (nombre === MATERIA_OTROS.nombre) return setMateriaId(MATERIA_OTROS.id);
+                    setMateriaId(MATERIAS_TUTORIA.find((m) => m.nombre === nombre)?.id ?? "");
+                    setMateriaOtro("");
+                  }}
+                  color="#06b6d4"
+                />
+                {materiaId === MATERIA_OTROS.id && (
+                  <input
+                    style={{ ...inputStyle, marginTop: 10 }}
+                    placeholder="¿Qué materia? (ej. Robótica, Contabilidad…)"
+                    value={materiaOtro}
+                    onChange={(e) => setMateriaOtro(e.target.value.slice(0, 60))}
+                    maxLength={60}
+                  />
+                )}
+              </div>
+
+              <div style={{ display: "flex", gap: 10 }}>
+                <input
+                  style={{ ...inputStyle, flex: 1, minWidth: 0 }}
+                  type="date"
+                  value={fecha}
+                  onChange={(e) => setFecha(e.target.value)}
+                />
+                <input
+                  style={{ ...inputStyle, flex: 1, minWidth: 0 }}
+                  type="time"
+                  value={hora}
+                  onChange={(e) => setHora(e.target.value)}
+                />
+              </div>
+
+              <div>
+                <p style={{ fontSize: 13, color: "var(--text-muted)", marginBottom: 8 }}>Duración</p>
+                <FilaChips
+                  opciones={DURACIONES.map((d) => d.label)}
+                  valor={DURACIONES.find((d) => d.minutos === duracionMin)?.label}
+                  onChange={(label) => setDuracionMin(DURACIONES.find((d) => d.label === label)?.minutos ?? 60)}
+                  color="#06b6d4"
+                />
+              </div>
+              <div>
+              <p style={{ fontSize: 13, color: "var(--text-muted)", marginBottom: 8 }}>Cupo de alumnos</p>
+              <input
+                style={inputStyle}
+                type="number"
+                min={1}
+                max={50}
+                placeholder="Cupo máximo de alumnos"
+                value={cupo}
+                onChange={(e) => setCupo(e.target.value)}
+              />
+              </div>
+              <textarea
+                style={{ ...inputStyle, minHeight: 80, resize: "vertical" }}
+                maxLength={500}
+                placeholder="Notas para tu alumno (opcional)…"
+                value={notas}
+                onChange={(e) => setNotas(e.target.value)}
+              />
+
+              <input
+                style={inputStyle}
+                placeholder="Nombre del profesor"
+                value={profesor}
+                onChange={(e) => setProfesor(e.target.value)}
+                maxLength={80}
+              />
+
+              <input
+                style={inputStyle}
+                inputMode="numeric"
+                placeholder="CLABE (18 dígitos) para recibir el pago"
+                value={cuentaClave}
+                onChange={(e) => setCuentaClave(e.target.value.replace(/\D/g, "").slice(0, 18))}
+                maxLength={18}
+              />
+
+              <input
+                style={inputStyle}
+                type="number"
+                min={PRECIO_MIN_MXN}
+                max={PRECIO_MAX_MXN}
+                step={10}
+                placeholder={`¿Cuánto cobras? (Ej. 350, $${PRECIO_MIN_MXN}-$${PRECIO_MAX_MXN} MXN)`}
+                value={precioMxn}
+                onChange={(e) => setPrecioMxn(e.target.value)}
+              />
+
+              {errorPublicar && <p style={{ color: "var(--wrong)", fontSize: 13, margin: 0 }}>{errorPublicar}</p>}
+
+              <div style={{ display: "flex", gap: 8 }}>
+                {editandoId && (
+                  <button
+                    type="button"
+                    onClick={limpiarFormulario}
+                    style={{ minHeight: 44, borderRadius: 10, border: "1px solid var(--surface)", background: "transparent", color: "var(--text)", fontWeight: 700, fontSize: 14, cursor: "pointer" }}
+                  >
+                    Cancelar
+                  </button>
+                )}
+                <button
+                  onClick={guardarOferta}
+                  disabled={publicando}
+                  style={{ flex: 1, minHeight: 44, borderRadius: 10, border: "none", background: "#4f8ef7", color: "#fff", fontWeight: 700, fontSize: 14, cursor: publicando ? "default" : "pointer", opacity: publicando ? 0.7 : 1 }}
+                >
+                  {publicando ? "Guardando…" : editandoId ? "Guardar cambios" : "Publicar disponibilidad"}
+                </button>
+              </div>
+            </Seccion>
+
             <Seccion icono={<HiOutlineCurrencyDollar />} color="#7c5cbf" title="Tus ofertas" subtitle="Guardadas en Supabase; edítalas o bórralas cuando quieras.">
                 {cargandoOfertas && (
                   <p style={{ fontSize: 13, color: "var(--text-muted)", margin: 0 }}>Cargando tus ofertas…</p>
@@ -643,7 +790,8 @@ export default function TutoriasMaestro() {
                 )}
                 {mostrarOfertas && misOfertas.map((oferta) => {
                   const materia = MATERIAS_TUTORIA.find((m) => m.id === oferta.materia_id);
-                  const color = materia?.color ?? "#7c5cbf";
+                  const color = materia?.color ?? MATERIA_OTROS.color;
+                  const nombreMateria = nombreMateriaOferta(oferta.materia_id, oferta.materia_otro);
                   const fechaObj = new Date(oferta.fecha_hora);
                   const enEdicion = editandoId === oferta.id;
                   return (
@@ -654,11 +802,11 @@ export default function TutoriasMaestro() {
                     >
                       <div className="sp-card-header">
                         <div className="sp-card-icon" style={{ background: `${color}22`, color }}>
-                          {materia?.nombre?.[0] ?? "?"}
+                          {nombreMateria[0] ?? "?"}
                         </div>
                         <div className="sp-card-body">
                           <p className="sp-card-title">
-                            {materia?.nombre ?? oferta.materia_id} · {oferta.duracion_minutos} min
+                            {nombreMateria} · {oferta.duracion_minutos} min
                           </p>
                           <p className="sp-card-description">
                             {fechaObj.toLocaleString("es-MX", { dateStyle: "medium", timeStyle: "short" })}
@@ -728,118 +876,6 @@ export default function TutoriasMaestro() {
                   );
                 })}
               </Seccion>
-
-            <Seccion
-              icono={<HiOutlineChatBubbleLeftRight />}
-              color="#06b6d4"
-              title={editandoId ? "Editando oferta" : "Detalles de la clase"}
-              subtitle="Materia, horario, duración y cupo."
-            >
-              <div>
-                <p style={{ fontSize: 13, color: "var(--text-muted)", marginBottom: 8 }}>Materia</p>
-                <FilaChips
-                  opciones={MATERIAS_TUTORIA.map((m) => m.nombre)}
-                  valor={materiaElegida?.nombre}
-                  onChange={(nombre) => setMateriaId(MATERIAS_TUTORIA.find((m) => m.nombre === nombre)?.id ?? "")}
-                  color="#06b6d4"
-                />
-              </div>
-
-              <div style={{ display: "flex", gap: 10 }}>
-                <input
-                  style={{ ...inputStyle, flex: 1, minWidth: 0 }}
-                  type="date"
-                  value={fecha}
-                  onChange={(e) => setFecha(e.target.value)}
-                />
-                <input
-                  style={{ ...inputStyle, flex: 1, minWidth: 0 }}
-                  type="time"
-                  value={hora}
-                  onChange={(e) => setHora(e.target.value)}
-                />
-              </div>
-
-              <div>
-                <p style={{ fontSize: 13, color: "var(--text-muted)", marginBottom: 8 }}>Duración</p>
-                <FilaChips
-                  opciones={DURACIONES.map((d) => d.label)}
-                  valor={DURACIONES.find((d) => d.minutos === duracionMin)?.label}
-                  onChange={(label) => setDuracionMin(DURACIONES.find((d) => d.label === label)?.minutos ?? 60)}
-                  color="#06b6d4"
-                />
-              </div>
-              <div>
-              <p style={{ fontSize: 13, color: "var(--text-muted)", marginBottom: 8 }}>Cupo de alumnos</p>
-              <input
-                style={inputStyle}
-                type="number"
-                min={1}
-                max={50}
-                placeholder="Cupo máximo de alumnos"
-                value={cupo}
-                onChange={(e) => setCupo(e.target.value)}
-              />
-              </div>
-              <textarea
-                style={{ ...inputStyle, minHeight: 80, resize: "vertical" }}
-                maxLength={500}
-                placeholder="Notas para tu alumno (opcional)…"
-                value={notas}
-                onChange={(e) => setNotas(e.target.value)}
-              />
-            </Seccion>
-
-            <Seccion icono={<HiOutlineCurrencyDollar />} color="#4f8ef7" title="Tus datos y cobro" subtitle="Así te contactan y te pagan.">
-              <input
-                style={inputStyle}
-                placeholder="Nombre del profesor"
-                value={profesor}
-                onChange={(e) => setProfesor(e.target.value)}
-                maxLength={80}
-              />
-
-              <input
-                style={inputStyle}
-                inputMode="numeric"
-                placeholder="CLABE (18 dígitos) para recibir el pago"
-                value={cuentaClave}
-                onChange={(e) => setCuentaClave(e.target.value.replace(/\D/g, "").slice(0, 18))}
-                maxLength={18}
-              />
-
-              <input
-                style={inputStyle}
-                type="number"
-                min={PRECIO_MIN_MXN}
-                max={PRECIO_MAX_MXN}
-                step={10}
-                placeholder={`¿Cuánto cobras? (Ej. 350, $${PRECIO_MIN_MXN}-$${PRECIO_MAX_MXN} MXN)`}
-                value={precioMxn}
-                onChange={(e) => setPrecioMxn(e.target.value)}
-              />
-
-              {errorPublicar && <p style={{ color: "var(--wrong)", fontSize: 13, margin: 0 }}>{errorPublicar}</p>}
-
-              <div style={{ display: "flex", gap: 8 }}>
-                {editandoId && (
-                  <button
-                    type="button"
-                    onClick={limpiarFormulario}
-                    style={{ minHeight: 44, borderRadius: 10, border: "1px solid var(--surface)", background: "transparent", color: "var(--text)", fontWeight: 700, fontSize: 14, cursor: "pointer" }}
-                  >
-                    Cancelar
-                  </button>
-                )}
-                <button
-                  onClick={guardarOferta}
-                  disabled={publicando}
-                  style={{ flex: 1, minHeight: 44, borderRadius: 10, border: "none", background: "#4f8ef7", color: "#fff", fontWeight: 700, fontSize: 14, cursor: publicando ? "default" : "pointer", opacity: publicando ? 0.7 : 1 }}
-                >
-                  {publicando ? "Guardando…" : editandoId ? "Guardar cambios" : "Publicar disponibilidad"}
-                </button>
-              </div>
-            </Seccion>
           </>
         )}
       </main>
