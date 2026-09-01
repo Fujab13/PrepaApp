@@ -6,15 +6,16 @@
 // ─────────────────────────────────────────────────────────────────────────────
 
 import { useState, useEffect, useRef, useCallback } from "react";
-import { useNavigate } from "react-router-dom";
-import { PREGUNTAS, SECCIONES } from "../data/examen.js";
+import { useNavigate, useParams } from "react-router-dom";
+import { PREGUNTAS as PREGUNTAS_DEFAULT, SECCIONES as SECCIONES_DEFAULT } from "../data/examen.js";
 import SidenavMatrix from "../components/SidenavMatrix";
 import ConfirmDialog from "../components/ConfirmDialog";
 import { useAuth } from "../context/AuthContext";
 import { supabase } from "../services/supabaseClient";
 import { calcularStatsPorSeccion } from "../utils/examenStats";
+import { obtenerExamenDeSesion } from "../services/examenesPremium";
 
-import { AiOutlineClose } from "react-icons/ai";
+import { AiOutlineClose, AiOutlineLoading3Quarters } from "react-icons/ai";
 import { IoIosArrowBack } from "react-icons/io";
 import { IoIosArrowForward } from "react-icons/io";
 import { HiOutlineSquares2X2 } from "react-icons/hi2";
@@ -52,18 +53,52 @@ const fmtPregunta = (seg) => {
   return seg < 0 ? `+${base}` : base;
 };
 
-const getSectionIndex = (id) =>
-  SECCIONES.findIndex((s) => id >= s.id_inicio && id <= s.id_fin);
-
 // ════════════════════════════════════════════════════════════════════════════
 // ─── COMPONENTE PRINCIPAL ───────────────────────────────────────────────────
 // ════════════════════════════════════════════════════════════════════════════
 export default function Examen() {
   const navigate   = useNavigate();
+  const { examenId } = useParams();
   const { user }   = useAuth();
 
+  // ── Preguntas/secciones del examen: por defecto las de data/examen.js, o
+  // las de un examen comprado en la Tienda (ver Inventario.jsx, que ya las
+  // descargó+cacheó antes de navegar aquí — mismo patrón que Leccion.jsx con
+  // /leccion/premium-<id>). Un examenId desconocido cae al examen por
+  // defecto en vez de dejar la pantalla en blanco.
+  const [preguntas, setPreguntas] = useState(null);
+  const [secciones, setSecciones] = useState(null);
+  const [cargandoExamen, setCargandoExamen] = useState(true);
+  const [errorExamen, setErrorExamen] = useState('');
+
+  useEffect(() => {
+    if (!examenId || !examenId.startsWith('premium-')) {
+      setPreguntas(PREGUNTAS_DEFAULT);
+      setSecciones(SECCIONES_DEFAULT);
+      setErrorExamen('');
+      setCargandoExamen(false);
+      return;
+    }
+
+    const productoId = examenId.replace('premium-', '');
+    const cacheado = obtenerExamenDeSesion(productoId);
+    const preguntasCache = cacheado?.data?.preguntas;
+    const seccionesCache = cacheado?.data?.secciones;
+
+    if (!Array.isArray(preguntasCache) || preguntasCache.length === 0 || !Array.isArray(seccionesCache)) {
+      setErrorExamen('Este examen no está disponible. Vuelve al inventario e ábrelo de nuevo.');
+      setCargandoExamen(false);
+      return;
+    }
+
+    setPreguntas(preguntasCache);
+    setSecciones(seccionesCache);
+    setErrorExamen('');
+    setCargandoExamen(false);
+  }, [examenId]);
+
   // ── Estado del examen ────────────────────────────────────────────────────
-  const [indexActual, setIndexActual] = useState(0);     // índice en PREGUNTAS
+  const [indexActual, setIndexActual] = useState(0);     // índice en preguntas
   const [respuestas,  setRespuestas]  = useState({});    // { id: 'A'|'B'|'C'... }
   const [marcadas,    setMarcadas]    = useState(new Set()); // ids marcados
   const [matrizOpen,  setMatrizOpen]  = useState(false);
@@ -91,7 +126,6 @@ export default function Examen() {
 
   // Cuando cambia la pregunta: guarda el tiempo usado y reinicia el contador
   useEffect(() => {
-    const pregActual = PREGUNTAS[indexActual];
     // Guardar tiempo de la pregunta anterior no lo hacemos aquí (ver cambio de index)
     tiempoPregRef.current = CONFIG.TIEMPO_RECOMENDADO_SEG;
     setTiempoPregunta(CONFIG.TIEMPO_RECOMENDADO_SEG);
@@ -107,10 +141,15 @@ export default function Examen() {
   }, [indexActual]);
 
   // ── Pregunta actual ───────────────────────────────────────────────────────
-  const pregunta      = PREGUNTAS[indexActual];
-  const seccionIdx    = getSectionIndex(pregunta.id);
-  const seccion       = SECCIONES[seccionIdx];
-  const totalPreguntas = PREGUNTAS.length;
+  // Optional chaining porque, mientras cargandoExamen/errorExamen siguen
+  // activos, `preguntas` todavía puede ser null — el guard de carga/error
+  // (más abajo, después de todos los hooks) impide que esto llegue a
+  // renderizarse antes de tener datos válidos.
+  const getSectionIndex = (id) => (secciones ?? []).findIndex((s) => id >= s.id_inicio && id <= s.id_fin);
+  const totalPreguntas = preguntas?.length ?? 0;
+  const pregunta       = preguntas?.[indexActual];
+  const seccionIdx     = pregunta ? getSectionIndex(pregunta.id) : -1;
+  const seccion        = seccionIdx >= 0 ? secciones?.[seccionIdx] : undefined;
 
   // ── Guardar tiempo al cambiar de pregunta ─────────────────────────────────
   const guardarTiempoPregunta = useCallback((id) => {
@@ -125,15 +164,18 @@ export default function Examen() {
   // de un examen contra reloj, y Resultados.jsx igual se pinta desde el
   // state de navegación, no desde esto.
   const guardarResultadoExamen = useCallback(({ respuestasFinal, tiempoTotalSegundos, marcadasFinal }) => {
-    if (!user) return;
+    if (!user || !preguntas || !secciones) return;
     const statsPorSeccion = calcularStatsPorSeccion({
-      preguntas: PREGUNTAS,
-      secciones: SECCIONES,
+      preguntas,
+      secciones,
       respuestas: respuestasFinal,
     });
-    const correctas = PREGUNTAS.filter(p => respuestasFinal[p.id] === p.inciso_correcto).length;
-    const precisionGlobal = PREGUNTAS.length > 0 ? Math.round((correctas / PREGUNTAS.length) * 100) : 0;
+    const correctas = preguntas.filter(p => respuestasFinal[p.id] === p.inciso_correcto).length;
+    const precisionGlobal = preguntas.length > 0 ? Math.round((correctas / preguntas.length) * 100) : 0;
 
+    // Solo se conserva el resultado más reciente por usuario: se inserta
+    // primero (si esto falla, no se pierde el resultado anterior) y, una vez
+    // insertado, se borran todas las demás filas propias.
     supabase
       .from("resultados_examen")
       .insert({
@@ -147,17 +189,27 @@ export default function Examen() {
         tiempos_pregunta: tiemposRef.current,
         marcadas: marcadasFinal,
       })
-      .then(({ error }) => {
-        if (error) console.error("No se pudo guardar el resultado del examen:", error);
+      .select("id")
+      .single()
+      .then(({ data, error }) => {
+        if (error) return console.error("No se pudo guardar el resultado del examen:", error);
+        supabase
+          .from("resultados_examen")
+          .delete()
+          .eq("user_id", user.id)
+          .neq("id", data.id)
+          .then(({ error: deleteError }) => {
+            if (deleteError) console.error("No se pudieron borrar los resultados anteriores del examen:", deleteError);
+          });
       });
-  }, [user]);
+  }, [user, preguntas, secciones]);
 
   // ── Navegación ────────────────────────────────────────────────────────────
   const irA = useCallback((idObjetivo) => {
     guardarTiempoPregunta(pregunta.id);
-    const nuevoIdx = PREGUNTAS.findIndex(p => p.id === idObjetivo);
+    const nuevoIdx = preguntas.findIndex(p => p.id === idObjetivo);
     if (nuevoIdx !== -1) setIndexActual(nuevoIdx);
-  }, [pregunta.id, guardarTiempoPregunta]);
+  }, [pregunta?.id, preguntas, guardarTiempoPregunta]);
 
   const anterior = useCallback(() => {
     if (indexActual === 0) return;
@@ -168,23 +220,23 @@ export default function Examen() {
     };
 
     // Verificar si hay cambio de sección (retroceso)
-    const prevSec = getSectionIndex(PREGUNTAS[indexActual - 1].id);
+    const prevSec = getSectionIndex(preguntas[indexActual - 1].id);
     const currSec = seccionIdx;
 
     // Primera pregunta de sección actual → advertir
-    if (prevSec !== currSec && PREGUNTAS[indexActual].id === seccion.id_inicio) {
+    if (prevSec !== currSec && preguntas[indexActual].id === seccion.id_inicio) {
       setConfirmacion({
         titulo: "Cambiar de sección",
-        mensaje: `¿Regresar a ${SECCIONES[prevSec]?.nombre}?`,
+        mensaje: `¿Regresar a ${secciones[prevSec]?.nombre}?`,
         textoConfirmar: "Regresar",
-        colorConfirmar: SECCIONES[prevSec]?.color ?? seccion?.color,
+        colorConfirmar: secciones[prevSec]?.color ?? seccion?.color,
         accion: retroceder,
       });
       return;
     }
 
     retroceder();
-  }, [indexActual, seccionIdx, seccion, pregunta.id, guardarTiempoPregunta]);
+  }, [indexActual, seccionIdx, seccion, pregunta?.id, preguntas, secciones, guardarTiempoPregunta]);
 
   const siguiente = useCallback(() => {
     if (indexActual === totalPreguntas - 1) {
@@ -203,8 +255,8 @@ export default function Examen() {
               respuestas,
               tiemposPregunta : tiemposRef.current,
               marcadas        : [...marcadas],
-              preguntas       : PREGUNTAS,
-              secciones       : SECCIONES,
+              preguntas,
+              secciones,
               tiempoTotalSegundos: TIEMPO_GLOBAL_INICIAL - tiempoGlobal,
             },
           },
@@ -227,20 +279,20 @@ export default function Examen() {
     };
 
     // Cambio de sección (avance) → confirmación de no retorno
-    const nextSec = getSectionIndex(PREGUNTAS[indexActual + 1].id);
-    if (nextSec !== seccionIdx && PREGUNTAS[indexActual + 1].id === SECCIONES[nextSec]?.id_inicio) {
+    const nextSec = getSectionIndex(preguntas[indexActual + 1].id);
+    if (nextSec !== seccionIdx && preguntas[indexActual + 1].id === secciones[nextSec]?.id_inicio) {
       setConfirmacion({
         titulo: "Cambiar de sección",
-        mensaje: `¿Continuar a ${SECCIONES[nextSec]?.nombre}? No podrás regresar después.`,
+        mensaje: `¿Continuar a ${secciones[nextSec]?.nombre}? No podrás regresar después.`,
         textoConfirmar: "Continuar",
-        colorConfirmar: SECCIONES[nextSec]?.color ?? seccion?.color,
+        colorConfirmar: secciones[nextSec]?.color ?? seccion?.color,
         accion: avanzar,
       });
       return;
     }
 
     avanzar();
-  }, [indexActual, totalPreguntas, seccionIdx, seccion, pregunta.id, respuestas, marcadas, tiempoGlobal, guardarTiempoPregunta, guardarResultadoExamen, navigate]);
+  }, [indexActual, totalPreguntas, seccionIdx, seccion, pregunta?.id, preguntas, secciones, respuestas, marcadas, tiempoGlobal, guardarTiempoPregunta, guardarResultadoExamen, navigate]);
 
   // ── Seleccionar respuesta ─────────────────────────────────────────────────
   const seleccionarRespuesta = (inciso) => {
@@ -257,8 +309,10 @@ export default function Examen() {
   };
 
   // ── Tiempo sin tiempo → ir a resultados automáticamente ──────────────────
+  // `pregunta` puede no existir aún si esto dispara mientras el examen sigue
+  // cargando (caso extremo: nunca cargó y se agotaron las 2h por defecto).
   useEffect(() => {
-    if (tiempoGlobal <= 0) {
+    if (tiempoGlobal <= 0 && pregunta) {
       guardarTiempoPregunta(pregunta.id);
       guardarResultadoExamen({
         respuestasFinal: respuestas,
@@ -272,14 +326,44 @@ export default function Examen() {
             respuestas,
             tiemposPregunta : tiemposRef.current,
             marcadas        : [...marcadas],
-            preguntas       : PREGUNTAS,
-            secciones       : SECCIONES,
+            preguntas,
+            secciones,
             tiempoTotalSegundos: TIEMPO_GLOBAL_INICIAL,
           },
         },
       });
     }
   }, [tiempoGlobal]);
+
+  // ── Carga/error del examen: recién aquí, después de declarar todos los
+  // hooks de arriba (deben correr siempre en el mismo orden en cada
+  // render), es seguro cortar el render si preguntas/pregunta no existen
+  // todavía. Mismo patrón que Leccion.jsx con sus lecciones premium. ──────
+  if (cargandoExamen || errorExamen || !pregunta) {
+    return (
+      <div style={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        gap: 14,
+        minHeight: '100vh',
+        padding: '24px',
+        textAlign: 'center',
+      }}>
+        {errorExamen ? (
+          <p style={{ color: 'var(--wrong)', fontSize: '0.9rem', margin: 0 }}>{errorExamen}</p>
+        ) : (
+          <>
+            <AiOutlineLoading3Quarters className="spin" style={{ fontSize: '1.8rem', color: '#4f8ef7' }} />
+            <p style={{ color: 'var(--text-muted)', fontSize: '0.85rem', margin: 0 }}>
+              Preparando tu examen…
+            </p>
+          </>
+        )}
+      </div>
+    );
+  }
 
   // ── Colores dinámicos ─────────────────────────────────────────────────────
   const esUltimaDeSeccion = pregunta.id === seccion?.id_fin;
@@ -595,11 +679,11 @@ export default function Examen() {
       {/* ── PANEL LATERAL MATRIZ ── */}
       {matrizOpen && (
         <SidenavMatrix
-          preguntas={PREGUNTAS}
+          preguntas={preguntas}
           respuestas={respuestas}
           marcadas={marcadas}
           preguntaActual={pregunta.id}
-          secciones={SECCIONES}
+          secciones={secciones}
           seccionActual={seccionIdx}
           onIrA={irA}
           onCerrar={() => setMatrizOpen(false)}

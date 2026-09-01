@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { supabase } from "../services/supabaseClient";
 import { FilaChips } from "../components/FilaChips";
+import { Seccion } from "../components/Seccion";
 
 import { AiOutlineClose } from "react-icons/ai";
 import { FaUserGraduate } from "react-icons/fa";
@@ -73,26 +74,6 @@ const inputStyle = {
   outline: "none",
   boxSizing: "border-box",
 };
-
-// ── Tarjeta de sección (mismo lenguaje visual que Store.jsx: sp-card) ─────
-function Seccion({ icono, color, title, subtitle, children }) {
-  return (
-    <div className="sp-card">
-      <div className="sp-card-header">
-        <div className="sp-card-icon" style={{ background: `${color}22`, color }}>
-          {icono}
-        </div>
-        <div className="sp-card-body">
-          <p className="sp-card-title">{title}</p>
-          {subtitle && <p className="sp-card-description">{subtitle}</p>}
-        </div>
-      </div>
-      <div style={{ marginTop: 14, display: "flex", flexDirection: "column", gap: 14 }}>
-        {children}
-      </div>
-    </div>
-  );
-}
 
 // ── Escala 1-5 para autoevaluación ────────────────────────────────────────
 function Escala({ label, valor, onChange, color }) {
@@ -165,24 +146,25 @@ export default function FormularioArea() {
     // verificar server-side que este formulario ya se completó, y para
     // poder mandarle este reporte a un maestro más adelante. Si el insert
     // falla no debe bloquear al usuario de ver su informe: solo se loguea.
+    // (El insert de supabase-js resuelve { data, error } y no lanza para
+    // errores de Postgres/RLS, así que hay que revisar `error` a mano — un
+    // try/catch aquí no lo detecta. Si falla, el pill "Formulario Área" en
+    // /tutorias se queda clicable para volver a intentarlo.)
     if (user) {
-      try {
-        await supabase.from("formularios_area").insert({
-          user_id: user.id,
-          nombre: nombre.trim(),
-          edad: edad.trim(),
-          email_contacto: email.trim(),
-          telefono: telefono.trim(),
-          grado,
-          area_interes: areaInteres,
-          carrera_interes: carreraInteres.trim(),
-          autoevaluacion,
-          horas_estudio: horasEstudio,
-          preferencias: { horarioPreferido, modalidadPreferida, decisionCarrera },
-        });
-      } catch (err) {
-        console.error("No se pudo guardar el formulario de área:", err);
-      }
+      const { error: errorInsert } = await supabase.from("formularios_area").insert({
+        user_id: user.id,
+        nombre: nombre.trim(),
+        edad: edad.trim(),
+        email_contacto: email.trim(),
+        telefono: telefono.trim(),
+        grado,
+        area_interes: areaInteres,
+        carrera_interes: carreraInteres.trim(),
+        autoevaluacion,
+        horas_estudio: horasEstudio,
+        preferencias: { horarioPreferido, modalidadPreferida, decisionCarrera },
+      });
+      if (errorInsert) console.error("No se pudo guardar el formulario de área:", errorInsert.message);
     }
 
     navigate("/informe-resultados", {
@@ -277,7 +259,21 @@ export default function FormularioArea() {
 
       {/* ── BARRA INFERIOR ── */}
       <footer className="page-footer-fixed">
-        <button onClick={generarInforme} className="btn-footer-scroll" style={{ flex: 1, minHeight: 44, background: "#7c5cbf", color: "#fff", border: "none", fontSize: 14 }}>
+        <button
+          onClick={generarInforme}
+          className="btn-footer-scroll gm-cta"
+          style={{
+            flex: 1,
+            minHeight: 44,
+            background: "#7c5cbf",
+            color: "#fff",
+            border: "none",
+            borderRadius: 12,
+            fontSize: 14,
+            fontWeight: 700,
+            boxShadow: "0 4px 14px rgba(124, 92, 191, 0.3)",
+          }}
+        >
           Generar informe
         </button>
       </footer>

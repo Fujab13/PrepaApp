@@ -2,8 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '../services/supabaseClient';
 import { cargarYCachearLeccion } from '../services/leccionesPremium';
+import { cargarYCachearExamen } from '../services/examenesPremium';
+import { obtenerMetaProducto } from '../data/storeItems';
+import { renderIconoMateria } from '../utils/renderIconoMateria';
 
-import { AiOutlineClose } from "react-icons/ai";
+import { AiOutlineClose, AiOutlineLoading3Quarters } from "react-icons/ai";
+import { HiOutlineArchiveBoxXMark, HiOutlineSquares2X2 } from "react-icons/hi2";
 
 export default function Inventario({ onClose, onNavigateStore }) {
   const navigate = useNavigate();
@@ -12,18 +16,32 @@ export default function Inventario({ onClose, onNavigateStore }) {
   const [cargandoLeccionId, setCargandoLeccionId] = useState(null);
   const [errorLeccion, setErrorLeccion] = useState('');
 
-  const abrirLeccion = async (item) => {
+  // Punto único para abrir cualquier producto del inventario: según su tipo,
+  // descarga+cachea desde el bucket privado correspondiente (mismo patrón
+  // para lecciones y para exámenes, ver leccionesPremium.js/examenesPremium.js)
+  // y navega a la vista que lo consume.
+  const abrirProducto = async (item) => {
     const producto = item.productos;
     if (!producto?.nombre) return;
 
     try {
       setErrorLeccion('');
       setCargandoLeccionId(item.producto_id);
-      await cargarYCachearLeccion(item.producto_id, producto.nombre);
-      navigate(`/leccion/premium-${item.producto_id}`);
+      if (producto.tipo_producto === 'intento_examen') {
+        // A diferencia de las lecciones (que usan producto.nombre como key
+        // del bucket), los exámenes usan producto.sku: Supabase Storage
+        // rechaza keys con acentos/espacios y el nombre de este producto
+        // los tiene (ver examenesPremium.js).
+        if (!producto.sku) throw new Error('Este examen no tiene un identificador de archivo configurado.');
+        await cargarYCachearExamen(item.producto_id, producto.sku);
+        navigate(`/examen/premium-${item.producto_id}`);
+      } else {
+        await cargarYCachearLeccion(item.producto_id, producto.nombre);
+        navigate(`/leccion/premium-${item.producto_id}`);
+      }
     } catch (err) {
-      console.error('Error al abrir la lección premium:', err);
-      setErrorLeccion('No se pudo abrir la lección. Intenta de nuevo.');
+      console.error('Error al abrir el producto del inventario:', err);
+      setErrorLeccion('No se pudo abrir. Intenta de nuevo.');
     } finally {
       setCargandoLeccionId(null);
     }
@@ -38,6 +56,14 @@ export default function Inventario({ onClose, onNavigateStore }) {
     } else {
       navigate('/');
     }
+  };
+
+  const irATienda = () => {
+    if (typeof onNavigateStore === 'function') {
+      onNavigateStore();
+      return;
+    }
+    navigate('/tienda');
   };
 
   useEffect(() => {
@@ -77,7 +103,7 @@ export default function Inventario({ onClose, onNavigateStore }) {
   };
 
   const handleItemClick = (item) => {
-    abrirLeccion(item);
+    abrirProducto(item);
   };
 
   return (
@@ -88,35 +114,93 @@ export default function Inventario({ onClose, onNavigateStore }) {
           <AiOutlineClose />
         </button>
         <h2 className="page-topbar-title">Inventario</h2>
+        {!loading && inventario.length > 0 && (
+          <span style={{ marginLeft: 'auto', fontSize: '0.78rem', fontWeight: 700, color: 'var(--text-muted)' }}>
+            {inventario.length} {inventario.length === 1 ? 'objeto' : 'objetos'}
+          </span>
+        )}
       </div>
 
       <div className="page-content-compact" style={{ display: 'flex', flexDirection: 'column', gap: '20px', flex: 1 }}>
         {errorLeccion && (
-          <p style={{ color: 'salmon' }}>{errorLeccion}</p>
+          <p style={{ color: 'var(--wrong)', fontSize: 13, textAlign: 'center', margin: 0 }}>{errorLeccion}</p>
         )}
+
         {loading ? (
-          <p style={styles.loadingText}>Cargando inventario...</p>
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 10, padding: '48px 0' }}>
+            <AiOutlineLoading3Quarters className="spin" style={{ fontSize: '1.4rem', color: '#47a6ff' }} />
+            <p style={{ color: 'var(--text-muted)', fontSize: 13, margin: 0 }}>Cargando tu inventario…</p>
+          </div>
+        ) : inventario.length === 0 ? (
+          <div className="sp-card" style={{ textAlign: 'center', alignItems: 'center' }}>
+            <div
+              className="sp-card-icon"
+              style={{ width: 52, height: 52, fontSize: '1.6rem', margin: '0 auto', background: 'rgba(71, 166, 255, 0.14)', color: '#47a6ff' }}
+            >
+              <HiOutlineArchiveBoxXMark />
+            </div>
+            <p style={{ fontSize: 14, color: 'var(--text)', margin: '10px 0 4px', fontWeight: 700 }}>
+              Tu inventario está vacío
+            </p>
+            <p style={{ fontSize: 12.5, color: 'var(--text-muted)', margin: '0 0 14px' }}>
+              Lo que compres en la tienda va a aparecer aquí.
+            </p>
+            <button
+              type="button"
+              onClick={irATienda}
+              className="gm-cta"
+              style={{
+                minHeight: 44, padding: '0 22px', borderRadius: 12, border: 'none',
+                background: '#7c5cbf', color: '#fff', fontWeight: 700, fontSize: 13.5, cursor: 'pointer',
+                boxShadow: '0 4px 14px rgba(124, 92, 191, 0.3)',
+              }}
+            >
+              Ir a la tienda
+            </button>
+          </div>
         ) : (
-          <div style={styles.gridContainer}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+              <span style={{
+                width: 22, height: 22, borderRadius: 7,
+                background: 'rgba(71, 166, 255, 0.18)', color: '#47a6ff',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                fontSize: '0.85rem', flexShrink: 0,
+              }}>
+                <HiOutlineSquares2X2 />
+              </span>
+              <p style={{
+                color: 'var(--text-muted)', fontSize: '0.72rem', fontWeight: 700,
+                textTransform: 'uppercase', letterSpacing: '1.3px', margin: 0,
+              }}>
+                Tu colección
+              </p>
+            </div>
+
             <div style={styles.zoneBlue}>
-              {inventario.map((item) => (
-                <div
-                  key={item.producto_id}
-                  style={styles.cardBlue}
-                  onClick={() => handleItemClick(item)}
-                >
-                  <div style={styles.cardContent}>
-                    <span style={styles.productName}>{item.productos?.nombre || 'Producto'}</span>
-                    <span style={styles.productType}>{item.productos?.tipo_producto}</span>
-                    {cargandoLeccionId === item.producto_id && (
-                      <span style={styles.loadingTag}>Cargando…</span>
-                    )}
-                  </div>
-                </div>
-              ))}
-              {inventario.length === 0 && (
-                <div style={styles.emptyZoneText}>Tu inventario está vacío por el momento.</div>
-              )}
+              {inventario.map((item) => {
+                const meta = obtenerMetaProducto(item.productos || {});
+                const cargandoEsteItem = cargandoLeccionId === item.producto_id;
+                return (
+                  <button
+                    key={item.producto_id}
+                    type="button"
+                    onClick={() => handleItemClick(item)}
+                    disabled={cargandoEsteItem}
+                    className="gm-cta"
+                    style={styles.cardBlue}
+                  >
+                    <div style={styles.cardIcon}>
+                      {cargandoEsteItem
+                        ? <AiOutlineLoading3Quarters className="spin" style={{ fontSize: '1.05rem' }} />
+                        : renderIconoMateria(meta.icono, { size: 18 })}
+                    </div>
+                    <span style={styles.productName}>
+                      {meta.titulo || item.productos?.nombre || 'Producto'}
+                    </span>
+                  </button>
+                );
+              })}
             </div>
           </div>
         )}
@@ -125,21 +209,12 @@ export default function Inventario({ onClose, onNavigateStore }) {
   );
 }
 
-// Estilos basados estrictamente en las variables solicitadas
+// Se conserva el look "neón" original de esta pantalla (a diferencia del
+// resto de la app, que usa sp-card) pero con el mismo ícono+color con el
+// que cada producto ya aparece en Store.jsx (ver obtenerMetaProducto), y
+// con feedback táctil real al presionar (gm-cta, global.css) — antes
+// .cardBlue declaraba una transición de transform que nunca se disparaba.
 const styles = {
-  loadingText: {
-    color: '#846c89',
-    textAlign: 'center',
-    padding: '40px',
-  },
-  gridContainer: {
-    padding: '20px 0',
-    overflowY: 'auto',
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '20px',
-    width: '100%',
-  },
   zoneBlue: {
     backgroundColor: '#101227',
     borderRadius: '16px',
@@ -150,51 +225,49 @@ const styles = {
     border: '1px solid rgba(71, 166, 255, 0.5)',
     boxShadow: '0 0 24px rgba(71, 166, 255, 0.2)',
     width: '100%',
-    maxWidth: '420px',
-    minHeight: '260px',
-    alignSelf: 'center',
   },
   cardBlue: {
     background: 'linear-gradient(135deg, #14213d 0%, #0f172a 100%)',
-    borderRadius: '12px',
-    height: '75px',
-    border: '1px solid rgba(71, 166, 255, 0.95)',
+    borderRadius: '14px',
+    minHeight: '92px',
+    border: '1px solid rgba(71, 166, 255, 0.55)',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: '6px',
+    padding: '10px 8px',
+    cursor: 'pointer',
+    boxShadow: '0 0 0 1px rgba(71, 166, 255, 0.15), 0 0 14px rgba(71, 166, 255, 0.3), inset 0 0 10px rgba(71, 166, 255, 0.15)',
+    userSelect: 'none',
+    margin: 0,
+    font: 'inherit',
+    color: 'inherit',
+    WebkitTapHighlightColor: 'transparent',
+  },
+  cardIcon: {
+    width: 32,
+    height: 32,
+    borderRadius: 10,
+    background: 'rgba(124, 92, 191, 0.2)',
+    color: '#a78bfa',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    padding: '8px',
-    cursor: 'pointer',
-    boxShadow: '0 0 0 1px rgba(71, 166, 255, 0.2), 0 0 12px rgba(71, 166, 255, 0.35), inset 0 0 8px rgba(71, 166, 255, 0.18)',
-    userSelect: 'none',
-    transition: 'transform 0.15s ease, box-shadow 0.15s ease',
-  },
-  cardContent: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    height: '100%',
-    width: '100%',
+    fontSize: '1.05rem',
+    flexShrink: 0,
+    boxShadow: '0 0 10px rgba(124, 92, 191, 0.35)',
   },
   productName: {
     color: '#f0f0f0',
     fontSize: '11px',
-    fontWeight: '500',
+    fontWeight: 600,
+    textAlign: 'center',
+    lineHeight: 1.3,
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     display: '-webkit-box',
     WebkitLineClamp: 2,
     WebkitBoxOrient: 'vertical',
-  },
-  productType: {
-    color: '#4ade80',
-    fontSize: '9px',
-    textTransform: 'uppercase',
-  },
-  emptyZoneText: {
-    gridColumn: 'span 3',
-    color: '#8ec5ff',
-    fontSize: '12px',
-    textAlign: 'center',
-    padding: '20px 0',
   },
 };

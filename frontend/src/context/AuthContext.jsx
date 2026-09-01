@@ -15,7 +15,11 @@ export function AuthProvider({ children }) {
       setPerfil(null)
       return
     }
-    const { data } = await supabase.from('perfiles').select('*').eq('id', userId).maybeSingle()
+    const { data, error } = await supabase.from('perfiles').select('*').eq('id', userId).maybeSingle()
+    // Mismo criterio que refrescarEsAdmin/refrescarEsMaestro: si la consulta
+    // falla, perfil cae en null igual, pero se loguea para no confundir un
+    // fallo de red/RLS con que el usuario de verdad no tenga perfil.
+    if (error) console.error('[Auth] No se pudo cargar el perfil:', error.message)
     setPerfil(data ?? null)
   }, [])
 
@@ -28,7 +32,11 @@ export function AuthProvider({ children }) {
       setEsAdmin(false)
       return
     }
-    const { data } = await supabase.rpc('es_admin_actual')
+    const { data, error } = await supabase.rpc('es_admin_actual')
+    // Falla cerrado a propósito (sin admin confirmado, no hay acceso), pero
+    // se loguea el error para no confundir un fallo de RPC con que a alguien
+    // de verdad le hayan quitado el rol — ver AdminPagos/AdminMaestros.
+    if (error) console.error('[Auth] No se pudo verificar el rol de admin:', error.message)
     setEsAdmin(Boolean(data))
   }, [])
 
@@ -40,7 +48,10 @@ export function AuthProvider({ children }) {
       setEsMaestro(false)
       return
     }
-    const { data } = await supabase.rpc('soy_maestro_actual')
+    const { data, error } = await supabase.rpc('soy_maestro_actual')
+    // Mismo criterio que refrescarEsAdmin: falla cerrado, pero se loguea
+    // para distinguir un fallo de RPC de una baja real del rol de maestro.
+    if (error) console.error('[Auth] No se pudo verificar el rol de maestro:', error.message)
     setEsMaestro(Boolean(data))
   }, [])
 

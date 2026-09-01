@@ -15,7 +15,7 @@ import { FaClock } from "react-icons/fa6";
 import { MdSdStorage, MdLibraryBooks } from "react-icons/md";
 import { FaVolumeUp, FaVolumeMute } from "react-icons/fa";
 import { PiChalkboardTeacher } from "react-icons/pi";
-import { HiOutlineShieldCheck, HiOutlineUserPlus, HiOutlineFlag } from "react-icons/hi2";
+import { HiOutlineShieldCheck, HiOutlineUserPlus, HiOutlineFlag, HiOutlineClipboardDocumentList } from "react-icons/hi2";
 
 
 export default function Sidenav({ open, onClose }) {
@@ -198,15 +198,13 @@ export default function Sidenav({ open, onClose }) {
             <span>Inventario</span>
           </button>
 
-          {/* Botón Tienda — desactivado temporalmente: suspension-temporal
-              (global.css) la deja semivisible con overlay "En desarrollo" y
-              bloquea clics (pointer-events: none), sin necesidad de tocar
-              la ruta /tienda ni StoreContext. */}
+          {/* Botón Tienda */}
           <button
             type="button"
-            disabled
-            aria-disabled="true"
-            className="btn-sidernav suspension-temporal"
+            onClick={() => ir('/tienda')}
+            onMouseEnter={() => setHoveredBtn('tienda')}
+            onMouseLeave={() => setHoveredBtn(null)}
+            className="btn-sidernav"
           >
             <span style={{
               fontSize: '1.1rem',
@@ -299,6 +297,26 @@ export default function Sidenav({ open, onClose }) {
                   <HiOutlineFlag />
                 </span>
                 <span>Reportes</span>
+              </button>
+
+              <button
+                onClick={() => ir('/admin/ofertas')}
+                onMouseEnter={() => setHoveredBtn('admin-ofertas')}
+                onMouseLeave={() => setHoveredBtn(null)}
+                className="btn-sidernav"
+              >
+                <span style={{
+                  fontSize: '1.1rem',
+                  width: '32px', height: '32px',
+                  background: 'rgba(234, 179, 8, 0.15)',
+                  color: '#eab308',
+                  borderRadius: '10px',
+                  display: 'flex', alignItems: 'center', justifyindex: 'center',
+                  justifyContent: 'center', flexShrink: 0
+                }}>
+                  <HiOutlineClipboardDocumentList />
+                </span>
+                <span>Ofertas</span>
               </button>
             </>
           )}

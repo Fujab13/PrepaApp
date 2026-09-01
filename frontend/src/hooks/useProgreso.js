@@ -51,11 +51,18 @@ export function useProgreso(materiaId) {
     const unidadFinal    = Math.min(nuevaUnidad, MAX_UNIDADES + 1)
     const elementoFinal  = unidadFinal > MAX_UNIDADES ? 0 : nuevoElemento
 
+    // Se guardan los valores previos para poder revertir la UI si el upsert
+    // falla: sin esto, el avance optimista de abajo deja al alumno viendo
+    // una unidad que nunca se llegó a guardar — recién se nota al recargar
+    // y aparecer de vuelta en la unidad vieja, sin explicación.
+    const unidadPrevia   = unidad
+    const elementoPrevio = elemento
+
     setUnidad(unidadFinal)
     setElemento(elementoFinal)
 
     if (user) {
-      await supabase.from('progreso_usuario').upsert(
+      const { error } = await supabase.from('progreso_usuario').upsert(
         {
           user_id:         user.id,
           materia_id:      materiaId,
@@ -65,6 +72,11 @@ export function useProgreso(materiaId) {
         },
         { onConflict: 'user_id,materia_id' }
       )
+      if (error) {
+        console.error('[useProgreso] No se pudo guardar tu progreso:', error.message)
+        setUnidad(unidadPrevia)
+        setElemento(elementoPrevio)
+      }
     } else {
       localStorage.setItem(
         `progreso_quiz_${materiaId}`,
@@ -74,10 +86,13 @@ export function useProgreso(materiaId) {
   }
 
   async function reiniciar() {
+    const unidadPrevia   = unidad
+    const elementoPrevio = elemento
+
     setUnidad(1)
     setElemento(0)
     if (user) {
-      await supabase.from('progreso_usuario').upsert(
+      const { error } = await supabase.from('progreso_usuario').upsert(
         {
           user_id:         user.id,
           materia_id:      materiaId,
@@ -87,6 +102,13 @@ export function useProgreso(materiaId) {
         },
         { onConflict: 'user_id,materia_id' }
       )
+      if (error) {
+        // Sin esto la UI se queda en unidad 1 mientras la BD conserva la
+        // unidad vieja, desincronizadas hasta el siguiente guardado exitoso.
+        console.error('[useProgreso] No se pudo reiniciar tu progreso:', error.message)
+        setUnidad(unidadPrevia)
+        setElemento(elementoPrevio)
+      }
     } else {
       localStorage.removeItem(`progreso_quiz_${materiaId}`)
     }

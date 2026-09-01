@@ -1,5 +1,5 @@
 import { createElement, isValidElement } from 'react'
-import { FaHeadset, FaClipboardList, FaBriefcaseMedical, FaBoxOpen, FaBookOpen } from 'react-icons/fa'
+import { FaClipboardList, FaBriefcaseMedical, FaBoxOpen, FaBookOpen } from 'react-icons/fa'
 import { PiMathOperationsFill } from 'react-icons/pi'
 
 // Antes este archivo hacía `import * as XIcons from 'react-icons/X'` de 21
@@ -15,7 +15,6 @@ import { PiMathOperationsFill } from 'react-icons/pi'
 // (named import de react-icons) y agrégalo a iconSet — así Rollup solo
 // empaqueta los íconos que de verdad usa la app.
 const iconSet = {
-  FaHeadset,
   FaClipboardList,
   FaBriefcaseMedical,
   FaBoxOpen,

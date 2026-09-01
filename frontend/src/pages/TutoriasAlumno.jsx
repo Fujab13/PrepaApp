@@ -10,19 +10,21 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { supabase } from "../services/supabaseClient";
 import { PublicacionOfertas } from "../components/PublicacionOfertas";
+import { Seccion } from "../components/Seccion";
 
 import { AiOutlineClose } from "react-icons/ai";
 import { PiStudent } from "react-icons/pi";
-import { HiCheckCircle } from "react-icons/hi2";
+import { HiCheckCircle, HiOutlineClipboardDocumentCheck } from "react-icons/hi2";
 
-// Indicador informativo (no bloqueante): azul si ya se completó, gris si no.
+// Azul si ya se completó (repetible: sigue llevando a /examen o
+// /formulario-area para volver a hacerlo), gris mientras se verifica.
 function EstadoPill({ completado, etiqueta, onClick }) {
   const verificando = completado === null;
   const listo = completado === true;
   return (
     <button
       type="button"
-      onClick={listo || verificando ? undefined : onClick}
+      onClick={verificando ? undefined : onClick}
       disabled={verificando}
       style={{
         display: "flex",
@@ -32,7 +34,7 @@ function EstadoPill({ completado, etiqueta, onClick }) {
         padding: "6px 14px",
         borderRadius: 999,
         border: "none",
-        cursor: listo || verificando ? "default" : "pointer",
+        cursor: verificando ? "default" : "pointer",
         background: listo ? "#4f8ef722" : "var(--surface2)",
         color: listo ? "#4f8ef7" : "var(--text-muted)",
         fontSize: 12.5,
@@ -95,7 +97,12 @@ export default function TutoriasAlumno() {
             </p>
             <button
               onClick={() => navigate("/login?modo=login")}
-              style={{ minHeight: 44, padding: "0 20px", borderRadius: 10, border: "none", background: "#7c5cbf", color: "#fff", fontWeight: 600, cursor: "pointer" }}
+              className="gm-cta"
+              style={{
+                minHeight: 44, padding: "0 20px", borderRadius: 12, border: "none",
+                background: "#7c5cbf", color: "#fff", fontWeight: 700, cursor: "pointer",
+                boxShadow: "0 4px 14px rgba(124, 92, 191, 0.3)",
+              }}
             >
               Iniciar sesión
             </button>
@@ -104,15 +111,17 @@ export default function TutoriasAlumno() {
 
         {!cargandoAuth && user && (
           <>
-            <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
-              <EstadoPill completado={examenOk} etiqueta="Examen Simulador" onClick={() => navigate("/examen")} />
-              <EstadoPill completado={formularioOk} etiqueta="Formulario Área" onClick={() => navigate("/formulario-area")} />
-            </div>
-
-            <p style={{ fontSize: 13, color: "var(--text-muted)", lineHeight: 1.5, margin: 0 }}>
-              Consulta las clases que tus maestros tienen disponibles. El grupo de WhatsApp y el pago se coordinan
-              directamente con ellos.
-            </p>
+            <Seccion
+              icono={<HiOutlineClipboardDocumentCheck />}
+              color="#7c5cbf"
+              title="Antes de reservar"
+              subtitle="Consulta las clases que tus maestros tienen disponibles. El grupo de WhatsApp y el pago se coordinan directamente con ellos."
+            >
+              <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+                <EstadoPill completado={examenOk} etiqueta="Examen Simulador" onClick={() => navigate("/examen")} />
+                <EstadoPill completado={formularioOk} etiqueta="Formulario Área" onClick={() => navigate("/formulario-area")} />
+              </div>
+            </Seccion>
 
             <PublicacionOfertas />
           </>

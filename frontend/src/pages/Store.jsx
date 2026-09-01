@@ -5,7 +5,7 @@ import { useStore } from '../context/StoreContext'
 import { supabase } from '../services/supabaseClient'
 
 import { MdToken, MdWorkspacePremium } from 'react-icons/md'
-import { HiOutlineRectangleStack, HiOutlineLifebuoy, HiOutlineSparkles } from 'react-icons/hi2'
+import { HiOutlineRectangleStack, HiOutlineSparkles } from 'react-icons/hi2'
 import { FaStripe } from "react-icons/fa";
 import { AiOutlineClose } from "react-icons/ai";
 import { PiShoppingCartSimpleFill } from "react-icons/pi";
@@ -15,7 +15,6 @@ import { renderIconoMateria } from '../utils/renderIconoMateria'
 
 const CATEGORIA_ESTILO = {
   'Práctica extra': { Icon: HiOutlineRectangleStack, tinte: '96, 165, 250' },
-  'Asistencia': { Icon: HiOutlineLifebuoy, tinte: '52, 211, 153' },
   'Suscripción': { Icon: MdWorkspacePremium, tinte: '167, 139, 250' },
 }
 const ESTILO_DEFAULT = { Icon: HiOutlineSparkles, tinte: '148, 163, 184' }

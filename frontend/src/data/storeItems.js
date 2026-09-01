@@ -7,17 +7,7 @@
 
 // Items que son pura gamificación: no existen en Supabase y no entregan
 // nada descargable, así que se quedan hardcodeados aquí.
-export const COIN_ITEMS = [
-  {
-    id: 'seguimiento-proceso',
-    categoria: 'Asistencia',
-    icono: 'FaHeadset',
-    nombre: 'Seguimiento de proceso',
-    descripcion: 'Te decimos que hacer y donde hacerlo.',
-    type: 'coins',
-    priceCoins: 100,
-  },
-]
+export const COIN_ITEMS = []
 
 // `productos.categoria`/`icono` no existen como columnas en Supabase (son
 // puramente de presentación), así que se resuelven aquí por `id`. Un
@@ -42,12 +32,23 @@ const PRODUCTO_UI_META_POR_TIPO = {
 
 const PRODUCTO_META_DEFAULT = { categoria: 'Práctica extra', icono: 'FaBoxOpen' }
 
-/** Convierte una fila de `productos` (Supabase) en un item que Store.jsx puede renderizar. */
-export function productoAStoreItem(producto) {
-  const meta =
+/**
+ * Resuelve la metadata de presentación (categoría/ícono/título) de una fila
+ * de `productos`. Se exporta aparte de `productoAStoreItem` para que
+ * Inventario.jsx pueda mostrar el mismo ícono con el que ese producto ya
+ * aparecía en la Tienda, en vez de mantener un segundo mapeo por su cuenta.
+ */
+export function obtenerMetaProducto(producto) {
+  return (
     PRODUCTO_UI_META[producto.id] ||
     PRODUCTO_UI_META_POR_TIPO[producto.tipo_producto] ||
     PRODUCTO_META_DEFAULT
+  )
+}
+
+/** Convierte una fila de `productos` (Supabase) en un item que Store.jsx puede renderizar. */
+export function productoAStoreItem(producto) {
+  const meta = obtenerMetaProducto(producto)
 
   return {
     id: `producto-${producto.id}`,

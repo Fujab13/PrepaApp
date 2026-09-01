@@ -24,7 +24,6 @@ import {
 import { crearReporteProfesor } from "../services/reportes";
 
 import { AiOutlineClose } from "react-icons/ai";
-import { PiChalkboardTeacher } from "react-icons/pi";
 import { HiOutlineChatBubbleLeftRight, HiOutlineFlag } from "react-icons/hi2";
 
 const COMENTARIO_MAX = 150;
@@ -167,9 +166,6 @@ export default function PerfilProfesor() {
         <button onClick={() => navigate(-1)} title="Salir" className="page-topbar-btn">
           <AiOutlineClose />
         </button>
-        <span className="page-topbar-btn" style={{ fontSize: "1.35rem" }}>
-          <PiChalkboardTeacher />
-        </span>
         <h2 className="page-topbar-title" style={{ fontSize: "1rem" }}>Perfil del profesor</h2>
       </header>
 

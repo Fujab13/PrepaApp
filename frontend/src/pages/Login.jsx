@@ -8,6 +8,7 @@ import { AiOutlineClose, AiOutlineLoading3Quarters } from 'react-icons/ai'
 import { HiOutlineAcademicCap, HiOutlineEnvelope, HiOutlineLockClosed } from 'react-icons/hi2'
 import { FiEye, FiEyeOff } from 'react-icons/fi'
 import { FcGoogle } from 'react-icons/fc'
+import { LuHexagon } from "react-icons/lu";
 
 // Supabase devuelve sus mensajes de error en inglés; los traducimos para
 // los casos más comunes y dejamos el original como fallback.
@@ -160,7 +161,7 @@ export default function Login() {
             fontSize: '1.6rem', color: '#fff', flexShrink: 0,
             boxShadow: '0 8px 24px rgba(124, 92, 191, 0.35)'
           }}>
-            <HiOutlineAcademicCap />
+            <LuHexagon  />
           </div>
           <div>
             <h1 style={{ fontSize: '1.5rem', fontWeight: 800, margin: 0, letterSpacing: '-0.02em' }}>PrepaApp</h1>

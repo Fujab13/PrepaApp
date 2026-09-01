@@ -102,6 +102,7 @@ export function PublicacionOfertas({ permitirPublicar = false }) {
 
   const [ofertas, setOfertas] = useState([]);
   const [cargando, setCargando] = useState(true);
+  const [errorOfertas, setErrorOfertas] = useState("");
   const [borrandoId, setBorrandoId] = useState(null);
   const [disponibilidad, setDisponibilidad] = useState({});
   const [calificaciones, setCalificaciones] = useState({});
@@ -145,12 +146,21 @@ export function PublicacionOfertas({ permitirPublicar = false }) {
 
   async function cargarOfertas() {
     setCargando(true);
-    const { data } = await supabase
+    const { data, error: fetchError } = await supabase
       .from("ofertas_maestro")
       .select("*")
       .gte("fecha_hora", new Date().toISOString())
       .order("fecha_hora", { ascending: true });
-    setOfertas(data ?? []);
+    if (fetchError) {
+      // No se pisa `ofertas` con [] aquí: un fallo de red no debe verse
+      // igual que "no hay ofertas" — si ya había una lista cargada, se deja
+      // tal cual en vez de vaciarla por una falla transitoria.
+      console.error("No se pudieron cargar las ofertas:", fetchError.message);
+      setErrorOfertas("No se pudieron cargar las ofertas. Revisa tu conexión e intenta de nuevo.");
+    } else {
+      setErrorOfertas("");
+      setOfertas(data ?? []);
+    }
     setCargando(false);
   }
 
@@ -165,9 +175,18 @@ export function PublicacionOfertas({ permitirPublicar = false }) {
     if (permitirPublicar || lista.length === 0) return;
     const entradas = await Promise.all(
       lista.map(async (oferta) => {
-        const { data } = await supabase.rpc("asientos_disponibles_oferta_maestro", {
+        const { data, error } = await supabase.rpc("asientos_disponibles_oferta_maestro", {
           p_oferta_id: oferta.id,
         });
+        if (error) {
+          // `{ error: true }` en vez de null: null ya significa "la RPC
+          // contestó pero sin datos", así que un fallo real necesita su
+          // propia marca — si no, el botón de reservar se ve igual de
+          // habilitado que cuando de verdad no hay info que mostrar, en vez
+          // de avisar que no se pudo verificar el cupo.
+          console.error(`No se pudo verificar el cupo de la oferta ${oferta.id}:`, error.message);
+          return [oferta.id, { error: true }];
+        }
         return [oferta.id, data ?? null];
       })
     );
@@ -207,9 +226,17 @@ export function PublicacionOfertas({ permitirPublicar = false }) {
     if (!transaccionId) return;
 
     (async () => {
-      await supabase.rpc("cancelar_reserva_oferta_maestro", { p_transaccion_id: transaccionId });
-      if (reservaRef.current?.transaccionId === transaccionId) setReserva(null);
-      setInfo("Tu reserva fue cancelada; el asiento quedó libre de nuevo.");
+      const { error: cancelError } = await supabase.rpc("cancelar_reserva_oferta_maestro", { p_transaccion_id: transaccionId });
+      if (cancelError) {
+        // No se toca `reserva`: si de verdad seguía activa en el servidor,
+        // debe seguir viéndose así (con su cuenta regresiva) en vez de
+        // desaparecer de la UI mientras el asiento sigue ocupado.
+        console.error("No se pudo cancelar la reserva al volver de Stripe:", cancelError.message);
+        setError(mensajeErrorReserva(cancelError));
+      } else {
+        if (reservaRef.current?.transaccionId === transaccionId) setReserva(null);
+        setInfo("Tu reserva fue cancelada; el asiento quedó libre de nuevo.");
+      }
       cargarOfertas();
     })();
 
@@ -244,9 +271,17 @@ export function PublicacionOfertas({ permitirPublicar = false }) {
 
     // Solo se sostiene una reserva a la vez en esta UI: si había otra
     // activa (de otra oferta), se cancela primero para no dejarla colgada
-    // hasta que el TTL la venza solo.
+    // hasta que el TTL la venza solo. Si esa cancelación falla, hay que
+    // abortar aquí — seguir de largo dejaría al alumno con dos reservas
+    // ocupando dos asientos a la vez.
     if (reserva && reserva.ofertaId !== oferta.id) {
-      await supabase.rpc("cancelar_reserva_oferta_maestro", { p_transaccion_id: reserva.transaccionId });
+      const { error: cancelError } = await supabase.rpc("cancelar_reserva_oferta_maestro", { p_transaccion_id: reserva.transaccionId });
+      if (cancelError) {
+        console.error("No se pudo cancelar tu reserva anterior:", cancelError.message);
+        setReservandoId(null);
+        setError("No se pudo liberar tu reserva anterior. Cancélala o espera a que expire antes de reservar otra clase.");
+        return;
+      }
     }
 
     const { data, error: rpcError } = await supabase.rpc("iniciar_reserva_oferta_maestro", {
@@ -319,8 +354,13 @@ export function PublicacionOfertas({ permitirPublicar = false }) {
   async function cancelarReserva() {
     if (!reserva) return;
     setCancelando(true);
-    await supabase.rpc("cancelar_reserva_oferta_maestro", { p_transaccion_id: reserva.transaccionId });
+    const { error: cancelError } = await supabase.rpc("cancelar_reserva_oferta_maestro", { p_transaccion_id: reserva.transaccionId });
     setCancelando(false);
+    if (cancelError) {
+      console.error("No se pudo cancelar la reserva:", cancelError.message);
+      setError(mensajeErrorReserva(cancelError));
+      return;
+    }
     setReserva(null);
     setInfo("Reserva cancelada.");
     cargarOfertas();
@@ -642,7 +682,10 @@ export function PublicacionOfertas({ permitirPublicar = false }) {
       </p>
 
       {cargando && <p style={{ fontSize: 13, color: "var(--text-muted)", margin: 0 }}>Cargando…</p>}
-      {!cargando && ofertas.length === 0 && (
+      {!cargando && errorOfertas && (
+        <p style={{ fontSize: 13, color: "var(--wrong)", margin: 0 }}>{errorOfertas}</p>
+      )}
+      {!cargando && !errorOfertas && ofertas.length === 0 && (
         <p style={{ fontSize: 13, color: "var(--text-muted)", margin: 0 }}>Por ahora no hay ofertas disponibles.</p>
       )}
       {!cargando && ofertas.length > 0 && listaVisible.length === 0 && (
@@ -699,8 +742,9 @@ export function PublicacionOfertas({ permitirPublicar = false }) {
 
               {!permitirPublicar && (() => {
                 const disp = disponibilidad[oferta.id];
+                const errorCupo = disp?.error === true;
                 const activa = reserva?.ofertaId === oferta.id;
-                const sinCupo = disp && (!disp.vigente || disp.disponibles <= 0);
+                const sinCupo = disp && !errorCupo && (!disp.vigente || disp.disponibles <= 0);
 
                 if (activa) {
                   const restanteMs = new Date(reserva.expiraEn).getTime() - Date.now();
@@ -771,28 +815,30 @@ export function PublicacionOfertas({ permitirPublicar = false }) {
                   <button
                     type="button"
                     onClick={() => reservar(oferta)}
-                    disabled={reservandoId === oferta.id || sinCupo || Boolean(reserva)}
+                    disabled={reservandoId === oferta.id || sinCupo || errorCupo || Boolean(reserva)}
                     style={{
                       marginTop: 10,
                       width: "100%",
                       minHeight: 44,
                       borderRadius: 10,
                       border: "none",
-                      background: sinCupo ? "var(--surface)" : color,
-                      color: sinCupo ? "var(--text-muted)" : "#fff",
+                      background: sinCupo || errorCupo ? "var(--surface)" : color,
+                      color: sinCupo || errorCupo ? "var(--text-muted)" : "#fff",
                       fontWeight: 700,
                       fontSize: 13,
-                      cursor: reservandoId === oferta.id || sinCupo || reserva ? "default" : "pointer",
+                      cursor: reservandoId === oferta.id || sinCupo || errorCupo || reserva ? "default" : "pointer",
                       opacity: reservandoId === oferta.id ? 0.7 : 1,
                     }}
                   >
-                    {sinCupo
-                      ? disp && !disp.vigente ? "Clase vencida" : "Sin cupo disponible"
-                      : reservandoId === oferta.id
-                        ? "Reservando…"
-                        : disp
-                          ? `Reservar asiento (${disp.disponibles} disponibles)`
-                          : "Reservar asiento"}
+                    {errorCupo
+                      ? "No se pudo verificar el cupo"
+                      : sinCupo
+                        ? disp && !disp.vigente ? "Clase vencida" : "Sin cupo disponible"
+                        : reservandoId === oferta.id
+                          ? "Reservando…"
+                          : disp
+                            ? `Reservar asiento (${disp.disponibles} disponibles)`
+                            : "Reservar asiento"}
                   </button>
                 );
               })()}

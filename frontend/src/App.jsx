@@ -18,6 +18,7 @@ import AlumnosOfertas from './pages/AlumnosOfertas';
 import AdminPagos from './pages/AdminPagos';
 import AdminMaestros from './pages/AdminMaestros';
 import AdminReportes from './pages/AdminReportes';
+import AdminOfertas from './pages/AdminOfertas';
 import MisGanancias from './pages/MisGanancias';
 import Tutorias from './pages/Tutorias';
 import TutoriasAlumno from './pages/TutoriasAlumno';
@@ -64,6 +65,7 @@ export default function App() {
         <Route path="/actualizar-password" element={<ActualizarPassword />} />
         <Route path="/tienda" element={<Store />} />
         <Route path="/examen" element={<Examen />} />
+        <Route path="/examen/:examenId" element={<Examen />} />
         <Route path="/inventario" element={<Inventario />} />
         <Route path="/formulario-area" element={<FormularioArea />} />
         <Route path="/informe-resultados" element={<InformeResultados />} />
@@ -72,6 +74,7 @@ export default function App() {
         <Route path="/admin/pagos" element={<AdminPagos />} />
         <Route path="/admin/maestros" element={<AdminMaestros />} />
         <Route path="/admin/reportes" element={<AdminReportes />} />
+        <Route path="/admin/ofertas" element={<AdminOfertas />} />
         <Route path="/tutorias" element={<Tutorias />} />
         <Route path="/tutorias/alumno" element={<TutoriasAlumno />} />
         <Route path="/tutorias/maestro" element={<TutoriasMaestro />} />

@@ -5,7 +5,7 @@
 // en su portal. No hay flujo de aceptar/pagar dentro de la app — el maestro
 // coordina grupo de WhatsApp y pago directamente con cada alumno.
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { supabase } from "../services/supabaseClient";
@@ -107,6 +107,7 @@ export default function TutoriasMaestro() {
   // Registro self-service de profesor (mientras no sea maestro verificado).
   const [estadoProfesor, setEstadoProfesor] = useState(null);
   const [cargandoEstadoProfesor, setCargandoEstadoProfesor] = useState(true);
+  const [errorEstadoProfesor, setErrorEstadoProfesor] = useState("");
   const [regNombre, setRegNombre] = useState("");
   const [regCurp, setRegCurp] = useState("");
   const [regEmailContacto, setRegEmailContacto] = useState("");
@@ -135,16 +136,28 @@ export default function TutoriasMaestro() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [estadoProfesor?.nombre]);
 
-  useEffect(() => {
-    if (!user) return;
+  const cargarEstadoProfesor = useCallback(() => {
+    if (!user) return () => {};
     let cancelado = false;
     setCargandoEstadoProfesor(true);
+    setErrorEstadoProfesor("");
     obtenerMiEstadoProfesor()
       .then((data) => { if (!cancelado) setEstadoProfesor(data); })
-      .catch(() => { if (!cancelado) setEstadoProfesor(null); })
+      .catch((err) => {
+        if (cancelado) return;
+        // Sin esto, un fallo de red se ve idéntico a "nunca te registraste":
+        // estadoProfesor cae en null en ambos casos y el render de abajo
+        // muestra el formulario de alta vacío, como si el nombre/CURP que
+        // ya había registrado nunca se hubiera guardado.
+        console.error('No se pudo cargar tu registro de profesor:', err.message);
+        setEstadoProfesor(null);
+        setErrorEstadoProfesor('No se pudo cargar tu registro de profesor. Revisa tu conexión e intenta de nuevo.');
+      })
       .finally(() => { if (!cancelado) setCargandoEstadoProfesor(false); });
     return () => { cancelado = true; };
   }, [user]);
+
+  useEffect(() => cargarEstadoProfesor(), [cargarEstadoProfesor]);
 
   useEffect(() => {
     if (!user) return;
@@ -396,7 +409,12 @@ export default function TutoriasMaestro() {
             </p>
             <button
               onClick={() => navigate("/login?modo=login")}
-              style={{ minHeight: 44, padding: "0 20px", borderRadius: 10, border: "none", background: "#06b6d4", color: "#fff", fontWeight: 600, cursor: "pointer" }}
+              className="gm-cta"
+              style={{
+                minHeight: 44, padding: "0 20px", borderRadius: 12, border: "none",
+                background: "#06b6d4", color: "#fff", fontWeight: 700, cursor: "pointer",
+                boxShadow: "0 4px 14px rgba(6, 182, 212, 0.3)",
+              }}
             >
               Iniciar sesión
             </button>
@@ -409,7 +427,23 @@ export default function TutoriasMaestro() {
               <p style={{ color: "var(--text-muted)", fontSize: 13, textAlign: "center" }}>Cargando…</p>
             )}
 
-            {!cargandoEstadoProfesor && (!estadoProfesor || (estadoProfesor && !estadoProfesor.verificado && editandoRegistro)) && (
+            {!cargandoEstadoProfesor && errorEstadoProfesor && (
+              <div className="sp-card" style={{ textAlign: "center" }}>
+                <p style={{ fontSize: 13, color: "var(--wrong)", margin: "0 0 12px" }}>{errorEstadoProfesor}</p>
+                <button
+                  type="button"
+                  onClick={cargarEstadoProfesor}
+                  style={{ minHeight: 44, padding: "0 20px", borderRadius: 10, border: "1px solid var(--surface2)", background: "transparent", color: "var(--text)", fontWeight: 700, cursor: "pointer" }}
+                >
+                  Reintentar
+                </button>
+              </div>
+            )}
+
+            {/* Sin `!errorEstadoProfesor`, un fallo de red se vería igual que
+                "nunca te registraste" (estadoProfesor cae en null en ambos
+                casos) y este formulario vacío tapa un registro que sí existe. */}
+            {!cargandoEstadoProfesor && !errorEstadoProfesor && (!estadoProfesor || (estadoProfesor && !estadoProfesor.verificado && editandoRegistro)) && (
               <Seccion
                 icono={<HiOutlineIdentification />}
                 color="#06b6d4"
@@ -480,7 +514,12 @@ export default function TutoriasMaestro() {
                   <button
                     onClick={estadoProfesor ? guardarEdicionRegistro : enviarRegistroProfesor}
                     disabled={registrandoProfesor}
-                    style={{ flex: 1, minHeight: 44, borderRadius: 10, border: "none", background: "#06b6d4", color: "#fff", fontWeight: 700, fontSize: 14, cursor: registrandoProfesor ? "default" : "pointer", opacity: registrandoProfesor ? 0.7 : 1 }}
+                    className="gm-cta"
+                    style={{
+                      flex: 1, minHeight: 44, borderRadius: 12, border: "none", background: "#06b6d4",
+                      color: "#fff", fontWeight: 700, fontSize: 14, cursor: registrandoProfesor ? "default" : "pointer",
+                      opacity: registrandoProfesor ? 0.7 : 1, boxShadow: "0 4px 14px rgba(6, 182, 212, 0.3)",
+                    }}
                   >
                     {registrandoProfesor ? "Guardando…" : estadoProfesor ? "Guardar cambios" : "Enviar mi registro"}
                   </button>
@@ -592,7 +631,12 @@ export default function TutoriasMaestro() {
             <button
               onClick={iniciarSesionProfesor}
               disabled={verificandoLogin}
-              style={{ minHeight: 44, borderRadius: 10, border: "none", background: "#4f8ef7", color: "#fff", fontWeight: 700, fontSize: 14, cursor: verificandoLogin ? "default" : "pointer", opacity: verificandoLogin ? 0.7 : 1 }}
+              className="gm-cta"
+              style={{
+                minHeight: 44, borderRadius: 12, border: "none", background: "#4f8ef7", color: "#fff",
+                fontWeight: 700, fontSize: 14, cursor: verificandoLogin ? "default" : "pointer",
+                opacity: verificandoLogin ? 0.7 : 1, boxShadow: "0 4px 14px rgba(79, 142, 247, 0.3)",
+              }}
             >
               {verificandoLogin ? "Verificando…" : "Entrar"}
             </button>
@@ -605,7 +649,11 @@ export default function TutoriasMaestro() {
               <button
                 type="button"
                 onClick={() => navigate("/tutorias/maestro/ganancias")}
-                style={{ minHeight: 44, borderRadius: 10, border: "none", background: "#4f8ef7", color: "#fff", fontWeight: 700, fontSize: 14, cursor: "pointer" }}
+                className="gm-cta"
+                style={{
+                  minHeight: 44, borderRadius: 12, border: "none", background: "#4f8ef7", color: "#fff",
+                  fontWeight: 700, fontSize: 14, cursor: "pointer", boxShadow: "0 4px 14px rgba(79, 142, 247, 0.3)",
+                }}
               >
                 Ver mis ganancias
               </button>
@@ -620,7 +668,11 @@ export default function TutoriasMaestro() {
               <button
                 type="button"
                 onClick={() => navigate("/informe-resultados")}
-                style={{ minHeight: 44, borderRadius: 10, border: "none", background: "#22c55e", color: "#fff", fontWeight: 700, fontSize: 14, cursor: "pointer" }}
+                className="gm-cta"
+                style={{
+                  minHeight: 44, borderRadius: 12, border: "none", background: "#22c55e", color: "#fff",
+                  fontWeight: 700, fontSize: 14, cursor: "pointer", boxShadow: "0 4px 14px rgba(34, 197, 94, 0.3)",
+                }}
               >
                 Buscar por correo
               </button>
@@ -630,7 +682,11 @@ export default function TutoriasMaestro() {
               <button
                 type="button"
                 onClick={() => navigate("/tutorias/maestro/alumnos")}
-                style={{ minHeight: 44, borderRadius: 10, border: "none", background: "#06b6d4", color: "#fff", fontWeight: 700, fontSize: 14, cursor: "pointer" }}
+                className="gm-cta"
+                style={{
+                  minHeight: 44, borderRadius: 12, border: "none", background: "#06b6d4", color: "#fff",
+                  fontWeight: 700, fontSize: 14, cursor: "pointer", boxShadow: "0 4px 14px rgba(6, 182, 212, 0.3)",
+                }}
               >
                 Ver alumnos inscritos
               </button>
@@ -759,7 +815,12 @@ export default function TutoriasMaestro() {
                 <button
                   onClick={guardarOferta}
                   disabled={publicando}
-                  style={{ flex: 1, minHeight: 44, borderRadius: 10, border: "none", background: "#4f8ef7", color: "#fff", fontWeight: 700, fontSize: 14, cursor: publicando ? "default" : "pointer", opacity: publicando ? 0.7 : 1 }}
+                  className="gm-cta"
+                  style={{
+                    flex: 1, minHeight: 44, borderRadius: 12, border: "none", background: "#4f8ef7", color: "#fff",
+                    fontWeight: 700, fontSize: 14, cursor: publicando ? "default" : "pointer",
+                    opacity: publicando ? 0.7 : 1, boxShadow: "0 4px 14px rgba(79, 142, 247, 0.3)",
+                  }}
                 >
                   {publicando ? "Guardando…" : editandoId ? "Guardar cambios" : "Publicar disponibilidad"}
                 </button>

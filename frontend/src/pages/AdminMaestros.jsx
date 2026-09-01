@@ -36,6 +36,7 @@ import {
   HiOutlineMagnifyingGlass,
   HiOutlineArrowRightOnRectangle,
   HiOutlineFlag,
+  HiOutlineClipboardDocumentList,
 } from "react-icons/hi2";
 
 function fmtFecha(ts) {
@@ -52,6 +53,11 @@ export default function AdminMaestros() {
   const [procesandoId, setProcesandoId] = useState(null);
   const [copiadoId, setCopiadoId] = useState(null);
   const [busqueda, setBusqueda] = useState("");
+  // CLABEs que cada profesor ha capturado al publicar sus ofertas: no existe
+  // un "número de cuenta" fijo en el registro del profesor (ver `profesores`
+  // en Supabase) — cada oferta publicada guarda la suya en
+  // ofertas_maestro.cuenta_clave, así que se agrupan aquí por creado_por.
+  const [clabesPorProfesor, setClabesPorProfesor] = useState({});
 
   const [accesoObjetivo, setAccesoObjetivo] = useState(null); // profesor a confirmar
   const [accediendo, setAccediendo] = useState(false);
@@ -66,6 +72,14 @@ export default function AdminMaestros() {
       setError("No se pudo cargar la lista de profesores.");
     }
     setCargando(false);
+
+    const { data: ofertas } = await supabase.from("ofertas_maestro").select("creado_por, cuenta_clave");
+    const agrupadas = {};
+    for (const o of ofertas ?? []) {
+      if (!o.cuenta_clave) continue;
+      (agrupadas[o.creado_por] ??= new Set()).add(o.cuenta_clave);
+    }
+    setClabesPorProfesor(agrupadas);
   }
 
   useEffect(() => {
@@ -136,6 +150,7 @@ export default function AdminMaestros() {
   function TarjetaProfesor({ p, esPendiente }) {
     const tieneReportes = p.total_reportes > 0;
     const colorBorde = tieneReportes ? "#ef4444" : esPendiente ? "#eab308" : "transparent";
+    const clabes = [...(clabesPorProfesor[p.user_id] ?? [])];
 
     return (
       <div className="sp-card" style={{ margin: 0, border: `1.5px solid ${colorBorde}` }}>
@@ -190,6 +205,25 @@ export default function AdminMaestros() {
         <div style={{ marginTop: 10, fontSize: 12, color: "var(--text-muted)", lineHeight: 1.6, wordBreak: "break-word" }}>
           <p style={{ margin: 0 }}>Contacto: {p.email_contacto || "—"} {p.telefono_contacto ? `· ${p.telefono_contacto}` : ""}</p>
           <p style={{ margin: 0 }}>Materias: {(p.materias || []).join(", ") || "—"}</p>
+        </div>
+
+        {/* No hay un "número de cuenta" único en el registro del profesor: cada
+            oferta que publica captura su propia CLABE, así que aquí se listan
+            todas las que ha usado (normalmente una sola, salvo que la haya
+            cambiado entre ofertas). */}
+        <div style={{ marginTop: 10, background: "var(--surface)", border: "1px solid var(--surface2)", borderRadius: 10, padding: 10 }}>
+          <p style={{ fontSize: 12, color: "var(--text-muted)", margin: "0 0 6px" }}>
+            CLABE{clabes.length > 1 ? "s" : ""} usada{clabes.length > 1 ? "s" : ""} en sus ofertas
+          </p>
+          {clabes.length === 0 ? (
+            <p style={{ fontSize: 13, color: "var(--text-muted)", margin: 0 }}>Sin ofertas publicadas todavía.</p>
+          ) : (
+            clabes.map((clabe) => (
+              <p key={clabe} style={{ fontSize: 14, fontWeight: 700, color: "var(--text)", fontFamily: "monospace", margin: 0 }}>
+                {clabe}
+              </p>
+            ))
+          )}
         </div>
 
         <div style={{ marginTop: 10, background: "var(--surface)", border: "1px solid var(--surface2)", borderRadius: 10, padding: 10, display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
@@ -247,6 +281,23 @@ export default function AdminMaestros() {
             }}
           >
             <HiOutlineArrowRightOnRectangle /> Acceder a esta cuenta
+          </button>
+
+          {/* Sigue funcionando aunque este profesor esté desactivado: a
+              diferencia de "Acceder a esta cuenta" (que entra como él),
+              esto va al panel de admin sobre TODAS las ofertas
+              (admin_update_todas/admin_delete_todas en Supabase), no
+              depende de que su propio portal de maestro esté disponible. */}
+          <button
+            type="button"
+            onClick={() => navigate(`/admin/ofertas?buscar=${encodeURIComponent(p.nombre || "")}`)}
+            style={{
+              flex: "1 1 160px", minHeight: 44, borderRadius: 10, fontSize: 13, fontWeight: 700,
+              border: "1px solid #eab308", background: "transparent", color: "#eab308", cursor: "pointer",
+              display: "flex", alignItems: "center", justifyContent: "center", gap: 6,
+            }}
+          >
+            <HiOutlineClipboardDocumentList /> Ver sus ofertas
           </button>
         </div>
       </div>
