@@ -1,0 +1,27 @@
+-- Elimina el regalo automático de un intento de examen al registrarse.
+--
+-- `dar_examen_gratis()` corre como trigger AFTER INSERT ON auth.users (ver
+-- comentario en 20260803220000_fix_tipo_movimiento_check.sql) e inserta,
+-- para cada usuario nuevo, 1 unidad del producto '9ad86f75-1279-4783-8efc-
+-- 05f0a36c50ac' en inventario_usuario con tipo_movimiento
+-- 'intento_gratis_registro'. Ese producto es el examen premium que ahora se
+-- va a vender como "versión" independiente (ver EXAMEN_DIAG_01.json /
+-- examenesPremium.js) — regalarlo en cada alta ya no tiene sentido si deja
+-- de tratarse como un intento consumible.
+--
+-- IMPORTANTE — verifica antes de aplicar esta migración en producción:
+--   1. Que '9ad86f75-1279-4783-8efc-05f0a36c50ac' siga siendo el id del
+--      producto correcto:
+--        select id, nombre, sku, precio from productos
+--        where id = '9ad86f75-1279-4783-8efc-05f0a36c50ac';
+--   2. Que no exista otro trigger/función dependiendo de dar_examen_gratis()
+--      además del trigger en auth.users (el DROP ... CASCADE de abajo se
+--      encarga de borrar ese trigger sin necesidad de saber su nombre
+--      exacto, pero también borraría cualquier otro objeto que dependa de
+--      la función).
+--
+-- Esto NO le quita a nadie el intento que ya haya recibido: solo detiene el
+-- regalo para las altas futuras. inventario_usuario e inventario_movimientos
+-- no se tocan.
+
+drop function if exists public.dar_examen_gratis() cascade;

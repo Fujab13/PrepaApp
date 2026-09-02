@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { MATERIAS } from '../data/leccionesGratis'
 import { LIBROS } from '../data/libros'
 import { useProgreso } from '../hooks/useProgreso'
+import { getTotalUnidades } from '../data/unidades'
 import MateriaCard from '../components/MateriaCard'
 import Hexagono from '../components/Hexagono'
 import LibroCard from '../components/LibroCard'
@@ -45,14 +46,19 @@ export default function Home() {
   localStorage.getItem('hapticsEnabled') !== 'false'
   );
   const [frameIdx, setFrameIdx] = useState(0)
-  const { unidadesCompletas } = useProgreso(featuredId)
   const featured = MATERIAS.find(m => m.id === featuredId) || MATERIAS[0]
+  const totalUnidadesFeatured = getTotalUnidades(featured.preguntas)
+  const { unidad: unidadFeatured, unidadesCompletas, cargando: cargandoProgresoFeatured } = useProgreso(featuredId, totalUnidadesFeatured)
 
   // Baseline diario del hexágono: cuántas unidades ya estaban completas
   // cuando arrancó la ventana de 24h actual. progresoHex = lo avanzado desde ahí.
+  // Se espera a que useProgreso termine de cargar: si se calculara antes,
+  // unidadesCompletas todavía estaría en su valor inicial (0) y ese 0 quedaría
+  // guardado como baseline del día, inflando progresoHex apenas cargue el
+  // progreso real.
   const [hexBaseline, setHexBaseline] = useState(null)
   useEffect(() => {
-    if (!featuredId) return
+    if (!featuredId || cargandoProgresoFeatured) return
     const key = `hex_diario_${featuredId}`
     let baseline
     try {
@@ -66,7 +72,7 @@ export default function Home() {
       localStorage.setItem(key, JSON.stringify({ valor: baseline, expira: Date.now() + HEX_RESET_MS }))
     }
     setHexBaseline(baseline)
-  }, [featuredId, unidadesCompletas])
+  }, [featuredId, unidadesCompletas, cargandoProgresoFeatured])
 
   const progresoHex = hexBaseline === null ? 0 : Math.min(Math.max(unidadesCompletas - hexBaseline, 0), 6)
   const cambiarFeatured = (id) => {
@@ -159,7 +165,7 @@ export default function Home() {
           <button className="util-btn"
           title="Déjanos tu feedback"
           data-gamificacion="bajo"
-          onClick={() => window.open('https://docs.google.com/forms/d/e/1FAIpQLSeoEBlg6L-kp1X1IbuaHFaHa85eL0X2ph0XEX0Hu6wFGpL-Pw/viewform?pli=1', '_blank', 'noopener,noreferrer')}>
+          onClick={() => window.open('https://docs.google.com/forms/d/e/1FAIpQLSdL7kMszqEST7S0d2X3JkL-rhxiS2v4nJ1_qVV06nZ-pfFUQw/viewform?usp=publish-editor', '_blank', 'noopener,noreferrer')}>
             <FaRegCommentDots />
           </button>
           {vibracionSoportada && (
@@ -186,9 +192,10 @@ export default function Home() {
       <div className="page-content" style={{ display: 'flex', flexDirection: 'column', gap: '20px', flex: 1 }}>
 
         <div style={{background: 'var(--surface2)', borderRadius: 'var(--radius)', padding: '28px 20px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px'}}>
-        <p style={{ color: 'var(--text-muted)', fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '1.5px' }}>
-          progreso en {featured.nombre}</p>
-          
+        <p style={{ margin: 0, width: '100%', textAlign: 'center', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', color: 'var(--text-muted)', fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '1.5px' }}>
+          {`En ${featured.nombre} ${unidadFeatured > totalUnidadesFeatured ? '¡Curso completo!' : `Unidad ${unidadFeatured} de ${totalUnidadesFeatured}`}`}
+        </p>
+
           <Hexagono
           progreso={progresoHex}
           color={featured.color}

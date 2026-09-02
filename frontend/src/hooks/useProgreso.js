@@ -2,9 +2,13 @@ import { useState, useEffect } from 'react'
 import { supabase } from '../services/supabaseClient'
 import { useAuth } from '../context/AuthContext'
 
-const MAX_UNIDADES = 26
+// Tope de respaldo mientras aún no se conoce el tamaño real de la materia
+// (p. ej. en Leccion.jsx, antes de que termine de cargar el JSON/lección
+// premium). En cuanto se conoce, el llamador pasa `totalUnidades` calculado
+// con getTotalUnidades() y ese es el que realmente se usa.
+const MAX_UNIDADES_RESPALDO = 26
 
-export function useProgreso(materiaId) {
+export function useProgreso(materiaId, totalUnidades = MAX_UNIDADES_RESPALDO) {
   const { user } = useAuth()
   const [unidad, setUnidad]     = useState(1)
   const [elemento, setElemento] = useState(0)
@@ -48,8 +52,8 @@ export function useProgreso(materiaId) {
   }, [materiaId, user])
 
   async function guardarProgreso(nuevaUnidad, nuevoElemento) {
-    const unidadFinal    = Math.min(nuevaUnidad, MAX_UNIDADES + 1)
-    const elementoFinal  = unidadFinal > MAX_UNIDADES ? 0 : nuevoElemento
+    const unidadFinal    = Math.min(nuevaUnidad, totalUnidades + 1)
+    const elementoFinal  = unidadFinal > totalUnidades ? 0 : nuevoElemento
 
     // Se guardan los valores previos para poder revertir la UI si el upsert
     // falla: sin esto, el avance optimista de abajo deja al alumno viendo
@@ -114,7 +118,7 @@ export function useProgreso(materiaId) {
     }
   }
 
-  const unidadesCompletas = Math.min(unidad - 1, MAX_UNIDADES)
+  const unidadesCompletas = Math.min(unidad - 1, totalUnidades)
 
-  return { unidad, elemento, cargando, guardarProgreso, reiniciar, unidadesCompletas }
+  return { unidad, elemento, cargando, guardarProgreso, reiniciar, unidadesCompletas, totalUnidades }
 }

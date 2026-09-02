@@ -1,0 +1,206 @@
+CAPACIDAD DE USUARIOS EN PLAN GRATUITO — PrepaApp
+====================================================
+Fecha del análisis: 1 de septiembre de 2026
+Alcance: Supabase (Free) + Vercel (Hobby), sin Stripe activo (sin cobros reales todavía)
+
+
+RESPUESTA CORTA
+----------------
+Hoy mismo, con el código tal cual está en el repositorio, el plan gratuito
+de Vercel se agota en algún punto entre ~700 y ~2,200 usuarios activos al
+mes. Ese techo NO lo pone Supabase (que aguantaría decenas de miles de
+usuarios sin problema) — lo pone un solo archivo: la música de fondo se
+descarga completa en cada visita a la app, sin importar si el usuario la
+tiene silenciada o no.
+
+Arreglando solo eso (que la música no se descargue hasta que el usuario la
+active), el techo real pasa a estar en los ~50,000 usuarios activos al mes
+que permite el límite de autenticación (MAU) de Supabase Free — casi 25
+veces más capacidad, sin cambiar de plan ni gastar un peso.
+
+Todo el desarrollo de este número está abajo.
+
+
+1. SUPUESTOS DE PARTIDA
+------------------------
+Como pediste, esto es una PROYECCIÓN basada en el código actual, no una
+medición con tráfico real (la app no tiene analytics de uso conectados).
+Los supuestos que uso:
+
+  a) "Usuario activo" = alguien que abre la app y usa al menos una lección
+     o el examen en el mes (equivalente a MAU de Supabase Auth, que cuenta
+     usuarios con actividad de autenticación en el mes).
+  b) Ningún cobro real vía Stripe todavía (solo tráfico de uso normal,
+     sin webhooks de pago en volumen).
+  c) Cada usuario activo genera, en promedio, entre 1 y 3 sesiones al mes
+     (abrir la app, hacer una o más lecciones). Uso un rango en vez de un
+     número fijo porque no hay datos reales de retención todavía.
+  d) El caché del navegador funciona de forma "normal" (Vercel sirve los
+     archivos estáticos con cache-control razonable) — no lo pude verificar
+     en producción porque `vercel.json` solo define el rewrite de SPA y no
+     encabezados de caché explícitos, así que trato esto como una zona de
+     incertidumbre y doy rango conservador/optimista en vez de un solo
+     número.
+  e) Los límites de "Free"/"Hobby" son los públicos vigentes al momento de
+     este análisis (ver fuentes al final); ambas plataformas cambian sus
+     límites con cierta frecuencia, así que esto debe revisarse si pasan
+     varios meses.
+  f) No cuento a los profesores/administradores como carga aparte: su
+     tráfico es marginal comparado con el de alumnos.
+
+
+2. LÍMITES REALES DE LOS PLANES GRATUITOS
+-------------------------------------------
+
+SUPABASE FREE (un solo proyecto activo, de los 2 permitidos):
+  - Tamaño de base de datos:      500 MB
+  - Almacenamiento de archivos:   1 GB
+  - Usuarios activos (MAU):       50,000 / mes
+  - Egreso de base de datos:      5 GB / mes (+ 5 GB de egreso cacheado)
+  - Conexiones realtime:          200 concurrentes
+  - Invocaciones Edge Functions:  500,000 / mes
+  - Política de inactividad:      el proyecto se PAUSA tras 1 semana sin uso
+
+VERCEL HOBBY (donde vive el frontend):
+  - Transferencia de datos ("Fast Data Transfer"): 100 GB / mes
+  - Invocaciones de funciones serverless:           1,000,000 / mes
+  - Duración máx. de función:                       60 s (proyectos previos
+    a abril 2025 sin Fluid Compute) — de cualquier forma, esta app es una
+    SPA estática (Vite + `vercel.json` con solo un rewrite), así que
+    prácticamente no usa funciones serverless de Vercel.
+  - Nota importante de sus Términos: el plan Hobby es para uso NO
+    comercial. Este análisis asume "todavía sin cobros" tal como
+    especificaste, pero en cuanto Stripe procese pagos reales, técnicamente
+    ya no calificaría para Hobby y tocaría migrar a Pro de cualquier forma
+    — independientemente del número de usuarios.
+
+De estos límites, el de transferencia de datos de Vercel (100 GB/mes) es,
+por lejos, el más fácil de agotar con el código actual — ver sección 4.
+
+
+3. QUÉ CONSUME CADA USUARIO, SEGÚN EL CÓDIGO
+-----------------------------------------------
+
+3.1 Base de datos (Supabase Postgres)
+  Cada sesión de lección dispara, por diseño (ver `useProgreso.js`):
+    - 1 SELECT a `perfiles` + 2 RPC (`es_admin_actual`, `soy_maestro_actual`)
+      al cargar cualquier página (vía `AuthContext.jsx`).
+    - 1 SELECT a `progreso_usuario` al entrar a una lección.
+    - 1 UPSERT a `progreso_usuario` por CADA respuesta correcta (no solo al
+      terminar la unidad) — es decir, ~12 escrituras por unidad completada.
+  Cada fila de `progreso_usuario` es minúscula (unos cuantos campos:
+  user_id, materia_id, unidad_actual, elemento_actual, timestamp) — del
+  orden de 100-200 bytes. Con eso, los 500 MB de la base alcanzarían para
+  varios millones de filas de progreso, muy por encima de cualquier
+  cantidad razonable de usuarios. CONCLUSIÓN: el tamaño de base de datos
+  NO es un límite práctico aquí.
+
+3.2 Egreso de base de datos (los 5 GB/mes de Supabase)
+  Todas las respuestas de las consultas de arriba son igual de pequeñas
+  (perfiles, progreso, booleans de rol). Incluso con miles de upserts por
+  usuario al mes, el egreso total se mide en decenas de MB, no GB.
+  CONCLUSIÓN: tampoco es el límite práctico.
+
+3.3 Autenticación (MAU de Supabase, 50,000/mes)
+  Cada usuario que abre sesión al menos una vez en el mes cuenta 1 MAU,
+  sin importar cuántas veces vuelva a entrar. Es un límite generoso: para
+  llegar a él hace falta una base de usuarios ya grande.
+
+3.4 Almacenamiento de Storage (1 GB) — solo lecciones premium
+  El bucket privado "Lecciones privadas" (`leccionesPremium.js`) solo se
+  usa para el contenido comprado, vía Signed URL de 60 segundos. Mientras
+  el catálogo premium sea pequeño (unos cuantos JSON de lecciones), este
+  1 GB no es un cuello de botella; si crece mucho el catálogo premium, hay
+  que revisarlo aparte.
+
+3.5 Ancho de banda de Vercel (100 GB/mes) — AQUÍ ESTÁ EL PROBLEMA REAL
+  Todo el contenido gratuito (lecciones, lecturas, examen) es JSON estático
+  servido por Vercel, no por Supabase — buena decisión de arquitectura,
+  porque mantiene el egreso de Supabase bajo. Pero eso mismo hace que el
+  ancho de banda de Vercel sea el recurso que de verdad limita cuántos
+  usuarios caben gratis. Y aquí hay un hallazgo concreto:
+
+  `MusicContext.jsx` envuelve TODA la app (`App.jsx`) y, en su primer
+  useEffect, crea un `<audio>`, le asigna `audio.src` y llama
+  `audio.play()` de forma incondicional apenas monta — silenciada o no:
+
+      audio.muted = muted     // silencia el SONIDO, no la descarga
+      ...
+      audio.play().catch(() => {})   // se reproduce/descarga igual
+
+  El archivo que suena es un único MP3 de 41.5 MB
+  (`public/music/6638b08b...mp3`) y, como solo hay UNA pista en
+  `MUSIC_TRACKS`, al terminar la canción (evento "ended") vuelve a sonar
+  la MISMA pista — en sesiones largas se puede volver a transferir varias
+  veces si el navegador no la sirve desde caché local.
+
+  Esto significa que, tal como está el código HOY, básicamente cualquier
+  visita nueva a la app (silenciada o no, sin que el usuario haga nada)
+  puede llegar a transferir hasta ~41.5 MB solo en música — antes de sumar
+  el bundle de JS (~0.4 MB comprimido), CSS, fuentes de KaTeX, e
+  ilustraciones SVG puntuales (algunas preguntas de la unidad-tutorial de
+  Español usan SVGs de 1-4 MB cada uno, aunque solo aparecen en ~10
+  preguntas de cientos).
+
+
+4. EL CÁLCULO: CUÁNTOS USUARIOS CABEN HOY
+--------------------------------------------
+
+Escenario A — CÓDIGO ACTUAL (con el bug de la música)
+  Costo estimado por sesión: ~41.5 MB (música) + ~1-3 MB (bundle en
+  primera visita, ilustraciones ocasionales, fuentes) ≈ 43-45 MB/sesión.
+
+  Con el supuesto (c) de 1 a 3 sesiones por usuario activo al mes:
+
+    100,000 MB ÷ 45 MB/sesión                     ≈ 2,200 sesiones/mes
+    2,200 sesiones ÷ 3 sesiones/usuario (conserv.) ≈  ~740 usuarios/mes
+    2,200 sesiones ÷ 1 sesión/usuario (optimista)  ≈ ~2,200 usuarios/mes
+
+  → RANGO ESTIMADO HOY: ~700 A ~2,200 USUARIOS ACTIVOS AL MES.
+  Muy por debajo de los 50,000 MAU que Supabase permitiría solo.
+
+Escenario B — SI SE ARREGLA LA MÚSICA (carga perezosa, solo al activarla)
+  Sin el audio de fondo, el costo por sesión baja a ~0.5-2 MB en visitas
+  nuevas (bundle JS/CSS con cache-control agresivo por nombre de archivo
+  con hash, así que en visitas repetidas del mismo navegador el costo cae
+  a casi 0) y algo más si el usuario activa la música por su cuenta (pero
+  entonces es una decisión consciente, no un costo automático por visita).
+
+    100,000 MB ÷ ~2 MB/sesión nueva ≈ 50,000 sesiones "nuevas" de margen
+
+  A ese ritmo, el cuello de botella deja de ser Vercel y pasa a ser el
+  límite de 50,000 MAU de Supabase Auth.
+
+  → CON ESE SOLO CAMBIO, LA CAPACIDAD REAL SUBE A ~50,000 USUARIOS
+    ACTIVOS AL MES (limitado ya por Supabase, no por Vercel).
+
+
+5. RECOMENDACIONES, EN ORDEN DE IMPACTO
+------------------------------------------
+  1. (Alto impacto, cambio pequeño) Que `MusicContext.jsx` NO cree el
+     `<audio>` ni llame `.play()` hasta que el usuario active la música
+     desde el Sidenav (hoy es al revés: se reproduce por default y el
+     botón solo la silencia). Esto por sí solo multiplica la capacidad
+     gratuita por ~20-25x.
+  2. Agregar 2-3 pistas más pequeñas (o la misma pista comprimida a un
+     bitrate menor, p. ej. 96-128 kbps en vez del actual) reduce aún más
+     el costo por reproducción para quienes SÍ activen la música.
+  3. Revisar los SVG de 1-4 MB (probablemente tienen imágenes rasterizadas
+     incrustadas en base64 dentro del propio SVG) — optimizarlos no
+     destraba un límite duro, pero baja el costo de las sesiones que sí
+     los cargan.
+  4. Confirmar en el dashboard de Vercel qué cache-control se está
+     sirviendo realmente para `/public/*` (esto no se pudo verificar desde
+     el código, solo desde `vercel.json`) — si no hay cache-control largo,
+     agregarlo en `vercel.json` para que las visitas repetidas casi no
+     cuenten contra los 100 GB.
+  5. Cuando Stripe empiece a procesar pagos reales, hay que pasar a
+     Vercel Pro de cualquier forma (el plan Hobby es explícitamente para
+     uso no comercial), no solo por capacidad.
+
+
+FUENTES
+--------
+- Supabase Pricing (límites Free): https://supabase.com/pricing
+- Vercel Limits (Hobby): https://vercel.com/docs/limits/overview
+- Vercel Pricing: https://vercel.com/pricing

@@ -1,5 +1,17 @@
 export const PREGUNTAS_POR_UNIDAD = 12
 
+// Cuántas unidades tiene el curso completo de una materia, según su propia
+// cantidad de preguntas (antes era un tope fijo igual para todas: con bancos
+// grandes como el de Español, eso dejaba una buena parte del contenido
+// inalcanzable — ver useProgreso). Mismo criterio de "intro" que
+// getPreguntasDeUnidad: si hay preguntas intro, ocupan su propia unidad 1.
+export function getTotalUnidades(todasLasPreguntas) {
+  const intro = todasLasPreguntas.filter(p => p.intro)
+  const resto = intro.length > 0 ? todasLasPreguntas.filter(p => !p.intro) : todasLasPreguntas
+  const unidadesDeContenido = Math.max(1, Math.ceil(resto.length / PREGUNTAS_POR_UNIDAD))
+  return intro.length > 0 ? unidadesDeContenido + 1 : unidadesDeContenido
+}
+
 export function getPreguntasDeUnidad(todasLasPreguntas, unidadActual) {
   const intro = todasLasPreguntas.filter(p => p.intro)
 

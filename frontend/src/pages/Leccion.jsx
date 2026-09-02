@@ -7,7 +7,7 @@ import Latex from '../components/Latex'
 import Celebracion from '../components/Celebracion'
 import ConfirmDialog from '../components/ConfirmDialog'
 import { useProgreso } from '../hooks/useProgreso'
-import { getPreguntasDeUnidad } from '../data/unidades'
+import { getPreguntasDeUnidad, getTotalUnidades } from '../data/unidades'
 import { obtenerLeccionDeSesion } from '../services/leccionesPremium';
 import { triggerVibration } from '../utils/haptics';
 import { hablarTexto, detenerLectura } from '../utils/tts';
@@ -28,6 +28,31 @@ import { FaVolumeUp, FaGoogle } from "react-icons/fa";
 import { FiSearch } from "react-icons/fi";
 
 const COLOR_REFUERZO = '#26d1e8' // mismo azul que la lección de español, por coincidencia
+
+// Preferencia de "lectura automática" (leer cada pregunta nueva en voz alta
+// sin tener que tocar el botón de TTS). Es global entre materias: una vez
+// que el alumno la prende o apaga, se respeta en cualquier lección hasta que
+// la vuelva a cambiar — con la única excepción de la unidad 1 de Español
+// (ver más abajo), que la activa por default en el primerísimo uso.
+const AUTO_LECTURA_KEY = 'tts_auto'
+
+function leerPreferenciaAutoLectura() {
+  try {
+    const raw = localStorage.getItem(AUTO_LECTURA_KEY)
+    return raw === null ? null : raw === 'true'
+  } catch {
+    return null
+  }
+}
+
+function guardarPreferenciaAutoLectura(valor) {
+  try {
+    localStorage.setItem(AUTO_LECTURA_KEY, String(valor))
+  } catch {
+    // Sin localStorage disponible, la preferencia simplemente no persiste
+    // entre lecciones; no es crítico para poder seguir usando la app.
+  }
+}
 
 // --- Persistencia local de preguntas falladas, por materia y por unidad ---
 // No usa Supabase: es una mejora de UX local, no progreso "oficial".
@@ -75,7 +100,8 @@ export default function Leccion() {
   const [materia, setMateria] = useState(null)
   const [cargando, setCargando] = useState(true)
   const [errorCarga, setErrorCarga] = useState('')
-  const { unidad, elemento, cargando: cargandoProgreso, guardarProgreso } = useProgreso(materiaId)
+  const totalUnidades = materia ? getTotalUnidades(materia.preguntas) : undefined
+  const { unidad, elemento, cargando: cargandoProgreso, guardarProgreso } = useProgreso(materiaId, totalUnidades)
 
   const [cola, setCola]                             = useState(null)
   const [correctasIniciales, setCorrectasIniciales]  = useState(0)
@@ -92,9 +118,11 @@ export default function Leccion() {
   const [menuAbierto, setMenuAbierto]                = useState(false)
   const [historial, setHistorial]                    = useState([])
   const [leyendo, setLeyendo]                        = useState(false)
+  const [lecturaAutomatica, setLecturaAutomatica]     = useState(false)
   const [indicesFallados, setIndicesFallados]        = useState(() => new Set())
   const [errorAnteriorVisible, setErrorAnteriorVisible] = useState(false)
   const inicializadoRef = useRef(false)
+  const autoLecturaInicializadaRef = useRef(false)
 
   // Detiene cualquier lectura en curso al salir de la lección.
   useEffect(() => {
@@ -122,6 +150,20 @@ export default function Leccion() {
   }, [cargando, cargandoProgreso, elemento, materia, unidad])
 
   useEffect(() => {
+    // Se inicializa una sola vez, ya con la unidad real cargada (no la 1 por
+    // defecto mientras useProgreso todavía no resuelve): si el alumno ya
+    // tiene una preferencia guardada, se respeta; si no, arranca activada
+    // solo en la unidad 1 de Español (el tutorial) y apagada en cualquier
+    // otro caso.
+    if (autoLecturaInicializadaRef.current) return
+    if (cargando || cargandoProgreso || !materia) return
+
+    const guardada = leerPreferenciaAutoLectura()
+    setLecturaAutomatica(guardada !== null ? guardada : (materiaId === 'espanol' && unidad === 1))
+    autoLecturaInicializadaRef.current = true
+  }, [cargando, cargandoProgreso, materia, materiaId, unidad])
+
+  useEffect(() => {
     inicializadoRef.current = false
     setEnRepaso(false)
     setColaRepaso([])
@@ -143,6 +185,25 @@ export default function Leccion() {
     // no cada vez que se marca un fallo mientras se sigue viendo la misma.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cola, enRepaso])
+
+  // Con lectura automática activada, lee en voz alta cada pregunta nueva
+  // (normal o de repaso) apenas se muestra, sin esperar a que el alumno
+  // toque el botón de TTS. Recalcula la pregunta actual con los mismos
+  // datos que el render usa para "pregunta" más abajo, porque ese valor
+  // todavía no existe en este punto del componente (se calcula después del
+  // primer return condicional, y los hooks no pueden depender de él).
+  useEffect(() => {
+    if (!lecturaAutomatica || cargando || cargandoProgreso || !materia || cola === null) return
+
+    const preguntaActual = enRepaso
+      ? (colaRepaso[0] || null)
+      : (cola.length > 0 ? getPreguntasDeUnidad(materia.preguntas, unidad)[cola[0]] : null)
+
+    if (!preguntaActual || typeof preguntaActual.pregunta !== 'string' || !preguntaActual.pregunta.trim()) return
+
+    const iniciado = hablarTexto(preguntaActual.pregunta, { onEnd: () => setLeyendo(false) })
+    if (iniciado) setLeyendo(true)
+  }, [lecturaAutomatica, cargando, cargandoProgreso, materia, unidad, cola, enRepaso, colaRepaso])
 
   useEffect(() => {
     let activo = true
@@ -307,9 +368,26 @@ export default function Leccion() {
   function celebrarYNavegar() {
     setCelebrando(true)
     triggerVibration('celebracion')
-    setTimeout(async () => {
-      await guardarProgreso(unidad + 1, 0)
+    setTimeout(() => {
+      // La unidad 1 de Español es el tutorial de la app y arranca con
+      // lectura automática por default (ver el efecto de inicialización más
+      // arriba); al terminarla, se apaga para que el resto de las lecciones
+      // vuelvan al comportamiento normal (leer solo al tocar el botón de TTS).
+      if (materiaId === 'espanol' && unidad === 1) {
+        setLecturaAutomatica(false)
+        guardarPreferenciaAutoLectura(false)
+      }
+
+      // Navega primero y recién después guarda el progreso (sin esperarlo):
+      // guardarProgreso actualiza "unidad" de forma optimista, y si eso
+      // pasara mientras Leccion sigue montada, fuerza un re-render que
+      // recalcula "preguntas" para la unidad nueva mientras "cola" todavía
+      // tiene los índices de la unidad vieja — ahí se alcanzaba a ver, un
+      // instante, contenido de la siguiente unidad detrás de la celebración
+      // (que solo cubre el botón, no toda la tarjeta de la pregunta).
+      // Navegando antes, ese re-render ya no ocurre sobre esta pantalla.
       navigate('/')
+      guardarProgreso(unidad + 1, 0)
     }, 550)
   }
 
@@ -321,6 +399,14 @@ export default function Leccion() {
     }
     const iniciado = hablarTexto(texto, { onEnd: () => setLeyendo(false) })
     if (iniciado) setLeyendo(true)
+  }
+
+  function alternarLecturaAutomatica() {
+    setLecturaAutomatica(prev => {
+      const nuevo = !prev
+      guardarPreferenciaAutoLectura(nuevo)
+      return nuevo
+    })
   }
 
   async function siguiente({ saltada = false } = {}) {
@@ -883,7 +969,7 @@ export default function Leccion() {
               }}>
                 <Latex texto={pregunta.pregunta} />
               </div>
-              <div style={{ display: 'flex', justifyContent: 'flex-end', gap: 8, marginTop: 10 }}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: 8, marginTop: 10 }}>
                 <button
                   onClick={explicarConIA}
                   title="Explicar con IA (Google)"
@@ -917,6 +1003,40 @@ export default function Leccion() {
                   }}
                 >
                   <FaVolumeUp />
+                </button>
+                <button
+                  onClick={alternarLecturaAutomatica}
+                  title={lecturaAutomatica ? 'Lectura automática activada' : 'Activar lectura automática'}
+                  aria-pressed={lecturaAutomatica}
+                  className="util-btn"
+                  data-gamificacion="bajo"
+                  style={{
+                    width: 44, height: 44,
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    background: 'transparent',
+                    border: 'none',
+                    flexShrink: 0,
+                  }}
+                >
+                  <span style={{
+                    width: 34, height: 20,
+                    borderRadius: 999,
+                    background: lecturaAutomatica ? materia.color : 'rgba(255,255,255,0.15)',
+                    position: 'relative',
+                    flexShrink: 0,
+                    transition: 'background 0.2s ease',
+                  }}>
+                    <span style={{
+                      position: 'absolute',
+                      top: 2,
+                      left: lecturaAutomatica ? 16 : 2,
+                      width: 16, height: 16,
+                      borderRadius: '50%',
+                      background: '#fff',
+                      boxShadow: '0 1px 3px rgba(0,0,0,0.4)',
+                      transition: 'left 0.2s ease',
+                    }} />
+                  </span>
                 </button>
               </div>
             </div>

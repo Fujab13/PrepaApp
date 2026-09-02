@@ -1,0 +1,10 @@
+Aqui mismo en /public/requerimientos
+podemos encontrar los criterios y restricciones teoricas
+para la creacion de determinados elemento dentro de la web
+la idea es nombrarlos acorde a que se esta restringiendo
+
+por ejemplo: preguntas_examen.txt 
+
+Este archivo contiene el contexto necesario para decidir 
+la forma exacta en que se desarrollaran las preguntas,
+incluyendo datos técnicos y de calidad. 

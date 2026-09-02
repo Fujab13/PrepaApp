@@ -1,0 +1,474 @@
+{
+  "nombre": "Examen General ABCDE",
+  "secciones": [
+    { "nombre": "Español y Literatura", "id_inicio": 1,  "id_fin": 15, "color": "#4f8ef7" },
+    { "nombre": "Matemáticas",          "id_inicio": 16, "id_fin": 30, "color": "#cf3b3b" },
+    { "nombre": "Ciencias Naturales",   "id_inicio": 31, "id_fin": 45, "color": "#22c55e" },
+    { "nombre": "Ciencias Sociales",    "id_inicio": 46, "id_fin": 60, "color": "#d8c468" }
+  ],
+  "preguntas": [
+    {
+      "id": 1,
+      "pregunta": "Cuando un hablante ajusta su registro y vocabulario según la situación comunicativa en la que se encuentra, se pone en juego una propiedad textual llamada:",
+      "enlace_svg": null,
+      "respuestas": ["A. Coherencia", "B. Cohesión", "C. Adecuación", "D. Cabalidad"],
+      "inciso_correcto": "C"
+    },
+    {
+      "id": 2,
+      "pregunta": "¿Cuáles son los rasgos que distinguen a una nota periodística?",
+      "enlace_svg": null,
+      "respuestas": ["A. Objetividad, ficción y estilo poético", "B. Actualidad, periodicidad e información", "C. Argumentación, subjetividad y opinión", "D. Universalidad, verificabilidad y lirismo"],
+      "inciso_correcto": "B"
+    },
+    {
+      "id": 3,
+      "pregunta": "Lee el siguiente fragmento y responde:\n\n\"Muero porque no muero, pues ansío la vida verdadera que solo la muerte habrá de traerme; esta vida terrena ya no la vivo, la padezco.\"\n\n¿Qué actitud expresa la voz poética?",
+      "enlace_svg": null,
+      "respuestas": ["A. Desea morir en esta vida para alcanzar la vida verdadera.", "B. Planea quitarse la vida porque ya no encuentra placer en ella.", "C. Siente enojo porque nadie acude a rescatarla.", "D. Considera preferible la muerte violenta antes que envejecer."],
+      "inciso_correcto": "A"
+    },
+    {
+      "id": 4,
+      "pregunta": "Identifica el género literario al que pertenece el siguiente fragmento:\n\n\"Mientras los guerreros aqueos se armaban junto a sus naves curvas, en la llanura vecina los troyanos también se preparaban para el combate, bajo la mirada del intrépido hijo de Peleo.\"",
+      "enlace_svg": null,
+      "respuestas": ["A. Lírico", "B. Épico", "C. Dramático", "D. Narrativo contemporáneo"],
+      "inciso_correcto": "B"
+    },
+    {
+      "id": 5,
+      "pregunta": "El concepto de \"corriente literaria\" se refiere a:",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Un grupo de autores que comparten idioma, nacionalidad y espacio físico donde desarrollan una ideología.",
+        "B. Una clasificación de escritores que comparten edad y contexto histórico y, por ello, temáticas semejantes.",
+        "C. Un conjunto de rasgos temáticos y formales compartidos por un grupo de autores, vinculados con las condiciones sociales de una época determinada.",
+        "D. La suma de escritores de una misma nacionalidad relacionados por temas y estilos comunes en un periodo de quince años."
+      ],
+      "inciso_correcto": "C"
+    },
+    {
+      "id": 6,
+      "pregunta": "Benito Pérez Galdós y Gustave Flaubert son autores representativos del movimiento:",
+      "enlace_svg": null,
+      "respuestas": ["A. Realismo", "B. Romanticismo", "C. Neoclasicismo", "D. Surrealismo"],
+      "inciso_correcto": "A"
+    },
+    {
+      "id": 7,
+      "pregunta": "¿Cuál de los siguientes autores es representativo del Realismo Mágico?",
+      "enlace_svg": null,
+      "respuestas": ["A. Juan Rulfo", "B. José Agustín", "C. Horacio Quiroga", "D. Rafael F. Muñoz"],
+      "inciso_correcto": "A"
+    },
+    {
+      "id": 8,
+      "pregunta": "A diferencia de la novela, el cuento se caracteriza por:",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Presentar personajes complejos y varios climas narrativos.",
+        "B. Un desarrollo argumental extenso con múltiples personajes.",
+        "C. Su brevedad y un desenlace que llega con rapidez.",
+        "D. Su intensidad y múltiples líneas argumentales entrelazadas."
+      ],
+      "inciso_correcto": "C"
+    },
+    {
+      "id": 9,
+      "pregunta": "¿Qué función del lenguaje predomina en el siguiente enunciado?\n\n\"¡Vacúnate ya! Cuídate y cuida a los tuyos.\"",
+      "enlace_svg": null,
+      "respuestas": ["A. Apelativa", "B. Metalingüística", "C. Referencial", "D. Fática"],
+      "inciso_correcto": "A"
+    },
+    {
+      "id": 10,
+      "pregunta": "Identifica la función del lenguaje que domina en el siguiente enunciado:\n\n\"Contra el olvido siembro palabras, semillas que germinan cada vez que alguien las nombra.\"",
+      "enlace_svg": null,
+      "respuestas": ["A. Referencial", "B. Emotiva", "C. Fática", "D. Poética"],
+      "inciso_correcto": "D"
+    },
+    {
+      "id": 11,
+      "pregunta": "¿Qué forma del discurso predomina en el siguiente fragmento?\n\n\"Aquel viejo tenía la piel curtida por el sol y arrugada como la corteza de un árbol; sus manos, ásperas y nudosas, contrastaban con la suavidad de su mirada azul.\"",
+      "enlace_svg": null,
+      "respuestas": ["A. Argumentativa", "B. Narrativa", "C. Descriptiva", "D. Expositiva"],
+      "inciso_correcto": "C"
+    },
+    {
+      "id": 12,
+      "pregunta": "Elige el sinónimo más adecuado de la palabra ( AGENCIAR ):",
+      "enlace_svg": null,
+      "respuestas": ["A. Emplear", "B. Obtener", "C. Solicitar", "D. Perder"],
+      "inciso_correcto": "B"
+    },
+    {
+      "id": 13,
+      "pregunta": "¿En cuál opción todas las palabras están correctamente escritas con h?",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Inhibir, prohibir, exhibir y hexágono.",
+        "B. Inhóspito, inhalar, exágono y prohíbe.",
+        "C. Aihijado, hidrográfico, exhalar y hexágono.",
+        "D. Hostilizar, alcool, prohibir y exágono."
+      ],
+      "inciso_correcto": "A"
+    },
+    {
+      "id": 14,
+      "pregunta": "¿Cuál de los siguientes párrafos está redactado correctamente?",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. En la reunión se revisarán tres temas: el diseño del manual de bienvenida; el seguimiento a las solicitudes pendientes; contactar nuevos proveedores; y además se propondrán ideas para el próximo evento.",
+        "B. En la reunión se revisarán tres temas: diseñar el manual de bienvenida; el seguimiento a las solicitudes pendientes; y contactar nuevos proveedores. Además, se propondrán ideas para el próximo evento.",
+        "C. En la reunión se revisarán tres temas: el diseño del manual de bienvenida; el seguimiento a las solicitudes pendientes y el contacto con nuevos proveedores. Además, se propondrán ideas para el próximo evento.",
+        "D. En la reunión se revisarán tres temas: cómo diseñar el manual de bienvenida; el seguimiento a las solicitudes pendientes y el contacto con nuevos proveedores. Además se propondrán ideas para el próximo evento."
+      ],
+      "inciso_correcto": "C"
+    },
+    {
+      "id": 15,
+      "pregunta": "Identifica los errores presentes en el siguiente texto:\n\n\"¿Fuistes tú quien avisó que solo la mitad de los boletos fueron vendidos?\"",
+      "enlace_svg": null,
+      "respuestas": ["A. Fuistes y fueron.", "B. Boletos y mitad.", "C. Vendidos y fuistes.", "D. Fuistes y avisó."],
+      "inciso_correcto": "A"
+    },
+
+    {
+      "id": 16,
+      "pregunta": "Simplifica la expresión algebraica:\n\na²/(b − a)² − b²/(b − a)²",
+      "enlace_svg": null,
+      "respuestas": ["A. (a + b)/(a − b)", "B. (a − b)/(b − a)", "C. (a + b)/(b + a)", "D. (a − b)/(a + b)"],
+      "inciso_correcto": "A"
+    },
+    {
+      "id": 17,
+      "pregunta": "Al resolver 4x + 1 = 6, ¿cuál es el valor de x?",
+      "enlace_svg": null,
+      "respuestas": ["A. x = 4/5", "B. x = 5/4", "C. x = 6/4", "D. x = 1"],
+      "inciso_correcto": "B"
+    },
+    {
+      "id": 18,
+      "pregunta": "La solución de la desigualdad 4x − 3 > x + 9 es:",
+      "enlace_svg": null,
+      "respuestas": ["A. x > 12", "B. x > −4", "C. x > 4", "D. x > 3"],
+      "inciso_correcto": "C"
+    },
+    {
+      "id": 19,
+      "pregunta": "Resuelve el siguiente sistema de ecuaciones:\n\n2x + 3y = 8\n3x − y = 1",
+      "enlace_svg": null,
+      "respuestas": ["A. x = 2, y = 1", "B. x = −1, y = 2", "C. x = 1, y = −2", "D. x = 1, y = 2"],
+      "inciso_correcto": "D"
+    },
+    {
+      "id": 20,
+      "pregunta": "Encuentra el dominio de la función f(x) = x² + 2, si su rango es Rf = {f(x) ∈ [2, 11]}.",
+      "enlace_svg": null,
+      "respuestas": ["A. Df = [−3, 3]", "B. Df = (0, 3)", "C. Df = (−3, 3)", "D. Df = [0, 3]"],
+      "inciso_correcto": "A"
+    },
+    {
+      "id": 21,
+      "pregunta": "¿A cuántos grados equivalen 7π/12 radianes?",
+      "enlace_svg": null,
+      "respuestas": ["A. 210°", "B. 105°", "C. 150°", "D. 175°"],
+      "inciso_correcto": "B"
+    },
+    {
+      "id": 22,
+      "pregunta": "En un triángulo rectángulo cuyos catetos miden 6 cm y 8 cm, con hipotenusa de 10 cm, ¿cuál es el seno del ángulo opuesto al cateto de 6 cm?",
+      "enlace_svg": null,
+      "respuestas": ["A. 4/5", "B. 5/4", "C. 3/5", "D. 5/3"],
+      "inciso_correcto": "C"
+    },
+    {
+      "id": 23,
+      "pregunta": "Calcula el rango de la función y = e^(−2x + 1) + 3",
+      "enlace_svg": null,
+      "respuestas": ["A. [3, ∞)", "B. (−3, ∞)", "C. [−3, ∞)", "D. (3, ∞)"],
+      "inciso_correcto": "D"
+    },
+    {
+      "id": 24,
+      "pregunta": "¿Cuál es la pendiente de la recta 2x + 5y − 7 = 0?",
+      "enlace_svg": null,
+      "respuestas": ["A. −2/5", "B. 2/5", "C. 5/2", "D. −5/2"],
+      "inciso_correcto": "A"
+    },
+    {
+      "id": 25,
+      "pregunta": "¿Cuál de las siguientes circunferencias tiene radio igual a 3?",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. x² + y² − 2x + 4y + 1 = 0",
+        "B. x² + y² − 4x − 2y − 4 = 0",
+        "C. x² + y² − 8x + 2y + 1 = 0",
+        "D. x² + y² − 2x − 4y − 20 = 0"
+      ],
+      "inciso_correcto": "B"
+    },
+    {
+      "id": 26,
+      "pregunta": "Determina la ecuación que cumplen los puntos P(x, y) tales que la suma de sus distancias a F₁(0, −3) y F₂(0, 3) es igual a 10.",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. 16x² + 25y² − 400 = 0",
+        "B. 16x² + 9y² − 25 = 0",
+        "C. 25x² + 16y² − 400 = 0",
+        "D. 9x² + 16y² − 25 = 0"
+      ],
+      "inciso_correcto": "C"
+    },
+    {
+      "id": 27,
+      "pregunta": "Calcula: lim (x→−∞) (3x² − 2x + 4)",
+      "enlace_svg": null,
+      "respuestas": ["A. −∞", "B. −3", "C. 0", "D. +∞"],
+      "inciso_correcto": "D"
+    },
+    {
+      "id": 28,
+      "pregunta": "Calcula la derivada: d/dx (x³ + 5x + 2)",
+      "enlace_svg": null,
+      "respuestas": ["A. 3x² + 5", "B. 3x² + 5x", "C. 3x² + 2", "D. 3x² + 7"],
+      "inciso_correcto": "A"
+    },
+    {
+      "id": 29,
+      "pregunta": "Calcula la integral definida:\n\n∫ (de 1 a e³) dx/x",
+      "enlace_svg": null,
+      "respuestas": ["A. 2", "B. 3", "C. e³", "D. 3e"],
+      "inciso_correcto": "B"
+    },
+    {
+      "id": 30,
+      "pregunta": "En una feria, la probabilidad de ganar un premio en cierto juego es de 1/8. Si se juega 40 veces, ¿cuántas veces se espera ganar, en promedio?",
+      "enlace_svg": null,
+      "respuestas": ["A. 4", "B. 5", "C. 8", "D. 10"],
+      "inciso_correcto": "B"
+    },
+
+    {
+      "id": 31,
+      "pregunta": "Una sonda debe recorrer 3.6 × 10⁸ m para llegar a su destino y lo logra en 2 días. ¿Cuál fue su rapidez promedio, expresada en m/h?",
+      "enlace_svg": null,
+      "respuestas": ["A. 7.5 × 10⁶ m/h", "B. 1.5 × 10⁷ m/h", "C. 7.5 × 10⁵ m/h", "D. 1.5 × 10⁶ m/h"],
+      "inciso_correcto": "A"
+    },
+    {
+      "id": 32,
+      "pregunta": "Al sumar dos fuerzas perpendiculares entre sí, la magnitud de la fuerza resultante es ______ que la suma algebraica de ambas magnitudes.",
+      "enlace_svg": null,
+      "respuestas": ["A. mayor", "B. igual", "C. menor", "D. la mitad"],
+      "inciso_correcto": "C"
+    },
+    {
+      "id": 33,
+      "pregunta": "Una caja de 40 kg viaja dentro de un elevador cuando se rompe el cable y ambos caen en caída libre. ¿Cuál es la fuerza normal que ejerce el piso del elevador sobre la caja durante la caída? (g = 10 m/s²)",
+      "enlace_svg": null,
+      "respuestas": ["A. 0 N", "B. 400 N", "C. 40 N", "D. 4 N"],
+      "inciso_correcto": "A"
+    },
+    {
+      "id": 34,
+      "pregunta": "Un niño de 24 kg está de pie sobre un carrito, ambos en reposo. Al saltar hacia adelante con una rapidez de 3 m/s, el carrito sale disparado hacia atrás a 12 m/s. Si se desprecia la fricción, ¿cuál es la masa del carrito?",
+      "enlace_svg": null,
+      "respuestas": ["A. 8.0 kg", "B. 6.0 kg", "C. 4.0 kg", "D. 2.0 kg"],
+      "inciso_correcto": "B"
+    },
+    {
+      "id": 35,
+      "pregunta": "¿Qué expresión permite convertir una temperatura en grados Celsius (Tc) a la escala Kelvin (Tk)?",
+      "enlace_svg": null,
+      "respuestas": ["A. Tk = (Tc − 32)/1.8", "B. Tk = Tc + 273", "C. Tk = Tc − 273", "D. Tk = 1.8(Tc + 273)"],
+      "inciso_correcto": "B"
+    },
+    {
+      "id": 36,
+      "pregunta": "Cuando dos o más átomos de elementos distintos se combinan químicamente en proporciones fijas, se forma:",
+      "enlace_svg": null,
+      "respuestas": ["A. una mezcla heterogénea", "B. un elemento", "C. un compuesto", "D. una mezcla homogénea"],
+      "inciso_correcto": "C"
+    },
+    {
+      "id": 37,
+      "pregunta": "¿Qué familia de la tabla periódica tiende a ceder electrones con facilidad por tener baja energía de ionización?",
+      "enlace_svg": null,
+      "respuestas": ["A. VIIA (halógenos)", "B. IIIA", "C. VIIIA (gases nobles)", "D. IA (alcalinos)"],
+      "inciso_correcto": "D"
+    },
+    {
+      "id": 38,
+      "pregunta": "¿Cuántas moléculas de H₂O hay en 54 g de esta sustancia? (masa molar del agua = 18 g/mol)",
+      "enlace_svg": null,
+      "respuestas": ["A. 6.02 × 10²³", "B. 1.81 × 10²⁴", "C. 3.61 × 10²⁴", "D. 9.03 × 10²³"],
+      "inciso_correcto": "B"
+    },
+    {
+      "id": 39,
+      "pregunta": "Una disolución con pH = 3 presenta un comportamiento:",
+      "enlace_svg": null,
+      "respuestas": ["A. neutro", "B. básico", "C. anfótero", "D. ácido"],
+      "inciso_correcto": "D"
+    },
+    {
+      "id": 40,
+      "pregunta": "Para que ocurra una reacción de combustión, además de la energía de activación, se requiere:",
+      "enlace_svg": null,
+      "respuestas": ["A. combustible y comburente", "B. combustible únicamente", "C. oxígeno y catalizador", "D. comburente únicamente"],
+      "inciso_correcto": "A"
+    },
+    {
+      "id": 41,
+      "pregunta": "¿Cuáles son estructuras presentes en los cloroplastos?",
+      "enlace_svg": null,
+      "respuestas": ["A. Estroma, membrana interna y crestas", "B. Matriz, membrana externa y granos de almidón", "C. Estroma, grana y tilacoides", "D. Matriz, membrana externa e interna"],
+      "inciso_correcto": "C"
+    },
+    {
+      "id": 42,
+      "pregunta": "¿Cuál es la secuencia correcta de las fases de la mitosis?",
+      "enlace_svg": null,
+      "respuestas": ["A. Interfase, anafase, telofase y metafase", "B. Metafase, profase, telofase y anafase", "C. Profase, metafase, anafase y telofase", "D. Anafase, metafase, profase y telofase"],
+      "inciso_correcto": "C"
+    },
+    {
+      "id": 43,
+      "pregunta": "¿Cuántos cromosomas poseen los gametos humanos?",
+      "enlace_svg": null,
+      "respuestas": ["A. 22", "B. 23", "C. 44", "D. 46"],
+      "inciso_correcto": "B"
+    },
+    {
+      "id": 44,
+      "pregunta": "¿Quién postuló que las mitocondrias y los cloroplastos provienen de bacterias fagocitadas por una célula procarionte ancestral?",
+      "enlace_svg": null,
+      "respuestas": ["A. Alexander Oparin", "B. Charles Darwin", "C. Lynn Margulis", "D. Gregor Mendel"],
+      "inciso_correcto": "C"
+    },
+    {
+      "id": 45,
+      "pregunta": "¿Cuál es el principal contaminante responsable del daño a la capa de ozono?",
+      "enlace_svg": null,
+      "respuestas": ["A. Metano", "B. Óxido nitroso", "C. Bióxido de carbono", "D. Clorofluorocarbonos"],
+      "inciso_correcto": "D"
+    },
+
+    {
+      "id": 46,
+      "pregunta": "El proceso por el cual las placas tectónicas se separan debido a las corrientes de convección del manto terrestre se conoce como:",
+      "enlace_svg": null,
+      "respuestas": ["A. convergencia", "B. subducción", "C. divergencia", "D. transformación"],
+      "inciso_correcto": "C"
+    },
+    {
+      "id": 47,
+      "pregunta": "¿Cuántas entidades federativas tiene México?",
+      "enlace_svg": null,
+      "respuestas": ["A. 32", "B. 28", "C. 29", "D. 31"],
+      "inciso_correcto": "A"
+    },
+    {
+      "id": 48,
+      "pregunta": "La principal consecuencia del cambio climático global es:",
+      "enlace_svg": null,
+      "respuestas": ["A. la degradación de los bosques", "B. el aumento de la temperatura", "C. la desertificación de los suelos", "D. el derretimiento de los glaciares"],
+      "inciso_correcto": "B"
+    },
+    {
+      "id": 49,
+      "pregunta": "¿Cuáles de los siguientes países se independizaron de la Unión de Repúblicas Socialistas Soviéticas?",
+      "enlace_svg": null,
+      "respuestas": ["A. Suecia, Noruega y Finlandia", "B. Polonia, República Checa y Hungría", "C. Rumania, Bulgaria y Albania", "D. Letonia, Ucrania y Estonia"],
+      "inciso_correcto": "D"
+    },
+    {
+      "id": 50,
+      "pregunta": "La Geografía es una disciplina integral que relaciona conocimientos de las ciencias ______.",
+      "enlace_svg": null,
+      "respuestas": ["A. políticas y económicas", "B. sociales y naturales", "C. económicas y sociales", "D. políticas y naturales"],
+      "inciso_correcto": "B"
+    },
+    {
+      "id": 51,
+      "pregunta": "Si viajas de la Ciudad de México a Toluca, ¿qué cadena montañosa debes atravesar?",
+      "enlace_svg": null,
+      "respuestas": ["A. el Sistema Montañoso de Guadalupe", "B. la Sierra Madre Occidental", "C. la Sierra Madre Oriental", "D. el Sistema Volcánico Transversal"],
+      "inciso_correcto": "D"
+    },
+    {
+      "id": 52,
+      "pregunta": "¿Qué factor ha influido más en la distribución poblacional de México durante el siglo XXI?",
+      "enlace_svg": null,
+      "respuestas": ["A. la existencia de amplios litorales", "B. la centralización del poder político", "C. el desarrollo de la frontera norte", "D. la pesca en las costas del Golfo"],
+      "inciso_correcto": "C"
+    },
+    {
+      "id": 53,
+      "pregunta": "Las revoluciones burguesas de los siglos XVIII y XIX consolidaron el capitalismo principalmente porque:",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. fortalecieron el liberalismo económico.",
+        "B. impulsaron el resurgimiento del mercantilismo.",
+        "C. lograron la igualdad económica y social entre la población.",
+        "D. favorecieron la mecanización exclusiva de la agricultura."
+      ],
+      "inciso_correcto": "A"
+    },
+    {
+      "id": 54,
+      "pregunta": "Las acciones de ______ para unificar los reinos germanos dieron origen al segundo imperio alemán en el siglo XIX.",
+      "enlace_svg": null,
+      "respuestas": ["A. William de Orange", "B. Peter Brueghel", "C. Otto von Bismarck", "D. Joseph Mengele"],
+      "inciso_correcto": "C"
+    },
+    {
+      "id": 55,
+      "pregunta": "¿Qué alianzas militares defensivas surgieron como consecuencia de la rivalidad entre los bloques durante la Guerra Fría?",
+      "enlace_svg": null,
+      "respuestas": ["A. OTAN y ONU", "B. ONU y Pacto de Varsovia", "C. OMC y OEA", "D. Pacto de Varsovia y OTAN"],
+      "inciso_correcto": "D"
+    },
+    {
+      "id": 56,
+      "pregunta": "¿Qué presidente mexicano creó la Secretaría de Educación Pública?",
+      "enlace_svg": null,
+      "respuestas": ["A. Lázaro Cárdenas", "B. Álvaro Obregón", "C. Venustiano Carranza", "D. Victoriano Huerta"],
+      "inciso_correcto": "B"
+    },
+    {
+      "id": 57,
+      "pregunta": "Identifica, en el orden solicitado, a los principales representantes del socialismo utópico, el socialismo científico y el anarquismo:",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Friedrich Engels, León XIII y Robert Owen.",
+        "B. Fernand Braudel, Friedrich Engels y Karl Popper.",
+        "C. Louis Blanc, Karl Marx y Mijaíl Bakunin.",
+        "D. Charles Fourier, Robert Owen y Henri de Saint-Simon."
+      ],
+      "inciso_correcto": "C"
+    },
+    {
+      "id": 58,
+      "pregunta": "¿Qué acuerdos se firmaron para dar fin a la Primera Guerra Mundial?",
+      "enlace_svg": null,
+      "respuestas": ["A. Saint-Germain y el Tratado de Versalles", "B. La política de Apaciguamiento y el Tratado Sykes-Picot", "C. La Conferencia de Berlín y El Cairo", "D. La doctrina Truman y la Conferencia de Teherán"],
+      "inciso_correcto": "A"
+    },
+    {
+      "id": 59,
+      "pregunta": "La Revolución Comunista China, el bloqueo terrestre a Berlín, la Guerra de Corea y la Crisis de los Misiles en Cuba ocurrieron durante la:",
+      "enlace_svg": null,
+      "respuestas": ["A. Guerra del Golfo Pérsico", "B. Guerra Árabe-Israelí", "C. Guerra de los Seis Días", "D. Guerra Fría"],
+      "inciso_correcto": "D"
+    },
+    {
+      "id": 60,
+      "pregunta": "Por medio del Tratado de Libre Comercio de América del Norte (TLCAN) se estableció la:",
+      "enlace_svg": null,
+      "respuestas": ["A. renegociación de la deuda externa de México", "B. elevación de impuestos en las materias primas", "C. eliminación de aranceles entre los países firmantes", "D. igualdad de precios de mercancías entre los miembros"],
+      "inciso_correcto": "C"
+    }
+  ]
+}

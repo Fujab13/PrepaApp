@@ -280,26 +280,6 @@ export default function Sidenav({ open, onClose }) {
               </button>
 
               <button
-                onClick={() => ir('/admin/reportes')}
-                onMouseEnter={() => setHoveredBtn('admin-reportes')}
-                onMouseLeave={() => setHoveredBtn(null)}
-                className="btn-sidernav"
-              >
-                <span style={{
-                  fontSize: '1.1rem',
-                  width: '32px', height: '32px',
-                  background: 'rgba(239, 68, 68, 0.15)',
-                  color: '#ef4444',
-                  borderRadius: '10px',
-                  display: 'flex', alignItems: 'center', justifyindex: 'center',
-                  justifyContent: 'center', flexShrink: 0
-                }}>
-                  <HiOutlineFlag />
-                </span>
-                <span>Reportes</span>
-              </button>
-
-              <button
                 onClick={() => ir('/admin/ofertas')}
                 onMouseEnter={() => setHoveredBtn('admin-ofertas')}
                 onMouseLeave={() => setHoveredBtn(null)}
@@ -317,6 +297,26 @@ export default function Sidenav({ open, onClose }) {
                   <HiOutlineClipboardDocumentList />
                 </span>
                 <span>Ofertas</span>
+              </button>
+
+              <button
+                onClick={() => ir('/admin/reportes')}
+                onMouseEnter={() => setHoveredBtn('admin-reportes')}
+                onMouseLeave={() => setHoveredBtn(null)}
+                className="btn-sidernav"
+              >
+                <span style={{
+                  fontSize: '1.1rem',
+                  width: '32px', height: '32px',
+                  background: 'rgba(239, 68, 68, 0.15)',
+                  color: '#ef4444',
+                  borderRadius: '10px',
+                  display: 'flex', alignItems: 'center', justifyindex: 'center',
+                  justifyContent: 'center', flexShrink: 0
+                }}>
+                  <HiOutlineFlag />
+                </span>
+                <span>Reportes</span>
               </button>
             </>
           )}

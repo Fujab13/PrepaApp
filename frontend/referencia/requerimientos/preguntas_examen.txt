@@ -1,0 +1,53 @@
+1. Los examenes deberan tener un formato reducido de 120 preguntas
+2. Las preguntas y respuestas son de nivel preuniversitario
+3. La idea es simular preguntas de examenes de admision
+4. Las respuestas deben tener el grado suficiente de dificultad para no ser descartadas facilmente, 
+es decir, no deben existir respuestas evidentes. 
+5. Los examenes deberan ser divididos en 4 zonas de 15 preguntas. Salvo que algun requerimiento lo contradiga
+6. La estructura esta diseñada para ser .json y se ve algo asi:
+
+{
+  "nombre": "Materia",
+  "secciones": [
+    { "nombre": "Prueba", "id_inicio": 1, "id_fin": 5, "color": "#4f8ef7" }
+  ],
+  "preguntas": [
+    {
+      "id": 1,
+      "pregunta": "Pregunta de prueba 1. Selecciona el inciso b)",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Opción a)",
+        "B. Opción b)",
+        "C. Opción c)",
+        "D. Opción d)"
+      ],
+      "inciso_correcto": "B"
+    },
+    {
+      "id": 2,
+      "pregunta": "Pregunta de prueba 2. Selecciona el inciso b)",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Opción a)",
+        "B. Opción b)",
+        "C. Opción c)",
+        "D. Opción d)"
+      ],
+      "inciso_correcto": "B"
+    },
+    {
+      "id": 3,
+      "pregunta": "Pregunta de prueba 3. Selecciona el inciso b)",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Opción a)",
+        "B. Opción b)",
+        "C. Opción c)",
+        "D. Opción d)"
+      ],
+      "inciso_correcto": "B"
+    },
+
+  ]
+}
