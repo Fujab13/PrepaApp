@@ -51,7 +51,12 @@ export function useProgreso(materiaId, totalUnidades = MAX_UNIDADES_RESPALDO) {
     }
   }, [materiaId, user])
 
-  async function guardarProgreso(nuevaUnidad, nuevoElemento) {
+  // `avanceValido` (default true): en false cuando el avance viene de
+  // "Omitir unidad" (Leccion.jsx) en vez de terminarla de verdad — la
+  // unidad sigue avanzando con normalidad, pero el trigger de puntos
+  // (otorgar_puntos_leccion, ver migración 20260906120000) no lo cuenta
+  // para el ranking semanal.
+  async function guardarProgreso(nuevaUnidad, nuevoElemento, { avanceValido = true } = {}) {
     const unidadFinal    = Math.min(nuevaUnidad, totalUnidades + 1)
     const elementoFinal  = unidadFinal > totalUnidades ? 0 : nuevoElemento
 
@@ -73,6 +78,7 @@ export function useProgreso(materiaId, totalUnidades = MAX_UNIDADES_RESPALDO) {
           unidad_actual:   unidadFinal,
           elemento_actual: elementoFinal,
           ultima_interaccion: new Date().toISOString(),
+          avance_valido: avanceValido,
         },
         { onConflict: 'user_id,materia_id' }
       )

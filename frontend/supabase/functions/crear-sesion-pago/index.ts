@@ -117,8 +117,8 @@ Deno.serve(async (req: Request) => {
         user_id: user.id,
         producto_id: producto.id,
       },
-      success_url: `${frontendUrl}/pago-exitoso?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${frontendUrl}/pago-cancelado`,
+      success_url: `${frontendUrl}/inventario?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${frontendUrl}/tienda`,
     })
 
     await supabaseAdmin

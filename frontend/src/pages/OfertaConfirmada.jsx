@@ -213,7 +213,7 @@ export default function OfertaConfirmada() {
   return (
     <div className="informe-print" style={{ display: "flex", flexDirection: "column", minHeight: "100vh", background: "var(--bg)", color: "var(--text)" }}>
       <header className="page-topbar-compact no-print" style={{ paddingBottom: 14 }}>
-        <button onClick={() => navigate("/ofertas")} title="Salir" className="page-topbar-btn">
+        <button onClick={() => navigate("/tutorias/alumno")} title="Salir" className="page-topbar-btn">
           <AiOutlineClose />
         </button>
         <h2 className="page-topbar-title" style={{ fontSize: "1rem", flex: 1 }}>Tu reserva</h2>
@@ -237,7 +237,7 @@ export default function OfertaConfirmada() {
           <div style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center" }}>
             <p style={{ color: "var(--wrong)", fontSize: 14, marginBottom: 16 }}>{errorCarga}</p>
             <button
-              onClick={() => navigate("/ofertas")}
+              onClick={() => navigate("/tutorias/alumno")}
               style={{ minHeight: 44, padding: "0 20px", borderRadius: 10, border: "none", background: "#7c5cbf", color: "#fff", fontWeight: 600, cursor: "pointer" }}
             >
               Volver a ofertas
@@ -259,7 +259,7 @@ export default function OfertaConfirmada() {
 
             <div className="no-print" style={{ display: "flex", gap: 10, marginTop: 16 }}>
               <button
-                onClick={() => navigate("/ofertas")}
+                onClick={() => navigate("/tutorias/alumno")}
                 style={{ flex: 1, minHeight: 44, borderRadius: 10, border: "0.5px solid var(--surface)", background: "var(--surface2)", color: "var(--text)", fontWeight: 700, fontSize: 14, cursor: "pointer" }}
               >
                 Volver a ofertas

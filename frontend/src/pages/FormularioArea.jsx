@@ -10,6 +10,8 @@ import { useAuth } from "../context/AuthContext";
 import { supabase } from "../services/supabaseClient";
 import { FilaChips } from "../components/FilaChips";
 import { Seccion } from "../components/Seccion";
+import ConfirmDialog from "../components/ConfirmDialog";
+import { useConfirmarSalida } from "../hooks/useConfirmarSalida";
 
 import { AiOutlineClose } from "react-icons/ai";
 import { FaUserGraduate } from "react-icons/fa";
@@ -133,8 +135,34 @@ export default function FormularioArea() {
   const [decisionCarrera, setDecisionCarrera] = useState("");
 
   const [error, setError] = useState("");
+  const [confirmacion, setConfirmacion] = useState(null);
 
   const setNivel = (id, n) => setAutoevaluacion((prev) => ({ ...prev, [id]: n }));
+
+  // Solo avisa si ya hay algo que perder (no molesta si el alumno abre el
+  // formulario y se arrepiente de inmediato, sin haber tocado nada).
+  const hayDatosSinGuardar = Boolean(
+    nombre.trim() || edad.trim() || telefono.trim() || grado || areaInteres ||
+    carreraInteres.trim() || Object.keys(autoevaluacion).length > 0 ||
+    horasEstudio || horarioPreferido || modalidadPreferida || decisionCarrera
+  );
+
+  // Salir a medio llenar (botón "X" o Atrás del navegador) pierde todo:
+  // nada se guarda hasta enviar el formulario. `replace: true` sobreescribe
+  // la entrada "centinela" que empuja useConfirmarSalida, para no dejar un
+  // "atrás" fantasma que regrese aquí de nuevo.
+  function confirmarSalir() {
+    if (!hayDatosSinGuardar) return navigate('/');
+    setConfirmacion({
+      titulo: "Salir del formulario",
+      mensaje: "Perderás los datos que ya llenaste: no se guarda nada hasta enviarlo. ¿Salir de todas formas?",
+      textoConfirmar: "Salir",
+      colorConfirmar: "var(--wrong)",
+      accion: () => navigate('/', { replace: true }),
+    });
+  }
+
+  useConfirmarSalida(hayDatosSinGuardar, confirmarSalir);
 
   async function generarInforme() {
     if (!nombre.trim()) return setError("Escribe tu nombre para generar el informe.");
@@ -168,6 +196,7 @@ export default function FormularioArea() {
     }
 
     navigate("/informe-resultados", {
+      replace: true,
       state: {
         tipo: "formulario",
         formulario: {
@@ -188,7 +217,7 @@ export default function FormularioArea() {
     <div style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
       {/* ── BARRA SUPERIOR ── */}
       <header className="page-topbar-compact" style={{ position: "sticky", top: 0, zIndex: 30, background: "var(--bg)", paddingBottom: 14 }}>
-        <button onClick={() => navigate("/")} title="Salir" className="page-topbar-btn">
+        <button onClick={confirmarSalir} title="Salir" className="page-topbar-btn">
           <AiOutlineClose />
         </button>
         <span className="page-topbar-btn" style={{ fontSize: "1.35rem" }}>
@@ -277,6 +306,20 @@ export default function FormularioArea() {
           Generar informe
         </button>
       </footer>
+
+      <ConfirmDialog
+        abierto={!!confirmacion}
+        titulo={confirmacion?.titulo}
+        mensaje={confirmacion?.mensaje}
+        textoConfirmar={confirmacion?.textoConfirmar}
+        colorConfirmar={confirmacion?.colorConfirmar}
+        onCancelar={() => setConfirmacion(null)}
+        onConfirmar={() => {
+          const accion = confirmacion?.accion;
+          setConfirmacion(null);
+          if (accion) accion();
+        }}
+      />
     </div>
   );
 }

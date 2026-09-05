@@ -14,6 +14,7 @@ import { useAuth } from "../context/AuthContext";
 import { supabase } from "../services/supabaseClient";
 import { calcularStatsPorSeccion } from "../utils/examenStats";
 import { obtenerExamenDeSesion } from "../services/examenesPremium";
+import { useConfirmarSalida } from "../hooks/useConfirmarSalida";
 
 import { AiOutlineClose, AiOutlineLoading3Quarters } from "react-icons/ai";
 import { IoIosArrowBack } from "react-icons/io";
@@ -103,6 +104,22 @@ export default function Examen() {
   const [marcadas,    setMarcadas]    = useState(new Set()); // ids marcados
   const [matrizOpen,  setMatrizOpen]  = useState(false);
   const [confirmacion, setConfirmacion] = useState(null);
+
+  // Salir a medio examen (botón "X" o botón Atrás del navegador) pierde
+  // todas las respuestas: nada se guarda hasta terminar. `replace: true`
+  // sobreescribe la entrada "centinela" que empuja useConfirmarSalida, para
+  // no dejar un "atrás" fantasma que regrese aquí de nuevo.
+  const confirmarSalir = useCallback(() => {
+    setConfirmacion({
+      titulo: "Salir del examen",
+      mensaje: "Perderás todas tus respuestas: no se guarda nada hasta terminar el examen. ¿Salir de todas formas?",
+      textoConfirmar: "Salir",
+      colorConfirmar: "var(--wrong)",
+      accion: () => navigate('/', { replace: true }),
+    });
+  }, [navigate]);
+
+  useConfirmarSalida(!cargandoExamen && !errorExamen, confirmarSalir);
 
   // Tiempos por pregunta (en segundos usados)
   const tiemposRef = useRef({});
@@ -249,6 +266,7 @@ export default function Examen() {
           marcadasFinal: [...marcadas],
         });
         navigate("/informe-resultados", {
+          replace: true,
           state: {
             tipo: "examen",
             examen: {
@@ -320,6 +338,7 @@ export default function Examen() {
         marcadasFinal: [...marcadas],
       });
       navigate("/informe-resultados", {
+        replace: true,
         state: {
           tipo: "examen",
           examen: {
@@ -352,7 +371,19 @@ export default function Examen() {
         textAlign: 'center',
       }}>
         {errorExamen ? (
-          <p style={{ color: 'var(--wrong)', fontSize: '0.9rem', margin: 0 }}>{errorExamen}</p>
+          <>
+            <p style={{ color: 'var(--wrong)', fontSize: '0.9rem', margin: 0 }}>{errorExamen}</p>
+            <button
+              type="button"
+              onClick={() => navigate('/')}
+              style={{
+                minHeight: 44, padding: '0 20px', borderRadius: 12, border: 'none',
+                background: 'var(--surface2)', color: 'var(--text)', fontWeight: 700, cursor: 'pointer',
+              }}
+            >
+              Volver al inicio
+            </button>
+          </>
         ) : (
           <>
             <AiOutlineLoading3Quarters className="spin" style={{ fontSize: '1.8rem', color: '#4f8ef7' }} />
@@ -397,7 +428,7 @@ export default function Examen() {
     gap: 10,
   }}>
     <button
-      onClick={() => navigate('/')}
+      onClick={confirmarSalir}
       title="Salir"
       className="page-topbar-btn"
     >

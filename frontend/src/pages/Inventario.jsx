@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { supabase } from '../services/supabaseClient';
 import { cargarYCachearLeccion } from '../services/leccionesPremium';
 import { cargarYCachearExamen } from '../services/examenesPremium';
@@ -11,10 +11,20 @@ import { HiOutlineArchiveBoxXMark, HiOutlineSquares2X2 } from "react-icons/hi2";
 
 export default function Inventario({ onClose, onNavigateStore }) {
   const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
   const [inventario, setInventario] = useState([]);
   const [loading, setLoading] = useState(true);
   const [cargandoLeccionId, setCargandoLeccionId] = useState(null);
   const [errorLeccion, setErrorLeccion] = useState('');
+
+  // Red de seguridad tras volver de pagar en la Tienda (?session_id=... en
+  // el success_url de crear-sesion-pago): el webhook de Stripe puede tardar
+  // o fallar, así que se le pregunta a Stripe directamente por el estado
+  // real de esa sesión antes de leer el inventario — mismo patrón que ya
+  // usa OfertaConfirmada.jsx (ver verificar-pago-producto). Sin esto, el
+  // alumno podía regresar de pagar y ver su compra "desaparecida" hasta
+  // que el webhook llegara o refrescara la página más tarde por su cuenta.
+  const [confirmandoCompra, setConfirmandoCompra] = useState(Boolean(searchParams.get('session_id')));
 
   // Punto único para abrir cualquier producto del inventario: según su tipo,
   // descarga+cachea desde el bucket privado correspondiente (mismo patrón
@@ -66,8 +76,60 @@ export default function Inventario({ onClose, onNavigateStore }) {
     navigate('/tienda');
   };
 
+  async function verificarConStripe(sessionId) {
+    try {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) return null;
+      const res = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/verificar-pago-producto`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${session.access_token}`,
+        },
+        body: JSON.stringify({ session_id: sessionId }),
+      });
+      const data = await res.json();
+      return data?.estado_pago ?? null;
+    } catch (err) {
+      console.error('No se pudo verificar el pago directamente con Stripe:', err);
+      return null;
+    }
+  }
+
   useEffect(() => {
-    fetchInventario();
+    const sessionId = searchParams.get('session_id');
+    if (!sessionId) {
+      fetchInventario();
+      return;
+    }
+
+    let cancelado = false;
+
+    (async () => {
+      // Casi siempre basta el primer intento (Stripe ya marcó la sesión
+      // como pagada en cuanto el checkout redirige de vuelta); el par de
+      // reintentos es solo por si el webhook y esta verificación llegan
+      // casi al mismo tiempo y hay que darle un instante más.
+      for (let intento = 0; intento < 3; intento++) {
+        const estado = await verificarConStripe(sessionId);
+        if (cancelado) return;
+        if (estado === 'completado' || estado === 'cancelado' || estado === 'expirado') break;
+        if (intento < 2) await new Promise((r) => setTimeout(r, 1500));
+      }
+      if (cancelado) return;
+
+      // Limpia session_id de la URL: sin esto, un refresh en /inventario
+      // volvería a disparar la verificación cada vez.
+      const siguientes = new URLSearchParams(searchParams);
+      siguientes.delete('session_id');
+      setSearchParams(siguientes, { replace: true });
+
+      setConfirmandoCompra(false);
+      fetchInventario();
+    })();
+
+    return () => { cancelado = true; };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const fetchInventario = async () => {
@@ -129,7 +191,12 @@ export default function Inventario({ onClose, onNavigateStore }) {
         {loading ? (
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 10, padding: '48px 0' }}>
             <AiOutlineLoading3Quarters className="spin" style={{ fontSize: '1.4rem', color: '#47a6ff' }} />
-            <p style={{ color: 'var(--text-muted)', fontSize: 13, margin: 0 }}>Cargando tu inventario…</p>
+            <p style={{ color: 'var(--text-muted)', fontSize: 13, margin: 0 }}>
+              {confirmandoCompra ? 'Confirmando tu compra…' : 'Cargando tu inventario…'}
+            </p>
+            {confirmandoCompra && (
+              <p style={{ color: 'var(--text-muted)', fontSize: 11.5, margin: 0 }}>Esto puede tardar unos segundos.</p>
+            )}
           </div>
         ) : inventario.length === 0 ? (
           <div className="sp-card" style={{ textAlign: 'center', alignItems: 'center' }}>

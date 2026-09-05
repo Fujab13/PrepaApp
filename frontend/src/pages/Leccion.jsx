@@ -275,13 +275,16 @@ export default function Leccion() {
     }
   }, [materiaId])
 
-  useEffect(() => {
-    if (!materia && !cargando) navigate('/')
-  }, [materia, cargando, navigate])
+  // Antes también redirigía a Home cuando "!materia && !cargando", pero esa
+  // combinación SIEMPRE ocurre junto con errorCarga (cargarLeccion solo deja
+  // materia en null vía el catch, que también lo pone) — el redirect ganaba
+  // la carrera y el alumno nunca alcanzaba a leer por qué falló su lección,
+  // solo se veía devuelto a Home sin explicación.
+  if (!materia && !errorCarga) return null
 
-  if (!materia) return null
-
-  const preguntas = (cargando || cargandoProgreso) ? [] : getPreguntasDeUnidad(materia.preguntas, unidad)
+  const preguntas = (cargando || cargandoProgreso || !materia)
+    ? []
+    : getPreguntasDeUnidad(materia.preguntas, unidad)
   const colaLista = cola !== null
   const idxActual = colaLista && cola.length > 0 ? cola[0] : null
   const pregunta  = enRepaso
@@ -301,7 +304,19 @@ export default function Leccion() {
         textAlign: 'center',
       }}>
         {errorCarga ? (
-          <p style={{ color: 'var(--wrong)', fontSize: '0.9rem', margin: 0 }}>{errorCarga}</p>
+          <>
+            <p style={{ color: 'var(--wrong)', fontSize: '0.9rem', margin: 0 }}>{errorCarga}</p>
+            <button
+              type="button"
+              onClick={() => navigate('/')}
+              style={{
+                minHeight: 44, padding: '0 20px', borderRadius: 12, border: 'none',
+                background: 'var(--surface2)', color: 'var(--text)', fontWeight: 700, cursor: 'pointer',
+              }}
+            >
+              Volver al inicio
+            </button>
+          </>
         ) : (
           <>
             <AiOutlineLoading3Quarters
@@ -557,7 +572,7 @@ export default function Leccion() {
       textoConfirmar: 'Omitir',
       colorConfirmar: 'var(--wrong)',
       accion: async () => {
-        await guardarProgreso(unidad + 1, 0)
+        await guardarProgreso(unidad + 1, 0, { avanceValido: false })
         setCola(null)
         setCorrectasIniciales(0)
         setCorrectasNuevas(0)

@@ -165,7 +165,7 @@ Deno.serve(async (req: Request) => {
         user_id: user.id,
       },
       success_url: `${frontendUrl}/oferta-confirmada?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${frontendUrl}/ofertas?reserva_cancelada=${transaccion.id}`,
+      cancel_url: `${frontendUrl}/tutorias/alumno?reserva_cancelada=${transaccion.id}`,
     })
 
     await supabaseAdmin
