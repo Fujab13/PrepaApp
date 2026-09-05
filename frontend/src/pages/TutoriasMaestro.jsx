@@ -15,6 +15,7 @@ import { MATERIAS_TUTORIA, MATERIA_OTROS, nombreMateriaOferta } from "../data/ma
 import {
   registrarProfesorPropio,
   actualizarProfesorPropio,
+  actualizarCuentaProfesor,
   obtenerMiEstadoProfesor,
   verificarLoginProfesor,
 } from "../services/profesores";
@@ -96,9 +97,7 @@ export default function TutoriasMaestro() {
   const [precioMxn, setPrecioMxn] = useState("");
   const [duracionMin, setDuracionMin] = useState(60);
   const [cupo, setCupo] = useState("");
-  const [profesor, setProfesor] = useState("");
   const [notas, setNotas] = useState("");
-  const [cuentaClave, setCuentaClave] = useState("");
 
   const [publicando, setPublicando] = useState(false);
   const [errorPublicar, setErrorPublicar] = useState("");
@@ -113,9 +112,18 @@ export default function TutoriasMaestro() {
   const [regEmailContacto, setRegEmailContacto] = useState("");
   const [regTelefono, setRegTelefono] = useState("");
   const [regMaterias, setRegMaterias] = useState([]);
+  const [regNumeroCuenta, setRegNumeroCuenta] = useState("");
   const [registrandoProfesor, setRegistrandoProfesor] = useState(false);
   const [errorRegistro, setErrorRegistro] = useState("");
   const [editandoRegistro, setEditandoRegistro] = useState(false);
+
+  // Editar SOLO la CLABE de cobro (RPC aparte, funciona aunque ya esté
+  // verificado — ver actualizar_cuenta_profesor en la migración
+  // 20260904130000_numero_cuenta_profesor).
+  const [editandoCuenta, setEditandoCuenta] = useState(false);
+  const [nuevaCuenta, setNuevaCuenta] = useState("");
+  const [guardandoCuenta, setGuardandoCuenta] = useState(false);
+  const [errorCuenta, setErrorCuenta] = useState("");
 
   // Login aparte (correo + contraseña de profesor) que desbloquea el
   // portal una vez que la cuenta ya quedó verificada.
@@ -124,17 +132,6 @@ export default function TutoriasMaestro() {
   const [loginContrasena, setLoginContrasena] = useState("");
   const [verificandoLogin, setVerificandoLogin] = useState(false);
   const [errorLogin, setErrorLogin] = useState("");
-
-  // El nombre que se muestra/publica como "profesor" sale siempre de
-  // profesores.nombre (el que dio al registrarse con su CURP) — antes se
-  // prellenaba desde perfiles.nombre (un nombre genérico de cuenta pedido
-  // aparte, en otra pantalla) y podía terminar siendo distinto del que ya
-  // había registrado como profesor, generando confusión sobre cuál era su
-  // nombre "real" en el portal.
-  useEffect(() => {
-    if (estadoProfesor?.nombre && !profesor) setProfesor(estadoProfesor.nombre);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [estadoProfesor?.nombre]);
 
   const cargarEstadoProfesor = useCallback(() => {
     if (!user) return () => {};
@@ -173,6 +170,7 @@ export default function TutoriasMaestro() {
     if (!CURP_REGEX.test(regCurp.trim().toUpperCase())) return "Escribe tu CURP completa (18 caracteres).";
     if (!regEmailContacto.trim() || !regEmailContacto.includes("@")) return "Escribe un correo de contacto válido.";
     if (regMaterias.length === 0) return "Elige al menos una materia que puedas impartir.";
+    if (!/^\d{18}$/.test(regNumeroCuenta.trim())) return "La CLABE debe tener exactamente 18 dígitos.";
     return "";
   }
 
@@ -183,6 +181,7 @@ export default function TutoriasMaestro() {
     setRegEmailContacto(estadoProfesor.email_contacto || "");
     setRegTelefono(estadoProfesor.telefono_contacto || "");
     setRegMaterias(estadoProfesor.materias || []);
+    setRegNumeroCuenta(estadoProfesor.numero_cuenta || "");
     setErrorRegistro("");
     setEditandoRegistro(true);
   }
@@ -205,6 +204,7 @@ export default function TutoriasMaestro() {
         emailContacto: regEmailContacto.trim(),
         telefonoContacto: regTelefono.trim(),
         materias: regMaterias,
+        numeroCuenta: regNumeroCuenta.trim(),
       });
       setEstadoProfesor(await obtenerMiEstadoProfesor());
     } catch (err) {
@@ -233,6 +233,7 @@ export default function TutoriasMaestro() {
         emailContacto: regEmailContacto.trim(),
         telefonoContacto: regTelefono.trim(),
         materias: regMaterias,
+        numeroCuenta: regNumeroCuenta.trim(),
       });
       setEstadoProfesor(await obtenerMiEstadoProfesor());
       setEditandoRegistro(false);
@@ -247,6 +248,32 @@ export default function TutoriasMaestro() {
       );
     }
     setRegistrandoProfesor(false);
+  }
+
+  function iniciarEdicionCuenta() {
+    setNuevaCuenta(estadoProfesor?.numero_cuenta || "");
+    setErrorCuenta("");
+    setEditandoCuenta(true);
+  }
+
+  function cancelarEdicionCuenta() {
+    setEditandoCuenta(false);
+    setErrorCuenta("");
+  }
+
+  async function guardarCuenta() {
+    if (!/^\d{18}$/.test(nuevaCuenta.trim())) {
+      return setErrorCuenta("La CLABE debe tener exactamente 18 dígitos.");
+    }
+    setGuardandoCuenta(true);
+    try {
+      await actualizarCuentaProfesor(nuevaCuenta.trim());
+      setEstadoProfesor(await obtenerMiEstadoProfesor());
+      setEditandoCuenta(false);
+    } catch {
+      setErrorCuenta("No se pudo guardar tu CLABE. Intenta de nuevo.");
+    }
+    setGuardandoCuenta(false);
   }
 
   async function iniciarSesionProfesor() {
@@ -303,9 +330,7 @@ export default function TutoriasMaestro() {
     setPrecioMxn(String(oferta.precio_mxn));
     setDuracionMin(oferta.duracion_minutos);
     setCupo(oferta.cupo_maximo);
-    setProfesor(oferta.profesor);
     setNotas(oferta.notas || "");
-    setCuentaClave(oferta.cuenta_clave);
   }
 
   function limpiarFormulario() {
@@ -318,9 +343,7 @@ export default function TutoriasMaestro() {
     setPrecioMxn("");
     setDuracionMin(60);
     setCupo("");
-    setProfesor(estadoProfesor?.nombre || "");
     setNotas("");
-    setCuentaClave("");
   }
 
   async function guardarOferta() {
@@ -341,9 +364,11 @@ export default function TutoriasMaestro() {
     }
     const cupoNum = Number(cupo);
     if (!cupoNum || cupoNum < 1 || cupoNum > 50) return setErrorPublicar("El cupo debe ser entre 1 y 50 alumnos.");
-    if (!profesor.trim()) return setErrorPublicar("Escribe el nombre del profesor.");
     if (notas.length > 500) return setErrorPublicar("Tus notas son muy largas (máximo 500 caracteres).");
-    if (!/^\d{18}$/.test(cuentaClave.trim())) return setErrorPublicar("La CLABE debe tener exactamente 18 dígitos.");
+    if (!estadoProfesor?.nombre) return setErrorPublicar("No se pudo cargar tu nombre registrado. Recarga la página.");
+    if (!/^\d{18}$/.test(estadoProfesor?.numero_cuenta || "")) {
+      return setErrorPublicar("Configura tu CLABE para recibir pagos (arriba, en \"Tu cuenta para recibir pagos\") antes de publicar.");
+    }
 
     const datos = {
       materia_id: materiaId,
@@ -352,9 +377,9 @@ export default function TutoriasMaestro() {
       precio_mxn: precio,
       duracion_minutos: duracionMin,
       cupo_maximo: cupoNum,
-      profesor: profesor.trim(),
+      profesor: estadoProfesor.nombre.trim(),
       notas: notas.trim() || null,
-      cuenta_clave: cuentaClave.trim(),
+      cuenta_clave: estadoProfesor.numero_cuenta.trim(),
     };
 
     setPublicando(true);
@@ -499,6 +524,15 @@ export default function TutoriasMaestro() {
                   </div>
                 </div>
 
+                <input
+                  style={inputStyle}
+                  inputMode="numeric"
+                  placeholder="CLABE (18 dígitos) para recibir tus pagos"
+                  value={regNumeroCuenta}
+                  onChange={(e) => setRegNumeroCuenta(e.target.value.replace(/\D/g, "").slice(0, 18))}
+                  maxLength={18}
+                />
+
                 {errorRegistro && <p style={{ color: "var(--wrong)", fontSize: 13, margin: 0 }}>{errorRegistro}</p>}
 
                 <div style={{ display: "flex", gap: 8 }}>
@@ -540,6 +574,7 @@ export default function TutoriasMaestro() {
                   <p style={{ fontSize: 13, color: "var(--text)", margin: 0, fontFamily: "monospace" }}>CURP: {estadoProfesor.curp}</p>
                   <p style={{ fontSize: 13, color: "var(--text)", margin: 0 }}>Correo de contacto: {estadoProfesor.email_contacto}</p>
                   <p style={{ fontSize: 13, color: "var(--text)", margin: 0 }}>Teléfono: {estadoProfesor.telefono_contacto || "—"}</p>
+                  <p style={{ fontSize: 13, color: "var(--text)", margin: 0, fontFamily: "monospace" }}>CLABE: {estadoProfesor.numero_cuenta || "—"}</p>
                   <p style={{ fontSize: 13, color: "var(--text)", margin: 0 }}>
                     Materias: {(estadoProfesor.materias || []).map((id) => MATERIAS_TUTORIA.find((m) => m.id === id)?.nombre ?? id).join(", ") || "—"}
                   </p>
@@ -554,17 +589,27 @@ export default function TutoriasMaestro() {
                 </button>
 
                 <p style={{ fontSize: 13, color: "var(--text)", lineHeight: 1.6, margin: 0 }}>
-                  Manda tu <strong>certificado de estudios, CURP, INE, acta de nacimiento y RFC</strong> a{" "}
+                  Manda la siguiente documentación en este orden y con estos nombres al correo{" "}
                   <a
                     href={`mailto:${CORREO_DOCUMENTOS_PROFESOR}?subject=${encodeURIComponent(estadoProfesor.curp || "")}`}
                     style={{ color: "#eab308" }}
                   >
                     {CORREO_DOCUMENTOS_PROFESOR}
-                  </a>
-                  , usando tu CURP como asunto del correo:
+                  </a>{" "}
+                  con tu CURP como asunto:
                 </p>
                 <p style={{ fontSize: 15, fontWeight: 800, color: "#eab308", margin: 0, fontFamily: "monospace" }}>
                   {estadoProfesor.curp}
+                </p>
+                <ol style={{ margin: 0, paddingLeft: 20, display: "flex", flexDirection: "column", gap: 4 }}>
+                  {["CERTIFICADO DE ESTUDIOS", "CURP", "INE", "ACTA DE NACIMIENTO", "RFC"].map((doc) => (
+                    <li key={doc} style={{ fontSize: 13, color: "var(--text)", fontFamily: "monospace", fontWeight: 700 }}>
+                      {doc}
+                    </li>
+                  ))}
+                </ol>
+                <p style={{ fontSize: 13, color: "var(--text)", margin: 0, lineHeight: 1.6 }}>
+                  Asegúrate de realizar correctamente tu registro todo en formato pdf.
                 </p>
                 <p style={{ fontSize: 13, color: "var(--text-muted)", margin: 0, lineHeight: 1.5 }}>
                   Cuando el equipo confirme tu documentación, te compartiremos por correo tu contraseña de profesor
@@ -645,6 +690,61 @@ export default function TutoriasMaestro() {
 
         {!cargandoAuth && user && esMaestro && desbloqueado && (
           <>
+            <Seccion
+              icono={<HiOutlineIdentification />}
+              color="#4f8ef7"
+              title="Tu cuenta para recibir pagos"
+              subtitle="Esta CLABE es la que se publica en todas tus clases; cámbiala aquí si necesitas corregirla."
+            >
+              {!editandoCuenta ? (
+                <>
+                  <p style={{ fontSize: 15, fontWeight: 800, color: "var(--text)", fontFamily: "monospace", margin: 0 }}>
+                    {estadoProfesor?.numero_cuenta || "No configurada"}
+                  </p>
+                  <button
+                    type="button"
+                    onClick={iniciarEdicionCuenta}
+                    style={{ minHeight: 44, borderRadius: 10, border: "1px solid #4f8ef7", background: "transparent", color: "#4f8ef7", fontWeight: 700, fontSize: 14, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: 8 }}
+                  >
+                    <HiOutlinePencilSquare /> {estadoProfesor?.numero_cuenta ? "Cambiar CLABE" : "Configurar CLABE"}
+                  </button>
+                </>
+              ) : (
+                <>
+                  <input
+                    style={inputStyle}
+                    inputMode="numeric"
+                    placeholder="CLABE (18 dígitos)"
+                    value={nuevaCuenta}
+                    onChange={(e) => setNuevaCuenta(e.target.value.replace(/\D/g, "").slice(0, 18))}
+                    maxLength={18}
+                  />
+                  {errorCuenta && <p style={{ color: "var(--wrong)", fontSize: 13, margin: 0 }}>{errorCuenta}</p>}
+                  <div style={{ display: "flex", gap: 8 }}>
+                    <button
+                      type="button"
+                      onClick={cancelarEdicionCuenta}
+                      style={{ minHeight: 44, borderRadius: 10, border: "1px solid var(--surface2)", background: "transparent", color: "var(--text)", fontWeight: 700, fontSize: 14, cursor: "pointer" }}
+                    >
+                      Cancelar
+                    </button>
+                    <button
+                      onClick={guardarCuenta}
+                      disabled={guardandoCuenta}
+                      className="gm-cta"
+                      style={{
+                        flex: 1, minHeight: 44, borderRadius: 12, border: "none", background: "#4f8ef7",
+                        color: "#fff", fontWeight: 700, fontSize: 14, cursor: guardandoCuenta ? "default" : "pointer",
+                        opacity: guardandoCuenta ? 0.7 : 1, boxShadow: "0 4px 14px rgba(79, 142, 247, 0.3)",
+                      }}
+                    >
+                      {guardandoCuenta ? "Guardando…" : "Guardar"}
+                    </button>
+                  </div>
+                </>
+              )}
+            </Seccion>
+
             <Seccion icono={<HiOutlineBanknotes />} color="#4f8ef7" title="Mis ganancias" subtitle="Cuánto te deben, cuánto ya te pagamos y tus recibos por quincena.">
               <button
                 type="button"
@@ -658,11 +758,6 @@ export default function TutoriasMaestro() {
                 Ver mis ganancias
               </button>
             </Seccion>
-
-            <p style={{ fontSize: 13, color: "var(--text-muted)", lineHeight: 1.5, margin: 0 }}>
-              Publica tu disponibilidad para que los alumnos la vean en su portal. El grupo de WhatsApp y el pago se
-              coordinan directamente contigo.
-            </p>
 
             <Seccion icono={<HiOutlineClipboardDocumentList />} color="#22c55e" title="Informes de alumnos" subtitle="Consulta el formulario de área y el examen simulador de un alumno por su correo.">
               <button
@@ -698,13 +793,31 @@ export default function TutoriasMaestro() {
               icono={<HiOutlineChatBubbleLeftRight />}
               color="#06b6d4"
               title={editandoId ? "Editando oferta" : "Publicar una clase"}
-              subtitle="Materia, horario, cupo, y cómo te contactan y te pagan."
+              subtitle="Los alumnos la ven en su portal; el grupo de WhatsApp y el pago se coordinan directamente contigo."
               style={
                 editandoId
                   ? { border: "1.5px solid #06b6d4", boxShadow: "0 0 0 4px rgba(6,182,212,0.18)" }
                   : undefined
               }
             >
+              <div>
+                <p style={{ fontSize: 13, color: "var(--text-muted)", marginBottom: 8 }}>Se publica con tus datos registrados</p>
+                <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                  <div style={{ ...inputStyle, display: "flex", alignItems: "center", gap: 8, color: "var(--text-muted)", background: "var(--surface2)", cursor: "not-allowed" }}>
+                    <HiOutlineLockClosed style={{ flexShrink: 0, fontSize: 14, opacity: 0.7 }} />
+                    <span style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                      {estadoProfesor?.nombre || "—"}
+                    </span>
+                  </div>
+                  <div style={{ ...inputStyle, display: "flex", alignItems: "center", gap: 8, color: "var(--text-muted)", background: "var(--surface2)", cursor: "not-allowed", fontFamily: "monospace" }}>
+                    <HiOutlineLockClosed style={{ flexShrink: 0, fontSize: 14, opacity: 0.7 }} />
+                    <span style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                      {estadoProfesor?.numero_cuenta || "Configura tu CLABE arriba"}
+                    </span>
+                  </div>
+                </div>
+              </div>
+
               <div>
                 <p style={{ fontSize: 13, color: "var(--text-muted)", marginBottom: 8 }}>Materia</p>
                 <FilaChips
@@ -770,23 +883,6 @@ export default function TutoriasMaestro() {
                 placeholder="Notas para tu alumno (opcional)…"
                 value={notas}
                 onChange={(e) => setNotas(e.target.value)}
-              />
-
-              <input
-                style={inputStyle}
-                placeholder="Nombre del profesor"
-                value={profesor}
-                onChange={(e) => setProfesor(e.target.value)}
-                maxLength={80}
-              />
-
-              <input
-                style={inputStyle}
-                inputMode="numeric"
-                placeholder="CLABE (18 dígitos) para recibir el pago"
-                value={cuentaClave}
-                onChange={(e) => setCuentaClave(e.target.value.replace(/\D/g, "").slice(0, 18))}
-                maxLength={18}
               />
 
               <input

@@ -16,10 +16,13 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { obtenerMisTransaccionesOfertaMaestro } from "../services/maestros";
 import { nombreMateriaOferta } from "../data/materiasTutoria";
+import { Seccion } from "../components/Seccion";
 
 import { AiOutlineClose } from "react-icons/ai";
 import {
   HiOutlineBanknotes,
+  HiOutlineClipboardDocumentList,
+  HiOutlineClock,
   HiOutlinePrinter,
   HiCheckCircle,
   HiChevronDown,
@@ -61,6 +64,16 @@ function totalizar(transacciones) {
       pendiente: acc.pendiente + (t.pagado_profesor ? 0 : Number(t.monto_profesor_mxn ?? 0)),
     }),
     { bruto: 0, comision: 0, ganancia: 0, pagado: 0, pendiente: 0 }
+  );
+}
+
+function TarjetaResumen({ icono, label, valor, color }) {
+  return (
+    <div style={{ background: "var(--surface2)", borderLeft: `3px solid ${color}`, borderRadius: 10, padding: "10px 12px", display: "flex", flexDirection: "column", gap: 3, flex: 1, minWidth: 0 }}>
+      <div style={{ display: "flex", alignItems: "center", gap: 6, color, fontSize: 13 }}>{icono}</div>
+      <span style={{ fontSize: 10.5, color: "var(--text-muted)" }}>{label}</span>
+      <span style={{ fontSize: 15, fontWeight: 800, color: "var(--text)" }}>{valor}</span>
+    </div>
   );
 }
 
@@ -240,77 +253,74 @@ export default function MisGanancias() {
           <>
             {error && <p style={{ color: "var(--wrong)", fontSize: 13, textAlign: "center", margin: 0 }}>{error}</p>}
 
-            <div style={{ display: "flex", gap: 8 }}>
-              <div style={{ background: "var(--surface2)", borderLeft: "3px solid #4f8ef7", borderRadius: 10, padding: "10px 12px", flex: 1 }}>
-                <span style={{ fontSize: 10.5, color: "var(--text-muted)" }}>Ganado en total</span>
-                <p style={{ fontSize: 15, fontWeight: 800, color: "var(--text)", margin: "3px 0 0" }}>{fmtMoneda(totalHistorico.ganancia)}</p>
+            <Seccion icono={<HiOutlineBanknotes />} color="#4f8ef7" title="Resumen" subtitle="Lo que has generado en tus clases y cuánto sigue pendiente de cobro.">
+              <div style={{ display: "flex", gap: 8 }}>
+                <TarjetaResumen icono={<HiOutlineBanknotes />} label="Ganado en total" valor={fmtMoneda(totalHistorico.ganancia)} color="#4f8ef7" />
+                <TarjetaResumen icono={<HiCheckCircle />} label="Ya cobrado" valor={fmtMoneda(totalHistorico.pagado)} color="#22c55e" />
+                <TarjetaResumen icono={<HiOutlineClock />} label="Pendiente de cobro" valor={fmtMoneda(totalHistorico.pendiente)} color="#f59e0b" />
               </div>
-              <div style={{ background: "var(--surface2)", borderLeft: "3px solid #f59e0b", borderRadius: 10, padding: "10px 12px", flex: 1 }}>
-                <span style={{ fontSize: 10.5, color: "var(--text-muted)" }}>Pendiente de cobro</span>
-                <p style={{ fontSize: 15, fontWeight: 800, color: "var(--text)", margin: "3px 0 0" }}>{fmtMoneda(totalHistorico.pendiente)}</p>
-              </div>
-            </div>
+            </Seccion>
 
-            {quincenas.length === 0 && (
-              <p style={{ fontSize: 13, color: "var(--text-muted)", textAlign: "center", margin: "20px 0" }}>
-                Todavía no tienes clases pagadas.
-              </p>
-            )}
+            <Seccion icono={<HiOutlineClipboardDocumentList />} color="#7c5cbf" title="Historial por quincena" subtitle="Tus pagos agrupados en periodos de nómina (1–15 y 16–fin de mes).">
+              {quincenas.length === 0 && (
+                <p style={{ fontSize: 13, color: "var(--text-muted)", margin: 0 }}>Todavía no tienes clases pagadas.</p>
+              )}
 
-            {quincenas.map((q) => {
-              const totales = totalizar(q.transacciones);
-              const expandido = expandidos.has(q.key);
-              return (
-                <div key={q.key} className="sp-card" style={{ margin: 0 }}>
-                  <button
-                    type="button"
-                    onClick={() => alternarExpandido(q.key)}
-                    style={{ background: "none", border: "none", padding: 0, width: "100%", textAlign: "left", cursor: "pointer", display: "flex", alignItems: "center", gap: 12, minHeight: 44 }}
-                  >
-                    <div className="sp-card-icon" style={{ background: "rgba(79,142,247,0.15)", color: "#4f8ef7" }}>
-                      <HiOutlineBanknotes />
-                    </div>
-                    <div className="sp-card-body">
-                      <p className="sp-card-title">Quincena {q.etiqueta}</p>
-                      <p className="sp-card-description">{q.transacciones.length} alumno(s) · Ganancia {fmtMoneda(totales.ganancia)}</p>
-                    </div>
-                    <span style={{ fontSize: 18, color: "var(--text-muted)", display: "flex", flexShrink: 0 }}>{expandido ? <HiChevronUp /> : <HiChevronDown />}</span>
-                  </button>
-
-                  {expandido && (
-                    <div style={{ borderTop: "0.5px solid var(--surface)", marginTop: 12, paddingTop: 12, display: "flex", flexDirection: "column", gap: 8 }}>
-                      <div style={{ display: "flex", justifyContent: "space-between", fontSize: 12, color: "var(--text-muted)" }}>
-                        <span>Bruto {fmtMoneda(totales.bruto)}</span>
-                        <span>Comisión {fmtMoneda(totales.comision)}</span>
-                        <span>Pagado {fmtMoneda(totales.pagado)}</span>
+              {quincenas.map((q) => {
+                const totales = totalizar(q.transacciones);
+                const expandido = expandidos.has(q.key);
+                return (
+                  <div key={q.key} className="sp-card" style={{ margin: 0 }}>
+                    <button
+                      type="button"
+                      onClick={() => alternarExpandido(q.key)}
+                      style={{ background: "none", border: "none", padding: 0, width: "100%", textAlign: "left", cursor: "pointer", display: "flex", alignItems: "center", gap: 12, minHeight: 44 }}
+                    >
+                      <div className="sp-card-icon" style={{ background: "rgba(124,92,191,0.15)", color: "#7c5cbf" }}>
+                        <HiOutlineBanknotes />
                       </div>
-                      {q.transacciones.map((t) => {
-                        return (
-                          <div key={t.transaccion_id} style={{ background: "var(--surface2)", border: "0.5px solid var(--surface)", borderRadius: 10, padding: "10px 12px" }}>
-                            <div style={{ display: "flex", justifyContent: "space-between", gap: 8 }}>
-                              <p style={{ fontSize: 12.5, fontWeight: 700, color: "var(--text)", margin: 0 }}>
-                                {nombreMateriaOferta(t.materia_id, t.materia_otro)} · {t.alumno_nombre || t.alumno_email}
+                      <div className="sp-card-body">
+                        <p className="sp-card-title">Quincena {q.etiqueta}</p>
+                        <p className="sp-card-description">{q.transacciones.length} alumno(s) · Ganancia {fmtMoneda(totales.ganancia)}</p>
+                      </div>
+                      <span style={{ fontSize: 18, color: "var(--text-muted)", display: "flex", flexShrink: 0 }}>{expandido ? <HiChevronUp /> : <HiChevronDown />}</span>
+                    </button>
+
+                    {expandido && (
+                      <div style={{ borderTop: "0.5px solid var(--surface)", marginTop: 12, paddingTop: 12, display: "flex", flexDirection: "column", gap: 8 }}>
+                        <div style={{ display: "flex", justifyContent: "space-between", fontSize: 12, color: "var(--text-muted)" }}>
+                          <span>Bruto {fmtMoneda(totales.bruto)}</span>
+                          <span>Comisión {fmtMoneda(totales.comision)}</span>
+                          <span>Pagado {fmtMoneda(totales.pagado)}</span>
+                        </div>
+                        {q.transacciones.map((t) => {
+                          return (
+                            <div key={t.transaccion_id} style={{ background: "var(--surface2)", border: "0.5px solid var(--surface)", borderRadius: 10, padding: "10px 12px" }}>
+                              <div style={{ display: "flex", justifyContent: "space-between", gap: 8 }}>
+                                <p style={{ fontSize: 12.5, fontWeight: 700, color: "var(--text)", margin: 0 }}>
+                                  {nombreMateriaOferta(t.materia_id, t.materia_otro)} · {t.alumno_nombre || t.alumno_email}
+                                </p>
+                                <p style={{ fontSize: 13, fontWeight: 800, color: "var(--text)", margin: 0, whiteSpace: "nowrap" }}>{fmtMoneda(t.monto_profesor_mxn)}</p>
+                              </div>
+                              <p style={{ fontSize: 11.5, color: "var(--text-muted)", margin: "4px 0 0" }}>
+                                {fmtFecha(t.pagado_en)} · {t.pagado_profesor ? "Pagado" : "Pendiente de pago"}
                               </p>
-                              <p style={{ fontSize: 13, fontWeight: 800, color: "var(--text)", margin: 0, whiteSpace: "nowrap" }}>{fmtMoneda(t.monto_profesor_mxn)}</p>
                             </div>
-                            <p style={{ fontSize: 11.5, color: "var(--text-muted)", margin: "4px 0 0" }}>
-                              {fmtFecha(t.pagado_en)} · {t.pagado_profesor ? "Pagado" : "Pendiente de pago"}
-                            </p>
-                          </div>
-                        );
-                      })}
-                      <button
-                        type="button"
-                        onClick={() => setQuincenaAbierta(q)}
-                        style={{ minHeight: 40, borderRadius: 10, border: "1px solid #4f8ef7", background: "transparent", color: "#4f8ef7", fontWeight: 700, fontSize: 13, display: "flex", alignItems: "center", justifyContent: "center", gap: 6, cursor: "pointer" }}
-                      >
-                        <HiOutlinePrinter /> Ver / imprimir recibo
-                      </button>
-                    </div>
-                  )}
-                </div>
-              );
-            })}
+                          );
+                        })}
+                        <button
+                          type="button"
+                          onClick={() => setQuincenaAbierta(q)}
+                          style={{ minHeight: 40, borderRadius: 10, border: "1px solid #7c5cbf", background: "transparent", color: "#7c5cbf", fontWeight: 700, fontSize: 13, display: "flex", alignItems: "center", justifyContent: "center", gap: 6, cursor: "pointer" }}
+                        >
+                          <HiOutlinePrinter /> Ver / imprimir recibo
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </Seccion>
           </>
         )}
       </main>

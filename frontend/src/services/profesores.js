@@ -10,13 +10,14 @@ import { supabase } from './supabaseClient';
  * 6 dígitos que solo el equipo puede ver (vía `listarProfesoresAdmin`) para
  * mandársela una vez que la documentación quede validada.
  */
-export async function registrarProfesorPropio({ nombre, curp, emailContacto, telefonoContacto, materias }) {
+export async function registrarProfesorPropio({ nombre, curp, emailContacto, telefonoContacto, materias, numeroCuenta }) {
   const { data, error } = await supabase.rpc('registrar_profesor_propio', {
     p_nombre: nombre,
     p_curp: curp,
     p_email_contacto: emailContacto,
     p_telefono_contacto: telefonoContacto || null,
     p_materias: materias,
+    p_numero_cuenta: numeroCuenta,
   });
   if (error) throw error;
   return data?.[0] ?? null;
@@ -26,13 +27,28 @@ export async function registrarProfesorPropio({ nombre, curp, emailContacto, tel
  * Corrige los datos de un registro todavía pendiente de verificar (RPC
  * `actualizar_profesor_propio`). Falla a propósito si ya quedó verificado.
  */
-export async function actualizarProfesorPropio({ nombre, curp, emailContacto, telefonoContacto, materias }) {
+export async function actualizarProfesorPropio({ nombre, curp, emailContacto, telefonoContacto, materias, numeroCuenta }) {
   const { data, error } = await supabase.rpc('actualizar_profesor_propio', {
     p_nombre: nombre,
     p_curp: curp,
     p_email_contacto: emailContacto,
     p_telefono_contacto: telefonoContacto || null,
     p_materias: materias,
+    p_numero_cuenta: numeroCuenta,
+  });
+  if (error) throw error;
+  return data?.[0] ?? null;
+}
+
+/**
+ * Corrige SOLO la CLABE de cobro (RPC `actualizar_cuenta_profesor`),
+ * a diferencia de `actualizarProfesorPropio` funciona incluso si el
+ * profesor ya quedó verificado: la cuenta de cobro no es parte de lo que
+ * se validó contra la documentación.
+ */
+export async function actualizarCuentaProfesor(numeroCuenta) {
+  const { data, error } = await supabase.rpc('actualizar_cuenta_profesor', {
+    p_numero_cuenta: numeroCuenta,
   });
   if (error) throw error;
   return data?.[0] ?? null;

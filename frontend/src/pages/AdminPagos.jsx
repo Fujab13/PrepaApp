@@ -106,6 +106,7 @@ export default function AdminPagos() {
           profesor_id: fila.profesor_id,
           nombre: fila.profesor_nombre,
           email: fila.profesor_email,
+          numeroCuenta: fila.profesor_numero_cuenta,
           transacciones: [],
           totalBruto: 0,
           totalComision: 0,
@@ -213,6 +214,10 @@ export default function AdminPagos() {
                       <span style={{ fontSize: 18, color: "var(--text-muted)", display: "flex" }}>{expandido ? <HiChevronUp /> : <HiChevronDown />}</span>
                     </div>
                   </button>
+
+                  <p style={{ fontSize: 11.5, color: "var(--text-muted)", margin: "8px 0 0", fontFamily: "monospace" }}>
+                    CLABE registrada: {p.numeroCuenta || "No configurada"}
+                  </p>
 
                   {expandido && (
                     <div style={{ borderTop: "0.5px solid var(--surface)", marginTop: 12, paddingTop: 12, display: "flex", flexDirection: "column", gap: 8 }}>

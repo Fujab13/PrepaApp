@@ -207,24 +207,31 @@ export default function AdminMaestros() {
           <p style={{ margin: 0 }}>Materias: {(p.materias || []).join(", ") || "—"}</p>
         </div>
 
-        {/* No hay un "número de cuenta" único en el registro del profesor: cada
-            oferta que publica captura su propia CLABE, así que aquí se listan
-            todas las que ha usado (normalmente una sola, salvo que la haya
-            cambiado entre ofertas). */}
+        {/* CLABE del registro (profesores.numero_cuenta, migración
+            20260904130000): desde esa migración es la que se publica en
+            TODAS sus ofertas nuevas — ya no se captura a mano por oferta. */}
         <div style={{ marginTop: 10, background: "var(--surface)", border: "1px solid var(--surface2)", borderRadius: 10, padding: 10 }}>
-          <p style={{ fontSize: 12, color: "var(--text-muted)", margin: "0 0 6px" }}>
-            CLABE{clabes.length > 1 ? "s" : ""} usada{clabes.length > 1 ? "s" : ""} en sus ofertas
+          <p style={{ fontSize: 12, color: "var(--text-muted)", margin: "0 0 6px" }}>CLABE de su registro</p>
+          <p style={{ fontSize: 14, fontWeight: 700, color: "var(--text)", fontFamily: "monospace", margin: 0 }}>
+            {p.numero_cuenta || "No configurada"}
           </p>
-          {clabes.length === 0 ? (
-            <p style={{ fontSize: 13, color: "var(--text-muted)", margin: 0 }}>Sin ofertas publicadas todavía.</p>
-          ) : (
-            clabes.map((clabe) => (
+        </div>
+
+        {/* Legado de antes de esa migración: ofertas publicadas con una
+            CLABE distinta a la del registro (typo, cambio de cuenta, o
+            profesores verificados antes de que existiera numero_cuenta). */}
+        {clabes.length > 0 && !(clabes.length === 1 && clabes[0] === p.numero_cuenta) && (
+          <div style={{ marginTop: 10, background: "var(--surface)", border: "1px solid var(--surface2)", borderRadius: 10, padding: 10 }}>
+            <p style={{ fontSize: 12, color: "var(--text-muted)", margin: "0 0 6px" }}>
+              CLABE{clabes.length > 1 ? "s" : ""} usada{clabes.length > 1 ? "s" : ""} en sus ofertas (histórico)
+            </p>
+            {clabes.map((clabe) => (
               <p key={clabe} style={{ fontSize: 14, fontWeight: 700, color: "var(--text)", fontFamily: "monospace", margin: 0 }}>
                 {clabe}
               </p>
-            ))
-          )}
-        </div>
+            ))}
+          </div>
+        )}
 
         <div style={{ marginTop: 10, background: "var(--surface)", border: "1px solid var(--surface2)", borderRadius: 10, padding: 10, display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
           <span style={{ fontSize: 12, color: "var(--text-muted)", flex: 1, minWidth: 120 }}>Contraseña de profesor:</span>
