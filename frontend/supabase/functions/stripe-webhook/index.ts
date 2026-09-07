@@ -28,7 +28,12 @@ Deno.serve(async (req: Request) => {
 
   let event: any
   try {
-    event = stripe.webhooks.constructEvent(body, signature, getEnv('STRIPE_WEBHOOK_SIGNING_SECRET'))
+    // constructEvent (síncrono) no funciona en Deno: su verificación de
+    // firma usa SubtleCrypto, que en este runtime solo opera de forma
+    // asíncrona. Sin esto, CADA webhook fallaba con 400 antes de siquiera
+    // llegar a procesar el evento — Stripe lo reportaba como "other errors"
+    // y terminó deshabilitando el endpoint tras 9 días fallando.
+    event = await stripe.webhooks.constructEventAsync(body, signature, getEnv('STRIPE_WEBHOOK_SIGNING_SECRET'))
   } catch (err) {
     const message = err instanceof Error ? err.message : 'Error desconocido'
     console.error('Firma inválida:', message)
@@ -52,7 +57,14 @@ Deno.serve(async (req: Request) => {
       p_stripe_intent_id: session.id,
     })
 
-    if (error) {
+    // "Transacción no encontrada o ya fue procesada" es esperado, no una
+    // falla: verificar-pago-producto / verificar-pago-oferta-maestro (la
+    // red de seguridad que corre apenas el alumno regresa del checkout)
+    // pueden ganarle la carrera a este webhook y confirmar el pago
+    // primero. Si se trata como error real (500) aquí, Stripe reintenta
+    // sin parar por algo que ya se resolvió bien, y puede volver a
+    // deshabilitar el endpoint.
+    if (error && !error.message?.includes('no encontrada o ya fue procesada')) {
       console.error('Error al conciliar el pago:', error)
       return new Response(JSON.stringify({ error: error.message }), { status: 500 })
     }
