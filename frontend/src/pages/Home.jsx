@@ -282,7 +282,7 @@ export default function Home() {
 }}>
   <div style={{ display: 'flex', gap: 18 }}>
     
-    <a href="https://instagram.com/TU_USUARIO" target="_blank" rel="noopener noreferrer" 
+    <a href="https://www.instagram.com/prepaappcontacto/?hl=es" target="_blank" rel="noopener noreferrer"
       style={{ 
         color: 'var(--text)',
         opacity: 0.9
@@ -290,7 +290,7 @@ export default function Home() {
       <FaInstagram size={22} />
     </a>
 
-    <a href="https://facebook.com/TU_USUARIO" target="_blank" rel="noopener noreferrer" 
+    <a href="https://www.facebook.com/people/Clases-online/61572853197408/" target="_blank" rel="noopener noreferrer"
       style={{ 
         color: 'var(--text)',
         opacity: 0.9

@@ -9,6 +9,7 @@ import { obtenerRankingSemanal, obtenerMiPosicionSemanal } from "../services/ran
 import { construirTableroConBots, calcularPosicionGlobal } from "../utils/bots";
 import { useAuth } from "../context/AuthContext";
 
+import { FaUserGraduate } from "react-icons/fa";
 import { PiChalkboardTeacher, PiStudent } from "react-icons/pi";
 import { AiOutlineClose } from "react-icons/ai";
 import { HiChevronLeft } from "react-icons/hi2";
@@ -132,15 +133,15 @@ function RankingSemanal() {
         borderRadius: 22,
         padding: "22px 16px 18px",
         marginTop: 6,
-        background: "radial-gradient(120% 100% at 50% -10%, rgba(229,193,88,0.16), transparent 60%), var(--surface)",
-        border: "1px solid rgba(229,193,88,0.28)",
-        boxShadow: "0 10px 30px -16px rgba(229,193,88,0.4)",
+        background: "radial-gradient(120% 100% at 50% -10%, rgba(71,166,255,0.16), transparent 60%), var(--surface)",
+        border: "1px solid rgba(71,166,255,0.5)",
+        boxShadow: "0 0 24px rgba(71,166,255,0.2)",
       }}
     >
       {/* Resplandores decorativos: dos círculos difuminados, puramente
           ambientales (pointerEvents none), para que la sección se sienta
           distinta a una tarjeta plana como el resto de "/tutorias". */}
-      <div style={{ position: "absolute", top: -40, right: -30, width: 130, height: 130, borderRadius: "50%", background: "#e5c158", opacity: 0.14, filter: "blur(40px)", pointerEvents: "none" }} />
+      <div style={{ position: "absolute", top: -40, right: -30, width: 130, height: 130, borderRadius: "50%", background: "#47a6ff", opacity: 0.14, filter: "blur(40px)", pointerEvents: "none" }} />
       <div style={{ position: "absolute", bottom: -50, left: -30, width: 140, height: 140, borderRadius: "50%", background: "#7c5cbf", opacity: 0.1, filter: "blur(46px)", pointerEvents: "none" }} />
 
       <div style={{ position: "relative", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", marginBottom: 18 }}>
@@ -390,7 +391,7 @@ export default function Tutorias() {
           <AiOutlineClose />
         </button>
         <span className="page-topbar-btn" style={{ fontSize: "1.35rem" }}>
-          <PiStudent />
+          <FaUserGraduate />
         </span>
         <h2 className="page-topbar-title" style={{ fontSize: "1rem" }}>Tutorías</h2>
       </header>

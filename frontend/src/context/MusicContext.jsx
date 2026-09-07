@@ -34,7 +34,7 @@ import { createContext, useContext, useEffect, useRef, useState } from 'react'
 const MusicContext = createContext(null)
 
 const STORAGE_KEY = 'musica_silenciada'
-const VOLUMEN_OBJETIVO = 0.22 // varias voces sonando a la vez suman más que 1 pista sola
+const VOLUMEN_OBJETIVO = 0.077 // bajo a propósito: es música DE FONDO, no debe competir con el contenido
 const MAX_VOCES_SIMULTANEAS = 6 // más que antes: las notas de piano se traslapan más seguido que un pad
 const RAMPA_VOLUMEN_SEG = 0.08 // evita el "click" audible de saltar el volumen de golpe al (des)silenciar
 

@@ -25,8 +25,8 @@ import { IoBookmarkOutline } from "react-icons/io5";
 // ─── CONFIGURACIÓN ──────────────────────────────────────────────────────────
 // ════════════════════════════════════════════════════════════════════════════
 const CONFIG = {
-  HORAS_GLOBAL:      2,      // ← Modifica aquí el tiempo global del examen
-  MINUTOS_GLOBAL:    0,
+  HORAS_GLOBAL:      1,      // ← Modifica aquí el tiempo global del examen
+  MINUTOS_GLOBAL:    1,
   SEGUNDOS_GLOBAL:   0,
 
   TIEMPO_RECOMENDADO_SEG: 90, // Tiempo recomendado por pregunta (en segundos)
