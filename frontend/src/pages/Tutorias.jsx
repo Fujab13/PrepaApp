@@ -5,7 +5,9 @@
 
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { obtenerRankingSemanal } from "../services/ranking";
+import { obtenerRankingSemanal, obtenerMiPosicionSemanal } from "../services/ranking";
+import { construirTableroConBots, calcularPosicionGlobal } from "../utils/bots";
+import { useAuth } from "../context/AuthContext";
 
 import { PiChalkboardTeacher, PiStudent } from "react-icons/pi";
 import { AiOutlineClose } from "react-icons/ai";
@@ -41,7 +43,7 @@ function AvatarPodio({ fila, tamano }) {
         flexShrink: 0,
       }}
     >
-      {fila.nombre[0]?.toUpperCase() ?? "?"}
+      {fila.nombre?.[0]?.toUpperCase() ?? "?"}
     </div>
   );
 }
@@ -82,17 +84,41 @@ function ColumnaPodio({ fila }) {
   );
 }
 
+// Bots mezclados con el ranking real (ver utils/bots.js): solo dan
+// sensación de movimiento/tráfico, nunca sacan a un alumno real del
+// tablero (construirTableroConBots lo garantiza).
 function RankingSemanal() {
+  const { user } = useAuth();
   const [ranking, setRanking] = useState(null);
+  const [miPosicion, setMiPosicion] = useState(null); // { puntos, posicionEntreReales, posicionGlobal } | null
   const [error, setError] = useState("");
 
   useEffect(() => {
     let cancelado = false;
     obtenerRankingSemanal()
-      .then((data) => { if (!cancelado) setRanking(data); })
+      .then((data) => {
+        if (cancelado) return;
+        setRanking(construirTableroConBots(data));
+      })
       .catch(() => { if (!cancelado) setError("No se pudo cargar el ranking. Intenta de nuevo más tarde."); });
     return () => { cancelado = true; };
   }, []);
+
+  useEffect(() => {
+    if (!user) { setMiPosicion(null); return; }
+    let cancelado = false;
+    obtenerMiPosicionSemanal()
+      .then((mia) => {
+        if (cancelado || !mia) return;
+        setMiPosicion({
+          puntos: mia.puntos,
+          posicionEntreReales: mia.posicion,
+          posicionGlobal: calcularPosicionGlobal({ puntos: mia.puntos, posicionEntreReales: mia.posicion }),
+        });
+      })
+      .catch(() => { /* no bloquea el resto del ranking si esto falla */ });
+    return () => { cancelado = true; };
+  }, [user]);
 
   const podio = ranking?.slice(0, 3) ?? [];
   const podioOrdenVisual = [podio[1], podio[0], podio[2]].filter(Boolean);
@@ -125,6 +151,27 @@ function RankingSemanal() {
           Los alumnos más activos de los últimos 7 días: lecciones completadas y Examen Simulador.
         </p>
       </div>
+
+      {/* "Tu posición": el ranking visible solo llega a 100 lugares, pero
+          el ranking real es global — esto deja ver el lugar de uno aunque
+          quede muy por debajo del tablero (p. ej. #2,143), sin tener que
+          buscarse en una lista larguísima. Solo aparece con sesión y
+          actividad esta semana. */}
+      {miPosicion && (
+        <div
+          style={{
+            position: "relative", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 10,
+            padding: "12px 16px", marginBottom: 16, borderRadius: 14,
+            background: "linear-gradient(135deg, rgba(124,92,191,0.22), rgba(229,193,88,0.14))",
+            border: "1px solid rgba(229,193,88,0.35)",
+          }}
+        >
+          <span style={{ fontSize: 12.5, fontWeight: 700, color: "var(--text)" }}>Tu posición esta semana</span>
+          <span style={{ fontSize: 14, fontWeight: 800, color: "#e9c86a" }}>
+            #{miPosicion.posicionGlobal.toLocaleString("es-MX")} · {miPosicion.puntos} pts
+          </span>
+        </div>
+      )}
 
       {error && <p style={{ fontSize: 13, color: "var(--wrong)", textAlign: "center", margin: 0 }}>{error}</p>}
 
