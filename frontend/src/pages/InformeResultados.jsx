@@ -26,6 +26,7 @@ import { obtenerFormulariosPorEmail, obtenerResultadosPorEmail } from "../servic
 import { calcularStatsPorSeccion } from "../utils/examenStats";
 import { PREGUNTAS } from "../data/examen";
 import { inputStyle } from "../utils/tutorias";
+import { imprimirComoPdf, nombrePdf } from "../utils/imprimirPdf";
 
 import { AiOutlineClose } from "react-icons/ai";
 import {
@@ -424,9 +425,10 @@ function Topbar({ titulo, onSalir, onImprimir }) {
 // ── Modo alumno: recién llenó el formulario ────────────────────────────────
 function PaginaFormulario({ formulario, navigate }) {
   const datos = useMemo(() => adaptarFormulario(formulario, true), [formulario]);
+  const imprimir = () => imprimirComoPdf(nombrePdf("Informe de preparación", datos.generadoEn));
   return (
     <div className="informe-print" style={{ display: "flex", flexDirection: "column", minHeight: "100vh", background: "var(--bg)", color: "var(--text)" }}>
-      <Topbar titulo="Informe de preparación" onSalir={() => navigate("/")} onImprimir={() => window.print()} />
+      <Topbar titulo="Informe de preparación" onSalir={() => navigate("/")} onImprimir={imprimir} />
       <main className="page-content-compact" style={{ flex: 1, paddingBottom: 40 }}>
         <div style={{ textAlign: "center", marginBottom: 20 }}>
           <p style={{ margin: 0, fontSize: 11, letterSpacing: "0.15em", textTransform: "uppercase", color: "#7c5cbf", fontWeight: 700 }}>PrepaApp</p>
@@ -440,7 +442,7 @@ function PaginaFormulario({ formulario, navigate }) {
           <button onClick={() => navigate("/")} className="gm-cta" style={{ flex: 1, minHeight: 44, borderRadius: 12, border: "0.5px solid var(--surface)", background: "var(--surface2)", color: "var(--text)", fontWeight: 600, fontSize: 14 }}>
             Volver al inicio
           </button>
-          <button onClick={() => window.print()} className="gm-cta" style={{ flex: 1, minHeight: 44, borderRadius: 12, border: "none", background: "linear-gradient(355deg, #7c5cbf, #ffffffbe)", color: "#000", fontWeight: 700, fontSize: 14, boxShadow: "0 6px 18px -6px #7c5cbf80" }}>
+          <button onClick={imprimir} className="gm-cta" style={{ flex: 1, minHeight: 44, borderRadius: 12, border: "none", background: "linear-gradient(355deg, #7c5cbf, #ffffffbe)", color: "#000", fontWeight: 700, fontSize: 14, boxShadow: "0 6px 18px -6px #7c5cbf80" }}>
             Imprimir informe
           </button>
         </div>
@@ -452,16 +454,17 @@ function PaginaFormulario({ formulario, navigate }) {
 // ── Modo alumno: recién terminó el examen ──────────────────────────────────
 function PaginaExamen({ examen, navigate }) {
   const datos = useMemo(() => adaptarExamen(examen, true), [examen]);
+  const imprimir = () => imprimirComoPdf(nombrePdf("Resultados del examen", datos.generadoEn));
   return (
     <div className="informe-print" style={{ display: "flex", flexDirection: "column", minHeight: "100vh", background: "var(--bg)", color: "var(--text)" }}>
-      <Topbar titulo="Resultados del examen" onSalir={() => navigate("/")} onImprimir={() => window.print()} />
+      <Topbar titulo="Resultados del examen" onSalir={() => navigate("/")} onImprimir={imprimir} />
       <main className="page-content-compact" style={{ flex: 1, paddingBottom: 40 }}>
         <VistaExamen datos={datos} />
         <div className="no-print" style={{ display: "flex", gap: 10, marginTop: 20 }}>
           <button onClick={() => navigate("/")} className="gm-cta" style={{ flex: 1, minHeight: 44, borderRadius: 12, border: "0.5px solid var(--surface)", background: "var(--surface2)", color: "var(--text)", fontWeight: 600, fontSize: 14 }}>
             Volver al inicio
           </button>
-          <button onClick={() => window.print()} className="gm-cta" style={{ flex: 1, minHeight: 44, borderRadius: 12, border: "none", background: "linear-gradient(355deg, #4f8ef7, #ffffffbe)", color: "#000", fontWeight: 700, fontSize: 14, boxShadow: "0 6px 18px -6px #4f8ef780" }}>
+          <button onClick={imprimir} className="gm-cta" style={{ flex: 1, minHeight: 44, borderRadius: 12, border: "none", background: "linear-gradient(355deg, #4f8ef7, #ffffffbe)", color: "#000", fontWeight: 700, fontSize: 14, boxShadow: "0 6px 18px -6px #4f8ef780" }}>
             Imprimir resultados
           </button>
         </div>

@@ -17,6 +17,7 @@ import { useAuth } from "../context/AuthContext";
 import { obtenerMisTransaccionesOfertaMaestro } from "../services/maestros";
 import { nombreMateriaOferta } from "../data/materiasTutoria";
 import { Seccion } from "../components/Seccion";
+import { imprimirComoPdf, nombrePdf } from "../utils/imprimirPdf";
 
 import { AiOutlineClose } from "react-icons/ai";
 import {
@@ -91,6 +92,7 @@ function FilaDato({ label, valor, mono = false }) {
 
 function ReciboQuincena({ grupo, nombre, onVolver }) {
   const totales = useMemo(() => totalizar(grupo.transacciones), [grupo.transacciones]);
+  const imprimir = () => imprimirComoPdf(nombrePdf("Recibo de ganancias", grupo.inicio));
   return (
     <div className="informe-print" style={{ display: "flex", flexDirection: "column", minHeight: "100vh", background: "var(--bg)", color: "var(--text)" }}>
       <header className="page-topbar-compact no-print" style={{ paddingBottom: 14 }}>
@@ -99,7 +101,7 @@ function ReciboQuincena({ grupo, nombre, onVolver }) {
         </button>
         <h2 className="page-topbar-title" style={{ fontSize: "1rem", flex: 1 }}>Recibo de quincena</h2>
         <div className="page-topbar-actions">
-          <button onClick={() => window.print()} title="Guardar / Imprimir PDF" className="util-btn" style={{ color: "#4f8ef7" }}>
+          <button onClick={imprimir} title="Guardar / Imprimir PDF" className="util-btn" style={{ color: "#4f8ef7" }}>
             <HiOutlinePrinter />
           </button>
         </div>
@@ -165,7 +167,7 @@ function ReciboQuincena({ grupo, nombre, onVolver }) {
             Volver
           </button>
           <button
-            onClick={() => window.print()}
+            onClick={imprimir}
             style={{ flex: 1, minHeight: 44, borderRadius: 10, border: "none", background: "#4f8ef7", color: "#fff", fontWeight: 700, fontSize: 14, display: "flex", alignItems: "center", justifyContent: "center", gap: 6, cursor: "pointer" }}
           >
             <HiOutlinePrinter /> Guardar / Imprimir PDF

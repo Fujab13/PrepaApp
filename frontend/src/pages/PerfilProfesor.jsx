@@ -18,22 +18,21 @@ import { MOTIVOS_REPORTE, ETIQUETA_GRAVEDAD } from "../data/motivosReporte";
 import {
   obtenerPerfilProfesor,
   obtenerCalificacionesProfesor,
-  puedoCalificarProfesor,
+  estadoCalificarProfesor,
+  obtenerMiCalificacionProfesor,
   calificarProfesor,
 } from "../services/profesores";
 import { crearReporteProfesor } from "../services/reportes";
 
 import { AiOutlineClose } from "react-icons/ai";
-import { HiOutlineChatBubbleLeftRight, HiOutlineFlag } from "react-icons/hi2";
+import { HiOutlineFlag } from "react-icons/hi2";
 
-const COMENTARIO_MAX = 150;
 const DESCRIPCION_REPORTE_MAX = 1000;
 
 const ERRORES_CALIFICAR = {
   compra_no_encontrada: "Solo puedes calificar a un profesor después de tomar una clase pagada con él.",
-  ya_calificaste: "Ya calificaste a este profesor.",
   estrellas_invalidas: "Elige de 1 a 5 estrellas.",
-  comentario_muy_largo: `Tu comentario no puede pasar de ${COMENTARIO_MAX} caracteres.`,
+  comentario_muy_largo: "Tu comentario no puede pasar de 150 caracteres.",
   no_puedes_calificarte: "No puedes calificarte a ti mismo.",
 };
 
@@ -41,6 +40,20 @@ function mensajeErrorCalificar(err) {
   const clave = Object.keys(ERRORES_CALIFICAR).find((k) => err?.message?.includes(k));
   return clave ? ERRORES_CALIFICAR[clave] : "No se pudo enviar tu calificación. Intenta de nuevo.";
 }
+
+// Motivo puntual por el que no se pueden mostrar las estrellas activas
+// (ver RPC `estado_calificar_profesor`) — reemplaza el mensaje genérico
+// único que había antes, para poder distinguir "nunca compró" de "su pago
+// sigue pendiente" (típico cuando el webhook de Stripe tarda o falla). Ya
+// no depende de si la clase ya pasó ni de si ya calificó antes — calificar
+// ahora es upsert, así que "ya calificaste" no bloquea nada, solo precarga
+// el formulario para editar (ver migraciones 20260907140000 y 20260907150000).
+const MENSAJES_ESTADO_CALIFICAR = {
+  no_autenticado: "Inicia sesión y compra una clase con este profesor para poder calificarlo.",
+  uno_mismo: "No puedes calificarte a ti mismo.",
+  pago_no_completado: "Tu pago con este profesor todavía no se confirma. Si ya pagaste, espera unos minutos o contáctanos si sigue igual.",
+  sin_compra: "Solo puedes calificar a un profesor después de tomar una clase pagada con él.",
+};
 
 const ERRORES_REPORTE = {
   categoria_requerida: "Elige qué tipo de problema tuviste.",
@@ -66,7 +79,7 @@ export default function PerfilProfesor() {
 
   const [perfil, setPerfil] = useState(undefined); // undefined = cargando, null = no encontrado
   const [reviews, setReviews] = useState([]);
-  const [puedeCalificar, setPuedeCalificar] = useState(false);
+  const [estadoCalificar, setEstadoCalificar] = useState("no_autenticado");
   const [cargando, setCargando] = useState(true);
   const [error, setError] = useState("");
   const [avatarError, setAvatarError] = useState(false);
@@ -96,7 +109,11 @@ export default function PerfilProfesor() {
       ]);
       setPerfil(perfilData);
       setReviews(reviewsData);
-      setPuedeCalificar(user ? await puedoCalificarProfesor(profesorId) : false);
+      const estado = user ? await estadoCalificarProfesor(profesorId) : "no_autenticado";
+      setEstadoCalificar(estado);
+      const mia = estado === "ok" ? await obtenerMiCalificacionProfesor(profesorId) : null;
+      setEstrellasNuevas(mia?.estrellas ?? 0);
+      setComentarioNuevo(mia?.comentario ?? "");
     } catch {
       setError("No se pudo cargar el perfil del profesor.");
     }
@@ -109,15 +126,14 @@ export default function PerfilProfesor() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [profesorId, cargandoAuth, user]);
 
-  async function enviarCalificacion() {
+  async function enviarCalificacion(estrellas, comentario) {
+    if (enviandoCalificacion) return;
+    if (estrellas < 1) return setErrorCalificar("Elige de 1 a 5 estrellas.");
     setErrorCalificar("");
-    if (estrellasNuevas < 1) return setErrorCalificar("Elige de 1 a 5 estrellas.");
-
+    setEstrellasNuevas(estrellas);
     setEnviandoCalificacion(true);
     try {
-      await calificarProfesor(profesorId, estrellasNuevas, comentarioNuevo.trim());
-      setEstrellasNuevas(0);
-      setComentarioNuevo("");
+      await calificarProfesor(profesorId, estrellas, comentario);
       await cargarTodo();
     } catch (err) {
       setErrorCalificar(mensajeErrorCalificar(err));
@@ -154,6 +170,14 @@ export default function PerfilProfesor() {
   }
 
   const materias = (perfil?.materias || []).map((id) => MATERIAS_TUTORIA.find((m) => m.id === id)?.nombre ?? id);
+  // Distribución 5→1 estrellas para la barra tipo Play Store — se calcula de
+  // `reviews` (la lista completa que ya se trajo) en vez de pedirle otra
+  // cosa al backend.
+  const distribucionEstrellas = [5, 4, 3, 2, 1].map((n) => ({
+    estrellas: n,
+    cantidad: reviews.filter((r) => r.estrellas === n).length,
+  }));
+  const maxDistribucion = Math.max(...distribucionEstrellas.map((d) => d.cantidad), 1);
   // d=404 (no "mp"/mystery-person") para que Gravatar responda 404 cuando el
   // correo no tiene foto registrada, y así sí dispare el onError de abajo y
   // caiga al círculo con inicial — con "mp" Gravatar siempre regresa 200 con
@@ -184,53 +208,85 @@ export default function PerfilProfesor() {
 
         {!cargando && perfil && (
           <>
-            <div className="sp-card" style={{ margin: 0, padding: "28px 20px", textAlign: "center" }}>
-              <div
-                style={{
-                  width: 88, height: 88, borderRadius: "50%", margin: "0 auto 16px",
-                  border: "3px solid var(--surface2)", overflow: "hidden",
-                  background: "linear-gradient(135deg, #7c5cbf, #4f3a82)",
-                  display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0,
-                }}
-              >
-                {avatarSrc && !avatarError ? (
-                  <img
-                    src={avatarSrc}
-                    alt={perfil.nombre}
-                    referrerPolicy="no-referrer"
-                    onError={() => setAvatarError(true)}
-                    style={{ width: "100%", height: "100%", objectFit: "cover" }}
-                  />
-                ) : (
-                  <span style={{ fontSize: "2rem", fontWeight: 800, color: "#fff" }}>
-                    {perfil.nombre?.[0]?.toUpperCase() ?? "?"}
-                  </span>
-                )}
+            <div className="sp-card" style={{ margin: 0, padding: "22px 20px" }}>
+              {/* Fila de app: ícono "squircle" + nombre, como la ficha de una app en Play Store. */}
+              <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
+                <div
+                  style={{
+                    width: 72, height: 72, borderRadius: 20, flexShrink: 0,
+                    boxShadow: "0 4px 14px -4px rgba(124,92,191,0.55)", overflow: "hidden",
+                    background: "linear-gradient(135deg, #7c5cbf, #4f3a82)",
+                    display: "flex", alignItems: "center", justifyContent: "center",
+                  }}
+                >
+                  {avatarSrc && !avatarError ? (
+                    <img
+                      src={avatarSrc}
+                      alt={perfil.nombre}
+                      referrerPolicy="no-referrer"
+                      onError={() => setAvatarError(true)}
+                      style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                    />
+                  ) : (
+                    <span style={{ fontSize: "1.9rem", fontWeight: 800, color: "#fff" }}>
+                      {perfil.nombre?.[0]?.toUpperCase() ?? "?"}
+                    </span>
+                  )}
+                </div>
+                <div style={{ minWidth: 0 }}>
+                  <p style={{ fontSize: 18, fontWeight: 800, color: "var(--text)", margin: 0, letterSpacing: "-0.01em", lineHeight: 1.25 }}>
+                    {perfil.nombre}
+                  </p>
+                  <p style={{ fontSize: 12, color: "var(--text-muted)", margin: "3px 0 0" }}>
+                    Profesor en PrepaApp
+                  </p>
+                  <p style={{ fontSize: 11, color: "var(--text-muted)", margin: "1px 0 0" }}>
+                    Desde {fmtFecha(perfil.creado_en)}
+                  </p>
+                </div>
               </div>
 
-              <p style={{ fontSize: 19, fontWeight: 800, color: "var(--text)", margin: 0, letterSpacing: "-0.01em" }}>
-                {perfil.nombre}
-              </p>
-              <p style={{ fontSize: 12, color: "var(--text-muted)", margin: "4px 0 16px" }}>
-                Profesor en PrepaApp desde {fmtFecha(perfil.creado_en)}
-              </p>
+              <div style={{ height: 1, background: "var(--surface)", margin: "18px 0" }} />
 
-              <div style={{ display: "flex", justifyContent: "center" }}>
-                <Estrellas
-                  value={Number(perfil.calificacion_promedio) || 0}
-                  count={perfil.numero_calificaciones ?? 0}
-                  size={18}
-                />
+              {/* Resumen de calificación: número grande + estrellas a la izquierda, distribución por estrella a la derecha — igual que la ficha de una app en Play Store. */}
+              <div style={{ display: "flex", alignItems: "center", gap: 20 }}>
+                <div style={{ textAlign: "center", flexShrink: 0, width: 64 }}>
+                  <p style={{ fontSize: 34, fontWeight: 800, color: "var(--text)", margin: 0, lineHeight: 1 }}>
+                    {(Number(perfil.calificacion_promedio) || 0).toFixed(1)}
+                  </p>
+                  <div style={{ display: "flex", justifyContent: "center", margin: "4px 0 0" }}>
+                    <Estrellas value={Number(perfil.calificacion_promedio) || 0} size={12} />
+                  </div>
+                  <p style={{ fontSize: 10.5, color: "var(--text-muted)", margin: "3px 0 0" }}>
+                    {perfil.numero_calificaciones ?? 0} {perfil.numero_calificaciones === 1 ? "reseña" : "reseñas"}
+                  </p>
+                </div>
+                <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 5 }}>
+                  {distribucionEstrellas.map(({ estrellas: n, cantidad }) => (
+                    <div key={n} style={{ display: "flex", alignItems: "center", gap: 7 }}>
+                      <span style={{ fontSize: 10, color: "var(--text-muted)", width: 7, flexShrink: 0 }}>{n}</span>
+                      <div style={{ flex: 1, height: 6, borderRadius: 999, background: "var(--surface)", overflow: "hidden" }}>
+                        <div
+                          style={{
+                            width: `${maxDistribucion > 0 ? (cantidad / maxDistribucion) * 100 : 0}%`,
+                            height: "100%", background: "#f5b942", borderRadius: 999,
+                            transition: "width 300ms ease",
+                          }}
+                        />
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </div>
 
               {materias.length > 0 && (
                 <>
-                  <div style={{ height: 1, background: "var(--surface2)", margin: "18px 0 14px" }} />
-                  <div style={{ display: "flex", flexWrap: "wrap", gap: 6, justifyContent: "center" }}>
+                  <div style={{ height: 1, background: "var(--surface)", margin: "18px 0 14px" }} />
+                  <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
                     {materias.map((nombre) => (
                       <span
                         key={nombre}
-                        style={{ fontSize: 12, fontWeight: 600, color: "var(--text-muted)", background: "var(--surface2)", borderRadius: 999, padding: "4px 10px" }}
+                        style={{ fontSize: 11.5, fontWeight: 600, color: "var(--text-muted)", background: "var(--surface)", borderRadius: 999, padding: "5px 12px" }}
                       >
                         {nombre}
                       </span>
@@ -239,6 +295,127 @@ export default function PerfilProfesor() {
                 </>
               )}
             </div>
+
+            <div
+              className="sp-card"
+              style={{ margin: 0, padding: "22px 20px", display: "flex", flexDirection: "column", alignItems: "center", gap: 10 }}
+            >
+              <Estrellas
+                value={estrellasNuevas}
+                onChange={estadoCalificar === "ok" ? (n) => enviarCalificacion(n, comentarioNuevo) : undefined}
+                disabled={estadoCalificar !== "ok" || enviandoCalificacion}
+                size={24}
+              />
+
+              {estadoCalificar === "ok" && (
+                <>
+                  <p style={{ fontSize: 12, color: "var(--text-muted)", margin: "-2px 0 4px", textAlign: "center" }}>
+                    {estrellasNuevas > 0 ? "Puedes editar tu calificación y comentario cuando quieras" : "Toca una estrella para calificar"}
+                  </p>
+                  <textarea
+                    style={{
+                      width: "100%", minHeight: 60, resize: "vertical", boxSizing: "border-box",
+                      background: "var(--surface)", border: "1px solid rgba(255,255,255,0.06)",
+                      borderRadius: 12, padding: "12px 14px", color: "var(--text)", fontSize: "0.9rem",
+                      outline: "none", transition: "border-color 120ms ease",
+                    }}
+                    maxLength={150}
+                    placeholder="Escribe o edita tu reseña (opcional)…"
+                    value={comentarioNuevo}
+                    onChange={(e) => setComentarioNuevo(e.target.value.slice(0, 150))}
+                    disabled={enviandoCalificacion}
+                  />
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", width: "100%", gap: 8 }}>
+                    <span style={{ fontSize: 11, color: "var(--text-muted)" }}>{comentarioNuevo.length}/150</span>
+                    <button
+                      onClick={() => enviarCalificacion(estrellasNuevas, comentarioNuevo)}
+                      disabled={enviandoCalificacion || estrellasNuevas < 1}
+                      style={{
+                        minHeight: 38, padding: "0 18px", borderRadius: 10, border: "none",
+                        background: "#f5b942", color: "#1a1a2e", fontWeight: 700, fontSize: 13,
+                        cursor: enviandoCalificacion || estrellasNuevas < 1 ? "default" : "pointer",
+                        opacity: enviandoCalificacion || estrellasNuevas < 1 ? 0.6 : 1,
+                        transition: "opacity 120ms ease",
+                      }}
+                    >
+                      {enviandoCalificacion ? "Guardando…" : "Guardar comentario"}
+                    </button>
+                  </div>
+                </>
+              )}
+
+              {estadoCalificar !== "ok" && (
+                <p style={{ fontSize: 12.5, color: "var(--text-muted)", margin: 0, textAlign: "center" }}>
+                  {MENSAJES_ESTADO_CALIFICAR[estadoCalificar] ?? MENSAJES_ESTADO_CALIFICAR.sin_compra}
+                </p>
+              )}
+              {errorCalificar && <p style={{ color: "var(--wrong)", fontSize: 13, margin: 0 }}>{errorCalificar}</p>}
+            </div>
+
+            <div style={{ display: "flex", alignItems: "center", gap: 10, margin: "4px 0 0" }}>
+              <p style={{ fontSize: 13, fontWeight: 700, color: "var(--text)", margin: 0, whiteSpace: "nowrap" }}>
+                Calificaciones ({reviews.length})
+              </p>
+              <div style={{ height: 1, background: "var(--surface2)", flex: 1 }} />
+            </div>
+
+            {reviews.length === 0 && (
+              <p style={{ fontSize: 13, color: "var(--text-muted)", margin: 0 }}>
+                Este profesor todavía no tiene calificaciones.
+              </p>
+            )}
+
+            {/* Una sola tarjeta contenedora con filas separadas por línea, como
+                la lista plana de reseñas de una app en Play Store — en vez de
+                una tarjeta apilada por reseña. */}
+            {reviews.length > 0 && (
+              <div className="sp-card" style={{ margin: 0, padding: 0, overflow: "hidden" }}>
+                {reviews.map((r, i) => (
+                  <div
+                    key={r.id}
+                    style={{
+                      padding: "14px 18px",
+                      borderTop: i === 0 ? "none" : "0.5px solid var(--surface)",
+                      background: r.es_propia ? "rgba(245,185,66,0.07)" : "transparent",
+                      borderLeft: r.es_propia ? "3px solid #f5b942" : "3px solid transparent",
+                    }}
+                  >
+                    <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                      <div
+                        style={{
+                          width: 32, height: 32, borderRadius: "50%", flexShrink: 0,
+                          background: r.es_propia ? "#f5b942" : "var(--surface2)",
+                          color: r.es_propia ? "#1a1a2e" : "var(--text-muted)",
+                          display: "flex", alignItems: "center", justifyContent: "center",
+                          fontSize: 12.5, fontWeight: 800,
+                        }}
+                      >
+                        {r.calificador_nombre?.[0]?.toUpperCase() ?? "?"}
+                      </div>
+                      <div style={{ flex: 1, minWidth: 0 }}>
+                        <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+                          <p style={{ fontSize: 12.5, fontWeight: 700, color: "var(--text)", margin: 0, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                            {r.calificador_nombre}
+                          </p>
+                          {r.es_propia && (
+                            <span style={{ fontSize: 9.5, fontWeight: 800, letterSpacing: 0.3, color: "#f5b942", background: "rgba(245,185,66,0.16)", borderRadius: 999, padding: "2px 7px", flexShrink: 0 }}>
+                              TÚ
+                            </span>
+                          )}
+                        </div>
+                        <div style={{ display: "flex", alignItems: "center", gap: 6, marginTop: 2 }}>
+                          <Estrellas value={r.estrellas} size={12} />
+                          <span style={{ fontSize: 10.5, color: "var(--text-muted)" }}>· {fmtFecha(r.creado_en)}</span>
+                        </div>
+                      </div>
+                    </div>
+                    {r.comentario && (
+                      <p style={{ fontSize: 13, color: "var(--text-muted)", margin: "8px 0 0", lineHeight: 1.5 }}>{r.comentario}</p>
+                    )}
+                  </div>
+                ))}
+              </div>
+            )}
 
             {!mostrarReporte && (
               <div style={{ display: "flex", justifyContent: "center" }}>
@@ -344,66 +521,6 @@ export default function PerfilProfesor() {
                 </div>
               </Seccion>
             )}
-
-            {user && puedeCalificar && (
-              <Seccion
-                icono={<HiOutlineChatBubbleLeftRight />}
-                color="#f5b942"
-                title="Califica a tu profesor"
-                subtitle="Ya tomaste una clase con él o ella; cuéntanos qué tal te fue."
-              >
-                <div style={{ display: "flex", justifyContent: "center" }}>
-                  <Estrellas value={estrellasNuevas} onChange={setEstrellasNuevas} size={26} />
-                </div>
-                <textarea
-                  style={{
-                    width: "100%", minHeight: 70, resize: "vertical", boxSizing: "border-box",
-                    background: "var(--surface)", border: "1px solid rgba(255,255,255,0.06)",
-                    borderRadius: 12, padding: "12px 14px", color: "var(--text)", fontSize: "0.9rem", outline: "none",
-                  }}
-                  maxLength={COMENTARIO_MAX}
-                  placeholder="Tu comentario (opcional)…"
-                  value={comentarioNuevo}
-                  onChange={(e) => setComentarioNuevo(e.target.value.slice(0, COMENTARIO_MAX))}
-                />
-                <p style={{ fontSize: 11, color: "var(--text-muted)", margin: 0, textAlign: "right" }}>
-                  {comentarioNuevo.length}/{COMENTARIO_MAX}
-                </p>
-
-                {errorCalificar && <p style={{ color: "var(--wrong)", fontSize: 13, margin: 0 }}>{errorCalificar}</p>}
-
-                <button
-                  onClick={enviarCalificacion}
-                  disabled={enviandoCalificacion}
-                  style={{ minHeight: 44, borderRadius: 10, border: "none", background: "#f5b942", color: "#1a1a2e", fontWeight: 700, fontSize: 14, cursor: enviandoCalificacion ? "default" : "pointer", opacity: enviandoCalificacion ? 0.7 : 1 }}
-                >
-                  {enviandoCalificacion ? "Enviando…" : "Enviar calificación"}
-                </button>
-              </Seccion>
-            )}
-
-            <p style={{ fontSize: 13, fontWeight: 700, color: "var(--text)", margin: "4px 0 0" }}>
-              Calificaciones ({reviews.length})
-            </p>
-
-            {reviews.length === 0 && (
-              <p style={{ fontSize: 13, color: "var(--text-muted)", margin: 0 }}>
-                Este profesor todavía no tiene calificaciones.
-              </p>
-            )}
-
-            {reviews.map((r, i) => (
-              <div key={i} className="sp-card" style={{ margin: 0 }}>
-                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 8 }}>
-                  <Estrellas value={r.estrellas} size={14} />
-                  <span style={{ fontSize: 11, color: "var(--text-muted)" }}>{fmtFecha(r.creado_en)}</span>
-                </div>
-                <p style={{ fontSize: 12.5, fontWeight: 700, color: "var(--text)", margin: "6px 0 0" }}>{r.calificador_nombre}</p>
-                {r.comentario && (
-                  <p style={{ fontSize: 13, color: "var(--text-muted)", margin: "4px 0 0", lineHeight: 1.5 }}>{r.comentario}</p>
-                )}
-              </div>
-            ))}
           </>
         )}
       </main>

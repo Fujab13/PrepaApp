@@ -116,7 +116,7 @@ export async function obtenerPerfilProfesor(profesorUserId) {
   return data?.[0] ?? null;
 }
 
-/** Reviews públicos (estrellas + comentario) de un profesor, más recientes primero. */
+/** Reviews públicos (id, estrellas, comentario, es_propia) de un profesor — la del usuario en sesión (si existe) va primero, luego las demás más recientes primero. */
 export async function obtenerCalificacionesProfesor(profesorUserId) {
   const { data, error } = await supabase.rpc('obtener_calificaciones_profesor', {
     p_profesor_user_id: profesorUserId,
@@ -135,6 +135,29 @@ export async function puedoCalificarProfesor(profesorUserId) {
   });
   if (error) throw error;
   return Boolean(data);
+}
+
+/**
+ * Motivo puntual por el que el usuario en sesión sí/no puede calificar a
+ * este profesor: 'ok' | 'no_autenticado' | 'uno_mismo' | 'pago_no_completado'
+ * | 'sin_compra'. 'ok' ya cubre tanto "nunca calificó" como "ya calificó y
+ * puede editar" — calificar_profesor hace upsert.
+ */
+export async function estadoCalificarProfesor(profesorUserId) {
+  const { data, error } = await supabase.rpc('estado_calificar_profesor', {
+    p_profesor_user_id: profesorUserId,
+  });
+  if (error) throw error;
+  return data;
+}
+
+/** La calificación (estrellas + comentario) que el usuario en sesión ya le dejó a este profesor, o null si no ha calificado. */
+export async function obtenerMiCalificacionProfesor(profesorUserId) {
+  const { data, error } = await supabase.rpc('obtener_mi_calificacion_profesor', {
+    p_profesor_user_id: profesorUserId,
+  });
+  if (error) throw error;
+  return data?.[0] ?? null;
 }
 
 /**

@@ -63,6 +63,11 @@ const HORARIOS = ["Mañana", "Tarde", "Noche"];
 const MODALIDADES = ["Presencial", "En línea", "Mixta"];
 const DECISION_CARRERA = ["Sí, ya la sé", "Tengo dudas", "No, aún no"];
 
+// Acento de color arriba de cada tarjeta de sección — un guiño visual a que
+// el formulario tiene varios bloques distintos, sin tocar Seccion.jsx (se
+// reusa en Tutorías y no queremos que ese acento aparezca ahí también).
+const acento = (color) => ({ borderTop: `2.5px solid ${color}` });
+
 // ── Estilos compartidos ───────────────────────────────────────────────────
 const inputStyle = {
   width: "100%",
@@ -81,33 +86,39 @@ const inputStyle = {
 function Escala({ label, valor, onChange, color }) {
   return (
     <div>
-      <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 8 }}>
-        <span style={{ fontSize: 13, color: "var(--text)" }}>{label}</span>
-        <span style={{ fontSize: 11.5, color: "var(--text-muted)" }}>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: 9 }}>
+        <span style={{ fontSize: 13, color: "var(--text)", fontWeight: 600 }}>{label}</span>
+        <span style={{ fontSize: 11, fontWeight: 700, color: valor ? color : "var(--text-muted)" }}>
           {valor ? NIVEL_LABELS[valor] : "Sin responder"}
         </span>
       </div>
-      <div style={{ display: "flex", gap: 8 }}>
-        {[1, 2, 3, 4, 5].map((n) => (
-          <button
-            key={n}
-            type="button"
-            onClick={() => onChange(n)}
-            style={{
-              flex: 1,
-              minHeight: 44,
-              borderRadius: 10,
-              fontWeight: 700,
-              fontSize: 13,
-              border: valor === n ? `1.5px solid ${color}` : "0.5px solid var(--surface)",
-              background: valor === n ? color : "var(--surface)",
-              color: valor === n ? "#fff" : "var(--text-muted)",
-              transition: "all 0.15s",
-            }}
-          >
-            {n}
-          </button>
-        ))}
+      <div style={{ display: "flex", gap: 7 }}>
+        {[1, 2, 3, 4, 5].map((n) => {
+          const activo = valor === n;
+          return (
+            <button
+              key={n}
+              type="button"
+              onClick={() => onChange(n)}
+              style={{
+                flex: 1,
+                minHeight: 40,
+                borderRadius: 10,
+                fontWeight: 800,
+                fontSize: 13,
+                border: activo ? `1.5px solid ${color}` : "0.5px solid var(--surface)",
+                background: activo ? color : "var(--surface)",
+                color: activo ? "#fff" : "var(--text-muted)",
+                boxShadow: activo ? `0 3px 10px -3px ${color}99` : "none",
+                transform: activo ? "translateY(-1px)" : "none",
+                transition: "all 0.15s ease",
+                cursor: "pointer",
+              }}
+            >
+              {n}
+            </button>
+          );
+        })}
       </div>
     </div>
   );
@@ -138,6 +149,17 @@ export default function FormularioArea() {
   const [confirmacion, setConfirmacion] = useState(null);
 
   const setNivel = (id, n) => setAutoevaluacion((prev) => ({ ...prev, [id]: n }));
+
+  // Barra de progreso: solo cuenta los campos que de verdad indican avance
+  // (no los opcionales como edad/teléfono/carrera) para que no se sienta
+  // "atorada" en alguien que solo llena lo obligatorio.
+  const CAMPOS_PROGRESO = 3 + CATEGORIAS_AUTOEVALUACION.length + 4;
+  const camposListos = [
+    nombre.trim(), grado, areaInteres,
+    ...CATEGORIAS_AUTOEVALUACION.map((c) => autoevaluacion[c.id]),
+    horasEstudio, horarioPreferido, modalidadPreferida, decisionCarrera,
+  ].filter(Boolean).length;
+  const progreso = Math.round((camposListos / CAMPOS_PROGRESO) * 100);
 
   // Solo avisa si ya hay algo que perder (no molesta si el alumno abre el
   // formulario y se arrepiente de inmediato, sin haber tocado nada).
@@ -216,7 +238,7 @@ export default function FormularioArea() {
   return (
     <div style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
       {/* ── BARRA SUPERIOR ── */}
-      <header className="page-topbar-compact" style={{ position: "sticky", top: 0, zIndex: 30, background: "var(--bg)", paddingBottom: 14 }}>
+      <header className="page-topbar-compact" style={{ position: "sticky", top: 0, zIndex: 30, background: "var(--bg)", flexWrap: "wrap", paddingBottom: 10, rowGap: 10 }}>
         <button onClick={confirmarSalir} title="Salir" className="page-topbar-btn">
           <AiOutlineClose />
         </button>
@@ -224,6 +246,16 @@ export default function FormularioArea() {
           <FaUserGraduate />
         </span>
         <h2 className="page-topbar-title" style={{ fontSize: "1rem" }}>Formulario Área</h2>
+        <span style={{ fontSize: 11.5, fontWeight: 700, color: "var(--text-muted)" }}>{progreso}%</span>
+        <div style={{ width: "100%", height: 3, borderRadius: 999, background: "var(--surface2)", overflow: "hidden" }}>
+          <div
+            style={{
+              width: `${progreso}%`, height: "100%", borderRadius: 999,
+              background: "linear-gradient(90deg, #4f8ef7, #7c5cbf)",
+              transition: "width 250ms ease",
+            }}
+          />
+        </div>
       </header>
 
       {/* ── CUERPO ── */}
@@ -233,7 +265,7 @@ export default function FormularioArea() {
         style={{ flex: 1, paddingBottom: "45vh", display: "flex", flexDirection: "column", gap: 16 }}
       >
 
-        <Seccion icono={<HiOutlineUser />} color="#4f8ef7" title="Datos personales">
+        <Seccion icono={<HiOutlineUser />} color="#4f8ef7" title="Datos personales" style={acento("#4f8ef7")}>
           <input style={inputStyle} placeholder="Nombre completo *" value={nombre} onChange={(e) => setNombre(e.target.value)} />
           <div style={{ display: "flex", gap: 10 }}>
             <input style={inputStyle} placeholder="Edad" type="number" min="10" max="99" value={edad} onChange={(e) => setEdad(e.target.value)} />
@@ -242,11 +274,11 @@ export default function FormularioArea() {
           <input style={inputStyle} placeholder="Correo de contacto" type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
         </Seccion>
 
-        <Seccion icono={<FaUserGraduate />} color="#7c5cbf" title="Grado de preparatoria">
+        <Seccion icono={<FaUserGraduate />} color="#7c5cbf" title="Grado de preparatoria" style={acento("#7c5cbf")}>
           <FilaChips opciones={GRADOS} valor={grado} onChange={setGrado} color="#7c5cbf" />
         </Seccion>
 
-        <Seccion icono={<HiOutlineFlag />} color="#f59e0b" title="Área a la que deseas aplicar" subtitle="Elige el área que más te llama la atención para tu carrera universitaria.">
+        <Seccion icono={<HiOutlineFlag />} color="#f59e0b" title="Área a la que deseas aplicar" subtitle="Elige el área que más te llama la atención para tu carrera universitaria." style={acento("#f59e0b")}>
           <FilaChips opciones={AREAS_INTERES} valor={areaInteres} onChange={setAreaInteres} color="#f59e0b" />
           <input
             style={inputStyle}
@@ -256,7 +288,7 @@ export default function FormularioArea() {
           />
         </Seccion>
 
-        <Seccion icono={<HiOutlineChartBarSquare />} color="#22c55e" title="Autoevaluación" subtitle="Del 1 al 5, ¿qué tan preparado te sientes en cada área? Sé honesto, no hay respuestas incorrectas.">
+        <Seccion icono={<HiOutlineChartBarSquare />} color="#22c55e" title="Autoevaluación" subtitle="Del 1 al 5, ¿qué tan preparado te sientes en cada área? Sé honesto, no hay respuestas incorrectas." style={acento("#22c55e")}>
           {CATEGORIAS_AUTOEVALUACION.map((cat) => (
             <Escala key={cat.id} label={cat.label} valor={autoevaluacion[cat.id]} onChange={(n) => setNivel(cat.id, n)} color="#22c55e" />
           ))}
@@ -266,7 +298,7 @@ export default function FormularioArea() {
           </div>
         </Seccion>
 
-        <Seccion icono={<HiOutlineAdjustmentsHorizontal />} color="#ec4899" title="Preferencias de estudio">
+        <Seccion icono={<HiOutlineAdjustmentsHorizontal />} color="#ec4899" title="Preferencias de estudio" style={acento("#ec4899")}>
           <div>
             <p style={{ fontSize: 13, color: "var(--text-muted)", marginBottom: 8 }}>Horario en el que estudias mejor</p>
             <FilaChips opciones={HORARIOS} valor={horarioPreferido} onChange={setHorarioPreferido} color="#ec4899" />

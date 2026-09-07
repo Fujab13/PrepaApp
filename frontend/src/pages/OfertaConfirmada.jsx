@@ -31,6 +31,7 @@ import { useAuth } from "../context/AuthContext";
 import { supabase } from "../services/supabaseClient";
 import { MATERIAS_TUTORIA, nombreMateriaOferta } from "../data/materiasTutoria";
 import { CORREO_CONTACTO_APP } from "../utils/contacto";
+import { imprimirComoPdf, nombrePdf } from "../utils/imprimirPdf";
 
 import { AiOutlineClose, AiOutlineLoading3Quarters } from "react-icons/ai";
 import { HiOutlinePrinter, HiCheckCircle } from "react-icons/hi2";
@@ -209,6 +210,7 @@ export default function OfertaConfirmada() {
   const oferta = transaccion?.ofertas_maestro;
   const materia = oferta ? MATERIAS_TUTORIA.find((m) => m.id === oferta.materia_id) : null;
   const confirmado = transaccion?.estado_pago === "completado";
+  const imprimir = () => imprimirComoPdf(nombrePdf("Comprobante de reserva", transaccion?.actualizado_en));
 
   return (
     <div className="informe-print" style={{ display: "flex", flexDirection: "column", minHeight: "100vh", background: "var(--bg)", color: "var(--text)" }}>
@@ -219,7 +221,7 @@ export default function OfertaConfirmada() {
         <h2 className="page-topbar-title" style={{ fontSize: "1rem", flex: 1 }}>Tu reserva</h2>
         {confirmado && (
           <div className="page-topbar-actions">
-            <button onClick={() => window.print()} title="Guardar / Imprimir PDF" className="util-btn" style={{ color: "#7c5cbf" }}>
+            <button onClick={imprimir} title="Guardar / Imprimir PDF" className="util-btn" style={{ color: "#7c5cbf" }}>
               <HiOutlinePrinter />
             </button>
           </div>
@@ -265,7 +267,7 @@ export default function OfertaConfirmada() {
                 Volver a ofertas
               </button>
               <button
-                onClick={() => window.print()}
+                onClick={imprimir}
                 style={{ flex: 1, minHeight: 44, borderRadius: 10, border: "none", background: "#7c5cbf", color: "#fff", fontWeight: 700, fontSize: 14, display: "flex", alignItems: "center", justifyContent: "center", gap: 6, cursor: "pointer" }}
               >
                 <HiOutlinePrinter /> Guardar / Imprimir PDF
