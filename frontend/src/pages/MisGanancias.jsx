@@ -276,7 +276,7 @@ export default function MisGanancias() {
                     <button
                       type="button"
                       onClick={() => alternarExpandido(q.key)}
-                      style={{ background: "none", border: "none", padding: 0, width: "100%", textAlign: "left", cursor: "pointer", display: "flex", alignItems: "center", gap: 12, minHeight: 44 }}
+                      style={{ background: "none", border: "none", padding: 0, width: "100%", textAlign: "left", cursor: "pointer", display: "flex", alignItems: "center", gap: 12, minHeight: 44, color: "var(--text)" }}
                     >
                       <div className="sp-card-icon" style={{ background: "rgba(124,92,191,0.15)", color: "#7c5cbf" }}>
                         <HiOutlineBanknotes />

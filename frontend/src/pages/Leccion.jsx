@@ -1012,7 +1012,7 @@ export default function Leccion() {
                     display: 'flex', alignItems: 'center', justifyContent: 'center',
                     borderRadius: '50%',
                     background: leyendo ? materia.color : 'rgba(255,255,255,0.08)',
-                    color: leyendo ? '#000' : 'var(--text-muted)',
+                    color: leyendo ? '#fff' : 'var(--text-muted)',
                     fontSize: '1rem',
                     transition: 'background 0.2s ease, color 0.2s ease',
                   }}
@@ -1093,7 +1093,7 @@ export default function Leccion() {
               className="gm-cta"
               style={{
                 background: enRepaso ? COLOR_REFUERZO : materia.color,
-                color: '#000',
+                color: '#fff',
                 fontWeight: 700,
                 border: 'none',
                 borderRadius: '12px',

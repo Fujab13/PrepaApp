@@ -100,6 +100,8 @@ function adaptarFormulario(f, desdeState) {
       autoevaluacion: f.autoevaluacion,
       horasEstudio: f.horasEstudio,
       preferencias: f.preferencias,
+      tutorNombre: f.tutor?.nombre,
+      tutorTelefono: f.tutor?.telefono,
       generadoEn: f.generadoEn,
     };
   }
@@ -114,6 +116,8 @@ function adaptarFormulario(f, desdeState) {
     autoevaluacion: f.autoevaluacion,
     horasEstudio: f.horas_estudio,
     preferencias: f.preferencias,
+    tutorNombre: f.tutor_nombre,
+    tutorTelefono: f.tutor_telefono,
     generadoEn: f.creado_en,
   };
 }
@@ -290,6 +294,15 @@ function VistaFormulario({ datos }) {
           <FilaDato label="Teléfono" valor={datos.telefono} />
         </Tarjeta>
       </Section>
+
+      {(datos.tutorNombre || datos.tutorTelefono) && (
+        <Section title="Tutor o responsable">
+          <Tarjeta>
+            <FilaDato label="Nombre" valor={datos.tutorNombre} />
+            <FilaDato label="Teléfono" valor={datos.tutorTelefono} />
+          </Tarjeta>
+        </Section>
+      )}
     </div>
   );
 }
@@ -490,7 +503,7 @@ function TarjetaAlumno({ alumno }) {
       <button
         type="button"
         onClick={() => setAbierto((v) => !v)}
-        style={{ background: "none", border: "none", padding: 0, width: "100%", textAlign: "left", cursor: "pointer", display: "flex", alignItems: "center", gap: 12, minHeight: 44 }}
+        style={{ background: "none", border: "none", padding: 0, width: "100%", textAlign: "left", cursor: "pointer", display: "flex", alignItems: "center", gap: 12, minHeight: 44, color: "var(--text)" }}
       >
         <div className="sp-card-icon" style={{ background: "rgba(124,92,191,0.15)", color: "#7c5cbf" }}>
           {(nombre || alumno.email)[0]?.toUpperCase()}

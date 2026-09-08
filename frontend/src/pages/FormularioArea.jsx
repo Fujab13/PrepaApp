@@ -20,6 +20,7 @@ import {
   HiOutlineFlag,
   HiOutlineChartBarSquare,
   HiOutlineAdjustmentsHorizontal,
+  HiOutlineUserGroup,
 } from "react-icons/hi2";
 
 // ── Datos de opciones ─────────────────────────────────────────────────────
@@ -145,6 +146,9 @@ export default function FormularioArea() {
   const [modalidadPreferida, setModalidadPreferida] = useState("");
   const [decisionCarrera, setDecisionCarrera] = useState("");
 
+  const [tutorNombre, setTutorNombre] = useState("");
+  const [tutorTelefono, setTutorTelefono] = useState("");
+
   const [error, setError] = useState("");
   const [confirmacion, setConfirmacion] = useState(null);
 
@@ -166,7 +170,8 @@ export default function FormularioArea() {
   const hayDatosSinGuardar = Boolean(
     nombre.trim() || edad.trim() || telefono.trim() || grado || areaInteres ||
     carreraInteres.trim() || Object.keys(autoevaluacion).length > 0 ||
-    horasEstudio || horarioPreferido || modalidadPreferida || decisionCarrera
+    horasEstudio || horarioPreferido || modalidadPreferida || decisionCarrera ||
+    tutorNombre.trim() || tutorTelefono.trim()
   );
 
   // Salir a medio llenar (botón "X" o Atrás del navegador) pierde todo:
@@ -213,6 +218,8 @@ export default function FormularioArea() {
         autoevaluacion,
         horas_estudio: horasEstudio,
         preferencias: { horarioPreferido, modalidadPreferida, decisionCarrera },
+        tutor_nombre: tutorNombre.trim(),
+        tutor_telefono: tutorTelefono.trim(),
       });
       if (errorInsert) console.error("No se pudo guardar el formulario de área:", errorInsert.message);
     }
@@ -229,6 +236,7 @@ export default function FormularioArea() {
           autoevaluacion,
           horasEstudio,
           preferencias: { horarioPreferido, modalidadPreferida, decisionCarrera },
+          tutor: { nombre: tutorNombre.trim(), telefono: tutorTelefono.trim() },
           generadoEn: Date.now(),
         },
       },
@@ -311,6 +319,11 @@ export default function FormularioArea() {
             <p style={{ fontSize: 13, color: "var(--text-muted)", marginBottom: 8 }}>¿Ya sabes qué carrera quieres estudiar?</p>
             <FilaChips opciones={DECISION_CARRERA} valor={decisionCarrera} onChange={setDecisionCarrera} color="#ec4899" />
           </div>
+        </Seccion>
+
+        <Seccion icono={<HiOutlineUserGroup />} color="#06b6d4" title="Tutor o responsable" subtitle="Opcional: nombre y contacto de un padre, madre o tutor." style={acento("#06b6d4")}>
+          <input style={inputStyle} placeholder="Nombre del tutor o responsable" value={tutorNombre} onChange={(e) => setTutorNombre(e.target.value)} />
+          <input style={inputStyle} placeholder="Teléfono de contacto" type="tel" value={tutorTelefono} onChange={(e) => setTutorTelefono(e.target.value)} />
         </Seccion>
 
         {error && (

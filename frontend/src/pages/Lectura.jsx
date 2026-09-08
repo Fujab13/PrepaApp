@@ -256,7 +256,7 @@ export default function Lectura() {
             onClick={() => setTemaIdx(i)}
             style={{
               background: i === temaIdx ? materia.color : 'var(--surface2)',
-              color: i === temaIdx ? '#000' : 'var(--text-muted)',
+              color: i === temaIdx ? '#fff' : 'var(--text-muted)',
               border: 'none',
               borderRadius: '20px',
               padding: '6px 14px',
@@ -314,7 +314,7 @@ export default function Lectura() {
           style={{
             flex: 1,
             background: materia.color,
-            color: '#000',
+            color: '#fff',
             fontWeight: 700,
             opacity: temaIdx === totalTemas - 1 ? 0.35 : 1,
           }}

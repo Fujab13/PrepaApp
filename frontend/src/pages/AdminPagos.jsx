@@ -15,6 +15,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import {
   obtenerDetalleTransaccionesProfesores,
+  contarUsuariosRegistrados,
   marcarPagoProfesor,
   desmarcarPagoProfesor,
 } from "../services/adminPagos";
@@ -27,6 +28,7 @@ import {
   HiCheckCircle,
   HiChevronDown,
   HiChevronUp,
+  HiOutlineUserGroup,
 } from "react-icons/hi2";
 
 function fmtMoneda(n) {
@@ -52,6 +54,7 @@ export default function AdminPagos() {
   const { user, cargando: cargandoAuth, esAdmin } = useAuth();
 
   const [filas, setFilas] = useState(null);
+  const [totalUsuarios, setTotalUsuarios] = useState(null);
   const [cargando, setCargando] = useState(true);
   const [error, setError] = useState("");
   const [procesandoId, setProcesandoId] = useState(null);
@@ -61,8 +64,12 @@ export default function AdminPagos() {
     setCargando(true);
     setError("");
     try {
-      const data = await obtenerDetalleTransaccionesProfesores();
+      const [data, usuarios] = await Promise.all([
+        obtenerDetalleTransaccionesProfesores(),
+        contarUsuariosRegistrados(),
+      ]);
       setFilas(data);
+      setTotalUsuarios(usuarios);
     } catch {
       setError("No se pudo cargar el detalle de pagos. Intenta de nuevo.");
     }
@@ -177,10 +184,16 @@ export default function AdminPagos() {
           <>
             {error && <p style={{ color: "var(--wrong)", fontSize: 13, textAlign: "center", margin: 0 }}>{error}</p>}
 
-            <div style={{ display: "flex", gap: 8 }}>
-              <TarjetaResumen icono={<HiOutlineBanknotes />} label="Comisión de la plataforma" valor={fmtMoneda(resumenGlobal.comision)} color="#22c55e" />
-              <TarjetaResumen icono={<HiOutlineBanknotes />} label="Pendiente de pagar" valor={fmtMoneda(resumenGlobal.pendiente)} color="#f59e0b" />
-              <TarjetaResumen icono={<HiCheckCircle />} label="Ya pagado" valor={fmtMoneda(resumenGlobal.pagado)} color="#4f8ef7" />
+            <div className="sp-card" style={{ margin: 0 }}>
+              <p className="sp-card-title" style={{ marginBottom: 10 }}>Estadísticas de la plataforma</p>
+              <div style={{ display: "flex", gap: 8, marginBottom: 8 }}>
+                <TarjetaResumen icono={<HiOutlineUserGroup />} label="Usuarios registrados" valor={totalUsuarios ?? "…"} color="#06b6d4" />
+              </div>
+              <div style={{ display: "flex", gap: 8 }}>
+                <TarjetaResumen icono={<HiOutlineBanknotes />} label="Comisión de la plataforma" valor={fmtMoneda(resumenGlobal.comision)} color="#22c55e" />
+                <TarjetaResumen icono={<HiOutlineBanknotes />} label="Pendiente de pagar" valor={fmtMoneda(resumenGlobal.pendiente)} color="#f59e0b" />
+                <TarjetaResumen icono={<HiCheckCircle />} label="Ya pagado" valor={fmtMoneda(resumenGlobal.pagado)} color="#4f8ef7" />
+              </div>
             </div>
 
             {profesores.length === 0 && (
@@ -196,7 +209,7 @@ export default function AdminPagos() {
                   <button
                     type="button"
                     onClick={() => alternarExpandido(p.profesor_id)}
-                    style={{ background: "none", border: "none", padding: 0, width: "100%", textAlign: "left", cursor: "pointer", display: "flex", alignItems: "center", gap: 12, minHeight: 44 }}
+                    style={{ background: "none", border: "none", padding: 0, width: "100%", textAlign: "left", cursor: "pointer", display: "flex", alignItems: "center", gap: 12, minHeight: 44, color: "var(--text)" }}
                   >
                     <div className="sp-card-icon" style={{ background: "rgba(124,92,191,0.15)", color: "#7c5cbf" }}>
                       {(p.nombre || p.email)[0]?.toUpperCase()}

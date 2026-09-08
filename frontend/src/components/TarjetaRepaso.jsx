@@ -264,7 +264,7 @@ export default function TarjetaRepaso({ pregunta, estados, respondido, color, on
             display: 'flex', alignItems: 'center', justifyContent: 'center',
             borderRadius: '50%',
             background: leyendo ? color : 'rgba(255,255,255,0.1)',
-            color: leyendo ? '#000' : 'var(--text-muted)',
+            color: leyendo ? '#fff' : 'var(--text-muted)',
             fontSize: '1rem',
             transition: 'background 0.2s ease, color 0.2s ease',
             zIndex: 6,

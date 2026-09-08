@@ -19,6 +19,22 @@ export async function obtenerDetalleTransaccionesProfesores() {
   return data ?? [];
 }
 
+/**
+ * Total de usuarios registrados en la plataforma a la fecha (RPC SECURITY
+ * DEFINER `admin_contar_usuarios_registrados`, ver migración
+ * 20260908120100). Requiere admin — el backend ya lo valida.
+ */
+export async function contarUsuariosRegistrados() {
+  const { data, error } = await supabase.rpc('admin_contar_usuarios_registrados');
+
+  if (error) {
+    console.error('[adminPagos] No se pudo contar los usuarios registrados:', error.message);
+    throw error;
+  }
+
+  return data ?? 0;
+}
+
 export async function marcarPagoProfesor(transaccionId) {
   const { error } = await supabase.rpc('admin_marcar_pago_profesor', {
     p_transaccion_id: transaccionId,
