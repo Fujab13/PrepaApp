@@ -12,18 +12,26 @@ The real project lives in `frontend/` (the repo root's `package-lock.json` is a 
 - `data/` — static content: `examen.js`, `leccionesGratis.js`, `libros.js`, `storeItems.js`, `unidades.js`, plus `lecciones/` and `lecturas/` subfolders. New lessons/readings are added as a JS file and re-exported via each folder's `index.js` (see root `README.md` for the exact steps and the `progreso_usuario` SQL/RLS model).
 - `utils/` — e.g. `haptics.js` (vibration on button taps, used globally in `App.jsx`), `renderIconoMateria.js`.
 - `styles/global.css` — dark theme via CSS custom properties (`--bg`, `--surface`, `--correct`, `--wrong`, etc.).
-- Note: `components/` also holds a few non-component `.js` files (`haptics.js`, `progreso.js`, `unidades.js`) alongside `.jsx` components — it isn't strictly components-only.
+- Note: `components/` also holds one non-component `.js` file, `progreso.js`, alongside `.jsx` components — it isn't strictly components-only. (`haptics.js` lives in `utils/`, not here; `unidades.js` lives in `data/`, not here — despite the similar naming, neither is in `components/`.)
 
 **Supabase client**: use `src/services/supabaseClient.js` (the one actually imported by `AuthContext`). `src/supabase.js` is a duplicate/legacy client — don't add a third instance, and prefer removing `src/supabase.js` if touching that area.
 
-**Routing**: `react-router-dom` v6, flat routes declared in `src/App.jsx` (`/`, `/leccion/:materiaId`, `/lectura/:materiaId`, `/login`, `/tienda`, `/examen`, `/resultados`, `/inventario`). No route-guard components — pages check `useAuth()` themselves.
+**Routing**: `react-router-dom` v6, flat routes declared in `src/App.jsx`. No route-guard components — pages check `useAuth()` themselves. Core: `/`, `/leccion/:materiaId`, `/lectura/:materiaId`, `/login`, `/actualizar-password`, `/tienda`, `/examen`, `/examen/:examenId`, `/inventario`, `/formulario-area`, `/informe-resultados`. Tutorías: `/tutorias`, `/tutorias/alumno`, `/tutorias/maestro`, `/tutorias/maestro/alumnos`, `/tutorias/maestro/ganancias`, `/perfil-profesor/:profesorId`, `/ofertas`, `/ofertas/publicar`, `/oferta-confirmada`. Admin: `/admin/pagos`, `/admin/maestros`, `/admin/reportes`, `/admin/ofertas`. There is no `/resultados` route — results are shown as in-page state, not a separate route.
 
 **Naming**: pages/components are PascalCase `.jsx`; utility/data files are camelCase `.js`; domain terms are in Spanish (`Leccion`, `Lectura`, `Examen`, `Resultados`, `progreso`, `materia`) — keep new code consistent with this.
 
 ## Supabase backend & payments
 
-`frontend/supabase/` has `config.toml` and `functions/` with two Deno edge functions: `crear-sesion-pago` (creates the Stripe checkout session) and `stripe-webhook` (handles the Stripe webhook) — Stripe is integrated server-side via Supabase Edge Functions, not the client SDK. No `migrations/` folder exists; schema changes happen elsewhere (ask before assuming how to apply them). `.env.example` only documents `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY`; Stripe secret keys and `SUPABASE_SERVICE_ROLE_KEY` live only inside the edge functions' own env, never in the frontend `.env`.
+`frontend/supabase/` has `config.toml`, a `migrations/` folder (38+ timestamped SQL files — schema changes DO go through here, apply them the same way as the existing ones; this is not a project without migrations), and `functions/` with six Deno edge functions — Stripe is integrated server-side via these, not the client SDK:
+- `crear-sesion-pago` — creates the Stripe Checkout session for a Tienda purchase.
+- `crear-sesion-pago-oferta-maestro` — creates the Checkout session for a tutoring-offer seat already reserved (price and availability were already resolved/frozen at reservation time; only reads `transaccion_id`, never `oferta_id`, from the request body).
+- `stripe-webhook` — handles `checkout.session.completed` and writes the confirmed purchase.
+- `verificar-pago-producto` — safety net for `/inventario`: if the webhook is late or fails, asks Stripe directly for the session status and applies the same RPC the webhook would have.
+- `verificar-pago-oferta-maestro` — same safety-net pattern as above, for `/oferta-confirmada`.
+- `admin-acceso-profesor` — generates a Supabase magic link (`auth.admin.generateLink`, needs the service role) so an admin can sign in directly as a teacher account for support purposes; the frontend signs the admin out first, so this is a real session swap, not impersonation-while-staying-logged-in.
+
+`.env.example` only documents `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY`; Stripe secret keys and `SUPABASE_SERVICE_ROLE_KEY` live only inside the edge functions' own env, never in the frontend `.env`.
 
 ## Deployment & dev server
 
-`vercel.json` only does a SPA rewrite (`/(.*) → /index.html`), no other build overrides. `vite.config.js` binds the dev server to `0.0.0.0:5173` with an `allowedHosts` entry for an ngrok tunnel — local dev is sometimes tested on real mobile devices via ngrok tunnel.
+`vercel.json` does the SPA rewrite (`/(.*) → /index.html`) plus long-lived `Cache-Control` headers for static assets (`/assets/`, `/svgs/`, `/libros/`, `/temarios/`) — no other build overrides. `vite.config.js` binds the dev server to `0.0.0.0:5173` with an `allowedHosts` entry for an ngrok tunnel — local dev is sometimes tested on real mobile devices via ngrok tunnel.

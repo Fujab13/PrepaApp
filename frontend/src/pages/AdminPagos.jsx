@@ -21,7 +21,7 @@ import {
 } from "../services/adminPagos";
 import { nombreMateriaOferta } from "../data/materiasTutoria";
 
-import { AiOutlineClose } from "react-icons/ai";
+import { AiOutlineClose, AiOutlineLoading3Quarters } from "react-icons/ai";
 import {
   HiOutlineBanknotes,
   HiOutlineEnvelope,
@@ -29,6 +29,10 @@ import {
   HiChevronDown,
   HiChevronUp,
   HiOutlineUserGroup,
+  HiOutlineLockClosed,
+  HiOutlineShieldExclamation,
+  HiOutlineInboxStack,
+  HiOutlineChartBar,
 } from "react-icons/hi2";
 
 function fmtMoneda(n) {
@@ -41,10 +45,20 @@ function fmtFecha(ts) {
 
 function TarjetaResumen({ icono, label, valor, color }) {
   return (
-    <div style={{ background: "var(--surface2)", borderLeft: `3px solid ${color}`, borderRadius: 10, padding: "10px 12px", display: "flex", flexDirection: "column", gap: 3, flex: 1, minWidth: 0 }}>
-      <div style={{ display: "flex", alignItems: "center", gap: 6, color, fontSize: 13 }}>{icono}</div>
-      <span style={{ fontSize: 10.5, color: "var(--text-muted)" }}>{label}</span>
-      <span style={{ fontSize: 15, fontWeight: 800, color: "var(--text)" }}>{valor}</span>
+    <div style={{ background: "var(--surface2)", borderRadius: 12, padding: "12px 14px", display: "flex", alignItems: "center", gap: 12, minWidth: 0 }}>
+      <div
+        style={{
+          width: 36, height: 36, borderRadius: 10, flexShrink: 0,
+          display: "flex", alignItems: "center", justifyContent: "center",
+          background: `${color}22`, color, fontSize: 16,
+        }}
+      >
+        {icono}
+      </div>
+      <div style={{ minWidth: 0, flex: 1 }}>
+        <p style={{ fontSize: 11, color: "var(--text-muted)", margin: 0 }}>{label}</p>
+        <p style={{ fontSize: 16, fontWeight: 800, color: "var(--text)", margin: "1px 0 0" }}>{valor}</p>
+      </div>
     </div>
   );
 }
@@ -59,6 +73,7 @@ export default function AdminPagos() {
   const [error, setError] = useState("");
   const [procesandoId, setProcesandoId] = useState(null);
   const [expandidos, setExpandidos] = useState(() => new Set());
+  const [statsAbiertas, setStatsAbiertas] = useState(false);
 
   async function cargar() {
     setCargando(true);
@@ -153,19 +168,25 @@ export default function AdminPagos() {
         <h2 className="page-topbar-title" style={{ fontSize: "1rem", flex: 1 }}>Pagos a profesores</h2>
       </header>
 
-      <main className="page-content-compact" style={{ flex: 1, paddingBottom: 40, display: "flex", flexDirection: "column", gap: 14 }}>
+      <main className="page-content-compact" style={{ flex: 1, paddingBottom: 40, display: "flex", flexDirection: "column", gap: 16 }}>
         {(cargandoAuth || (esAdmin && cargando)) && (
-          <p style={{ color: "var(--text-muted)", fontSize: 13, textAlign: "center" }}>Cargando…</p>
+          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 10, padding: "48px 0" }}>
+            <AiOutlineLoading3Quarters className="spin" style={{ fontSize: "1.6rem", color: "#4f8ef7" }} />
+            <p style={{ color: "var(--text-muted)", fontSize: 13, margin: 0 }}>Cargando…</p>
+          </div>
         )}
 
         {!cargandoAuth && !user && (
-          <div className="sp-card" style={{ textAlign: "center" }}>
-            <p style={{ fontSize: 14, color: "var(--text)", marginBottom: 12 }}>
+          <div className="sp-card" style={{ textAlign: "center", alignItems: "center" }}>
+            <div className="sp-card-icon" style={{ width: 52, height: 52, fontSize: "1.5rem", margin: "0 auto", background: "rgba(6,182,212,0.14)", color: "#06b6d4" }}>
+              <HiOutlineLockClosed />
+            </div>
+            <p style={{ fontSize: 14, color: "var(--text)", margin: "10px 0 14px", fontWeight: 700 }}>
               Necesitas iniciar sesión para ver esta página.
             </p>
             <button
               onClick={() => navigate("/login?modo=login")}
-              style={{ minHeight: 44, padding: "0 20px", borderRadius: 10, border: "none", background: "#06b6d4", color: "#fff", fontWeight: 600, cursor: "pointer" }}
+              style={{ minHeight: 44, padding: "0 22px", borderRadius: 12, border: "none", background: "#06b6d4", color: "#fff", fontWeight: 700, fontSize: 13.5, cursor: "pointer", boxShadow: "0 4px 14px rgba(6,182,212,0.3)" }}
             >
               Iniciar sesión
             </button>
@@ -173,8 +194,11 @@ export default function AdminPagos() {
         )}
 
         {!cargandoAuth && user && !esAdmin && (
-          <div className="sp-card" style={{ textAlign: "center" }}>
-            <p style={{ fontSize: 14, color: "var(--text)", margin: 0 }}>
+          <div className="sp-card" style={{ textAlign: "center", alignItems: "center" }}>
+            <div className="sp-card-icon" style={{ width: 52, height: 52, fontSize: "1.5rem", margin: "0 auto", background: "rgba(248,113,113,0.14)", color: "var(--wrong)" }}>
+              <HiOutlineShieldExclamation />
+            </div>
+            <p style={{ fontSize: 14, color: "var(--text)", margin: "10px 0 0", fontWeight: 700 }}>
               No tienes permiso para ver esta página.
             </p>
           </div>
@@ -182,30 +206,59 @@ export default function AdminPagos() {
 
         {!cargandoAuth && user && esAdmin && !cargando && (
           <>
-            {error && <p style={{ color: "var(--wrong)", fontSize: 13, textAlign: "center", margin: 0 }}>{error}</p>}
+            {error && (
+              <div style={{ background: "rgba(248,113,113,0.12)", border: "1px solid rgba(248,113,113,0.3)", borderRadius: 12, padding: "10px 14px" }}>
+                <p style={{ color: "var(--wrong)", fontSize: 13, margin: 0, textAlign: "center" }}>{error}</p>
+              </div>
+            )}
 
             <div className="sp-card" style={{ margin: 0 }}>
-              <p className="sp-card-title" style={{ marginBottom: 10 }}>Estadísticas de la plataforma</p>
-              <div style={{ display: "flex", gap: 8, marginBottom: 8 }}>
-                <TarjetaResumen icono={<HiOutlineUserGroup />} label="Usuarios registrados" valor={totalUsuarios ?? "…"} color="#06b6d4" />
-              </div>
-              <div style={{ display: "flex", gap: 8 }}>
-                <TarjetaResumen icono={<HiOutlineBanknotes />} label="Comisión de la plataforma" valor={fmtMoneda(resumenGlobal.comision)} color="#22c55e" />
-                <TarjetaResumen icono={<HiOutlineBanknotes />} label="Pendiente de pagar" valor={fmtMoneda(resumenGlobal.pendiente)} color="#f59e0b" />
-                <TarjetaResumen icono={<HiCheckCircle />} label="Ya pagado" valor={fmtMoneda(resumenGlobal.pagado)} color="#4f8ef7" />
-              </div>
+              <button
+                type="button"
+                onClick={() => setStatsAbiertas((v) => !v)}
+                style={{ background: "none", border: "none", padding: 0, width: "100%", display: "flex", alignItems: "center", gap: 12, minHeight: 44, cursor: "pointer", color: "var(--text)" }}
+              >
+                <div className="sp-card-icon" style={{ background: "rgba(79,142,247,0.15)", color: "#4f8ef7" }}>
+                  <HiOutlineChartBar />
+                </div>
+                <div className="sp-card-body" style={{ textAlign: "left" }}>
+                  <p className="sp-card-title">Estadísticas de la plataforma</p>
+                  <p className="sp-card-description">{statsAbiertas ? "Toca para ocultar" : "Toca para ver el detalle"}</p>
+                </div>
+                <span style={{ fontSize: 18, color: "var(--text-muted)", display: "flex", flexShrink: 0 }}>{statsAbiertas ? <HiChevronUp /> : <HiChevronDown />}</span>
+              </button>
+
+              {statsAbiertas && (
+                <div style={{ borderTop: "0.5px solid var(--surface)", marginTop: 12, paddingTop: 12, display: "flex", flexDirection: "column", gap: 8 }}>
+                  <TarjetaResumen icono={<HiOutlineUserGroup />} label="Usuarios registrados" valor={totalUsuarios ?? "…"} color="#06b6d4" />
+                  <TarjetaResumen icono={<HiOutlineBanknotes />} label="Comisión de la plataforma" valor={fmtMoneda(resumenGlobal.comision)} color="#22c55e" />
+                  <TarjetaResumen icono={<HiOutlineBanknotes />} label="Pendiente de pagar" valor={fmtMoneda(resumenGlobal.pendiente)} color="#f59e0b" />
+                  <TarjetaResumen icono={<HiCheckCircle />} label="Ya pagado" valor={fmtMoneda(resumenGlobal.pagado)} color="#4f8ef7" />
+                </div>
+              )}
             </div>
 
-            {profesores.length === 0 && (
-              <p style={{ fontSize: 13, color: "var(--text-muted)", textAlign: "center", margin: "20px 0" }}>
-                Todavía no hay clases pagadas de ofertas_maestro.
+            {profesores.length > 0 && (
+              <p style={{ fontSize: 11.5, fontWeight: 700, color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: 0.5, margin: "0 2px" }}>
+                {profesores.length} {profesores.length === 1 ? "profesor" : "profesores"}
               </p>
+            )}
+
+            {profesores.length === 0 && (
+              <div className="sp-card" style={{ textAlign: "center", alignItems: "center" }}>
+                <div className="sp-card-icon" style={{ width: 52, height: 52, fontSize: "1.5rem", margin: "0 auto", background: "rgba(132,108,137,0.14)", color: "var(--text-muted)" }}>
+                  <HiOutlineInboxStack />
+                </div>
+                <p style={{ fontSize: 13, color: "var(--text-muted)", margin: "10px 0 0" }}>
+                  Todavía no hay clases pagadas de ofertas_maestro.
+                </p>
+              </div>
             )}
 
             {profesores.map((p) => {
               const expandido = expandidos.has(p.profesor_id);
               return (
-                <div key={p.profesor_id} className="sp-card" style={{ margin: 0 }}>
+                <div key={p.profesor_id} className="sp-card sp-card-interactive" style={{ margin: 0 }}>
                   <button
                     type="button"
                     onClick={() => alternarExpandido(p.profesor_id)}
@@ -214,11 +267,8 @@ export default function AdminPagos() {
                     <div className="sp-card-icon" style={{ background: "rgba(124,92,191,0.15)", color: "#7c5cbf" }}>
                       {(p.nombre || p.email)[0]?.toUpperCase()}
                     </div>
-                    <div className="sp-card-body">
-                      <p className="sp-card-title">{p.nombre || "Sin nombre"}</p>
-                      <p className="sp-card-description" style={{ display: "flex", alignItems: "center", gap: 5 }}>
-                        <HiOutlineEnvelope /> {p.email}
-                      </p>
+                    <div className="sp-card-body" style={{ overflow: "hidden" }}>
+                      <p className="sp-card-title" style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{p.nombre || "Sin nombre"}</p>
                     </div>
                     <div style={{ display: "flex", alignItems: "center", gap: 8, flexShrink: 0 }}>
                       <span style={{ fontSize: 12, fontWeight: 700, color: p.totalPendiente > 0 ? "#f59e0b" : "#4f8ef7", background: p.totalPendiente > 0 ? "rgba(245,158,11,0.15)" : "rgba(79,142,247,0.15)", padding: "4px 8px", borderRadius: 10, whiteSpace: "nowrap" }}>
@@ -228,15 +278,19 @@ export default function AdminPagos() {
                     </div>
                   </button>
 
-                  <p style={{ fontSize: 11.5, color: "var(--text-muted)", margin: "8px 0 0", fontFamily: "monospace" }}>
-                    CLABE registrada: {p.numeroCuenta || "No configurada"}
+                  <p className="sp-card-description" style={{ display: "flex", alignItems: "center", gap: 5, margin: "10px 0 0", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                    <HiOutlineEnvelope style={{ flexShrink: 0 }} /> {p.email}
+                  </p>
+
+                  <p style={{ fontSize: 11, color: "var(--text-muted)", margin: "6px 0 0", fontFamily: "monospace", background: "var(--surface)", display: "inline-block", padding: "3px 8px", borderRadius: 6 }}>
+                    CLABE: {p.numeroCuenta || "No configurada"}
                   </p>
 
                   {expandido && (
                     <div style={{ borderTop: "0.5px solid var(--surface)", marginTop: 12, paddingTop: 12, display: "flex", flexDirection: "column", gap: 8 }}>
                       {p.transacciones.map((t) => {
                         return (
-                          <div key={t.transaccion_id} style={{ background: "var(--surface2)", border: "0.5px solid var(--surface)", borderRadius: 10, padding: "10px 12px" }}>
+                          <div key={t.transaccion_id} style={{ background: "var(--surface)", borderRadius: 10, padding: "10px 12px" }}>
                             <div style={{ display: "flex", justifyContent: "space-between", gap: 8 }}>
                               <p style={{ fontSize: 12.5, fontWeight: 700, color: "var(--text)", margin: 0 }}>
                                 {nombreMateriaOferta(t.materia_id, t.materia_otro)} · {fmtFecha(t.fecha_hora)}
@@ -251,8 +305,9 @@ export default function AdminPagos() {
                             <p style={{ fontSize: 11.5, color: "var(--text-muted)", margin: "2px 0 0", fontFamily: "monospace" }}>
                               CLABE: {t.cuenta_clave}
                             </p>
-                            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: 8, gap: 8 }}>
-                              <span style={{ fontSize: 11, color: t.pagado_profesor ? "#4f8ef7" : "#f59e0b" }}>
+                            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: 10, paddingTop: 8, borderTop: "0.5px solid var(--surface2)", gap: 8 }}>
+                              <span style={{ display: "flex", alignItems: "center", gap: 6, fontSize: 11, fontWeight: 600, color: t.pagado_profesor ? "#4f8ef7" : "#f59e0b" }}>
+                                <span style={{ width: 6, height: 6, borderRadius: "50%", background: t.pagado_profesor ? "#4f8ef7" : "#f59e0b", flexShrink: 0 }} />
                                 {t.pagado_profesor ? `Pagado el ${fmtFecha(t.pagado_profesor_en)}` : "Pendiente de pago"}
                               </span>
                               <button

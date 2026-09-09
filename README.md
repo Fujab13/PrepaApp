@@ -1,32 +1,53 @@
-✕ ☰ ♔ ♕ ♖ ♗ ♘ ♙ ♚ ♛ ♜ ♝ ♞ ♟ 
-💽 🐺 🦕 🔅 🔆 👤
-✅ ❌ ⊠ ⛶ 🏁
-ya no se usaran estos emojis
-    ↆↆↆ
-REACT-ICONS
-    https://react-icons.github.io/react-icons/icons/bi/
-    paquete: react-icons, que te permiten importar iconos 
-    FontAwesome, Material Design o Ionicons.
-    
-AÑADIR LECCIONES INFO
-Las lecciones se estructuran en 6 etapas de 12 preguntas es decir 72 preguntas
-    -Creamos un js con el nombre de interes y lo llenamos con el mismo formato de data.js 
-    -Dentro de index.js en la la misma carpeta importamos la nueva leccion y la añadimos al strign
+# PrepaApp
 
-AÑADIR LECTURAS EXTRA #/data/lecturas
-    -Creamos un js con el nombre de interes y lo llenamos con el mismo formato de las lecturas.js
-    -Dentro de index.js en la misma carpeta importamos la nueva lectura y la añadimos dentro del string
+App de preparación para examen de admisión universitaria (estilo BUAP/EXANI-II): lecciones con preguntas, lecturas, examen de diagnóstico, tutorías 1:1 con profesores, tienda con monedas/pagos reales y un panel de administración.
 
-Logica de la Base de Datos
-    El razonamiento es algo así.
-    El usuario tiene una app de acceso a la universidad: con temas tipo matematicas, español, fisica, ingenieria, biologia, economia, etc.
-    Los contenidos se parten en unidades: 0-130 este numero esta inspirado en los 130 niveles de duolingo no hay una razon especifica
-    El subprogreso: Se divide de 0 a 1000 unicamente suponiendo que por ejemplo en la unidad 15 queramos guardar si se quedo digamos en la tarjeta 100, en una pregunta 200, o en el concepto numero 500, ns el subprogreso en teoria al pasar a una nueva unidad deberia restablecerse, bien podría ocupar el maximo teorico de 1000, o bien podría llegar a 15 si esa unidad solo tiene 15 elementos de estudio es todo. 
+**Stack**: React (Vite) · Supabase (Auth, Postgres, Storage, Edge Functions) · Stripe (vía Edge Functions, nunca desde el cliente) · KaTeX/react-katex para fórmulas · react-icons. Sin backend propio: toda la lógica de servidor vive en Supabase (RPCs de Postgres + Deno Edge Functions).
 
-Con esta lógica de Unidades (0-130) y Elementos internos (0-1000), el enfoque de "Estado Actual" 
-(una sola fila por usuario y materia) es, por mucho, la mejor opción.
+Ver `CLAUDE.md` para las convenciones de código, restricciones de seguridad y detalles de layout que un asistente de IA necesita antes de tocar este repo.
 
-SQL EDITOR supabase
+## Estructura (simplificada)
+
+```
+project-root/
+├── CLAUDE.md                    # convenciones e instrucciones para trabajar en el repo
+├── README.md                    # este archivo
+└── frontend/                    # el proyecto real (raíz del package.json que importa)
+    ├── public/
+    │   ├── libros/               # PDFs descargables (guías por área, simulacros)
+    │   └── svgs/, music/, ...    # assets estáticos servidos directo por Vercel
+    ├── src/
+    │   ├── App.jsx               # todas las rutas (react-router-dom v6, flat)
+    │   ├── pages/                # una vista por ruta
+    │   ├── components/           # UI reutilizable
+    │   ├── context/              # AuthContext (sesión), StoreContext (compras)
+    │   ├── hooks/                # p.ej. useProgreso.js
+    │   ├── services/             # llamadas a Supabase (DB, RPCs, Storage, Edge Functions)
+    │   ├── data/                 # contenido estático: examen.js, storeItems.js, libros.js,
+    │   │                         # lecciones/*.json, lecturas/*.js
+    │   ├── utils/                # helpers sin estado (haptics, LaTeX, íconos)
+    │   └── styles/global.css     # tema oscuro vía variables CSS
+    ├── supabase/
+    │   ├── migrations/           # historial de cambios de esquema (SQL, timestamped)
+    │   └── functions/            # 6 Edge Functions Deno (Stripe, magic links de soporte)
+    └── referencia/                # notas de análisis, bancos de preguntas fuente, requerimientos
+```
+
+## Cómo agregar contenido
+
+**Lecciones nuevas** (`src/data/lecciones/`): agrega un `<materia>.json` con `{ titulo, icono, color, descripcion, preguntas: [...] }`. No hace falta tocar ningún índice — `leccionesGratis.js` descubre automáticamente cualquier `.json` en esa carpeta (`import.meta.glob`). Cada item de `preguntas` es una pregunta (`pregunta`, `opciones`, `correcta`) o un bloque de explicación (solo `pregunta`, sin `opciones`).
+
+**Lecturas nuevas** (`src/data/lecturas/`): agrega un `<materia>.js` con el mismo formato que los existentes, impórtalo en `lecturas/index.js` y añádelo al arreglo `LECTURAS` — a diferencia de lecciones, aquí sí hay que editar el índice a mano.
+
+**Libros/PDFs nuevos**: copia el PDF a `public/libros/` y agrega una entrada (`id`, `nombre`, `archivo`, `color`) en `src/data/libros.js`. Si el PDF no se agrega ahí, queda invisible en la app aunque exista el archivo.
+
+**Exámenes nuevos**: sigue el formato de `src/data/examen.js` — `secciones` (rangos de `id` por materia) y `preguntas` (con `respuestas` en formato `"A. texto"` e `inciso_correcto`). Ver `referencia/requerimientos/preguntas_examen.txt` para la plantilla y los requisitos de calidad esperados.
+
+## Modelo de progreso (Supabase)
+
+Una fila por usuario y materia en `progreso_usuario`, con RLS para que cada quien solo vea/edite la suya:
+
+```sql
 create table progreso_usuario (
   id uuid default gen_random_uuid() primary key,
   user_id uuid references auth.users(id) on delete cascade,
@@ -39,159 +60,33 @@ alter table progreso_usuario enable row level security;
 create policy "usuarios ven su propio progreso"
 on progreso_usuario for all
 using (auth.uid() = user_id);
+```
 
-AGREGAR LIBROS
-1. Copia el PDF a frontend/public/libros/tu_libro.pdf
-2. Agrega una entrada en frontend/src/data/libros.js:
+Esquemas más recientes (tutorías, ofertas, calificaciones, pagos) viven como migraciones individuales en `frontend/supabase/migrations/`.
 
+## Configuración local
 
-## Arquitectura General
-La aplicación está desarrollada con React y Vite. La navegación se organiza mediante páginas (`pages`), que utilizan componentes reutilizables (`components`). Los datos académicos y lecturas se almacenan en módulos dentro de `data`. La autenticación se gestiona mediante Supabase y React Context (`AuthContext`), mientras que el progreso del usuario se controla mediante hooks personalizados (`useProgreso`).
+```bash
+cd frontend
+npm install
+npm run dev   # http://localhost:5173
+```
 
-npm install katex react-katex 
-Instalar KaTeX
-para renderizar fórmulas escritas en sintaxis LaTeX.
+Variables de entorno (`frontend/.env`, ver `.env.example`): solo `VITE_SUPABASE_URL` y `VITE_SUPABASE_ANON_KEY`. Las llaves privadas (Stripe, `SUPABASE_SERVICE_ROLE_KEY`) nunca van aquí — viven solo en el entorno de las Edge Functions.
 
-revisa vite.config.js para añadir direcciones url permitidas
+**Supabase → Authentication → URL Configuration**:
+- Site URL: `http://localhost:5173`
+- Redirect URLs: `http://localhost:5173/**`, `http://localhost:5173`
 
-Authentication → URL Configuration
-Site URL:
-http://localhost:5173        ← el puerto donde corre tu app (Vite usa 5173, CRA usa 3000)
-Redirect URLs (agrega estas):
-http://localhost:5173/**
-http://localhost:5173
+**Google Cloud Console → APIs & Services → Credentials** (OAuth Client ID):
+- Authorized JavaScript origins: `http://localhost:5173`
 
-console.cloud.google.com → tu proyecto → APIs & Services → Credentials → tu OAuth Client ID:
-Authorized JavaScript origins:
-http://localhost:5173
+`vite.config.js` expone el dev server en `0.0.0.0:5173` para poder probarlo desde un celular real vía túnel de ngrok — si usas otro subdominio de ngrok, agrégalo a `allowedHosts` ahí.
 
-:root {
-  --bg:         #0f0f1a;
-  --surface:    #1a1a2e;
-  --surface2:   #22223b;
-  --text:       #f0f0f0;
-  --text-muted: #846c89;
-  --correct:    #4ade80;
-  --wrong:      #f87171;
-  --radius:     16px;
-  --font:       'Inter', system-ui, sans-serif;
-}
+## Ideas pendientes / backlog
 
-
-Gratuito
-    Anuncios no intrusivos
-    Lecciones ( 72 preguntas por materia ) 
-    Flashcards ( 72 por materia )
-    Enlaces BUAP 
-    PDF's
-
-Pago
-    Lecciones (150 preguntas por materia) 
-        Desbloquea Español I, II, III ...
-    Flashcards ( +300 por materia )
-    Recordatorios sobre P.Admisión al correo ()
-
-Odontologia (dientes)
-
-Puntos y subpuntos clave que debería conocer un aspirante a la BUAP
-
-Calendario y Proceso
-    Convocatoria: que y donde
-    Registro: Pasos autoservicio
-    Pago: Fechas y proceso
-    Documentos: Fechas y proceso
-    Resultados: Fechas y proceso, como lidiar con el exito.
-
-Examen (EXANI-II)
-    Definición: CENEVAL
-    Habilidades: Comprensión lectora, redacción, pens. matemático
-    Conocimientos: que se espera de cada área
-    Ingles: Diagnostico
-
-Formato
-    Estructura del Examen
-    Tiempo de duración
-    Formato de Asignación de Examen (FAE)
-    Reglamento: prohibidos, permitidos, documentos
-
-Requisitos
-    Certificado: Prom. min.
-    Constancia de estudio: otra opcion
-    Equivalencia
-
-Oferta Educativa y Sedes
-    Modalidades: Escolarizada, semiescolarizada y a distancia.
-    Ubicación de sedes: CU, CU2, Salud, Complejo Cultural
-    Puntaje de corte
-
-Post-Admisión
-    Curso de Inducción: Qué y si es obligatorio.
-    Inscripción: Documentos necesarios para el ingreso oficial
-    Cuotas: Diferencia entre cuota de inscripción y colegiatura
-
-// NOTA
-Diseñar un cuestionario de 12 o 6 preguntas que estime tus probabilidades de pasar en una determinada carrera de la buap. 
-que determine tu probabilidad de pasar con ayuda
-que determine tu probabilidad de pasar sin ayuda
-
-//DE LOS PUNTOS CLAVES CREAR FLASHCARDS
-
-//DISEÑAR UN SISTEMA DE RECORDATORIOS INTELIGENTES PARA PERMITIR ENVIAR RECORDATORIOS INTRUSIVOS A CLIENTES PREMIUM 
-SOBRE LAS FECHAS IMPORTANTES DEL PROCESO DE ADMISIÓN
-
-npx tree-node-cli -I "node_modules"
-VS Project
-├── package-lock.json
-└── project-root
-    ├── README.md
-    ├── frontend
-    │   ├── index.html
-    │   ├── package-lock.json
-    │   ├── package.json
-    │   ├── public
-    │   │   ├── a
-    │   │   └── libros
-    │   │       ├── autoevaluacion.pdf
-    │   │       ├── curriculum.pdf
-    │   │       └── estudio.pdf
-    │   ├── src
-    │   │   ├── App.jsx
-    │   │   ├── components
-    │   │   │   ├── Hexagono.jsx
-    │   │   │   ├── Latex.jsx
-    │   │   │   ├── LibroCard.jsx
-    │   │   │   ├── MateriaCard.jsx
-    │   │   │   ├── OpcionBtn.jsx
-    │   │   │   ├── Sidenav.jsx
-    │   │   │   ├── haptics.js
-    │   │   │   ├── progreso.js
-    │   │   │   └── unidades.js
-    │   │   ├── context
-    │   │   │   └── AuthContext.jsx
-    │   │   ├── data
-    │   │   │   ├── espanol.js
-    │   │   │   ├── index.js
-    │   │   │   ├── ingenierias.js
-    │   │   │   ├── lecturas
-    │   │   │   │   ├── espanol.js
-    │   │   │   │   ├── index.js
-    │   │   │   │   ├── ingenierias.js
-    │   │   │   │   ├── matematicas.js
-    │   │   │   │   └── medicina.js
-    │   │   │   ├── libros.js
-    │   │   │   ├── matematicas.js
-    │   │   │   └── medicina.js
-    │   │   ├── hooks
-    │   │   │   └── useProgreso.js
-    │   │   ├── logo.ico
-    │   │   ├── main.jsx
-    │   │   ├── pages
-    │   │   │   ├── Home.jsx
-    │   │   │   ├── Leccion.jsx
-    │   │   │   ├── Lectura.jsx
-    │   │   │   └── Login.jsx
-    │   │   ├── styles
-    │   │   │   └── global.css
-    │   │   └── supabase.js
-    │   └── vite.config.js
-    └── package-lock.json
+Sin construir todavía, quedan aquí como referencia de intención futura:
+- Cuestionario corto (6-12 preguntas) que estime la probabilidad de admisión a una carrera específica de la BUAP, con y sin apoyo de tutoría.
+- Flashcards generadas a partir de los puntos clave del proceso de admisión (convocatoria, registro, documentos, resultados).
+- Sistema de recordatorios por correo para usuarios premium sobre fechas importantes del proceso de admisión.
+- Contenido de Lección/Lectura para Inglés e Historia (hoy solo existen para Español y Matemáticas) — planeado como contenido de pago.

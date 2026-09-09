@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom'
 import Hexagono from '../components/Hexagono'
 import OpcionBtn from '../components/OpcionBtn'
 import TarjetaRepaso from '../components/TarjetaRepaso'
+import EscaneoRecompensa from '../components/EscaneoRecompensa'
 import Latex from '../components/Latex'
 import Celebracion from '../components/Celebracion'
 import ConfirmDialog from '../components/ConfirmDialog'
@@ -121,8 +122,15 @@ export default function Leccion() {
   const [lecturaAutomatica, setLecturaAutomatica]     = useState(false)
   const [indicesFallados, setIndicesFallados]        = useState(() => new Set())
   const [errorAnteriorVisible, setErrorAnteriorVisible] = useState(false)
+  const [resumen, setResumen]                        = useState(null)
   const inicializadoRef = useRef(false)
   const autoLecturaInicializadaRef = useRef(false)
+  // Guarda qué unidad se acaba de completar, en el momento exacto en que se
+  // sabe (justo cuando "cola" se vacía, dentro de siguiente()): para cuando
+  // celebrarYNavegar() muestra el minijuego, el estado "unidad" ya pudo
+  // haber avanzado de forma optimista (ver guardarProgreso) y mostraría la
+  // unidad siguiente, no la que en realidad se acaba de terminar.
+  const unidadCompletadaRef = useRef(null)
 
   // Detiene cualquier lectura en curso al salir de la lección.
   useEffect(() => {
@@ -169,6 +177,11 @@ export default function Leccion() {
     setColaRepaso([])
     setIndicesFallados(new Set())
     setErrorAnteriorVisible(false)
+    // OJO: "resumen" NO se limpia aquí a propósito. Este efecto corre cada
+    // vez que cambia "unidad" -y avanzar de unidad es EXACTAMENTE lo que
+    // pasa al terminarla y mostrar el resumen (ver celebrarYNavegar)-, así
+    // que limpiarlo aquí borraba el resumen apenas se mostraba, en el mismo
+    // instante. Se limpia solo al salir de él, en continuarDesdeResumen().
   }, [materiaId, unidad])
 
   // Congela el aviso "Error anterior" en el momento en que cambia la
@@ -282,6 +295,16 @@ export default function Leccion() {
   // solo se veía devuelto a Home sin explicación.
   if (!materia && !errorCarga) return null
 
+  if (resumen) {
+    return (
+      <EscaneoRecompensa
+        unidad={resumen.unidad}
+        colorAcento={materia.color}
+        onContinuar={continuarDesdeResumen}
+      />
+    )
+  }
+
   const preguntas = (cargando || cargandoProgreso || !materia)
     ? []
     : getPreguntasDeUnidad(materia.preguntas, unidad)
@@ -393,17 +416,18 @@ export default function Leccion() {
         guardarPreferenciaAutoLectura(false)
       }
 
-      // Navega primero y recién después guarda el progreso (sin esperarlo):
-      // guardarProgreso actualiza "unidad" de forma optimista, y si eso
-      // pasara mientras Leccion sigue montada, fuerza un re-render que
-      // recalcula "preguntas" para la unidad nueva mientras "cola" todavía
-      // tiene los índices de la unidad vieja — ahí se alcanzaba a ver, un
-      // instante, contenido de la siguiente unidad detrás de la celebración
-      // (que solo cubre el botón, no toda la tarjeta de la pregunta).
-      // Navegando antes, ese re-render ya no ocurre sobre esta pantalla.
-      navigate('/')
+      // Guarda el progreso en segundo plano (sin esperarlo) y, en vez de
+      // navegar de inmediato como antes, muestra el minijuego del radar
+      // (RadarMinijuego) — así no importa que guardarProgreso actualice
+      // "unidad" de forma optimista mientras esa pantalla sigue montada
+      // (unidadCompletadaRef ya tiene la unidad correcta congelada).
       guardarProgreso(unidad + 1, 0)
+      setResumen({ unidad: unidadCompletadaRef.current })
     }, 550)
+  }
+
+  function continuarDesdeResumen() {
+    navigate('/')
   }
 
   function alternarLectura(texto) {
@@ -482,6 +506,11 @@ export default function Leccion() {
       // Unidad terminada: si en la unidad anterior hubo preguntas falladas,
       // se hace un repaso de refuerzo antes de avanzar de verdad.
       const fallosPrevios = unidad > 1 ? tomarFallosDeUnidad(materiaId, unidad - 1, 3) : []
+
+      // Congela qué unidad se completó ahora mismo — celebrarYNavegar() lo
+      // lee de aquí, pase o no por el repaso de abajo primero.
+      unidadCompletadaRef.current = unidad
+
       if (fallosPrevios.length > 0) {
         setRespondido(false)
         setFeedback('')

@@ -1,0 +1,1459 @@
+{
+  "nombre": "Examen de Enfermería y Ciencias de la Salud",
+  "secciones": [
+    {
+      "nombre": "Fundamentos de Enfermería, Bioética y Salud Pública",
+      "id_inicio": 1,
+      "id_fin": 60,
+      "color": "#4f8ef7"
+    },
+    {
+      "nombre": "Enfermería Clínica, Farmacología y Casos Prácticos",
+      "id_inicio": 61,
+      "id_fin": 120,
+      "color": "#cf3b3b"
+    }
+  ],
+  "preguntas": [
+    {
+      "id": 1,
+      "pregunta": "¿Cómo se define la deontología profesional en enfermería?",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. El conjunto de valores morales que comparte toda la sociedad.",
+        "B. El conjunto de normas que un colectivo profesional establece para regular la conducta de sus miembros.",
+        "C. La aplicación exclusiva de sanciones legales al personal sanitario.",
+        "D. Una opinión personal sobre lo que está bien o mal."
+      ],
+      "inciso_correcto": "B"
+    },
+    {
+      "id": 2,
+      "pregunta": "En la primera visita domiciliaria, ¿qué modelo se basa en la valoración de las 14 necesidades básicas de la persona?",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Los patrones funcionales de Gordon.",
+        "B. El modelo de las 14 necesidades básicas de Virginia Henderson.",
+        "C. La teoría del autocuidado de Orem.",
+        "D. El modelo de adaptación de Callista Roy."
+      ],
+      "inciso_correcto": "B"
+    },
+    {
+      "id": 3,
+      "pregunta": "¿Qué mide el valor predictivo positivo de una prueba diagnóstica?",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. La probabilidad de que una persona con resultado positivo esté realmente enferma.",
+        "B. La probabilidad de que una persona con resultado negativo esté realmente sana.",
+        "C. La proporción de enfermos correctamente detectados por la prueba.",
+        "D. La proporción de sanos correctamente descartados por la prueba."
+      ],
+      "inciso_correcto": "A"
+    },
+    {
+      "id": 4,
+      "pregunta": "¿En qué ciudad se celebró la conferencia internacional que impulsó el lema 'Salud para todos' y sentó las bases de la Atención Primaria?",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Ottawa.",
+        "B. Ámsterdam.",
+        "C. Alma-Ata.",
+        "D. Helsinki."
+      ],
+      "inciso_correcto": "C"
+    },
+    {
+      "id": 5,
+      "pregunta": "¿Cuál es la última fase de un estudio estadístico?",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. El establecimiento de conclusiones.",
+        "B. La formulación de la hipótesis.",
+        "C. La recolección de datos.",
+        "D. El análisis de los datos."
+      ],
+      "inciso_correcto": "A"
+    },
+    {
+      "id": 6,
+      "pregunta": "En la entrevista clínica, ¿qué caracteriza al método de entrevista libre?",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Sigue una lista fija de preguntas preparadas de antemano.",
+        "B. Alterna siempre preguntas cerradas y abiertas en proporciones iguales.",
+        "C. Solo puede aplicarse en entrevistas grupales.",
+        "D. Usa preguntas abiertas, sin orden preestablecido, permitiendo la espontaneidad."
+      ],
+      "inciso_correcto": "D"
+    },
+    {
+      "id": 7,
+      "pregunta": "¿Qué principio bioético reconoce el derecho del paciente a decidir según sus propias convicciones y valores?",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. No maleficencia.",
+        "B. Justicia.",
+        "C. Beneficencia.",
+        "D. Autonomía."
+      ],
+      "inciso_correcto": "D"
+    },
+    {
+      "id": 8,
+      "pregunta": "Según las recomendaciones del Consejo Europeo de Resucitación, ¿cuál es la primera acción ante una persona que no responde y no respira con normalidad?",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Colocarla en posición lateral de seguridad.",
+        "B. Comprobar el pulso central durante un minuto.",
+        "C. Alertar a los servicios de emergencia.",
+        "D. Iniciar compresiones torácicas sin más comprobaciones."
+      ],
+      "inciso_correcto": "C"
+    },
+    {
+      "id": 9,
+      "pregunta": "Respecto al ejercicio físico en personas con diabetes, ¿qué recomendación es correcta?",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Se recomienda ejercicio aeróbico moderado, unos 150 minutos semanales repartidos en varios días.",
+        "B. El ejercicio anaeróbico está prohibido en cualquier caso.",
+        "C. El ejercicio físico no influye en la sensibilidad a la insulina.",
+        "D. Se recomienda ejercitarse incluso con glucemias superiores a 300 mg/dl."
+      ],
+      "inciso_correcto": "A"
+    },
+    {
+      "id": 10,
+      "pregunta": "¿Para qué se utiliza la escala de Glasgow?",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Para valorar el patrón respiratorio.",
+        "B. Para valorar el nivel de conciencia.",
+        "C. Para valorar el grado de una úlcera por presión.",
+        "D. Para valorar el riesgo cardiovascular."
+      ],
+      "inciso_correcto": "B"
+    },
+    {
+      "id": 11,
+      "pregunta": "¿Qué organismo estableció los '5 momentos para la higiene de manos'?",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. La OMS.",
+        "B. El ECDC.",
+        "C. Cruz Roja Internacional.",
+        "D. UNICEF."
+      ],
+      "inciso_correcto": "A"
+    },
+    {
+      "id": 12,
+      "pregunta": "¿Cómo se definen los delirios característicos de la esquizofrenia?",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Percepciones sensoriales sin estímulo externo real.",
+        "B. Incapacidad para seguir normas sociales establecidas.",
+        "C. Recuerdos distorsionados de hechos reales.",
+        "D. Creencias falsas sostenidas pese a evidencia en contra, por una interpretación errónea de la realidad."
+      ],
+      "inciso_correcto": "D"
+    },
+    {
+      "id": 13,
+      "pregunta": "¿Qué medida elimina absolutamente todos los microorganismos, incluidas las esporas?",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Desinfección de alto nivel.",
+        "B. Limpieza.",
+        "C. Esterilización.",
+        "D. Desinfección de nivel intermedio."
+      ],
+      "inciso_correcto": "C"
+    },
+    {
+      "id": 14,
+      "pregunta": "¿Cómo se definen las infecciones relacionadas con la asistencia sanitaria (IRAS)?",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Únicamente las adquiridas durante un ingreso hospitalario.",
+        "B. Solo las infecciones diagnosticadas después del alta.",
+        "C. Infecciones que no guardan relación con procedimientos sanitarios.",
+        "D. Infecciones adquiridas como consecuencia de la atención sanitaria recibida, en cualquier ámbito asistencial."
+      ],
+      "inciso_correcto": "D"
+    },
+    {
+      "id": 15,
+      "pregunta": "¿Cuál es el orden correcto para colocarse y retirarse el equipo de protección individual (EPI)?",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Colocación: guantes, mascarilla, gafas, bata. Retirada: mascarilla, bata, gafas, guantes.",
+        "B. El orden de colocación y retirada es indiferente.",
+        "C. Colocación: mascarilla, guantes, bata, gafas. Retirada: gafas, guantes, bata, mascarilla.",
+        "D. Colocación: bata, mascarilla, gafas, guantes. Retirada: guantes, gafas, bata, mascarilla."
+      ],
+      "inciso_correcto": "D"
+    },
+    {
+      "id": 16,
+      "pregunta": "Un índice tobillo-brazo (ITB) mayor de 1.3 generalmente indica:",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Isquemia arterial severa.",
+        "B. Calcificación o rigidez arterial que dificulta la compresión del vaso (falso resultado elevado).",
+        "C. Función arterial completamente normal sin matices.",
+        "D. Enfermedad venosa exclusivamente."
+      ],
+      "inciso_correcto": "B"
+    },
+    {
+      "id": 17,
+      "pregunta": "En la prueba de Allen previa a una gasometría arterial radial, ¿qué arteria se libera primero para valorar la circulación colateral de la mano?",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. La arteria radial.",
+        "B. La arteria humeral.",
+        "C. La arteria cubital.",
+        "D. La arteria braquial."
+      ],
+      "inciso_correcto": "C"
+    },
+    {
+      "id": 18,
+      "pregunta": "Sobre la correcta toma de la tensión arterial con manguito, señala la afirmación correcta:",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. El manguito debe colocarse justo sobre la muñeca.",
+        "B. La tensión arterial en las piernas suele ser menor que en los brazos.",
+        "C. El manguito debe cubrir aproximadamente 2/3 de la longitud del brazo y colocarse 2-3 cm por encima de la flexura del codo.",
+        "D. El tamaño del manguito no influye en la medición."
+      ],
+      "inciso_correcto": "C"
+    },
+    {
+      "id": 19,
+      "pregunta": "En la escala de Braden, ¿qué rango de puntuación se asocia a riesgo moderado de úlceras por presión?",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. 19-23 (sin riesgo).",
+        "B. 15-18 (riesgo bajo).",
+        "C. 13-14 (riesgo moderado).",
+        "D. 10-12 (riesgo alto)."
+      ],
+      "inciso_correcto": "C"
+    },
+    {
+      "id": 20,
+      "pregunta": "Sobre la pirámide de Kaiser de estratificación de pacientes crónicos, señala la afirmación INCORRECTA:",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. En la base se ubica la población general, diana de la prevención y promoción de la salud.",
+        "B. Los pacientes de alta complejidad requieren gestión de caso individualizada.",
+        "C. Todos los pacientes crónicos, sin excepción, requieren la misma intensidad de intervención.",
+        "D. Los pacientes de alto riesgo reciben gestión de la enfermedad combinando autogestión y apoyo profesional."
+      ],
+      "inciso_correcto": "C"
+    },
+    {
+      "id": 21,
+      "pregunta": "¿Cuál es el rango habitual de frecuencia cardiaca en un recién nacido sano?",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. 120-160 latidos/min.",
+        "B. 60-80 latidos/min.",
+        "C. 200-220 latidos/min.",
+        "D. 40-60 latidos/min."
+      ],
+      "inciso_correcto": "A"
+    },
+    {
+      "id": 22,
+      "pregunta": "Entre las úlceras de origen vascular en miembros inferiores, ¿cuáles son las más frecuentes?",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Las arteriales.",
+        "B. Las venosas.",
+        "C. Las mixtas.",
+        "D. Todas tienen la misma frecuencia."
+      ],
+      "inciso_correcto": "B"
+    },
+    {
+      "id": 23,
+      "pregunta": "¿Cómo se define correctamente la infertilidad, a diferencia de la esterilidad?",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. La incapacidad para lograr un embarazo tras un año de relaciones sin protección.",
+        "B. La ausencia total de gametos en ambos miembros de la pareja.",
+        "C. La imposibilidad absoluta de mantener relaciones sexuales.",
+        "D. La incapacidad de tener hijos nacidos vivos, a pesar de poder lograr el embarazo."
+      ],
+      "inciso_correcto": "D"
+    },
+    {
+      "id": 24,
+      "pregunta": "¿Cuál de las siguientes NO es una parte estructural de una entrevista?",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Título.",
+        "B. Introducción.",
+        "C. Cuerpo.",
+        "D. Cierre o desenlace."
+      ],
+      "inciso_correcto": "A"
+    },
+    {
+      "id": 25,
+      "pregunta": "El cribado poblacional (screening) es una actividad de prevención:",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Primaria.",
+        "B. Terciaria.",
+        "C. No se considera prevención.",
+        "D. Secundaria."
+      ],
+      "inciso_correcto": "D"
+    },
+    {
+      "id": 26,
+      "pregunta": "¿Cuál de las siguientes NO es un principio del SiNASP (Sistema de Notificación y Aprendizaje para la Seguridad del Paciente)?",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Divulgación pública obligatoria de los incidentes notificados.",
+        "B. Voluntariedad.",
+        "C. Confidencialidad.",
+        "D. Orientación sistémica, sin buscar culpables individuales."
+      ],
+      "inciso_correcto": "A"
+    },
+    {
+      "id": 27,
+      "pregunta": "¿Cuál es el objetivo principal de la prevención terciaria?",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. El diagnóstico precoz de la enfermedad.",
+        "B. La rehabilitación y limitación de secuelas en la enfermedad ya establecida.",
+        "C. Reducir la incidencia de nuevos casos.",
+        "D. Evitar la exposición al factor de riesgo."
+      ],
+      "inciso_correcto": "B"
+    },
+    {
+      "id": 28,
+      "pregunta": "¿Qué factores valora la escala de Norton para el riesgo de úlceras por presión?",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Percepción sensorial, humedad, fricción-cizallamiento y nutrición.",
+        "B. Edad, peso, talla, presión arterial y frecuencia cardiaca.",
+        "C. Estado físico general, estado mental, actividad, movilidad e incontinencia.",
+        "D. Solo la movilidad y la incontinencia."
+      ],
+      "inciso_correcto": "C"
+    },
+    {
+      "id": 29,
+      "pregunta": "¿Cuál es la complicación aguda más frecuente en personas con diabetes?",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Cetoacidosis diabética.",
+        "B. Coma hiperosmolar.",
+        "C. Hipoglucemia.",
+        "D. Ninguna complicación aguda es frecuente."
+      ],
+      "inciso_correcto": "C"
+    },
+    {
+      "id": 30,
+      "pregunta": "¿Cómo se calcula el índice de envejecimiento de una población?",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Como el cociente entre la población de 65 años o más y la población menor de 15 años, multiplicado por 100.",
+        "B. Como el cociente entre los nacimientos y las defunciones ocurridos en un año.",
+        "C. Como el número de personas en edad laboral por cada 100 habitantes dependientes.",
+        "D. Como el total de defunciones dividido entre la población total a mitad de año."
+      ],
+      "inciso_correcto": "A"
+    },
+    {
+      "id": 31,
+      "pregunta": "Según el SiNASP, ¿qué tipo de incidentes deben notificarse?",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Incidentes sin daño, incidentes que no llegaron al paciente y eventos adversos.",
+        "B. Solo los eventos adversos que causaron daño grave.",
+        "C. Únicamente los errores de medicación.",
+        "D. Solo los incidentes ocurridos en quirófano."
+      ],
+      "inciso_correcto": "A"
+    },
+    {
+      "id": 32,
+      "pregunta": "El acortamiento de los ciclos menstruales típico de la premenopausia se relaciona principalmente con:",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Una disminución de la hormona del crecimiento.",
+        "B. Un aumento sostenido de la progesterona.",
+        "C. Un aumento de la prolactina.",
+        "D. Un aumento de la FSH por disminución de la reserva folicular."
+      ],
+      "inciso_correcto": "D"
+    },
+    {
+      "id": 33,
+      "pregunta": "¿Cómo se denomina el estudio de la distancia física que las personas mantienen durante la comunicación?",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Cinésica.",
+        "B. Proxémica.",
+        "C. Paralingüística.",
+        "D. Télesica."
+      ],
+      "inciso_correcto": "B"
+    },
+    {
+      "id": 34,
+      "pregunta": "¿Qué modelo de educación para la salud identifica factores predisponentes, facilitadores y reforzantes de la conducta?",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Modelo de Etapas de Cambio de Prochaska.",
+        "B. Modelo de Creencias de Salud.",
+        "C. Modelo PRECEDE-PROCEDE.",
+        "D. Modelo de Gagné."
+      ],
+      "inciso_correcto": "C"
+    },
+    {
+      "id": 35,
+      "pregunta": "En educación para la salud, la escucha activa es:",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Una técnica exclusivamente individual, nunca aplicable en grupo.",
+        "B. Un sinónimo de interrogatorio dirigido.",
+        "C. Una técnica que solo usa el emisor, nunca el receptor.",
+        "D. Una habilidad de comunicación que implica atender y comprender, verbal y no verbalmente, al interlocutor."
+      ],
+      "inciso_correcto": "D"
+    },
+    {
+      "id": 36,
+      "pregunta": "Según la clasificación de Spaulding, ¿qué logra un desinfectante de nivel intermedio?",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Destruye únicamente esporas bacterianas.",
+        "B. Elimina todo tipo de microorganismos, incluidas las esporas.",
+        "C. Solo actúa sobre virus, sin efecto sobre bacterias.",
+        "D. Destruye formas vegetativas, la mayoría de virus y hongos, e inactiva el bacilo tuberculoso, pero no las esporas bacterianas."
+      ],
+      "inciso_correcto": "D"
+    },
+    {
+      "id": 37,
+      "pregunta": "¿Cómo se caracteriza el patrón respiratorio de Kussmaul?",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Ciclos de respiración creciente-decreciente alternados con apnea.",
+        "B. Frecuencia y ritmo respiratorio completamente normales.",
+        "C. Respiraciones profundas y rápidas, regulares y sin pausas, típicas de la acidosis metabólica.",
+        "D. Respiraciones lentas, superficiales e irregulares."
+      ],
+      "inciso_correcto": "C"
+    },
+    {
+      "id": 38,
+      "pregunta": "¿Cómo se llama la técnica de desbridamiento que consiste en hacer cortes en forma de rejilla sobre la placa necrótica, para facilitar después el desbridamiento enzimático o autolítico?",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Técnica Slice.",
+        "B. Técnica Cover.",
+        "C. Técnica Square.",
+        "D. Técnica Time."
+      ],
+      "inciso_correcto": "A"
+    },
+    {
+      "id": 39,
+      "pregunta": "¿Cuál de las siguientes NO corresponde al concepto de comunicación, a diferencia de la simple información?",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Relación establecida entre un emisor y un receptor.",
+        "B. Existencia de un código compartido.",
+        "C. Transmisión de contenidos exclusivamente unidireccional, sin retroalimentación.",
+        "D. Presencia de feedback o retroalimentación."
+      ],
+      "inciso_correcto": "C"
+    },
+    {
+      "id": 40,
+      "pregunta": "¿Cuál de las siguientes NO es una de las funciones del lenguaje descritas por Jakobson?",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Poética.",
+        "B. Fática.",
+        "C. Interactiva.",
+        "D. Conativa o apelativa."
+      ],
+      "inciso_correcto": "C"
+    },
+    {
+      "id": 41,
+      "pregunta": "Dentro del proceso de comunicación, el emisor es quien:",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Descodifica el mensaje.",
+        "B. Es el objeto del que se habla.",
+        "C. Reconstruye el mensaje recibido.",
+        "D. Elabora y codifica el mensaje."
+      ],
+      "inciso_correcto": "D"
+    },
+    {
+      "id": 42,
+      "pregunta": "Según los datos epidemiológicos actuales en países desarrollados, ¿cuál es la neoplasia ginecológica diagnosticada con más frecuencia?",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Cáncer de cérvix.",
+        "B. Cáncer de endometrio.",
+        "C. Cáncer de ovario.",
+        "D. Cáncer de vulva."
+      ],
+      "inciso_correcto": "B"
+    },
+    {
+      "id": 43,
+      "pregunta": "Sobre los indicadores en la mejora continua de la calidad asistencial, señala la afirmación correcta:",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Un indicador ideal absoluto solo puede tomar valores intermedios, nunca 0 o 1.",
+        "B. Los indicadores no aportan objetividad ni comparabilidad.",
+        "C. Un indicador es una medida cuantitativa u observación cualitativa que compara dos o más datos.",
+        "D. No existen indicadores estandarizados en salud."
+      ],
+      "inciso_correcto": "C"
+    },
+    {
+      "id": 44,
+      "pregunta": "¿Cuál de las siguientes enfermedades infecciosas NO cuenta con una vacuna como medida preventiva?",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Gripe.",
+        "B. Hepatitis B.",
+        "C. Tuberculosis (BCG).",
+        "D. Hepatitis C."
+      ],
+      "inciso_correcto": "D"
+    },
+    {
+      "id": 45,
+      "pregunta": "¿Qué escala se utiliza para valorar la gravedad de un episodio de manía en el trastorno bipolar?",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Escala de Young.",
+        "B. Escala de Hamilton.",
+        "C. Escala de Goldberg.",
+        "D. Test de Fagerström."
+      ],
+      "inciso_correcto": "A"
+    },
+    {
+      "id": 46,
+      "pregunta": "Durante el parto, cuando el punto guía de la presentación fetal alcanza el borde inferior de la sínfisis del pubis, ¿en qué plano de Hodge se encuentra?",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. III plano de Hodge.",
+        "B. I plano de Hodge.",
+        "C. II plano de Hodge.",
+        "D. IV plano de Hodge."
+      ],
+      "inciso_correcto": "C"
+    },
+    {
+      "id": 47,
+      "pregunta": "Sobre la ortotanasia, señala la afirmación INCORRECTA:",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Es la base de los cuidados paliativos.",
+        "B. Consiste en omitir medidas terapéuticas desproporcionadas.",
+        "C. Busca deliberadamente adelantar la muerte del paciente para aliviar su sufrimiento.",
+        "D. Su aplicación no acelera ni retrasa artificialmente el curso natural de la enfermedad."
+      ],
+      "inciso_correcto": "C"
+    },
+    {
+      "id": 48,
+      "pregunta": "El modelo de creencias de salud (Health Belief Model) en educación para la salud:",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Ignora por completo la influencia del entorno social.",
+        "B. Se centra en las percepciones subjetivas de amenaza y beneficio que tiene la persona.",
+        "C. Solo es aplicable a personas ya enfermas.",
+        "D. No tiene ninguna utilidad práctica documentada."
+      ],
+      "inciso_correcto": "B"
+    },
+    {
+      "id": 49,
+      "pregunta": "En España, ¿la Educación y Promoción de la Salud se fundamentan en alguna norma legal?",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. No, carecen de cualquier base legal.",
+        "B. Sí, exclusivamente en la LOGSE.",
+        "C. Sí, mediante una ley específica llamada 'Ley de Educación y Promoción de la Salud'.",
+        "D. Sí, entre otras, en la Constitución y la Ley General de Sanidad."
+      ],
+      "inciso_correcto": "D"
+    },
+    {
+      "id": 50,
+      "pregunta": "¿Cuál de los siguientes se considera un factor de riesgo para un duelo complicado?",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Una muerte esperada tras enfermedad prolongada.",
+        "B. Una muerte súbita o inesperada, junto con un fuerte nivel de apego previo.",
+        "C. Buen soporte social y familiar.",
+        "D. Ausencia de vínculo afectivo significativo con el fallecido."
+      ],
+      "inciso_correcto": "B"
+    },
+    {
+      "id": 51,
+      "pregunta": "La filancia (elasticidad) del moco cervical aumenta principalmente por acción de:",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. La progesterona.",
+        "B. Los andrógenos.",
+        "C. Los estrógenos.",
+        "D. La prolactina."
+      ],
+      "inciso_correcto": "C"
+    },
+    {
+      "id": 52,
+      "pregunta": "La escala ESAS (Edmonton Symptom Assessment System), usada en cuidados paliativos, valora entre otros:",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Únicamente el dolor y la disnea.",
+        "B. Exclusivamente parámetros analíticos de laboratorio.",
+        "C. Bienestar, dolor, cansancio, náusea, ansiedad, somnolencia, apetito y disnea.",
+        "D. Solo síntomas digestivos."
+      ],
+      "inciso_correcto": "C"
+    },
+    {
+      "id": 53,
+      "pregunta": "¿Cómo se define la sedación paliativa?",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. La administración deliberada de fármacos a dosis letales para acelerar la muerte.",
+        "B. Una técnica exclusivamente quirúrgica para el control del dolor.",
+        "C. La suspensión completa de todo tratamiento farmacológico.",
+        "D. La reducción de la consciencia con la mínima dosis necesaria de fármacos, para aliviar síntomas refractarios en un paciente con enfermedad avanzada."
+      ],
+      "inciso_correcto": "D"
+    },
+    {
+      "id": 54,
+      "pregunta": "Según la escala de la OMS para mucositis oral, el Grado 1 se caracteriza por:",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Ausencia total de signos, sin ninguna alteración.",
+        "B. Úlceras extensas que impiden la alimentación oral.",
+        "C. Sangrado gingival espontáneo generalizado.",
+        "D. Eritema y dolor leve, con mucosa aún funcional."
+      ],
+      "inciso_correcto": "D"
+    },
+    {
+      "id": 55,
+      "pregunta": "¿Qué opioide es aproximadamente 100 veces más potente que la morfina, actuando sobre los mismos receptores?",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Codeína.",
+        "B. Tramadol.",
+        "C. Buprenorfina.",
+        "D. Fentanilo."
+      ],
+      "inciso_correcto": "D"
+    },
+    {
+      "id": 56,
+      "pregunta": "¿Qué instrumento se utiliza específicamente para valorar el duelo?",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Test de Pfeiffer.",
+        "B. Cuestionario SCOFF.",
+        "C. Test de Isaacs.",
+        "D. Inventario de Duelo Complicado / Texas Revisado."
+      ],
+      "inciso_correcto": "D"
+    },
+    {
+      "id": 57,
+      "pregunta": "Según las guías sobre menopausia, respecto a la terapia hormonal en una mujer con útero íntegro:",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Debe añadirse un gestágeno junto al estrógeno para proteger el endometrio.",
+        "B. No debe añadirse un gestágeno al estrógeno.",
+        "C. El tratamiento hormonal debe mantenerse de por vida.",
+        "D. Está indicada en cualquier mujer, sin excepciones."
+      ],
+      "inciso_correcto": "A"
+    },
+    {
+      "id": 58,
+      "pregunta": "Respecto a la farmacocinética en personas mayores, es correcto que:",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. El gasto cardíaco aumenta, acelerando la distribución del fármaco.",
+        "B. La dosis siempre debe aumentarse respecto al adulto joven para lograr el mismo efecto.",
+        "C. El metabolismo hepático suele enlentecerse, favoreciendo la acumulación del fármaco.",
+        "D. La absorción intestinal nunca se ve afectada por laxantes ni por la dieta."
+      ],
+      "inciso_correcto": "C"
+    },
+    {
+      "id": 59,
+      "pregunta": "¿Cómo se denomina la percepción de dolor ante un estímulo que normalmente no es doloroso, como el roce de las sábanas?",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Alodinia.",
+        "B. Hiperalgesia.",
+        "C. Disestesia.",
+        "D. Parestesia."
+      ],
+      "inciso_correcto": "A"
+    },
+    {
+      "id": 60,
+      "pregunta": "La codeína, utilizada para el control del dolor, se sitúa en qué escalón de la escalera analgésica de la OMS:",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Segundo escalón (opioides débiles).",
+        "B. Primer escalón (no opioides).",
+        "C. Tercer escalón (opioides potentes).",
+        "D. No forma parte de la escalera analgésica."
+      ],
+      "inciso_correcto": "A"
+    },
+    {
+      "id": 61,
+      "pregunta": "¿Cómo se denominan los fármacos que se asocian a los distintos escalones analgésicos de la OMS para potenciar su efecto, como antidepresivos o anticonvulsivantes?",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Antagonistas.",
+        "B. Excipientes.",
+        "C. Nocebos.",
+        "D. Coadyuvantes."
+      ],
+      "inciso_correcto": "D"
+    },
+    {
+      "id": 62,
+      "pregunta": "En la sífilis secundaria, ¿cuál de las siguientes manifestaciones NO es característica de este estadio?",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Roséola sifilítica.",
+        "B. Alopecia sifilítica en parches.",
+        "C. Febrícula, artralgias y malestar general.",
+        "D. Chancro sifilítico indoloro, propio de la sífilis primaria."
+      ],
+      "inciso_correcto": "D"
+    },
+    {
+      "id": 63,
+      "pregunta": "¿Qué tipo de valoración geriátrica realiza el test de Pfeiffer?",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Valoración funcional de las actividades de la vida diaria.",
+        "B. Valoración de la esfera cognitiva (deterioro mental).",
+        "C. Valoración exclusivamente del estado nutricional.",
+        "D. Valoración del riesgo de caídas."
+      ],
+      "inciso_correcto": "B"
+    },
+    {
+      "id": 64,
+      "pregunta": "¿Cuál de las siguientes es una complicación asociada a la inmovilidad prolongada?",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Aumento del gasto cardíaco basal.",
+        "B. Atrofia muscular y anquilosis articular.",
+        "C. Mejora del tránsito intestinal.",
+        "D. Aumento de la densidad ósea."
+      ],
+      "inciso_correcto": "B"
+    },
+    {
+      "id": 65,
+      "pregunta": "En pacientes en fase terminal, la causa más frecuente de estreñimiento es:",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. La dieta rica en fibra.",
+        "B. El exceso de ejercicio físico.",
+        "C. La ingesta excesiva de líquidos.",
+        "D. El uso de opioides."
+      ],
+      "inciso_correcto": "D"
+    },
+    {
+      "id": 66,
+      "pregunta": "¿Qué se entiende por una fórmula de nutrición enteral de densidad calórica estándar?",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Aproximadamente 1 Kcal/ml.",
+        "B. Menos de 0.5 Kcal/ml.",
+        "C. Más de 2 Kcal/ml.",
+        "D. No existe un valor estándar de referencia."
+      ],
+      "inciso_correcto": "A"
+    },
+    {
+      "id": 67,
+      "pregunta": "En un contraste de hipótesis, un valor de p < 0,05 significa que:",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Se acepta la hipótesis nula.",
+        "B. Se rechaza la hipótesis nula, al considerarse el resultado estadísticamente significativo.",
+        "C. El resultado se debe únicamente al azar.",
+        "D. No se puede sacar ninguna conclusión."
+      ],
+      "inciso_correcto": "B"
+    },
+    {
+      "id": 68,
+      "pregunta": "La ablación del clítoris junto con la infibulación (estrechamiento del introito vaginal) corresponde a qué tipo de mutilación genital femenina según la clasificación de la OMS:",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Tipo I.",
+        "B. Tipo II.",
+        "C. Tipo III.",
+        "D. Tipo IV."
+      ],
+      "inciso_correcto": "C"
+    },
+    {
+      "id": 69,
+      "pregunta": "Antes de una prueba de sangre oculta en heces mediante el método del guayaco (no inmunológico), ¿qué alimento NO es necesario restringir?",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Cereales integrales.",
+        "B. Carnes rojas.",
+        "C. Embutidos.",
+        "D. Frutas y verduras crudas ricas en peroxidasa."
+      ],
+      "inciso_correcto": "A"
+    },
+    {
+      "id": 70,
+      "pregunta": "¿Qué factores influyen en el estado psicológico de la persona mayor?",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Únicamente el nivel cultural.",
+        "B. Solo la ausencia de enfermedad.",
+        "C. Exclusivamente factores genéticos.",
+        "D. El nivel cultural, la actividad física y mental, el estado de salud y las relaciones sociales."
+      ],
+      "inciso_correcto": "D"
+    },
+    {
+      "id": 71,
+      "pregunta": "Para prevenir úlceras por presión, ¿qué práctica debe evitarse?",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. El masaje directo sobre las prominencias óseas enrojecidas.",
+        "B. Los cambios posturales cada 2-4 horas.",
+        "C. La inspección diaria de la piel.",
+        "D. El uso de superficies de apoyo especiales."
+      ],
+      "inciso_correcto": "A"
+    },
+    {
+      "id": 72,
+      "pregunta": "¿Cuál de los siguientes cambios visuales en el anciano se considera patológico, y no propio del envejecimiento normal?",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Disminución leve de la agudeza visual.",
+        "B. Degeneración macular asociada a la edad.",
+        "C. Menor capacidad de acomodación (presbicia).",
+        "D. Ligera disminución de la visión nocturna."
+      ],
+      "inciso_correcto": "B"
+    },
+    {
+      "id": 73,
+      "pregunta": "En un paciente con demencia y dificultad para tragar, ¿qué medida de enfermería es adecuada?",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Forzar la ingesta rápida para terminar cuanto antes.",
+        "B. Ofrecer únicamente líquidos, evitando cualquier textura sólida.",
+        "C. Adaptar la textura de los alimentos y esperar un tiempo tras comer antes de acostarlo.",
+        "D. Elevar la voz para facilitar la comprensión."
+      ],
+      "inciso_correcto": "C"
+    },
+    {
+      "id": 74,
+      "pregunta": "Una mujer que pierde orina de forma involuntaria al reír, toser o estornudar presenta probablemente:",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Incontinencia urinaria de esfuerzo.",
+        "B. Incontinencia de urgencia.",
+        "C. Incontinencia por rebosamiento.",
+        "D. Incontinencia funcional."
+      ],
+      "inciso_correcto": "A"
+    },
+    {
+      "id": 75,
+      "pregunta": "Ante una persona accidentada con serología VIH positiva, ¿qué debe hacer la enfermera?",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Puede negarse a asistirla si existe riesgo de contagio.",
+        "B. Solo debe atenderla si hay otro profesional presente.",
+        "C. Debe prestarle asistencia igual que a cualquier otra persona, conforme al código deontológico.",
+        "D. Puede negarse si su vida no corre peligro inmediato."
+      ],
+      "inciso_correcto": "C"
+    },
+    {
+      "id": 76,
+      "pregunta": "¿Qué compuesto de la dieta se relaciona directamente con la formación de litiasis renal por ácido úrico?",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Las purinas.",
+        "B. Las grasas saturadas.",
+        "C. Los azúcares simples.",
+        "D. La fibra insoluble."
+      ],
+      "inciso_correcto": "A"
+    },
+    {
+      "id": 77,
+      "pregunta": "¿En qué artículo de la Constitución Española de 1978 se reconoce el derecho a la protección de la salud?",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Artículo 43.",
+        "B. Artículo 15.",
+        "C. Artículo 22.",
+        "D. Artículo 55."
+      ],
+      "inciso_correcto": "A"
+    },
+    {
+      "id": 78,
+      "pregunta": "En un paciente cirrótico con encefalopatía hepática, señala la recomendación nutricional INCORRECTA:",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Restringir la sal para evitar la retención de líquidos.",
+        "B. Priorizar proteína vegetal y de pescado o pollo, evitando mariscos crudos.",
+        "C. Mantener una ingesta de carbohidratos inferior a la de proteínas.",
+        "D. Evitar el consumo de alcohol."
+      ],
+      "inciso_correcto": "C"
+    },
+    {
+      "id": 79,
+      "pregunta": "¿Qué aminoácidos de cadena ramificada se suplementan en pacientes cirróticos desnutridos con encefalopatía hepática?",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Leucina, isoleucina y valina.",
+        "B. Alanina y treonina.",
+        "C. Fenilalanina y metionina.",
+        "D. Glicina e histidina."
+      ],
+      "inciso_correcto": "A"
+    },
+    {
+      "id": 80,
+      "pregunta": "¿Cuál de las siguientes NO es una complicación inmediata típica de la mutilación genital femenina?",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Hemorragia.",
+        "B. Cicatriz hipertrófica, complicación tardía.",
+        "C. Infección.",
+        "D. Dolor intenso."
+      ],
+      "inciso_correcto": "B"
+    },
+    {
+      "id": 81,
+      "pregunta": "En el síndrome de dumping tras gastrectomía, ¿qué medida dietética se recomienda?",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Realizar comidas abundantes y poco frecuentes.",
+        "B. Beber abundantes líquidos junto con las comidas.",
+        "C. Aumentar los azúcares simples en cada comida.",
+        "D. Realizar comidas pequeñas y frecuentes, evitando líquidos durante ellas."
+      ],
+      "inciso_correcto": "D"
+    },
+    {
+      "id": 82,
+      "pregunta": "Cuando la nutrición enteral se prevé de larga duración y existe buena tolerancia gástrica, ¿qué vía de acceso se prefiere?",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Sonda de gastrostomía.",
+        "B. Sonda nasogástrica.",
+        "C. Sonda nasoyeyunal siempre.",
+        "D. Vía parenteral exclusivamente."
+      ],
+      "inciso_correcto": "A"
+    },
+    {
+      "id": 83,
+      "pregunta": "Al administrar varios fármacos por una sonda de gastrostomía (PEG), ¿qué recomendación es correcta?",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Mezclar todos los fármacos juntos para ahorrar tiempo.",
+        "B. Administrar cada fármaco por separado, lavando la sonda con agua entre uno y otro, y al finalizar.",
+        "C. No es necesario lavar la sonda entre fármacos.",
+        "D. Está contraindicado administrar fármacos por esta vía."
+      ],
+      "inciso_correcto": "B"
+    },
+    {
+      "id": 84,
+      "pregunta": "¿Cuál de las siguientes recomendaciones para el estreñimiento en el anciano es INCORRECTA?",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Aumentar la ingesta hídrica si no hay contraindicación.",
+        "B. Fomentar el ejercicio físico regular.",
+        "C. Aumentar la ingesta de fibra de forma gradual.",
+        "D. Usar laxantes estimulantes como primera medida sistemática."
+      ],
+      "inciso_correcto": "D"
+    },
+    {
+      "id": 85,
+      "pregunta": "Sobre los estudios epidemiológicos descriptivos, señala la afirmación correcta:",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Son los estudios menos frecuentes en epidemiología.",
+        "B. Nunca sirven como fuente de hipótesis.",
+        "C. Son estudios observacionales que no evalúan una hipótesis causal.",
+        "D. Siempre requieren un grupo control."
+      ],
+      "inciso_correcto": "C"
+    },
+    {
+      "id": 86,
+      "pregunta": "Según las recomendaciones de actividad física en el adulto sano, es correcto que:",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. No es necesario el trabajo de fuerza muscular.",
+        "B. Los periodos sedentarios prolongados no requieren ninguna pausa.",
+        "C. Se recomiendan al menos 150 minutos semanales de actividad aeróbica moderada, más fortalecimiento muscular 2 días por semana.",
+        "D. Basta con 30 minutos de actividad física una vez por semana."
+      ],
+      "inciso_correcto": "C"
+    },
+    {
+      "id": 87,
+      "pregunta": "¿Cuál es el antídoto de los anticoagulantes antagonistas de la vitamina K, como el acenocumarol?",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Vitamina K.",
+        "B. Sulfato de protamina.",
+        "C. Ácido tranexámico exclusivamente.",
+        "D. Vitamina B12."
+      ],
+      "inciso_correcto": "A"
+    },
+    {
+      "id": 88,
+      "pregunta": "Antes de una prueba de catecolaminas o metanefrinas en orina, se recomienda evitar principalmente:",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Únicamente los lácteos.",
+        "B. Café, chocolate, plátanos y otros alimentos ricos en aminas vasoactivas.",
+        "C. Solo las frutas cítricas.",
+        "D. Ningún alimento requiere restricción."
+      ],
+      "inciso_correcto": "B"
+    },
+    {
+      "id": 89,
+      "pregunta": "¿Qué parámetros se necesitan para calcular el riesgo cardiovascular mediante la tabla SCORE?",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Índice de masa corporal, antecedentes familiares y perímetro de cintura.",
+        "B. Triglicéridos, edad y perímetro de cintura únicamente.",
+        "C. La presencia de diabetes como único criterio.",
+        "D. Presión arterial, colesterol total, edad, sexo y consumo de tabaco."
+      ],
+      "inciso_correcto": "D"
+    },
+    {
+      "id": 90,
+      "pregunta": "¿Qué valora el signo de Godet?",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. La presencia de trombosis venosa profunda.",
+        "B. La presencia de edema, mediante la fóvea al presionar.",
+        "C. La presencia de angina de pecho.",
+        "D. El grado de una úlcera por presión."
+      ],
+      "inciso_correcto": "B"
+    },
+    {
+      "id": 91,
+      "pregunta": "¿Cuál es la secuencia correcta y segura para subir escaleras usando dos muletas tras una cirugía en una pierna?",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Primero la pierna sana; después, las muletas junto con la pierna operada, moviéndolas a la vez.",
+        "B. Primero la pierna operada; después, las muletas junto con la pierna sana, moviéndolas a la vez.",
+        "C. Primero las muletas solas; después la pierna operada; por último la pierna sana.",
+        "D. El orden de las piernas y las muletas es indiferente al subir escaleras."
+      ],
+      "inciso_correcto": "A"
+    },
+    {
+      "id": 92,
+      "pregunta": "¿Qué recomendación sobre actividad física es adecuada para un paciente con EPOC?",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Evitar cualquier actividad física por el riesgo de disnea.",
+        "B. Solo se recomienda actividad física en sesiones únicas de más de 45 minutos.",
+        "C. La actividad física está contraindicada en el EPOC grave.",
+        "D. Programas de entrenamiento físico de más de 12 semanas, con actividad aeróbica moderada regular."
+      ],
+      "inciso_correcto": "D"
+    },
+    {
+      "id": 93,
+      "pregunta": "¿Cuál de los siguientes es un signo de desnutrición más grave o avanzada?",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Albúmina sérica por debajo de 3.5 g/dl con pérdida de masa muscular.",
+        "B. Ligera pérdida de apetito.",
+        "C. Leve pérdida de peso reciente.",
+        "D. Aumento del apetito."
+      ],
+      "inciso_correcto": "A"
+    },
+    {
+      "id": 94,
+      "pregunta": "Según los criterios diagnósticos del estatus migrañoso, ¿cuál de las siguientes NO es una característica definitoria?",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Duración de la cefalea superior a 72 horas.",
+        "B. Ausencia completa de dolor de cabeza, sin ningún síntoma asociado.",
+        "C. Intensidad discapacitante que interfiere con las actividades habituales.",
+        "D. Posible presencia de náuseas y vómitos intensos."
+      ],
+      "inciso_correcto": "B"
+    },
+    {
+      "id": 95,
+      "pregunta": "Ante un paciente con afasia motora tras un ACV, ¿qué actitud NO se recomienda?",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Forzarlo a hablar rápido para 'acelerar' su recuperación.",
+        "B. Apoyar la comunicación con gestos.",
+        "C. Hablar despacio y sin gritar.",
+        "D. Evitar fingir que se le entiende cuando no es así."
+      ],
+      "inciso_correcto": "A"
+    },
+    {
+      "id": 96,
+      "pregunta": "Una mujer con dolor torácico opresivo que aparece siempre con el mismo nivel de esfuerzo, ECG normal y enzimas cardíacas normales, probablemente presenta:",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Angina inestable.",
+        "B. Angina estable.",
+        "C. Infarto agudo de miocardio.",
+        "D. Bloqueo aurículo-ventricular."
+      ],
+      "inciso_correcto": "B"
+    },
+    {
+      "id": 97,
+      "pregunta": "¿Cómo se define correctamente la atención a domicilio?",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Una actividad puntual y aislada, sin continuidad.",
+        "B. El conjunto de actividades sanitarias y sociales prestadas en el domicilio a quienes no pueden desplazarse al centro de salud.",
+        "C. Una atención exclusiva para pacientes oncológicos.",
+        "D. Un servicio que nunca se enmarca en la Atención Primaria."
+      ],
+      "inciso_correcto": "B"
+    },
+    {
+      "id": 98,
+      "pregunta": "Antes de realizar una espirometría forzada, ¿qué recomendación es correcta?",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. No es necesario evitar el tabaco antes de la prueba.",
+        "B. Evitar fumar al menos una hora antes y suspender los broncodilatadores de acción corta unas horas antes, según protocolo.",
+        "C. Es indiferente el uso previo de broncodilatadores.",
+        "D. Debe realizarse inmediatamente después de fumar para valorar el efecto real."
+      ],
+      "inciso_correcto": "B"
+    },
+    {
+      "id": 99,
+      "pregunta": "Según la clasificación funcional de la NYHA, ¿qué clase de insuficiencia cardiaca presenta ligera limitación de la actividad física, con síntomas ante esfuerzos habituales pero sin síntomas en reposo?",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Clase I.",
+        "B. Clase III.",
+        "C. Clase II.",
+        "D. Clase IV."
+      ],
+      "inciso_correcto": "C"
+    },
+    {
+      "id": 100,
+      "pregunta": "En un paciente en tratamiento con acenocumarol, respecto a la dieta, señala la afirmación INCORRECTA:",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Los vegetales de hoja verde oscuro son ricos en vitamina K y deben mantenerse constantes en la dieta, no suprimirse bruscamente.",
+        "B. El aceite de oliva aporta solo cantidades moderadas de vitamina K.",
+        "C. La mayoría de las frutas comunes aportan poca vitamina K, salvo frutas secas y el kiwi.",
+        "D. Los lácteos, como la leche, son la principal fuente de vitamina K de la dieta."
+      ],
+      "inciso_correcto": "D"
+    },
+    {
+      "id": 101,
+      "pregunta": "Un niño de un año presenta una convulsión febril durante una otitis media aguda. ¿Cuál es el manejo inicial prioritario?",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Mantener la vía aérea permeable y protegerlo de golpes, sin sujetarlo con fuerza.",
+        "B. Sujetarlo firmemente para evitar que se lesione.",
+        "C. Administrar anticomiciales por vía intravenosa de inmediato.",
+        "D. Administrar antipiréticos por vía rectal antes que nada."
+      ],
+      "inciso_correcto": "A"
+    },
+    {
+      "id": 102,
+      "pregunta": "¿Qué características definen a una convulsión febril como 'típica' o simple?",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Presencia previa de una lesión neurológica conocida.",
+        "B. Desarrollo neurológico previo normal, convulsión generalizada breve, única en 24 horas y de menos de 15 minutos.",
+        "C. Duración mayor de 30 minutos.",
+        "D. Recurrencia múltiple en el mismo día."
+      ],
+      "inciso_correcto": "B"
+    },
+    {
+      "id": 103,
+      "pregunta": "¿Qué información sobre las convulsiones febriles típicas es FALSA y no debería darse a los padres?",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Es probable que se repita en futuros episodios febriles.",
+        "B. El riesgo de epilepsia del niño es similar al de la población general.",
+        "C. No existe una lesión neurológica subyacente causando las convulsiones.",
+        "D. Los hermanos del niño no tienen mayor riesgo de presentar el mismo cuadro, al no existir ningún componente familiar o genético."
+      ],
+      "inciso_correcto": "D"
+    },
+    {
+      "id": 104,
+      "pregunta": "Un niño de 2 años presenta fiebre brusca, dificultad respiratoria, babeo, estridor y posición en trípode. ¿Cuál es el diagnóstico más probable?",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Asma bronquial.",
+        "B. Epiglotitis aguda.",
+        "C. Laringotraqueítis viral (crup).",
+        "D. Laringitis aguda simple."
+      ],
+      "inciso_correcto": "B"
+    },
+    {
+      "id": 105,
+      "pregunta": "¿Cuál es el agente causal clásicamente más asociado a la epiglotitis aguda infantil?",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Virus respiratorio sincitial.",
+        "B. Haemophilus influenzae tipo B.",
+        "C. Moraxella catarrhalis.",
+        "D. Virus de la influenza."
+      ],
+      "inciso_correcto": "B"
+    },
+    {
+      "id": 106,
+      "pregunta": "Ante un paciente anciano hipertenso e intervenido de cadera, ¿cuál es la función principal de la enfermera respecto a su hipertensión?",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Limitarse a administrar la medicación prescrita.",
+        "B. Delegar todo el control tensional al médico geriatra.",
+        "C. Realizar seguimiento del efecto terapéutico y controlar los factores de riesgo modificables.",
+        "D. No intervenir salvo indicación expresa."
+      ],
+      "inciso_correcto": "C"
+    },
+    {
+      "id": 107,
+      "pregunta": "¿Cuál de las siguientes es una complicación posible tras una fractura de cadera con encamamiento prolongado?",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Trombosis venosa profunda y embolia pulmonar.",
+        "B. Mejora espontánea de la movilidad articular.",
+        "C. Disminución del riesgo de infección.",
+        "D. Fortalecimiento muscular generalizado."
+      ],
+      "inciso_correcto": "A"
+    },
+    {
+      "id": 108,
+      "pregunta": "Cuando un familiar afirma que 'las personas mayores son frágiles y no son conscientes de sus limitaciones', esta idea generalizada corresponde a:",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Un mito o estereotipo sobre la vejez.",
+        "B. Un indicio claro de sobrecarga del cuidador.",
+        "C. La teoría del retraimiento social.",
+        "D. El síndrome de Burnout."
+      ],
+      "inciso_correcto": "A"
+    },
+    {
+      "id": 109,
+      "pregunta": "Un anciano encamado sin deposición en 9 días presenta finalmente una deposición diarreica, sin haber recibido laxantes. Esto sugiere principalmente:",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Impactación fecal con diarrea por rebosamiento.",
+        "B. Una intolerancia alimentaria aguda.",
+        "C. Una infección viral autolimitada.",
+        "D. El inicio de una enfermedad inflamatoria intestinal."
+      ],
+      "inciso_correcto": "A"
+    },
+    {
+      "id": 110,
+      "pregunta": "Tras una cirugía de prótesis de cadera, ¿cuándo se recomienda iniciar la movilización del paciente?",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. No antes de una semana.",
+        "B. Solo a partir del quinto día.",
+        "C. Sentado en sillón ya a las 24 horas, iniciando la marcha con muletas de forma progresiva en los días siguientes.",
+        "D. Solo tras 48 horas de reposo absoluto."
+      ],
+      "inciso_correcto": "C"
+    },
+    {
+      "id": 111,
+      "pregunta": "¿Por qué se prescribe oxigenoterapia a bajo flujo, por ejemplo 2 l/min, en un paciente con EPOC grave aunque persista la disnea?",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Porque el flujo bajo evita la sequedad excesiva de las mucosas.",
+        "B. Porque en pacientes con EPOC e hipercapnia crónica, dosis altas de oxígeno pueden deprimir el estímulo respiratorio.",
+        "C. Porque el oxígeno a dosis altas genera adicción.",
+        "D. Porque no existe ninguna razón clínica, es indiferente el flujo."
+      ],
+      "inciso_correcto": "B"
+    },
+    {
+      "id": 112,
+      "pregunta": "En un patrón espirométrico obstructivo, como en el EPOC, ¿qué hallazgo NO es característico?",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Disminución del FEV1.",
+        "B. Disminución del índice de Tiffeneau (FEV1/FVC).",
+        "C. Limitación al flujo espiratorio por aumento de resistencias.",
+        "D. Aumento del índice de Tiffeneau."
+      ],
+      "inciso_correcto": "D"
+    },
+    {
+      "id": 113,
+      "pregunta": "¿Para qué se enseña a un paciente con EPOC a espirar con los labios fruncidos?",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Para prevenir la broncoaspiración.",
+        "B. Para mantener una presión positiva en la vía aérea que evite su colapso precoz y favorezca la salida de aire.",
+        "C. Para reducir exclusivamente las necesidades de oxígeno.",
+        "D. Para provocar una tos más productiva."
+      ],
+      "inciso_correcto": "B"
+    },
+    {
+      "id": 114,
+      "pregunta": "Tras usar un inhalador de corticoides, ¿qué recomendación debe darse al paciente?",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. No es necesario ningún cuidado posterior.",
+        "B. Enjuagar la boca con agua, sin tragarla, para prevenir la candidiasis oral.",
+        "C. Enjuagar obligatoriamente con un colutorio antiséptico.",
+        "D. Realizar ejercicio físico intenso inmediatamente después."
+      ],
+      "inciso_correcto": "B"
+    },
+    {
+      "id": 115,
+      "pregunta": "Cuando se pautan varios inhaladores, como broncodilatador, anticolinérgico y corticoide, ¿en qué orden general se recomienda administrarlos?",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Corticoide, anticolinérgico y por último broncodilatador.",
+        "B. Primero el broncodilatador de acción rápida, para abrir la vía aérea antes de los demás.",
+        "C. El orden es completamente indiferente.",
+        "D. Siempre el corticoide en primer lugar."
+      ],
+      "inciso_correcto": "B"
+    },
+    {
+      "id": 116,
+      "pregunta": "Sobre el cambio del dispositivo de una colostomía, ¿qué recomendación es INCORRECTA?",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Limpiar la piel periostomal con agua templada y jabón neutro.",
+        "B. Secar bien la zona antes de colocar el nuevo dispositivo.",
+        "C. Aplicar una barrera cutánea protectora antes de colocar la bolsa.",
+        "D. Esperar a que la bolsa esté completamente llena antes de cambiarla."
+      ],
+      "inciso_correcto": "D"
+    },
+    {
+      "id": 117,
+      "pregunta": "¿Qué alimento puede ayudar a controlar el mal olor de las heces en una persona portadora de colostomía?",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Los embutidos.",
+        "B. El repollo o col.",
+        "C. Las legumbres.",
+        "D. El perejil."
+      ],
+      "inciso_correcto": "D"
+    },
+    {
+      "id": 118,
+      "pregunta": "¿Qué recomendación sobre actividades de la vida diaria es adecuada para una persona con colostomía?",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Debe evitar bañarse mientras use la bolsa.",
+        "B. Conviene mantener una buena hidratación, bebiendo abundantes líquidos.",
+        "C. Tiene contraindicada cualquier actividad deportiva.",
+        "D. No puede usar ningún tipo de faja o cinturón."
+      ],
+      "inciso_correcto": "B"
+    },
+    {
+      "id": 119,
+      "pregunta": "En una paciente con úlcera de pierna y un índice tobillo-brazo (ITB) de 0.7, compatible con una úlcera de etiología mixta, ¿qué tipo de compresión es apropiada?",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Compresión fuerte de 40 mmHg sin restricciones.",
+        "B. Ninguna compresión, está totalmente contraindicada.",
+        "C. Compresión reducida, en torno a 20 mmHg, bajo prescripción y vigilancia médica.",
+        "D. Reposo absoluto en cama sin ningún tipo de vendaje."
+      ],
+      "inciso_correcto": "C"
+    },
+    {
+      "id": 120,
+      "pregunta": "¿Qué aporte nutricional se recomienda a un paciente con una úlcera por presión de categoría III para favorecer la cicatrización?",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Restricción estricta de proteínas para no sobrecargar el riñón.",
+        "B. Eliminar por completo los alimentos ricos en vitamina C.",
+        "C. Proteínas en torno a 1.25-1.5 g/kg/día o más, junto con calorías y líquidos suficientes.",
+        "D. Restringir el aporte hídrico para evitar edemas."
+      ],
+      "inciso_correcto": "C"
+    }
+  ]
+}

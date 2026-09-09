@@ -1,0 +1,1322 @@
+Fuente: /public/libros/simulacro_medicina.pdf (extracción de texto, sin cambios de contenido)
+
+SIMULACRO DE EXAMEN Nº 3
+
+La prueba constará de dos partes:
+1. Cuestionario de 100 preguntas tipos test (más 10 de reserva): con 5 respuestas
+por pregunta de las que sólo una de ellas será válida.
+Duración 2 horas. Se puntuará 1 punto por respuesta correcta, se restará 0,35
+puntos por cada incorrecta. El cuestionario se valorará de 0 a 100 puntos.
+2. 5 casos clínicos: cada caso tendrá 5 preguntas con 5 respuestas de las que sólo una
+será la correcta.
+Duración 1 hora. Se valorará con 4 puntos cada respuesta correcta, se restará 1
+punto por cada incorrecta. Cada caso práctico se valorará con 20 puntos.
+
+Nota: este documento no incluye una clave de respuestas correctas visible; solo se extrajeron las preguntas y sus opciones.
+
+1.- ¿Cuál de las siguientes definiciones corresponde a la ética?
+a) Conjunto de reglas y/o valores que se aceptan y respetan por todos y
+determinan lo que se debe y no se debe hacer.
+b) Aplicación de las reglas generales de la moral al trabajo profesional del hombre.
+c) Conjunto de normas éticas cuyos criterios básicos son aceptables por todos y
+deben orientar la toma de decisiones en cada caso.
+d) Ordenación sistemática de principios, normas y reglas que establece un grupo
+profesional para su realización, y así regular y dirigir la conducta moral de sus
+miembros o sus relaciones mutuas.
+e) Asentimiento de las reglas dadas.
+
+2-. En la primera visita domiciliaria se valoraran las necesidades con cuestionarios,
+test o índices. Los más usados son los clasificados según:
+a) Las 14 necesidades básicas ,Virginia Henderson
+b) Los 11 patrones funcionales ,Gordon
+c) La teoría del déficit de autocuidado de D. Orem
+d) El Modelo de adaptación ,C. Roy
+e) El Modelo de relaciones interpersonales , H. Peplau
+
+3.- ¿Qué es el valor predictivo positivo de un test?
+a) Es la probabilidad de detectar la enfermedad mediante un test diagnóstico.
+b) Es la probabilidad de descartar la enfermedad mediante un test diagnóstico
+c) Es la probabilidad de que un individuo con un test negativo este sano
+d) Es la probabilidad de que un individuo con un test positivo este enfermo
+e) Ninguna es correcta.
+
+4.- La Primera Conferencia Internacional donde se habló sobre la Atención Primaria
+bajo el lema "Salud para todos en el año 2020", tuvo lugar en:
+a) Otawa
+b) Amsterdam.
+c) Alma-Ata.
+d) Río de Janeiro.
+e) Helsinki.
+
+5.- ¿Cuál es la última etapa de un estudio estadístico?
+a) Observación
+b) Formulación de una pregunta y confeccionar la hipótesis de estudio.
+c) Contraste de la hipótesis elaborada.
+d) Análisis de datos.
+e) Establecimiento de conclusiones
+
+6.- La entrevista clínica es el proceso de comunicación que se produce entre la
+enfermera y el paciente. Según el método la entrevista libre se refiere a:
+a) Aquella que se trabaja con preguntas abiertas, sin un orden preestablecido,
+adquiriendo las características de conversación y permitiendo la
+espontaneidad.
+b) El entrevistador alterna preguntas estructuradas y preguntas espontáneas.
+c) El entrevistador sigue una serie de preguntas fijas que han sido preparadas con
+anterioridad.
+d) No existe el método el de entrevista libre, todas tienen que ser dirigidas.
+e) Ninguna respuesta es correcta.
+
+7.- De los siguientes principios bioéticos, cual confiere al enfermo el derecho a que se
+le respete como persona, a él y a sus convicciones, opciones y elecciones. Define la
+postura del enfermo.
+a) No maleficencia
+b) Salud
+c) Justicia
+d) Autonomía
+e) Beneficencia
+
+8.- Según el Consejo Europeo de Resucitación (ERC 2021) lo primero que debemos
+hacer al identificar a una persona que "no responda a estímulos y con respiración
+ausente o anormal", ¿es?:
+a) Alertar a los servicios de emergencias
+b) Colocarlo en posición lateral de seguridad
+c) Comenzar con maniobras de RCP
+d) Comprobar si tiene pulso
+e) Ninguna de ellas.
+
+9.- En relación a la práctica del ejercicio físico en personas dietéticas, ¿Qué respuesta
+es correcta?
+a) Se recomienda ejercicio aeróbico moderado, 150 min a la semana y mínimo 3
+días a la semana separados 48 horas entre sí.
+b) No se recomienda ejercicio anaeróbico en ningún caso.
+c) Los beneficios son que disminuye la resistencia insulina, aumenta la captación de
+glucosa por el músculo y disminuye la glucemia postpandrial.
+d) Está contraindicado si la glucemia es mayor de 300mgr/dl, o si dificultad para
+reconocer episodios de hipoglucemia.
+e) Son todas ciertas menos la respuesta b)
+
+10.- ¿Cuál es el uso de la escala de Glasgow?
+a) valorar la gravedad de la lesión neurológica
+b) Estudiar el patrón respiratorio
+c) valorar el nivel de conciencia
+d) valorar el estado de Shock
+e) todas son correctas
+
+11.- La higiene de manos con un preparado de base alcohólica debe realizarse:
+a) Durante 20-30 segundos
+b) De manera preferente si las manos no están visiblemente sucias o manchadas.
+c) Según la OMS en "los 5 momentos para la higiene de manos"
+d) Siempre antes y después de estar en contacto con una persona
+e) Todas son correctas
+
+12.- Los delirios son síntomas característicos de la esquizofrenia que:
+a) Incluyen alteraciones de la sensopercepción.
+b) Implican alucinaciones psicomotoras.
+c) Representan una creencia falsa basada en una interpretación errónea de la
+realidad por parte del paciente.
+d) Consisten en una incapacidad del individuo para adaptarse a las normas
+sociales.
+e) Se equiparan a las ilusiones.
+
+13.- ¿Qué medidas de las siguientes está orientada a la destrucción de gérmenes
+patógenos?
+a) Esterilización
+b) Limpieza
+c) Desratización
+d) Desinsectación
+e) Desinfección
+
+14.- Hablamos de infecciones relacionadas con la asistencia sanitaria (IRAS), di la
+respuesta correcta
+a) Están asociadas a la prestación de servicios en cualquier dispositivo asistencial.
+b) Son infecciones que se adquieren como consecuencia de la atención sanitaria
+recibida.
+c) Incluyen tanto las infecciones relacionadas con la asistencia hospitalaria como las
+infecciones asociadas al ámbito extrahospitalario.
+d) Su estudio de prevalencia se realiza a nivel nacional.
+e) Todas son correctas
+
+15- ¿Cual es correcto orden de colocación y retirada de los equipos EPI?
+a) La colocación será bata, mascarilla, gafas y guantes y la retirada guantes, gafas,
+bata y mascarilla.
+b) La colocación será guantes, mascarilla, gafas y bata y la retirada mascarilla,
+bata, gafas y guantes.
+c) La colocación será bata, mascarilla, gafas y guantes y la retirada bata,
+mascarilla, gafas y guantes.
+d) La colocación será guates, mascarilla, gafas, y bata y la retirada bata, mascarilla,
+guantes gafas.
+e) El orden no influye, lo importante es no tocar la protección contaminada.
+
+16.- Con el Doppler arterial, cuantificamos el ITB (Índice Tobillo- Brazo). Indique la
+incorrecta:
+a) El índice Tobillo-Brazo se denomina también Índice de Yao.
+b) Un ITB >1, acompañado de otros síntomas como dolor en miembros inferiores,
+explica la presencia de enfermedad arterial oclusiva periférica con alta
+probabilidad.
+c) Se debe tener en cuenta las contraindicaciones de la técnica en caso de flebitis.
+d) Para una medición correcta, se aconseja mantener a la persona en decúbito
+supino durante 15 min para estabilizar la presión arterial.
+e) Todas las anteriores son incorrectas.
+
+17.- En la gasometría arterial, cuando realiza la prueba de Allen, ¿Cuál es la arteria en
+la que se libera la presión para ver si hay riego en la mano?
+a) Radial
+b) Unlar /cubital
+c) Humeral
+d) Braquial
+e) Ninguna de las anteriores
+
+18.- En cuanto a la TA (tensión arterial), podemos decir:
+a) La presión ejercida durante la sístole cardiaca, es la presión máxima o Tensión
+Arterial Sistólica
+b) La tensión arterial en los miembros inferiores es más elevada que en los
+miembros superiores (aproximadamente 10-40 mg Hg)
+c) El manguito de presión tiene que ocupar 2/3 partes de la longitud del brazo
+d) El manguito de presión se tiene que colocar 2-3 cm por encima de la flexura del
+codo
+e) Todas las respuestas son ciertas
+
+19.- ¿Que rango de puntuación se considera riesgo moderado en la escala Braden?
+a) 19-23
+b) 13-14
+c) 10-12
+d) 15-18
+e) 9-10
+
+20.- La pirámide de Kaiser presenta una estratificación de la población según sus
+necesidades. Señale la respuesta incorrecta:
+a) En los pacientes de alta complejidad, que son el 2%, se hace necesaria una
+gestión integral del caso, con cuidados fundamentalmente profesionales.
+b) El 70-80% de los pacientes crónicos con condiciones todavía en estadios
+incipientes reciben apoyo para su autogestión.
+c) Los pacientes de alto riesgo, que son el 15%, reciben una gestión de la
+enfermedad que combina autogestión y cuidados profesionales
+d) En la base, se encuentra la población general sobre la que se tienen que
+implementar estrategias de prevención y promoción de la salud dirigida a las
+personas sanas.
+e) Todas las anteriores son correctas.
+
+21.- La frecuencia cardiaca media del recién nacido se sitúa habitualmente entre:
+a) 120-150 latidos /min
+b) 80-90 latidos/min
+c) 185/200 latidos /min
+d) 100-120 latidos/min
+e) Ninguna respuesta es correcta
+
+22.-Entre las ulceras de origen vascular, ¿cuáles son las más frecuentes?
+a) Las venosas
+b) Las arteriales
+c) Las mixtas
+d) Todas por igual
+
+23.- Se define como infertilidad:
+a) La incapacidad de concebir o imposibilidad de embarazo.
+b) La incapacidad para tener hijos vivos, con posibilidad de embarazo.
+c) La inexistencia de gametos, tanto femeninos como masculinos.
+d) La dificultad para conseguir gestaciones a término.
+e) Ninguna es cierta.
+
+24.- Todas son partes de una entrevista, menos:
+a) Cuerpo.
+b) Introducción.
+c) Título
+d) Desenlace
+e) Análisis de la información obtenida.
+
+25.- El cribado es una prueba de prevención:
+a) Terciaria.
+b) Secundaria.
+c) Primaria.
+d) No pertenece a la prevención.
+e) A y B son correctas.
+
+26.- En relación a los principios básicos del SiNASP (Sistema de Notificación y
+Aprendizaje para la Seguridad del Paciente), señale la respuesta incorrecta:
+a) Voluntariedad.
+b) No punibilidad.
+c) No confidencialidad.
+d) Notificación anónima o nominativa.
+e) Orientación sistémica
+
+27.- La prevención terciaria tiene como objetivo principal:
+a) El diagnóstico precoz.
+b) La disminución de la incidencia.
+c) La rehabilitación.
+d) A y B son correctas.
+e) Todas las respuestas son correctas
+
+28.- La escala Norton valora el riesgo de sufrir una UPP puntuando los siguientes
+factores de riesgo:
+a) Estado físico general, nutrición, incontinencia, estado mental y movilidad
+b) Movilidad, estado mental, incontinencia, estado físico general e inactividad
+c) Estado mental, estado físico general, Incontinencia, actividad y movilidad
+d) Actividad, incontinencia, estado mental, estado físico general y aspecto
+cutáneo
+e) Estado mental, estado físico general, incontinencia, nutrición y movilidad
+
+29.- En la diabetes la complicación aguda más frecuente es:
+a) Hipoglucemia.
+b) Hiperglucemia simple.
+c) Cetoacidosis.
+d) Coma hiperosmolar.
+e) Ninguna de las anteriores es frecuente.
+
+30.- El índice que compara la población de 6 a 15 años con la de 45 a 65 se llama:
+a) índice juvenil
+b) índice de Sauvy
+c) índice de Burgdofer
+d) índice Pagoda
+e) índice de Progresividad
+
+31.- Que incidentes deben notificarse en el SiNASP (Sistema de Notificación y
+Aprendizaje para la Seguridad del Paciente) ?:
+a) Incidentes relacionados con la seguridad que no llegaron al paciente.
+b) Incidentes sin daño.
+c) Eventos adversos.
+d) A y B son correctas.
+e) Todas las respuestas son correctas.
+
+32.- Eva, 47 años, refiere que desde hace unos meses está experimentando un
+acortamiento de los ciclos menstruales. ¿A qué cambio hormonal es debido el
+acortamiento de los ciclos menstruales en la premenopausia?
+a) A un aumento de la hormona FSH.
+b) A una disminución de la hormona de crecimiento.
+c) A la falta de ovulación.
+d) A un aumento de la progesterona.
+e) Todas son ciertas.
+
+33.- La distancia física en la que se desenvuelve la interacción en el proceso de
+comunicación entre emisor y receptor, se conoce como:
+a) Cinesia.
+b) Paralingüística.
+c) Escucha activa.
+d) Proxémica.
+e) Telésica.
+
+34.- Si hablamos de factores predisponentes, facilitadores y reforzantes. ¿A que
+modelo de aprendizaje en educación y promoción de la salud nos estamos
+refiriendo?
+a) Modelo Gagne.
+b) Modelo de Etapas del cambio.
+c) Modelo de Salud diferencial.
+d) Modelo de Etapas.
+e) Modelo PRECEDE-PROCEDE
+
+35.- En el contexto de la Educación para la Salud, la escucha proyectiva es:
+a) Una técnica didáctica individual.
+b) Una dimensión de la escucha activa.
+c) Una habilidad necesaria para cualquier intervención grupal.
+d) Una técnica didáctica grupal bidireccional.
+e) A y B son correctas
+
+36.- Cuando nos referimos a desinfección de nivel intermedio de (Spaulding), ¿qué
+actividad germicida tiene los desinfectantes?
+a) Destruye las formas vegetativas, virus, hongos y mycobacterium tuberculosis
+b) Destruye algunas formas vegetativas de las bacterias, algunos hongos y virus
+pero no destruye microorganismos resistentes como el bacilo de Koch o
+esporas bacterianas.
+c) Destruye las formas vegetativas de los microorganismos, incluido el bacilo
+tuberculosis y todas las esporas bacterianas.
+d) Destruye las formas vegetativas de los microorganismos, incluido el bacilo
+tuberculosis y algunos tipos de esporas bacterianas.
+e) Ninguna es correcta.
+
+37.- ¿Qué patrón respiratorio identificamos como de Kussmaul?
+a) Respiraciones más rápidas y profundas respecto a lo normal, sin pausas
+b) Respiraciones que gradualmente se hacen más rápidas y profundas respecto de
+lo normal y después más lentas, se alternan con periodos de apnea
+c) Frecuencia y ritmo respiratorio normales
+d) Respiraciones lentas e irregulares
+e) Ninguno de los anteriores
+
+38.- ¿Cómo se denomina la técnica de desbridamiento en la que realizan distintos
+cortes en la placa necrótica en forma de rejilla, realizando posteriormente en las
+incisiones métodos enzimáticos y autolíticos?:
+a) Técnica Cover
+b) Técnica Slice
+c) Técnica Square
+d) Técnica Time
+e) Técnica Borg
+
+39.- Cuál de las siguientes características no se encuentra en el concepto de
+comunicación?
+a) La relación establecida entre un emisor y un receptor de forma interpersonal.
+b) Es simple transmisión de contenidos unidireccionales.
+c) Nos lleva a compartir un mismo código.
+d) Se da en el diálogo gracias al feedback o retroalimentación
+e) C y D son incorrectas
+
+40.- Jakobson estableció diferentes funciones en relación a los elementos que
+intervienen en la comunicación. ¿Cuál de las siguientes non es una función?
+a) Poética.
+b) Fática.
+c) Conativa o apelativa.
+d) Metalingüística.
+e) Interactiva
+
+41.- El emisor, dentro del proceso de comunicación, es:
+a) El que reconstruye el mensaje.
+b) El que descodifica el mensaje.
+c) El objeto del que se habla.
+d) El que elabora y codifica el mensaje
+e) A y D son correctas
+
+42.-La neoplasia genital femenina más frecuente es:
+a) Cáncer de ovario.
+b) Cáncer de endometrio.
+c) Cáncer de cérvix.
+d) Cáncer de vulva
+e) Todos son frecuentes.
+
+43.- ¿Cuál de las siguientes afirmaciones no es cierta en relación con las
+características de los indicadores en la fase de diseño de mejora continua de la
+calidad?
+a) Una de las ventajas de usar indicadores es la objetividad y la comparabilidad.
+b) Un indicador es una comparación entre dos o más tipos de datos que sirve para
+elaborar una medida cuantitativa o una observación cualitativa.
+c) Facilitan una medida estandarizada.
+d) Los indicadores ideales absolutos no permiten valores de 0 o 1.
+e) C y D no son ciertas.
+
+44.- Una de estas enfermedades infecciosas no tiene como medida preventiva una
+vacuna:
+a) Hepatitis C
+b) Gripe
+c) Hepatitis B
+d) Tuberculosis
+e) Hepatitis A
+
+45.- Cuál de las siguientes escalas usarías para valorar la manía en un trastorno
+bipolar:
+a) Escala de Goldberg
+b) Cuestionarios de horowitz
+c) Escala de hamilton
+d) Test de fagerström
+e) Escala de Young
+
+46.- Durante el parto de Beatriz, la matrona constata que el punto guía de la
+presentación está a la altura del borde inferior de la sínfisis del pubis. ¿En qué plano
+de Hodge se encuentra?
+a) La presentación se encuentra en el I plano de Hodge.
+b) La presentación se encuentra en el II plano de Hodge.
+c) La presentación se encuentra en el III plano de Hodge.
+d) La presentación se encuentra en el IV plano de Hodge.
+e) Ninguna es correcta.
+
+47.- En cuanto a la ortotanasia, ¿qué no es cierto?
+a) Es legalmente correcta.
+b) Omite las medidas terapéuticas desproporcionadas.
+c) En ella se basan los cuidados paliativos.
+d) Se refiere a toda acción que pretende finalizar con la vida del paciente para
+disminuir su sufrimiento.
+e) El hecho de aplicarla no implica que se altere el curso de la enfermedad
+
+48.- El modelo de creencias de salud en la EpS:
+a) Considera muy importante la influencia de entorno.
+b) Explica la modificación de la conducta trabajando sobre las percepciones que el
+sujeto tiene.
+c) Es muy adecuado para modificar el comportamiento de personas sanas.
+d) Todas son correctas
+e) Todas son incorrectas.
+
+49.-La Educación y la Promoción de la Salud, ¿se fundamentan en alguna Ley?
+a) Si, en la Constitución y la Ley General de Sanidad entre otras.
+b) No, no tienen ninguna base legal.
+c) Si, en la ley de Educación y Promoción de la salud.
+d) Si, principalmente en la LOGSE.
+e) A y C son correctas
+
+50.- Indica cuáles son los factores predictores del duelo complicado:
+a) Muerte esperada.
+b) La edad del fallecido junto con el nivel de apego.
+c) Experiencia de la primera muerte.
+d) El hecho de tener muchos hijos.
+e) Buen soporte familiar y social.
+
+51.- La filancia es una característica del moco cervical como consecuencia de:
+a) Estrógenos.
+b) Progesterona.
+c) Andrógenos.
+d) Estrógenos y Progesterona.
+e) Todas son correctas
+
+52.- En paliativos se utiliza el Edmonton Symptom Assessment System (ESAS) para
+evaluar los síntomas. ¿Cuáles se encuentran incluidos en dicha valoración?
+a) Bienestar
+b) Función.
+c) Estreñimiento.
+d) Sed.
+e) Diarrea.
+
+53.- ¿A qué se refiere cuando se administran fármacos, en la mínima dosis, para
+reducir la consciencia del paciente con enfermedad avanzada o bien en fase terminal
+con el fin de aliviar los síntomas refractarios?
+a) Sedación paliativa.
+b) Sedación en la agonía
+c) Eutanasia.
+d) Distanasia.
+e) Sedación terminal.
+
+54.- En cuanto a la escala de valoración de la mucositis de la OMS, señala la opción
+correcta:
+a) Consta de 6 grados.
+b) Grado 5, úlceras muy extensas, encías sangrantes, no hay saliva, imposible la
+deglución. El paciente refiere mucho dolor.
+c) Grado 2, eritema, úlceras poco extensas, posibilidad de deglutir sólidos, dolor
+ligero.
+d) Grado 1, eritema, mucosa enrojecida, voz normal y dolor ligero.
+e) Grado 1, no se aprecian evidencias subjetivas u objetivas de mucositis.
+
+55.- ¿Qué analgésico es casi 100 veces más potente que la morfina y actúa en los
+mismos receptores?
+a) Buprenorfina.
+b) Codeína.
+c) Pentazocina.
+d) Fentanilo.
+e) Tramadol.
+
+56.- En la valoración del duelo, ¿qué escala o test es el más adecuado?
+a) Test de Isaacs.
+b) Cuestionario de Scoff.
+c) Test de Barber.
+d) Inventario de Texas revisado.
+e) Test de Pfeiffer.
+
+57.- Sobre al tratamiento farmacológico de los síntomas vasomotores y según la GPC
+sobre la Menopausia y Postmenopausia del Ministerio de Sanidad, es cierto que:
+a) No se recomienda el tratamiento hormonal en mujeres con síntomas
+vasomotores leves.
+b) En las mujeres que conservan el útero no se recomienda añadir gestágenos al
+tratamiento con estrógenos.
+c) El tratamiento hormonal se mantendrá mínimo cinco años desde su inicio.
+d) La Cimífuga Racemosa es beneficiosa para aquellas mujeres con enfermedad
+hepática conocida o en tratamiento con fármacos hepatotóxicos.
+e) Todas son correctas.
+
+58.- El profesional que administra medicamentos a personas de edad avanzada deber
+considerar:
+a) Una disminución del gasto cardíaco puede aumentar la velocidad de suministro
+a los órganos diana y a los tejidos de almacenamiento.
+b) Dado que el metabolismo es más rápido, las concentraciones farmacológicas en
+el plasma aumentan.
+c) La dieta rica en fibras y el uso de laxantes pueden disminuir la absorción del
+medicamento.
+d) Es preciso un aumento de la dosis de fármaco a administrar si queremos que
+los efectos sean iguales que al administrar dicho fármaco a un adulto.
+e) Todas las respuestas son correctas.
+
+59.- Luis lleva unos días en casa de su hijo Javier; previamente estuvo con su otro
+hijo, Ramón. Javier se muestra preocupado porque su padre presenta una "excesiva
+reacción al dolor"; incluso presenta esta sensación ante el roce con las sábanas u
+otras situaciones cotidianas que a priori no suponen un estímulo doloroso. ¿Cómo se
+define esta situación?
+a) Hiperalgia.
+b) Umbral del dolor.
+c) Alodinia.
+d) Disestesia.
+e) Hiperalgesia.
+
+60.- Juan tiene pautado codeína para el control de su dolor. ¿En qué escalón de la
+OMS se encuentra?
+a) Primer escalón.
+b) Segundo escalón.
+c) Tercer escalón.
+d) Cuarto escalón.
+e) Quinto escalón.
+
+61.- ¿Cómo se les denomina a los fármacos que se utilizan solos o asociados junto a
+los que forman parte de la escalera analgésica de la OMS?
+a) Antagonistas.
+b) Coadyuvantes.
+c) Nocebos.
+d) Secundarios.
+e) Excipientes.
+
+62.- Isabel, 26 años, es diagnosticada de sífilis en periodo secundario. En este estadio
+de la enfermedad, la clínica que puede experimentar la paciente incluye todas las
+siguientes manifestaciones excepto:
+a) Úlcera indolora (chancro sifilítico) en los genitales.
+b) Roseola sifilítica.
+c) Alopecia Sifilítica.
+d) Artralgias, febrícula, cefalea y malestar general.
+e) Todas son correctas.
+
+63.- ¿Qué valoración realizamos en el anciano con el test de Pfeiffer?
+a) Valoración funcional.
+b) Valoración de la esfera cognitiva.
+c) Valoración física.
+d) Las respuestas A y C son correctas.
+e) Ninguna respuesta es correcta.
+
+64.- Entre las complicaciones derivadas de la inmovilidad se encuentran:
+a) Úlceras por presión y estreñimiento.
+b) Atrofia muscular y anquilosamiento articular.
+c) Retención de secreciones.
+d) Hipotensión ortostática.
+e) Todas las respuestas son correctas.
+
+65.- ¿Cuál de las siguientes afirmaciones es correcta en cuanto al estreñimiento en
+pacientes terminales?
+a) Es un síntoma poco frecuente.
+b) La terapia de base va a consistir en la administración de enemas.
+c) Debe tratarse con dieta rica en fibra.
+d) Su causa más común es la administración de opioides.
+e) Afecta a un 25% de los pacientes terminales.
+
+66.- Que entendemos por una fórmula de nutrición enteral densidad calórica
+estándar.
+a) La diete isocalórica también llamada fórmula estándar es 1 Kcal/ml
+b) La dieta isocalórica también llamada fórmula estándar es <1kcal/ml.
+c) Las dietas hipocalóricas también llamada fórmula estándar son fórmulas
+concentradas.
+d) Las dietas hipercalóricas también llamada fórmula estándar son fórmulas
+diluidas.
+e) Todas son estándar.
+
+67.- En las pruebas de contraste de hipótesis. ¿Qué supone un valor de p < de 0,05?
+a) Rechazamos la hipótesis nula
+b) Rechazamos la hipótesis alternativa
+c) Las diferencias no son estadísticamente significativas
+d) Las diferencias observadas son debidas al azar
+e) Aceptamos la hipótesis nula.
+
+68.- Fatiha es una niña nacida en Somalia y que actualmente vive en Galicia. Durante
+las vacaciones de verano viajó a su país de origen y le han realizado una ablación del
+clítoris e infibulación. ¿De qué tipo de mutilación genital femenina se trata?
+a) Tipo I.
+b) Tipo II.
+c) Tipo III.
+d) Tipo IV
+e) Todas son correctas.
+
+69.- ¿Qué alimentos de los siguientes no está contraindicado en una prueba de
+sangre oculta en heces?
+a) Frutas crudas
+b) Carnes
+c) Cereales integrales
+d) Embutidos
+e) Todas están contraindicadas
+
+70.- ¿Qué factores determinan es estado psicológico de la persona mayor?
+a) El nivel cultural.
+b) La actividad física y mental.
+c) El estado de salud general y la ausencia de enfermedad.
+d) Las relaciones personales.
+e) Todas son correctas.
+
+71.- ¿Qué acciones no recomendaría al personal de su centro sanitario para evitar la
+aparición de úlceras por presión?
+a) Realización de cambios posturales cada 3-4h.
+b) Uso de ropa de cama y pijamas de tejidos naturales, evitando los sintéticos en
+la medida de lo posible.
+c) Realización de masajes en las prominencias óseas.
+d) Inspección diaria del estado de la piel.
+e) Todas son correctas.
+
+72.- ¿Qué cambio se consideraría patológico en relación a los cambios en la visión de
+un paciente anciano?
+a) Disminución de la agudeza visual.
+b) Degeneración macular.
+c) Disminución de la acomodación.
+d) Disminución de la visión nocturna.
+e) Todos son cambios patológicos.
+
+73.- En caso de un paciente que presente demencia, ¿qué medidas de enfermería no
+se le aplicarían?
+a) Evitar elevar la voz, no tratarlo con brusquedad, y no presentar una actitud
+violenta.
+b) No proporcionar alimentos de texturas diferentes para evitar que se atragante.
+c) No acostar hasta que hayan pasado 2h tras la ingesta de alimentos.
+d) Dar alimentos exclusivamente de consistencia líquida para facilitar su ingesta.
+e) Todas son correctas.
+
+74.- Noa, 43 años que acude a la consulta de la matrona para realizarse una citología.
+Durante el procedimiento verbaliza su preocupación por presentar incontinencia
+urinaria desde hace algún tiempo. Refiere salida involuntaria de orina sobre todo al
+reír o al estornudar. Estos síntomas podrían orientar hacia:
+a) Incontinencia urinaria de esfuerzo.
+b) Incontinencia de urgencia.
+c) Vejiga hiperactiva.
+d) Incontinencia urinaria mixta.
+e) Incontinencia funcional.
+
+75.- Una enfermera del Centro de Salud tiene que atender a un accidentado en la
+calle. La mujer tiene VIH positivo. En este que podría hacer la enfermera.
+a) Tienen derecho a negarse a asistirla según el principio de "obligación primaria
+de justicia"
+b) No pueden en ningún caso negarse a asistirla, de acuerdo al Código Ético de la
+profesión.
+c) No pueden negarse, si no hay personal voluntario para hacerlo
+d) Pueden negar su asistencia cuando la vida de la mujer no corra peligro
+e) Ninguna respuesta es correcta.
+
+76.- ¿Qué compuestos contenidos en los alimentos tienen relación con la litiasis por
+ácido úrico?
+a) Proteínas
+b) Grasas
+c) Omega 6
+d) Azúcares
+e) Purinas
+
+77.- La Constitución Española de 1978 reconoce el derecho a la protección de la salud
+en el artículo número:
+a) 15
+b) 22
+c) 37
+d) 43
+e) 55
+
+78.- El aporte de nutrientes en un paciente cirrótico con episodios de encefalopatía
+hepática debe ser, señale la incorrecta:
+a) Restringir la cantidad de proteína animal que consume para reducir la
+acumulación de productos de desecho tóxicos
+b) Disminuir la ingesta de carbohidratos para que sea inferior a la cantidad de
+proteína que consume
+c) Ingesta de leguminosas, frutas y vegetales y proteína magra como pollo y
+pescado. Evitar los mariscos crudos
+d) Reducir el consumo de sal para evitar la acumulación de líquidos y la hinchazón
+del hígado
+e) Evitar el consumo de alcohol.
+
+79.- ¿Qué aminoácidos ramificados se añaden en las dietas para pacientes cirróticos
+desnutridos con encefalopatía hepática?
+a) Alanina y treonina
+b) Leucina, isoleucina y valina
+c) Glicocola, valina e histidina
+d) Fenilalanina, alanina y metionina
+e) Alanina e histadina
+
+80.- Son riesgos inmediatos o complicaciones de la mutilación genital femenina todos
+excepto, señala la incorrecta:
+a) Dolor intenso.
+b) Infección.
+c) Hemorragia.
+d) Cicatriz hipertrófica.
+e) Todos son correctos.
+
+81.- En el síndrome de dumping postgastrectomía, ¿Qué medidas dietéticas le
+indicaremos al paciente?
+a) Restringir las grasas
+b) Beber abundantes líquidos durante las comidas
+c) Comidas pequeñas y frecuentes
+d) Reducir glúcidos complejos
+e) Realizar solo dos comidas al día
+
+82.- La elección de la vía de administración de la fórmula enteral debe ser planificada
+y depende del soporte nutricional a nivel individual, del estado nutricional y la edad.
+Que afirmación es incorrecta.
+a) La técnica quirúrgica de gastrostomía (técnica de Stamm) se realiza en
+nutriciones enterales a largo plazo.
+b) Se debe valorar la repercusión de la sintomatología en el balance energético
+proteico y las implicaciones metabólicas de su enfermedad de base.
+c) Cuando se considere que la nutrición enteral va a ser de larga duración la
+elección es la sonda de gastrostomía y si la tolerancia gástrica esta disminuida
+se debe instaurar una sonda transpilórica.
+d) Si se prevé que el tratamiento será prolongado se debe planificar un sistema de
+larga duración tipo sonda nasoduodenal.
+
+83.- Para la administración de fármacos por una sonda de gastrostomía (sonda PEG)
+se deben tener en cuenta una serie de recomendaciones. Señale la respuesta
+correcta:
+a) Se recomienda administrar el fármaco a la vez que se introduce la nutrición
+enteral o comida triturada casera para reducir su impacto sobre la mucosa
+gástrica.
+b) Se deberá detener la alimentación 15 minutos antes de administrar el fármaco
+(en administración continua) o 1 hora antes en el caso de administración de los
+alimentos en bolo.
+c) En caso de tener que administrar más de un fármaco diferente a la vez, no
+introducir agua por la sonda entre las distintas sustancias farmacológicas, y
+acabar lavando finalmente la sonda con al menos 30 ml de agua después de la
+administración del último fármaco.
+d) En el caso de administrar varios fármacos se deben administrar primero las
+formas sólidas y finalmente las más líquidas.
+e) No está indicado administrar fármacos a través de una PEG.
+
+84.- ¿Qué recomendaciones le darías a un paciente anciano afectado de
+estreñimiento? Señala la respuesta incorrecta.
+a) Ingesta hídrica siempre que no exista una contraindicación.
+b) Establecer un patrón de regularidad para defecar.
+c) Ingesta de alimentos ricos en fibra, como fruta, verduras, cereales integrales,
+etc.
+d) Realizar ejercicio físico en la medida de lo posible.
+e) Tomar agua con limón en ayunas.
+
+85.- Una de las siguientes afirmaciones es incorrecta respecto a los estudios
+descriptivos:
+a) La serie de casos es un tipo de estudio descriptivo.
+b) Este tipo de estudios se nutren tanto de fuente de información primarias como
+secundarias.
+c) Son fuente de hipótesis para la investigación epidemiológica.
+d) Son los estudios más frecuentes y la aplicación menos habitual de la
+epidemiología.
+e) Los estudios descriptivos se caracterizan por ser estudios observacionales en
+los que no se evalúa una hipótesis causal.
+
+86.- En los programas de educación para la salud que recomendaciones sobre la
+práctica de ejercicio físico en una persona adulta sana es adecuada:
+a) Realizar, al menos 2 días a la semana, actividades de fortalecimiento muscular
+y actividades para mejorar la flexibilidad.
+b) Reducir los periodos sedentarios prolongados de más de 2 horas seguidas,
+realizando descansos activos cada una o dos horas.
+c) Realizar un mínimo de 150 minutos semanales de actividad física aeróbica de
+intensidad moderada.
+d) Ninguna recomendación es correcta.
+e) Todas son recomendaciones correctas.
+
+87.- En relación a los tratamientos con anticoagulantes orales ¿qué respuesta es
+correcta?
+a) Los anticoagulantes orales más usados son los antagonistas de la vitamina K,
+como el acenocumarol (sintrom de 1 y 4 mg) y la warfarina (aldocumar de 1-3-
+5-y 10 mg).
+b) La máxima actividad tras administrar una dosis de acenocumarol se obtiene a
+las 36-48 horas, y con warfarina a las 72-96 horas. La duración de la acción de
+una dosis de acenocumarol se halla dentro de las 48 horas, situándose entre los
+2 y 5 días para la warfarina.
+c) Los antiinflamatorios no esteroideos (AINE) se unen a las proteínas del plasma,
+y potencian la acción de los anticoagulantes orales, son inhibidores de la
+agregación plaquetaria, lo que aumenta notablemente el riesgo de sangrado.
+d) El antídoto del acenocumarol es la vitamina K y de la heparina el sulfato de
+protamina.
+e) Todas son correctas.
+
+88.- ¿Qué alimentos se prohíben previamente a una prueba de catecolaminas?
+a) Plátanos
+b) Galletas, flanes.
+c) Chocolate y café
+d) Helados
+e) Todos los alimentos nombrados se prohíben
+
+89.- En la consulta de un Centro de Salud, atiendes a un varón de 60 años, con HTA,
+dislipemia, sobrepeso y fumador. ¿Cuál de los siguientes parámetros necesitarías
+para valorar su riesgo cardiovascular con la tabla de SCORE?
+a) Presión arterial, colesterol, edad, sexo y consumo de tabaco.
+b) Presión arterial, antecedentes familiares de enfermedad cardiovascular
+prematura, sexo, índice de masa corporal y consumo de tabaco.
+c) Presión arterial, triglicéridos, edad, sexo y perímetro de la cintura.
+d) Presión arterial, colesterol, perímetro de la cintura, presencia de diabetes y
+consumo de tabaco.
+e) La tabla SCORE: valora el riesgo de muerte cardiovascular a los 10 años (muerte
+coronaria, por enfermedad cerebrovascular, arteriopatia periférica, IC,
+aneurisma disecante de aorta y otras) en sujetos de 40 a 65 años.
+
+90.- ¿Qué es el signo de Godet?
+a) Es una maniobra que permite valorar la presencia de edema.
+b) Es una maniobra que permite valorara la presencia de tromboflebitis.
+c) Es una maniobra que permite valorara la presencia arteriopatía periférica
+oclusiva.
+d) Es una maniobra que permite valorara la presencia de angina de pecho.
+e) Ninguna es correcta.
+
+91.- ¿Qué recomendación le darías a una paciente para subir las escaleras con dos
+muletas?
+a) Para subir escaleras primero la pierna operada, a continuación las muletas y
+después las sana.
+b) Para subir escaleras primero la pierna sana, a continuación las muletas y
+después la pierna operada.
+c) Para subir las escaleras primero las muletas, a continuación la pierna operada y
+después la pierna sana.
+d) Para subir escaleras primero las muletas, a continuación la pierna sana y
+después la pierna operada.
+e) Todas son correctas.
+
+92.- ¿Qué estrategias recomendarías a un paciente con EPOC al realizar la actividad
+física?
+a) La actividad física de debe de realizar a intervalos largos de tiempo (mínimo 45
+min) repartidos durante el día en los pacientes con EPOC grave.
+b) La actividad física que se centra en la combinación de programas de
+entrenamiento físico más largos (> 12 semanas) pueden tener un mayor
+impacto en el paciente con EPOC, ya que podrían facilitar un cambio de
+comportamiento del paciente hacia una vida más activa.
+c) En general no se recomienda en pacientes con EPOC realizar actividad física
+moderada un mínimo de 30 min al día 5 días por semana.
+d) No se recomienda realizar actividad física en pacientes con EPOC, ya que
+produce un empeoramiento de la disnea.
+e) Todas son correctas
+
+93.- ¿Cuál de los siguientes enunciados es un signo de mayor desnutrición?
+a) Alcoholismo.
+b) Retención de líquidos.
+c) Pérdida de masa muscular.
+d) Albúmina sérica por debajo de 3.5 gr/dl.
+e) Pérdida de tejido subcutáneo.
+
+94.- ¿Cuál de las siguientes manifestaciones no es típica de un estatus migrañoso?
+a) Cefalea con fonofobia y/o fotofobia
+b) Aura de duración superior a 1 hora
+c) Duración de la cefalea mayor de 72 horas
+d) Vómitos intensos
+e) El dolor de cabeza suele ser de tipo pulsátil y hemicraneal.
+
+95.- Un paciente estuvo ingresado en el hospital por un ACV. Como secuela tiene una
+afasia motora, para comunicarnos tendremos en cuenta los siguientes consejos
+excepto:
+a) Forzar al paciente para una mejoría más rápida.
+b) Apoyas nuestras palabras con gestos.
+c) Evitar la frustración y dar apoyo psicológico.
+d) No fingir que lo entendemos.
+e) Hablar lentamente y sin gritar.
+
+96.- J.B.R es una mujer de 53 años con dislipemia y fumadora. Desde un año refiere
+dolor tipo opresivo en el centro del pecho que aparece cuando sube las escaleras
+para ir al segundo piso donde vive. El ECG es normal y no hay elevación de las
+enzimas cardíacas. ¿Qué patología podría padecer?
+a) Angina inestable.
+b) Angina estable.
+c) Angina de Prinzmetal.
+d) IAM sin elevación del ST.
+e) Bloqueo aurículo-ventricular.
+
+97.- La atención a domicilio:
+a) Es una actividad única, concreta y aislada.
+b) La atención a domicilio es el conjunto de actividades de carácter social y
+sanitario que se presta en el domicilio de las personas que no pueden
+desplazarse al centro de salud.
+c) La atención domiciliaria siempre es prestada desde el marco de la Atención
+Primaria de Salud.
+d) La atención domiciliaria da cobertura a las personas ancianas o en situación
+terminal.
+e) Ninguna de las respuestas son correctas
+
+98.- La espirometría es una prueba sencilla que sin embargo requiere de una técnica
+precisa y bien realizada. Cualquier error en su ejecución invalida los resultados. ¿En
+relación a la técnica que respuesta es incorrecta?
+a) Evitar fumar al menos una hora antes de la prueba.
+b) Evitar los broncodilatadores agonistas β2 de acción corta al menos 6 horas
+antes de la prueba.
+c) Evitar corticoides inhalados antes de la prueba.
+d) [opción no legible en el documento original]
+e) Todas son correctas
+
+99.- Según la clasificación funcional de la New York Heart Association para la
+insuficiencia cardíaca (IC), ¿Qué clase de IC será aquella que presenta una ligera
+limitación de la actividad física sin síntomas en reposo, la actividad física normal
+provoca disnea, fatiga o palpitación?
+a) Clase I
+b) Clase II
+c) Clase III
+d) Clase IV
+e) Clase V
+
+100.- J.B está a tratamiento con acenocumarol, acude a su consulta de enfermería
+para mejorar su calidad de vida. ¿Qué recomendaciones de las siguientes es
+incorrecta?:
+a) No se recomiendan huevos, yogur, queso y leche porque el contenido de
+vitamina K en la leche es alto (aportan > 40 mcg/100 gramos)
+b) Se recomiendan el consumo moderado de remolacha, repollo, espárrago,
+nabo, brócoli, espinacas porque los vegetales verde oscuro (particularmente las
+hojas) son las fuentes más ricas de vitamina K.
+c) Aunque el aceite de oliva contiene vitamina K, es el más recomendado para su
+salud. En las dosis habituales contribuye sólo moderadamente al contenido
+total de Vitamina K de la dieta.
+d) La mayoría de las frutas no son fuentes importantes de vitamina K (aportan < 5
+mcg/100 gramos), excepto, las frutas secas (pasa, higos, ciruelas) y los
+kiwis que contienen alto contenido.
+e) Los alimentos de origen animal no suelen contener grandes cantidades de
+vitamina K, excepto del hígado
+
+
+PREGUNTAS DE RESERVA
+
+1.- Estás trabajando en un Centro de Salud y un paciente que va a la consulta tiene
+una convulsión tónico-clónica. Durante la convulsión, ¿cuál no es una actuación
+correcta?
+a) Asegurar la vía aérea e introducir un tubo de guedell sin forzar
+b) Protegerlo con cojines para que no se golpee.
+c) Sujetarlo fuertemente durante la crisis
+d) Desabrochar cinturón y cuello de la camisa.
+e) No dejarlo solo durante la crisis.
+
+2.- En el Plan de asistencia al ICTUS, los criterios de inclusión del tratamiento de
+fibrinolisis son, excepto:
+a) Hemorragia en neuroimagen e hipodensidad extensa en ACM en el TAC
+cerebral.
+b) Paciente entre > 18 y < 80 años (se puede administrar a pacientes mayores de
+80 años bajo condiciones de "uso fuera de ficha técnica".
+c) Inicio de síntomas del ICTUS en el plazo de 4,5 horas antes del inicio del
+tratamiento trombolítico.
+d) Los síntomas del ICTUS deben presentarse por lo menos durante 30 minutos y
+no mejorar perceptiblemente antes del tratamiento.
+e) Todos son criterios de inclusión.
+
+3.- Las escalas de valoración neurológica permiten cuantificar de forma bastante
+fiable la gravedad del ACV, su progresión y desenlace. Se deben aplicar de forma
+sistemática al ingreso y en intervalos establecidos. De las siguientes escalas cual de
+ella es una escala funcional?
+a) La escala de Rankin modificada es una escala que valora, de forma global, el
+grado de discapacidad física tras un ictus. Se divide en 7 niveles, desde 0 (sin
+síntomas) hasta 6 (muerte).
+b) La escala de Hunt y Hess es la escala más utilizada en la valoración y
+seguimiento de la Hemorragia Subarcnoidea. Relaciona los síntomas
+neurológicos que presenta el paciente y su deterioro a través del grado
+asignado, con la severidad de la patología intracraneal asociada, con riesgo
+quirúrgico y el riesgo de complicaciones.
+c) La NIHSS es la escala más empleada para la valoración de funciones
+neurológicas básicas en la fase aguda del ictus isquémico, tanto al inicio como
+durante su evolución. Permite detectar fácilmente mejoría o empeoramiento
+neurológico
+d) La escala canadiense es una escala de valoración neurológica, sencilla, que
+comprende aspectos cognitivos (consciencia, lenguaje y orientación),
+determinando las posibilidades de comunicación con el paciente, y motores.
+e) La escala de Glasgow es una escala que valora el nivel de conciencia. Puntúa de
+3 a 15 y valora la respuesta ocular, verbal y motora a estímulos verbales y
+dolorosos.
+
+4.- La incontinencia urinaria es una pérdida involuntaria de orina a través de la uretra
+objetivamente demostrable y de una magnitud tal, que constituye un problema
+higiénico y/o social. De las siguientes medidas para el tratamiento de la
+incontinencia urinaria, cual no es correcta:
+a) Realizar un diario miccional las veinticuatro horas durante 3-4 días registrando
+todo lo relacionado con micción e ingesta de líquidos.
+b) La técnica de biofeedback se utiliza para obtener información sobre contracción
+y relajación de la musculatura del suelo pélvico.
+c) La electroestimulación nervio tibial posterior del plexo nervioso sacro favorece
+la contracción o relajación de la musculatura en vejiga hiperactiva.
+d) La maniobra de credé se puede utilizar para favorecer el vaciamiento en la
+vejiga arrefléxica, cuando la resistencia de salida está disminuida.
+e) Los ejercicios de Kegel fortalecen el tono muscular de los músculos pélvicos,
+están indicados en la vejiga arrefléxica.
+
+5.- ¿A qué paciente no sería necesario realizarle el test de Lawton-Brody?
+a) A un paciente encamado.
+b) A un paciente diagnosticado de demencia previa.
+c) A un paciente que presenta úlceras por presión.
+d) A un paciente con ausencia de indicadores de riesgo social.
+
+6.- Señale la respuesta correcta, respecto al test de Mantoux o prueba de la
+tuberculina para el diagnóstico de la tuberculosis.
+a) Si usa la técnica de Mantoux, que consiste en la inyección subcutánea de 0,1
+ml del derivado proteico purificado.
+b) La lectura del resultado de la prueba se realiza a los 4 días.
+c) En personas vacunadas de BCG, se considera positiva una induración superior o
+igual a los 15 mm
+d) No existen falsos negativos, siempre que hay induración, existe infección por
+bacilo de Koch.
+e) La induración menor de 5mm se considera positiva en los individuos con
+riesgo de desarrollar la enfermedad (contacto íntimo con casos índices o
+sospechosos de tuberculosis independientes de BCG, pacientes
+sospechosos de tuberculosis clínicos o radiología y en pacientes con VIH).
+
+7.- Ana embarazada de 6 meses, refiere que en ocasiones ha observado pérdida de
+orina en pequeña cantidad al estornudar, al reírse y al toser. Según la NANDA
+Internacional, que diagnóstico de enfermería de presenta:
+a) Incontinencia urinaria funcional.
+b) Incontinencia urinaria de esfuerzo.
+c) Incontinencia urinaria de urgencia.
+d) Incontinencia urinaria refleja.
+e) Incontinencia mixta.
+
+8.- En el estudio de un paciente con una posible hepatitis B objetivamos los
+siguientes marcadores serológicos: HBsAg (-), anti-HbsAg (+), anti-HbeAg (+) y anti-
+HbcAg (+). El paciente con toda seguridad tendrá
+a) Una Hepatitis B crónica.
+b) Una Hepatitis B aguda.
+c) Está en la fase inicial de hepatitis B.
+d) El paciente está vacunado contra la hepatitis B.
+e) El paciente padeció una Hepatitis B recientemente pero ya está curado.
+
+9.- En el tratamiento de una quemadura, en relación a los materiales que respuesta
+es incorrecta:
+a) Los alginatos tienen gran poder de absorción y hemostático se pueden utilizar
+en quemaduras de 2º grado muy exudativas.
+b) Los poliuretanos de silicona son de baja adherencia.
+c) La sulfadiazina aréntica está indicada en quemaduras de grado 2º y 3º si la
+orografía de la quemadura lo requiere.
+d) El uso de hidrogeles está contraindicado porque las quemaduras ya son
+exudativas.
+e) Está recomendado en una quemadura de segundo grado retirar la piel y vaciar
+la flictena ya que el tejido está desvitalizado.
+
+10.- ¿Respecto al diagnóstico del VIH que respuesta es incorrecta?
+a) El test ELISA que detecta anticuerpos contra HIV es sensible y específica, salvo
+durante las primeras semanas posteriores a la infección.
+b) Las nuevas pruebas rápidas en sangre o saliva (p. ej., aglutinación de partículas,
+inmunoconcentración, inmunocromatografía) pueden llevarse a cabo en forma
+rápida (en 15 minutos) y sencilla, lo que permite la evaluación de pacientes en
+una amplia variedad de situaciones y su informe inmediato sin necesitar
+confirmación posterior.
+c) La medición del antígeno p24 de HIV (p24 es una proteína central del virus)
+mediante ELISA es menos sensible y específica que la detección directa del RNA
+viral en la sangre.
+d) El test ELISA que detecta anticuerpos contra HIV, si es positivo, debe ser
+confirmado con la prueba de Western-Bolt.
+
+
+CASOS PRÁCTICOS
+
+NÚMERO 1
+
+Al año de vida, y coincidiendo con un cuadro de otitis media aguda con fiebre de
+39ºC el niño presenta una convulsión de 5 minutos de duración. El niño es trasladado
+al servicio de Urgencias donde se le diagnostica una convulsión febril típica.
+
+1. ¿Cuál debe ser el manejo inicial del paciente?
+a) Sujetarlo a la camilla para que no se lesione
+b) Administrar anticomiciales por vía intravenosa
+c) Administrar anticomiciales por vía rectal
+d) Mantener la vía aérea permeable
+e) Valoración de una glucemia capilar para descartar causa metabólica
+
+2.- ¿Qué datos nos indican que es una convulsión típica?
+a) Desarrollo neurológico previo normal
+b) Coincidencia con un episodio infeccioso
+c) Convulsiones generalizadas breves que ocurren una vez durante 24 horas
+d) Duración menor de 15 minutos
+e) Todas las anteriores
+
+3.- Señala la falsa con respecto a la información a suministrar a los padres del niño
+a) Es probable que el cuadro se repita en otros episodios febriles
+b) El niño tiene el mismo riesgo que la población general de padecer epilepsia
+c) No hay mayor probabilidad de que sus hermanos padezcan el mismo
+cuadro
+d) No existe una lesión neurológica que esté provocando las convulsiones
+e) Son el trastorno convulsivo más frecuente de la infancia y afectan del 2% al
+5% de los niños de 6 a 60 meses de edad
+
+A los dos años de vida los padres traen al niño a Urgencias con un cuadro de
+dificultad respiratoria y fiebre de inicio nocturno y brusco, con dificultad para tragar
+la saliva y estridor inspiratorio y espiratorio. El niño aparece muy afectado con los
+brazos y el cuello extendido en posición de trípode
+
+4.- De entre los diagnósticos siguientes, ¿cuál es el más probable?
+a) Asma bronquial
+b) Laringitis aguda
+c) Laringotraqueítis viral
+d) Epiglotitis aguda
+e) Ninguna es correcta
+
+5.- ¿Cuál es el agente causal más frecuente?
+a) Virus respiratorio sincitial
+b) Haemophilus Influenzae tipo B
+c) Moraxella Catarrhalis
+d) Influenza virus
+e) Todas son correctas
+
+
+NÚMERO 2
+
+Julio, hombre de 72 años que actualmente se encuentra ingresado tras sufrir una
+caída en su domicilio. Operado hace 5 días y le han colocado una prótesis de cadera;
+anticoagulado con acenocumarol (Sintrom®). Padece hipertensión que precisa
+tratamiento. Vive con su mujer Olivia de su misma edad, ambos independientes para
+las ABVD. Tienen un hijo, que está casado.
+
+1.- Sabiendo que se trata de un paciente hipertenso, ¿cuál es la función de la
+enfermera?
+a) Centrarse exclusivamente en la administración del tratamiento farmacológico
+que ha sido prescrito por el geriatra.
+b) Realizar un seguimiento del efecto terapéutico que dicho tratamiento tiene
+sobre la TA de Julio.
+c) La función de la enfermera en este caso está encaminada en el tratamiento
+farmacológico, mediante el control de los factores de riesgo que son
+modificables.
+d) A y C son correctas.
+e) Todas son falsas.
+
+2.- ¿Cuáles son las complicaciones que puede sufrir Julio debido a su fractura?
+a) Embolia pulmonar.
+b) Úlceras por presión.
+c) Infección local o sistémica.
+d) Trombosis venosa profunda.
+e) Todas son correctas.
+
+3.-Su hijo cada vez que visita a Julio hace comentarios como "las personas de edad
+son delicadas, frágiles, no son conscientes de sus limitaciones, de ahí que sufran
+caídas con una frecuencia mayor". Este tipo de comentarios, ¿a qué hace referencia?
+a) Ideas típicas sobre la vejez.
+b) Indicio de sobrecarga familiar.
+c) Mito sobre la vejez.
+d) Se refiere a la teoría del retraimiento.
+e) Síndrome de Burnout.
+
+4.- Julio lleva 9 días ingresado y no ha hecho deposición hasta hoy, a pesar de que no
+le han prescrito laxantes su deposición ha sido diarreica. ¿Qué nos está indicando
+este tipo de deposición?
+a) Intolerancia a algún fármaco o alimento.
+b) Infección.
+c) Impactación fecal.
+d) Valorar cáncer de colon.
+e) Enfermedad inflamatoria intestinal.
+
+5.- Tras la cirugía, ¿qué momento sería el indicado para levantar al paciente?
+a) A las 24h.
+b) A las 48h.
+c) A los 5 días.
+d) Sentado en sillón a las 24h y a los 5 días usaría ya las muletas.
+e) A la semana.
+
+
+NÚMERO 3
+
+Miguel es un varón de 56 años, fumador desde hace 20 años de 20 cig/día.
+Diagnosticado de enfermedad pulmonar obstructiva crónica (EPOC) hace 15 años
+actualmente presenta una disnea de grado 4 que le dificulta la realización de las
+actividades básicas de la vida diaria. Tras estar ingreso en el Hospital por una
+infección respiratoria, ha decido dejar de fumar y cambiar sus hábitos de vida. Ha
+sido dado de alta con tratamiento con inhaladores y oxigeno domiciliario con lo que
+acude a la consulta de la enfermera de Atención Primaria.
+
+1.- A Miguel le han prescrito oxigenoterapia a 2 l/m mediante gafas nasales durante
+16 horas al día. Miguel le pregunta: "¿porque me ponen el oxígeno tan bajo cuando
+aún me cuesta tanto respirar?"
+a) Usted responde que la administración de bajas concentraciones evita el secado
+excesivo de las mucosas y estos pacientes tienen muchas secreciones.
+b) Usted responde que la administración de altas concentraciones de oxígeno
+tiene propiedades adictivas.
+c) Usted responde que la administración de oxigenoterapia a altas
+concentraciones inhibe el centro respiratorio cerebral.
+d) Usted responde que la no existe ninguna razón para ello, en todo momento lo
+que se ha de pretender es el bienestar del paciente.
+e) Usted responde que empiece con esa concentración de oxígeno y que vaya
+aumentando el flujo de oxígeno en su domicilio a medida que pasen los días.
+
+2.- Para el diagnóstico de su EPOC a Miguel le han realizado una espirometría
+forzada. De los siguientes parámetros todos corresponde a un patrón obstructivo
+excepto:
+a) Disminución del volumen espiratorio máximo en el primer segundo (FEV1).
+b) Aumento del Índice de Tiffeneau.
+c) Disminución de los índices del flujo.
+d) La capacidad vital forzada (FVC) se mantiene normal.
+e) Limitación del flujo aéreo en la espiración por aumento de las resistencias.
+
+3.- Miguel está en su consulta de Atención Primaria. Usted le explica la importancia
+de espirar con los labios fruncidos, especialmente cuando tienen disnea. Este hecho
+es para:
+a) Prevenir la broncoaspiración.
+b) Reducir las necesidades de O2.
+c) Promover una tos más enérgica.
+d) Favorece la ventilación de las bases pulmonares.
+e) Favorecer la eliminación del aire en la espiración.
+
+4.- A Miguel le han pautado inhaladores para el tratamiento de su EPOC. ¿Qué
+recomendación le daría después de cada toma?
+a) Que realice algún tipo de ejercicio moderado.
+b) Que realice varias inspiraciones y espiraciones seguidas después de la toma.
+c) Que enjuague la boca con agua sin tragarla.
+d) Que enjuague la boca con un antiséptico después de cada inhalación.
+e) Todas las respuestas son correctas.
+
+5.- Miguel le comenta que el médico le ha recetado 3 inhaladores distintos. ¿En qué
+orden le recomendará administrarlos?
+a) Broncodilatador, corticoide, Anticolinérgicos.
+b) Broncodilatador, anticolinérgico, corticoide.
+c) Corticoide, broncodilatador, Anticolinérgicos.
+d) Corticoide, Anticolinérgicos, broncodilatador.
+e) No importa el orden de administración si espera entre cada inhalador 30
+segundos.
+
+
+NÚMERO 4
+
+Carmen de 57 años, ha sido operada de un cáncer de colon y tras la cirugía es
+portadora de una Colostomía sigmoidea. Actualmente está en su domicilio. Vive sola
+y es independiente para las actividades instrumentales. La herida quirúrgica ya está
+cicatrizada y ya realiza una vida independiente.
+
+1.- Ha citado a Carmen en la consulta de Enfermería para valorar e instruir sobre el
+uso de los dispositivos de drenaje de ostomías. ¿Cuál de las siguientes
+recomendaciones sobre el cambio de dispositivo no es correcta?:
+a) Retirar las heces con papel higiénico y lavar la piel periostomal con agua
+templada y jabón neutro (opcional) o una toallita para limpiar la piel y el
+estoma.
+b) Secar bien la zona, dando toques suaves con una toalla y evaluar el estoma y
+la piel periostomal.
+c) Aplicar una barrera cutánea (opcional) y colocar la bolsa presionando
+suavemente durante 30 segundos para activar el adhesivo.
+d) La bolsa se debe cambiar cuando está completamente llena para no dañar la
+piel periostomal.
+e) Le recomienda una bolsa cerrada y con filtro, ya que las heces son formadas.
+
+2.- Carmen se queja de estreñimiento severo y después de una exploración decide
+ponerle un enema por colostomía. ¿Qué opción es verdadera en relación a la técnica
+de administración?
+a) Solución máxima a administrar 800-1200cc a 37ºC a la altura del hombro del
+paciente.
+b) Colocar al paciente en posición de semifowler.
+c) Lubricar la sonda Foley e introducirla lentamente, a través del estoma, no más
+de 10cc. Comenzar a irrigar lentamente
+d) No forzar nunca la inserción de un tubo y no administrar la solución de forma
+rápida.
+e) Todas las anteriores son correctas
+
+3.- Usted le recomienda a Carmen tener cuidado con la ingesta de ciertos alimentos
+que pueden generar gases o mal olor. En las colostomías, el olor de las heces se
+puede controlar tomando:
+a) Mantequilla.
+b) Yogurt.
+c) Queso fresco.
+d) Perejil.
+e) Todas son verdaderas
+
+4.- ¿Cuál de las siguientes recomendaciones sobre actividades de la vida diaria es
+adecuada para Carmen?:
+a) Deberá evitar bañarse, ni con bolsa ni sin ella.
+b) No puede realizar actividades deportivas.
+c) No puede llevar faja encima de la bolsa.
+d) Conviene que beba abundante líquidos para evitar la deshidratación.
+e) Todas son recomendaciones adecuadas para Carmen.
+
+5.- Carmen acude a la consulta de enfermería de Atención Primaria para instruirle en
+el uso de la colostomía. Le pregunta sobre el uso de un obturador para ir a la piscina,
+¿en qué tipo de estomas de eliminación se puede recomendar?
+a) Colostomías de sigma.
+b) Colostomías transversas.
+c) Ileostomías.
+d) Urostomías.
+e) Se puede utilizar en todas las colostomías.
+
+
+NÚMERO 5
+
+Mujer de 72 años, con HTA y antecedentes de insuficiencia venosa crónica. Estuvo
+ingresada en la UCI por un atropello que le produjo una fractura de fémur derecho
+que requirió intervención quirúrgica. Actualmente está en seguimiento en consulta
+de enfermería de atención primaria para control de enfermedades crónicas y
+fomento del autocuidado.
+Presenta una úlcera por presión en sacro de categoría III y una úlcera en tercio distal
+inferior en pierna izquierda desde hace tres meses, pulsos conservados, exudado
+seroso y piel periulceral macerada. Tiene un índice Tobillo Brazo (ITB) 0.9.
+
+1.- ¿Qué tipo de compresión aplicarías?:
+a) A pesar de los síntomas, el ITB nos indica que nos encontramos ante una
+isquemia severa en la que está contraindicada la compresión.
+b) El ITB nos indica que estamos ante una úlcera mixta, en la que está
+contraindicada la compresión fuerte y puede realizarse compresión de 20
+mmHg bajo prescripción médica.
+c) El ITB es innecesario. Los síntomas muestran una ulcera venosa que requiere
+compresión con vendaje elástico con una capa.
+d) El ITB nos indica que estamos ante una ulcera venosa en la que está indicada la
+aplicación de compresión fuerte de 40 mmHg mediante vendaje multicapa.
+
+2.- El soporte nutricional favorece la cicatrización de las úlceras y evita su aparición,
+¿qué recomendación dietética le daríamos a un paciente con una úlcera de categoría
+III?
+a) Consumo de proteínas entre 1'5-2 gr/Kg peso/día.
+b) Consumo de agua 30 ml/Kg peso/ día.
+c) Consumo de calorías 30 Kcal/Kg peso/ día.
+d) No se recomienda el consumo de alimentos ricos en vitamina C mientras la
+úlcera no esté regenerada.
+e) Todas son correctas
+
+3.- En el tratamiento de una úlcera por presión, en relación a los materiales que
+respuesta es incorrecta:
+a) El hidrogel aporta humedad y favorece el desbridamiento autolítico.
+b) Los ácidos grasos hiperoxigenados mejoran la hidratación de la piel y mantiene
+la oxigenación del tejido aumentando la microcirculación.
+c) Los hidrocoloides se usan para el desbridamiento enzimático y alivian el dolor.
+d) El carbón inactiva el olor actuando sobre el exudado.
+e) Los apósitos con plata son antibacterianos y no crean resistencias.
+
+4.- ¿Cuál de las siguientes son escalas de valoración del riesgo de lesión por
+humedad?
+a) Escala de Bradem
+b) Escala de Wagner.
+c) Escala Visual del eritema (EVE)
+d) Escala de Fontaine.
+e) La respuesta b y c son correctas
+
+5.- En relación al tratamiento de la úlcera venosa, ¿Cuál estaría contraindicado?
+a) Elevar los pies de la cama 15 a 20 cm.
+b) Terapia compresiva.
+c) Reposo en cama.
+d) Evitar permanecer mucho tiempo de pie.
+e) Mantener una buena hidratación de la piel.

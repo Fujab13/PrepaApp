@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom'
 import { supabase } from '../services/supabaseClient'
 import { useAuth } from '../context/AuthContext'
 import { useMusic } from '../context/MusicContext'
+import { resolverAvatarUsuario } from '../utils/avatar'
 
 import { FaCreditCard } from "react-icons/fa6";
 import { FaUserGraduate } from "react-icons/fa";
@@ -23,6 +24,15 @@ export default function Sidenav({ open, onClose }) {
   const { user, esAdmin } = useAuth()
   const music = useMusic()
   const [hoveredBtn, setHoveredBtn] = useState(null);
+  const [avatarSrc, setAvatarSrc] = useState(null);
+  const [avatarError, setAvatarError] = useState(false);
+
+  useEffect(() => {
+    let cancelado = false;
+    setAvatarError(false);
+    resolverAvatarUsuario(user).then((src) => { if (!cancelado) setAvatarSrc(src); });
+    return () => { cancelado = true; };
+  }, [user]);
 
   async function cerrarSesion() {
     await supabase.auth.signOut()
@@ -77,20 +87,31 @@ export default function Sidenav({ open, onClose }) {
           padding: '4px'
         }}>
           <div style={{
-            width: 48, 
-            height: 48, 
+            width: 48,
+            height: 48,
             borderRadius: '50%',
-            background: 'linear-gradient(135deg, var(--surface2), var(--surface))', 
+            background: 'linear-gradient(135deg, var(--surface2), var(--surface))',
             border: '1px solid rgba(255,255,255,0.05)',
             display: 'flex',
-            alignItems: 'center', 
-            justifyContent: 'center', 
+            alignItems: 'center',
+            justifyContent: 'center',
             fontSize: '1.3rem',
             color: '#8482e0',
             flexShrink: 0,
+            overflow: 'hidden',
             boxShadow: 'inset 0 2px 4px rgba(0,0,0,0.05)'
           }}>
-            <RiUser3Fill />
+            {user && avatarSrc && !avatarError ? (
+              <img
+                src={avatarSrc}
+                alt=""
+                referrerPolicy="no-referrer"
+                onError={() => setAvatarError(true)}
+                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+              />
+            ) : (
+              <RiUser3Fill />
+            )}
           </div>
           <div style={{ overflow: 'hidden' }}>
             {user ? (

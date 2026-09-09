@@ -36,3 +36,22 @@ export async function obtenerResultadosPorEmail(email) {
 
   return data ?? [];
 }
+
+/**
+ * Trae el progreso de lecciones (unidad/elemento por materia) de un alumno
+ * por su correo (RPC SECURITY DEFINER `obtener_progreso_por_email`, ver
+ * migración 20260908130000). Una fila por materia en la que el alumno ya
+ * tiene avance guardado.
+ */
+export async function obtenerProgresoPorEmail(email) {
+  const { data, error } = await supabase.rpc('obtener_progreso_por_email', {
+    p_email: email,
+  });
+
+  if (error) {
+    console.error('[informes] No se pudo cargar el progreso de lecciones:', error.message);
+    return [];
+  }
+
+  return data ?? [];
+}

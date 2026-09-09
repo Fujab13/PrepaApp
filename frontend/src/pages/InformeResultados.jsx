@@ -22,9 +22,11 @@
 import { useMemo, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import { obtenerFormulariosPorEmail, obtenerResultadosPorEmail } from "../services/informes";
+import { obtenerFormulariosPorEmail, obtenerResultadosPorEmail, obtenerProgresoPorEmail } from "../services/informes";
 import { calcularStatsPorSeccion } from "../utils/examenStats";
 import { PREGUNTAS } from "../data/examen";
+import { MATERIAS } from "../data/leccionesGratis";
+import { getTotalUnidades } from "../data/unidades";
 import { inputStyle } from "../utils/tutorias";
 import { imprimirComoPdf, nombrePdf } from "../utils/imprimirPdf";
 
@@ -32,6 +34,7 @@ import { AiOutlineClose } from "react-icons/ai";
 import {
   HiOutlinePrinter, HiOutlineAcademicCap, HiOutlineFlag, HiOutlineClock,
   HiOutlineMagnifyingGlass, HiChevronDown, HiChevronUp, HiOutlineUserGroup,
+  HiOutlineChartBar,
 } from "react-icons/hi2";
 import { GiJewelCrown, GiQueenCrown } from "react-icons/gi";
 import { CgCrown } from "react-icons/cg";
@@ -416,6 +419,51 @@ function VistaExamen({ datos }) {
   );
 }
 
+// ── Vista: progreso de lecciones por materia (modo maestro únicamente) ─────
+// A diferencia del formulario/examen (una respuesta puntual), el progreso es
+// "cuánto lleva avanzado" en cada materia con lección gratuita — se calcula
+// contra el mismo total de unidades que usa Leccion.jsx (getTotalUnidades),
+// para que el porcentaje que ve el maestro sea el mismo que vería el alumno.
+function VistaProgreso({ progreso }) {
+  const filas = progreso.map((p) => {
+    // Lecciones gratuitas: el total de unidades se conoce localmente (mismo
+    // JSON que carga el alumno). Lecciones premium (materia_id
+    // "premium-<producto_id>", ver Leccion.jsx): no hay forma de saber su
+    // total de unidades sin descargar el JSON privado del bucket, así que
+    // solo se muestra la unidad actual, sin porcentaje ni "de Y".
+    const materia = MATERIAS.find((m) => m.id === p.materia_id);
+    const totalUnidades = materia ? getTotalUnidades(materia.preguntas) : null;
+    const unidadesCompletas = totalUnidades ? Math.min(Math.max(p.unidad_actual - 1, 0), totalUnidades) : 0;
+    const pct = totalUnidades ? Math.round((unidadesCompletas / totalUnidades) * 100) : 0;
+    return {
+      id: p.materia_id,
+      label: materia?.nombre || p.nombre_premium || p.materia_id,
+      color: materia?.color || "#7c5cbf",
+      valorTexto: totalUnidades
+        ? `Unidad ${unidadesCompletas} de ${totalUnidades} · ${pct}%`
+        : `Unidad ${Math.max(p.unidad_actual - 1, 0)}`,
+      pct,
+      ultimaInteraccion: p.ultima_interaccion,
+    };
+  });
+
+  return (
+    <Tarjeta>
+      {filas.map((f) => (
+        <Barra key={f.id} label={f.label} valorTexto={f.valorTexto} pct={f.pct} color={f.color} />
+      ))}
+      {(() => {
+        const fechas = filas.map((f) => f.ultimaInteraccion).filter(Boolean).sort();
+        return fechas.length > 0 && (
+          <p style={{ fontSize: 11, color: "var(--text-muted)", margin: "4px 0 0" }}>
+            Última actividad: {fmtFecha(fechas[fechas.length - 1])}
+          </p>
+        );
+      })()}
+    </Tarjeta>
+  );
+}
+
 // ── Encabezado sticky reutilizable ──────────────────────────────────────────
 function Topbar({ titulo, onSalir, onImprimir }) {
   return (
@@ -529,10 +577,16 @@ function TarjetaAlumno({ alumno }) {
 
       {abierto && (
         <div style={{ borderTop: "0.5px solid var(--surface)", paddingTop: 14 }}>
-          {!formulario && !examen && (
+          {!formulario && !examen && alumno.progreso.length === 0 && (
             <p style={{ fontSize: 12.5, color: "var(--text-muted)", textAlign: "center", margin: "8px 0" }}>
-              Este correo no tiene formulario de área ni examen registrados todavía.
+              Este correo no tiene formulario de área, examen ni progreso de lecciones registrados todavía.
             </p>
+          )}
+
+          {alumno.progreso.length > 0 && (
+            <Section title="Progreso de lecciones">
+              <VistaProgreso progreso={alumno.progreso} />
+            </Section>
           )}
 
           {formulario && (
@@ -584,6 +638,7 @@ const FILTROS_ALUMNO = [
   { id: "Todos", etiqueta: "Todos" },
   { id: "Con formulario", etiqueta: "Con formulario" },
   { id: "Con examen", etiqueta: "Con examen" },
+  { id: "Con progreso", etiqueta: "Con progreso" },
 ];
 
 function PaginaMaestro({ user, navigate }) {
@@ -604,22 +659,24 @@ function PaginaMaestro({ user, navigate }) {
     setErrorBusqueda("");
     setCargando(true);
     const resultado = await Promise.all(emailsDetectados.map(async (email) => {
-      const [formularios, examenes] = await Promise.all([
+      const [formularios, examenes, progreso] = await Promise.all([
         obtenerFormulariosPorEmail(email),
         obtenerResultadosPorEmail(email),
+        obtenerProgresoPorEmail(email),
       ]);
-      return { email, formularios, examenes };
+      return { email, formularios, examenes, progreso };
     }));
     setCargando(false);
     setAlumnos(resultado);
   }
 
   const conteos = useMemo(() => {
-    if (!alumnos) return { Todos: 0, "Con formulario": 0, "Con examen": 0 };
+    if (!alumnos) return { Todos: 0, "Con formulario": 0, "Con examen": 0, "Con progreso": 0 };
     return {
       Todos: alumnos.length,
       "Con formulario": alumnos.filter((a) => a.formularios.length > 0).length,
       "Con examen": alumnos.filter((a) => a.examenes.length > 0).length,
+      "Con progreso": alumnos.filter((a) => a.progreso.length > 0).length,
     };
   }, [alumnos]);
 
@@ -629,6 +686,7 @@ function PaginaMaestro({ user, navigate }) {
     return alumnos.filter((a) => {
       if (filtro === "Con formulario" && a.formularios.length === 0) return false;
       if (filtro === "Con examen" && a.examenes.length === 0) return false;
+      if (filtro === "Con progreso" && a.progreso.length === 0) return false;
       if (!q) return true;
       const nombre = a.formularios[0]?.nombre?.toLowerCase() ?? "";
       return a.email.includes(q) || nombre.includes(q);

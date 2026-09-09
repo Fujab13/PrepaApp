@@ -148,9 +148,6 @@ function RankingSemanal() {
         <p style={{ margin: 0, fontSize: 15, fontWeight: 800, color: "var(--text)", letterSpacing: 0.3 }}>
           Ranking Semanal
         </p>
-        <p style={{ margin: "4px 0 0", fontSize: 12, color: "var(--text-muted)", lineHeight: 1.5, maxWidth: 300 }}>
-          Los alumnos más activos de los últimos 7 días: lecciones completadas y Examen Simulador.
-        </p>
       </div>
 
       {/* "Tu posición": el ranking visible solo llega a 100 lugares, pero

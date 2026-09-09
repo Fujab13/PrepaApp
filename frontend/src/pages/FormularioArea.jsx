@@ -191,10 +191,15 @@ export default function FormularioArea() {
 
   useConfirmarSalida(hayDatosSinGuardar, confirmarSalir);
 
+  function mostrarError(texto) {
+    setError(texto);
+    setTimeout(() => setError(""), 2600);
+  }
+
   async function generarInforme() {
-    if (!nombre.trim()) return setError("Escribe tu nombre para generar el informe.");
-    if (!grado) return setError("Selecciona tu grado de preparatoria.");
-    if (!areaInteres) return setError("Selecciona el área a la que deseas aplicar.");
+    if (!nombre.trim()) return mostrarError("Escribe tu nombre para generar el informe.");
+    if (!grado) return mostrarError("Selecciona tu grado de preparatoria.");
+    if (!areaInteres) return mostrarError("Selecciona el área a la que deseas aplicar.");
     setError("");
 
     // Se persiste en Supabase (solo si hay sesión) para que /tutorias pueda
@@ -326,10 +331,28 @@ export default function FormularioArea() {
           <input style={inputStyle} placeholder="Teléfono de contacto" type="tel" value={tutorTelefono} onChange={(e) => setTutorTelefono(e.target.value)} />
         </Seccion>
 
-        {error && (
-          <p style={{ color: "var(--wrong)", fontSize: 13, textAlign: "center", margin: 0 }}>{error}</p>
-        )}
       </main>
+
+      {error && (
+        <div className="sp-toast" style={{
+          position: "fixed",
+          bottom: 88,
+          left: "50%",
+          transform: "translateX(-50%)",
+          background: "var(--wrong)",
+          color: "#000000",
+          fontWeight: 700,
+          fontSize: "0.85rem",
+          padding: "12px 20px",
+          borderRadius: 12,
+          maxWidth: "90%",
+          textAlign: "center",
+          boxShadow: "0 4px 16px rgba(0,0,0,0.3)",
+          zIndex: 200,
+        }}>
+          {error}
+        </div>
+      )}
 
       {/* ── BARRA INFERIOR ── */}
       <footer className="page-footer-fixed">

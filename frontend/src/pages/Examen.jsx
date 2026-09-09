@@ -10,6 +10,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { PREGUNTAS as PREGUNTAS_DEFAULT, SECCIONES as SECCIONES_DEFAULT } from "../data/examen.js";
 import SidenavMatrix from "../components/SidenavMatrix";
 import ConfirmDialog from "../components/ConfirmDialog";
+import Latex from "../components/Latex";
 import { useAuth } from "../context/AuthContext";
 import { supabase } from "../services/supabaseClient";
 import { calcularStatsPorSeccion } from "../utils/examenStats";
@@ -546,15 +547,15 @@ export default function Examen() {
           padding: "14px 16px",
           marginBottom: 14,
         }}>
-          <p style={{
-            margin: 0,
+          <div style={{
             fontSize: 15,
             lineHeight: 1.65,
             color: "var(--text)",
-            whiteSpace: "pre-wrap",
+            wordBreak: "break-word",
+            overflowWrap: "break-word",
           }}>
-            {pregunta.pregunta}
-          </p>
+            <Latex texto={pregunta.pregunta} />
+          </div>
         </div>
 
         {/* SVG de la pregunta (si existe) */}
@@ -626,9 +627,9 @@ export default function Examen() {
                 </div>
 
                 {/* Texto de la opción */}
-                <span style={{ fontSize: 14, lineHeight: 1.55, flex: 1 }}>
-                  {opcion.slice(3)} {/* quita "X. " del inicio */}
-                </span>
+                <div style={{ fontSize: 14, lineHeight: 1.55, flex: 1, wordBreak: "break-word", overflowWrap: "break-word" }}>
+                  <Latex texto={opcion.slice(3)} /> {/* quita "X. " del inicio */}
+                </div>
               </button>
             );
           })}

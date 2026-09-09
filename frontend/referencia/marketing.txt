@@ -1,0 +1,251 @@
+OPERACIÓN FOLIO
+Campaña de marketing a costo $0 para PrepaApp
+====================================================
+Formato: misión con fases secuenciales, como una campaña de videojuego.
+Cada fase se apoya en la anterior — no hace falta esperar a "tener presupuesto"
+para pasar a la siguiente, solo tiempo y constancia.
+
+Por qué "Operación Folio": el folio de admitido es el objeto de deseo de
+todo aspirante. Toda la campaña gira alrededor de una sola promesa, repetida
+de mil formas distintas: "aquí está el camino a tu folio". Encaja además con
+el tono gamificado que YA tiene la app (monedas, ranking semanal, exámenes
+tipo "misión") — no es un tono nuevo que inventar, es el mismo que ya vive
+adentro del producto, solo que ahora también hacia afuera.
+
+
+ANTES DE EMPEZAR: TU MUNICIÓN GRATIS
+--------------------------------------
+Ya existe dentro del producto (o casi) todo lo que una campaña de
+influencers pagados vendería como "contenido premium". No hay que crear
+nada desde cero para arrancar, solo empacar lo que ya hay:
+
+  - El examen de diagnóstico (/examen) → "resultado personalizado en 20 min"
+  - El Formulario de Área + Informe de Resultados (PDF descargable) →
+    un artefacto para compartir ("mira mi reporte")
+  - El Ranking Semanal (Tutorias.jsx) → competencia pública, ya tiene podio
+  - Las lecciones/lecturas gratis de Español y Matemáticas → prueba sin
+    fricción, sin pedir tarjeta
+  - Los profesores de Tutorías, que YA ganan dinero por cada alumno → un
+    ejército de embajadores con incentivo económico propio, no hay que
+    convencerlos de nada que no les convenga a ellos también
+  - Instagram @prepaappcontacto, Facebook "Clases online" y el WhatsApp de
+    contacto (ya enlazados en el pie de Home.jsx) → canales activos, solo
+    faltaría publicar en ellos con más frecuencia e intención
+
+
+FASE 0 — RECONOCIMIENTO (antes de publicar nada)
+---------------------------------------------------
+Objetivo: saber a quién le hablas antes de gritar al vacío.
+
+  1. Elige a los primeros 20-30 "reclutas": compañeros de tu propia prepa,
+     primos, gente de tu grupo de WhatsApp de la escuela. No son tu
+     audiencia final, son tus primeros probadores y tu fuente de
+     retroalimentación real.
+  2. Mándales un mensaje personal (NO una publicación genérica) invitándolos
+     a hacer el examen de diagnóstico gratis. Pídeles honestidad: ¿qué no
+     entendieron?, ¿qué se sintió confuso?, ¿lo recomendarían?
+  3. Con eso arma tus primeros 3 "testimonios reales" — capturas de pantalla
+     de sus resultados o mensajes de WhatsApp diciendo qué les sirvió. Esto
+     es tu materia prima para TODA la fase 2 (nada de contratar actores ni
+     comprar reseñas: usa gente real que ya conoces).
+
+Costo: $0. Tiempo estimado: 3-5 días.
+
+
+FASE 1 — SEMILLA (semana 1-2)
+---------------------------------
+Objetivo: las primeras 100 cuentas registradas, sin gastar en nada.
+
+  1. Publica en tu propio estado de WhatsApp / historia de Instagram, 3
+     veces por semana, alternando estos 3 tipos de post (todos con el
+     mismo gancho: "¿ya sabes cuánto te falta para tu folio?"):
+       a) Un dato curioso de examen ("¿sabías que el 60% de los aspirantes
+          reprueba por Matemáticas, no por Español?" — verifica el dato
+          real o usa uno genérico tipo "muchos aspirantes fallan por...").
+       b) Una captura del Ranking Semanal con el top 3 de la semana
+          ("¿tú dónde quedarías?").
+       c) Un testimonio de la Fase 0 con captura de su resultado.
+  2. Pide a tus primeros reclutas que ellos también compartan su resultado
+     del examen en SU estado — no como obligación, como algo que dé gusto
+     presumir (el ranking y el informe de resultados ya están diseñados
+     para eso, solo falta pedirlo explícitamente).
+  3. Une los 3-5 grupos de WhatsApp de tu propia generación/prepa a los que
+     tengas acceso legítimo y comparte ahí el link del examen gratuito UNA
+     vez (no satures), con un mensaje corto y útil, no publicitario:
+     "Hice este examen de diagnóstico gratis para el examen de admisión,
+     está bien para saber en qué estás flojo. Se los dejo por si sirve:
+     [link]".
+
+Costo: $0. Métrica de éxito: usuarios registrados (ya lo mides en
+AdminPagos → "Usuarios registrados"). Meta sugerida: 100 en dos semanas.
+
+
+FASE 2 — CONTENIDO QUE SE MUEVE SOLO (semana 2-4, TikTok + Reels)
+----------------------------------------------------------------------
+Objetivo: que gente que NO te conoce empiece a llegar sola.
+
+Tu público (aspirantes de prepa) vive en TikTok e Instagram Reels, no en
+Facebook. Ahí es donde se juega esta fase. No necesitas cámara buena ni
+edición profesional — el formato que mejor funciona en este nicho es
+"pantalla de celular + voz en off", que se graba gratis con el celular.
+
+Ideas de video, listas para grabar (guión de 15-30 segundos cada uno):
+
+  1. "POV: encuentras la app que debiste tener desde 3° de prepa"
+     — screen recording navegando la app, mostrando lecciones/ranking,
+     tono de descubrimiento genuino, no de comercial.
+
+  2. "Reaccionando a mi resultado del examen de diagnóstico"
+     — grabas tu cara mientras haces el examen en vivo y reaccionas al
+     puntaje final. Formato "reacción" es de los que más se comparte.
+
+  3. "3 preguntas que TODOS fallan en el examen de admisión"
+     — toma 3 preguntas reales del banco de preguntas (español o
+     matemáticas), muéstralas en pantalla, deja 3 segundos de pausa para
+     que el espectador piense su respuesta, revela la correcta y explica
+     el error común. Este formato es perfecto para producir en serie: hay
+     cientos de preguntas ya escritas en data/lecciones — hazlo semanal.
+
+  4. "Le enseñé a mi [hermano/prima/amigo] a estudiar con esto y así quedó
+     su ranking en una semana"
+     — historia con antes/después del ranking semanal.
+
+  5. "Cosas que nadie te dice del proceso de admisión"
+     — usa los puntos del calendario de admisión (convocatoria, registro,
+     documentos, resultados) como guión, uno por video, formato lista.
+
+Ritmo sugerido: 2-3 videos por semana, mismo horario, mismo gancho de
+apertura las primeras 2 palabras ("¿Sabías qué...", "POV:", "Nadie te dice
+que...") para que el algoritmo empiece a reconocer el formato como tuyo.
+
+Costo: $0 (celular + luz natural). Tiempo: la parte más cara es tu tiempo,
+no dinero — bloquea 1-2 horas semanales fijas para grabar todo de golpe.
+
+
+FASE 3 — ALIADOS EN EL TERRENO: LOS PROFESORES (continua, desde ya)
+------------------------------------------------------------------------
+Objetivo: convertir a cada profesor de Tutorías en un canal de difusión,
+sin pagarles nada extra por hacerlo — ya tienen el incentivo (más alumnos
+= más ingresos para ellos vía ofertas_maestro).
+
+  1. Mándales un mensaje directo (no un aviso genérico) pidiéndoles que
+     compartan su propio perfil (/perfil-profesor/:id) en sus redes o
+     grupos de alumnos — es gratis para ellos y les trae más clases.
+  2. Sugiéreles un mensaje tipo: "Doy clases de [materia] por PrepaApp,
+     agenda directo aquí: [link a su perfil]". Dales el texto ya armado,
+     entre menos fricción, más probable que lo usen.
+  3. Reconoce públicamente (en tu Instagram/Facebook) al profesor mejor
+     calificado del mes, citando su calificación real (ya la tienes en
+     "Calificaciones de profesor"). Es contenido gratis para ti Y
+     publicidad gratis para ellos — todos ganan.
+
+Costo: $0, es solo mensajería y reconocimiento.
+
+
+FASE 4 — INFILTRACIÓN ESCOLAR (boca a boca físico, casi gratis)
+--------------------------------------------------------------------
+Objetivo: presencia física donde de verdad están tus aspirantes, sin pagar
+publicidad.
+
+  1. Habla con 2-3 orientadores vocacionales o prefectos de prepas cercanas
+     (los que ya conoces o puedes conseguir cita) y ofréceles el examen de
+     diagnóstico gratis como "herramienta de orientación vocacional" para
+     sus alumnos de último semestre — es información real que a ellos
+     también les sirve, no es solo publicidad para ti.
+  2. Si tienes forma de imprimir barato (impresora propia, papelería
+     económica), un cartel simple con QR al examen gratuito en el pizarrón
+     de avisos de tu propia prepa cuesta unos cuantos pesos, no publicidad
+     pagada real — pero si de plano el presupuesto es $0 duro, sustitúyelo
+     por publicarlo en el grupo oficial de WhatsApp/Facebook de tu
+     generación, que no cuesta nada.
+  3. Ofrece dar tú mismo una charla de 10 minutos en un grupo/salón sobre
+     "cómo prepararte para tu examen de admisión sin pagar cursos caros" —
+     mencionas la app al final, como recurso, no como pitch de venta. Esto
+     es más persuasivo que cualquier anuncio: viene de alguien que ya pasó
+     por ahí.
+
+Costo: $0 a casi $0 (impresión opcional).
+
+
+FASE 5 — EL BUCLE VIRAL: REFERIDOS (sugerencia de desarrollo, no existe aún)
+---------------------------------------------------------------------------
+Hoy la app NO tiene ningún sistema de referidos — lo revisé en el código y
+no existe (busqué "referido", "invita", "compartir" en todo src/, nada).
+Es la pieza que más apalancaría todo lo de arriba, y es barata de construir
+porque ya existe la mitad de la infraestructura:
+
+  - `StoreContext.jsx` ya tiene `addCoins(amount)` funcionando (línea
+    130-132) — dar monedas de recompensa por invitar a un amigo es
+    reutilizar una función que YA EXISTE, no escribir nada nuevo desde
+    cero.
+  - Mecánica sugerida: cada usuario tiene un código/link de invitación
+    (puede ser tan simple como `?ref=<user_id>` en la URL de registro).
+    Cuando un invitado completa su primer examen o lección, AMBOS ganan
+    monedas (el que invita Y el invitado) — así el invitado también tiene
+    motivo para aceptar la invitación, no es un favor unilateral.
+  - Esto convierte cada fase anterior en algo auto-replicable: cada
+    persona que llega por TikTok, por un profesor o por un cartel, tiene
+    un motivo económico interno (monedas de la Tienda) para seguir
+    invitando más gente, sin que tú sigas empujando manualmente cada vez.
+
+Esta fase requiere una migración chica en Supabase + un par de componentes
+nuevos — cuando quieras, puedo diseñarla e implementarla contigo.
+
+
+FASE 6 — CUENTA REGRESIVA (urgencia estacional, usa el calendario real)
+----------------------------------------------------------------------------
+Objetivo: convertir "algún día lo voy a usar" en "lo necesito ya".
+
+El miedo/urgencia más real de tu audiencia no lo inventas tú, ya existe:
+las fechas oficiales del proceso de admisión (convocatoria, registro,
+pago, documentos, resultados). En cuanto la convocatoria del ciclo se
+publique:
+
+  1. Publica una cuenta regresiva simple en tus redes ("Faltan X días para
+     el registro / para el examen") — recicla el mismo formato semana con
+     semana, cambiando solo el número.
+  2. Un video por cada fecha clave explicando QUÉ hay que hacer en esa
+     etapa (documentos, pasos del registro) — esto no es "marketing" puro,
+     es contenido de utilidad real que de paso lleva tu marca, así que se
+     comparte más y se siente menos a anuncio.
+  3. Manda un mensaje de WhatsApp a tu lista de contactos/grupos una sola
+     vez por cada fecha límite importante ("recuerda que el registro cierra
+     el [fecha], aquí puedes repasar antes de tu examen: [link]") — no más
+     de una vez por fecha, para no quemar el canal.
+
+Costo: $0. Esta fase depende de que uses las fechas OFICIALES y
+verificadas del ciclo vigente (no las inventes ni uses las del README
+viejo, que ya están obsoletas) — confírmalas en la fuente oficial antes de
+publicar cualquier fecha.
+
+
+FASE 7 — DEBRIEF (mide, sin herramientas de pago)
+------------------------------------------------------
+Objetivo: saber qué funcionó, gratis, con lo que ya tienes.
+
+  - Usuarios registrados: ya lo ves en /admin/pagos ("Usuarios
+    registrados") — anótalo cada lunes, sin falta, para ver la curva.
+  - Alcance orgánico: Instagram y TikTok dan estadísticas gratis de
+    alcance/interacciones por publicación en su propio panel — no hace
+    falta ninguna herramienta externa de pago.
+  - Qué contenido jala: compara qué tipo de video (de la lista de la
+    Fase 2) trajo más registros en los 2-3 días siguientes a publicarlo —
+    duplica el formato que mejor funcionó, abandona el que no.
+  - Boca a boca real: pregunta directamente a los nuevos registrados de
+    dónde se enteraron (un simple "¿cómo llegaste a la app?" por WhatsApp
+    a los primeros 20-30 usuarios de cada semana te da más información real
+    que cualquier dashboard).
+
+Repite el ciclo Fase 2 → Fase 7 cada 2-3 semanas, ajustando el guión de
+los videos según lo que sí funcionó.
+
+
+RESUMEN EJECUTABLE (por si solo quieres la ruta, no la explicación)
+------------------------------------------------------------------------
+Semana 1:    Fase 0 (reconocimiento) + arrancar Fase 1 (semilla)
+Semana 2-4:  Fase 1 en paralelo con Fase 2 (2-3 videos/semana) + Fase 3
+             (mensaje a profesores) arrancan desde ya y quedan corriendo
+Continuo:    Fase 4 cuando tengas oportunidad de una plática/cartel
+Cuando puedas: Fase 5 (pídeme ayuda para construir el sistema de referidos)
+En cuanto salga la convocatoria: Fase 6
+Cada 2-3 semanas: Fase 7, y se repite el ciclo
