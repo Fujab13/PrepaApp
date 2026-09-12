@@ -73,7 +73,7 @@ function calcularFraccionFuera(dx, dy, anchoContenedor, altoContenedor) {
   return { fueraX, fueraY, haciaIzquierda: dx < 0, haciaAbajo: dy > 0 }
 }
 
-export default function TarjetaRepaso({ pregunta, estados, respondido, color, onResponder, leyendo, onLeer, onExplicar }) {
+export default function TarjetaRepaso({ pregunta, estados, respondido, color, onResponder, leyendo, onLeer, onExplicar, pista = false }) {
   const contenedorRef = useRef(null)
   const arrastreRef = useRef(null) // { inicioX, inicioY, activo }
 
@@ -216,6 +216,7 @@ export default function TarjetaRepaso({ pregunta, estados, respondido, color, on
           estado={estados?.[z.indiceOriginal]}
           respondido={respondido}
           estiloZona={estiloZona}
+          esPista={pista && z.indiceOriginal === pregunta.correcta}
         />
       ))}
 
@@ -309,7 +310,7 @@ export default function TarjetaRepaso({ pregunta, estados, respondido, color, on
 // región (ver soltarArrastre/elegir arriba); un tap accidental sobre una
 // respuesta ya no cuenta. El único feedback es el color del texto/ícono y
 // un ligero "pop" de escala (ver estiloZona).
-function Zona({ zonaId, opcion, indiceOriginal, estado, respondido, estiloZona }) {
+function Zona({ zonaId, opcion, indiceOriginal, estado, respondido, estiloZona, esPista }) {
   const { texto, escala } = estiloZona(zonaId, indiceOriginal)
   const pos = POSICION_ZONA[zonaId]
   const esFranjaHorizontal = zonaId === 'abajo'
@@ -321,6 +322,7 @@ function Zona({ zonaId, opcion, indiceOriginal, estado, respondido, estiloZona }
   return (
     <div
       data-testid={`zona-repaso-${zonaId}`}
+      data-pista-mascota={esPista ? 'true' : undefined}
       style={{
         position: 'absolute',
         ...pos,

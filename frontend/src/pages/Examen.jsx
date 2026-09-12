@@ -12,10 +12,13 @@ import SidenavMatrix from "../components/SidenavMatrix";
 import ConfirmDialog from "../components/ConfirmDialog";
 import Latex from "../components/Latex";
 import { useAuth } from "../context/AuthContext";
+import { useStore } from "../context/StoreContext";
 import { supabase } from "../services/supabaseClient";
 import { calcularStatsPorSeccion } from "../utils/examenStats";
 import { obtenerExamenDeSesion } from "../services/examenesPremium";
 import { useConfirmarSalida } from "../hooks/useConfirmarSalida";
+import { useImpulsoActivo } from "../hooks/useImpulsoActivo";
+import MascotaCompanera from "../components/MascotaCompanera";
 
 import { AiOutlineClose, AiOutlineLoading3Quarters } from "react-icons/ai";
 import { IoIosArrowBack } from "react-icons/io";
@@ -62,6 +65,14 @@ export default function Examen() {
   const navigate   = useNavigate();
   const { examenId } = useParams();
   const { user }   = useAuth();
+
+  // "Pista" de la mascota compañera (ver MascotaCompanera.jsx, la estrella
+  // en Mascota.jsx → Tu colección, y utils/mascotasEstado.js: activarImpulso
+  // al alimentar): mientras el impulso de 3 min siga activo, se marca la
+  // respuesta correcta en el DOM y la mascota se para ahí en vez de pasear.
+  const { mascotaSeleccionada, ownsItem } = useStore();
+  const impulsoActivo = useImpulsoActivo(mascotaSeleccionada);
+  const pistaActiva = impulsoActivo && Boolean(mascotaSeleccionada) && ownsItem(`mascota-${mascotaSeleccionada}`);
 
   // ── Preguntas/secciones del examen: por defecto las de data/examen.js, o
   // las de un examen comprado en la Tienda (ver Inventario.jsx, que ya las
@@ -413,8 +424,9 @@ export default function Examen() {
   // ─── RENDER ─────────────────────────────────────────────────────────────
   // ═══════════════════════════════════════════════════════════════════════════
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '0', minHeight: '100vh' }}>
-      
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '0', minHeight: '100vh', position: 'relative' }}>
+      <MascotaCompanera />
+
       {/* ── BARRA SUPERIOR ── */}
 <header className="page-topbar-compact" style={{
   position: "sticky",
@@ -488,7 +500,7 @@ export default function Examen() {
 </header>
 
       {/* ── CUERPO PRINCIPAL ── */}
-      <main className="page-content-compact" style={{ flex: 1, overflowY: "auto", paddingTop: 16, paddingBottom: 90 }}>
+      <main className="page-content-compact" data-mascota-evitar="true" style={{ flex: 1, overflowY: "auto", paddingTop: 16, paddingBottom: 90 }}>
 
         {/* Número + cronómetro de pregunta */}
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 14 }}>
@@ -590,6 +602,7 @@ export default function Examen() {
               <button
                 key={inciso}
                 onClick={() => seleccionarRespuesta(inciso)}
+                data-pista-mascota={pistaActiva && inciso === pregunta.inciso_correcto ? "true" : undefined}
                 style={{
                   display: "flex",
                   alignItems: "flex-start",

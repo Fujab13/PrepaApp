@@ -7,6 +7,9 @@ import EscaneoRecompensa from '../components/EscaneoRecompensa'
 import Latex from '../components/Latex'
 import Celebracion from '../components/Celebracion'
 import ConfirmDialog from '../components/ConfirmDialog'
+import MascotaCompanera from '../components/MascotaCompanera'
+import { useStore } from '../context/StoreContext'
+import { useImpulsoActivo } from '../hooks/useImpulsoActivo'
 import { useProgreso } from '../hooks/useProgreso'
 import { getPreguntasDeUnidad, getTotalUnidades, PREGUNTAS_POR_UNIDAD, PREGUNTAS_POR_UNIDAD_DIFICIL } from '../data/unidades'
 import { obtenerLeccionDeSesion } from '../services/leccionesPremium';
@@ -99,6 +102,16 @@ function tomarFallosDeUnidad(materiaId, unidad, cantidad) {
 export default function Leccion() {
   const { materiaId } = useParams()
   const navigate = useNavigate()
+
+  // "Pista" de la mascota compañera (ver MascotaCompanera.jsx, la estrella
+  // en Mascota.jsx → Tu colección, y utils/mascotasEstado.js: activarImpulso
+  // al alimentar): mientras el impulso de 3 min siga activo, se marca la
+  // respuesta correcta en el DOM (ver OpcionBtn `pista`) y la mascota se
+  // para ahí en vez de pasear.
+  const { mascotaSeleccionada, ownsItem } = useStore()
+  const impulsoActivo = useImpulsoActivo(mascotaSeleccionada)
+  const pistaActiva = impulsoActivo && Boolean(mascotaSeleccionada) && ownsItem(`mascota-${mascotaSeleccionada}`)
+
   const [materia, setMateria] = useState(null)
   const [cargando, setCargando] = useState(true)
   const [errorCarga, setErrorCarga] = useState('')
@@ -736,7 +749,9 @@ export default function Leccion() {
       minHeight: '100vh',
       width: '100%',
       boxSizing: 'border-box',
+      position: 'relative',
     }}>
+      <MascotaCompanera />
 
       <div className="page-topbar-compact" style={{ paddingBottom: 12, borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
         {/* 1. Botón Salir */}
@@ -1043,19 +1058,22 @@ export default function Leccion() {
             )}
           </div>
 
-          <TarjetaRepaso
-            pregunta={pregunta}
-            estados={estados}
-            respondido={respondido}
-            color={COLOR_REFUERZO}
-            onResponder={responder}
-            leyendo={leyendo}
-            onLeer={() => alternarLectura(pregunta.pregunta)}
-            onExplicar={explicarConIA}
-          />
+          <div data-mascota-evitar="true">
+            <TarjetaRepaso
+              pregunta={pregunta}
+              estados={estados}
+              respondido={respondido}
+              color={COLOR_REFUERZO}
+              onResponder={responder}
+              leyendo={leyendo}
+              onLeer={() => alternarLectura(pregunta.pregunta)}
+              onExplicar={explicarConIA}
+              pista={pistaActiva && tieneCorrecta && !respondido}
+            />
+          </div>
         </>
       ) : (
-        <div key={idxActual} className="gm-entrada" style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
+        <div key={idxActual} className="gm-entrada" data-mascota-evitar="true" style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
           {pregunta.enlace_svg && (
             <div style={{
               background: "linear-gradient(135deg, var(--surface2), var(--surface))",
@@ -1185,7 +1203,13 @@ export default function Leccion() {
           {tieneOpciones && (
             <div style={{ display: 'flex', flexDirection: 'column', gap: 10, flex: 1 }}>
               {pregunta.opciones.map((op, i) => (
-                <OpcionBtn key={i} texto={op} estado={estados[i]} onClick={() => responder(i)} />
+                <OpcionBtn
+                  key={i}
+                  texto={op}
+                  estado={estados[i]}
+                  onClick={() => responder(i)}
+                  pista={pistaActiva && tieneCorrecta && !respondido && i === pregunta.correcta}
+                />
               ))}
             </div>
           )}

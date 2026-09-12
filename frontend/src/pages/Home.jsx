@@ -8,6 +8,7 @@ import MateriaCard from '../components/MateriaCard'
 import Hexagono from '../components/Hexagono'
 import LibroCard from '../components/LibroCard'
 import Sidenav from '../components/Sidenav'
+import MascotaCompanera from '../components/MascotaCompanera'
 import TemariosCards from '../components/TemariosCards'
 import { triggerVibration, esVibracionSoportada } from '../utils/haptics'
 import { useFullscreen } from '../hooks/useFullscreen'
@@ -125,9 +126,10 @@ export default function Home() {
   }
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '0', minHeight: '100vh' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '0', minHeight: '100vh', position: 'relative' }}>
 
       <Sidenav open={sidenavOpen} onClose={() => setSidenavOpen(false)} />
+      <MascotaCompanera />
 
       <div className="page-topbar" style={{ color: featured.color }}>
         <button onClick={() => setSidenavOpen(true)} className="page-topbar-btn" data-gamificacion="bajo">

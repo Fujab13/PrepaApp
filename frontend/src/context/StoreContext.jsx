@@ -2,13 +2,14 @@ import { createContext, useContext, useState, useEffect, useCallback, useMemo } 
 import { supabase } from '../services/supabaseClient'
 import { fetchProductosActivos } from '../services/productos'
 import { COIN_ITEMS, productoAStoreItem } from '../data/storeItems'
-import { leerEstado, guardarEstado, claveUnidad } from '../utils/monedasSeguras'
+import { leerEstado, guardarEstado } from '../utils/monedasSeguras'
 import { leerTemaActivo, aplicarTema } from '../utils/temas'
 
 const StoreContext = createContext(null)
 
 const INVENTORY_KEY = 'user_inventory'
 const COMIDA_KEY = 'mascotas_comida'
+const MASCOTA_SELECCIONADA_KEY = 'mascota_seleccionada'
 const MAX_MONEDAS_POR_RECOMPENSA = 200 // ver COLORES_DIFICIL en EscaneoRecompensa.jsx: máximo teórico real es 160 (4 puntos x 40)
 
 // Las "monedas" y el inventario local (localInventory) siguen siendo
@@ -55,6 +56,28 @@ export function StoreProvider({ children }) {
   useEffect(() => {
     localStorage.setItem(COMIDA_KEY, String(comida))
   }, [comida])
+
+  // Mascota "compañera": cuál (si acaso) sigue al usuario fuera de Mi
+  // Mascota (ver components/MascotaCompanera.jsx, montado en Home/Leccion)
+  // — a lo sumo una a la vez, mismo patrón que `temaActivo` de arriba.
+  // Local y sin firma (mismo criterio que `comida`/`inventory`: es
+  // presentación, no hay nada real que proteger).
+  const [mascotaSeleccionada, setMascotaSeleccionada] = useState(() => {
+    try { return localStorage.getItem(MASCOTA_SELECCIONADA_KEY) || null } catch { return null }
+  })
+
+  useEffect(() => {
+    try {
+      if (mascotaSeleccionada) localStorage.setItem(MASCOTA_SELECCIONADA_KEY, mascotaSeleccionada)
+      else localStorage.removeItem(MASCOTA_SELECCIONADA_KEY)
+    } catch { /* sin localStorage, la preferencia no persiste */ }
+  }, [mascotaSeleccionada])
+
+  // Toggle: tocar la estrella de la que ya está activa la quita (queda
+  // ninguna seleccionada) — "una y solo una a la vez".
+  const seleccionarMascota = useCallback((mascotaId) => {
+    setMascotaSeleccionada(prev => prev === mascotaId ? null : mascotaId)
+  }, [])
 
   // --- Sesión de usuario (Supabase Auth) ---
   const [user, setUser] = useState(null)
@@ -167,10 +190,6 @@ export function StoreProvider({ children }) {
     setMonedas(prev => ({ ...prev, coins: prev.coins + amount }))
   }, [])
 
-  const haReclamadoUnidad = useCallback((materiaId, unidad) => {
-    return reclamadas.has(claveUnidad(materiaId, unidad))
-  }, [reclamadas])
-
   // Herramienta de pruebas para la cuenta de admin (ver Store.jsx: gesto
   // secreto de tocar el saldo varias veces, solo visible si `esAdmin` —
   // verificado server-side vía el RPC `es_admin_actual`, AuthContext.jsx).
@@ -183,20 +202,14 @@ export function StoreProvider({ children }) {
     setMonedas(prev => ({ ...prev, coins: Math.max(0, Math.round(prev.coins + delta)) }))
   }, [])
 
-  // Acredita la recompensa de escaneo Y marca la unidad como reclamada en
-  // un solo paso: así el saldo y el registro de "ya cobrado" siempre viajan
-  // juntos bajo una sola firma (ver monedasSeguras.js), sin una ventana
-  // donde uno quede desincronizado del otro. Rehacer una unidad ya
-  // completada no vuelve a acreditar nada.
+  // Acredita la recompensa de escaneo. Antes esto también bloqueaba volver
+  // a acreditar una unidad ya reclamada (anti-farm) — a pedido, ese bloqueo
+  // se quitó: rehacer una unidad y reclamar de nuevo sí paga otra vez.
+  // `materiaId`/`unidad` se quedan en la firma por si hace falta
+  // reintroducir ese control más adelante, aunque ahora no se usan aquí.
   const reclamarRecompensaUnidad = useCallback((materiaId, unidad, monto) => {
-    const clave = claveUnidad(materiaId, unidad)
     if (!Number.isFinite(monto) || monto <= 0 || monto > MAX_MONEDAS_POR_RECOMPENSA) return
-    setMonedas(prev => {
-      if (prev.reclamadas.has(clave)) return prev
-      const reclamadasNuevas = new Set(prev.reclamadas)
-      reclamadasNuevas.add(clave)
-      return { coins: prev.coins + monto, reclamadas: reclamadasNuevas }
-    })
+    setMonedas(prev => ({ ...prev, coins: prev.coins + monto }))
   }, [])
 
   // Un item se considera "tuyo" de dos formas distintas según su tipo:
@@ -250,14 +263,18 @@ export function StoreProvider({ children }) {
     return { ok: true }
   }, [coins])
 
-  // Gasta 1 unidad de comida (al alimentar una mascota en Mascota.jsx).
-  // Revisa `comida` ANTES de actualizar (no dentro del callback funcional
-  // de setComida) para poder devolver el resultado de forma síncrona: el
-  // updater de setState no se ejecuta a tiempo para que el caller lea su
-  // resultado en la misma línea.
-  const consumirComida = useCallback(() => {
-    if (comida <= 0) return false
-    setComida(prev => Math.max(0, prev - 1))
+  // Gasta `cantidad` unidades de comida de golpe (1 al alimentar una sola
+  // mascota; varias cuando Mascota.jsx alimenta a toda la manada de una
+  // vez). Revisa `comida` ANTES de actualizar (no dentro del callback
+  // funcional de setComida) para poder devolver el resultado de forma
+  // síncrona: el updater de setState no se ejecuta a tiempo para que el
+  // caller lea su resultado en la misma línea — por eso también hay que
+  // gastarla toda en un solo setComida en vez de llamar a esta función en
+  // un loop (cada llamada dentro del mismo tick vería el mismo `comida`
+  // desactualizado y todas pasarían el chequeo aunque no alcance).
+  const consumirComida = useCallback((cantidad = 1) => {
+    if (comida < cantidad) return false
+    setComida(prev => Math.max(0, prev - cantidad))
     return true
   }, [comida])
 
@@ -290,33 +307,81 @@ export function StoreProvider({ children }) {
     setInventory(prev => prev.includes(itemId) ? prev : [...prev, itemId])
   }, [])
 
+  // Quita un item de `inventory` (lo contrario de grantPurchase/
+  // purchaseWithCoins) — a propósito NO devuelve las monedas gastadas, es
+  // "soltar" el desbloqueo, no una devolución. Solo tiene sentido para
+  // items type:'coins' (los de tipo 'real' viven en Supabase, no aquí).
+  // Usado por Mascota.jsx para eliminar una mascota de la colección.
+  const removeInventoryItem = useCallback((itemId) => {
+    setInventory(prev => prev.filter(id => id !== itemId))
+  }, [])
+
+  // Memoizado: sin esto, este objeto se recrea en cada render de
+  // StoreProvider (p. ej. cuando cambia dbInventoryLoading o productos,
+  // algo sin relación con mascotas) y React trata eso como "el contexto
+  // cambió", forzando un re-render de TODO consumidor de useStore() en la
+  // app — Mascota.jsx, MascotaCompanera.jsx (montado en Home/Lección/
+  // Examen), Store.jsx, etc. — aunque los valores que a cada uno le
+  // importan sigan iguales. Todas las funciones ya eran estables
+  // (useCallback); lo que faltaba era estabilizar el objeto que las agrupa.
+  const value = useMemo(() => ({
+    coins,
+    inventory,
+    addCoins,
+    reclamarRecompensaUnidad,
+    ajustarMonedasAdmin,
+    temaActivo,
+    elegirTema,
+    comida,
+    comprarComida,
+    consumirComida,
+    ownsItem,
+    saldoDisponible,
+    purchaseWithCoins,
+    startRealPayment,
+    claimFreeProduct,
+    grantPurchase,
+    removeInventoryItem,
+    mascotaSeleccionada,
+    seleccionarMascota,
+    user,
+    authLoading,
+    dbInventory,
+    dbInventoryLoading,
+    refreshInventory,
+    items,
+    productosLoading,
+  }), [
+    coins,
+    inventory,
+    addCoins,
+    reclamarRecompensaUnidad,
+    ajustarMonedasAdmin,
+    temaActivo,
+    elegirTema,
+    comida,
+    comprarComida,
+    consumirComida,
+    ownsItem,
+    saldoDisponible,
+    purchaseWithCoins,
+    startRealPayment,
+    claimFreeProduct,
+    grantPurchase,
+    removeInventoryItem,
+    mascotaSeleccionada,
+    seleccionarMascota,
+    user,
+    authLoading,
+    dbInventory,
+    dbInventoryLoading,
+    refreshInventory,
+    items,
+    productosLoading,
+  ])
+
   return (
-    <StoreContext.Provider value={{
-      coins,
-      inventory,
-      addCoins,
-      haReclamadoUnidad,
-      reclamarRecompensaUnidad,
-      ajustarMonedasAdmin,
-      temaActivo,
-      elegirTema,
-      comida,
-      comprarComida,
-      consumirComida,
-      ownsItem,
-      saldoDisponible,
-      purchaseWithCoins,
-      startRealPayment,
-      claimFreeProduct,
-      grantPurchase,
-      user,
-      authLoading,
-      dbInventory,
-      dbInventoryLoading,
-      refreshInventory,
-      items,
-      productosLoading,
-    }}>
+    <StoreContext.Provider value={value}>
       {children}
     </StoreContext.Provider>
   )

@@ -6,7 +6,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { obtenerRankingSemanal, obtenerMiPosicionSemanal } from "../services/ranking";
-import { construirTableroConBots, calcularPosicionGlobal } from "../utils/bots";
+import { construirTableroConBots } from "../utils/bots";
 import { useAuth } from "../context/AuthContext";
 
 import { FaUserGraduate } from "react-icons/fa";
@@ -91,7 +91,7 @@ function ColumnaPodio({ fila }) {
 function RankingSemanal() {
   const { user } = useAuth();
   const [ranking, setRanking] = useState(null);
-  const [miPosicion, setMiPosicion] = useState(null); // { puntos, posicionEntreReales, posicionGlobal } | null
+  const [miPosicion, setMiPosicion] = useState(null); // { puntos } | null
   const [error, setError] = useState("");
 
   useEffect(() => {
@@ -111,11 +111,7 @@ function RankingSemanal() {
     obtenerMiPosicionSemanal()
       .then((mia) => {
         if (cancelado || !mia) return;
-        setMiPosicion({
-          puntos: mia.puntos,
-          posicionEntreReales: mia.posicion,
-          posicionGlobal: calcularPosicionGlobal({ puntos: mia.puntos, posicionEntreReales: mia.posicion }),
-        });
+        setMiPosicion({ puntos: mia.puntos });
       })
       .catch(() => { /* no bloquea el resto del ranking si esto falla */ });
     return () => { cancelado = true; };
@@ -150,11 +146,11 @@ function RankingSemanal() {
         </p>
       </div>
 
-      {/* "Tu posición": el ranking visible solo llega a 100 lugares, pero
-          el ranking real es global — esto deja ver el lugar de uno aunque
-          quede muy por debajo del tablero (p. ej. #2,143), sin tener que
-          buscarse en una lista larguísima. Solo aparece con sesión y
-          actividad esta semana. */}
+      {/* "Tu puntaje": el ranking visible solo llega a 100 lugares, así que
+          esto deja ver el nombre y los puntos propios aunque el lugar real
+          quede muy por debajo del tablero, sin tener que buscarse en una
+          lista larguísima. Solo aparece con sesión y actividad esta
+          semana. */}
       {miPosicion && (
         <div
           style={{
@@ -164,9 +160,16 @@ function RankingSemanal() {
             border: "1px solid rgba(229,193,88,0.35)",
           }}
         >
-          <span style={{ fontSize: 12.5, fontWeight: 700, color: "var(--text)" }}>Tu posición esta semana</span>
-          <span style={{ fontSize: 14, fontWeight: 800, color: "#e9c86a" }}>
-            #{miPosicion.posicionGlobal.toLocaleString("es-MX")} · {miPosicion.puntos} pts
+          <span style={{ flexShrink: 0, fontSize: 12.5, fontWeight: 700, color: "var(--text)" }}>Tu puntaje esta semana</span>
+          <span style={{
+            fontSize: 14, fontWeight: 800, color: "#e9c86a",
+            maxWidth: "60%", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap",
+          }}>
+            {/* Mismo criterio que obtener_ranking_semanal para el nombre
+                (split_part del email antes de la @) — obtener_mi_posicion_semanal
+                no lo trae, y el propio email ya está disponible en el
+                usuario logueado, así que no hace falta tocar el RPC. */}
+            {user.email?.split("@")[0] ?? "Tú"} · {miPosicion.puntos} pts
           </span>
         </div>
       )}

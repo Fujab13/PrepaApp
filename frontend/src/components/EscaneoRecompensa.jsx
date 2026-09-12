@@ -85,15 +85,7 @@ function generarPunto(colores) {
 
 export default function EscaneoRecompensa({ materiaId, unidad, colorAcento = '#7c5cbf', modoDificil = false, onContinuar }) {
   const colores = modoDificil ? COLORES_DIFICIL : COLORES_NORMAL
-  const { haReclamadoUnidad, reclamarRecompensaUnidad } = useStore()
-  // Capturado UNA vez al montar (no se recalcula en cada render): si ya
-  // estaba reclamada esta unidad ANTES de entrar aquí (o sea, se está
-  // rehaciendo una unidad ya completada — "lecciones infinitas"), se salta
-  // el minijuego por completo. Si se recalculara en cada render, reclamar
-  // dentro de esta misma sesión haría que la vista cambiara de golpe a la
-  // versión "ya reclamado" apenas se acredita, borrando los chips/total
-  // recién revelados.
-  const [yaReclamadoAlEntrar] = useState(() => haReclamadoUnidad(materiaId, unidad))
+  const { reclamarRecompensaUnidad } = useStore()
   const canvasRef = useRef(null)
   const puntosRef = useRef([])
   const sweepXRef = useRef(0)
@@ -112,8 +104,13 @@ export default function EscaneoRecompensa({ materiaId, unidad, colorAcento = '#7
   const [reclamado, setReclamado] = useState(false)
 
   const intentosRestantes = INTENTOS_MAX - intentosUsados
-  const puedeEscanear = !yaReclamadoAlEntrar && intentosRestantes > 0 && fase !== 'escaneando' && !reclamado
-  const puedeReclamar = !yaReclamadoAlEntrar && fase === 'revelado' && !reclamado
+  const puedeEscanear = intentosRestantes > 0 && fase !== 'escaneando' && !reclamado
+  const puedeReclamar = fase === 'revelado' && !reclamado
+  // "Continuar" queda bloqueado hasta reclamar de verdad: no hay forma de
+  // saltarse el minijuego sin llevarse las monedas. Rehacer una unidad ya
+  // completada antes sí vuelve a pagar (a pedido, se quitó ese anti-farm —
+  // ver reclamarRecompensaUnidad en StoreContext.jsx).
+  const puedeContinuar = reclamado
   const total = resultado.reduce((a, p) => a + p.puntos, 0)
 
   function dibujar(ctx, t) {
@@ -166,6 +163,14 @@ export default function EscaneoRecompensa({ materiaId, unidad, colorAcento = '#7
 
   useEffect(() => {
     return () => cancelAnimationFrame(rafRef.current)
+  }, [])
+
+  // Primer escaneo automático: `escanear` de este render ve el estado
+  // recién montado (fase 'inactivo', 0 intentos usados) — solo hace falta
+  // una vez, por eso el array de dependencias vacío.
+  useEffect(() => {
+    escanear()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   function escanear() {
@@ -232,83 +237,87 @@ export default function EscaneoRecompensa({ materiaId, unidad, colorAcento = '#7
           Unidad {unidad} completada
         </p>
         <h1 style={{ margin: '4px 0 0', fontSize: '1.15rem', fontWeight: 800, color: 'var(--text)' }}>
-          {yaReclamadoAlEntrar ? 'Ya reclamaste esta recompensa' : 'Escanea tu recompensa'}
+          Escanea tu recompensa
         </h1>
         <p style={{ margin: '4px 0 0', fontSize: 12, color: 'var(--text-muted)' }}>
-          {yaReclamadoAlEntrar
-            ? 'Esta unidad ya entregó sus monedas antes — repetirla no genera una recompensa nueva.'
-            : `Te quedan ${intentosRestantes} de ${INTENTOS_MAX} escaneos. Reclama cuando te guste lo que salió.`}
+          {`Te quedan ${intentosRestantes} de ${INTENTOS_MAX} escaneos. Reclama cuando te guste lo que salió.`}
         </p>
       </div>
 
-      {!yaReclamadoAlEntrar && (
-        <>
-          <canvas
-            ref={canvasRef}
-            width={ANCHO}
-            height={ALTO}
-            style={{ width: '100%', maxWidth: 340, borderRadius: 10, border: '2px solid var(--surface2)' }}
-          />
+      <canvas
+        ref={canvasRef}
+        width={ANCHO}
+        height={ALTO}
+        style={{ width: '100%', maxWidth: 340, borderRadius: 10, border: '2px solid var(--surface2)' }}
+      />
 
-          <div style={{ minHeight: 22, display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap', justifyContent: 'center' }}>
-            {fase === 'revelado' && resultado.map((p, i) => (
-              <span key={i} style={{
-                fontSize: 11.5, fontWeight: 700, color: p.color.color,
-                background: `${p.color.color}22`, padding: '3px 8px', borderRadius: 8,
-              }}>
-                +{p.puntos}
-              </span>
-            ))}
-            {fase === 'revelado' && (
-              <span style={{ fontSize: 13, fontWeight: 800, color: 'var(--text)' }}>= {total} total</span>
-            )}
-          </div>
+      <div style={{ minHeight: 22, display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap', justifyContent: 'center' }}>
+        {fase === 'revelado' && resultado.map((p, i) => (
+          <span key={i} style={{
+            fontSize: 11.5, fontWeight: 700, color: p.color.color,
+            background: `${p.color.color}22`, padding: '3px 8px', borderRadius: 8,
+          }}>
+            +{p.puntos}
+          </span>
+        ))}
+        {fase === 'revelado' && (
+          <span style={{ fontSize: 13, fontWeight: 800, color: 'var(--text)' }}>= {total} total</span>
+        )}
+      </div>
 
-          <div style={{ display: 'flex', gap: 10, width: '100%', maxWidth: 340 }}>
-            <button
-              type="button"
-              onClick={escanear}
-              disabled={!puedeEscanear}
-              style={{
-                flex: 1, minHeight: 52, borderRadius: 12, fontWeight: 700, fontSize: 13, cursor: puedeEscanear ? 'pointer' : 'default',
-                border: '1px solid var(--surface2)',
-                background: puedeEscanear ? 'var(--surface2)' : 'var(--surface)',
-                color: puedeEscanear ? 'var(--text)' : 'var(--text-muted)',
-                display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6,
-                opacity: puedeEscanear ? 1 : 0.6,
-              }}
-            >
-              <HiMagnifyingGlass /> Escanear
-            </button>
-            <button
-              type="button"
-              onClick={reclamar}
-              disabled={!puedeReclamar}
-              style={{
-                flex: 1, minHeight: 52, borderRadius: 12, fontWeight: 700, fontSize: 13, cursor: puedeReclamar ? 'pointer' : 'default',
-                border: 'none',
-                background: puedeReclamar ? '#22c55e' : 'var(--surface2)',
-                color: puedeReclamar ? '#04140c' : 'var(--text-muted)',
-                display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6,
-                opacity: puedeReclamar ? 1 : 0.6,
-                boxShadow: puedeReclamar ? '0 8px 20px -8px rgba(34,197,94,0.6)' : 'none',
-              }}
-            >
-              <HiOutlineGift /> Reclamar
-            </button>
-          </div>
-        </>
+      <div style={{ display: 'flex', gap: 10, width: '100%', maxWidth: 340 }}>
+        <button
+          type="button"
+          onClick={escanear}
+          disabled={!puedeEscanear}
+          style={{
+            flex: 1, minHeight: 52, borderRadius: 12, fontWeight: 700, fontSize: 13, cursor: puedeEscanear ? 'pointer' : 'default',
+            border: '1px solid var(--surface2)',
+            background: puedeEscanear ? 'var(--surface2)' : 'var(--surface)',
+            color: puedeEscanear ? 'var(--text)' : 'var(--text-muted)',
+            display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6,
+            opacity: puedeEscanear ? 1 : 0.6,
+          }}
+        >
+          <HiMagnifyingGlass /> Escanear
+        </button>
+        <button
+          type="button"
+          onClick={reclamar}
+          disabled={!puedeReclamar}
+          style={{
+            flex: 1, minHeight: 52, borderRadius: 12, fontWeight: 700, fontSize: 13, cursor: puedeReclamar ? 'pointer' : 'default',
+            border: 'none',
+            background: puedeReclamar ? '#22c55e' : 'var(--surface2)',
+            color: puedeReclamar ? '#04140c' : 'var(--text-muted)',
+            display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6,
+            opacity: puedeReclamar ? 1 : 0.6,
+            boxShadow: puedeReclamar ? '0 8px 20px -8px rgba(34,197,94,0.6)' : 'none',
+          }}
+        >
+          <HiOutlineGift /> Reclamar
+        </button>
+      </div>
+
+      {!puedeContinuar && (
+        <p style={{ margin: 0, fontSize: 11.5, color: 'var(--text-muted)' }}>
+          Reclama tu recompensa para continuar.
+        </p>
       )}
 
       <button
         type="button"
         onClick={onContinuar}
+        disabled={!puedeContinuar}
         className="gm-cta"
         style={{
           minHeight: 44, width: '100%', maxWidth: 340, marginTop: 6, borderRadius: 14, border: 'none',
-          background: colorAcento, color: '#fff', fontWeight: 700, fontSize: 14, cursor: 'pointer',
+          background: puedeContinuar ? colorAcento : 'var(--surface2)',
+          color: puedeContinuar ? '#fff' : 'var(--text-muted)',
+          fontWeight: 700, fontSize: 14, cursor: puedeContinuar ? 'pointer' : 'default',
           display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6,
-          boxShadow: `0 10px 24px -8px ${colorAcento}80`,
+          boxShadow: puedeContinuar ? `0 10px 24px -8px ${colorAcento}80` : 'none',
+          opacity: puedeContinuar ? 1 : 0.6,
         }}
       >
         Continuar <HiOutlineArrowRight />

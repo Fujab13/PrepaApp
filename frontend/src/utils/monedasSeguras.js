@@ -1,9 +1,14 @@
 // Sobre firmado para el saldo de monedas (gamificación, sin dinero real —
-// ver StoreContext.jsx). Junta `coins` y `reclamadas` (las unidades que ya
-// pagaron su recompensa de escaneo) en un solo bloque con una firma, para
-// que editar el número a mano en DevTools → Application → Local Storage dé
-// como resultado un sobre inválido en vez de un saldo nuevo aceptado tal
-// cual.
+// ver StoreContext.jsx). Junta `coins` y `reclamadas` en un solo bloque con
+// una firma, para que editar el número a mano en DevTools → Application →
+// Local Storage dé como resultado un sobre inválido en vez de un saldo
+// nuevo aceptado tal cual.
+//
+// `reclamadas` ya no bloquea nada (a pedido, se quitó el anti-farm que
+// impedía volver a cobrar una unidad ya reclamada — ver
+// reclamarRecompensaUnidad en StoreContext.jsx): el campo se queda en el
+// sobre solo por compatibilidad con los sobres ya guardados de antes de
+// ese cambio, pero no vuelve a crecer.
 //
 // OJO — esto es ofuscación, no criptografía real: SAL vive en este mismo
 // archivo, que se envía tal cual (minificado) al navegador. Cualquiera que
@@ -80,8 +85,4 @@ export function guardarEstado({ coins, reclamadas }) {
     // Sin localStorage disponible, el saldo no persiste entre sesiones,
     // pero la app sigue funcionando dentro de esta.
   }
-}
-
-export function claveUnidad(materiaId, unidad) {
-  return `${materiaId}:${unidad}`
 }

@@ -562,6 +562,36 @@ display: flex;
   animation: mascota-danio 0.5s ease-in-out;
 }
 
+/* Salto (ver Mascota.jsx: atributos.salta, solo conejos) — un brinco en el
+   sitio con un pequeño "agachón" antes de despegar y algo de squash/stretch
+   para que se sienta con peso, no solo un translateY lineal. Dura lo mismo
+   que el setTimeout que quita la clase en MascotaViva. */
+@keyframes mascota-salto {
+  0%   { transform: translateY(0) scale(1, 1); }
+  15%  { transform: translateY(2px) scale(1.08, 0.9); }
+  45%  { transform: translateY(-16px) scale(0.95, 1.05); }
+  70%  { transform: translateY(-16px) scale(0.95, 1.05); }
+  100% { transform: translateY(0) scale(1, 1); }
+}
+.mascota-salto {
+  display: inline-block;
+  animation: mascota-salto 0.55s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Comida cayendo del cielo (ver Mascota.jsx: botón "Alimentar a todos") —
+   el contenedor ya la posiciona en su punto de aterrizaje final (left/top),
+   esto solo anima la caída en sí sobre esa posición: entra desde arriba y
+   rebota un poco al tocar el piso. Duración = DURACION_CAIDA_MS. */
+@keyframes mascota-comida-cae {
+  0%   { transform: translateY(-260px) scale(0.7); opacity: 0.85; }
+  70%  { transform: translateY(0) scale(1.1); opacity: 1; }
+  85%  { transform: translateY(-10px) scale(0.95); }
+  100% { transform: translateY(0) scale(1); opacity: 1; }
+}
+.mascota-comida-cae {
+  animation: mascota-comida-cae 0.65s cubic-bezier(0.55, 0, 1, 0.45) forwards;
+}
+
 /* Piso de cuadrícula del sandbox (ver Mascota.jsx): desliza el patrón de
    fondo una celda hacia abajo sin parar, para que el plano inclinado en 3D
    se sienta como si avanzara hacia quien mira, no como una textura fija. */

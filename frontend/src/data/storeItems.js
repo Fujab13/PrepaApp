@@ -3,11 +3,18 @@ import { MASCOTAS } from './mascotas'
 // Ícono de cada mascota en la Tienda/Inventario — solo presentación, cada
 // una sigue siendo cien por ciento pixel art propio en Mascota.jsx.
 const ICONOS_MASCOTA = {
-  perrito: 'FaDog',
-  bill: 'FaHatWizard',
+  perro: 'FaDog',
   gato: 'FaCat',
-  loro: 'FaFeatherAlt',
-  stickman: 'FaWalking',
+  pollito: 'FaKiwiBird',
+  pez: 'FaFish',
+  caballo: 'FaHorse',
+  vaca: 'FaCow',
+  cerdo: 'FaPiggyBank',
+  gallina: 'FaEgg',
+  pato: 'FaFeather',
+  'conejo-gris': 'FaCarrot',
+  'conejo-blanco': 'FaCarrot',
+  tortuga: 'FaShieldAlt',
 }
 
 // `type: 'coins'`   -> se compra con monedas internas (gamificación), no
@@ -69,12 +76,15 @@ export const COIN_ITEMS = [
   {
     id: 'comida-mascotas',
     categoria: 'Mascotas',
-    icono: 'FaBone',
-    nombre: 'Snack Pack (x5)',
+    icono: 'FaHamburger',
+    nombre: 'Snack Pack (x10)',
     descripcion: 'Alimenta a tus mascotas en Mi Mascota.',
     type: 'coins',
-    priceCoins: 100,
-    comidaCantidad: 5,
+    // ~9-10 monedas en promedio por unidad completada (ver
+    // EscaneoRecompensa.jsx, calibrado ahí) — 25 la deja al alcance de
+    // unas dos lecciones, no de una junta de varias sesiones.
+    priceCoins: 25,
+    comidaCantidad: 10,
   },
 ]
 

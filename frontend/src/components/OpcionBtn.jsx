@@ -1,6 +1,6 @@
 import Latex from './Latex'
 
-export default function OpcionBtn({ texto, estado, onClick }) {
+export default function OpcionBtn({ texto, estado, onClick, pista = false }) {
   const colores = {
     normal:     { border: 'rgba(255,255,255,0.08)', bg: 'linear-gradient(180deg, var(--surface2), var(--surface))', sombra: 'rgba(0,0,0,0.45)' },
     correcto:   { border: 'var(--correct)', bg: 'rgba(74,222,128,0.1)',  sombra: 'rgba(74,222,128,0.25)' },
@@ -14,6 +14,7 @@ export default function OpcionBtn({ texto, estado, onClick }) {
       disabled={estado !== 'normal'}
       className="opcion-btn"
       data-gamificacion="manual"
+      data-pista-mascota={pista ? 'true' : undefined}
       style={{
         background: c.bg,
         color: 'var(--text)',

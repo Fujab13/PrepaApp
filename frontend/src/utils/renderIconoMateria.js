@@ -1,8 +1,10 @@
 import { createElement, isValidElement } from 'react'
 import {
-  FaClipboardList, FaBriefcaseMedical, FaBoxOpen, FaBookOpen, FaPalette, FaSun, FaPaw, FaBone,
-  FaDog, FaHatWizard, FaCat, FaFeatherAlt, FaWalking,
+  FaClipboardList, FaBriefcaseMedical, FaBoxOpen, FaBookOpen, FaPalette, FaSun, FaPaw, FaHamburger,
+  FaDog, FaCat, FaFeatherAlt, FaFeather, FaKiwiBird, FaFish, FaHorse, FaPiggyBank, FaEgg,
+  FaCarrot, FaShieldAlt,
 } from 'react-icons/fa'
+import { FaCow } from 'react-icons/fa6'
 import { PiMathOperationsFill } from 'react-icons/pi'
 
 // Antes este archivo hacía `import * as XIcons from 'react-icons/X'` de 21
@@ -25,12 +27,19 @@ const iconSet = {
   FaPalette,
   FaSun,
   FaPaw,
-  FaBone,
+  FaHamburger,
   FaDog,
-  FaHatWizard,
   FaCat,
   FaFeatherAlt,
-  FaWalking,
+  FaFeather,
+  FaKiwiBird,
+  FaFish,
+  FaHorse,
+  FaCow,
+  FaPiggyBank,
+  FaEgg,
+  FaCarrot,
+  FaShieldAlt,
   PiMathOperationsFill,
 }
 

@@ -14,6 +14,12 @@ import { PiShoppingCartSimpleFill } from "react-icons/pi";
 import { BiSolidCoin } from "react-icons/bi";
 import { PiHexagonDuotone  } from "react-icons/pi";
 import { renderIconoMateria } from '../utils/renderIconoMateria'
+import { MASCOTAS, paletaSilueta } from '../data/mascotas'
+import PixelArt from '../components/PixelArt'
+
+// Referencia estable (ver PixelArt.jsx: memo) — un objeto literal inline en
+// el JSX de abajo se recrearía en cada render y anularía la memoización.
+const ESTILO_SPRITE_TIENDA = { maxWidth: '100%', height: 'auto', color: 'var(--text-muted)' }
 
 const CATEGORIA_ESTILO = {
   'Práctica extra': { Icon: HiOutlineRectangleStack, tinte: '96, 165, 250' },
@@ -84,6 +90,75 @@ export default function Store() {
   const primeraCategoriaMonedas = useMemo(() => {
     return categorias.find(cat => items.find(i => i.categoria === cat)?.type === 'coins')
   }, [categorias, items])
+
+  // Tarjeta "banner" genérica (ícono + descripción + botón de precio) — la
+  // usan todas las categorías salvo Mascotas, que en cambio muestra el
+  // sprite real (ver más abajo). También cubre a los items de Mascotas que
+  // NO son una mascota en sí (el Snack Pack de comida), para que no
+  // desaparezcan de la tienda por no tener `mascotaId`.
+  function tarjetaGenerica(item) {
+    const owned = ownsItem(item.id)
+    const isLoading = loadingId === item.id
+    const puedeComprar = item.type === 'coins' ? coins >= item.priceCoins : true
+
+    // Un item con `temaId` (ver storeItems.js) no se "consume": una vez
+    // comprado, el mismo botón pasa a ser un toggle de activar/desactivar
+    // ese tema en vez de quedar inerte con "propietario".
+    const esTema = Boolean(item.temaId)
+    const temaEstaActivo = esTema && temaActivo === item.temaId
+
+    const iconColor = item.type === 'coins' ? '#facc15' : '#7c5cbf'
+    const iconBg = item.type === 'coins' ? 'rgba(250, 204, 21, 0.16)' : 'rgba(124, 92, 191, 0.16)'
+
+    return (
+      <div key={item.id} className="sp-card">
+        <div className="sp-card-header">
+          <div className="sp-card-icon" style={{ background: iconBg, color: iconColor }}>
+            {renderIconoMateria(item.icono, { size: 24 })}
+          </div>
+          <div className="sp-card-body">
+            <p className="sp-card-title">{item.nombre}</p>
+            <p className="sp-card-description">{item.descripcion}</p>
+          </div>
+        </div>
+
+        <button
+          className="btn-footer-scroll"
+          onClick={() => (owned && esTema ? elegirTema(temaEstaActivo ? null : item.temaId) : manejarCompra(item))}
+          disabled={(owned && !esTema) || isLoading || (item.type === 'coins' && !owned && !puedeComprar)}
+          style={{
+            background: temaEstaActivo
+              ? 'var(--correct)'
+              : owned
+                ? 'var(--surface2)'
+                : item.type === 'coins'
+                  ? (puedeComprar ? '#facc15' : 'var(--surface)')
+                  : '#7c5cbf',
+            color: temaEstaActivo
+              ? '#04140c'
+              : owned
+                ? 'var(--text)'
+                : item.type === 'coins'
+                  ? (puedeComprar ? '#000000' : 'var(--text-muted)')
+                  : '#ffffff',
+            opacity: isLoading ? 0.75 : 1,
+            cursor: (owned && !esTema) || (item.type === 'coins' && !owned && !puedeComprar) ? 'default' : 'pointer',
+          }}
+        >
+          {owned
+            ? (esTema ? (temaEstaActivo ? 'Tema activo ✓' : 'Activar') : 'propietario')
+            : isLoading
+              ? (<><span className="sp-spinner" />Procesando…</>)
+              : item.type === 'coins'
+                ? (item.priceCoins === 0 ? 'Gratis' : `${item.priceCoins} monedas`)
+                : item.priceMXN === 0
+                  ? 'Gratis'
+                  : `$${item.priceMXN} MXN`
+          }
+        </button>
+      </div>
+    )
+  }
 
   function mostrarFeedback(type, text) {
     setFeedback({ type, text })
@@ -268,74 +343,86 @@ export default function Store() {
                 </p>
               </div>
 
-              <div className="sp-grid">
-                {items.filter(i => i.categoria === categoria).map(item => {
-                  const owned = ownsItem(item.id)
-                  const isLoading = loadingId === item.id
-                  const puedeComprar = item.type === 'coins' ? coins >= item.priceCoins : true
-
-                  // Un item con `temaId` (ver storeItems.js) no se "consume": una vez
-                  // comprado, el mismo botón pasa a ser un toggle de activar/desactivar
-                  // ese tema en vez de quedar inerte con "propietario".
-                  const esTema = Boolean(item.temaId)
-                  const temaEstaActivo = esTema && temaActivo === item.temaId
-
-                  const iconColor = item.type === 'coins' ? '#facc15' : '#7c5cbf'
-                  const iconBg = item.type === 'coins' ? 'rgba(250, 204, 21, 0.16)' : 'rgba(124, 92, 191, 0.16)'
-
-                  return (
-                    <div key={item.id} className="sp-card">
-                    <div className="sp-card-header">
-                      
-                      <div className="sp-card-icon"
-                        style={{ background: iconBg, color: iconColor }}>
-                        {renderIconoMateria(item.icono, { size: 24 })}
-                      </div>
-                      
-                      <div className="sp-card-body">
-                        <p className="sp-card-title">{item.nombre}</p>
-                        <p className="sp-card-description">{item.descripcion}</p>
-                      </div>
+              {categoria === 'Mascotas' ? (
+                <>
+                  {/* Lo que NO es una mascota en sí (el Snack Pack de
+                      comida) va primero, con el banner genérico — antes de
+                      la grilla de sprites, para que se lea como "el
+                      insumo" y no se pierda entre las mascotas. */}
+                  {items.some(i => i.categoria === categoria && !i.mascotaId) && (
+                    <div className="sp-grid" style={{ marginBottom: 10 }}>
+                      {items.filter(i => i.categoria === categoria && !i.mascotaId).map(tarjetaGenerica)}
                     </div>
+                  )}
 
-                    <button
-                      className="btn-footer-scroll"
-                      onClick={() => (owned && esTema ? elegirTema(temaEstaActivo ? null : item.temaId) : manejarCompra(item))}
-                      disabled={(owned && !esTema) || isLoading || (item.type === 'coins' && !owned && !puedeComprar)}
-                      style={{
-                        background: temaEstaActivo
-                          ? 'var(--correct)'
-                          : owned
-                            ? 'var(--surface2)'
-                            : item.type === 'coins'
-                              ? (puedeComprar ? '#facc15' : 'var(--surface)')
-                              : '#7c5cbf',
-                        color: temaEstaActivo
-                          ? '#04140c'
-                          : owned
-                            ? 'var(--text)'
-                            : item.type === 'coins'
-                              ? (puedeComprar ? '#000000' : 'var(--text-muted)')
-                              : '#ffffff',
-                        opacity: isLoading ? 0.75 : 1,
-                        cursor: (owned && !esTema) || (item.type === 'coins' && !owned && !puedeComprar) ? 'default' : 'pointer',
-                      }}
-                    >
-                      {owned
-                        ? (esTema ? (temaEstaActivo ? 'Tema activo ✓' : 'Activar') : 'propietario')
-                        : isLoading
-                          ? (<><span className="sp-spinner" />Procesando…</>)
-                          : item.type === 'coins'
-                            ? (item.priceCoins === 0 ? 'Gratis' : `${item.priceCoins} monedas`)
-                            : item.priceMXN === 0
-                              ? 'Gratis'
-                              : `$${item.priceMXN} MXN`
-                      }
-                    </button>
+                  {/* Mismo diseño que "Tu colección" en Mascota.jsx: sprite
+                      real (en gris/silueta si aún no es tuya, vía
+                      currentColor), en vez del banner genérico de
+                      ícono/descripción/precio fijo del resto de la tienda —
+                      para mascotas, ver el sprite de verdad importa más que
+                      un ícono representativo. La felicidad NO se muestra
+                      aquí a propósito (solo en Mi Mascota → Tu colección):
+                      la tienda es para comprar, no para vigilar cuidado. */}
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 10 }}>
+                    {items.filter(i => i.categoria === categoria && i.mascotaId).map(item => {
+                      const mascota = MASCOTAS.find(m => m.id === item.mascotaId)
+                      if (!mascota) return null
+
+                      const owned = ownsItem(item.id)
+                      const isLoading = loadingId === item.id
+                      const puedeComprar = coins >= item.priceCoins
+                      const paletaMostrada = owned ? mascota.paleta : paletaSilueta(mascota.id)
+
+                      return (
+                        <div key={item.id} style={{
+                          display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 7,
+                          background: 'var(--surface2)', border: '1px solid var(--border)',
+                          borderRadius: 14, padding: '14px 8px',
+                          opacity: owned ? 1 : 0.55,
+                          // Sin esto, el ancho fijo del PixelArt (columnas ×
+                          // size en px) obliga a esta columna del grid a no
+                          // encogerse nunca por debajo de ese tamaño, aunque
+                          // el contenedor de la sección sí se ajuste.
+                          minWidth: 0,
+                        }}>
+                          <PixelArt grid={mascota.grid} paleta={paletaMostrada} size={4} style={ESTILO_SPRITE_TIENDA} />
+                          <span style={{ fontSize: 11.5, fontWeight: 700, color: 'var(--text)', textAlign: 'center' }}>
+                            {mascota.nombre}
+                          </span>
+                          {owned ? (
+                            <span style={{
+                              minHeight: 36, width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center',
+                              fontSize: 10.5, fontWeight: 700, color: 'var(--text-muted)',
+                            }}>
+                              propietario
+                            </span>
+                          ) : (
+                            <button
+                              type="button"
+                              onClick={() => manejarCompra(item)}
+                              disabled={isLoading || !puedeComprar}
+                              className="btn-footer-scroll"
+                              style={{
+                                fontSize: 10.5, padding: '8px 6px', minHeight: 36, width: '100%',
+                                opacity: isLoading ? 0.75 : 1,
+                                cursor: puedeComprar ? 'pointer' : 'default',
+                              }}
+                            >
+                              {isLoading
+                                ? 'Procesando…'
+                                : (item.priceCoins === 0 ? 'Gratis' : `${item.priceCoins} monedas`)}
+                            </button>
+                          )}
+                        </div>
+                      )
+                    })}
                   </div>
-                  )
-                })}
-              </div>
+                </>
+              ) : (
+                <div className="sp-grid">
+                  {items.filter(i => i.categoria === categoria).map(tarjetaGenerica)}
+                </div>
+              )}
             </div>
           )
         })}
