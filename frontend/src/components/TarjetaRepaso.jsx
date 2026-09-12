@@ -1,27 +1,45 @@
 // TarjetaRepaso.jsx
 // Dinámica alterna para las preguntas de repaso/reforzamiento dentro de
-// Leccion.jsx: la pregunta cae como una tarjeta sobre una pantalla dividida
-// en 3 zonas triangulares (izquierda / derecha / abajo), cada una con la
-// respuesta escrita dentro. El usuario arrastra la tarjeta hasta sacarla de
-// pantalla (al menos un 70% de su tamaño) en la dirección de la zona donde
-// cree que está la respuesta correcta, o toca esa zona directamente.
+// Leccion.jsx: la pregunta cae como una tarjeta sobre un panel con 3 zonas
+// de respuesta ancladas a los bordes (izquierda, derecha, abajo). Cada
+// respuesta es solo su ícono de dirección + texto flotando sobre el panel
+// — sin un contenedor propio (ni fondo, ni borde) — y ya no un triángulo.
+// El usuario arrastra la tarjeta hasta sacarla de pantalla en dirección de
+// la zona donde cree que está la respuesta correcta. A propósito NO se
+// puede responder tocando la zona directamente (antes sí se podía): un tap
+// accidental sobre una respuesta ya no cuenta como responder.
 //
 // Es puramente presentacional: quien la usa sigue siendo dueño del estado
 // de la pregunta (estados, respondido) y de la lógica de acierto/error
 // (onResponder recibe el índice ORIGINAL de la opción, igual que OpcionBtn).
 
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { FaVolumeUp, FaGoogle } from 'react-icons/fa'
+import { FaVolumeUp, FaGoogle, FaChevronLeft, FaChevronRight, FaChevronDown, FaCheck, FaTimes } from 'react-icons/fa'
 import Latex from './Latex'
 
-const UMBRAL_SALIDA = 0.7 // fracción de la tarjeta que debe salir del contenedor para contar como respuesta
+// Fracción de la tarjeta que debe salir del contenedor para contar como
+// respuesta. Antes era 0.7 (~60% del ANCHO DE PANTALLA arrastrado en un
+// celular típico antes de disparar — un gesto nada natural). Se baja a
+// 0.32 para que un swipe normal (bastante menos de medio ancho de
+// pantalla) ya alcance a activarlo. Usar el snippet de pruebas del PR para
+// afinar este número a mano si hiciera falta (ver README/mensaje del PR).
+const UMBRAL_SALIDA = 0.32
 
-// Cada zona es un triángulo; las 3 juntas cubren todo el rectángulo,
-// encontrándose en el punto superior central donde cae la tarjeta.
-const FORMA_ZONA = {
-  izquierda: { clip: 'polygon(0% 0%, 50% 0%, 0% 100%)', texto: { left: '20%', top: '42%', width: '34%' } },
-  derecha:   { clip: 'polygon(50% 0%, 100% 0%, 100% 100%)', texto: { left: '80%', top: '42%', width: '34%' } },
-  abajo:     { clip: 'polygon(0% 100%, 50% 0%, 100% 100%)', texto: { left: '50%', top: '78%', width: '54%' } },
+// Cada zona es solo la REGIÓN (posición + hitbox de toque) anclada a un
+// borde del panel — ya no un triángulo, y sin un contenedor visual propio
+// (ver Zona más abajo): izquierda/derecha son franjas verticales en su
+// mitad superior, abajo es una franja horizontal completa, dejando aire
+// arriba (donde cae la tarjeta) y separación entre las tres.
+const POSICION_ZONA = {
+  izquierda: { left: 10, top: 10, bottom: '36%', width: '35%' },
+  derecha:   { right: 10, top: 10, bottom: '36%', width: '35%' },
+  abajo:     { left: 10, right: 10, bottom: 10, height: '28%' },
+}
+
+const ICONO_DIRECCION = {
+  izquierda: FaChevronLeft,
+  derecha: FaChevronRight,
+  abajo: FaChevronDown,
 }
 
 function barajar(arr) {
@@ -31,12 +49,6 @@ function barajar(arr) {
     ;[copia[i], copia[j]] = [copia[j], copia[i]]
   }
   return copia
-}
-
-// Convierte un hex de 6 dígitos + una opacidad 0-1 a un hex de 8 dígitos.
-function conAlfa(hex, alfa) {
-  const a = Math.round(Math.min(Math.max(alfa, 0), 1) * 255).toString(16).padStart(2, '0')
-  return `${hex}${a}`
 }
 
 // Calcula, a partir del desplazamiento de arrastre (dx, dy) y del tamaño del
@@ -61,15 +73,6 @@ function calcularFraccionFuera(dx, dy, anchoContenedor, altoContenedor) {
   return { fueraX, fueraY, haciaIzquierda: dx < 0, haciaAbajo: dy > 0 }
 }
 
-// Desplazamiento que deja la tarjeta completamente fuera de pantalla hacia
-// una zona (para el "vuelo" al tocar la zona directamente, sin arrastrar).
-function calcularOffsetSalida(zonaId, ancho, alto) {
-  const anchoCarta = Math.min(ancho * 0.46, 175)
-  if (zonaId === 'izquierda') return { x: -(ancho / 2 + anchoCarta / 2), y: 0 }
-  if (zonaId === 'derecha') return { x: ancho / 2 + anchoCarta / 2, y: 0 }
-  return { x: 0, y: alto * 0.91 }
-}
-
 export default function TarjetaRepaso({ pregunta, estados, respondido, color, onResponder, leyendo, onLeer, onExplicar }) {
   const contenedorRef = useRef(null)
   const arrastreRef = useRef(null) // { inicioX, inicioY, activo }
@@ -81,7 +84,7 @@ export default function TarjetaRepaso({ pregunta, estados, respondido, color, on
   const [zonaHover, setZonaHover] = useState(null) // hacia dónde se está arrastrando ahora mismo
   const [intensidadHover, setIntensidadHover] = useState(0) // 0-1, qué tan cerca está de salir
 
-  // Reparte las 3 opciones en los 3 triángulos; se vuelve a barajar en cada
+  // Reparte las 3 opciones en los 3 destinos; se vuelve a barajar en cada
   // pregunta nueva para que no se pueda memorizar la posición.
   const orden = useMemo(() => barajar([0, 1, 2]), [pregunta])
   const zonas = [
@@ -101,22 +104,14 @@ export default function TarjetaRepaso({ pregunta, estados, respondido, color, on
     return () => cancelAnimationFrame(id)
   }, [pregunta])
 
+  // Solo se llama desde soltarArrastre(), cuando el arrastre YA cruzó
+  // UMBRAL_SALIDA — no hay forma de responder con un toque directo sobre
+  // una zona (ver Zona más abajo: ya no tiene onClick), a propósito: un
+  // tap accidental sobre una respuesta ya no cuenta como responder.
   function elegir(zonaId) {
     if (respondido) return
     const zona = zonas.find(z => z.id === zonaId)
     if (!zona) return
-
-    const rect = contenedorRef.current?.getBoundingClientRect()
-    if (rect) {
-      const { fueraX, fueraY, haciaAbajo } = calcularFraccionFuera(offset.x, offset.y, rect.width, rect.height)
-      const yaSalio = zonaId === 'abajo'
-        ? (haciaAbajo && fueraY >= UMBRAL_SALIDA)
-        : fueraX >= UMBRAL_SALIDA
-      // Si no se llegó arrastrando (toque directo sobre la zona), se manda
-      // la tarjeta a volar fuera de pantalla para que la animación sea
-      // consistente con la de un arrastre completo.
-      if (!yaSalio) setOffset(calcularOffsetSalida(zonaId, rect.width, rect.height))
-    }
 
     setZonaElegida(zonaId)
     onResponder(zona.indiceOriginal)
@@ -177,25 +172,23 @@ export default function TarjetaRepaso({ pregunta, estados, respondido, color, on
     }
   }
 
+  // Ya no hay un contenedor por respuesta que rellenar (fondo/borde): solo
+  // el color del texto/ícono y un ligero "pop" de escala mientras se
+  // arrastra hacia esa zona.
   function estiloZona(zonaId, indiceOriginal) {
     const estado = estados?.[indiceOriginal]
 
     if (respondido) {
-      if (estado === 'correcto') return { fondo: 'rgba(74,222,128,0.3)', borde: 'var(--correct)', texto: 'var(--correct)' }
-      if (estado === 'incorrecto') return { fondo: 'rgba(248,113,113,0.3)', borde: 'var(--wrong)', texto: 'var(--wrong)' }
-      return { fondo: conAlfa(color, 0.05), borde: 'transparent', texto: 'var(--text-muted)' }
+      if (estado === 'correcto') return { texto: 'var(--correct)', escala: 1.08 }
+      if (estado === 'incorrecto') return { texto: 'var(--wrong)', escala: 1.08 }
+      return { texto: 'var(--text-muted)', escala: 1 }
     }
 
     if (zonaHover === zonaId) {
-      const alfa = 0.08 + intensidadHover * 0.32
-      return {
-        fondo: conAlfa(color, alfa),
-        borde: intensidadHover >= 1 ? color : 'transparent',
-        texto: 'var(--text)',
-      }
+      return { texto: color, escala: 1 + intensidadHover * 0.18 }
     }
 
-    return { fondo: conAlfa(color, 0.05), borde: 'transparent', texto: 'var(--text-muted)' }
+    return { texto: 'var(--text-muted)', escala: 1 }
   }
 
   const cartaTransform = `translate(-50%, 0) translate(${offset.x}px, ${offset.y}px) rotate(${offset.x / 18}deg)`
@@ -206,15 +199,12 @@ export default function TarjetaRepaso({ pregunta, estados, respondido, color, on
       style={{
         position: 'relative',
         flex: 1,
-        minHeight: 380,
-        borderRadius: 0,
+        minHeight: 400,
+        borderRadius: 20,
         overflow: 'hidden',
         userSelect: 'none',
-        background: 'var(--bg)',
-        borderTop: '1px solid rgba(255,255,255,0.06)',
-        borderBottom: '1px solid rgba(255,255,255,0.06)',
-        marginLeft: -16,
-        marginRight: -16,
+        background: 'linear-gradient(180deg, var(--surface), var(--bg))',
+        border: '1px solid rgba(255,255,255,0.07)',
       }}
     >
       {zonas.map(z => (
@@ -223,9 +213,9 @@ export default function TarjetaRepaso({ pregunta, estados, respondido, color, on
           zonaId={z.id}
           opcion={pregunta.opciones[z.indiceOriginal]}
           indiceOriginal={z.indiceOriginal}
+          estado={estados?.[z.indiceOriginal]}
+          respondido={respondido}
           estiloZona={estiloZona}
-          onClick={elegir}
-          deshabilitada={respondido}
         />
       ))}
 
@@ -233,7 +223,7 @@ export default function TarjetaRepaso({ pregunta, estados, respondido, color, on
         <button
           onClick={onExplicar}
           title="Explicar con IA (Google)"
-          className="util-btn"
+          className="util-btn fondo-sutil"
           style={{
             position: 'absolute',
             top: 10,
@@ -241,7 +231,6 @@ export default function TarjetaRepaso({ pregunta, estados, respondido, color, on
             width: 36, height: 36,
             display: 'flex', alignItems: 'center', justifyContent: 'center',
             borderRadius: '50%',
-            background: 'rgba(255,255,255,0.1)',
             color: 'var(--text-muted)',
             fontSize: '0.92rem',
             zIndex: 6,
@@ -255,7 +244,7 @@ export default function TarjetaRepaso({ pregunta, estados, respondido, color, on
         <button
           onClick={onLeer}
           title={leyendo ? 'Detener lectura' : 'Leer en voz alta'}
-          className="util-btn"
+          className={`util-btn${leyendo ? '' : ' fondo-sutil'}`}
           style={{
             position: 'absolute',
             top: 10,
@@ -263,7 +252,7 @@ export default function TarjetaRepaso({ pregunta, estados, respondido, color, on
             width: 36, height: 36,
             display: 'flex', alignItems: 'center', justifyContent: 'center',
             borderRadius: '50%',
-            background: leyendo ? color : 'rgba(255,255,255,0.1)',
+            background: leyendo ? color : undefined,
             color: leyendo ? '#fff' : 'var(--text-muted)',
             fontSize: '1rem',
             transition: 'background 0.2s ease, color 0.2s ease',
@@ -276,6 +265,7 @@ export default function TarjetaRepaso({ pregunta, estados, respondido, color, on
 
       {/* Tarjeta que cae */}
       <div
+        data-testid="tarjeta-repaso"
         onPointerDown={iniciarArrastre}
         onPointerMove={moverArrastre}
         onPointerUp={soltarArrastre}
@@ -313,45 +303,52 @@ export default function TarjetaRepaso({ pregunta, estados, respondido, color, on
   )
 }
 
-function Zona({ zonaId, opcion, indiceOriginal, estiloZona, onClick, deshabilitada }) {
-  const { fondo, borde, texto } = estiloZona(zonaId, indiceOriginal)
-  const forma = FORMA_ZONA[zonaId]
+// Puramente decorativa: sin contenedor visual propio (sin fondo/borde/
+// sombra) Y sin poder recibir clics/toques (pointerEvents: 'none') — la
+// ÚNICA forma de responder es arrastrar la tarjeta hasta sacarla de esta
+// región (ver soltarArrastre/elegir arriba); un tap accidental sobre una
+// respuesta ya no cuenta. El único feedback es el color del texto/ícono y
+// un ligero "pop" de escala (ver estiloZona).
+function Zona({ zonaId, opcion, indiceOriginal, estado, respondido, estiloZona }) {
+  const { texto, escala } = estiloZona(zonaId, indiceOriginal)
+  const pos = POSICION_ZONA[zonaId]
+  const esFranjaHorizontal = zonaId === 'abajo'
+
+  let Icono = ICONO_DIRECCION[zonaId]
+  if (respondido && estado === 'correcto') Icono = FaCheck
+  else if (respondido && estado === 'incorrecto') Icono = FaTimes
+
   return (
-    <button
-      type="button"
-      onClick={() => onClick(zonaId)}
-      disabled={deshabilitada}
+    <div
+      data-testid={`zona-repaso-${zonaId}`}
       style={{
         position: 'absolute',
-        inset: 0,
-        width: '100%',
-        height: '100%',
-        clipPath: forma.clip,
-        background: fondo,
-        border: `2px solid ${borde}`,
-        borderRadius: 0,
-        padding: 0,
-        cursor: deshabilitada ? 'default' : 'pointer',
-        transition: 'background 0.15s ease, border-color 0.15s ease',
+        ...pos,
+        display: 'flex',
+        flexDirection: esFranjaHorizontal ? 'row' : 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        gap: 8,
+        padding: '10px 12px',
+        pointerEvents: 'none',
+        transform: `scale(${escala})`,
+        transition: 'transform 0.15s ease-out',
         zIndex: 2,
       }}
     >
-      <div style={{
-        position: 'absolute',
-        left: forma.texto.left,
-        top: forma.texto.top,
-        width: forma.texto.width,
-        transform: 'translate(-50%, -50%)',
+      <Icono style={{ color: texto, fontSize: 14, opacity: 0.7, flexShrink: 0, transition: 'color 0.15s ease' }} />
+      <span style={{
         color: texto,
         fontSize: 13,
         fontWeight: 700,
         lineHeight: 1.3,
         wordBreak: 'break-word',
+        textAlign: 'center',
         pointerEvents: 'none',
         transition: 'color 0.15s ease',
       }}>
         <Latex texto={opcion} />
-      </div>
-    </button>
+      </span>
+    </div>
   )
 }

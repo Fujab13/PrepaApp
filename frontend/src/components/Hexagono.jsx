@@ -79,8 +79,9 @@ export default function Hexagono({ progreso = 0, color = '#ff00ae', onClick, siz
         <polygon
           key={i}
           points={t.points}
-          fill={t.activo ? `url(#hg-activo-${uid})` : '#22223b'}
-          stroke="#444466"
+          fill={t.activo ? `url(#hg-activo-${uid})` : 'var(--surface2)'}
+          stroke="var(--text-muted)"
+          strokeOpacity="0.5"
           strokeWidth="2"
         />
       ))}
@@ -107,7 +108,7 @@ export default function Hexagono({ progreso = 0, color = '#ff00ae', onClick, siz
       <text
         x={cx} y={cy + 6}
         textAnchor="middle"
-        fill="#fff"
+        fill="var(--text)"
         fontSize="16"
         fontWeight="700"
         fontFamily="Inter, sans-serif"

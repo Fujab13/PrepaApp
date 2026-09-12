@@ -18,7 +18,7 @@ export default function Tarjeta({ tema, color, completados, onToggleSubtema, sub
             {progreso}%
           </span>
         </div>
-        <div style={{ height: 5, borderRadius: 999, background: 'rgba(255,255,255,0.08)', overflow: 'hidden' }}>
+        <div className="fondo-sutil" style={{ height: 5, borderRadius: 999, overflow: 'hidden' }}>
           <div
             style={{
               height: '100%',

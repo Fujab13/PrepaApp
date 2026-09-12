@@ -70,8 +70,7 @@ export default function TemariosCards({ materias, featuredColor, onSelect }) {
               justifyContent: 'center',
               gap: '6px'
             }}>
-              <span style={{
-                background: 'rgba(255, 255, 255, 0.08)',
+              <span className="fondo-sutil" style={{
                 padding: '3px 8px',
                 borderRadius: '6px',
                 fontSize: '0.64rem',

@@ -152,11 +152,11 @@ export default function Home() {
 
         </span>
 
-        <h1 style={{ 
-          fontSize: '1.4rem', 
-          fontWeight: 500, 
-          margin: 0, 
-          color: '#ffffff',
+        <h1 style={{
+          fontSize: '1.4rem',
+          fontWeight: 500,
+          margin: 0,
+          color: 'var(--text)',
           letterSpacing: '-0.01em'
         }}>
           Prepa<span style={{ fontWeight: 300, opacity: 0.6 }}>App</span>

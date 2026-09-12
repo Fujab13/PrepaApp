@@ -1,11 +1,13 @@
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useStore } from '../context/StoreContext'
+import { useAuth } from '../context/AuthContext'
 
 import { supabase } from '../services/supabaseClient'
 
 import { MdToken, MdWorkspacePremium } from 'react-icons/md'
-import { HiOutlineRectangleStack, HiOutlineSparkles } from 'react-icons/hi2'
+import { HiOutlineRectangleStack, HiOutlineSparkles, HiOutlineSwatch } from 'react-icons/hi2'
+import { FaPaw } from 'react-icons/fa'
 import { FaStripe } from "react-icons/fa";
 import { AiOutlineClose } from "react-icons/ai";
 import { PiShoppingCartSimpleFill } from "react-icons/pi";
@@ -16,19 +18,72 @@ import { renderIconoMateria } from '../utils/renderIconoMateria'
 const CATEGORIA_ESTILO = {
   'Práctica extra': { Icon: HiOutlineRectangleStack, tinte: '96, 165, 250' },
   'Suscripción': { Icon: MdWorkspacePremium, tinte: '167, 139, 250' },
+  'Personalización': { Icon: HiOutlineSwatch, tinte: '96, 165, 250' },
+  'Mascotas': { Icon: FaPaw, tinte: '251, 146, 60' },
 }
 const ESTILO_DEFAULT = { Icon: HiOutlineSparkles, tinte: '148, 163, 184' }
 
+// Rediseño: lo que se paga con dinero real va primero (ver categorias más
+// abajo) — una categoría que no aparezca aquí simplemente cae al final, en
+// el orden en que Set la haya recogido.
+const ORDEN_CATEGORIAS = ['Suscripción', 'Práctica extra', 'Personalización', 'Mascotas']
+
+// Gesto secreto para admins: 5 toques sobre el saldo de monedas en menos de
+// 1.2s abre el panel de ajuste manual (ver panelAdminAbierto más abajo).
+const TOQUES_PARA_PANEL_ADMIN = 5
+const VENTANA_TOQUES_MS = 1200
+
 export default function Store() {
   const navigate = useNavigate()
-  const { coins, ownsItem, purchaseWithCoins, startRealPayment, claimFreeProduct, items, productosLoading } = useStore()
+  const { coins, ownsItem, purchaseWithCoins, comprarComida, startRealPayment, claimFreeProduct, items, productosLoading, temaActivo, elegirTema, ajustarMonedasAdmin } = useStore()
+  const { esAdmin } = useAuth()
   const [feedback, setFeedback] = useState(null)
   const [loadingId, setLoadingId] = useState(null)
 
+  // Panel de pruebas (solo admin): oculto para cualquier otra cuenta, ni
+  // siquiera con un cursor distinto al tocar el saldo — no hay pista visual
+  // de que existe.
+  const toquesAdminRef = useRef(0)
+  const reinicioToquesRef = useRef(null)
+  const [panelAdminAbierto, setPanelAdminAbierto] = useState(false)
+  const [montoAdmin, setMontoAdmin] = useState('500')
+
+  function tocarSaldo() {
+    if (!esAdmin) return
+    toquesAdminRef.current += 1
+    clearTimeout(reinicioToquesRef.current)
+    if (toquesAdminRef.current >= TOQUES_PARA_PANEL_ADMIN) {
+      toquesAdminRef.current = 0
+      setPanelAdminAbierto(true)
+      return
+    }
+    reinicioToquesRef.current = setTimeout(() => { toquesAdminRef.current = 0 }, VENTANA_TOQUES_MS)
+  }
+
+  function aplicarAjusteAdmin(signo) {
+    const monto = Math.round(Number(montoAdmin))
+    if (!Number.isFinite(monto) || monto <= 0) return
+    ajustarMonedasAdmin(monto * signo)
+  }
+
   const categorias = useMemo(() => {
     const set = new Set(items.map(i => i.categoria))
-    return Array.from(set)
+    return Array.from(set).sort((a, b) => {
+      const ia = ORDEN_CATEGORIAS.indexOf(a)
+      const ib = ORDEN_CATEGORIAS.indexOf(b)
+      if (ia === -1 && ib === -1) return 0
+      if (ia === -1) return 1
+      if (ib === -1) return -1
+      return ia - ib
+    })
   }, [items])
+
+  // Primera categoría que ya es "de monedas" (todos sus items type:'coins')
+  // — se usa solo para pintar un separador visual justo antes, marcando
+  // dónde termina lo que se paga con dinero real y empieza lo demás.
+  const primeraCategoriaMonedas = useMemo(() => {
+    return categorias.find(cat => items.find(i => i.categoria === cat)?.type === 'coins')
+  }, [categorias, items])
 
   function mostrarFeedback(type, text) {
     setFeedback({ type, text })
@@ -41,9 +96,14 @@ export default function Store() {
 
     // --- monedas internas ---
     if (item.type === 'coins') {
-      const result = purchaseWithCoins(item)
+      // La comida es consumible (se puede comprar varias veces, ver
+      // comprarComida en StoreContext.jsx) — todo lo demás es un
+      // desbloqueo único de toda la vida (purchaseWithCoins).
+      const result = item.comidaCantidad ? comprarComida(item) : purchaseWithCoins(item)
       if (result.ok) {
-        mostrarFeedback('success', `¡Desbloqueaste "${item.nombre}"!`)
+        mostrarFeedback('success', item.comidaCantidad
+          ? `+${item.comidaCantidad} de comida para tus mascotas`
+          : `¡Desbloqueaste "${item.nombre}"!`)
       } else if (result.reason === 'insufficient_funds') {
         mostrarFeedback('error', 'No tienes suficientes monedas')
       } else {
@@ -144,15 +204,17 @@ export default function Store() {
           Tienda
         </h1>
 
-        <div style={{
-          marginLeft: 'auto',
-          padding: '7px 14px',
-          display: 'flex',
-          alignItems: 'center',
-          gap: 6,
-          fontWeight: 700,
-          fontSize: '0.88rem'
-        }}>
+        <div
+          onClick={tocarSaldo}
+          style={{
+            marginLeft: 'auto',
+            padding: '7px 14px',
+            display: 'flex',
+            alignItems: 'center',
+            gap: 6,
+            fontWeight: 700,
+            fontSize: '0.88rem'
+          }}>
           <PiHexagonDuotone   style={{ color: '#facc15', fontSize: '1.05rem' }} />
           {coins}
         </div>
@@ -171,6 +233,17 @@ export default function Store() {
 
           return (
             <div key={categoria} style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+              {categoria === primeraCategoriaMonedas && (
+                <div style={{
+                  display: 'flex', alignItems: 'center', gap: 10,
+                  margin: '4px 0 8px', color: 'var(--text-muted)',
+                  fontSize: '0.68rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '1.3px',
+                }}>
+                  <span style={{ flex: 1, height: 1, background: 'var(--border)' }} />
+                  Con monedas
+                  <span style={{ flex: 1, height: 1, background: 'var(--border)' }} />
+                </div>
+              )}
               <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                 <span style={{
                   width: 22, height: 22,
@@ -201,6 +274,12 @@ export default function Store() {
                   const isLoading = loadingId === item.id
                   const puedeComprar = item.type === 'coins' ? coins >= item.priceCoins : true
 
+                  // Un item con `temaId` (ver storeItems.js) no se "consume": una vez
+                  // comprado, el mismo botón pasa a ser un toggle de activar/desactivar
+                  // ese tema en vez de quedar inerte con "propietario".
+                  const esTema = Boolean(item.temaId)
+                  const temaEstaActivo = esTema && temaActivo === item.temaId
+
                   const iconColor = item.type === 'coins' ? '#facc15' : '#7c5cbf'
                   const iconBg = item.type === 'coins' ? 'rgba(250, 204, 21, 0.16)' : 'rgba(124, 92, 191, 0.16)'
 
@@ -221,29 +300,33 @@ export default function Store() {
 
                     <button
                       className="btn-footer-scroll"
-                      onClick={() => manejarCompra(item)}
-                      disabled={owned || isLoading || (item.type === 'coins' && !puedeComprar)}
+                      onClick={() => (owned && esTema ? elegirTema(temaEstaActivo ? null : item.temaId) : manejarCompra(item))}
+                      disabled={(owned && !esTema) || isLoading || (item.type === 'coins' && !owned && !puedeComprar)}
                       style={{
-                        background: owned
-                          ? 'var(--surface)'
-                          : item.type === 'coins'
-                            ? (puedeComprar ? '#facc15' : 'var(--surface)')
-                            : '#7c5cbf',
-                        color: owned
-                          ? 'var(--text-muted)'
-                          : item.type === 'coins'
-                            ? (puedeComprar ? '#000000' : 'var(--text-muted)')
-                            : '#ffffff',
+                        background: temaEstaActivo
+                          ? 'var(--correct)'
+                          : owned
+                            ? 'var(--surface2)'
+                            : item.type === 'coins'
+                              ? (puedeComprar ? '#facc15' : 'var(--surface)')
+                              : '#7c5cbf',
+                        color: temaEstaActivo
+                          ? '#04140c'
+                          : owned
+                            ? 'var(--text)'
+                            : item.type === 'coins'
+                              ? (puedeComprar ? '#000000' : 'var(--text-muted)')
+                              : '#ffffff',
                         opacity: isLoading ? 0.75 : 1,
-                        cursor: owned || (item.type === 'coins' && !puedeComprar) ? 'default' : 'pointer',
+                        cursor: (owned && !esTema) || (item.type === 'coins' && !owned && !puedeComprar) ? 'default' : 'pointer',
                       }}
                     >
                       {owned
-                        ? 'propietario'
+                        ? (esTema ? (temaEstaActivo ? 'Tema activo ✓' : 'Activar') : 'propietario')
                         : isLoading
                           ? (<><span className="sp-spinner" />Procesando…</>)
                           : item.type === 'coins'
-                            ? `${item.priceCoins} monedas`
+                            ? (item.priceCoins === 0 ? 'Gratis' : `${item.priceCoins} monedas`)
                             : item.priceMXN === 0
                               ? 'Gratis'
                               : `$${item.priceMXN} MXN`
@@ -303,6 +386,93 @@ export default function Store() {
           zIndex: 200
         }}>
           {feedback.text}
+        </div>
+      )}
+
+      {/* Panel de pruebas para admin: solo llega a existir en el DOM si
+          esAdmin (ver tocarSaldo) — nada que un usuario normal pueda
+          "encontrar" inspeccionando el árbol, ni con esAdmin en false. */}
+      {esAdmin && panelAdminAbierto && (
+        <div
+          style={{
+            position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.55)',
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            padding: 20, zIndex: 300,
+          }}
+          onClick={() => setPanelAdminAbierto(false)}
+        >
+          <div
+            onClick={e => e.stopPropagation()}
+            style={{
+              width: '100%', maxWidth: 320,
+              background: 'var(--surface)',
+              border: '1px solid rgba(255,255,255,0.08)',
+              borderRadius: 16,
+              padding: 20,
+              display: 'flex', flexDirection: 'column', gap: 14,
+              boxShadow: '0 20px 50px -12px rgba(0,0,0,0.6)',
+            }}
+          >
+            <div>
+              <p style={{ margin: 0, fontSize: 12, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.04em', color: 'var(--text-muted)' }}>
+                Solo admin · pruebas
+              </p>
+              <p style={{ margin: '2px 0 0', fontSize: '0.95rem', fontWeight: 700, color: 'var(--text)' }}>
+                Saldo actual: {coins} monedas
+              </p>
+            </div>
+
+            <input
+              type="number"
+              inputMode="numeric"
+              min={1}
+              value={montoAdmin}
+              onChange={e => setMontoAdmin(e.target.value)}
+              style={{
+                width: '100%', minHeight: 44, borderRadius: 10,
+                border: '1px solid rgba(255,255,255,0.12)',
+                background: 'var(--surface2)', color: 'var(--text)',
+                fontSize: '1rem', fontWeight: 600, padding: '0 14px',
+              }}
+            />
+
+            <div style={{ display: 'flex', gap: 10 }}>
+              <button
+                type="button"
+                onClick={() => aplicarAjusteAdmin(1)}
+                style={{
+                  flex: 1, minHeight: 44, borderRadius: 10, border: 'none',
+                  background: 'var(--correct)', color: '#04140c',
+                  fontWeight: 700, fontSize: '0.9rem', cursor: 'pointer',
+                }}
+              >
+                + Añadir
+              </button>
+              <button
+                type="button"
+                onClick={() => aplicarAjusteAdmin(-1)}
+                style={{
+                  flex: 1, minHeight: 44, borderRadius: 10, border: 'none',
+                  background: 'var(--wrong)', color: '#2a0a0a',
+                  fontWeight: 700, fontSize: '0.9rem', cursor: 'pointer',
+                }}
+              >
+                − Quitar
+              </button>
+            </div>
+
+            <button
+              type="button"
+              onClick={() => setPanelAdminAbierto(false)}
+              style={{
+                minHeight: 44, borderRadius: 10, border: 'none',
+                background: 'transparent', color: 'var(--text-muted)',
+                fontWeight: 600, fontSize: '0.85rem', cursor: 'pointer',
+              }}
+            >
+              Cerrar
+            </button>
+          </div>
         </div>
       )}
     </div>

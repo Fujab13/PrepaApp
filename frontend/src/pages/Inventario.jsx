@@ -281,9 +281,18 @@ export default function Inventario({ onClose, onNavigateStore }) {
 // que cada producto ya aparece en Store.jsx (ver obtenerMetaProducto), y
 // con feedback táctil real al presionar (gm-cta, global.css) — antes
 // .cardBlue declaraba una transición de transform que nunca se disparaba.
+//
+// El brillo azul (borde/sombra rgba(71,166,255,...)) es el ACENTO de esta
+// pantalla — se queda fijo en cualquier tema, es la identidad del "neón",
+// no una preferencia de tema (ver comentario de arquitectura de temas en
+// global.css). Lo que si tenía que dejar de estar quemado en hex era la
+// SUPERFICIE de fondo y el texto (antes '#101227'/'#14213d'/'#f0f0f0': el
+// tono oscuro del tema original a secas), porque eso es exactamente lo que
+// un tema debe poder cambiar — con --surface/--surface2/--text el panel
+// sigue leyéndose "neón" en cualquier tema, solo cambia el tono de base.
 const styles = {
   zoneBlue: {
-    backgroundColor: '#101227',
+    background: 'var(--surface2)',
     borderRadius: '16px',
     padding: '12px',
     display: 'grid',
@@ -294,7 +303,7 @@ const styles = {
     width: '100%',
   },
   cardBlue: {
-    background: 'linear-gradient(135deg, #14213d 0%, #0f172a 100%)',
+    background: 'linear-gradient(135deg, var(--surface2), var(--surface))',
     borderRadius: '14px',
     minHeight: '92px',
     border: '1px solid rgba(71, 166, 255, 0.55)',
@@ -326,7 +335,7 @@ const styles = {
     boxShadow: '0 0 10px rgba(124, 92, 191, 0.35)',
   },
   productName: {
-    color: '#f0f0f0',
+    color: 'var(--text)',
     fontSize: '11px',
     fontWeight: 600,
     textAlign: 'center',

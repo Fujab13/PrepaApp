@@ -8,9 +8,10 @@ import Latex from '../components/Latex'
 import Celebracion from '../components/Celebracion'
 import ConfirmDialog from '../components/ConfirmDialog'
 import { useProgreso } from '../hooks/useProgreso'
-import { getPreguntasDeUnidad, getTotalUnidades } from '../data/unidades'
+import { getPreguntasDeUnidad, getTotalUnidades, PREGUNTAS_POR_UNIDAD, PREGUNTAS_POR_UNIDAD_DIFICIL } from '../data/unidades'
 import { obtenerLeccionDeSesion } from '../services/leccionesPremium';
 import { triggerVibration } from '../utils/haptics';
+import { leerModoDificil } from '../utils/modoDificil';
 import { hablarTexto, detenerLectura } from '../utils/tts';
 import { getLectura } from '../data/lecturas/index';
 import { buscarConceptoSimilar } from '../utils/buscarConcepto';
@@ -20,7 +21,7 @@ import { renderIconoMateria } from '../utils/renderIconoMateria';
 import { IoMdClose } from "react-icons/io";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { AiOutlineClose, AiOutlineLoading3Quarters } from "react-icons/ai";
-import { MdFullscreen, MdFullscreenExit, MdSkipNext } from "react-icons/md";
+import { MdFullscreen, MdFullscreenExit, MdSkipNext, MdTimer } from "react-icons/md";
 import { VscDebugRestart } from "react-icons/vsc";
 import { MdRestartAlt } from "react-icons/md";
 import { PiCopy, PiCheckBold } from "react-icons/pi";
@@ -101,7 +102,17 @@ export default function Leccion() {
   const [materia, setMateria] = useState(null)
   const [cargando, setCargando] = useState(true)
   const [errorCarga, setErrorCarga] = useState('')
-  const totalUnidades = materia ? getTotalUnidades(materia.preguntas) : undefined
+  // Modo difícil (ver MateriaCard/Home): unidades más largas, sin tarjetas
+  // de solo concepto, y con cronómetro por pregunta. Es una preferencia
+  // local por materia (localStorage), no toca progreso_usuario: el
+  // contador de unidad/elemento sigue siendo el mismo en ambos modos.
+  const [modoDificil, setModoDificil] = useState(false)
+  const [tiempoRestante, setTiempoRestante] = useState(220) // décimas de segundo (22.0s)
+  const tamanoUnidad = modoDificil ? PREGUNTAS_POR_UNIDAD_DIFICIL : PREGUNTAS_POR_UNIDAD
+  const preguntasPool = materia
+    ? (modoDificil ? materia.preguntas.filter(p => Array.isArray(p.opciones) && p.opciones.length > 0) : materia.preguntas)
+    : []
+  const totalUnidades = materia ? getTotalUnidades(preguntasPool, tamanoUnidad) : undefined
   const { unidad, elemento, cargando: cargandoProgreso, guardarProgreso } = useProgreso(materiaId, totalUnidades)
 
   const [cola, setCola]                             = useState(null)
@@ -137,6 +148,12 @@ export default function Leccion() {
     return () => detenerLectura()
   }, [])
 
+  // Se lee una sola vez por materia (se activa/desactiva desde MateriaCard
+  // en Home, no hay control para cambiarlo aquí dentro de la lección).
+  useEffect(() => {
+    setModoDificil(leerModoDificil(materiaId))
+  }, [materiaId])
+
   useEffect(() => {
     // Espera tanto a que cargue la lección como a que useProgreso termine de
     // leer la unidad/elemento reales (Supabase o localStorage); si no, este
@@ -144,7 +161,7 @@ export default function Leccion() {
     // y se alcanza a ver un parpadeo de la unidad 1 antes de corregirse.
     if (cargando || cargandoProgreso || elemento === undefined || !materia || inicializadoRef.current) return
 
-    const total = getPreguntasDeUnidad(materia.preguntas, unidad).length
+    const total = getPreguntasDeUnidad(preguntasPool, unidad, tamanoUnidad).length
     if (total === 0) return
 
     const yaCorrectas = Math.min(elemento, total)
@@ -155,7 +172,7 @@ export default function Leccion() {
     setCola(restantes.length > 0 ? restantes : Array.from({ length: total }, (_, i) => i))
 
     inicializadoRef.current = true
-  }, [cargando, cargandoProgreso, elemento, materia, unidad])
+  }, [cargando, cargandoProgreso, elemento, materia, unidad, modoDificil])
 
   useEffect(() => {
     // Se inicializa una sola vez, ya con la unidad real cargada (no la 1 por
@@ -217,6 +234,56 @@ export default function Leccion() {
     const iniciado = hablarTexto(preguntaActual.pregunta, { onEnd: () => setLeyendo(false) })
     if (iniciado) setLeyendo(true)
   }, [lecturaAutomatica, cargando, cargandoProgreso, materia, unidad, cola, enRepaso, colaRepaso])
+
+  // ── Cronómetro por pregunta (Modo difícil) ────────────────────────────────
+  // Mismo problema que el efecto de lectura automática de arriba: en este
+  // punto del componente "pregunta"/"tieneCorrecta" (más abajo, después del
+  // primer return condicional) todavía no existen, así que este efecto solo
+  // cuenta décimas de segundo — no necesita saber nada de la pregunta en sí,
+  // solo cuándo cambia (cola/colaRepaso/enRepaso) y si ya se respondió.
+  useEffect(() => {
+    if (!modoDificil || cargando || cargandoProgreso || !materia || cola === null) return
+    if (respondido) return
+
+    setTiempoRestante(220)
+
+    const id = setInterval(() => {
+      setTiempoRestante(prev => (prev <= 1 ? 0 : prev - 1))
+    }, 100)
+
+    return () => clearInterval(id)
+  }, [modoDificil, cargando, cargandoProgreso, materia, cola, colaRepaso, enRepaso, respondido])
+
+  // Al llegar a 0 sin responder: revela la opción correcta y marca la
+  // pregunta como fallada, igual que el camino de "incorrecto" de
+  // responder() más abajo — recalculando la pregunta actual con los mismos
+  // ingredientes crudos que el efecto de arriba, por la misma razón.
+  useEffect(() => {
+    if (!modoDificil || respondido || tiempoRestante > 0) return
+    if (cargando || cargandoProgreso || !materia || cola === null) return
+
+    const preguntaActual = enRepaso
+      ? (colaRepaso[0] || null)
+      : (cola.length > 0 ? getPreguntasDeUnidad(preguntasPool, unidad, tamanoUnidad)[cola[0]] : null)
+    if (!preguntaActual || !Array.isArray(preguntaActual.opciones)) return
+
+    const correctaIdx = preguntaActual.correcta
+    const tieneCorrectaActual = typeof correctaIdx === 'number'
+    const nuevosEstados = preguntaActual.opciones.map((_, j) => (tieneCorrectaActual && j === correctaIdx) ? 'correcto' : 'normal')
+
+    setEstados(nuevosEstados)
+    setRespondido(true)
+    setFeedback('⏰ Tiempo agotado. Corrigela al final.')
+    triggerVibration('error')
+
+    if (!enRepaso) {
+      setIndicesFallados(prev => new Set(prev).add(cola[0]))
+    }
+    if (!preguntaActual.intro) {
+      const unidadClave = enRepaso ? unidad - 1 : unidad
+      guardarFalloEnUnidad(materiaId, unidadClave, preguntaActual)
+    }
+  }, [modoDificil, respondido, tiempoRestante, cargando, cargandoProgreso, materia, cola, colaRepaso, enRepaso, preguntasPool, unidad, tamanoUnidad, materiaId])
 
   useEffect(() => {
     let activo = true
@@ -298,8 +365,10 @@ export default function Leccion() {
   if (resumen) {
     return (
       <EscaneoRecompensa
+        materiaId={materiaId}
         unidad={resumen.unidad}
         colorAcento={materia.color}
+        modoDificil={modoDificil}
         onContinuar={continuarDesdeResumen}
       />
     )
@@ -307,7 +376,7 @@ export default function Leccion() {
 
   const preguntas = (cargando || cargandoProgreso || !materia)
     ? []
-    : getPreguntasDeUnidad(materia.preguntas, unidad)
+    : getPreguntasDeUnidad(preguntasPool, unidad, tamanoUnidad)
   const colaLista = cola !== null
   const idxActual = colaLista && cola.length > 0 ? cola[0] : null
   const pregunta  = enRepaso
@@ -815,6 +884,20 @@ export default function Leccion() {
           }} />
         </div>
 
+        {modoDificil && (
+          <span
+            className="reloj-minimal"
+            style={{
+              color: tiempoRestante <= 50 ? 'var(--wrong)' : tiempoRestante <= 100 ? '#f59e0b' : materia.color,
+              fontSize: '0.85rem',
+              flexShrink: 0,
+            }}
+          >
+            <MdTimer />
+            {(tiempoRestante / 10).toFixed(1)}s
+          </span>
+        )}
+
         {/* 4. Contenedor de Botones de Utilidad (Alineado a la derecha) */}
         <div className="page-topbar-actions" style={{ gap: '4px' }}>
           {[
@@ -1017,13 +1100,12 @@ export default function Leccion() {
                 <button
                   onClick={explicarConIA}
                   title="Explicar con IA (Google)"
-                  className="util-btn"
+                  className="util-btn fondo-sutil"
                   data-gamificacion="bajo"
                   style={{
                     width: 36, height: 36,
                     display: 'flex', alignItems: 'center', justifyContent: 'center',
                     borderRadius: '50%',
-                    background: 'rgba(255,255,255,0.08)',
                     color: 'var(--text-muted)',
                     fontSize: '0.92rem',
                     transition: 'background 0.2s ease, color 0.2s ease',
@@ -1034,13 +1116,13 @@ export default function Leccion() {
                 <button
                   onClick={() => alternarLectura(pregunta.pregunta)}
                   title={leyendo ? 'Detener lectura' : 'Leer en voz alta'}
-                  className="util-btn"
+                  className={`util-btn${leyendo ? '' : ' fondo-sutil'}`}
                   data-gamificacion="bajo"
                   style={{
                     width: 36, height: 36,
                     display: 'flex', alignItems: 'center', justifyContent: 'center',
                     borderRadius: '50%',
-                    background: leyendo ? materia.color : 'rgba(255,255,255,0.08)',
+                    background: leyendo ? materia.color : undefined,
                     color: leyendo ? '#fff' : 'var(--text-muted)',
                     fontSize: '1rem',
                     transition: 'background 0.2s ease, color 0.2s ease',
@@ -1065,7 +1147,7 @@ export default function Leccion() {
                   <span style={{
                     width: 34, height: 20,
                     borderRadius: 999,
-                    background: lecturaAutomatica ? materia.color : 'rgba(255,255,255,0.15)',
+                    background: lecturaAutomatica ? materia.color : 'var(--surface2)',
                     position: 'relative',
                     flexShrink: 0,
                     transition: 'background 0.2s ease',

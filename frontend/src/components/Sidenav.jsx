@@ -6,7 +6,7 @@ import { useMusic } from '../context/MusicContext'
 import { resolverAvatarUsuario } from '../utils/avatar'
 
 import { FaCreditCard } from "react-icons/fa6";
-import { FaUserGraduate } from "react-icons/fa";
+import { FaUserGraduate, FaPaw } from "react-icons/fa";
 import { LiaCartPlusSolid } from "react-icons/lia";
 import { PiShoppingCart } from "react-icons/pi";
 import { SlUser } from "react-icons/sl";
@@ -67,7 +67,7 @@ export default function Sidenav({ open, onClose }) {
         top: 0,
         left: 0,
         width: '290px',
-        background: 'var(--surface)', 
+        background: 'var(--sidenav-bg, var(--surface))',
         zIndex: 100,
         transform: open ? 'translateX(0)' : 'translateX(-100%)',
         transition: 'transform 0.35s cubic-bezier(0.4, 0, 0.2, 1)',
@@ -217,6 +217,28 @@ export default function Sidenav({ open, onClose }) {
               <MdSdStorage />
             </span>
             <span>Inventario</span>
+          </button>
+
+          {/* Botón Mi Mascota */}
+          <button
+            type="button"
+            onClick={() => ir('/mi-mascota')}
+            onMouseEnter={() => setHoveredBtn('mascota')}
+            onMouseLeave={() => setHoveredBtn(null)}
+            className="btn-sidernav"
+          >
+            <span style={{
+              fontSize: '1.1rem',
+              width: '32px', height: '32px',
+              background: 'rgba(251, 146, 60, 0.15)',
+              color: '#fb923c',
+              borderRadius: '10px',
+              display: 'flex', alignItems: 'center',
+              justifyContent: 'center', flexShrink: 0
+            }}>
+              <FaPaw />
+            </span>
+            <span>Mi Mascota</span>
           </button>
 
           {/* Botón Tienda */}

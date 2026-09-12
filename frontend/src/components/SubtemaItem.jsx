@@ -153,6 +153,7 @@ export default function SubtemaItem({ subtema, completado, onToggleCompletado, c
               return (
                 <li
                   key={idx}
+                  className={destacado ? 'fondo-sutil' : undefined}
                   style={{
                     fontSize: '0.82rem',
                     color: destacado ? 'var(--text, #fff)' : 'var(--text-muted, #9ca3af)',
@@ -161,7 +162,6 @@ export default function SubtemaItem({ subtema, completado, onToggleCompletado, c
                     gap: 8,
                     lineHeight: 1.5,
                     borderLeft: `3px solid ${destacado ? color : 'transparent'}`,
-                    background: destacado ? 'rgba(255,255,255,0.06)' : 'transparent',
                     borderRadius: 6,
                     padding: '2px 6px',
                     margin: '0 -6px',

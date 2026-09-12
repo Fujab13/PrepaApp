@@ -1,13 +1,76 @@
+/* ── Sistema de temas ──────────────────────────────────────────────────
+   Arquitectura para poder agregar más temas (van 2, planeados ~5 más) sin
+   tocar componentes uno por uno: TODA la app se pinta desde las variables
+   de abajo — un componente nuevo nunca debería escribir un gris/blanco/
+   negro suelto para fondo, texto o borde. Si hace falta un tono que hoy no
+   existe aquí, se agrega la variable (con su valor por defecto en :root) y
+   luego cada tema le da su propio valor solo si de verdad necesita diferir
+   — así, un tema nuevo es SOLO un bloque `:root[data-tema="..."] { ... }`
+   aquí abajo, nunca un cambio disperso en 10 archivos.
+
+   Excepción a propósito: los colores de ACENTO/marca (materia.color en
+   unidades.js, el morado #7c5cbf de los botones principales, el azul
+   #47a6ff del "neón" de Inventario.jsx, --correct/--wrong) se quedan FIJOS
+   sin importar el tema — son la identidad de esa cosa (qué materia es,
+   si algo salió bien o mal), no una preferencia visual del usuario.
+
+   Variables disponibles:
+     --bg          fondo de página
+     --surface     tarjetas/paneles
+     --surface2    superficie elevada (hover, chips, inputs, botones planos)
+     --text        texto principal
+     --text-muted  texto secundario/placeholder
+     --border      borde sutil sobre --surface/--surface2
+     --border-strong  mismo borde, más marcado (hover/foco de tarjetas)
+     --overlay-sutil  relleno translúcido de chips/pistas (ver .fondo-sutil)
+     --correct/--wrong  semánticos, NO varían por tema
+     --sidenav-bg  opcional, con fallback a --surface (ver Sidenav.jsx) —
+                   solo un tema lo define si quiere que el menú lateral se
+                   sienta distinto al resto de la app. */
 :root {
-  --bg:         #0f0f1a;
-  --surface:    #1a1a2e;
-  --surface2:   #22223b;
-  --text:       #f0f0f0;
-  --text-muted: #846c89;
-  --correct:    #4ade80;
-  --wrong:      #f87171;
-  --radius:     16px;
-  --font:       'Inter', system-ui, sans-serif;
+  --bg:            #0f0f1a;
+  --surface:       #1a1a2e;
+  --surface2:      #22223b;
+  --text:          #f0f0f0;
+  --text-muted:    #846c89;
+  --border:        rgba(255, 255, 255, 0.06);
+  --border-strong: rgba(255, 255, 255, 0.16);
+  --overlay-sutil: rgba(255, 255, 255, 0.08);
+  --correct:       #4ade80;
+  --wrong:         #f87171;
+  --radius:        16px;
+  --font:          'Inter', system-ui, sans-serif;
+}
+
+/* Tema "Slate Reverie" — se compra con monedas en la Tienda (ver
+   storeItems.js, COIN_ITEMS) y se activa/desactiva desde ahí (ver
+   StoreContext.jsx, utils/temas.js). Sigue siendo oscuro (solo azul-gris en
+   vez del morado/índigo original), así que --border/--overlay-sutil de
+   base (blanco translúcido) ya funcionan bien tal cual — no hace falta
+   redefinirlos aquí. */
+:root[data-tema="azul-gris"] {
+  --bg:         #0d1b26;
+  --surface:    #16283a;
+  --surface2:   #1e3a52;
+  --text:       #eef4f8;
+  --text-muted: #7a97ab;
+}
+
+/* Tema "Blanco" — gratis en la Tienda (ver storeItems.js, COIN_ITEMS,
+   priceCoins: 0). A diferencia del "Slate Reverie", este SÍ invierte la
+   luminosidad de la app, así que --border/--overlay-sutil (pensados como
+   "blanco translúcido sobre fondo oscuro") SÍ necesitan voltearse a "negro
+   translúcido" — si no, se vuelven invisibles sobre un fondo ya blanco. */
+:root[data-tema="claro"] {
+  --bg:            #f2f4f8;
+  --surface:       #ffffff;
+  --surface2:      #e7ebf2;
+  --text:          #1b2430;
+  --text-muted:    #6b7686;
+  --border:        rgba(15, 23, 42, 0.1);
+  --border-strong: rgba(15, 23, 42, 0.2);
+  --overlay-sutil: rgba(15, 23, 42, 0.06);
+  --sidenav-bg:    #e4eefb; /* azul suave: le da carácter propio al menú en vez de blanco liso */
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -47,6 +110,14 @@ a { text-decoration: none; color: inherit; }
   opacity: 0.8; /* Mantiene el feedback visual al hacer clic */
 }
 
+/* Relleno translúcido reutilizable para "chips" (botón circular de ícono,
+   pastilla/badge, pista detrás de una barra de progreso) que necesitan un
+   contraste sutil contra la superficie donde caen, sin ser un color fijo
+   (ver TarjetaRepaso.jsx, Leccion.jsx, Tarjeta.jsx, TemariosCards.jsx).
+   Vía --overlay-sutil: cada tema ya le da el valor correcto (ver arriba),
+   así que esta clase no necesita su propio override por tema. */
+.fondo-sutil { background: var(--overlay-sutil); }
+
 .btn-footer-scroll {
   background: var(--surface2);
   border: 0.5px solid var(--surface);
@@ -66,7 +137,7 @@ a { text-decoration: none; color: inherit; }
 
 .btn-sidernav {
   background: linear-gradient(135deg, var(--surface2), var(--surface));
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border);
   color: var(--text);
   text-align: left;
   padding: 12px 14px;
@@ -147,7 +218,7 @@ display: flex;
 .auth-input {
   width: 100%;
   background: var(--surface2);
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--border);
   border-radius: 12px;
   padding: 14px 16px 14px 46px;
   color: var(--text);
@@ -351,13 +422,13 @@ display: flex;
    className="sp-card sp-card-interactive" (ver las tarjetas Alumnos/Maestros
    en Tutorias.jsx) en cualquier página nueva que quiera el mismo pulido. */
 .sp-card-interactive {
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--border);
   transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease, background 0.18s ease;
 }
 
 .sp-card-interactive:hover {
   transform: translateY(-3px);
-  border-color: rgba(255, 255, 255, 0.16);
+  border-color: var(--border-strong);
   background: var(--surface);
   box-shadow: 0 14px 28px -10px rgba(0, 0, 0, 0.45);
 }
@@ -451,5 +522,54 @@ display: flex;
 }
 .rk-anillo-oro {
   animation: rk-brillo-anillo 2.4s ease-in-out infinite;
+}
+/*---------------------------------------------------------------*/
+/* Mascota.jsx: rebote de "vivo" para cada mascota en el sandbox — la
+   duración la controla cada instancia vía animationDuration inline según
+   su felicidad (ver MascotaViva), esta regla solo define el movimiento.
+   Va en un <span> propio (mascota-rebote-envoltura) separado del que hace
+   el balanceo de abajo porque ambas animan `transform`: si compartieran
+   elemento, una pisaría a la otra. */
+@keyframes mascota-rebote {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-4px); }
+}
+
+/* Balanceo ambiental suave, siempre corriendo mientras la mascota está
+   bien — desincronizado entre mascotas vía animationDelay inline (si no,
+   las tres se mecen exactamente igual y se siente artificial). */
+@keyframes mascota-balanceo {
+  0%, 100% { transform: rotate(0deg); }
+  50%      { transform: rotate(-5deg); }
+}
+.mascota-balanceo {
+  display: inline-block;
+  animation: mascota-balanceo 3.6s ease-in-out infinite;
+}
+
+/* "Recibir daño": se dispara solo, cada tanto, mientras la mascota está
+   hambrienta (ver MascotaViva) — un temblor rápido para que el descuido se
+   sienta como un problema real y no solo como un número que baja. */
+@keyframes mascota-danio {
+  0%, 100% { transform: translateX(0) rotate(0deg); }
+  20%      { transform: translateX(-3px) rotate(-4deg); }
+  40%      { transform: translateX(3px) rotate(4deg); }
+  60%      { transform: translateX(-2px) rotate(-3deg); }
+  80%      { transform: translateX(2px) rotate(3deg); }
+}
+.mascota-danio {
+  display: inline-block;
+  animation: mascota-danio 0.5s ease-in-out;
+}
+
+/* Piso de cuadrícula del sandbox (ver Mascota.jsx): desliza el patrón de
+   fondo una celda hacia abajo sin parar, para que el plano inclinado en 3D
+   se sienta como si avanzara hacia quien mira, no como una textura fija. */
+@keyframes mascota-piso-scroll {
+  from { background-position: 0 0; }
+  to   { background-position: 0 34px; }
+}
+.mascota-piso {
+  animation: mascota-piso-scroll 1s linear infinite;
 }
 /*---------------------------------------------------------------*/

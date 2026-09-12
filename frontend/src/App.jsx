@@ -12,6 +12,7 @@ import ActualizarPassword from './pages/ActualizarPassword';
 import Store from './pages/Store'
 import Examen from './pages/Examen';
 import Inventario from './pages/Inventario';
+import Mascota from './pages/Mascota';
 import FormularioArea from './pages/FormularioArea';
 import InformeResultados from './pages/InformeResultados';
 import AlumnosOfertas from './pages/AlumnosOfertas';
@@ -67,6 +68,7 @@ export default function App() {
         <Route path="/examen" element={<Examen />} />
         <Route path="/examen/:examenId" element={<Examen />} />
         <Route path="/inventario" element={<Inventario />} />
+        <Route path="/mi-mascota" element={<Mascota />} />
         <Route path="/formulario-area" element={<FormularioArea />} />
         <Route path="/informe-resultados" element={<InformeResultados />} />
         <Route path="/tutorias/maestro/alumnos" element={<AlumnosOfertas />} />

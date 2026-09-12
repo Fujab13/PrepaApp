@@ -1,9 +1,21 @@
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { MdBolt } from 'react-icons/md'
 import { renderIconoMateria } from '../utils/renderIconoMateria'
 import { triggerVibration } from '../utils/haptics'
+import { leerModoDificil, guardarModoDificil } from '../utils/modoDificil'
 
 export default function MateriaCard({ materia }) {
   const navigate = useNavigate()
+  const [modoDificil, setModoDificil] = useState(() => leerModoDificil(materia.id))
+
+  function alternarModoDificil(e) {
+    e.stopPropagation()
+    const nuevo = !modoDificil
+    setModoDificil(nuevo)
+    triggerVibration('success')
+    guardarModoDificil(materia.id, nuevo)
+  }
 
   return (
     <div
@@ -51,8 +63,30 @@ export default function MateriaCard({ materia }) {
         </div>*/}
       </div>
 
+      <button
+        type="button"
+        onClick={alternarModoDificil}
+        title={modoDificil ? 'Modo difícil activado' : 'Activar modo difícil'}
+        aria-pressed={modoDificil}
+        className={modoDificil ? undefined : 'fondo-sutil'}
+        style={{
+          width: 44, height: 44,
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          flexShrink: 0,
+          borderRadius: '50%',
+          border: 'none',
+          background: modoDificil ? materia.color : undefined,
+          color: modoDificil ? '#fff' : 'var(--text-muted)',
+          fontSize: '1.3rem',
+          cursor: 'pointer',
+          transition: 'background 0.2s ease, color 0.2s ease',
+        }}
+      >
+        <MdBolt />
+      </button>
+
       <span style={{ color: 'var(--text-muted)', fontSize: '1.3rem' }}>›</span>
     </div>
-    
+
   )
 }

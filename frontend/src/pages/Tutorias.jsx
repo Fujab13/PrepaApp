@@ -285,11 +285,12 @@ function TutorialAlumno({ onCerrar }) {
           {PASOS_TUTORIAL.map((_, i) => (
             <span
               key={i}
+              className={i === paso ? undefined : 'fondo-sutil'}
               style={{
                 width: 6,
                 height: 6,
                 borderRadius: "50%",
-                background: i === paso ? "#7c5cbf" : "rgba(255,255,255,0.18)",
+                background: i === paso ? "#7c5cbf" : undefined,
               }}
             />
           ))}

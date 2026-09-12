@@ -13,9 +13,11 @@ import { HiOutlineArrowRight, HiMagnifyingGlass, HiOutlineGift } from 'react-ico
 // Reglas:
 //   1. Cada punto tiene un color de rareza (gris → verde → morado → dorado
 //      → rojo, cada vez más raro), y el color determina su rango de valor
-//      (ver COLORES abajo: el color se sortea primero, el valor se sortea
-//      después DENTRO del rango de ese color) — ya no son sorteos
-//      independientes como en la primera versión.
+//      (ver COLORES_NORMAL/COLORES_DIFICIL abajo: el color se sortea
+//      primero, el valor se sortea después DENTRO del rango de ese color)
+//      — ya no son sorteos independientes como en la primera versión. En
+//      modo difícil se usa una tabla de pesos distinta, con dorado/rojo
+//      más probables.
 //   2. Hay 3 intentos de escaneo; cada uno reemplaza el resultado anterior
 //      por uno nuevo (no se acumulan). El alumno reclama la suma de lo que
 //      tenga revelado en pantalla, cuando guste, con "Reclamar" — si nunca
@@ -23,39 +25,45 @@ import { HiOutlineArrowRight, HiMagnifyingGlass, HiOutlineGift } from 'react-ico
 
 const ANCHO = 300
 const ALTO = 170
-// TEMPORAL, PARA PRUEBAS: intentos ilimitados. Volver a poner en 3 antes de
-// lanzar a producción de verdad (ver también el texto de "intentos
-// restantes" más abajo, que ya maneja Infinity para no mostrar un número
-// roto mientras esto siga así).
-const INTENTOS_MAX = Infinity
+const INTENTOS_MAX = 3
 const PUNTOS_POR_ESCANEO = 4
 const DURACION_BARRIDO_MS = 1300
 const RADIO_BASE = 9
 const MARGEN = 26
 const FONDO_MONITOR = '#062b18' // verde oscuro tipo pantalla de radar/sonar, fijo siempre (no cambia con el resultado)
 
-// Colores de rareza: los pesos se escogieron dentro de los rangos pedidos
-// (dorado en el extremo bajo del suyo, para que siga siendo más raro que
-// morado aunque los rangos originales se traslapen) y se normalizan para
-// sumar 100% — la probabilidad real de cada uno es la del comentario.
-// `valorMin`/`valorMax` son el rango de puntos que da ese color (rojo es
-// fijo: min = max = 40).
-const COLORES = [
-  { id: 'gris', nombre: 'Gris', peso: 80, color: '#9ca3af', valorMin: 1, valorMax: 3 }, // ≈50.5%
-  { id: 'verde', nombre: 'Verde', peso: 45, color: '#22c55e', valorMin: 3, valorMax: 5 }, // ≈28.4%
-  { id: 'morado', nombre: 'Morado', peso: 20, color: '#a855f7', valorMin: 5, valorMax: 10 }, // ≈12.6%
-  { id: 'dorado', nombre: 'Dorado', peso: 12, color: '#facc15', valorMin: 11, valorMax: 25 }, // ≈7.6%
-  { id: 'rojo', nombre: 'Rojo', peso: 1.5, color: '#ef4444', valorMin: 40, valorMax: 40 }, // ≈0.9%
+// Colores de rareza: el peso se normaliza para sumar 100% (la probabilidad
+// real de cada uno es la del comentario). `valorMin`/`valorMax` son el
+// rango de puntos que da ese color (rojo es fijo: min = max = 40).
+// Calibrados para que el promedio por escaneo sea ~mitad del de la primera
+// versión (que daba ≈19.3 pts/escaneo en promedio).
+const COLORES_NORMAL = [
+  { id: 'gris', nombre: 'Gris', peso: 900, color: '#9ca3af', valorMin: 1, valorMax: 3 }, // 90%
+  { id: 'verde', nombre: 'Verde', peso: 80, color: '#22c55e', valorMin: 3, valorMax: 5 }, // 8%
+  { id: 'morado', nombre: 'Morado', peso: 15, color: '#a855f7', valorMin: 5, valorMax: 10 }, // 1.5%
+  { id: 'dorado', nombre: 'Dorado', peso: 4, color: '#facc15', valorMin: 11, valorMax: 25 }, // 0.4%
+  { id: 'rojo', nombre: 'Rojo', peso: 1, color: '#ef4444', valorMin: 40, valorMax: 40 }, // 0.1%
 ]
-const TOTAL_PESOS_COLORES = COLORES.reduce((a, c) => a + c.peso, 0)
 
-function generarColor() {
-  let r = Math.random() * TOTAL_PESOS_COLORES
-  for (const c of COLORES) {
+// Modo difícil (el rayo en MateriaCard/Leccion.jsx): mismos colores y
+// mismos rangos de valor, pero con dorado/rojo varias veces más probables
+// que en modo normal (4x cada uno) — el incentivo para usarlo.
+const COLORES_DIFICIL = [
+  { id: 'gris', nombre: 'Gris', peso: 750, color: '#9ca3af', valorMin: 1, valorMax: 3 }, // 75%
+  { id: 'verde', nombre: 'Verde', peso: 180, color: '#22c55e', valorMin: 3, valorMax: 5 }, // 18%
+  { id: 'morado', nombre: 'Morado', peso: 50, color: '#a855f7', valorMin: 5, valorMax: 10 }, // 5%
+  { id: 'dorado', nombre: 'Dorado', peso: 16, color: '#facc15', valorMin: 11, valorMax: 25 }, // 1.6%
+  { id: 'rojo', nombre: 'Rojo', peso: 4, color: '#ef4444', valorMin: 40, valorMax: 40 }, // 0.4%
+]
+
+function generarColor(colores) {
+  const totalPesos = colores.reduce((a, c) => a + c.peso, 0)
+  let r = Math.random() * totalPesos
+  for (const c of colores) {
     r -= c.peso
     if (r < 0) return c
   }
-  return COLORES[0]
+  return colores[0]
 }
 
 function generarValorParaColor(color) {
@@ -63,8 +71,8 @@ function generarValorParaColor(color) {
   return color.valorMin + Math.floor(Math.random() * rango)
 }
 
-function generarPunto() {
-  const color = generarColor()
+function generarPunto(colores) {
+  const color = generarColor(colores)
   return {
     x: MARGEN + Math.random() * (ANCHO - MARGEN * 2),
     y: MARGEN + Math.random() * (ALTO - MARGEN * 2),
@@ -75,8 +83,17 @@ function generarPunto() {
   }
 }
 
-export default function EscaneoRecompensa({ unidad, colorAcento = '#7c5cbf', onContinuar }) {
-  const { addCoins } = useStore()
+export default function EscaneoRecompensa({ materiaId, unidad, colorAcento = '#7c5cbf', modoDificil = false, onContinuar }) {
+  const colores = modoDificil ? COLORES_DIFICIL : COLORES_NORMAL
+  const { haReclamadoUnidad, reclamarRecompensaUnidad } = useStore()
+  // Capturado UNA vez al montar (no se recalcula en cada render): si ya
+  // estaba reclamada esta unidad ANTES de entrar aquí (o sea, se está
+  // rehaciendo una unidad ya completada — "lecciones infinitas"), se salta
+  // el minijuego por completo. Si se recalculara en cada render, reclamar
+  // dentro de esta misma sesión haría que la vista cambiara de golpe a la
+  // versión "ya reclamado" apenas se acredita, borrando los chips/total
+  // recién revelados.
+  const [yaReclamadoAlEntrar] = useState(() => haReclamadoUnidad(materiaId, unidad))
   const canvasRef = useRef(null)
   const puntosRef = useRef([])
   const sweepXRef = useRef(0)
@@ -95,8 +112,8 @@ export default function EscaneoRecompensa({ unidad, colorAcento = '#7c5cbf', onC
   const [reclamado, setReclamado] = useState(false)
 
   const intentosRestantes = INTENTOS_MAX - intentosUsados
-  const puedeEscanear = intentosRestantes > 0 && fase !== 'escaneando' && !reclamado
-  const puedeReclamar = fase === 'revelado' && !reclamado
+  const puedeEscanear = !yaReclamadoAlEntrar && intentosRestantes > 0 && fase !== 'escaneando' && !reclamado
+  const puedeReclamar = !yaReclamadoAlEntrar && fase === 'revelado' && !reclamado
   const total = resultado.reduce((a, p) => a + p.puntos, 0)
 
   function dibujar(ctx, t) {
@@ -154,7 +171,7 @@ export default function EscaneoRecompensa({ unidad, colorAcento = '#7c5cbf', onC
   function escanear() {
     if (!puedeEscanear) return
 
-    puntosRef.current = Array.from({ length: PUNTOS_POR_ESCANEO }, generarPunto)
+    puntosRef.current = Array.from({ length: PUNTOS_POR_ESCANEO }, () => generarPunto(colores))
     sweepXRef.current = 0
     inicioBarridoRef.current = null
     enBarridoRef.current = true
@@ -200,7 +217,7 @@ export default function EscaneoRecompensa({ unidad, colorAcento = '#7c5cbf', onC
 
   function reclamar() {
     if (!puedeReclamar) return
-    addCoins(total)
+    reclamarRecompensaUnidad(materiaId, unidad, total)
     setReclamado(true)
   }
 
@@ -215,69 +232,73 @@ export default function EscaneoRecompensa({ unidad, colorAcento = '#7c5cbf', onC
           Unidad {unidad} completada
         </p>
         <h1 style={{ margin: '4px 0 0', fontSize: '1.15rem', fontWeight: 800, color: 'var(--text)' }}>
-          Escanea tu recompensa
+          {yaReclamadoAlEntrar ? 'Ya reclamaste esta recompensa' : 'Escanea tu recompensa'}
         </h1>
         <p style={{ margin: '4px 0 0', fontSize: 12, color: 'var(--text-muted)' }}>
-          {Number.isFinite(INTENTOS_MAX)
-            ? `Te quedan ${intentosRestantes} de ${INTENTOS_MAX} escaneos.`
-            : 'Escaneos ilimitados (modo de prueba).'} Reclama cuando te guste lo que salió.
+          {yaReclamadoAlEntrar
+            ? 'Esta unidad ya entregó sus monedas antes — repetirla no genera una recompensa nueva.'
+            : `Te quedan ${intentosRestantes} de ${INTENTOS_MAX} escaneos. Reclama cuando te guste lo que salió.`}
         </p>
       </div>
 
-      <canvas
-        ref={canvasRef}
-        width={ANCHO}
-        height={ALTO}
-        style={{ width: '100%', maxWidth: 340, borderRadius: 10, border: '2px solid var(--surface2)' }}
-      />
+      {!yaReclamadoAlEntrar && (
+        <>
+          <canvas
+            ref={canvasRef}
+            width={ANCHO}
+            height={ALTO}
+            style={{ width: '100%', maxWidth: 340, borderRadius: 10, border: '2px solid var(--surface2)' }}
+          />
 
-      <div style={{ minHeight: 22, display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap', justifyContent: 'center' }}>
-        {fase === 'revelado' && resultado.map((p, i) => (
-          <span key={i} style={{
-            fontSize: 11.5, fontWeight: 700, color: p.color.color,
-            background: `${p.color.color}22`, padding: '3px 8px', borderRadius: 8,
-          }}>
-            +{p.puntos}
-          </span>
-        ))}
-        {fase === 'revelado' && (
-          <span style={{ fontSize: 13, fontWeight: 800, color: 'var(--text)' }}>= {total} total</span>
-        )}
-      </div>
+          <div style={{ minHeight: 22, display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap', justifyContent: 'center' }}>
+            {fase === 'revelado' && resultado.map((p, i) => (
+              <span key={i} style={{
+                fontSize: 11.5, fontWeight: 700, color: p.color.color,
+                background: `${p.color.color}22`, padding: '3px 8px', borderRadius: 8,
+              }}>
+                +{p.puntos}
+              </span>
+            ))}
+            {fase === 'revelado' && (
+              <span style={{ fontSize: 13, fontWeight: 800, color: 'var(--text)' }}>= {total} total</span>
+            )}
+          </div>
 
-      <div style={{ display: 'flex', gap: 10, width: '100%', maxWidth: 340 }}>
-        <button
-          type="button"
-          onClick={escanear}
-          disabled={!puedeEscanear}
-          style={{
-            flex: 1, minHeight: 52, borderRadius: 12, fontWeight: 700, fontSize: 13, cursor: puedeEscanear ? 'pointer' : 'default',
-            border: '1px solid var(--surface2)',
-            background: puedeEscanear ? 'var(--surface2)' : 'var(--surface)',
-            color: puedeEscanear ? 'var(--text)' : 'var(--text-muted)',
-            display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6,
-            opacity: puedeEscanear ? 1 : 0.6,
-          }}
-        >
-          <HiMagnifyingGlass /> Escanear
-        </button>
-        <button
-          type="button"
-          onClick={reclamar}
-          disabled={!puedeReclamar}
-          style={{
-            flex: 1, minHeight: 52, borderRadius: 12, fontWeight: 700, fontSize: 13, cursor: puedeReclamar ? 'pointer' : 'default',
-            border: 'none',
-            background: puedeReclamar ? '#22c55e' : 'var(--surface2)',
-            color: puedeReclamar ? '#04140c' : 'var(--text-muted)',
-            display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6,
-            opacity: puedeReclamar ? 1 : 0.6,
-            boxShadow: puedeReclamar ? '0 8px 20px -8px rgba(34,197,94,0.6)' : 'none',
-          }}
-        >
-          <HiOutlineGift /> Reclamar
-        </button>
-      </div>
+          <div style={{ display: 'flex', gap: 10, width: '100%', maxWidth: 340 }}>
+            <button
+              type="button"
+              onClick={escanear}
+              disabled={!puedeEscanear}
+              style={{
+                flex: 1, minHeight: 52, borderRadius: 12, fontWeight: 700, fontSize: 13, cursor: puedeEscanear ? 'pointer' : 'default',
+                border: '1px solid var(--surface2)',
+                background: puedeEscanear ? 'var(--surface2)' : 'var(--surface)',
+                color: puedeEscanear ? 'var(--text)' : 'var(--text-muted)',
+                display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6,
+                opacity: puedeEscanear ? 1 : 0.6,
+              }}
+            >
+              <HiMagnifyingGlass /> Escanear
+            </button>
+            <button
+              type="button"
+              onClick={reclamar}
+              disabled={!puedeReclamar}
+              style={{
+                flex: 1, minHeight: 52, borderRadius: 12, fontWeight: 700, fontSize: 13, cursor: puedeReclamar ? 'pointer' : 'default',
+                border: 'none',
+                background: puedeReclamar ? '#22c55e' : 'var(--surface2)',
+                color: puedeReclamar ? '#04140c' : 'var(--text-muted)',
+                display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6,
+                opacity: puedeReclamar ? 1 : 0.6,
+                boxShadow: puedeReclamar ? '0 8px 20px -8px rgba(34,197,94,0.6)' : 'none',
+              }}
+            >
+              <HiOutlineGift /> Reclamar
+            </button>
+          </div>
+        </>
+      )}
 
       <button
         type="button"
