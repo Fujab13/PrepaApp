@@ -370,10 +370,16 @@ display: flex;
 }
 
 /* Panel a pantalla completa que respeta la altura visible real en movil
-   (evita que el contenido quede oculto bajo la barra de direcciones) */
+   (evita que el contenido quede oculto bajo la barra de direcciones).
+   Se usa 100svh (altura minima garantizada) como respaldo: a diferencia
+   de 100dvh, no depende de que el navegador recalcule el viewport
+   mientras la barra de direcciones se oculta/muestra al hacer scroll,
+   lo que en varios navegadores moviles se percibe como un redimensionado
+   lento. El alto exacto en pixeles se sobreescribe via JS (ver
+   Sidenav.jsx) para seguir al viewport visual en tiempo real. */
 .sidenav-panel {
   height: 100vh;
-  height: 100dvh;
+  height: 100svh;
 }
 /*---------------------------------------------------------------*/
 .suspension-temporal {

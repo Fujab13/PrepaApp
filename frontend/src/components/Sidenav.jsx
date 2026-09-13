@@ -26,6 +26,9 @@ export default function Sidenav({ open, onClose }) {
   const [hoveredBtn, setHoveredBtn] = useState(null);
   const [avatarSrc, setAvatarSrc] = useState(null);
   const [avatarError, setAvatarError] = useState(false);
+  const [viewportHeight, setViewportHeight] = useState(
+    () => (typeof window !== 'undefined' ? window.innerHeight : null)
+  );
 
   useEffect(() => {
     let cancelado = false;
@@ -33,6 +36,31 @@ export default function Sidenav({ open, onClose }) {
     resolverAvatarUsuario(user).then((src) => { if (!cancelado) setAvatarSrc(src); });
     return () => { cancelado = true; };
   }, [user]);
+
+  // El navegador movil recalcula 100dvh/100svh (y dispara el evento
+  // 'resize' de visualViewport) solo hasta que la barra de direcciones
+  // termina de ocultarse/mostrarse, por lo que escuchar esos eventos
+  // sigue dejando al panel "atrasado" ~1s respecto al contenido, que si
+  // crece en tiempo real durante el gesto de scroll. El valor de
+  // visualViewport.height (a diferencia de su evento) si se actualiza
+  // frame a frame durante esa animacion, asi que se sondea con
+  // requestAnimationFrame mientras el panel esta abierto para seguirlo
+  // sin ese retraso.
+  useEffect(() => {
+    if (!open || typeof window === 'undefined') return;
+
+    const vv = window.visualViewport;
+    const leerAltura = () => (vv ? vv.height : window.innerHeight);
+    let rafId = requestAnimationFrame(function sondear() {
+      setViewportHeight((previo) => {
+        const actual = leerAltura();
+        return actual !== previo ? actual : previo;
+      });
+      rafId = requestAnimationFrame(sondear);
+    });
+
+    return () => cancelAnimationFrame(rafId);
+  }, [open]);
 
   async function cerrarSesion() {
     await supabase.auth.signOut()
@@ -67,6 +95,7 @@ export default function Sidenav({ open, onClose }) {
         top: 0,
         left: 0,
         width: '290px',
+        ...(viewportHeight ? { height: `${viewportHeight}px` } : {}),
         background: 'var(--sidenav-bg, var(--surface))',
         zIndex: 100,
         transform: open ? 'translateX(0)' : 'translateX(-100%)',
