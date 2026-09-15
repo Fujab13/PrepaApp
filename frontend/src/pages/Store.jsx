@@ -14,7 +14,7 @@ import { PiShoppingCartSimpleFill } from "react-icons/pi";
 import { BiSolidCoin } from "react-icons/bi";
 import { PiHexagonDuotone  } from "react-icons/pi";
 import { renderIconoMateria } from '../utils/renderIconoMateria'
-import { MASCOTAS, paletaSilueta } from '../data/mascotas'
+import { MASCOTAS, paletaSilueta, tamanoCeldaPixelArt } from '../data/mascotas'
 import PixelArt from '../components/PixelArt'
 
 // Referencia estable (ver PixelArt.jsx: memo) — un objeto literal inline en
@@ -385,7 +385,7 @@ export default function Store() {
                           // el contenedor de la sección sí se ajuste.
                           minWidth: 0,
                         }}>
-                          <PixelArt grid={mascota.grid} paleta={paletaMostrada} size={4} style={ESTILO_SPRITE_TIENDA} />
+                          <PixelArt grid={mascota.grid} paleta={paletaMostrada} size={tamanoCeldaPixelArt(mascota, 4)} style={ESTILO_SPRITE_TIENDA} />
                           <span style={{ fontSize: 11.5, fontWeight: 700, color: 'var(--text)', textAlign: 'center' }}>
                             {mascota.nombre}
                           </span>

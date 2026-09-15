@@ -1,1459 +1,1471 @@
 {
-  "nombre": "Examen de Enfermería y Ciencias de la Salud",
+  "nombre": "Examen de Admisión a Medicina y Ciencias de la Salud",
   "secciones": [
     {
-      "nombre": "Fundamentos de Enfermería, Bioética y Salud Pública",
+      "nombre": "Biología",
       "id_inicio": 1,
-      "id_fin": 60,
+      "id_fin": 30,
       "color": "#4f8ef7"
     },
     {
-      "nombre": "Enfermería Clínica, Farmacología y Casos Prácticos",
-      "id_inicio": 61,
-      "id_fin": 120,
+      "nombre": "Química",
+      "id_inicio": 31,
+      "id_fin": 60,
       "color": "#cf3b3b"
+    },
+    {
+      "nombre": "Física y Matemáticas",
+      "id_inicio": 61,
+      "id_fin": 90,
+      "color": "#22c55e"
+    },
+    {
+      "nombre": "Español y Habilidad Verbal",
+      "id_inicio": 91,
+      "id_fin": 120,
+      "color": "#d8c468"
     }
   ],
   "preguntas": [
     {
       "id": 1,
-      "pregunta": "¿Cómo se define la deontología profesional en enfermería?",
+      "pregunta": "¿Cuál es la función principal de la membrana plasmática en una célula?",
       "enlace_svg": null,
       "respuestas": [
-        "A. El conjunto de valores morales que comparte toda la sociedad.",
-        "B. El conjunto de normas que un colectivo profesional establece para regular la conducta de sus miembros.",
-        "C. La aplicación exclusiva de sanciones legales al personal sanitario.",
-        "D. Una opinión personal sobre lo que está bien o mal."
+        "A. Regular el paso de sustancias entre el interior y el exterior celular.",
+        "B. Almacenar el material genético.",
+        "C. Producir energía mediante fermentación.",
+        "D. Sintetizar proteínas de manera exclusiva."
       ],
-      "inciso_correcto": "B"
+      "inciso_correcto": "A"
     },
     {
       "id": 2,
-      "pregunta": "En la primera visita domiciliaria, ¿qué modelo se basa en la valoración de las 14 necesidades básicas de la persona?",
+      "pregunta": "Durante la mitosis, ¿en qué fase se alinean los cromosomas en la parte media de la célula?",
       "enlace_svg": null,
       "respuestas": [
-        "A. Los patrones funcionales de Gordon.",
-        "B. El modelo de las 14 necesidades básicas de Virginia Henderson.",
-        "C. La teoría del autocuidado de Orem.",
-        "D. El modelo de adaptación de Callista Roy."
+        "A. Profase",
+        "B. Metafase",
+        "C. Anafase",
+        "D. Telofase"
       ],
       "inciso_correcto": "B"
     },
     {
       "id": 3,
-      "pregunta": "¿Qué mide el valor predictivo positivo de una prueba diagnóstica?",
+      "pregunta": "En una cruza entre dos organismos heterocigotos (Aa × Aa) para un gen con dominancia completa, ¿qué proporción FENOTÍPICA se espera en la descendencia?",
       "enlace_svg": null,
       "respuestas": [
-        "A. La probabilidad de que una persona con resultado positivo esté realmente enferma.",
-        "B. La probabilidad de que una persona con resultado negativo esté realmente sana.",
-        "C. La proporción de enfermos correctamente detectados por la prueba.",
-        "D. La proporción de sanos correctamente descartados por la prueba."
-      ],
-      "inciso_correcto": "A"
-    },
-    {
-      "id": 4,
-      "pregunta": "¿En qué ciudad se celebró la conferencia internacional que impulsó el lema 'Salud para todos' y sentó las bases de la Atención Primaria?",
-      "enlace_svg": null,
-      "respuestas": [
-        "A. Ottawa.",
-        "B. Ámsterdam.",
-        "C. Alma-Ata.",
-        "D. Helsinki."
+        "A. 1:1",
+        "B. 1:2:1",
+        "C. 3:1",
+        "D. 9:3:3:1"
       ],
       "inciso_correcto": "C"
     },
     {
-      "id": 5,
-      "pregunta": "¿Cuál es la última fase de un estudio estadístico?",
+      "id": 4,
+      "pregunta": "¿Cuál de las siguientes estructuras es responsable de la síntesis de proteínas dentro de la célula?",
       "enlace_svg": null,
       "respuestas": [
-        "A. El establecimiento de conclusiones.",
-        "B. La formulación de la hipótesis.",
-        "C. La recolección de datos.",
-        "D. El análisis de los datos."
+        "A. Lisosoma",
+        "B. Vacuola",
+        "C. Centriolo",
+        "D. Ribosoma"
+      ],
+      "inciso_correcto": "D"
+    },
+    {
+      "id": 5,
+      "pregunta": "El proceso mediante el cual las plantas convierten la energía luminosa en energía química se llama:",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Fotosíntesis",
+        "B. Respiración celular",
+        "C. Quimiosíntesis",
+        "D. Fermentación"
       ],
       "inciso_correcto": "A"
     },
     {
       "id": 6,
-      "pregunta": "En la entrevista clínica, ¿qué caracteriza al método de entrevista libre?",
+      "pregunta": "¿Cuál es la principal diferencia entre una célula procariota y una eucariota?",
       "enlace_svg": null,
       "respuestas": [
-        "A. Sigue una lista fija de preguntas preparadas de antemano.",
-        "B. Alterna siempre preguntas cerradas y abiertas en proporciones iguales.",
-        "C. Solo puede aplicarse en entrevistas grupales.",
-        "D. Usa preguntas abiertas, sin orden preestablecido, permitiendo la espontaneidad."
+        "A. Solo las procariotas tienen pared celular.",
+        "B. Las eucariotas poseen núcleo delimitado por membrana y las procariotas no.",
+        "C. Las procariotas siempre son pluricelulares.",
+        "D. Solo las eucariotas contienen ADN."
       ],
-      "inciso_correcto": "D"
+      "inciso_correcto": "B"
     },
     {
       "id": 7,
-      "pregunta": "¿Qué principio bioético reconoce el derecho del paciente a decidir según sus propias convicciones y valores?",
+      "pregunta": "En el sistema circulatorio humano, ¿qué cavidad del corazón recibe la sangre oxigenada proveniente de los pulmones?",
       "enlace_svg": null,
       "respuestas": [
-        "A. No maleficencia.",
-        "B. Justicia.",
-        "C. Beneficencia.",
-        "D. Autonomía."
-      ],
-      "inciso_correcto": "D"
-    },
-    {
-      "id": 8,
-      "pregunta": "Según las recomendaciones del Consejo Europeo de Resucitación, ¿cuál es la primera acción ante una persona que no responde y no respira con normalidad?",
-      "enlace_svg": null,
-      "respuestas": [
-        "A. Colocarla en posición lateral de seguridad.",
-        "B. Comprobar el pulso central durante un minuto.",
-        "C. Alertar a los servicios de emergencia.",
-        "D. Iniciar compresiones torácicas sin más comprobaciones."
+        "A. Aurícula derecha",
+        "B. Ventrículo derecho",
+        "C. Aurícula izquierda",
+        "D. Ventrículo izquierdo"
       ],
       "inciso_correcto": "C"
     },
     {
-      "id": 9,
-      "pregunta": "Respecto al ejercicio físico en personas con diabetes, ¿qué recomendación es correcta?",
+      "id": 8,
+      "pregunta": "¿Qué biomolécula constituye la principal fuente de reserva energética a largo plazo en los animales?",
       "enlace_svg": null,
       "respuestas": [
-        "A. Se recomienda ejercicio aeróbico moderado, unos 150 minutos semanales repartidos en varios días.",
-        "B. El ejercicio anaeróbico está prohibido en cualquier caso.",
-        "C. El ejercicio físico no influye en la sensibilidad a la insulina.",
-        "D. Se recomienda ejercitarse incluso con glucemias superiores a 300 mg/dl."
+        "A. Proteínas",
+        "B. Ácidos nucleicos",
+        "C. Carbohidratos simples",
+        "D. Lípidos"
+      ],
+      "inciso_correcto": "D"
+    },
+    {
+      "id": 9,
+      "pregunta": "La selección natural, propuesta por Darwin, favorece a los individuos que:",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Presentan características que incrementan su probabilidad de sobrevivir y reproducirse en su ambiente.",
+        "B. Son los más grandes de la población.",
+        "C. Poseen mayor cantidad de descendencia sin importar el ambiente.",
+        "D. Nacen primero dentro de su generación."
       ],
       "inciso_correcto": "A"
     },
     {
       "id": 10,
-      "pregunta": "¿Para qué se utiliza la escala de Glasgow?",
+      "pregunta": "¿Qué nivel de organización ecológica incluye a todas las poblaciones de distintas especies que interactúan en un área determinada?",
       "enlace_svg": null,
       "respuestas": [
-        "A. Para valorar el patrón respiratorio.",
-        "B. Para valorar el nivel de conciencia.",
-        "C. Para valorar el grado de una úlcera por presión.",
-        "D. Para valorar el riesgo cardiovascular."
+        "A. Ecosistema",
+        "B. Comunidad",
+        "C. Bioma",
+        "D. Organismo"
       ],
       "inciso_correcto": "B"
     },
     {
       "id": 11,
-      "pregunta": "¿Qué organismo estableció los '5 momentos para la higiene de manos'?",
+      "pregunta": "Los anticuerpos son producidos principalmente por:",
       "enlace_svg": null,
       "respuestas": [
-        "A. La OMS.",
-        "B. El ECDC.",
-        "C. Cruz Roja Internacional.",
-        "D. UNICEF."
+        "A. Los glóbulos rojos",
+        "B. Las plaquetas",
+        "C. Los linfocitos B",
+        "D. Las células musculares"
       ],
-      "inciso_correcto": "A"
+      "inciso_correcto": "C"
     },
     {
       "id": 12,
-      "pregunta": "¿Cómo se definen los delirios característicos de la esquizofrenia?",
+      "pregunta": "¿Cuál de las siguientes es una función del sistema nervioso autónomo?",
       "enlace_svg": null,
       "respuestas": [
-        "A. Percepciones sensoriales sin estímulo externo real.",
-        "B. Incapacidad para seguir normas sociales establecidas.",
-        "C. Recuerdos distorsionados de hechos reales.",
-        "D. Creencias falsas sostenidas pese a evidencia en contra, por una interpretación errónea de la realidad."
+        "A. Controlar el movimiento voluntario de los músculos esqueléticos.",
+        "B. Almacenar los recuerdos a largo plazo.",
+        "C. Producir hormonas sexuales.",
+        "D. Regular funciones involuntarias como la frecuencia cardiaca y la digestión."
       ],
       "inciso_correcto": "D"
     },
     {
       "id": 13,
-      "pregunta": "¿Qué medida elimina absolutamente todos los microorganismos, incluidas las esporas?",
+      "pregunta": "En la clasificación taxonómica, ¿cuál es el nivel más específico, inmediatamente antes de la especie?",
       "enlace_svg": null,
       "respuestas": [
-        "A. Desinfección de alto nivel.",
-        "B. Limpieza.",
-        "C. Esterilización.",
-        "D. Desinfección de nivel intermedio."
+        "A. Género",
+        "B. Familia",
+        "C. Orden",
+        "D. Clase"
       ],
-      "inciso_correcto": "C"
+      "inciso_correcto": "A"
     },
     {
       "id": 14,
-      "pregunta": "¿Cómo se definen las infecciones relacionadas con la asistencia sanitaria (IRAS)?",
+      "pregunta": "Durante la respiración celular aeróbica, ¿en qué organelo ocurre la mayor producción de ATP?",
       "enlace_svg": null,
       "respuestas": [
-        "A. Únicamente las adquiridas durante un ingreso hospitalario.",
-        "B. Solo las infecciones diagnosticadas después del alta.",
-        "C. Infecciones que no guardan relación con procedimientos sanitarios.",
-        "D. Infecciones adquiridas como consecuencia de la atención sanitaria recibida, en cualquier ámbito asistencial."
-      ],
-      "inciso_correcto": "D"
-    },
-    {
-      "id": 15,
-      "pregunta": "¿Cuál es el orden correcto para colocarse y retirarse el equipo de protección individual (EPI)?",
-      "enlace_svg": null,
-      "respuestas": [
-        "A. Colocación: guantes, mascarilla, gafas, bata. Retirada: mascarilla, bata, gafas, guantes.",
-        "B. El orden de colocación y retirada es indiferente.",
-        "C. Colocación: mascarilla, guantes, bata, gafas. Retirada: gafas, guantes, bata, mascarilla.",
-        "D. Colocación: bata, mascarilla, gafas, guantes. Retirada: guantes, gafas, bata, mascarilla."
-      ],
-      "inciso_correcto": "D"
-    },
-    {
-      "id": 16,
-      "pregunta": "Un índice tobillo-brazo (ITB) mayor de 1.3 generalmente indica:",
-      "enlace_svg": null,
-      "respuestas": [
-        "A. Isquemia arterial severa.",
-        "B. Calcificación o rigidez arterial que dificulta la compresión del vaso (falso resultado elevado).",
-        "C. Función arterial completamente normal sin matices.",
-        "D. Enfermedad venosa exclusivamente."
+        "A. Núcleo",
+        "B. Mitocondria",
+        "C. Aparato de Golgi",
+        "D. Retículo endoplásmico rugoso"
       ],
       "inciso_correcto": "B"
     },
     {
-      "id": 17,
-      "pregunta": "En la prueba de Allen previa a una gasometría arterial radial, ¿qué arteria se libera primero para valorar la circulación colateral de la mano?",
+      "id": 15,
+      "pregunta": "¿Cuál es la función principal de las enzimas en las reacciones metabólicas?",
       "enlace_svg": null,
       "respuestas": [
-        "A. La arteria radial.",
-        "B. La arteria humeral.",
-        "C. La arteria cubital.",
-        "D. La arteria braquial."
+        "A. Aportar energía directamente a la reacción.",
+        "B. Servir como sustrato en toda reacción química.",
+        "C. Actuar como catalizadores, disminuyendo la energía de activación.",
+        "D. Detener permanentemente las reacciones químicas."
       ],
       "inciso_correcto": "C"
+    },
+    {
+      "id": 16,
+      "pregunta": "¿Qué proceso permite que las células reproductoras (gametos) se formen con la mitad del número de cromosomas de la célula original?",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Mitosis",
+        "B. Fecundación",
+        "C. Citocinesis",
+        "D. Meiosis"
+      ],
+      "inciso_correcto": "D"
+    },
+    {
+      "id": 17,
+      "pregunta": "La molécula de ADN está compuesta por dos cadenas de nucleótidos unidas por:",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Puentes de hidrógeno entre bases nitrogenadas complementarias.",
+        "B. Enlaces peptídicos.",
+        "C. Enlaces covalentes entre azúcares.",
+        "D. Fuerzas de Van der Waals entre grupos fosfato."
+      ],
+      "inciso_correcto": "A"
     },
     {
       "id": 18,
-      "pregunta": "Sobre la correcta toma de la tensión arterial con manguito, señala la afirmación correcta:",
+      "pregunta": "Durante la digestión, ¿en qué órgano se absorbe la mayor parte de los nutrientes hacia el torrente sanguíneo?",
       "enlace_svg": null,
       "respuestas": [
-        "A. El manguito debe colocarse justo sobre la muñeca.",
-        "B. La tensión arterial en las piernas suele ser menor que en los brazos.",
-        "C. El manguito debe cubrir aproximadamente 2/3 de la longitud del brazo y colocarse 2-3 cm por encima de la flexura del codo.",
-        "D. El tamaño del manguito no influye en la medición."
+        "A. Estómago",
+        "B. Intestino delgado",
+        "C. Esófago",
+        "D. Intestino grueso"
       ],
-      "inciso_correcto": "C"
+      "inciso_correcto": "B"
     },
     {
       "id": 19,
-      "pregunta": "En la escala de Braden, ¿qué rango de puntuación se asocia a riesgo moderado de úlceras por presión?",
+      "pregunta": "¿Cuál es la función principal de la hemoglobina en los glóbulos rojos?",
       "enlace_svg": null,
       "respuestas": [
-        "A. 19-23 (sin riesgo).",
-        "B. 15-18 (riesgo bajo).",
-        "C. 13-14 (riesgo moderado).",
-        "D. 10-12 (riesgo alto)."
+        "A. Producir anticuerpos.",
+        "B. Coagular la sangre.",
+        "C. Transportar oxígeno desde los pulmones hacia los tejidos.",
+        "D. Regular la temperatura corporal."
       ],
       "inciso_correcto": "C"
     },
     {
       "id": 20,
-      "pregunta": "Sobre la pirámide de Kaiser de estratificación de pacientes crónicos, señala la afirmación INCORRECTA:",
+      "pregunta": "Un virus, a diferencia de una bacteria, se caracteriza principalmente por:",
       "enlace_svg": null,
       "respuestas": [
-        "A. En la base se ubica la población general, diana de la prevención y promoción de la salud.",
-        "B. Los pacientes de alta complejidad requieren gestión de caso individualizada.",
-        "C. Todos los pacientes crónicos, sin excepción, requieren la misma intensidad de intervención.",
-        "D. Los pacientes de alto riesgo reciben gestión de la enfermedad combinando autogestión y apoyo profesional."
+        "A. Tener una pared celular rígida de peptidoglicano.",
+        "B. Reproducirse de forma independiente fuera de una célula huésped.",
+        "C. Poseer siempre un núcleo definido.",
+        "D. Requerir obligatoriamente la maquinaria de una célula huésped para replicarse."
       ],
-      "inciso_correcto": "C"
+      "inciso_correcto": "D"
     },
     {
       "id": 21,
-      "pregunta": "¿Cuál es el rango habitual de frecuencia cardiaca en un recién nacido sano?",
+      "pregunta": "En una cadena alimenticia, los organismos que producen su propio alimento mediante fotosíntesis se denominan:",
       "enlace_svg": null,
       "respuestas": [
-        "A. 120-160 latidos/min.",
-        "B. 60-80 latidos/min.",
-        "C. 200-220 latidos/min.",
-        "D. 40-60 latidos/min."
+        "A. Productores",
+        "B. Consumidores primarios",
+        "C. Descomponedores",
+        "D. Consumidores secundarios"
       ],
       "inciso_correcto": "A"
     },
     {
       "id": 22,
-      "pregunta": "Entre las úlceras de origen vascular en miembros inferiores, ¿cuáles son las más frecuentes?",
+      "pregunta": "El ciclo biogeoquímico que describe el paso del nitrógeno atmosférico a formas utilizables por las plantas, gracias a bacterias fijadoras, se llama:",
       "enlace_svg": null,
       "respuestas": [
-        "A. Las arteriales.",
-        "B. Las venosas.",
-        "C. Las mixtas.",
-        "D. Todas tienen la misma frecuencia."
+        "A. Ciclo del carbono",
+        "B. Ciclo del nitrógeno",
+        "C. Ciclo del fósforo",
+        "D. Ciclo del agua"
       ],
       "inciso_correcto": "B"
     },
     {
       "id": 23,
-      "pregunta": "¿Cómo se define correctamente la infertilidad, a diferencia de la esterilidad?",
+      "pregunta": "¿Qué estructura vegetal es responsable de la pérdida de agua en forma de vapor, principalmente a través de las hojas?",
       "enlace_svg": null,
       "respuestas": [
-        "A. La incapacidad para lograr un embarazo tras un año de relaciones sin protección.",
-        "B. La ausencia total de gametos en ambos miembros de la pareja.",
-        "C. La imposibilidad absoluta de mantener relaciones sexuales.",
-        "D. La incapacidad de tener hijos nacidos vivos, a pesar de poder lograr el embarazo."
+        "A. Xilema",
+        "B. Floema",
+        "C. Estomas (transpiración)",
+        "D. Raíz"
       ],
-      "inciso_correcto": "D"
+      "inciso_correcto": "C"
     },
     {
       "id": 24,
-      "pregunta": "¿Cuál de las siguientes NO es una parte estructural de una entrevista?",
+      "pregunta": "La vacunación estimula al sistema inmunológico principalmente para que:",
       "enlace_svg": null,
       "respuestas": [
-        "A. Título.",
-        "B. Introducción.",
-        "C. Cuerpo.",
-        "D. Cierre o desenlace."
-      ],
-      "inciso_correcto": "A"
-    },
-    {
-      "id": 25,
-      "pregunta": "El cribado poblacional (screening) es una actividad de prevención:",
-      "enlace_svg": null,
-      "respuestas": [
-        "A. Primaria.",
-        "B. Terciaria.",
-        "C. No se considera prevención.",
-        "D. Secundaria."
+        "A. Elimine directamente al patógeno mediante antibióticos internos.",
+        "B. Destruya las células sanas del cuerpo.",
+        "C. Reduzca permanentemente la producción de anticuerpos.",
+        "D. Genere memoria inmunológica que permita una respuesta más rápida ante una futura exposición al patógeno."
       ],
       "inciso_correcto": "D"
     },
     {
-      "id": 26,
-      "pregunta": "¿Cuál de las siguientes NO es un principio del SiNASP (Sistema de Notificación y Aprendizaje para la Seguridad del Paciente)?",
+      "id": 25,
+      "pregunta": "Un individuo con sangre tipo O, ¿a qué tipos de sangre puede donar eritrocitos sin causar una reacción de incompatibilidad ABO?",
       "enlace_svg": null,
       "respuestas": [
-        "A. Divulgación pública obligatoria de los incidentes notificados.",
-        "B. Voluntariedad.",
-        "C. Confidencialidad.",
-        "D. Orientación sistémica, sin buscar culpables individuales."
+        "A. A los tipos A, B, AB y O.",
+        "B. Solo a tipo O.",
+        "C. Únicamente a tipo AB.",
+        "D. A ningún otro tipo distinto de O."
       ],
       "inciso_correcto": "A"
     },
     {
-      "id": 27,
-      "pregunta": "¿Cuál es el objetivo principal de la prevención terciaria?",
+      "id": 26,
+      "pregunta": "La homeostasis se define como:",
       "enlace_svg": null,
       "respuestas": [
-        "A. El diagnóstico precoz de la enfermedad.",
-        "B. La rehabilitación y limitación de secuelas en la enfermedad ya establecida.",
-        "C. Reducir la incidencia de nuevos casos.",
-        "D. Evitar la exposición al factor de riesgo."
+        "A. La capacidad de un organismo de reproducirse sexualmente.",
+        "B. El mantenimiento de un ambiente interno relativamente estable a pesar de los cambios externos.",
+        "C. El proceso de obtención de energía a partir de los alimentos.",
+        "D. La variación genética entre individuos de una población."
       ],
       "inciso_correcto": "B"
     },
     {
-      "id": 28,
-      "pregunta": "¿Qué factores valora la escala de Norton para el riesgo de úlceras por presión?",
+      "id": 27,
+      "pregunta": "¿Cuál de los siguientes NO es un nivel de organización estructural de las proteínas?",
       "enlace_svg": null,
       "respuestas": [
-        "A. Percepción sensorial, humedad, fricción-cizallamiento y nutrición.",
-        "B. Edad, peso, talla, presión arterial y frecuencia cardiaca.",
-        "C. Estado físico general, estado mental, actividad, movilidad e incontinencia.",
-        "D. Solo la movilidad y la incontinencia."
+        "A. Estructura primaria",
+        "B. Estructura secundaria",
+        "C. Estructura nuclear",
+        "D. Estructura terciaria"
       ],
       "inciso_correcto": "C"
+    },
+    {
+      "id": 28,
+      "pregunta": "Durante la transcripción genética, la información contenida en el ADN se copia en una molécula de:",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. ADN polimerasa",
+        "B. Un aminoácido",
+        "C. Una proteína estructural",
+        "D. ARN mensajero"
+      ],
+      "inciso_correcto": "D"
     },
     {
       "id": 29,
-      "pregunta": "¿Cuál es la complicación aguda más frecuente en personas con diabetes?",
+      "pregunta": "La biodiversidad de un ecosistema se refiere principalmente a:",
       "enlace_svg": null,
       "respuestas": [
-        "A. Cetoacidosis diabética.",
-        "B. Coma hiperosmolar.",
-        "C. Hipoglucemia.",
-        "D. Ninguna complicación aguda es frecuente."
+        "A. La cantidad y variedad de especies que lo habitan.",
+        "B. El tamaño físico del territorio que ocupa.",
+        "C. La cantidad de agua disponible en el ambiente.",
+        "D. El número de depredadores tope existentes."
+      ],
+      "inciso_correcto": "A"
+    },
+    {
+      "id": 30,
+      "pregunta": "¿Cuál de los siguientes sistemas del cuerpo humano es responsable de coordinar las respuestas del organismo mediante señales eléctricas rápidas?",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Sistema endocrino",
+        "B. Sistema nervioso",
+        "C. Sistema linfático",
+        "D. Sistema digestivo"
+      ],
+      "inciso_correcto": "B"
+    },
+    {
+      "id": 31,
+      "pregunta": "¿Cuál es el número atómico de un elemento?",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. El número de neutrones en el núcleo.",
+        "B. La suma de protones y neutrones.",
+        "C. El número de protones en el núcleo.",
+        "D. El número de electrones en el último nivel de energía."
       ],
       "inciso_correcto": "C"
     },
     {
-      "id": 30,
-      "pregunta": "¿Cómo se calcula el índice de envejecimiento de una población?",
-      "enlace_svg": null,
-      "respuestas": [
-        "A. Como el cociente entre la población de 65 años o más y la población menor de 15 años, multiplicado por 100.",
-        "B. Como el cociente entre los nacimientos y las defunciones ocurridos en un año.",
-        "C. Como el número de personas en edad laboral por cada 100 habitantes dependientes.",
-        "D. Como el total de defunciones dividido entre la población total a mitad de año."
-      ],
-      "inciso_correcto": "A"
-    },
-    {
-      "id": 31,
-      "pregunta": "Según el SiNASP, ¿qué tipo de incidentes deben notificarse?",
-      "enlace_svg": null,
-      "respuestas": [
-        "A. Incidentes sin daño, incidentes que no llegaron al paciente y eventos adversos.",
-        "B. Solo los eventos adversos que causaron daño grave.",
-        "C. Únicamente los errores de medicación.",
-        "D. Solo los incidentes ocurridos en quirófano."
-      ],
-      "inciso_correcto": "A"
-    },
-    {
       "id": 32,
-      "pregunta": "El acortamiento de los ciclos menstruales típico de la premenopausia se relaciona principalmente con:",
+      "pregunta": "Un átomo que ha ganado o perdido electrones y posee carga eléctrica neta se denomina:",
       "enlace_svg": null,
       "respuestas": [
-        "A. Una disminución de la hormona del crecimiento.",
-        "B. Un aumento sostenido de la progesterona.",
-        "C. Un aumento de la prolactina.",
-        "D. Un aumento de la FSH por disminución de la reserva folicular."
+        "A. Isótopo",
+        "B. Molécula",
+        "C. Alótropo",
+        "D. Ion"
       ],
       "inciso_correcto": "D"
     },
     {
       "id": 33,
-      "pregunta": "¿Cómo se denomina el estudio de la distancia física que las personas mantienen durante la comunicación?",
+      "pregunta": "¿Qué tipo de enlace se forma cuando dos átomos comparten electrones de manera relativamente equitativa?",
       "enlace_svg": null,
       "respuestas": [
-        "A. Cinésica.",
-        "B. Proxémica.",
-        "C. Paralingüística.",
-        "D. Télesica."
+        "A. Enlace covalente no polar",
+        "B. Enlace iónico",
+        "C. Enlace metálico",
+        "D. Puente de hidrógeno"
+      ],
+      "inciso_correcto": "A"
+    },
+    {
+      "id": 34,
+      "pregunta": "El pH de una disolución con concentración de iones hidrógeno mayor a la del agua pura (pH = 7) se clasifica como:",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Básico",
+        "B. Ácido",
+        "C. Neutro",
+        "D. Anfótero"
       ],
       "inciso_correcto": "B"
     },
     {
-      "id": 34,
-      "pregunta": "¿Qué modelo de educación para la salud identifica factores predisponentes, facilitadores y reforzantes de la conducta?",
+      "id": 35,
+      "pregunta": "En la reacción balanceada 2H₂ + O₂ → 2H₂O, ¿cuántos moles de agua se producen a partir de 4 moles de H₂ (con O₂ en exceso)?",
       "enlace_svg": null,
       "respuestas": [
-        "A. Modelo de Etapas de Cambio de Prochaska.",
-        "B. Modelo de Creencias de Salud.",
-        "C. Modelo PRECEDE-PROCEDE.",
-        "D. Modelo de Gagné."
+        "A. 2 moles",
+        "B. 6 moles",
+        "C. 4 moles",
+        "D. 8 moles"
       ],
       "inciso_correcto": "C"
     },
     {
-      "id": 35,
-      "pregunta": "En educación para la salud, la escucha activa es:",
-      "enlace_svg": null,
-      "respuestas": [
-        "A. Una técnica exclusivamente individual, nunca aplicable en grupo.",
-        "B. Un sinónimo de interrogatorio dirigido.",
-        "C. Una técnica que solo usa el emisor, nunca el receptor.",
-        "D. Una habilidad de comunicación que implica atender y comprender, verbal y no verbalmente, al interlocutor."
-      ],
-      "inciso_correcto": "D"
-    },
-    {
       "id": 36,
-      "pregunta": "Según la clasificación de Spaulding, ¿qué logra un desinfectante de nivel intermedio?",
+      "pregunta": "¿Cuál de las siguientes es una propiedad física, y no química, de la materia?",
       "enlace_svg": null,
       "respuestas": [
-        "A. Destruye únicamente esporas bacterianas.",
-        "B. Elimina todo tipo de microorganismos, incluidas las esporas.",
-        "C. Solo actúa sobre virus, sin efecto sobre bacterias.",
-        "D. Destruye formas vegetativas, la mayoría de virus y hongos, e inactiva el bacilo tuberculoso, pero no las esporas bacterianas."
+        "A. Reactividad con ácidos.",
+        "B. Capacidad de oxidarse.",
+        "C. Combustibilidad.",
+        "D. Punto de ebullición."
       ],
       "inciso_correcto": "D"
     },
     {
       "id": 37,
-      "pregunta": "¿Cómo se caracteriza el patrón respiratorio de Kussmaul?",
+      "pregunta": "Un mol de cualquier sustancia contiene:",
       "enlace_svg": null,
       "respuestas": [
-        "A. Ciclos de respiración creciente-decreciente alternados con apnea.",
-        "B. Frecuencia y ritmo respiratorio completamente normales.",
-        "C. Respiraciones profundas y rápidas, regulares y sin pausas, típicas de la acidosis metabólica.",
-        "D. Respiraciones lentas, superficiales e irregulares."
-      ],
-      "inciso_correcto": "C"
-    },
-    {
-      "id": 38,
-      "pregunta": "¿Cómo se llama la técnica de desbridamiento que consiste en hacer cortes en forma de rejilla sobre la placa necrótica, para facilitar después el desbridamiento enzimático o autolítico?",
-      "enlace_svg": null,
-      "respuestas": [
-        "A. Técnica Slice.",
-        "B. Técnica Cover.",
-        "C. Técnica Square.",
-        "D. Técnica Time."
+        "A. 6.022 × 10²³ partículas.",
+        "B. 22.4 partículas.",
+        "C. 1000 partículas.",
+        "D. Un número variable de partículas, según la sustancia."
       ],
       "inciso_correcto": "A"
     },
     {
-      "id": 39,
-      "pregunta": "¿Cuál de las siguientes NO corresponde al concepto de comunicación, a diferencia de la simple información?",
+      "id": 38,
+      "pregunta": "¿Qué tipo de reacción ocurre cuando un elemento desplaza a otro dentro de un compuesto, como en Zn + CuSO₄ → ZnSO₄ + Cu?",
       "enlace_svg": null,
       "respuestas": [
-        "A. Relación establecida entre un emisor y un receptor.",
-        "B. Existencia de un código compartido.",
-        "C. Transmisión de contenidos exclusivamente unidireccional, sin retroalimentación.",
-        "D. Presencia de feedback o retroalimentación."
+        "A. Reacción de síntesis",
+        "B. Reacción de sustitución simple",
+        "C. Reacción de descomposición",
+        "D. Reacción de doble sustitución"
+      ],
+      "inciso_correcto": "B"
+    },
+    {
+      "id": 39,
+      "pregunta": "Los grupos funcionales -OH y -COOH corresponden, respectivamente, a:",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Cetona y aldehído.",
+        "B. Éter y éster.",
+        "C. Alcohol y ácido carboxílico.",
+        "D. Amina y amida."
       ],
       "inciso_correcto": "C"
     },
     {
       "id": 40,
-      "pregunta": "¿Cuál de las siguientes NO es una de las funciones del lenguaje descritas por Jakobson?",
+      "pregunta": "¿Cuál es la principal diferencia entre una mezcla homogénea y una heterogénea?",
       "enlace_svg": null,
       "respuestas": [
-        "A. Poética.",
-        "B. Fática.",
-        "C. Interactiva.",
-        "D. Conativa o apelativa."
-      ],
-      "inciso_correcto": "C"
-    },
-    {
-      "id": 41,
-      "pregunta": "Dentro del proceso de comunicación, el emisor es quien:",
-      "enlace_svg": null,
-      "respuestas": [
-        "A. Descodifica el mensaje.",
-        "B. Es el objeto del que se habla.",
-        "C. Reconstruye el mensaje recibido.",
-        "D. Elabora y codifica el mensaje."
+        "A. Solo las heterogéneas contienen agua.",
+        "B. Las homogéneas nunca pueden separarse por métodos físicos.",
+        "C. Las heterogéneas siempre son de origen orgánico.",
+        "D. En la homogénea no se distinguen las fases o componentes a simple vista."
       ],
       "inciso_correcto": "D"
     },
     {
-      "id": 42,
-      "pregunta": "Según los datos epidemiológicos actuales en países desarrollados, ¿cuál es la neoplasia ginecológica diagnosticada con más frecuencia?",
+      "id": 41,
+      "pregunta": "Al aumentar la temperatura de un gas a volumen constante, ¿qué sucede con su presión, según la ley de Gay-Lussac?",
       "enlace_svg": null,
       "respuestas": [
-        "A. Cáncer de cérvix.",
-        "B. Cáncer de endometrio.",
-        "C. Cáncer de ovario.",
-        "D. Cáncer de vulva."
+        "A. Aumenta proporcionalmente.",
+        "B. Disminuye proporcionalmente.",
+        "C. Permanece constante.",
+        "D. Se vuelve impredecible."
+      ],
+      "inciso_correcto": "A"
+    },
+    {
+      "id": 42,
+      "pregunta": "La configuración electrónica de un átomo describe:",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. La cantidad total de neutrones en el núcleo.",
+        "B. La distribución de los electrones en los niveles y subniveles de energía.",
+        "C. Únicamente la carga neta del átomo.",
+        "D. La masa atómica exacta del elemento."
       ],
       "inciso_correcto": "B"
     },
     {
       "id": 43,
-      "pregunta": "Sobre los indicadores en la mejora continua de la calidad asistencial, señala la afirmación correcta:",
+      "pregunta": "¿Qué nombre recibe la cantidad de soluto disuelta en cierta cantidad de disolvente o disolución?",
       "enlace_svg": null,
       "respuestas": [
-        "A. Un indicador ideal absoluto solo puede tomar valores intermedios, nunca 0 o 1.",
-        "B. Los indicadores no aportan objetividad ni comparabilidad.",
-        "C. Un indicador es una medida cuantitativa u observación cualitativa que compara dos o más datos.",
-        "D. No existen indicadores estandarizados en salud."
+        "A. Densidad",
+        "B. Viscosidad",
+        "C. Concentración",
+        "D. Presión osmótica"
       ],
       "inciso_correcto": "C"
     },
     {
       "id": 44,
-      "pregunta": "¿Cuál de las siguientes enfermedades infecciosas NO cuenta con una vacuna como medida preventiva?",
+      "pregunta": "Un catalizador en una reacción química:",
       "enlace_svg": null,
       "respuestas": [
-        "A. Gripe.",
-        "B. Hepatitis B.",
-        "C. Tuberculosis (BCG).",
-        "D. Hepatitis C."
+        "A. Se consume completamente durante la reacción.",
+        "B. Aumenta la energía de activación necesaria.",
+        "C. Cambia los productos finales de la reacción.",
+        "D. Acelera la reacción sin consumirse en el proceso."
       ],
       "inciso_correcto": "D"
     },
     {
       "id": 45,
-      "pregunta": "¿Qué escala se utiliza para valorar la gravedad de un episodio de manía en el trastorno bipolar?",
+      "pregunta": "Los elementos de un mismo grupo (columna) en la tabla periódica comparten principalmente:",
       "enlace_svg": null,
       "respuestas": [
-        "A. Escala de Young.",
-        "B. Escala de Hamilton.",
-        "C. Escala de Goldberg.",
-        "D. Test de Fagerström."
+        "A. Un número similar de electrones en su último nivel de energía.",
+        "B. La misma masa atómica.",
+        "C. El mismo número de neutrones.",
+        "D. El mismo estado físico a temperatura ambiente."
       ],
       "inciso_correcto": "A"
     },
     {
       "id": 46,
-      "pregunta": "Durante el parto, cuando el punto guía de la presentación fetal alcanza el borde inferior de la sínfisis del pubis, ¿en qué plano de Hodge se encuentra?",
+      "pregunta": "Al comprimir un gas a temperatura constante, según la ley de Boyle, su volumen y su presión se relacionan de manera:",
       "enlace_svg": null,
       "respuestas": [
-        "A. III plano de Hodge.",
-        "B. I plano de Hodge.",
-        "C. II plano de Hodge.",
-        "D. IV plano de Hodge."
+        "A. Directamente proporcional",
+        "B. Inversamente proporcional",
+        "C. Exponencial",
+        "D. Sin ninguna relación"
       ],
-      "inciso_correcto": "C"
+      "inciso_correcto": "B"
     },
     {
       "id": 47,
-      "pregunta": "Sobre la ortotanasia, señala la afirmación INCORRECTA:",
+      "pregunta": "En una reacción de neutralización entre un ácido y una base, los productos típicos son:",
       "enlace_svg": null,
       "respuestas": [
-        "A. Es la base de los cuidados paliativos.",
-        "B. Consiste en omitir medidas terapéuticas desproporcionadas.",
-        "C. Busca deliberadamente adelantar la muerte del paciente para aliviar su sufrimiento.",
-        "D. Su aplicación no acelera ni retrasa artificialmente el curso natural de la enfermedad."
+        "A. Un óxido y agua.",
+        "B. Un gas y un ácido más fuerte.",
+        "C. Una sal y agua.",
+        "D. Dos bases distintas."
       ],
       "inciso_correcto": "C"
     },
     {
       "id": 48,
-      "pregunta": "El modelo de creencias de salud (Health Belief Model) en educación para la salud:",
+      "pregunta": "En una reacción redox, la especie que pierde electrones sufre:",
       "enlace_svg": null,
       "respuestas": [
-        "A. Ignora por completo la influencia del entorno social.",
-        "B. Se centra en las percepciones subjetivas de amenaza y beneficio que tiene la persona.",
-        "C. Solo es aplicable a personas ya enfermas.",
-        "D. No tiene ninguna utilidad práctica documentada."
-      ],
-      "inciso_correcto": "B"
-    },
-    {
-      "id": 49,
-      "pregunta": "En España, ¿la Educación y Promoción de la Salud se fundamentan en alguna norma legal?",
-      "enlace_svg": null,
-      "respuestas": [
-        "A. No, carecen de cualquier base legal.",
-        "B. Sí, exclusivamente en la LOGSE.",
-        "C. Sí, mediante una ley específica llamada 'Ley de Educación y Promoción de la Salud'.",
-        "D. Sí, entre otras, en la Constitución y la Ley General de Sanidad."
+        "A. Reducción",
+        "B. Neutralización",
+        "C. Sublimación",
+        "D. Oxidación"
       ],
       "inciso_correcto": "D"
     },
     {
-      "id": 50,
-      "pregunta": "¿Cuál de los siguientes se considera un factor de riesgo para un duelo complicado?",
+      "id": 49,
+      "pregunta": "Al comparar dos elementos de un mismo periodo en la tabla periódica, conforme aumenta el número atómico (de izquierda a derecha), la electronegatividad generalmente:",
       "enlace_svg": null,
       "respuestas": [
-        "A. Una muerte esperada tras enfermedad prolongada.",
-        "B. Una muerte súbita o inesperada, junto con un fuerte nivel de apego previo.",
-        "C. Buen soporte social y familiar.",
-        "D. Ausencia de vínculo afectivo significativo con el fallecido."
+        "A. Aumenta",
+        "B. Disminuye",
+        "C. Permanece constante",
+        "D. Se vuelve nula"
+      ],
+      "inciso_correcto": "A"
+    },
+    {
+      "id": 50,
+      "pregunta": "Si se disuelven 2 moles de NaCl en 1 litro de disolución, la molaridad de dicha disolución es:",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. 0.5 M",
+        "B. 2 M",
+        "C. 1 M",
+        "D. 4 M"
       ],
       "inciso_correcto": "B"
     },
     {
       "id": 51,
-      "pregunta": "La filancia (elasticidad) del moco cervical aumenta principalmente por acción de:",
+      "pregunta": "Los alcanos son hidrocarburos caracterizados por:",
       "enlace_svg": null,
       "respuestas": [
-        "A. La progesterona.",
-        "B. Los andrógenos.",
-        "C. Los estrógenos.",
-        "D. La prolactina."
+        "A. Presentar únicamente enlaces dobles carbono-carbono.",
+        "B. Formar anillos aromáticos exclusivamente.",
+        "C. Presentar únicamente enlaces sencillos carbono-carbono (saturados).",
+        "D. Contener siempre un grupo funcional -OH."
       ],
       "inciso_correcto": "C"
     },
     {
       "id": 52,
-      "pregunta": "La escala ESAS (Edmonton Symptom Assessment System), usada en cuidados paliativos, valora entre otros:",
+      "pregunta": "En una reacción química en equilibrio, si se aumenta la concentración de los reactivos, según el principio de Le Chatelier el equilibrio se desplazará hacia:",
       "enlace_svg": null,
       "respuestas": [
-        "A. Únicamente el dolor y la disnea.",
-        "B. Exclusivamente parámetros analíticos de laboratorio.",
-        "C. Bienestar, dolor, cansancio, náusea, ansiedad, somnolencia, apetito y disnea.",
-        "D. Solo síntomas digestivos."
+        "A. Los reactivos, disminuyendo la reacción.",
+        "B. Ninguna dirección, el equilibrio no cambia nunca.",
+        "C. Ambas direcciones simultáneamente sin cambio neto.",
+        "D. Los productos, favoreciendo la reacción directa."
+      ],
+      "inciso_correcto": "D"
+    },
+    {
+      "id": 53,
+      "pregunta": "El cambio de estado en el que una sustancia pasa directamente de sólido a gas, sin pasar por líquido, se llama:",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Sublimación",
+        "B. Condensación",
+        "C. Fusión",
+        "D. Solidificación"
+      ],
+      "inciso_correcto": "A"
+    },
+    {
+      "id": 54,
+      "pregunta": "La vida media (semivida) de un isótopo radiactivo se define como:",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. El tiempo necesario para que se desintegre toda la muestra.",
+        "B. El tiempo necesario para que se desintegre la mitad de los núcleos de una muestra.",
+        "C. El tiempo en que la masa de la muestra se duplica.",
+        "D. El tiempo que tarda en formarse el isótopo."
+      ],
+      "inciso_correcto": "B"
+    },
+    {
+      "id": 55,
+      "pregunta": "Los electrones de valencia de un átomo son:",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Todos los electrones presentes en el átomo.",
+        "B. Los electrones del núcleo atómico.",
+        "C. Los electrones ubicados en el último nivel de energía, responsables de los enlaces químicos.",
+        "D. Únicamente los electrones libres en un metal."
       ],
       "inciso_correcto": "C"
     },
     {
-      "id": 53,
-      "pregunta": "¿Cómo se define la sedación paliativa?",
-      "enlace_svg": null,
-      "respuestas": [
-        "A. La administración deliberada de fármacos a dosis letales para acelerar la muerte.",
-        "B. Una técnica exclusivamente quirúrgica para el control del dolor.",
-        "C. La suspensión completa de todo tratamiento farmacológico.",
-        "D. La reducción de la consciencia con la mínima dosis necesaria de fármacos, para aliviar síntomas refractarios en un paciente con enfermedad avanzada."
-      ],
-      "inciso_correcto": "D"
-    },
-    {
-      "id": 54,
-      "pregunta": "Según la escala de la OMS para mucositis oral, el Grado 1 se caracteriza por:",
-      "enlace_svg": null,
-      "respuestas": [
-        "A. Ausencia total de signos, sin ninguna alteración.",
-        "B. Úlceras extensas que impiden la alimentación oral.",
-        "C. Sangrado gingival espontáneo generalizado.",
-        "D. Eritema y dolor leve, con mucosa aún funcional."
-      ],
-      "inciso_correcto": "D"
-    },
-    {
-      "id": 55,
-      "pregunta": "¿Qué opioide es aproximadamente 100 veces más potente que la morfina, actuando sobre los mismos receptores?",
-      "enlace_svg": null,
-      "respuestas": [
-        "A. Codeína.",
-        "B. Tramadol.",
-        "C. Buprenorfina.",
-        "D. Fentanilo."
-      ],
-      "inciso_correcto": "D"
-    },
-    {
       "id": 56,
-      "pregunta": "¿Qué instrumento se utiliza específicamente para valorar el duelo?",
+      "pregunta": "Un compuesto tiene fórmula empírica CH₂O y masa molar de 180 g/mol (la masa de la fórmula empírica es 30 g/mol). ¿Cuál es su fórmula molecular?",
       "enlace_svg": null,
       "respuestas": [
-        "A. Test de Pfeiffer.",
-        "B. Cuestionario SCOFF.",
-        "C. Test de Isaacs.",
-        "D. Inventario de Duelo Complicado / Texas Revisado."
+        "A. C₃H₆O₃",
+        "B. C₂H₄O₂",
+        "C. C₄H₈O₄",
+        "D. C₆H₁₂O₆"
       ],
       "inciso_correcto": "D"
     },
     {
       "id": 57,
-      "pregunta": "Según las guías sobre menopausia, respecto a la terapia hormonal en una mujer con útero íntegro:",
+      "pregunta": "Una reacción que libera energía en forma de calor hacia el entorno se clasifica como:",
       "enlace_svg": null,
       "respuestas": [
-        "A. Debe añadirse un gestágeno junto al estrógeno para proteger el endometrio.",
-        "B. No debe añadirse un gestágeno al estrógeno.",
-        "C. El tratamiento hormonal debe mantenerse de por vida.",
-        "D. Está indicada en cualquier mujer, sin excepciones."
+        "A. Exotérmica",
+        "B. Endotérmica",
+        "C. Isotérmica",
+        "D. Adiabática"
       ],
       "inciso_correcto": "A"
     },
     {
       "id": 58,
-      "pregunta": "Respecto a la farmacocinética en personas mayores, es correcto que:",
+      "pregunta": "Un objeto tiene una masa de 50 g y ocupa un volumen de 25 cm³. ¿Cuál es su densidad?",
       "enlace_svg": null,
       "respuestas": [
-        "A. El gasto cardíaco aumenta, acelerando la distribución del fármaco.",
-        "B. La dosis siempre debe aumentarse respecto al adulto joven para lograr el mismo efecto.",
-        "C. El metabolismo hepático suele enlentecerse, favoreciendo la acumulación del fármaco.",
-        "D. La absorción intestinal nunca se ve afectada por laxantes ni por la dieta."
+        "A. 0.5 g/cm³",
+        "B. 2 g/cm³",
+        "C. 1.25 g/cm³",
+        "D. 25 g/cm³"
       ],
-      "inciso_correcto": "C"
+      "inciso_correcto": "B"
     },
     {
       "id": 59,
-      "pregunta": "¿Cómo se denomina la percepción de dolor ante un estímulo que normalmente no es doloroso, como el roce de las sábanas?",
+      "pregunta": "En el compuesto KMnO₄, el número de oxidación del manganeso (Mn) es:",
       "enlace_svg": null,
       "respuestas": [
-        "A. Alodinia.",
-        "B. Hiperalgesia.",
-        "C. Disestesia.",
-        "D. Parestesia."
-      ],
-      "inciso_correcto": "A"
-    },
-    {
-      "id": 60,
-      "pregunta": "La codeína, utilizada para el control del dolor, se sitúa en qué escalón de la escalera analgésica de la OMS:",
-      "enlace_svg": null,
-      "respuestas": [
-        "A. Segundo escalón (opioides débiles).",
-        "B. Primer escalón (no opioides).",
-        "C. Tercer escalón (opioides potentes).",
-        "D. No forma parte de la escalera analgésica."
-      ],
-      "inciso_correcto": "A"
-    },
-    {
-      "id": 61,
-      "pregunta": "¿Cómo se denominan los fármacos que se asocian a los distintos escalones analgésicos de la OMS para potenciar su efecto, como antidepresivos o anticonvulsivantes?",
-      "enlace_svg": null,
-      "respuestas": [
-        "A. Antagonistas.",
-        "B. Excipientes.",
-        "C. Nocebos.",
-        "D. Coadyuvantes."
-      ],
-      "inciso_correcto": "D"
-    },
-    {
-      "id": 62,
-      "pregunta": "En la sífilis secundaria, ¿cuál de las siguientes manifestaciones NO es característica de este estadio?",
-      "enlace_svg": null,
-      "respuestas": [
-        "A. Roséola sifilítica.",
-        "B. Alopecia sifilítica en parches.",
-        "C. Febrícula, artralgias y malestar general.",
-        "D. Chancro sifilítico indoloro, propio de la sífilis primaria."
-      ],
-      "inciso_correcto": "D"
-    },
-    {
-      "id": 63,
-      "pregunta": "¿Qué tipo de valoración geriátrica realiza el test de Pfeiffer?",
-      "enlace_svg": null,
-      "respuestas": [
-        "A. Valoración funcional de las actividades de la vida diaria.",
-        "B. Valoración de la esfera cognitiva (deterioro mental).",
-        "C. Valoración exclusivamente del estado nutricional.",
-        "D. Valoración del riesgo de caídas."
-      ],
-      "inciso_correcto": "B"
-    },
-    {
-      "id": 64,
-      "pregunta": "¿Cuál de las siguientes es una complicación asociada a la inmovilidad prolongada?",
-      "enlace_svg": null,
-      "respuestas": [
-        "A. Aumento del gasto cardíaco basal.",
-        "B. Atrofia muscular y anquilosis articular.",
-        "C. Mejora del tránsito intestinal.",
-        "D. Aumento de la densidad ósea."
-      ],
-      "inciso_correcto": "B"
-    },
-    {
-      "id": 65,
-      "pregunta": "En pacientes en fase terminal, la causa más frecuente de estreñimiento es:",
-      "enlace_svg": null,
-      "respuestas": [
-        "A. La dieta rica en fibra.",
-        "B. El exceso de ejercicio físico.",
-        "C. La ingesta excesiva de líquidos.",
-        "D. El uso de opioides."
-      ],
-      "inciso_correcto": "D"
-    },
-    {
-      "id": 66,
-      "pregunta": "¿Qué se entiende por una fórmula de nutrición enteral de densidad calórica estándar?",
-      "enlace_svg": null,
-      "respuestas": [
-        "A. Aproximadamente 1 Kcal/ml.",
-        "B. Menos de 0.5 Kcal/ml.",
-        "C. Más de 2 Kcal/ml.",
-        "D. No existe un valor estándar de referencia."
-      ],
-      "inciso_correcto": "A"
-    },
-    {
-      "id": 67,
-      "pregunta": "En un contraste de hipótesis, un valor de p < 0,05 significa que:",
-      "enlace_svg": null,
-      "respuestas": [
-        "A. Se acepta la hipótesis nula.",
-        "B. Se rechaza la hipótesis nula, al considerarse el resultado estadísticamente significativo.",
-        "C. El resultado se debe únicamente al azar.",
-        "D. No se puede sacar ninguna conclusión."
-      ],
-      "inciso_correcto": "B"
-    },
-    {
-      "id": 68,
-      "pregunta": "La ablación del clítoris junto con la infibulación (estrechamiento del introito vaginal) corresponde a qué tipo de mutilación genital femenina según la clasificación de la OMS:",
-      "enlace_svg": null,
-      "respuestas": [
-        "A. Tipo I.",
-        "B. Tipo II.",
-        "C. Tipo III.",
-        "D. Tipo IV."
+        "A. +2",
+        "B. +4",
+        "C. +7",
+        "D. -1"
       ],
       "inciso_correcto": "C"
     },
     {
-      "id": 69,
-      "pregunta": "Antes de una prueba de sangre oculta en heces mediante el método del guayaco (no inmunológico), ¿qué alimento NO es necesario restringir?",
+      "id": 60,
+      "pregunta": "Según el principio de Avogadro, a la misma temperatura y presión, volúmenes iguales de gases distintos contienen:",
       "enlace_svg": null,
       "respuestas": [
-        "A. Cereales integrales.",
-        "B. Carnes rojas.",
-        "C. Embutidos.",
-        "D. Frutas y verduras crudas ricas en peroxidasa."
+        "A. Masas iguales",
+        "B. Diferente número de moléculas siempre",
+        "C. Diferente masa molar únicamente",
+        "D. El mismo número de moléculas"
+      ],
+      "inciso_correcto": "D"
+    },
+    {
+      "id": 61,
+      "pregunta": "Un automóvil viaja a velocidad constante de 20 m/s durante 15 segundos. ¿Qué distancia recorre?",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. 300 m",
+        "B. 150 m",
+        "C. 20 m",
+        "D. 35 m"
+      ],
+      "inciso_correcto": "A"
+    },
+    {
+      "id": 62,
+      "pregunta": "Según la primera ley de Newton, un cuerpo en reposo o en movimiento rectilíneo uniforme permanecerá así a menos que:",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Se le aplique el doble de fuerza que su peso.",
+        "B. Actúe sobre él una fuerza neta distinta de cero.",
+        "C. Cambie su masa.",
+        "D. Se encuentre en el vacío."
+      ],
+      "inciso_correcto": "B"
+    },
+    {
+      "id": 63,
+      "pregunta": "La aceleración de un objeto que parte del reposo y alcanza 30 m/s en 6 segundos es:",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. 3 m/s²",
+        "B. 6 m/s²",
+        "C. 5 m/s²",
+        "D. 180 m/s²"
+      ],
+      "inciso_correcto": "C"
+    },
+    {
+      "id": 64,
+      "pregunta": "Si la fuerza neta sobre un objeto es igual a cero, su cantidad de movimiento (momento lineal):",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Aumenta constantemente.",
+        "B. Se reduce a cero de inmediato.",
+        "C. Depende únicamente de su masa.",
+        "D. Se mantiene constante."
+      ],
+      "inciso_correcto": "D"
+    },
+    {
+      "id": 65,
+      "pregunta": "La energía potencial gravitatoria de un objeto depende de:",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Su masa, la altura y la aceleración de la gravedad.",
+        "B. Únicamente de su velocidad.",
+        "C. Solo de su masa y su forma.",
+        "D. Exclusivamente del tiempo transcurrido en caída."
+      ],
+      "inciso_correcto": "A"
+    },
+    {
+      "id": 66,
+      "pregunta": "Resuelve: si 3x − 7 = 14, el valor de x es:",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. 5",
+        "B. 7",
+        "C. 21",
+        "D. 3"
+      ],
+      "inciso_correcto": "B"
+    },
+    {
+      "id": 67,
+      "pregunta": "El área de un círculo de radio 5 cm es aproximadamente (usa π ≈ 3.14):",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. 15.7 cm²",
+        "B. 31.4 cm²",
+        "C. 78.5 cm²",
+        "D. 157 cm²"
+      ],
+      "inciso_correcto": "C"
+    },
+    {
+      "id": 68,
+      "pregunta": "Si f(x) = 2x² − 3x + 1, ¿cuál es el valor de f(2)?",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. 5",
+        "B. 7",
+        "C. 9",
+        "D. 3"
+      ],
+      "inciso_correcto": "D"
+    },
+    {
+      "id": 69,
+      "pregunta": "En un triángulo rectángulo, si los catetos miden 3 cm y 4 cm, ¿cuánto mide la hipotenusa?",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. 5 cm",
+        "B. 6 cm",
+        "C. 7 cm",
+        "D. 12 cm"
       ],
       "inciso_correcto": "A"
     },
     {
       "id": 70,
-      "pregunta": "¿Qué factores influyen en el estado psicológico de la persona mayor?",
+      "pregunta": "La probabilidad de obtener un número par al lanzar un dado de seis caras equilibrado es:",
       "enlace_svg": null,
       "respuestas": [
-        "A. Únicamente el nivel cultural.",
-        "B. Solo la ausencia de enfermedad.",
-        "C. Exclusivamente factores genéticos.",
-        "D. El nivel cultural, la actividad física y mental, el estado de salud y las relaciones sociales."
-      ],
-      "inciso_correcto": "D"
-    },
-    {
-      "id": 71,
-      "pregunta": "Para prevenir úlceras por presión, ¿qué práctica debe evitarse?",
-      "enlace_svg": null,
-      "respuestas": [
-        "A. El masaje directo sobre las prominencias óseas enrojecidas.",
-        "B. Los cambios posturales cada 2-4 horas.",
-        "C. La inspección diaria de la piel.",
-        "D. El uso de superficies de apoyo especiales."
-      ],
-      "inciso_correcto": "A"
-    },
-    {
-      "id": 72,
-      "pregunta": "¿Cuál de los siguientes cambios visuales en el anciano se considera patológico, y no propio del envejecimiento normal?",
-      "enlace_svg": null,
-      "respuestas": [
-        "A. Disminución leve de la agudeza visual.",
-        "B. Degeneración macular asociada a la edad.",
-        "C. Menor capacidad de acomodación (presbicia).",
-        "D. Ligera disminución de la visión nocturna."
+        "A. 1/6",
+        "B. 1/2",
+        "C. 1/3",
+        "D. 2/3"
       ],
       "inciso_correcto": "B"
     },
     {
-      "id": 73,
-      "pregunta": "En un paciente con demencia y dificultad para tragar, ¿qué medida de enfermería es adecuada?",
+      "id": 71,
+      "pregunta": "¿Cuál es la pendiente de la recta que pasa por los puntos (2, 3) y (6, 11)?",
       "enlace_svg": null,
       "respuestas": [
-        "A. Forzar la ingesta rápida para terminar cuanto antes.",
-        "B. Ofrecer únicamente líquidos, evitando cualquier textura sólida.",
-        "C. Adaptar la textura de los alimentos y esperar un tiempo tras comer antes de acostarlo.",
-        "D. Elevar la voz para facilitar la comprensión."
+        "A. 1",
+        "B. 3",
+        "C. 2",
+        "D. 4"
       ],
       "inciso_correcto": "C"
     },
     {
-      "id": 74,
-      "pregunta": "Una mujer que pierde orina de forma involuntaria al reír, toser o estornudar presenta probablemente:",
+      "id": 72,
+      "pregunta": "Un cuerpo de 10 kg experimenta una fuerza neta de 25 N. ¿Cuál es su aceleración, según la segunda ley de Newton?",
       "enlace_svg": null,
       "respuestas": [
-        "A. Incontinencia urinaria de esfuerzo.",
-        "B. Incontinencia de urgencia.",
-        "C. Incontinencia por rebosamiento.",
-        "D. Incontinencia funcional."
+        "A. 0.4 m/s²",
+        "B. 25 m/s²",
+        "C. 250 m/s²",
+        "D. 2.5 m/s²"
+      ],
+      "inciso_correcto": "D"
+    },
+    {
+      "id": 73,
+      "pregunta": "La suma de los ángulos internos de cualquier triángulo es:",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. 180°",
+        "B. 90°",
+        "C. 270°",
+        "D. 360°"
       ],
       "inciso_correcto": "A"
     },
     {
-      "id": 75,
-      "pregunta": "Ante una persona accidentada con serología VIH positiva, ¿qué debe hacer la enfermera?",
+      "id": 74,
+      "pregunta": "Al dejar caer un objeto libremente desde el reposo (sin fricción del aire), su velocidad:",
       "enlace_svg": null,
       "respuestas": [
-        "A. Puede negarse a asistirla si existe riesgo de contagio.",
-        "B. Solo debe atenderla si hay otro profesional presente.",
-        "C. Debe prestarle asistencia igual que a cualquier otra persona, conforme al código deontológico.",
-        "D. Puede negarse si su vida no corre peligro inmediato."
+        "A. Permanece constante durante la caída.",
+        "B. Aumenta uniformemente con el tiempo.",
+        "C. Disminuye conforme cae.",
+        "D. Depende únicamente de su masa."
+      ],
+      "inciso_correcto": "B"
+    },
+    {
+      "id": 75,
+      "pregunta": "Al resolver el sistema de ecuaciones x + y = 10 y x − y = 2, el valor de x es:",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. 4",
+        "B. 5",
+        "C. 6",
+        "D. 8"
       ],
       "inciso_correcto": "C"
     },
     {
       "id": 76,
-      "pregunta": "¿Qué compuesto de la dieta se relaciona directamente con la formación de litiasis renal por ácido úrico?",
+      "pregunta": "La potencia se define como la razón entre:",
       "enlace_svg": null,
       "respuestas": [
-        "A. Las purinas.",
-        "B. Las grasas saturadas.",
-        "C. Los azúcares simples.",
-        "D. La fibra insoluble."
+        "A. La fuerza aplicada y el tiempo.",
+        "B. La energía cinética y la masa.",
+        "C. La velocidad y la aceleración.",
+        "D. El trabajo realizado y el tiempo empleado en realizarlo."
       ],
-      "inciso_correcto": "A"
+      "inciso_correcto": "D"
     },
     {
       "id": 77,
-      "pregunta": "¿En qué artículo de la Constitución Española de 1978 se reconoce el derecho a la protección de la salud?",
+      "pregunta": "Un objeto se mueve en una trayectoria circular a rapidez constante. La aceleración que experimenta apunta:",
       "enlace_svg": null,
       "respuestas": [
-        "A. Artículo 43.",
-        "B. Artículo 15.",
-        "C. Artículo 22.",
-        "D. Artículo 55."
+        "A. Hacia el centro de la circunferencia.",
+        "B. En la dirección del movimiento.",
+        "C. Hacia afuera de la circunferencia.",
+        "D. No existe aceleración si la rapidez es constante."
       ],
       "inciso_correcto": "A"
     },
     {
       "id": 78,
-      "pregunta": "En un paciente cirrótico con encefalopatía hepática, señala la recomendación nutricional INCORRECTA:",
+      "pregunta": "Si una onda tiene una frecuencia de 50 Hz y una longitud de onda de 4 m, ¿cuál es su rapidez de propagación?",
       "enlace_svg": null,
       "respuestas": [
-        "A. Restringir la sal para evitar la retención de líquidos.",
-        "B. Priorizar proteína vegetal y de pescado o pollo, evitando mariscos crudos.",
-        "C. Mantener una ingesta de carbohidratos inferior a la de proteínas.",
-        "D. Evitar el consumo de alcohol."
+        "A. 12.5 m/s",
+        "B. 200 m/s",
+        "C. 46 m/s",
+        "D. 54 m/s"
+      ],
+      "inciso_correcto": "B"
+    },
+    {
+      "id": 79,
+      "pregunta": "Según la ley de Ohm, si la resistencia de un circuito se duplica manteniendo el voltaje constante, la corriente:",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Se duplica",
+        "B. Permanece igual",
+        "C. Se reduce a la mitad",
+        "D. Se vuelve cero"
       ],
       "inciso_correcto": "C"
     },
     {
-      "id": 79,
-      "pregunta": "¿Qué aminoácidos de cadena ramificada se suplementan en pacientes cirróticos desnutridos con encefalopatía hepática?",
-      "enlace_svg": null,
-      "respuestas": [
-        "A. Leucina, isoleucina y valina.",
-        "B. Alanina y treonina.",
-        "C. Fenilalanina y metionina.",
-        "D. Glicina e histidina."
-      ],
-      "inciso_correcto": "A"
-    },
-    {
       "id": 80,
-      "pregunta": "¿Cuál de las siguientes NO es una complicación inmediata típica de la mutilación genital femenina?",
+      "pregunta": "La presión ejercida por una fuerza de 100 N sobre una superficie de 2 m² es:",
       "enlace_svg": null,
       "respuestas": [
-        "A. Hemorragia.",
-        "B. Cicatriz hipertrófica, complicación tardía.",
-        "C. Infección.",
-        "D. Dolor intenso."
-      ],
-      "inciso_correcto": "B"
-    },
-    {
-      "id": 81,
-      "pregunta": "En el síndrome de dumping tras gastrectomía, ¿qué medida dietética se recomienda?",
-      "enlace_svg": null,
-      "respuestas": [
-        "A. Realizar comidas abundantes y poco frecuentes.",
-        "B. Beber abundantes líquidos junto con las comidas.",
-        "C. Aumentar los azúcares simples en cada comida.",
-        "D. Realizar comidas pequeñas y frecuentes, evitando líquidos durante ellas."
+        "A. 25 Pa",
+        "B. 100 Pa",
+        "C. 200 Pa",
+        "D. 50 Pa"
       ],
       "inciso_correcto": "D"
     },
     {
-      "id": 82,
-      "pregunta": "Cuando la nutrición enteral se prevé de larga duración y existe buena tolerancia gástrica, ¿qué vía de acceso se prefiere?",
+      "id": 81,
+      "pregunta": "Las soluciones de la ecuación cuadrática x² − 5x + 6 = 0 son:",
       "enlace_svg": null,
       "respuestas": [
-        "A. Sonda de gastrostomía.",
-        "B. Sonda nasogástrica.",
-        "C. Sonda nasoyeyunal siempre.",
-        "D. Vía parenteral exclusivamente."
+        "A. x = 2, x = 3",
+        "B. x = 1, x = 6",
+        "C. x = -2, x = -3",
+        "D. x = 5, x = 6"
       ],
       "inciso_correcto": "A"
     },
     {
-      "id": 83,
-      "pregunta": "Al administrar varios fármacos por una sonda de gastrostomía (PEG), ¿qué recomendación es correcta?",
+      "id": 82,
+      "pregunta": "El valor de log₁₀(1000) es:",
       "enlace_svg": null,
       "respuestas": [
-        "A. Mezclar todos los fármacos juntos para ahorrar tiempo.",
-        "B. Administrar cada fármaco por separado, lavando la sonda con agua entre uno y otro, y al finalizar.",
-        "C. No es necesario lavar la sonda entre fármacos.",
-        "D. Está contraindicado administrar fármacos por esta vía."
+        "A. 1",
+        "B. 3",
+        "C. 2",
+        "D. 10"
       ],
       "inciso_correcto": "B"
     },
     {
-      "id": 84,
-      "pregunta": "¿Cuál de las siguientes recomendaciones para el estreñimiento en el anciano es INCORRECTA?",
+      "id": 83,
+      "pregunta": "En el conjunto de datos {4, 6, 6, 8, 10}, la moda es:",
       "enlace_svg": null,
       "respuestas": [
-        "A. Aumentar la ingesta hídrica si no hay contraindicación.",
-        "B. Fomentar el ejercicio físico regular.",
-        "C. Aumentar la ingesta de fibra de forma gradual.",
-        "D. Usar laxantes estimulantes como primera medida sistemática."
+        "A. 4",
+        "B. 8",
+        "C. 6",
+        "D. 10"
+      ],
+      "inciso_correcto": "C"
+    },
+    {
+      "id": 84,
+      "pregunta": "En un triángulo rectángulo, si el ángulo agudo mide 30° y la hipotenusa mide 10 cm, el cateto opuesto a dicho ángulo mide (usa sen 30° = 0.5):",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. 2.5 cm",
+        "B. 7.5 cm",
+        "C. 10 cm",
+        "D. 5 cm"
       ],
       "inciso_correcto": "D"
     },
     {
       "id": 85,
-      "pregunta": "Sobre los estudios epidemiológicos descriptivos, señala la afirmación correcta:",
+      "pregunta": "Al sumar los vectores (3, 0) y (0, 4), la magnitud del vector resultante es:",
       "enlace_svg": null,
       "respuestas": [
-        "A. Son los estudios menos frecuentes en epidemiología.",
-        "B. Nunca sirven como fuente de hipótesis.",
-        "C. Son estudios observacionales que no evalúan una hipótesis causal.",
-        "D. Siempre requieren un grupo control."
-      ],
-      "inciso_correcto": "C"
-    },
-    {
-      "id": 86,
-      "pregunta": "Según las recomendaciones de actividad física en el adulto sano, es correcto que:",
-      "enlace_svg": null,
-      "respuestas": [
-        "A. No es necesario el trabajo de fuerza muscular.",
-        "B. Los periodos sedentarios prolongados no requieren ninguna pausa.",
-        "C. Se recomiendan al menos 150 minutos semanales de actividad aeróbica moderada, más fortalecimiento muscular 2 días por semana.",
-        "D. Basta con 30 minutos de actividad física una vez por semana."
-      ],
-      "inciso_correcto": "C"
-    },
-    {
-      "id": 87,
-      "pregunta": "¿Cuál es el antídoto de los anticoagulantes antagonistas de la vitamina K, como el acenocumarol?",
-      "enlace_svg": null,
-      "respuestas": [
-        "A. Vitamina K.",
-        "B. Sulfato de protamina.",
-        "C. Ácido tranexámico exclusivamente.",
-        "D. Vitamina B12."
+        "A. 5",
+        "B. 3",
+        "C. 4",
+        "D. 7"
       ],
       "inciso_correcto": "A"
     },
     {
-      "id": 88,
-      "pregunta": "Antes de una prueba de catecolaminas o metanefrinas en orina, se recomienda evitar principalmente:",
+      "id": 86,
+      "pregunta": "En una colisión perfectamente elástica entre dos cuerpos que forman un sistema aislado, ¿qué cantidad se conserva siempre?",
       "enlace_svg": null,
       "respuestas": [
-        "A. Únicamente los lácteos.",
-        "B. Café, chocolate, plátanos y otros alimentos ricos en aminas vasoactivas.",
-        "C. Solo las frutas cítricas.",
-        "D. Ningún alimento requiere restricción."
+        "A. Solo la energía cinética.",
+        "B. Tanto la cantidad de movimiento como la energía cinética.",
+        "C. Solo la cantidad de movimiento.",
+        "D. Ninguna de las dos se conserva."
       ],
       "inciso_correcto": "B"
     },
     {
-      "id": 89,
-      "pregunta": "¿Qué parámetros se necesitan para calcular el riesgo cardiovascular mediante la tabla SCORE?",
+      "id": 87,
+      "pregunta": "Un bloque se desliza sobre una superficie horizontal. La fuerza de fricción que se opone a su movimiento actúa en dirección:",
       "enlace_svg": null,
       "respuestas": [
-        "A. Índice de masa corporal, antecedentes familiares y perímetro de cintura.",
-        "B. Triglicéridos, edad y perímetro de cintura únicamente.",
-        "C. La presencia de diabetes como único criterio.",
-        "D. Presión arterial, colesterol total, edad, sexo y consumo de tabaco."
+        "A. Perpendicular al movimiento.",
+        "B. En el mismo sentido del movimiento.",
+        "C. Opuesta al sentido del movimiento.",
+        "D. Hacia arriba únicamente."
+      ],
+      "inciso_correcto": "C"
+    },
+    {
+      "id": 88,
+      "pregunta": "Convertir 5 km a metros equivale a:",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. 50 m",
+        "B. 500 m",
+        "C. 50,000 m",
+        "D. 5,000 m"
       ],
       "inciso_correcto": "D"
     },
     {
-      "id": 90,
-      "pregunta": "¿Qué valora el signo de Godet?",
+      "id": 89,
+      "pregunta": "El volumen de una esfera de radio 3 cm es (usa V = 4/3 π r³ y π ≈ 3.14):",
       "enlace_svg": null,
       "respuestas": [
-        "A. La presencia de trombosis venosa profunda.",
-        "B. La presencia de edema, mediante la fóvea al presionar.",
-        "C. La presencia de angina de pecho.",
-        "D. El grado de una úlcera por presión."
+        "A. 113.04 cm³",
+        "B. 28.26 cm³",
+        "C. 37.68 cm³",
+        "D. 339.12 cm³"
+      ],
+      "inciso_correcto": "A"
+    },
+    {
+      "id": 90,
+      "pregunta": "Si un resorte se estira 4 cm al aplicarle una fuerza de 8 N, según la ley de Hooke, ¿cuál es su constante de elasticidad k?",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. 0.5 N/cm",
+        "B. 2 N/cm",
+        "C. 4 N/cm",
+        "D. 32 N/cm"
       ],
       "inciso_correcto": "B"
     },
     {
       "id": 91,
-      "pregunta": "¿Cuál es la secuencia correcta y segura para subir escaleras usando dos muletas tras una cirugía en una pierna?",
+      "pregunta": "Identifica la oración que contiene un error de concordancia:",
       "enlace_svg": null,
       "respuestas": [
-        "A. Primero la pierna sana; después, las muletas junto con la pierna operada, moviéndolas a la vez.",
-        "B. Primero la pierna operada; después, las muletas junto con la pierna sana, moviéndolas a la vez.",
-        "C. Primero las muletas solas; después la pierna operada; por último la pierna sana.",
-        "D. El orden de las piernas y las muletas es indiferente al subir escaleras."
+        "A. Los estudiantes llegaron temprano al examen.",
+        "B. La mayoría de los alumnos aprobaron el curso.",
+        "C. Los libro nuevos llegaron ayer a la biblioteca.",
+        "D. Ella y su hermano viajarán juntos la próxima semana."
       ],
-      "inciso_correcto": "A"
+      "inciso_correcto": "C"
     },
     {
       "id": 92,
-      "pregunta": "¿Qué recomendación sobre actividad física es adecuada para un paciente con EPOC?",
+      "pregunta": "Selecciona el sinónimo más adecuado de la palabra \"meticuloso\":",
       "enlace_svg": null,
       "respuestas": [
-        "A. Evitar cualquier actividad física por el riesgo de disnea.",
-        "B. Solo se recomienda actividad física en sesiones únicas de más de 45 minutos.",
-        "C. La actividad física está contraindicada en el EPOC grave.",
-        "D. Programas de entrenamiento físico de más de 12 semanas, con actividad aeróbica moderada regular."
+        "A. Descuidado",
+        "B. Apresurado",
+        "C. Indiferente",
+        "D. Minucioso"
       ],
       "inciso_correcto": "D"
     },
     {
       "id": 93,
-      "pregunta": "¿Cuál de los siguientes es un signo de desnutrición más grave o avanzada?",
+      "pregunta": "¿Cuál de las siguientes palabras es un antónimo de \"efímero\"?",
       "enlace_svg": null,
       "respuestas": [
-        "A. Albúmina sérica por debajo de 3.5 g/dl con pérdida de masa muscular.",
-        "B. Ligera pérdida de apetito.",
-        "C. Leve pérdida de peso reciente.",
-        "D. Aumento del apetito."
+        "A. Duradero",
+        "B. Pasajero",
+        "C. Breve",
+        "D. Fugaz"
       ],
       "inciso_correcto": "A"
     },
     {
       "id": 94,
-      "pregunta": "Según los criterios diagnósticos del estatus migrañoso, ¿cuál de las siguientes NO es una característica definitoria?",
+      "pregunta": "Lee el fragmento: \"Aunque el tratamiento era costoso, la familia decidió continuarlo porque confiaba en sus resultados\". ¿Qué tipo de conector es \"aunque\" en esta oración?",
       "enlace_svg": null,
       "respuestas": [
-        "A. Duración de la cefalea superior a 72 horas.",
-        "B. Ausencia completa de dolor de cabeza, sin ningún síntoma asociado.",
-        "C. Intensidad discapacitante que interfiere con las actividades habituales.",
-        "D. Posible presencia de náuseas y vómitos intensos."
+        "A. Conector de causa",
+        "B. Conector de concesión (contraste)",
+        "C. Conector de consecuencia",
+        "D. Conector de tiempo"
       ],
       "inciso_correcto": "B"
     },
     {
       "id": 95,
-      "pregunta": "Ante un paciente con afasia motora tras un ACV, ¿qué actitud NO se recomienda?",
+      "pregunta": "Identifica el sujeto de la oración: \"Los médicos residentes revisaron con cuidado cada expediente\".",
       "enlace_svg": null,
       "respuestas": [
-        "A. Forzarlo a hablar rápido para 'acelerar' su recuperación.",
-        "B. Apoyar la comunicación con gestos.",
-        "C. Hablar despacio y sin gritar.",
-        "D. Evitar fingir que se le entiende cuando no es así."
+        "A. Con cuidado",
+        "B. Cada expediente",
+        "C. Los médicos residentes",
+        "D. Revisaron"
+      ],
+      "inciso_correcto": "C"
+    },
+    {
+      "id": 96,
+      "pregunta": "¿Cuál de las siguientes oraciones está escrita correctamente en cuanto a ortografía?",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. El paciente presentó una reacción alérgica haber tomado el medicamento.",
+        "B. El paciente presentó una reacción alérgica a ver tomado el medicamento.",
+        "C. El paciente presento una reacción alérgica al aber tomado el medicamento.",
+        "D. El paciente presentó una reacción alérgica al haber tomado el medicamento."
+      ],
+      "inciso_correcto": "D"
+    },
+    {
+      "id": 97,
+      "pregunta": "Selecciona la analogía correcta: \"Médico es a hospital como maestro es a ___\".",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Escuela",
+        "B. Libro",
+        "C. Alumno",
+        "D. Examen"
       ],
       "inciso_correcto": "A"
     },
     {
-      "id": 96,
-      "pregunta": "Una mujer con dolor torácico opresivo que aparece siempre con el mismo nivel de esfuerzo, ECG normal y enzimas cardíacas normales, probablemente presenta:",
-      "enlace_svg": null,
-      "respuestas": [
-        "A. Angina inestable.",
-        "B. Angina estable.",
-        "C. Infarto agudo de miocardio.",
-        "D. Bloqueo aurículo-ventricular."
-      ],
-      "inciso_correcto": "B"
-    },
-    {
-      "id": 97,
-      "pregunta": "¿Cómo se define correctamente la atención a domicilio?",
-      "enlace_svg": null,
-      "respuestas": [
-        "A. Una actividad puntual y aislada, sin continuidad.",
-        "B. El conjunto de actividades sanitarias y sociales prestadas en el domicilio a quienes no pueden desplazarse al centro de salud.",
-        "C. Una atención exclusiva para pacientes oncológicos.",
-        "D. Un servicio que nunca se enmarca en la Atención Primaria."
-      ],
-      "inciso_correcto": "B"
-    },
-    {
       "id": 98,
-      "pregunta": "Antes de realizar una espirometría forzada, ¿qué recomendación es correcta?",
+      "pregunta": "Lee el fragmento: \"La investigación mostró que, si bien el nuevo fármaco reducía los síntomas, no eliminaba la causa de la enfermedad\". La idea principal del texto es:",
       "enlace_svg": null,
       "respuestas": [
-        "A. No es necesario evitar el tabaco antes de la prueba.",
-        "B. Evitar fumar al menos una hora antes y suspender los broncodilatadores de acción corta unas horas antes, según protocolo.",
-        "C. Es indiferente el uso previo de broncodilatadores.",
-        "D. Debe realizarse inmediatamente después de fumar para valorar el efecto real."
+        "A. El fármaco cura completamente la enfermedad.",
+        "B. El fármaco alivia los síntomas, pero no resuelve el origen del padecimiento.",
+        "C. La enfermedad no tiene tratamiento posible.",
+        "D. La investigación fue un fracaso total."
       ],
       "inciso_correcto": "B"
     },
     {
       "id": 99,
-      "pregunta": "Según la clasificación funcional de la NYHA, ¿qué clase de insuficiencia cardiaca presenta ligera limitación de la actividad física, con síntomas ante esfuerzos habituales pero sin síntomas en reposo?",
+      "pregunta": "¿Cuál de las siguientes palabras está acentuada correctamente?",
       "enlace_svg": null,
       "respuestas": [
-        "A. Clase I.",
-        "B. Clase III.",
-        "C. Clase II.",
-        "D. Clase IV."
+        "A. Medico",
+        "B. Medíco",
+        "C. Médico",
+        "D. Médicó"
       ],
       "inciso_correcto": "C"
     },
     {
       "id": 100,
-      "pregunta": "En un paciente en tratamiento con acenocumarol, respecto a la dieta, señala la afirmación INCORRECTA:",
+      "pregunta": "En la oración \"Ella iba a llegar temprano; sin embargo, el tráfico se lo impidió\", la función de \"sin embargo\" es:",
       "enlace_svg": null,
       "respuestas": [
-        "A. Los vegetales de hoja verde oscuro son ricos en vitamina K y deben mantenerse constantes en la dieta, no suprimirse bruscamente.",
-        "B. El aceite de oliva aporta solo cantidades moderadas de vitamina K.",
-        "C. La mayoría de las frutas comunes aportan poca vitamina K, salvo frutas secas y el kiwi.",
-        "D. Los lácteos, como la leche, son la principal fuente de vitamina K de la dieta."
+        "A. Agregar una idea adicional.",
+        "B. Expresar una causa.",
+        "C. Indicar una secuencia temporal.",
+        "D. Introducir una contradicción u oposición."
       ],
       "inciso_correcto": "D"
     },
     {
       "id": 101,
-      "pregunta": "Un niño de un año presenta una convulsión febril durante una otitis media aguda. ¿Cuál es el manejo inicial prioritario?",
+      "pregunta": "¿Cuál de las siguientes oraciones utiliza correctamente el gerundio?",
       "enlace_svg": null,
       "respuestas": [
-        "A. Mantener la vía aérea permeable y protegerlo de golpes, sin sujetarlo con fuerza.",
-        "B. Sujetarlo firmemente para evitar que se lesione.",
-        "C. Administrar anticomiciales por vía intravenosa de inmediato.",
-        "D. Administrar antipiréticos por vía rectal antes que nada."
+        "A. Llegando a casa, preparó la cena.",
+        "B. El accidente causó varios heridos, siendo trasladados al hospital.",
+        "C. Compré un libro tratando sobre biología celular.",
+        "D. Envié la carta conteniendo los resultados."
       ],
       "inciso_correcto": "A"
     },
     {
       "id": 102,
-      "pregunta": "¿Qué características definen a una convulsión febril como 'típica' o simple?",
+      "pregunta": "Identifica la palabra que NO pertenece al mismo campo semántico que las demás:",
       "enlace_svg": null,
       "respuestas": [
-        "A. Presencia previa de una lesión neurológica conocida.",
-        "B. Desarrollo neurológico previo normal, convulsión generalizada breve, única en 24 horas y de menos de 15 minutos.",
-        "C. Duración mayor de 30 minutos.",
-        "D. Recurrencia múltiple en el mismo día."
+        "A. Estetoscopio",
+        "B. Pizarrón",
+        "C. Termómetro",
+        "D. Bisturí"
       ],
       "inciso_correcto": "B"
     },
     {
       "id": 103,
-      "pregunta": "¿Qué información sobre las convulsiones febriles típicas es FALSA y no debería darse a los padres?",
+      "pregunta": "¿Cuál es el significado de \"prescindir\" en el contexto: \"El médico decidió prescindir de ese tratamiento por sus efectos secundarios\"?",
       "enlace_svg": null,
       "respuestas": [
-        "A. Es probable que se repita en futuros episodios febriles.",
-        "B. El riesgo de epilepsia del niño es similar al de la población general.",
-        "C. No existe una lesión neurológica subyacente causando las convulsiones.",
-        "D. Los hermanos del niño no tienen mayor riesgo de presentar el mismo cuadro, al no existir ningún componente familiar o genético."
-      ],
-      "inciso_correcto": "D"
-    },
-    {
-      "id": 104,
-      "pregunta": "Un niño de 2 años presenta fiebre brusca, dificultad respiratoria, babeo, estridor y posición en trípode. ¿Cuál es el diagnóstico más probable?",
-      "enlace_svg": null,
-      "respuestas": [
-        "A. Asma bronquial.",
-        "B. Epiglotitis aguda.",
-        "C. Laringotraqueítis viral (crup).",
-        "D. Laringitis aguda simple."
-      ],
-      "inciso_correcto": "B"
-    },
-    {
-      "id": 105,
-      "pregunta": "¿Cuál es el agente causal clásicamente más asociado a la epiglotitis aguda infantil?",
-      "enlace_svg": null,
-      "respuestas": [
-        "A. Virus respiratorio sincitial.",
-        "B. Haemophilus influenzae tipo B.",
-        "C. Moraxella catarrhalis.",
-        "D. Virus de la influenza."
-      ],
-      "inciso_correcto": "B"
-    },
-    {
-      "id": 106,
-      "pregunta": "Ante un paciente anciano hipertenso e intervenido de cadera, ¿cuál es la función principal de la enfermera respecto a su hipertensión?",
-      "enlace_svg": null,
-      "respuestas": [
-        "A. Limitarse a administrar la medicación prescrita.",
-        "B. Delegar todo el control tensional al médico geriatra.",
-        "C. Realizar seguimiento del efecto terapéutico y controlar los factores de riesgo modificables.",
-        "D. No intervenir salvo indicación expresa."
+        "A. Recomendar ampliamente.",
+        "B. Aumentar la dosis.",
+        "C. Renunciar o privarse de algo.",
+        "D. Investigar a fondo."
       ],
       "inciso_correcto": "C"
     },
     {
-      "id": 107,
-      "pregunta": "¿Cuál de las siguientes es una complicación posible tras una fractura de cadera con encamamiento prolongado?",
+      "id": 104,
+      "pregunta": "Selecciona la oración con puntuación correcta:",
       "enlace_svg": null,
       "respuestas": [
-        "A. Trombosis venosa profunda y embolia pulmonar.",
-        "B. Mejora espontánea de la movilidad articular.",
-        "C. Disminución del riesgo de infección.",
-        "D. Fortalecimiento muscular generalizado."
+        "A. Los síntomas incluyeron fiebre dolor de cabeza, y náusea.",
+        "B. Los síntomas, incluyeron fiebre dolor de cabeza y náusea.",
+        "C. Los síntomas incluyeron fiebre, dolor de cabeza y, náusea.",
+        "D. Los síntomas incluyeron: fiebre, dolor de cabeza y náusea."
+      ],
+      "inciso_correcto": "D"
+    },
+    {
+      "id": 105,
+      "pregunta": "Lee el texto: \"La adherencia terapéutica se refiere al grado en que el comportamiento de un paciente coincide con las recomendaciones médicas acordadas\". Según el texto, la adherencia terapéutica implica principalmente:",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Que el paciente siga las indicaciones médicas acordadas.",
+        "B. Que el médico decida el tratamiento sin consultar al paciente.",
+        "C. Que el paciente abandone el tratamiento sin razón.",
+        "D. Que exista un desacuerdo entre médico y paciente."
       ],
       "inciso_correcto": "A"
+    },
+    {
+      "id": 106,
+      "pregunta": "En la oración \"El tiempo es oro\", la figura literaria empleada es:",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Símil",
+        "B. Metáfora",
+        "C. Hipérbole",
+        "D. Personificación"
+      ],
+      "inciso_correcto": "B"
+    },
+    {
+      "id": 107,
+      "pregunta": "Selecciona la oración escrita en voz pasiva:",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. El médico revisó al paciente.",
+        "B. El paciente revisa al médico.",
+        "C. El paciente fue revisado por el médico.",
+        "D. El médico revisará al paciente mañana."
+      ],
+      "inciso_correcto": "C"
     },
     {
       "id": 108,
-      "pregunta": "Cuando un familiar afirma que 'las personas mayores son frágiles y no son conscientes de sus limitaciones', esta idea generalizada corresponde a:",
+      "pregunta": "¿Cuál es la forma correcta en la oración \"Espero que ___ llegado a tiempo\"?",
       "enlace_svg": null,
       "respuestas": [
-        "A. Un mito o estereotipo sobre la vejez.",
-        "B. Un indicio claro de sobrecarga del cuidador.",
-        "C. La teoría del retraimiento social.",
-        "D. El síndrome de Burnout."
+        "A. Halla",
+        "B. Ambas son intercambiables sin distinción.",
+        "C. Ninguna es correcta; debe escribirse \"aya\".",
+        "D. Haya"
       ],
-      "inciso_correcto": "A"
+      "inciso_correcto": "D"
     },
     {
       "id": 109,
-      "pregunta": "Un anciano encamado sin deposición en 9 días presenta finalmente una deposición diarreica, sin haber recibido laxantes. Esto sugiere principalmente:",
+      "pregunta": "El prefijo \"in-\" en la palabra \"incompleto\" indica principalmente:",
       "enlace_svg": null,
       "respuestas": [
-        "A. Impactación fecal con diarrea por rebosamiento.",
-        "B. Una intolerancia alimentaria aguda.",
-        "C. Una infección viral autolimitada.",
-        "D. El inicio de una enfermedad inflamatoria intestinal."
+        "A. Negación o carencia",
+        "B. Repetición",
+        "C. Exceso",
+        "D. Semejanza"
       ],
       "inciso_correcto": "A"
     },
     {
       "id": 110,
-      "pregunta": "Tras una cirugía de prótesis de cadera, ¿cuándo se recomienda iniciar la movilización del paciente?",
+      "pregunta": "Lee: \"El nuevo protocolo redujo notablemente los tiempos de espera en el hospital, aunque algunos pacientes aún reportan demoras en casos de urgencia\". ¿Cuál es la idea principal?",
       "enlace_svg": null,
       "respuestas": [
-        "A. No antes de una semana.",
-        "B. Solo a partir del quinto día.",
-        "C. Sentado en sillón ya a las 24 horas, iniciando la marcha con muletas de forma progresiva en los días siguientes.",
-        "D. Solo tras 48 horas de reposo absoluto."
-      ],
-      "inciso_correcto": "C"
-    },
-    {
-      "id": 111,
-      "pregunta": "¿Por qué se prescribe oxigenoterapia a bajo flujo, por ejemplo 2 l/min, en un paciente con EPOC grave aunque persista la disnea?",
-      "enlace_svg": null,
-      "respuestas": [
-        "A. Porque el flujo bajo evita la sequedad excesiva de las mucosas.",
-        "B. Porque en pacientes con EPOC e hipercapnia crónica, dosis altas de oxígeno pueden deprimir el estímulo respiratorio.",
-        "C. Porque el oxígeno a dosis altas genera adicción.",
-        "D. Porque no existe ninguna razón clínica, es indiferente el flujo."
+        "A. El protocolo eliminó por completo las demoras.",
+        "B. El protocolo mejoró los tiempos de espera, pero persisten algunas demoras en urgencias.",
+        "C. Los pacientes de urgencia ya no reportan ningún problema.",
+        "D. El hospital decidió eliminar el protocolo."
       ],
       "inciso_correcto": "B"
     },
     {
-      "id": 112,
-      "pregunta": "En un patrón espirométrico obstructivo, como en el EPOC, ¿qué hallazgo NO es característico?",
+      "id": 111,
+      "pregunta": "¿Cuál de las siguientes palabras es un antónimo de \"escaso\"?",
       "enlace_svg": null,
       "respuestas": [
-        "A. Disminución del FEV1.",
-        "B. Disminución del índice de Tiffeneau (FEV1/FVC).",
-        "C. Limitación al flujo espiratorio por aumento de resistencias.",
-        "D. Aumento del índice de Tiffeneau."
+        "A. Limitado",
+        "B. Insuficiente",
+        "C. Abundante",
+        "D. Reducido"
+      ],
+      "inciso_correcto": "C"
+    },
+    {
+      "id": 112,
+      "pregunta": "Selecciona la oración que utiliza correctamente los signos de puntuación:",
+      "enlace_svg": null,
+      "respuestas": [
+        "A. Sin embargo los resultados, fueron alentadores.",
+        "B. Sin, embargo los resultados fueron alentadores.",
+        "C. Sin embargo los resultados fueron, alentadores.",
+        "D. Sin embargo, los resultados fueron alentadores."
       ],
       "inciso_correcto": "D"
     },
     {
       "id": 113,
-      "pregunta": "¿Para qué se enseña a un paciente con EPOC a espirar con los labios fruncidos?",
+      "pregunta": "La palabra \"estómago\" se divide en sílabas correctamente como:",
       "enlace_svg": null,
       "respuestas": [
-        "A. Para prevenir la broncoaspiración.",
-        "B. Para mantener una presión positiva en la vía aérea que evite su colapso precoz y favorezca la salida de aire.",
-        "C. Para reducir exclusivamente las necesidades de oxígeno.",
-        "D. Para provocar una tos más productiva."
+        "A. Es-tó-ma-go",
+        "B. Est-oma-go",
+        "C. Es-to-mago",
+        "D. E-stó-ma-go"
       ],
-      "inciso_correcto": "B"
+      "inciso_correcto": "A"
     },
     {
       "id": 114,
-      "pregunta": "Tras usar un inhalador de corticoides, ¿qué recomendación debe darse al paciente?",
+      "pregunta": "En el texto \"Aquel médico, brillante pero arrogante, rara vez escuchaba a sus colegas\", la palabra \"arrogante\" tiene una connotación:",
       "enlace_svg": null,
       "respuestas": [
-        "A. No es necesario ningún cuidado posterior.",
-        "B. Enjuagar la boca con agua, sin tragarla, para prevenir la candidiasis oral.",
-        "C. Enjuagar obligatoriamente con un colutorio antiséptico.",
-        "D. Realizar ejercicio físico intenso inmediatamente después."
+        "A. Positiva",
+        "B. Negativa",
+        "C. Neutra",
+        "D. Técnica"
       ],
       "inciso_correcto": "B"
     },
     {
       "id": 115,
-      "pregunta": "Cuando se pautan varios inhaladores, como broncodilatador, anticolinérgico y corticoide, ¿en qué orden general se recomienda administrarlos?",
+      "pregunta": "Identifica el registro (formal o informal) de la siguiente expresión: \"Oye, ¿ya viste los resultados del examen?\"",
       "enlace_svg": null,
       "respuestas": [
-        "A. Corticoide, anticolinérgico y por último broncodilatador.",
-        "B. Primero el broncodilatador de acción rápida, para abrir la vía aérea antes de los demás.",
-        "C. El orden es completamente indiferente.",
-        "D. Siempre el corticoide en primer lugar."
+        "A. Formal",
+        "B. Académico",
+        "C. Informal",
+        "D. Jurídico"
       ],
-      "inciso_correcto": "B"
+      "inciso_correcto": "C"
     },
     {
       "id": 116,
-      "pregunta": "Sobre el cambio del dispositivo de una colostomía, ¿qué recomendación es INCORRECTA?",
+      "pregunta": "Selecciona la analogía correcta: \"Enfermo es a hospital como estudiante es a ___\".",
       "enlace_svg": null,
       "respuestas": [
-        "A. Limpiar la piel periostomal con agua templada y jabón neutro.",
-        "B. Secar bien la zona antes de colocar el nuevo dispositivo.",
-        "C. Aplicar una barrera cutánea protectora antes de colocar la bolsa.",
-        "D. Esperar a que la bolsa esté completamente llena antes de cambiarla."
+        "A. Libro",
+        "B. Examen",
+        "C. Maestro",
+        "D. Escuela"
       ],
       "inciso_correcto": "D"
     },
     {
       "id": 117,
-      "pregunta": "¿Qué alimento puede ayudar a controlar el mal olor de las heces en una persona portadora de colostomía?",
+      "pregunta": "¿Cuál de las siguientes palabras contiene un diptongo?",
       "enlace_svg": null,
       "respuestas": [
-        "A. Los embutidos.",
-        "B. El repollo o col.",
-        "C. Las legumbres.",
-        "D. El perejil."
+        "A. Aeropuerto",
+        "B. Poema",
+        "C. Ahora",
+        "D. Caótico"
       ],
-      "inciso_correcto": "D"
+      "inciso_correcto": "A"
     },
     {
       "id": 118,
-      "pregunta": "¿Qué recomendación sobre actividades de la vida diaria es adecuada para una persona con colostomía?",
+      "pregunta": "Selecciona la palabra escrita correctamente:",
       "enlace_svg": null,
       "respuestas": [
-        "A. Debe evitar bañarse mientras use la bolsa.",
-        "B. Conviene mantener una buena hidratación, bebiendo abundantes líquidos.",
-        "C. Tiene contraindicada cualquier actividad deportiva.",
-        "D. No puede usar ningún tipo de faja o cinturón."
+        "A. Exhuberante",
+        "B. Exuberante",
+        "C. Ecshuberante",
+        "D. Esuberante"
       ],
       "inciso_correcto": "B"
     },
     {
       "id": 119,
-      "pregunta": "En una paciente con úlcera de pierna y un índice tobillo-brazo (ITB) de 0.7, compatible con una úlcera de etiología mixta, ¿qué tipo de compresión es apropiada?",
+      "pregunta": "En el texto \"Los avances en telemedicina han permitido que pacientes en zonas rurales accedan a especialistas sin trasladarse a grandes ciudades\", el propósito principal del autor es:",
       "enlace_svg": null,
       "respuestas": [
-        "A. Compresión fuerte de 40 mmHg sin restricciones.",
-        "B. Ninguna compresión, está totalmente contraindicada.",
-        "C. Compresión reducida, en torno a 20 mmHg, bajo prescripción y vigilancia médica.",
-        "D. Reposo absoluto en cama sin ningún tipo de vendaje."
+        "A. Criticar el uso de la tecnología en la medicina.",
+        "B. Narrar una anécdota personal.",
+        "C. Explicar un beneficio de la telemedicina para el acceso a la atención médica.",
+        "D. Persuadir al lector de estudiar medicina."
       ],
       "inciso_correcto": "C"
     },
     {
       "id": 120,
-      "pregunta": "¿Qué aporte nutricional se recomienda a un paciente con una úlcera por presión de categoría III para favorecer la cicatrización?",
+      "pregunta": "¿Cuál de las siguientes oraciones emplea correctamente el modo subjuntivo?",
       "enlace_svg": null,
       "respuestas": [
-        "A. Restricción estricta de proteínas para no sobrecargar el riñón.",
-        "B. Eliminar por completo los alimentos ricos en vitamina C.",
-        "C. Proteínas en torno a 1.25-1.5 g/kg/día o más, junto con calorías y líquidos suficientes.",
-        "D. Restringir el aporte hídrico para evitar edemas."
+        "A. Espero que tú vienes a la reunión.",
+        "B. Espero que tú vendrás a la reunión.",
+        "C. Espero que tú venías a la reunión.",
+        "D. Espero que tú vengas a la reunión."
       ],
-      "inciso_correcto": "C"
+      "inciso_correcto": "D"
     }
   ]
 }

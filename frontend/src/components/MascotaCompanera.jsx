@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { useStore } from '../context/StoreContext'
-import { MASCOTAS } from '../data/mascotas'
+import { MASCOTAS, tamanoCeldaPixelArt } from '../data/mascotas'
 import { useImpulsoActivo } from '../hooks/useImpulsoActivo'
 import PixelArt from './PixelArt'
 
@@ -298,7 +298,7 @@ export default function MascotaCompanera() {
           </span>
         )}
         <span className="mascota-balanceo">
-          <PixelArt grid={mascota.grid} paleta={mascota.paleta} size={TAMANO_PX} flip={mirandoIzq} />
+          <PixelArt grid={mascota.grid} paleta={mascota.paleta} size={tamanoCeldaPixelArt(mascota, TAMANO_PX)} flip={mirandoIzq} />
         </span>
       </button>
     </div>

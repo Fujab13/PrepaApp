@@ -382,6 +382,14 @@ display: flex;
   height: 100svh;
 }
 /*---------------------------------------------------------------*/
+
+/* Pantalla de escaneo de recompensa (EscaneoRecompensa.jsx): min-height con
+   respaldo 100svh para evitar el pequeño salto de layout cuando la barra de
+   direcciones de iOS Safari se oculta/muestra durante el scroll. */
+.escaneo-recompensa-pantalla {
+  min-height: 100vh;
+  min-height: 100svh;
+}
 .suspension-temporal {
   position: relative;
   user-select: none;

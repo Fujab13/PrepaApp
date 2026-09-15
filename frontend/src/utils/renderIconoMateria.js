@@ -2,10 +2,10 @@ import { createElement, isValidElement } from 'react'
 import {
   FaClipboardList, FaBriefcaseMedical, FaBoxOpen, FaBookOpen, FaPalette, FaSun, FaPaw, FaHamburger,
   FaDog, FaCat, FaFeatherAlt, FaFeather, FaKiwiBird, FaFish, FaHorse, FaPiggyBank, FaEgg,
-  FaCarrot, FaShieldAlt,
+  FaCarrot, FaFighterJet,
 } from 'react-icons/fa'
-import { FaCow } from 'react-icons/fa6'
 import { PiMathOperationsFill } from 'react-icons/pi'
+import { GiJewelCrown, GiJetFighter } from 'react-icons/gi'
 
 // Antes este archivo hacía `import * as XIcons from 'react-icons/X'` de 21
 // paquetes distintos y armaba un iconSet gigante para buscar el ícono por
@@ -35,12 +35,13 @@ const iconSet = {
   FaKiwiBird,
   FaFish,
   FaHorse,
-  FaCow,
   FaPiggyBank,
   FaEgg,
   FaCarrot,
-  FaShieldAlt,
+  FaFighterJet,
   PiMathOperationsFill,
+  GiJewelCrown,
+  GiJetFighter,
 }
 
 export function renderIconoMateria(icono, props = {}) {

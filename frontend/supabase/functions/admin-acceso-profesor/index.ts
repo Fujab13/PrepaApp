@@ -76,6 +76,18 @@ Deno.serve(async (req: Request) => {
       })
     }
 
+    // Sin esto, un admin podría generar un magic link válido para CUALQUIER
+    // cuenta del sistema (no solo profesores) con solo cambiar el email en
+    // el body — ya validamos arriba que quien llama es admin, pero eso no
+    // dice nada sobre a quién apunta el link que está a punto de generar.
+    const { data: esProfesor, error: esProfesorError } = await supabaseClient.rpc('es_email_de_profesor', { p_email: email })
+    if (esProfesorError || !esProfesor) {
+      return new Response(JSON.stringify({ error: 'Esa cuenta no pertenece a un profesor' }), {
+        status: 403,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      })
+    }
+
     const supabaseAdmin = createClient(supabaseUrl, supabaseServiceRoleKey)
     const { data: linkData, error: linkError } = await supabaseAdmin.auth.admin.generateLink({
       type: 'magiclink',

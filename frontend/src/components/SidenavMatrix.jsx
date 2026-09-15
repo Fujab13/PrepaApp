@@ -54,7 +54,7 @@ export default function SidenavMatrix({
     actual:      { bg: "#4f8ef7", color: "#fff", border: "#4f8ef7" },
     contestada:  { bg: "#22c55e", color: "#fff", border: "#22c55e" },
     marcada:     { bg: "#f59e0b", color: "#fff", border: "#f59e0b" },
-    pendiente:   { bg: "#1e2535", color: "#6b7280", border: "#374151" },
+    pendiente:   { bg: "var(--surface2)", color: "var(--text-muted)", border: "var(--border-strong)" },
   }[estado]);
 
   const totalContestadas  = preguntas.filter(p => respuestas[p.id]).length;
@@ -82,8 +82,8 @@ export default function SidenavMatrix({
           left: 0,
           right: 0,
           height: "52vh",
-          background: "#111827", // ← (2) fondo sólido, ya no transparente
-          borderTop: "1px solid #374151",
+          background: "var(--surface)", // ← (2) fondo sólido, ya no transparente
+          borderTop: "1px solid var(--border-strong)",
           borderRadius: "10px 10px 0 0",
           zIndex: 50,
           display: "flex",
@@ -94,24 +94,24 @@ export default function SidenavMatrix({
       >
         {/* Handle visual */}
         <div style={{ display: "flex", justifyContent: "center", paddingTop: 10 }}>
-          <div style={{ width: 40, height: 4, borderRadius: 2, background: "#374151" }} />
+          <div style={{ width: 40, height: 4, borderRadius: 2, background: "var(--border-strong)" }} />
         </div>
 
         {/* Encabezado */}
         <div style={{
           padding: "10px 16px 6px",
-          borderBottom: "0.5px solid #1f2937",
+          borderBottom: "0.5px solid var(--border)",
         }}>
           <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
             <div>
-              <p style={{ margin: 0, fontSize: 11, color: "#6b7280", textTransform: "uppercase", letterSpacing: "0.08em" }}>
+              <p style={{ margin: 0, fontSize: 11, color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: "0.08em" }}>
                 Navegador de preguntas
               </p>
             </div>
             <button
               onClick={onCerrar}
               style={{
-                background: "none", border: "none", color: "#9ca3af",
+                background: "none", border: "none", color: "var(--text-muted)",
                 fontSize: 17, cursor: "pointer", padding: "3px 5px", lineHeight: 1,
               }}
               aria-label="Cerrar matriz"
@@ -125,12 +125,12 @@ export default function SidenavMatrix({
             {[
               { color: "#22c55e", label: `Contestadas (${totalContestadas})` },
               { color: "#f59e0b", label: `Marcadas (${totalMarcadas})` },
-              { color: "#374151", label: `Pendientes (${totalPendientes})` },
+              { color: "var(--border-strong)", label: `Pendientes (${totalPendientes})` },
               { color: "#4f8ef7", label: "Actual" },
             ].map(({ color, label }) => (
               <div key={label} style={{ display: "flex", alignItems: "center", gap: 5 }}>
                 <div style={{ width: 10, height: 10, borderRadius: 2, background: color, flexShrink: 0 }} />
-                <span style={{ fontSize: 11, color: "#9ca3af" }}>{label}</span>
+                <span style={{ fontSize: 11, color: "var(--text-muted)" }}>{label}</span>
               </div>
             ))}
           </div>
@@ -155,10 +155,10 @@ export default function SidenavMatrix({
                   marginBottom: 6,
                 }}>
                   <div style={{ width: 3, height: 14, borderRadius: 2, background: sec.color }} />
-                  <span style={{ fontSize: 12, fontWeight: 600, color: "#d1d5db", textTransform: "uppercase", letterSpacing: "0.07em" }}>
+                  <span style={{ fontSize: 12, fontWeight: 600, color: "var(--text)", textTransform: "uppercase", letterSpacing: "0.07em" }}>
                     {sec.nombre}
                   </span>
-                  <span style={{ fontSize: 11, color: "#6b7280" }}>
+                  <span style={{ fontSize: 11, color: "var(--text-muted)" }}>
                     ({pregsSec.filter(p => respuestas[p.id]).length}/{pregsSec.length})
                   </span>
                 </div>

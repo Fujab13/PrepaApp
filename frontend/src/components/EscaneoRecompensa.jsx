@@ -227,8 +227,8 @@ export default function EscaneoRecompensa({ materiaId, unidad, colorAcento = '#7
   }
 
   return (
-    <div style={{
-      display: 'flex', flexDirection: 'column', minHeight: '100vh', width: '100%',
+    <div className="escaneo-recompensa-pantalla" style={{
+      display: 'flex', flexDirection: 'column', width: '100%',
       boxSizing: 'border-box', padding: '28px 20px 24px', alignItems: 'center',
       justifyContent: 'center', gap: 14, textAlign: 'center',
     }}>

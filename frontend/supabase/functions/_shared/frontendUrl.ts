@@ -15,14 +15,24 @@
 // confía ciegamente en el Origin) para no abrir un open-redirect a través
 // de Stripe: cualquier dominio fuera de la lista cae al FRONTEND_URL fijo
 // de siempre.
-const SUFIJOS_PERMITIDOS = ['.vercel.app', '.ngrok-free.dev']
+//
+// Nota: la lista antes aceptaba CUALQUIER subdominio de '.vercel.app' o
+// '.ngrok-free.dev' (dominios públicos multi-tenant) vía `endsWith` — eso
+// dejaba colar un Origin forjado (una llamada directa, no desde el
+// navegador real) apuntando a un subdominio que un atacante ya controla,
+// tanto en el redirectTo del magic link de admin como en success_url/
+// cancel_url de Stripe. Ahora son hostnames exactos, uno por entorno real.
+const ORIGENES_PERMITIDOS = new Set([
+  'prepa-app-iota.vercel.app',
+  'skid-uncolored-napped.ngrok-free.dev',
+])
 
 function esOrigenPermitido(origin: string): boolean {
   try {
     const url = new URL(origin)
     if (url.protocol !== 'http:' && url.protocol !== 'https:') return false
     if (url.hostname === 'localhost' || url.hostname === '127.0.0.1') return true
-    return SUFIJOS_PERMITIDOS.some((sufijo) => url.hostname.endsWith(sufijo))
+    return ORIGENES_PERMITIDOS.has(url.hostname)
   } catch {
     return false
   }

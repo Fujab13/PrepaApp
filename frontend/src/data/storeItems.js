@@ -8,13 +8,13 @@ const ICONOS_MASCOTA = {
   pollito: 'FaKiwiBird',
   pez: 'FaFish',
   caballo: 'FaHorse',
-  vaca: 'FaCow',
   cerdo: 'FaPiggyBank',
   gallina: 'FaEgg',
   pato: 'FaFeather',
   'conejo-gris': 'FaCarrot',
   'conejo-blanco': 'FaCarrot',
-  tortuga: 'FaShieldAlt',
+  'jet-raptor': 'FaFighterJet',
+  'jet-lightning': 'GiJetFighter',
 }
 
 // `type: 'coins'`   -> se compra con monedas internas (gamificación), no
@@ -42,11 +42,17 @@ export const COIN_ITEMS = [
   {
     id: 'tema-azul-gris',
     categoria: 'Personalización',
-    icono: 'FaPalette',
-    nombre: 'Tema Slate Reverie',
+    icono: 'GiJewelCrown',
+    nombre: 'Slate Reverie',
     descripcion: 'Repinta la app en azules y grises. Solo cambia colores, no el diseño.',
     type: 'coins',
-    priceCoins: 5000,
+    // El ítem más caro de toda la tienda, a propósito muy por encima de
+    // hasta la mascota más cara (Raptor, 900) — es la meta de largo plazo,
+    // no algo que se saque en una sola racha de unidades. A ~9-10 monedas
+    // en promedio por unidad completada (ver comentario del Snack Pack más
+    // abajo), representa unas 200 unidades: semanas de uso real, no cientos
+    // de unidades inalcanzables como el precio anterior (5000).
+    priceCoins: 2000,
     temaId: 'azul-gris',
   },
   {

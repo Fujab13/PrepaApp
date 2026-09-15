@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { AiOutlineClose } from 'react-icons/ai'
 import { FaHamburger, FaTrash, FaStar, FaRegStar } from 'react-icons/fa'
 import { useStore } from '../context/StoreContext'
-import { MASCOTAS, paletaSilueta } from '../data/mascotas'
+import { MASCOTAS, paletaSilueta, tamanoCeldaPixelArt } from '../data/mascotas'
 import PixelArt from '../components/PixelArt'
 import ConfirmDialog from '../components/ConfirmDialog'
 import { felicidadDe, textoEdad, estaHambrienta, alimentarMascota, olvidarMascota, activarImpulso } from '../utils/mascotasEstado'
@@ -75,7 +75,7 @@ const PROBABILIDAD_PELEA = 0.008 // la enorme mayoría de los choques son solo u
 // ── Botón "Alimentar" ────────────────────────────────────────────────────
 // Un solo bocado cae del cielo y toda la manada corre hacia el punto donde
 // cayó — la comida en sí se otorga al caer (no hace falta esperar a que
-// cada una llegue: una tortuga lenta igual pagó su ración), esto solo hace
+// cada una llegue: un cerdo lento igual pagó su ración), esto solo hace
 // que la física las dirija hacia ahí un rato en vez de dejarlas deambular.
 const DURACION_CAIDA_MS = 650
 const DURACION_CORRER_MS = 6000 // se tardan en comer — antes eran 2400ms y desaparecía la comida casi al instante
@@ -84,7 +84,7 @@ const GIRO_CORRIENDO_MAX = 3.4 // rad/s — gira mucho más decidido que la deri
 
 function nuevoCuerpo(mascota, anchoPx, altoPx) {
   // `ritmo` (ver data/mascotas.js: atributos.ritmo) escala el rango de
-  // velocidad de esta especie en particular — así una tortuga pasea mucho
+  // velocidad de esta especie en particular — así un cerdo pasea mucho
   // más lento que un caballo sin que la física deje de ser la misma para
   // todas (mismo modelo, solo un multiplicador distinto por cuerpo).
   const ritmo = mascota.atributos?.ritmo ?? 1
@@ -291,13 +291,14 @@ export default function Mascota() {
         // la necesitamos ANTES de mover para saber cuánto mide de verdad
         // esta mascota en pantalla ahora mismo y reservarle margen dinámico
         // (ver medioAncho/medioAlto abajo): un móvil angosto o una mascota
-        // grande (vaca, caballo) cerca de cámara (escala grande) necesitan
+        // grande (los jets, caballo) cerca de cámara (escala grande) necesitan
         // más aire que uno chico, si no la mitad del sprite queda cortada
         // por el overflow:hidden del sandbox — mobile-first de verdad
         // significa que ningún contenedor de mascota se salga del marco.
         const escalaPrevia = escalaPorProfundidad((cuerpo.yPx / dim.h) * 100)
-        cuerpo.medioAncho = (columnas * TAMANO_PX * escalaPrevia) / 2
-        cuerpo.medioAlto = (filas * TAMANO_PX * escalaPrevia) / 2
+        const tamanoCelda = tamanoCeldaPixelArt(mascota, TAMANO_PX)
+        cuerpo.medioAncho = (columnas * tamanoCelda * escalaPrevia) / 2
+        cuerpo.medioAlto = (filas * tamanoCelda * escalaPrevia) / 2
 
         let velocidadEfectiva = cuerpo.velocidad
 
@@ -334,7 +335,7 @@ export default function Mascota() {
         }
 
         const yPercent = (cuerpo.yPx / dim.h) * 100
-        cuerpo.radioPx = Math.max(columnas, filas) * TAMANO_PX * escalaPorProfundidad(yPercent) * FACTOR_COLISION
+        cuerpo.radioPx = Math.max(columnas, filas) * tamanoCelda * escalaPorProfundidad(yPercent) * FACTOR_COLISION
       }
 
       // 2) Colisiones entre parejas: separa y refleja velocidades (elástico,
@@ -505,7 +506,7 @@ export default function Mascota() {
                   key={m.id}
                   ref={obtenerRefCallback(m.id)}
                   mascota={m}
-                  tamanoPx={TAMANO_PX}
+                  tamanoPx={tamanoCeldaPixelArt(m, TAMANO_PX)}
                   felicidad={felicidadDe(m.id)}
                   textoEdad={textoEdad(m.id)}
                   hambrienta={estaHambrienta(m.id)}
@@ -608,7 +609,7 @@ export default function Mascota() {
                       onClick={() => seleccionarMascota(m.id)}
                       title={mascotaSeleccionada === m.id ? 'Quitar de compañera' : 'Hacer mi compañera'}
                       style={{
-                        minHeight: 36, minWidth: 36, padding: 4, marginTop: -6,
+                        minHeight: 44, minWidth: 44, padding: 4, marginTop: -6,
                         background: 'transparent', border: 'none', cursor: 'pointer',
                         display: 'flex', alignItems: 'center', justifyContent: 'center',
                         color: mascotaSeleccionada === m.id ? '#facc15' : 'var(--text-muted)',
@@ -618,7 +619,7 @@ export default function Mascota() {
                       {mascotaSeleccionada === m.id ? <FaStar /> : <FaRegStar />}
                     </button>
                   )}
-                  <PixelArt grid={m.grid} paleta={paletaMostrada} size={4} style={ESTILO_SPRITE_COLECCION} />
+                  <PixelArt grid={m.grid} paleta={paletaMostrada} size={tamanoCeldaPixelArt(m, 4)} style={ESTILO_SPRITE_COLECCION} />
                   <span style={{ fontSize: 11.5, fontWeight: 700, color: 'var(--text)' }}>{m.nombre}</span>
                   {tuya ? (
                     <>
@@ -652,7 +653,7 @@ export default function Mascota() {
                       type="button"
                       onClick={() => navigate('/tienda')}
                       className="btn-footer-scroll"
-                      style={{ fontSize: 10.5, padding: '8px 6px', minHeight: 36, width: '100%' }}
+                      style={{ fontSize: 10.5, padding: '8px 6px', minHeight: 44, width: '100%' }}
                     >
                       {m.precioCoins === 0 ? 'Gratis' : `${m.precioCoins} monedas`}
                     </button>
@@ -741,8 +742,9 @@ const MascotaViva = forwardRef(function MascotaViva(
   }, [hambrienta])
 
   // Vocalización: cada tanto "dice" uno de sus sonidos característicos
-  // (data/mascotas.js) sobre su cabeza, en vez del reloj — un array vacío
-  // (la tortuga) simplemente nunca dispara este efecto.
+  // (data/mascotas.js) sobre su cabeza, en vez del reloj — una especie con
+  // `sonidos: []` simplemente nunca dispara este efecto (silencio como
+  // rasgo de carácter, igual que `atributos.salta` en los conejos).
   useEffect(() => {
     const sonidos = mascota.sonidos
     if (!sonidos || sonidos.length === 0) return

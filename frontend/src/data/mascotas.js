@@ -5,6 +5,17 @@
 // lo mismo — PixelArt.jsx no asume un tamaño fijo, lee filas/columnas de
 // cada grid.
 //
+// `tamanoRelativo` (opcional): cuántas celdas (columnas/filas, la mayor de
+// las dos) "debería" tener esta mascota para verse de su tamaño pensado —
+// por defecto es el tamaño real del `grid`, así que no hace falta
+// declararlo mientras el grid se dibuje a la resolución "normal" de
+// siempre. Solo se vuelve necesario si se rediseña el grid de una especie a
+// MÁS resolución (más celdas = más detalle, ej. un grid de 46 columnas en
+// vez de 23) y se quiere que siga viéndose (y colisionando, ver
+// pages/Mascota.jsx) del mismo tamaño que antes: se le pone el tamaño
+// ANTERIOR aquí (ver tamanoCeldaPixelArt más abajo), y el tamaño final en
+// pantalla queda igual aunque el grid tenga el doble de detalle.
+//
 // `precioCoins` sigue el mismo mecanismo que los temas (storeItems.js,
 // COIN_ITEMS): 0 = gratis (igual se "compra" una vez para desbloquearla,
 // mismo flujo que el tema Alba).
@@ -16,7 +27,8 @@
 // `sonidos`: frases cortas que la mascota "dice" de vez en cuando en el
 // sandbox (ver MascotaViva en Mascota.jsx) — sin emojis, solo texto, como
 // el resto de la señalética de esta pantalla. Un array vacío es válido y a
-// propósito: la tortuga no vocaliza nunca, eso también es un rasgo suyo.
+// propósito: una especie sin sonidos característicos simplemente no
+// vocaliza nunca, eso también puede ser un rasgo suyo.
 //
 // `atributos` (opcional): rasgos de comportamiento por especie que el
 // sandbox lee al simular su física —
@@ -58,7 +70,10 @@ export const MASCOTAS = [
   {
     id: 'gato',
     nombre: 'Gato',
-    precioCoins: 250,
+    // Junto con el perro (gratis), la mascota "de entrada": ultra accesible
+    // a propósito, prácticamente el precio de un solo Snack Pack (ver
+    // storeItems.js: ~9-10 monedas en promedio por unidad completada).
+    precioCoins: 20,
     frase: 'Te aprueba.',
     sonidos: ['¡Miau!', 'Miau...', 'Ronroneo...'],
     // El más ágil de los que no saltan.
@@ -87,7 +102,7 @@ export const MASCOTAS = [
   {
     id: 'pollito',
     nombre: 'Pollito',
-    precioCoins: 150,
+    precioCoins: 80,
     frase: '¡Quiero jugar!',
     sonidos: ['¡Pío!', '¡Pío pío!'],
     atributos: { ritmo: 0.95 },
@@ -114,7 +129,7 @@ export const MASCOTAS = [
   {
     id: 'pez',
     nombre: 'Pez',
-    precioCoins: 180,
+    precioCoins: 100,
     frase: 'Burbujas felices.',
     sonidos: ['Blub...', 'Blub blub...'],
     atributos: { ritmo: 0.9 },
@@ -137,7 +152,7 @@ export const MASCOTAS = [
   {
     id: 'caballo',
     nombre: 'Caballo',
-    precioCoins: 550,
+    precioCoins: 240,
     frase: 'Relincho fuerte.',
     sonidos: ['¡Iiiihh!', '¡Brrrm!'],
     // Galopa: el más rápido de todas las mascotas.
@@ -165,38 +180,9 @@ export const MASCOTAS = [
     ],
   },
   {
-    id: 'vaca',
-    nombre: 'Vaca',
-    precioCoins: 400,
-    frase: 'Muge tranquila.',
-    sonidos: ['¡Muu!', '¡Muuuu!'],
-    // Pesada y lenta, aunque no tanto como la tortuga.
-    atributos: { ritmo: 0.7 },
-    paleta: { N: '#1e201f', A: '#f0a190', B: '#f5efe1' },
-    grid: [
-      '..............N.....N..',
-      '..............NNNNNNN..',
-      '............NNNNNBBNNNN',
-      '...NNNNNNNNNNNNNBBBBNNN',
-      '..NNBBBNNNNBBBNBBNBBN..',
-      '.NNBBBBNNNNBBBNBBNBBN..',
-      '.NBBNNBNNNNNBBNBBBBBNN.',
-      '.NBNNNBBNNNBBBNBBAAAAN.',
-      '.NBNNNBBBBBBBBBNAANAAN.',
-      '.NBNNBBBBBBBBBBNAAAAAN.',
-      'N.NBBBNNNBBBBBBBNNNNN..',
-      'N.NBBNNNNBBNBBBBBN.....',
-      'N.NBBNAAANNNBBNBNN.....',
-      '..NBBNAANN.NBBNNN......',
-      '..NBNANAN..NBBNBN......',
-      '..NBNNNN...NBBNBN......',
-      '..NNNN.N...NNNNNN......',
-    ],
-  },
-  {
     id: 'cerdo',
     nombre: 'Cerdo',
-    precioCoins: 260,
+    precioCoins: 160,
     frase: '¡Oink feliz!',
     sonidos: ['¡Oink!', '¡Oink oink!'],
     atributos: { ritmo: 0.75 },
@@ -222,7 +208,7 @@ export const MASCOTAS = [
   {
     id: 'gallina',
     nombre: 'Gallina',
-    precioCoins: 220,
+    precioCoins: 140,
     frase: 'Picoteando cerca.',
     sonidos: ['¡Cloc cloc!', '¡Coc coc!'],
     atributos: { ritmo: 0.85 },
@@ -250,7 +236,7 @@ export const MASCOTAS = [
   {
     id: 'pato',
     nombre: 'Pato',
-    precioCoins: 200,
+    precioCoins: 120,
     frase: 'Nadando feliz.',
     sonidos: ['¡Cuac!', '¡Cuac cuac!'],
     atributos: { ritmo: 0.8 },
@@ -278,7 +264,7 @@ export const MASCOTAS = [
   {
     id: 'conejo-gris',
     nombre: 'Conejo Gris',
-    precioCoins: 500,
+    precioCoins: 280,
     frase: 'Nariz inquieta.',
     // Los conejos no "hablan" — su señal característica es el golpe de pata
     // (thump) con el que avisan, y el salto (ver atributos.salta) en vez de
@@ -310,7 +296,7 @@ export const MASCOTAS = [
   {
     id: 'conejo-blanco',
     nombre: 'Conejo Blanco',
-    precioCoins: 350,
+    precioCoins: 200,
     frase: 'Saltitos curiosos.',
     sonidos: ['*Thump!*'],
     atributos: { salta: true, ritmo: 1.35 },
@@ -336,36 +322,182 @@ export const MASCOTAS = [
     ],
   },
   {
-    id: 'tortuga',
-    nombre: 'Tortuga',
-    precioCoins: 300,
-    frase: 'Sin prisa.',
-    // Nunca "dice" nada — el silencio es parte de su carácter — y su ritmo
-    // de paseo es bastante más lento que el del resto.
-    sonidos: [],
-    atributos: { ritmo: 0.45 },
-    paleta: { N: '#1c1e1d', A: '#2d481f', B: '#477930', C: '#6aa048' },
+    id: 'jet-raptor',
+    nombre: 'Raptor',
+    // El más caro de las mascotas normales (no cosmético de tema): la
+    // insignia de la colección, muy por encima del resto a propósito.
+    precioCoins: 900,
+    frase: 'Objetivo fijado.',
+    sonidos: ['*postcombustion*', 'Misil fuera.', '*rugido grave*'],
+    atributos: { ritmo: 2.8, ataque: 1.5 },
+    // Grid a mucha más resolución que el resto (76×66) — tamanoRelativo lo
+    // deja notoriamente más grande que las demás mascotas (a propósito, un
+    // jet "se siente" más grande) sin que ocupe la pantalla entera ni su
+    // hitbox de colisión (ver tamanoCeldaPixelArt) se salga de proporción.
+    tamanoRelativo: 38,
+    paleta: { N: '#070a12', O: '#141928', P: '#21283c', Q: '#313a52', R: '#485370', A: '#8d98ad', W: '#dce1ea' },
     grid: [
-      '.......NNNNNN......',
-      '......NBBBBBAAN....',
-      'NNN..NBAABBBAABN...',
-      'NCCNNBBABBAABBBBN..',
-      'NCCNNBABBBABBBBBN..',
-      'NCCNNBABBBAABBAANN.',
-      'NCCCNABBBBAABBAAAA.',
-      'NCCCCAAAAAAAAAAABBN',
-      '.NNNCCCCCCCCCCCCNNN',
-      '....NNNNNNNNNNNNNN.',
-      '...NNCCNAAAAANCCNN.',
-      '...NNCCNNNNNNNACCN.',
-      '...NNCCN.....NCCCN.',
-      '....NNNN......NNN..',
+      '............................NNNOOONN........................................',
+      '...........................NONOOOQQON.......................................',
+      '..........................NOOOOPPQQQN.......................................',
+      '.........................NOOOOPPPQQQN.......................................',
+      '........................NOOOOPPPPPQQN.......................................',
+      '.......................NOOOOPPPPPPPQN.......................................',
+      '......................NOOOOPPPPPPRRN........................................',
+      '.....................NOOOOOPPPPPRRN.........................................',
+      '....................NOOOOOOPPPPPRRN.........................................',
+      '....................NOOOOOPPPPPRRRN.........................................',
+      '...................NOOOOOPPPPPPQRRN.........................................',
+      '..................NOOOOOPPPPPPQQQN..........................................',
+      '.................NOOOOOOPPPPPPQQQN..........................................',
+      '................NOOOOOOPPPPPPPQQN...........................................',
+      '...............NOOOOOOOPPPPPPPQQN...........................................',
+      '.............NNOOOOOOOPPPPPPPQQQN...........................................',
+      '...NNNN.....NROOOOOOOOPPPPPPPQQN............................................',
+      '.NNPOONN....NOOOOOOOOOPPPPPPQQQN......NN....................................',
+      'NRPPPONNNN.NOOOOOOOOOOPPPPPPRRQN.....NOON...................................',
+      'RRPPPONOOONNOOOOOOOOOOPPPPPPRRN.....NOOOON..................................',
+      'RRPPPNOOOOONNNOOOOOOOOPPPPPPOONN....NOOPPNN.................................',
+      'OOPPNNOOOOONONNNOOOOOOPPPPPPOONNN...NOOPQQQN................................',
+      'OONNNOOOOOOOOONNNNOOOOPPPPPPOONNNNNNOOOQQQOON...............................',
+      'NNNNNNNNNNNNNNNNNNNOOOOOPPPPOOOONOOOOOOOOOOOON..............................',
+      'NNNNNNNNNNNNNNNNNNNOOOOOOPPPPOOOOONNOOOOOOOONNNNNNNN........................',
+      'NNNNNNNNNNNNNRRRRRPPPPOOPPPPPPPPPPNNNNNNNNNNNNNNNNNNN.......................',
+      'NNNNNNNNNNNNNNRRRRPPPPPPPPPPPPPPPPPPPPPPPNPPPNNNNNNNON......................',
+      '.NNNNNNNNNNNNNOOOOPPPPPPPPPPPPPPPPPPPPPPPPPPPPNNNNNOOON.....................',
+      '.NQQAAAAANNNRROOOOPPPPPPPPPPPPPPPPPPPPPPPPPPPONNNNOOOOONNNNNNNNNNNNNNNNN....',
+      '.NQQAAAAAOOORROPPPPPPPPPPPPPPPPPPPPPPPPPPOOOOONNNNNOOOOONNNNNNNNNNNNNAAANN..',
+      '..NQAAAAANOOOOOPPPPPPPPPPPPPPPPPPPPPPPPOOOORRRRNNNPPPPPANPPPPPPPPPNNAAAAAAN.',
+      '..NRNNNOONNNNOOOONNNNNNOOPPPPPPPPOOOOONNOOQRRRPPPPPPPPAAAPPAAPPPPPPOAWWWAWWN',
+      '...NNNNOOONNOOPOOONNNNOOPPPPPPPPPPOOOOONPQQQQQPPPPPPPPWWWWAAWWPPPPOOWWWWWWWW',
+      '...NOONOOOOOOOPPOONNNNPPPPPPPPPPPPPOOOOPPQQQQQPPPPPPPPWWWWAAWWWPPPOOWWWWWWWW',
+      '..NAOOOONNNNNOOOONNNNNPPPPPPPPPPPPOOONNNNQQQQQQPPPPPPPPPPPNNWWPPPPOOWWWWAWWW',
+      '.NRAAAAANNNNNOOOOOOONNPPPPPPPPPPPPPPPNNNNNNNNQNNNNPPPPPPPPNNNPPPPPONNWWAAAWN',
+      '.NRRAAAAANQQQQOPPPORRQPPPPPPPPPPPPPPPPPPPNNNNNNNNNOOOOOOONNNNOOOOONNNOOOANN.',
+      '.NRRAAAAAQQNNQPPPPPRQQPPPPPPPPPPPPPPPPPPPPNNNNNNNNNOOOOOOOOOOOOOOONNNOONN...',
+      'NNNNQQQNNNNNNNPPPPPPPPPPPPPPPPPPPPPPRQQQQPQQPPOOOOOOOONNNNNNNNNNNNNNNNN.....',
+      'NNNNQQPNNNNNNNRPPPPPPPPPPRPPPPPPPPPRRRQQQQQNPOOOOOOOON......................',
+      'NNNNNNPPNNNNNRRRPPPPPPPPRRRPPPPPPPNNNNNNNNNNNNNOOOOON.......................',
+      'NNNNNNNNNNNNNNNNNNNOOOPPPPPPPOOPOONNNNNONNNONNNNNNNN........................',
+      'NNNNNNNNNNNNNNNNNNNOOOOPPPPPOOOOOOOOOOOOOOOOON..............................',
+      'NNPNNNOOOOOOOONNNNOOOOPPPPPPOOOOOONNOPPPPQOON...............................',
+      'NPPPNNOOOOOOONNNOOOOOOPPPPPPOOOONN.NOOPPQQQN................................',
+      'RRPPPNOOOONNNNOOOOOOOOPPPPPPOONN....NOPPQQN.................................',
+      'RRRPPNNOOOONNOOOOOOOOOPPPPPPOON.....NOOOON..................................',
+      'NRRPPNNNNNNNOOOOOOOOOOPPPPPPPQQN.....NNON...................................',
+      '.NRPPNNN....NOOOOOOOOOPPPPPPPQQN.......N....................................',
+      '..NPPNN.....NOOOOOOOOPPPPPPPPQQPN...........................................',
+      '...NN........NOOOOOOOOPPPPPPPQPPN...........................................',
+      '..............NOOOOOOOOPPPPPPQQQN...........................................',
+      '...............NOOOOOOOPPPPPPPQQN...........................................',
+      '................NOOOOOOOPPPPPPPQQN..........................................',
+      '.................NOOOOOOPPPPPPPRRN..........................................',
+      '..................NOOOOOOPPPPPPRRRN.........................................',
+      '...................NOOOOOOPPPPPPRRN.........................................',
+      '....................NOOOOOPPPPPPRRN.........................................',
+      '.....................NOOOOOPPPPPRRRN........................................',
+      '......................NOOOOPPPPPPRRN........................................',
+      '.......................NOOOOPPPPQRRN........................................',
+      '........................NOOOOPPPQQQN........................................',
+      '........................NOOOOOPPPQQRN.......................................',
+      '.........................NOOOOOPPQRRN.......................................',
+      '..........................NOOOOPPRRON.......................................',
+      '...........................NOOOPPROON.......................................',
+    ],
+  },
+  {
+    id: 'jet-lightning',
+    nombre: 'Lightning',
+    precioCoins: 600,
+    frase: 'Cielo despejado.',
+    sonidos: ['*rugido de turbina*', 'Fiuuum...', '*boom sonico*'],
+    atributos: { ritmo: 3.6, sigilo: 1.3 },
+    // Mismo criterio de tamaño que jet-raptor (ver comentario ahí) — grid a
+    // 64×58, normalizado a la misma referencia para que ambos jets se vean
+    // del mismo porte al compararlos.
+    tamanoRelativo: 28,
+    paleta: { N: '#2b2833', O: '#4a4657', M: '#4d597a', D: '#948b99', C: '#b3aab6', B: '#cdc6d1', G: '#d9bf3f', H: '#f2e07a' },
+    grid: [
+      '.................NMOOOOODN......................................',
+      '.................NOOOCOOON......................................',
+      '................NCOCCCCCON......................................',
+      '................NCCCCCCCOON.....................................',
+      '................NCCCCDCCOOON....................................',
+      '................NDBBDDDBDDDN....................................',
+      '...............NDDBBDDBBDDDDN...................................',
+      '...............NDDBBDDBBDDDDN...................................',
+      '...............NDDBBDBBBBDDDDN..................................',
+      '...............NDDBDDBBBBBDDDN..................................',
+      '...NN..........NDDBDDBBBBBDDDDN.................................',
+      '..NDDNN.......NOOBBDDBBBBBDDDDN.................................',
+      '.NDDDBBN......NOOBBDDBBBBBBBDDDN................................',
+      '.NDDDBBBN.....NOOBBDBBBBBBBBDDDN................................',
+      'NDDDCBBBN.....NOOBBDBBBBBBBBDDDDN...............................',
+      'NOOCCBBBBN....NDBBBDBBBBBBBBBDDDN...............................',
+      'NOOCCCBBON...NBDDBBDBBBBBBBBBDDDDN..............................',
+      'NOCCCCBBOON...NDBBBDBBBBBBBBBBDDDN..............................',
+      'NMMCCCOOOONN.NDDBBDBBBBBBBBBBBDDDDN.............................',
+      'NMCCCCOMOOOONNDDBBDBBBBBBBBBBBDDDDN.............................',
+      'NCCCCCMMMMMMMNDCCCDBBBBBBBBBBBBDDDDNNNNNNNNNN...................',
+      'CCCCCCMMMMMMMDDCCDBBBBBBBBBBBBBDDDOOOMMCCCCCCNN.................',
+      'DCCCCCDMMMMMMDDCDDBBBBBBBBBBBBBBDDOOOOMCCCCCCDDN................',
+      'DDCCCDDDDDDMMDDCCDBBBBBBBBBBBDDDDDDDDDDDDNCNNDDDNNNN............',
+      'DDDDDDDDDDDDDDDDDDDDBCCCCCCDDDDDDDDDDDDDDNNNNODDDDDONNNNN.......',
+      'NNDDDDDOOOOOODDDDDDDCCCCCCCCDDCCCCDDCCCCDDNOOOOODDDOOOOOONNNN...',
+      '..NNNNOOOOOOOBBCCCCCCCCCCCCCBDCCCCBDDCCCCBDDOOOGGGHOHHOOOOOODN..',
+      '.....NOOOBBBBBBBBBBBBBBBBBBBBDBBBBBDDBBBBBBDOOGGGGHHHHHOOOOBDDNN',
+      '....NOOOBBBBBBBBBBBBBBBBBBBBBDBBBBBDDBBBBBBBHHGGGHHHGGGHOOBBBDDD',
+      '....NOOOBBBBBBBBBBBBBBBBBBBBBDDDDDDDDBBBBBBBHHGGHHHHHGHHOOBBBDDD',
+      '....NOODDBBBBBBBBBBBBBBBBBBBBDBBBBBDDBBBBBBBHHHHHHHHHHHOODDDDDDN',
+      '..NNNNOODDOOOBBBCCCBBBBBBBBBBBBBBBBDDBBBBBBOOOHHHHOHHHDOODDDDNN.',
+      'NNOOOOOOOOOOOMMOOCCCCCCCCCCDDDDDBBDDDDDDDDDOOOOOOOOOHDDDONNNN...',
+      'ODOOOODDDDOOOMMOCCCBCCCCCCDDDDDDOOODDDDDOOOOOOOOOOOONNNNN.......',
+      'DDCCCDDDDMMMCCCCCCBBBBBBBBDDDDOOOOOOOOOODDDDDDOONNNN............',
+      'DDCCCCOOMMMMMCCDDDBBBBBBBBBBBBBBOOOOODDDDDDDDDDN................',
+      'DDCCCCOMMMMMMMDDDDBBBBBBBBBBBBBDDDDODDDDDDDDDNN.................',
+      'DDCCCMMMMMOOOMDDCCDBBBBBBBBBBBBDDDDOONNNNNNNN...................',
+      'NDDCCMMMMMOONNDCCBDBBBBBBBBBBBBDDDNNN...........................',
+      'NDDCCCMMMMNN.NODBBDBBBBBBBBBBBDDDDN.............................',
+      'NCCCCCBBBDN...NOBBDDBBBBBBBBBBDDDN..............................',
+      'NCCCCCBBDDN...NOBBDDBBBBBBBBBDDDN...............................',
+      'NCCCCBBDDN...NBOOBDDBBBBBBBBBDDDN...............................',
+      'NCCCCBBDN.....NOOBBDBBBBBBBBDDDDN...............................',
+      '.NCCCCCDN.....NOOBBDBBBBBBBBDDDN................................',
+      '.NCCCCCN......NOOBBDDBBBBBBBDDDN................................',
+      '..NCCCN.......NCOBBDDBBBBBBDDDN.................................',
+      '...NNN........NODBBDDBBBBBCDDN..................................',
+      '...............NDDBDDBBBBBCCDN..................................',
+      '...............NDDBBDBBBBDDDDN..................................',
+      '...............NDDBBDBBBBDDDN...................................',
+      '...............NDDBBDBBBDDDDN...................................',
+      '................NDBBDCBBDDDN....................................',
+      '................NBBBDCCDDDDN....................................',
+      '................NBBBBCCCDDN.....................................',
+      '................NBBBBCCCDN......................................',
+      '.................NBBBOCOON......................................',
+      '.................NBBOOOON.......................................',
     ],
   },
 ]
 
 export function obtenerMascota(id) {
   return MASCOTAS.find(m => m.id === id) || null
+}
+
+// Tamaño de celda (el `size` que espera PixelArt.jsx) que mantiene a esta
+// mascota en su tamaño de diseño (`tamanoRelativo`, o el tamaño real del
+// grid si no se declaró) sin importar cuántas celdas tenga su `grid` de
+// verdad. `basePx` es el tamaño de celda "normal" que ya usaba cada
+// pantalla (Mascota.jsx: TAMANO_PX = 2.25, MascotaCompanera.jsx:
+// TAMANO_PX = 3, colección/Tienda: 4) — se reduce en la misma proporción en
+// que el grid creció, así redibujar una mascota con más celdas (más
+// detalle) no la hace verse ni colisionar más grande.
+export function tamanoCeldaPixelArt(mascota, basePx) {
+  const columnas = mascota.grid[0]?.length || 1
+  const filas = mascota.grid.length
+  const maxDim = Math.max(columnas, filas)
+  const referencia = mascota.tamanoRelativo || maxDim
+  return basePx * (referencia / maxDim)
 }
 
 // Versión "silueta" de la paleta de cada mascota (todas sus letras
