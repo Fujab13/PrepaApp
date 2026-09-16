@@ -37,6 +37,7 @@ import { Estrellas } from "./Estrellas";
 import { MATERIAS_TUTORIA, MATERIA_OTROS, nombreMateriaOferta } from "../data/materiasTutoria";
 import {
   HiOutlineAdjustmentsHorizontal,
+  HiOutlineClock,
   HiOutlineCreditCard,
   HiOutlineTrash,
   HiOutlineUserGroup,
@@ -106,6 +107,7 @@ export function PublicacionOfertas({ permitirPublicar = false }) {
   const [borrandoId, setBorrandoId] = useState(null);
   const [disponibilidad, setDisponibilidad] = useState({});
   const [calificaciones, setCalificaciones] = useState({});
+  const [pendientesWhatsapp, setPendientesWhatsapp] = useState([]);
 
   // Filtros del lado alumno (solo lectura + reservar): puramente client-side
   // sobre la lista ya cargada, no vuelven a pegarle a Supabase.
@@ -126,6 +128,7 @@ export function PublicacionOfertas({ permitirPublicar = false }) {
   reservaRef.current = reserva;
 
   const [profesor, setProfesor] = useState("");
+  const [titulo, setTitulo] = useState("");
   const [materiaId, setMateriaId] = useState("");
   const [materiaOtro, setMateriaOtro] = useState("");
   const [fecha, setFecha] = useState("");
@@ -245,6 +248,38 @@ export function PublicacionOfertas({ permitirPublicar = false }) {
     setSearchParams(siguientes, { replace: true });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams]);
+
+  // Mensaje de espera (solo lado alumno): clases ya pagadas cuyo maestro
+  // todavía no marca "agregado al grupo de WhatsApp" (ver botón en
+  // AlumnosOfertas.jsx / RPC marcar_agregado_grupo_whatsapp). Se vuelve a
+  // consultar al volver a la pestaña para que el mensaje desaparezca solo en
+  // cuanto el maestro lo marque, sin depender de un refresh manual.
+  useEffect(() => {
+    if (permitirPublicar || !user) return;
+
+    async function cargarPendientesWhatsapp() {
+      const { data, error } = await supabase
+        .from("transacciones")
+        .select("id, ofertas_maestro(materia_id, materia_otro, titulo, fecha_hora)")
+        .eq("user_id", user.id)
+        .eq("estado_pago", "completado")
+        .eq("agregado_a_grupo_whatsapp", false)
+        .not("oferta_maestro_id", "is", null);
+
+      if (error) {
+        console.error("No se pudo consultar el estado del grupo de WhatsApp:", error.message);
+        return;
+      }
+      setPendientesWhatsapp(data ?? []);
+    }
+
+    cargarPendientesWhatsapp();
+    const alVolverAVer = () => {
+      if (document.visibilityState === "visible") cargarPendientesWhatsapp();
+    };
+    document.addEventListener("visibilitychange", alVolverAVer);
+    return () => document.removeEventListener("visibilitychange", alVolverAVer);
+  }, [permitirPublicar, user]);
 
   // Cuenta regresiva de la reserva activa: se apaga sola al llegar a 0 y
   // refresca disponibilidad (el propio backend ya liberó el asiento vía el
@@ -391,6 +426,7 @@ export function PublicacionOfertas({ permitirPublicar = false }) {
     setPublicando(true);
     const { error: insertError } = await supabase.from("ofertas_maestro").insert({
       profesor: profesor.trim(),
+      titulo: titulo.trim() || null,
       materia_id: materiaId,
       materia_otro: materiaId === MATERIA_OTROS.id ? materiaOtro.trim() : null,
       fecha_hora: fechaHora.toISOString(),
@@ -404,6 +440,7 @@ export function PublicacionOfertas({ permitirPublicar = false }) {
 
     if (insertError) return setError(mensajeError(insertError));
 
+    setTitulo("");
     setMateriaId("");
     setMateriaOtro("");
     setFecha("");
@@ -462,6 +499,61 @@ export function PublicacionOfertas({ permitirPublicar = false }) {
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+      {!permitirPublicar && pendientesWhatsapp.length > 0 && (
+        <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+          {pendientesWhatsapp.map((p) => {
+            const om = p.ofertas_maestro;
+            const nombreClase = om ? (om.titulo || nombreMateriaOferta(om.materia_id, om.materia_otro)) : "tu clase";
+            return (
+              <div
+                key={p.id}
+                style={{
+                  background: "linear-gradient(135deg, rgba(124,92,191,0.10), rgba(124,92,191,0.03))",
+                  border: "1px solid rgba(124,92,191,0.25)",
+                  borderRadius: 12,
+                  padding: "13px 15px",
+                  display: "flex",
+                  gap: 12,
+                  alignItems: "center",
+                }}
+              >
+                <div style={{ position: "relative", width: 34, height: 34, flexShrink: 0 }}>
+                  <span
+                    className="pulso-espera"
+                    style={{ position: "absolute", inset: 0, borderRadius: "50%", background: "#7c5cbf" }}
+                  />
+                  <span
+                    style={{
+                      position: "relative",
+                      width: 34,
+                      height: 34,
+                      borderRadius: "50%",
+                      background: "rgba(124,92,191,0.18)",
+                      color: "#7c5cbf",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      fontSize: 16,
+                    }}
+                  >
+                    <HiOutlineClock />
+                  </span>
+                </div>
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <p style={{ fontSize: 10.5, fontWeight: 700, color: "#7c5cbf", textTransform: "uppercase", letterSpacing: 0.5, margin: 0 }}>
+                    En espera
+                  </p>
+                  <p style={{ fontSize: 12.5, color: "var(--text)", lineHeight: 1.45, margin: "3px 0 0" }}>
+                    <strong>{nombreClase}</strong> — tu maestro te añadirá al grupo de WhatsApp de esta clase en
+                    las próximas horas.
+                  </p>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      )}
+
       {error && <p style={{ color: "var(--wrong)", fontSize: 13, textAlign: "center", margin: 0 }}>{error}</p>}
       {info && <p style={{ color: "var(--text-muted)", fontSize: 13, textAlign: "center", margin: 0 }}>{info}</p>}
 
@@ -477,6 +569,14 @@ export function PublicacionOfertas({ permitirPublicar = false }) {
             placeholder="Tu nombre"
             value={profesor}
             onChange={(e) => setProfesor(e.target.value)}
+            maxLength={80}
+          />
+
+          <input
+            style={inputStyle}
+            placeholder="Nombre de la clase (opcional, ej. Repaso de Álgebra)"
+            value={titulo}
+            onChange={(e) => setTitulo(e.target.value.slice(0, 80))}
             maxLength={80}
           />
 
@@ -706,7 +806,7 @@ export function PublicacionOfertas({ permitirPublicar = false }) {
                 </div>
                 <div className="sp-card-body">
                   <p className="sp-card-title">
-                    {nombreMateria} · {oferta.duracion_minutos} min
+                    {oferta.titulo ? `${oferta.titulo} · ` : ""}{nombreMateria} · {oferta.duracion_minutos} min
                   </p>
                   <p className="sp-card-description">
                     {fechaObj.toLocaleString("es-MX", { dateStyle: "medium", timeStyle: "short" })}

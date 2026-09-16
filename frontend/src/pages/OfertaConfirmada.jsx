@@ -28,6 +28,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import { useNombreAlumno } from "../hooks/useNombreAlumno";
 import { supabase } from "../services/supabaseClient";
 import { MATERIAS_TUTORIA, nombreMateriaOferta } from "../data/materiasTutoria";
 import { CORREO_CONTACTO_APP } from "../utils/contacto";
@@ -60,12 +61,15 @@ function FilaDato({ label, valor, mono = false }) {
   );
 }
 
-function Recibo({ transaccion, oferta, materia, user, perfil }) {
+function Recibo({ transaccion, oferta, materia, user }) {
   const folio = transaccion.id.slice(0, 8).toUpperCase();
   const fechaConfirmacion = new Date(transaccion.actualizado_en).toLocaleString("es-MX", {
     dateStyle: "medium",
     timeStyle: "short",
   });
+  // Nombre de alumno del Formulario de Área, no de `perfiles` (esa tabla es
+  // de cuenta compartida entre rol de alumno y de profesor — ver useNombreAlumno).
+  const nombreAlumno = useNombreAlumno(user?.email);
 
   return (
     <div className="sp-card" style={{ width: "100%", padding: 0, overflow: "hidden" }}>
@@ -83,8 +87,8 @@ function Recibo({ transaccion, oferta, materia, user, perfil }) {
       <div style={{ padding: "4px 20px 6px" }}>
         <FilaDato label="Estado" valor="Confirmado" />
         <FilaDato label="Fecha de confirmación" valor={fechaConfirmacion} />
-        <FilaDato label="Alumno" valor={perfil?.nombre || user?.email} />
-        {perfil?.nombre && <FilaDato label="Correo" valor={user?.email} />}
+        <FilaDato label="Alumno" valor={nombreAlumno || user?.email} />
+        {nombreAlumno && <FilaDato label="Correo" valor={user?.email} />}
       </div>
 
       {oferta && (
@@ -126,7 +130,7 @@ export default function OfertaConfirmada() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const sessionId = searchParams.get("session_id");
-  const { user, perfil } = useAuth();
+  const { user } = useAuth();
 
   const [transaccion, setTransaccion] = useState(null);
   const [cargando, setCargando] = useState(true);
@@ -257,7 +261,7 @@ export default function OfertaConfirmada() {
 
         {!cargando && !errorCarga && confirmado && (
           <>
-            <Recibo transaccion={transaccion} oferta={oferta} materia={materia} user={user} perfil={perfil} />
+            <Recibo transaccion={transaccion} oferta={oferta} materia={materia} user={user} />
 
             <div className="no-print" style={{ display: "flex", gap: 10, marginTop: 16 }}>
               <button

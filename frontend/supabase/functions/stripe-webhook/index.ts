@@ -1,5 +1,6 @@
 import Stripe from 'stripe'
 import { createClient } from '@supabase/supabase-js'
+import { agregarAlumnoAGrupoClase } from '../_shared/whapi.ts'
 
 function getEnv(name: string): string {
   const value = Deno.env.get(name)
@@ -67,6 +68,22 @@ Deno.serve(async (req: Request) => {
     if (error && !error.message?.includes('no encontrada o ya fue procesada')) {
       console.error('Error al conciliar el pago:', error)
       return new Response(JSON.stringify({ error: error.message }), { status: 500 })
+    }
+
+    // Solo se dispara cuando ESTA llamada fue la que confirmó el pago (no
+    // cuando ya lo había hecho verificar-pago-oferta-maestro antes): evita
+    // llamar dos veces a la API de Whapi por el mismo alumno si ambos
+    // caminos llegan casi al mismo tiempo.
+    if (!error) {
+      const { data: transaccion } = await supabaseAdmin
+        .from('transacciones')
+        .select('id, oferta_maestro_id')
+        .eq('stripe_intent_id', session.id)
+        .maybeSingle()
+
+      if (transaccion?.oferta_maestro_id) {
+        await agregarAlumnoAGrupoClase(supabaseAdmin, transaccion.id)
+      }
     }
   } else if (event.type === 'checkout.session.expired') {
     // Escenario B (rollback) del flujo de reservas de ofertas_maestro: la

@@ -18,6 +18,7 @@
 
 import Stripe from 'stripe'
 import { createClient } from '@supabase/supabase-js'
+import { agregarAlumnoAGrupoClase } from '../_shared/whapi.ts'
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -123,6 +124,13 @@ Deno.serve(async (req: Request) => {
         status: 500,
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
       })
+    }
+
+    // Igual que en stripe-webhook: solo se dispara cuando ESTA llamada fue
+    // la que confirmó el pago, para no duplicar la llamada a Whapi si el
+    // webhook ganó la carrera.
+    if (!rpcError) {
+      await agregarAlumnoAGrupoClase(supabaseAdmin, transaccion.id)
     }
 
     return new Response(JSON.stringify({ estado_pago: 'completado' }), {

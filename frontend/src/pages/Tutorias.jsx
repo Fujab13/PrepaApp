@@ -13,38 +13,31 @@ import { FaUserGraduate } from "react-icons/fa";
 import { PiChalkboardTeacher, PiStudent } from "react-icons/pi";
 import { AiOutlineClose } from "react-icons/ai";
 import { HiChevronLeft } from "react-icons/hi2";
+import { GiJewelCrown, GiQueenCrown } from "react-icons/gi";
+import { CgCrown } from "react-icons/cg";
 
 // Oro/plata/bronce para los primeros 3 lugares; el resto usa los colores de
-// texto normales de la app. gradiente/sombra son para el avatar del podio,
-// texto es lo que se usa para colorear el nombre en la lista 4-25.
+// texto normales de la app. texto colorea tanto la corona del podio como el
+// nombre en la lista 4-25; sombra le da un poco de profundidad a la corona.
 const MEDALLAS = {
-  1: { texto: "#e9c86a", gradiente: "linear-gradient(155deg, #f4dd96, #c9a53f)", sombra: "rgba(229,193,88,0.55)" },
-  2: { texto: "#c7ccd6", gradiente: "linear-gradient(155deg, #eef0f4, #a3a9b5)", sombra: "rgba(199,204,214,0.4)" },
-  3: { texto: "#d99a5f", gradiente: "linear-gradient(155deg, #e8ac74, #a9622f)", sombra: "rgba(217,154,95,0.4)" },
+  1: { texto: "#e9c86a", sombra: "rgba(229,193,88,0.55)" },
+  2: { texto: "#c7ccd6", sombra: "rgba(199,204,214,0.4)" },
+  3: { texto: "#d99a5f", sombra: "rgba(217,154,95,0.4)" },
+};
+
+// Corona en vez de esfera con inicial: 1er lugar joya, 2do reina, 3ro simple.
+const ICONOS_MEDALLA = {
+  1: GiJewelCrown,
+  2: GiQueenCrown,
+  3: CgCrown,
 };
 
 function AvatarPodio({ fila, tamano }) {
   const medalla = MEDALLAS[fila.posicion];
+  const Icono = ICONOS_MEDALLA[fila.posicion];
   return (
-    <div
-      className={fila.posicion === 1 ? "rk-anillo-oro" : undefined}
-      style={{
-        width: tamano,
-        height: tamano,
-        borderRadius: "50%",
-        background: medalla.gradiente,
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        fontSize: tamano * 0.4,
-        fontWeight: 800,
-        color: "#241c05",
-        boxShadow: fila.posicion === 1 ? undefined : `0 4px 14px -2px ${medalla.sombra}`,
-        border: "2px solid rgba(255,255,255,0.35)",
-        flexShrink: 0,
-      }}
-    >
-      {fila.nombre?.[0]?.toUpperCase() ?? "?"}
+    <div style={{ width: tamano, height: tamano, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+      <Icono style={{ fontSize: tamano * 0.85, color: medalla.texto, filter: `drop-shadow(0 3px 6px ${medalla.sombra})` }} />
     </div>
   );
 }
@@ -126,19 +119,18 @@ function RankingSemanal() {
       style={{
         position: "relative",
         overflow: "hidden",
-        borderRadius: 22,
+        borderRadius: "var(--radius)",
         padding: "22px 16px 18px",
         marginTop: 6,
-        background: "radial-gradient(120% 100% at 50% -10%, rgba(71,166,255,0.16), transparent 60%), var(--surface)",
-        border: "1px solid rgba(71,166,255,0.5)",
-        boxShadow: "0 0 24px rgba(71,166,255,0.2)",
+        background: "linear-gradient(135deg, var(--surface2), var(--surface))",
+        border: "0.5px solid var(--border)",
+        boxShadow: "0 4px 16px -10px rgba(0,0,0,0.6)",
       }}
     >
-      {/* Resplandores decorativos: dos círculos difuminados, puramente
-          ambientales (pointerEvents none), para que la sección se sienta
-          distinta a una tarjeta plana como el resto de "/tutorias". */}
-      <div style={{ position: "absolute", top: -40, right: -30, width: 130, height: 130, borderRadius: "50%", background: "#47a6ff", opacity: 0.14, filter: "blur(40px)", pointerEvents: "none" }} />
-      <div style={{ position: "absolute", bottom: -50, left: -30, width: 140, height: 140, borderRadius: "50%", background: "#7c5cbf", opacity: 0.1, filter: "blur(46px)", pointerEvents: "none" }} />
+      {/* Resplandor decorativo: un solo círculo difuminado y tenue, puramente
+          ambiental (pointerEvents none) — apenas insinúa que la sección es
+          distinta a una tarjeta plana, sin el efecto "neón" que tenía antes. */}
+      <div style={{ position: "absolute", top: -40, right: -30, width: 130, height: 130, borderRadius: "50%", background: "#7c5cbf", opacity: 0.06, filter: "blur(40px)", pointerEvents: "none" }} />
 
       <div style={{ position: "relative", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", marginBottom: 18 }}>
         <p style={{ margin: 0, fontSize: 15, fontWeight: 800, color: "var(--text)", letterSpacing: 0.3 }}>
@@ -195,7 +187,7 @@ function RankingSemanal() {
       )}
 
       {!error && resto.length > 0 && (
-        <div style={{ position: "relative", background: "rgba(15,15,26,0.35)", border: "1px solid var(--surface2)", borderRadius: 14, overflow: "hidden" }}>
+        <div style={{ position: "relative", background: "var(--surface)", border: "1px solid var(--surface2)", borderRadius: 14, overflow: "hidden" }}>
           {resto.map((fila, i) => (
             <div
               key={fila.user_id}

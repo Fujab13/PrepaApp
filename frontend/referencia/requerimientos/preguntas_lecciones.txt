@@ -1,0 +1,18 @@
+Preguntas actuales tengan más relacion? además el contenido debe ser riguroso pero
+  dinamico, es contenido didactico, pero tampoco queremos respuestas
+  evidentes, las opciones incorrectas deben tener el grado de dificultad
+  justo para no ser demasiado evidentes, además evita que la mayoria de las
+  respuestas correctas sean la opcion b, son preguntas cortas o medianas y
+  puedes hacer variantes tipo
+  pregunta (usa esto para conceptos) - posterior a un concepto se requieren minimo unas 4 preguntas relacionadas a el
+  pregunta-respuestas (estas son las preguntas de tres reactivos)
+  respuestas (solo listas de datos)
+  además puedes hacer preguntas sin respuestas correctas si lo requires
+  además puedes usar latex si lo requiere la pregunta.
+  Recuerda que las unidades se parten idealmente en preguntas de doce
+
+Adicionalmente actua como 5 estudiantes que acaban de pasar su examen de admision
+a la (unam, buap, ipn, tec monterrey, ubula), compara el contenido de las
+lecciones y lo que tu tuviste que aprender para dar tu examen de acceso a la universidad
+y todo aquello que no corresponda corrigelo, e intenta homogeneizar
+el contenido para que logre abarcar la mayoria del contenido para todos

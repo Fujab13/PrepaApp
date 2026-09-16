@@ -13,6 +13,7 @@ import { useImpulsoActivo } from '../hooks/useImpulsoActivo'
 import { useProgreso } from '../hooks/useProgreso'
 import { getPreguntasDeUnidad, getTotalUnidades, PREGUNTAS_POR_UNIDAD, PREGUNTAS_POR_UNIDAD_DIFICIL } from '../data/unidades'
 import { obtenerLeccionDeSesion } from '../services/leccionesPremium';
+import { registrarTotalUnidadesProducto } from '../services/progreso';
 import { triggerVibration } from '../utils/haptics';
 import { leerModoDificil } from '../utils/modoDificil';
 import { hablarTexto, detenerLectura } from '../utils/tts';
@@ -328,6 +329,18 @@ export default function Leccion() {
           }
 
           if (activo) setMateria(leccion)
+
+          // El informe del maestro por correo (InformeResultados.jsx) no
+          // puede descargar el JSON de esta lección (bucket privado, solo
+          // el comprador tiene acceso) para calcular cuántas unidades tiene
+          // en total — se aprovecha que el propio comprador SÍ lo tiene en
+          // este momento para registrarlo una sola vez (best-effort, no
+          // bloquea la lección si falla). Con tamaño de unidad estándar
+          // (no el de Modo difícil), igual que getTotalUnidades() en
+          // VistaProgreso para las materias gratuitas.
+          if (leccion.preguntas.length > 0) {
+            registrarTotalUnidadesProducto(productoId, getTotalUnidades(leccion.preguntas))
+          }
           return
         }
 

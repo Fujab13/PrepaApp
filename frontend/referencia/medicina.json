@@ -1,0 +1,3679 @@
+{
+  "titulo": "Medicina",
+  "icono": "FaBriefcaseMedical",
+  "color": "#14b8a6",
+  "descripcion": "Biología, química, física y fisiología humana para tu examen de admisión a la carrera de Medicina.",
+  "preguntas": [
+    {
+      "pregunta": "Toda célula comparte tres componentes básicos: la membrana plasmática, que la delimita y regula el paso de sustancias; el citoplasma, medio interno donde ocurren las reacciones metabólicas; y el material genético (ADN), que contiene las instrucciones para su funcionamiento. Las células eucariotas (animales, vegetales, hongos) guardan su ADN dentro de un núcleo delimitado por membrana; las procariotas (bacterias) lo tienen libre en el citoplasma."
+    },
+    {
+      "pregunta": "¿Cuál es la principal diferencia estructural entre una célula procariota y una eucariota?",
+      "opciones": [
+        "La eucariota tiene su ADN encerrado en un núcleo delimitado por membrana; la procariota no.",
+        "La procariota tiene organelos membranosos y la eucariota carece de ellos.",
+        "Solo la eucariota posee membrana plasmática."
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "¿Cuál de las siguientes es un organelo NO membranoso?",
+      "opciones": [
+        "Mitocondria",
+        "Ribosoma",
+        "Aparato de Golgi"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "El organelo encargado de generar la mayor parte del ATP celular mediante respiración aerobia es:",
+      "opciones": [
+        "El retículo endoplásmico liso",
+        "El lisosoma",
+        "La mitocondria"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "Una célula muestra un retículo endoplásmico rugoso muy desarrollado. ¿Qué función celular está probablemente muy activa?",
+      "opciones": [
+        "La síntesis de proteínas destinadas a secreción",
+        "La degradación de lípidos de reserva",
+        "La replicación del ADN mitocondrial"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "¿Cuál es la función principal del aparato de Golgi?",
+      "opciones": [
+        "Producir energía en forma de ATP",
+        "Modificar, empaquetar y distribuir proteínas y lípidos",
+        "Duplicar el material genético antes de la división celular"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Los lisosomas son vesículas que contienen enzimas digestivas. Su función principal es:",
+      "opciones": [
+        "Sintetizar carbohidratos de reserva",
+        "Almacenar agua para mantener la presión de turgencia",
+        "Degradar macromoléculas, organelos dañados y material capturado del exterior"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "¿Cuál de las siguientes estructuras está presente en una célula vegetal pero ausente en una célula animal?",
+      "opciones": [
+        "Pared celular de celulosa",
+        "Membrana plasmática",
+        "Ribosomas"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "El citoesqueleto, formado por microtúbulos y microfilamentos, cumple principalmente la función de:",
+      "opciones": [
+        "Almacenar el exceso de glucosa en forma de glucógeno",
+        "Dar soporte estructural a la célula y permitir el movimiento de organelos",
+        "Sintetizar hormonas esteroideas"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "¿Cuál de los siguientes organismos corresponde a una célula procariota?",
+      "opciones": [
+        "Una ameba de vida libre",
+        "Una levadura de panadería",
+        "Una bacteria como Escherichia coli"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "La vacuola central, típica de las células vegetales maduras, tiene como función principal:",
+      "opciones": [
+        "Almacenar agua, iones y desechos, manteniendo la presión de turgencia",
+        "Producir energía mediante fotosíntesis",
+        "Degradar el exceso de proteínas mal plegadas"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "¿Qué organelo exclusivo de las células vegetales realiza la fotosíntesis?",
+      "opciones": [
+        "La mitocondria",
+        "El cloroplasto",
+        "El peroxisoma"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "La membrana plasmática está formada por una bicapa de fosfolípidos con proteínas incrustadas (modelo del mosaico fluido) que la hace selectivamente permeable. El transporte pasivo (difusión simple, difusión facilitada, ósmosis) no requiere energía porque las sustancias se mueven a favor de su gradiente de concentración; el transporte activo sí requiere ATP porque mueve sustancias en contra de su gradiente."
+    },
+    {
+      "pregunta": "¿Qué caracteriza al transporte pasivo a través de la membrana celular?",
+      "opciones": [
+        "Solo ocurre a través de proteínas de transporte activo",
+        "Requiere ATP porque mueve sustancias en contra de su gradiente",
+        "No requiere energía porque la sustancia se mueve a favor de su gradiente de concentración"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "¿Cuál de los siguientes procesos SÍ requiere gasto de ATP?",
+      "opciones": [
+        "La bomba de sodio-potasio",
+        "La difusión simple de oxígeno",
+        "La ósmosis del agua"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "La ósmosis se define como:",
+      "opciones": [
+        "El movimiento de solutos disueltos en contra de su gradiente de concentración",
+        "El movimiento del agua a través de una membrana semipermeable desde una zona de menor concentración de solutos hacia una de mayor concentración",
+        "La difusión de gases exclusivamente a través de canales proteicos"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Un glóbulo rojo se coloca en una solución hipotónica (menos concentrada que su citoplasma). ¿Qué le ocurrirá?",
+      "opciones": [
+        "Permanecerá sin cambios porque el medio es isotónico",
+        "Perderá agua y se arrugará (crenación)",
+        "Absorberá agua, se hinchará y podría estallar (lisis)"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "Si una célula vegetal se coloca en una solución hipertónica, el citoplasma pierde agua y la membrana se separa de la pared celular; a este fenómeno se le llama:",
+      "opciones": [
+        "Plasmólisis",
+        "Turgencia",
+        "Hemólisis"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "La difusión facilitada se diferencia de la difusión simple porque:",
+      "opciones": [
+        "Necesita ATP para mover moléculas en contra de su gradiente",
+        "Requiere proteínas de transporte (canales o transportadores) para que la sustancia atraviese la membrana",
+        "Solo transporta agua a través de acuaporinas"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "¿Cuál de las siguientes moléculas puede atravesar la bicapa lipídica por difusión simple sin necesidad de proteínas de transporte?",
+      "opciones": [
+        "Un ion de sodio (Na⁺)",
+        "Glucosa",
+        "Oxígeno (O₂)"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "El proceso mediante el cual una célula incorpora partículas grandes o microorganismos englobándolos con su membrana se llama:",
+      "opciones": [
+        "Fagocitosis",
+        "Exocitosis",
+        "Ósmosis"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "La exocitosis es el proceso por el cual una célula:",
+      "opciones": [
+        "Incorpora líquidos y solutos disueltos del medio extracelular",
+        "Expulsa sustancias hacia el exterior mediante vesículas que se fusionan con la membrana plasmática",
+        "Transporta iones a favor de su gradiente sin gasto energético"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "La bomba de sodio-potasio transporta 3 iones Na⁺ hacia afuera de la célula y 2 iones K⁺ hacia adentro, ambos en contra de su gradiente. ¿Qué tipo de transporte ejemplifica?",
+      "opciones": [
+        "Ósmosis facilitada",
+        "Difusión simple",
+        "Transporte activo primario"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "¿Qué característica del modelo del mosaico fluido explica la flexibilidad y capacidad de movimiento de los componentes de la membrana plasmática?",
+      "opciones": [
+        "Los fosfolípidos y muchas proteínas pueden desplazarse lateralmente dentro de la bicapa",
+        "Todos los componentes de la membrana están fijos por enlaces covalentes rígidos",
+        "La membrana carece por completo de proteínas y solo tiene lípidos"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "La mitosis es el proceso por el cual una célula somática se divide para producir dos células hijas genéticamente idénticas entre sí y a la célula madre, con el mismo número de cromosomas (diploide). La meiosis, en cambio, ocurre en las células que producen gametos: consiste en dos divisiones sucesivas que reducen a la mitad el número de cromosomas (célula haploide) y generan variabilidad genética mediante el intercambio de material entre cromosomas homólogos (entrecruzamiento)."
+    },
+    {
+      "pregunta": "¿Cuál es el resultado final de la mitosis en términos del número de células y su carga genética?",
+      "opciones": [
+        "Cuatro células hijas haploides genéticamente distintas",
+        "Dos células hijas diploides genéticamente idénticas a la célula madre",
+        "Dos células hijas haploides idénticas entre sí"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "¿En qué fase de la mitosis los cromosomas se alinean en el plano ecuatorial de la célula?",
+      "opciones": [
+        "Telofase",
+        "Profase",
+        "Metafase"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "Durante la anafase de la mitosis ocurre principalmente:",
+      "opciones": [
+        "La separación de las cromátidas hermanas hacia polos opuestos de la célula",
+        "La condensación inicial de la cromatina en cromosomas visibles",
+        "La formación de la membrana nuclear alrededor de cada grupo de cromosomas"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "La citocinesis es el proceso mediante el cual:",
+      "opciones": [
+        "Los cromosomas homólogos se aparean e intercambian segmentos",
+        "El citoplasma se divide físicamente para formar dos células independientes",
+        "El ADN se duplica antes de iniciar la división"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Un espermatozoide humano contiene 23 cromosomas, la mitad que una célula somática. ¿Qué proceso de división celular explica esta reducción?",
+      "opciones": [
+        "La citocinesis",
+        "La mitosis",
+        "La meiosis"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "El entrecruzamiento (crossing-over) entre cromátidas de cromosomas homólogos ocurre durante:",
+      "opciones": [
+        "La profase I de la meiosis",
+        "La metafase de la mitosis",
+        "La telofase II de la meiosis"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "¿Cuántas células hijas se producen al final de la meiosis y cuál es su carga cromosómica respecto a la célula original?",
+      "opciones": [
+        "Dos células diploides",
+        "Cuatro células haploides",
+        "Una célula tetraploide"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "La principal ventaja evolutiva del entrecruzamiento y la segregación independiente de cromosomas durante la meiosis es:",
+      "opciones": [
+        "Duplicar el número de cromosomas de la especie en cada generación",
+        "Asegurar que todas las células hijas sean genéticamente idénticas",
+        "Generar variabilidad genética entre los gametos producidos"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "Antes de que una célula entre en mitosis o meiosis, su material genético debe duplicarse. Esto ocurre durante:",
+      "opciones": [
+        "La fase S (síntesis) de la interfase",
+        "La profase",
+        "La anafase"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Una célula con un error en la separación de cromátidas durante la anafase produce una célula hija con un cromosoma de más. ¿Qué término describe esta condición cromosómica anómala?",
+      "opciones": [
+        "Poliploidía balanceada",
+        "Aneuploidía",
+        "Haploidía"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "¿Cuál de los siguientes tipos celulares se produce exclusivamente mediante meiosis en el ser humano?",
+      "opciones": [
+        "Los glóbulos rojos",
+        "Las células de la piel",
+        "Los gametos (óvulos y espermatozoides)"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "Gregor Mendel estableció las bases de la herencia a partir de sus experimentos con chícharos. Un gen puede tener versiones alternativas llamadas alelos; un organismo diploide posee dos alelos para cada gen. Si los dos alelos son iguales, el organismo es homocigoto; si son distintos, heterocigoto. Un alelo dominante se expresa siempre que está presente (mayúscula); uno recesivo solo se expresa en ausencia del dominante (minúscula)."
+    },
+    {
+      "pregunta": "En un cruce $Aa \\times Aa$ para un gen con dominancia completa, ¿qué proporción fenotípica se espera en la descendencia?",
+      "opciones": [
+        "$3:1$ (dominante : recesivo)",
+        "$1:1$",
+        "$1:3$"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "¿Cómo se le llama a un organismo que posee dos alelos idénticos para un gen determinado?",
+      "opciones": [
+        "Heterocigoto",
+        "Homocigoto",
+        "Hemicigoto"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "El genotipo se refiere a:",
+      "opciones": [
+        "Exclusivamente los alelos recesivos de un organismo",
+        "La apariencia física observable de un organismo",
+        "La constitución genética (los alelos) que posee un organismo"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "El fenotipo de un organismo es:",
+      "opciones": [
+        "La expresión observable de sus características, resultado de su genotipo y el ambiente",
+        "Únicamente la secuencia de ADN heredada de la madre",
+        "El número total de cromosomas presentes en sus células"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "En humanos, el color de ojos café ($B$) es dominante sobre el azul ($b$). Si ambos padres son heterocigotos ($Bb \\times Bb$), ¿qué probabilidad tiene un hijo de tener ojos azules?",
+      "opciones": [
+        "50%",
+        "25%",
+        "75%"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "La primera ley de Mendel, o ley de la segregación, establece que:",
+      "opciones": [
+        "Todos los descendientes de un cruce son genéticamente idénticos entre sí",
+        "Los alelos de genes distintos siempre se heredan juntos, ligados en el mismo cromosoma",
+        "Los dos alelos de un gen se separan durante la formación de los gametos, y cada gameto recibe solo uno"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "¿Cuál de los siguientes es un ejemplo de herencia ligada al sexo en humanos?",
+      "opciones": [
+        "El daltonismo",
+        "El color de ojos",
+        "El grupo sanguíneo ABO"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Un cruce de prueba (testcross) consiste en cruzar un individuo de fenotipo dominante y genotipo desconocido con un individuo:",
+      "opciones": [
+        "Heterocigoto, para duplicar la variabilidad genética",
+        "Homocigoto recesivo, para determinar si el primero es homocigoto o heterocigoto",
+        "De otra especie, para generar un híbrido interespecífico"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "En la herencia intermedia, un cruce entre una planta de flores rojas ($RR$) y una de flores blancas ($rr$) produce descendencia:",
+      "opciones": [
+        "Con proporción $3:1$ de rojo a blanco",
+        "Únicamente de flores rojas",
+        "De flores rosas, con un fenotipo intermedio entre ambos progenitores"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "El sistema de grupos sanguíneos ABO en humanos es un ejemplo clásico de:",
+      "opciones": [
+        "Alelos múltiples y codominancia (entre A y B)",
+        "Herencia ligada al cromosoma Y exclusivamente",
+        "Un solo gen con un único alelo posible"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Dos progenitores de grupo sanguíneo AB y O tienen un hijo. ¿Qué grupos sanguíneos son genéticamente posibles en ese hijo?",
+      "opciones": [
+        "Únicamente AB",
+        "A o B, nunca AB ni O",
+        "Únicamente O"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "El ADN almacena la información genética en una secuencia de cuatro bases nitrogenadas (adenina, timina, citosina y guanina) que se aparean de forma complementaria ($A-T$ y $C-G$) formando una doble hélice. El dogma central de la biología molecular describe el flujo de esa información: el ADN se transcribe a ARN mensajero (ARNm) en el núcleo, y el ARNm se traduce a una cadena de aminoácidos (proteína) en los ribosomas del citoplasma."
+    },
+    {
+      "pregunta": "¿Qué tipo de enlace mantiene unidas las dos hebras de la doble hélice de ADN a través de sus bases nitrogenadas?",
+      "opciones": [
+        "Enlaces peptídicos",
+        "Enlaces covalentes",
+        "Puentes de hidrógeno"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "¿Cuál es la base nitrogenada que sustituye a la timina en el ARN?",
+      "opciones": [
+        "Uracilo",
+        "Guanina",
+        "Citosina"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Si una hebra molde de ADN presenta la secuencia $5'\\text{-TAC-}3'$, ¿cuál es la secuencia complementaria del ARNm transcrito?",
+      "opciones": [
+        "$5'\\text{-ATG-}3'$",
+        "$5'\\text{-GUA-}3'$",
+        "$5'\\text{-CAT-}3'$"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "El proceso de transcripción consiste en:",
+      "opciones": [
+        "Duplicar la molécula completa de ADN antes de la división celular",
+        "Ensamblar aminoácidos en una cadena polipeptídica a partir del ARNm",
+        "Sintetizar una molécula de ARN mensajero usando como molde una hebra de ADN"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "La traducción del ARNm en una proteína ocurre en:",
+      "opciones": [
+        "Los ribosomas",
+        "El núcleo celular",
+        "El aparato de Golgi"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Un gen sufre una mutación que cambia un solo nucleótido, lo que provoca que un codón que codificaba para un aminoácido ahora sea un codón de paro. ¿Qué consecuencia directa tiene esto sobre la proteína producida?",
+      "opciones": [
+        "La proteína tendrá exactamente la misma longitud pero un aminoácido distinto",
+        "La proteína quedará incompleta, truncada antes de su secuencia normal",
+        "No habrá ningún efecto porque los codones de paro también codifican aminoácidos"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "El ARN de transferencia (ARNt) cumple la función de:",
+      "opciones": [
+        "Catalizar la duplicación del ADN durante la fase S",
+        "Almacenar de forma permanente la información genética de la célula",
+        "Transportar el aminoácido correspondiente hasta el ribosoma según el codón del ARNm"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "¿Cuántos nucleótidos conforman un codón que codifica para un solo aminoácido?",
+      "opciones": [
+        "Tres",
+        "Uno",
+        "Dos"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Una diferencia estructural entre el ADN y el ARN es que:",
+      "opciones": [
+        "El ADN es monocatenario y el ARN es bicatenario",
+        "El ADN contiene desoxirribosa y el ARN contiene ribosa como azúcar",
+        "El ARN contiene timina y el ADN contiene uracilo"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "¿En qué compartimento celular ocurre la transcripción en una célula eucariota?",
+      "opciones": [
+        "En la mitocondria exclusivamente",
+        "En el citoplasma, junto a los ribosomas",
+        "En el núcleo"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "El código genético se considera universal porque:",
+      "opciones": [
+        "Prácticamente todos los seres vivos utilizan las mismas correspondencias entre codones y aminoácidos",
+        "Cada especie tiene un código genético completamente distinto",
+        "Solo los organismos eucariotas comparten el mismo código"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "La respiración celular es el conjunto de reacciones mediante las cuales la célula obtiene energía (ATP) a partir de la glucosa. Se divide en tres etapas: la glucólisis (en el citoplasma, sin oxígeno), el ciclo de Krebs (en la matriz mitocondrial) y la cadena de transporte de electrones (en la membrana mitocondrial interna), esta última responsable de producir la mayor parte del ATP."
+    },
+    {
+      "pregunta": "¿En qué compartimento celular se lleva a cabo la glucólisis?",
+      "opciones": [
+        "En la matriz mitocondrial",
+        "En el citoplasma",
+        "En la membrana mitocondrial interna"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "El producto final de la glucólisis, que posteriormente ingresa a la mitocondria para continuar su oxidación, es:",
+      "opciones": [
+        "El ácido láctico",
+        "La glucosa-6-fosfato",
+        "El piruvato"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "¿En qué parte específica de la mitocondria se localizan las enzimas del ciclo de Krebs?",
+      "opciones": [
+        "Matriz mitocondrial",
+        "Membrana externa",
+        "Espacio intermembranal"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "¿Dónde se localizan los complejos proteicos de la cadena de transporte de electrones?",
+      "opciones": [
+        "En la matriz mitocondrial",
+        "En la membrana mitocondrial interna",
+        "En el citoplasma"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "La molécula de ATP almacena energía utilizable principalmente en:",
+      "opciones": [
+        "El azúcar ribosa que la compone",
+        "El anillo de adenina",
+        "Los enlaces de alta energía entre sus grupos fosfato"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "Una célula muscular realiza un esfuerzo intenso y se queda temporalmente sin oxígeno suficiente. ¿Qué vía metabólica utiliza para seguir generando ATP de forma anaeróbica?",
+      "opciones": [
+        "La fermentación láctica",
+        "El ciclo de Krebs completo",
+        "La fosforilación oxidativa"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "¿Cuál es el aceptor final de electrones en la cadena de transporte de electrones durante la respiración aerobia?",
+      "opciones": [
+        "El dióxido de carbono",
+        "El oxígeno",
+        "La glucosa"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "¿Cuál de las siguientes moléculas es una coenzima transportadora de electrones que participa en el ciclo de Krebs?",
+      "opciones": [
+        "Hemoglobina",
+        "ADN polimerasa",
+        "$NAD^+$"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "El proceso mediante el cual la energía liberada por la cadena de transporte de electrones se utiliza para sintetizar ATP se denomina:",
+      "opciones": [
+        "Fosforilación oxidativa",
+        "Glucólisis anaeróbica",
+        "Fotólisis del agua"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "En comparación con la respiración aerobia, la fermentación produce:",
+      "opciones": [
+        "Exactamente la misma cantidad de ATP",
+        "Mucha menos cantidad de ATP por cada molécula de glucosa",
+        "Más del doble de ATP por reacción"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "El ciclo de Krebs recibe como sustrato de entrada, tras la descarboxilación oxidativa del piruvato, a la molécula de:",
+      "opciones": [
+        "Glucosa-6-fosfato",
+        "Ácido láctico",
+        "Acetil coenzima A (acetil-CoA)"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "La ecología estudia las interacciones entre los seres vivos y su ambiente, organizadas en niveles jerárquicos: individuo, población (individuos de la misma especie en un área), comunidad (poblaciones de distintas especies que coexisten), ecosistema (comunidad más su ambiente físico) y bioma/biosfera. Entre especies distintas pueden darse relaciones de beneficio mutuo, beneficio para una a costa de la otra, o beneficio para una sin afectar a la otra."
+    },
+    {
+      "pregunta": "¿Cómo se denomina al conjunto de individuos de la misma especie que habitan una misma área en un momento dado?",
+      "opciones": [
+        "Población",
+        "Comunidad",
+        "Ecosistema"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Un ecosistema se define como:",
+      "opciones": [
+        "Únicamente el conjunto de especies vegetales de una región",
+        "El conjunto de una comunidad biológica junto con los factores físicos (abióticos) de su ambiente",
+        "La totalidad de los individuos de una sola especie en el planeta"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "¿Cuál de los siguientes es un ejemplo de relación de mutualismo (beneficio para ambas especies)?",
+      "opciones": [
+        "La garrapata y el perro al que se adhiere",
+        "El león y la cebra que caza",
+        "Las bacterias intestinales y el ser humano"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "En la relación de depredación:",
+      "opciones": [
+        "Una especie (depredador) mata y se alimenta directamente de otra (presa)",
+        "Ambas especies obtienen beneficio mutuo sin afectarse",
+        "Una especie se beneficia sin causar daño ni beneficio a la otra"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Las rémoras se adhieren a los tiburones para alimentarse de restos de comida sin causarles daño ni beneficiarlos de forma apreciable. ¿Qué tipo de relación interespecífica ejemplifica esto?",
+      "opciones": [
+        "Parasitismo",
+        "Comensalismo",
+        "Mutualismo obligado"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "En el parasitismo:",
+      "opciones": [
+        "Ninguno de los dos organismos resulta afectado",
+        "Ambos organismos se benefician por igual",
+        "El parásito obtiene beneficio a costa de dañar a su huésped"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "La competencia interespecífica ocurre cuando:",
+      "opciones": [
+        "Dos especies distintas utilizan el mismo recurso limitado del ambiente, perjudicándose mutuamente",
+        "Dos individuos de la misma especie cooperan para reproducirse",
+        "Una especie parasita a otra de forma permanente"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "¿Cuál de los siguientes términos describe el papel funcional y el conjunto de condiciones que ocupa una especie dentro de su ecosistema?",
+      "opciones": [
+        "Bioma",
+        "Nicho ecológico",
+        "Cadena trófica"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Una cadena trófica describe:",
+      "opciones": [
+        "La cantidad total de individuos de una población en un área",
+        "La distribución geográfica de una especie a nivel mundial",
+        "El flujo de energía y materia de un organismo a otro a través de las relaciones de alimentación"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "Los organismos productores de un ecosistema, como las plantas, ocupan la base de la cadena trófica porque:",
+      "opciones": [
+        "Producen su propio alimento a partir de energía solar mediante fotosíntesis",
+        "Se alimentan exclusivamente de otros productores",
+        "Descomponen la materia orgánica muerta"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Los organismos descomponedores, como hongos y bacterias, cumplen una función ecológica esencial al:",
+      "opciones": [
+        "Ocupar el nivel más alto de la cadena trófica como depredadores tope",
+        "Degradar la materia orgánica muerta y reciclar nutrientes al ecosistema",
+        "Realizar fotosíntesis para producir oxígeno"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "La teoría de la evolución por selección natural, propuesta por Charles Darwin, explica que dentro de una población existe variabilidad genética heredable; los individuos con características que les dan una ventaja para sobrevivir y reproducirse en su ambiente dejan, en promedio, más descendencia, y esas características se vuelven más frecuentes en generaciones futuras."
+    },
+    {
+      "pregunta": "Según la selección natural, ¿qué determina que un rasgo se vuelva más frecuente en una población a lo largo de generaciones?",
+      "opciones": [
+        "Que todos los individuos de la población lo posean desde el inicio",
+        "Que el rasgo sea el más llamativo visualmente",
+        "Que ese rasgo confiera una ventaja reproductiva o de supervivencia en su ambiente"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "La variabilidad genética dentro de una población surge principalmente de:",
+      "opciones": [
+        "Mutaciones y la recombinación genética durante la reproducción sexual",
+        "La selección natural directamente",
+        "La migración de individuos hacia otro ecosistema"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "¿Cómo se denomina a la fuente última de nuevas variantes alélicas en una población?",
+      "opciones": [
+        "Selección natural",
+        "Mutación",
+        "Deriva génica"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "En una población de polillas, las de color oscuro se camuflan mejor en árboles ennegrecidos por la contaminación y son menos depredadas que las claras. Con el tiempo, la proporción de polillas oscuras aumenta. Este es un ejemplo de:",
+      "opciones": [
+        "Mutación neutra sin efecto en la supervivencia",
+        "Deriva génica al azar",
+        "Selección natural direccional"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "La adaptación, en el contexto evolutivo, se refiere a:",
+      "opciones": [
+        "Una característica heredable que mejora la capacidad de un organismo para sobrevivir y reproducirse en su ambiente",
+        "Cualquier cambio que un organismo experimenta durante su vida individual",
+        "La capacidad de una especie para cambiar de hábitat voluntariamente"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "El fenómeno por el cual dos especies no emparentadas desarrollan estructuras similares debido a presiones ambientales parecidas (como las alas de aves e insectos) se llama:",
+      "opciones": [
+        "Evolución divergente",
+        "Evolución convergente",
+        "Deriva génica"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "La deriva génica se diferencia de la selección natural en que:",
+      "opciones": [
+        "Ocurre exclusivamente en poblaciones muy grandes",
+        "Siempre favorece a los individuos mejor adaptados",
+        "Es un cambio al azar en las frecuencias alélicas, no relacionado con una ventaja adaptativa"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "¿Cuál de los siguientes conceptos describe mejor a un fósil considerado \"eslabón\" que comparte características de dos grupos distintos?",
+      "opciones": [
+        "Forma transicional",
+        "Especie endémica",
+        "Órgano vestigial"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Los órganos homólogos, como el brazo humano y el ala de un murciélago, comparten un origen evolutivo común aunque cumplan funciones distintas; esto se conoce como:",
+      "opciones": [
+        "Analogía",
+        "Homología",
+        "Convergencia funcional"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "La especiación es el proceso mediante el cual:",
+      "opciones": [
+        "Dos especies distintas se fusionan en una sola población",
+        "Una especie desaparece por completo del registro fósil",
+        "Una población se diversifica hasta dar origen a una o más especies nuevas, reproductivamente aisladas entre sí"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "¿Cuál de las siguientes evidencias apoya la teoría de la evolución?",
+      "opciones": [
+        "El registro fósil, la anatomía comparada y la similitud del ADN entre especies emparentadas",
+        "La ausencia total de variación genética dentro de las poblaciones",
+        "La imposibilidad de observar cambios en las frecuencias alélicas"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "El sistema nervioso se divide en Sistema Nervioso Central (SNC), formado por el encéfalo y la médula espinal, y Sistema Nervioso Periférico (SNP), formado por los nervios y ganglios que se extienden fuera del SNC. La neurona es la unidad funcional básica: recibe señales a través de las dendritas, integra la información en el soma y transmite el impulso a través del axón hasta la sinapsis con otra célula."
+    },
+    {
+      "pregunta": "¿Qué estructuras conforman exclusivamente el Sistema Nervioso Central?",
+      "opciones": [
+        "Los nervios craneales y espinales",
+        "El encéfalo y la médula espinal",
+        "Los ganglios del sistema autónomo"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "La prolongación de la neurona encargada de conducir el impulso nervioso lejos del soma hacia otra célula es:",
+      "opciones": [
+        "El núcleo celular",
+        "La dendrita",
+        "El axón"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "¿Cómo se llaman las prolongaciones ramificadas de la neurona especializadas en recibir señales de otras neuronas?",
+      "opciones": [
+        "Dendritas",
+        "Axones",
+        "Vainas de mielina"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "La vaina de mielina que recubre muchos axones tiene como función principal:",
+      "opciones": [
+        "Producir neurotransmisores excitatorios",
+        "Aumentar la velocidad de conducción del impulso nervioso",
+        "Almacenar el exceso de glucosa neuronal"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Un paciente presenta dificultad para coordinar movimientos finos y mantener el equilibrio, sin pérdida de fuerza muscular. ¿Qué estructura encefálica es más probable que esté afectada?",
+      "opciones": [
+        "El hipotálamo",
+        "El bulbo raquídeo",
+        "El cerebelo"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "Las funciones intelectuales superiores —memoria, lenguaje, razonamiento— dependen principalmente de:",
+      "opciones": [
+        "La corteza cerebral",
+        "La médula espinal",
+        "El cerebelo"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "El tronco encefálico regula funciones vitales automáticas como:",
+      "opciones": [
+        "El aprendizaje consciente del lenguaje",
+        "La frecuencia cardiaca, la respiración y el reflejo de deglución",
+        "El almacenamiento de la memoria a largo plazo"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "¿Cómo se llama el punto de comunicación entre el axón de una neurona y otra célula, donde se liberan neurotransmisores?",
+      "opciones": [
+        "Nódulo de Ranvier",
+        "Mielinización",
+        "Sinapsis"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "Los nervios que conducen información sensorial desde receptores periféricos hacia el SNC se clasifican como:",
+      "opciones": [
+        "Aferentes o sensitivos",
+        "Eferentes o motores",
+        "Simpáticos exclusivamente"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "El Sistema Nervioso Autónomo regula funciones involuntarias como la frecuencia cardiaca y la motilidad intestinal, y se divide en:",
+      "opciones": [
+        "Somático y central",
+        "Simpático y parasimpático",
+        "Aferente y periférico"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "La médula espinal, además de conducir impulsos entre el encéfalo y el cuerpo, es responsable de:",
+      "opciones": [
+        "Producir el líquido cefalorraquídeo en su totalidad",
+        "Regular la secreción de hormonas hipofisarias",
+        "Coordinar los actos reflejos, como retirar la mano ante un estímulo doloroso"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "El aparato digestivo transforma los alimentos en nutrientes simples absorbibles mediante digestión mecánica (masticación, movimientos musculares) y digestión química (enzimas). El recorrido va de la boca al esófago, estómago, intestino delgado —donde ocurre la mayor parte de la digestión y absorción— e intestino grueso, con la participación de glándulas anexas como el hígado y el páncreas."
+    },
+    {
+      "pregunta": "¿En qué órgano inicia la digestión química de los carbohidratos, gracias a la amilasa salival?",
+      "opciones": [
+        "En la boca",
+        "En el estómago",
+        "En el intestino delgado"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "El esófago conduce el bolo alimenticio hacia el estómago mediante:",
+      "opciones": [
+        "Contracciones voluntarias controladas conscientemente",
+        "Movimientos peristálticos, ondas musculares involuntarias",
+        "Simple efecto de la gravedad, sin participación muscular"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "¿Cómo se llama la mezcla semilíquida y ácida que resulta de la digestión gástrica del bolo alimenticio?",
+      "opciones": [
+        "Bolo",
+        "Quilo",
+        "Quimo"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "¿Cuál es el órgano principal donde ocurre la mayor parte de la digestión química y la absorción de nutrientes hacia la sangre?",
+      "opciones": [
+        "El intestino delgado",
+        "El estómago",
+        "El intestino grueso"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "La primera porción del intestino delgado, donde se vierten las secreciones biliares y pancreáticas, se llama:",
+      "opciones": [
+        "Yeyuno",
+        "Duodeno",
+        "Íleon"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Un paciente al que se le extirpa la vesícula biliar tendrá mayor dificultad para digerir principalmente:",
+      "opciones": [
+        "Las proteínas de origen animal",
+        "Los carbohidratos simples",
+        "Las grasas, por la menor disponibilidad de bilis para emulsionarlas"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "El hígado produce de forma continua la bilis, cuya función es:",
+      "opciones": [
+        "Emulsionar las grasas para facilitar su digestión enzimática",
+        "Digerir directamente las proteínas mediante enzimas propias",
+        "Neutralizar el pH ácido del estómago antes de la digestión"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "¿Cuál de las siguientes enzimas es producida por el páncreas para la digestión de proteínas en el intestino delgado?",
+      "opciones": [
+        "Pepsina",
+        "Tripsina",
+        "Ptialina"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "La función principal del intestino grueso es:",
+      "opciones": [
+        "Producir las enzimas digestivas principales",
+        "Realizar la mayor parte de la absorción de nutrientes",
+        "Absorber agua y electrolitos, y formar las heces fecales"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "Las vellosidades intestinales, presentes en el intestino delgado, cumplen la función de:",
+      "opciones": [
+        "Aumentar la superficie de absorción de nutrientes",
+        "Neutralizar el pH ácido proveniente del estómago",
+        "Secretar bilis para la digestión de lípidos"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "El ácido clorhídrico secretado por las células del estómago tiene como función principal:",
+      "opciones": [
+        "Neutralizar por completo la acidez del bolo alimenticio",
+        "Activar enzimas digestivas y destruir microorganismos presentes en el alimento",
+        "Digerir directamente los carbohidratos complejos"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "El sistema respiratorio permite el intercambio de gases: el oxígeno del aire ingresa a la sangre y el dióxido de carbono se elimina, a través de los alvéolos pulmonares. El sistema circulatorio, impulsado por el corazón, transporta ese oxígeno y los nutrientes a todas las células del cuerpo mediante una red de vasos sanguíneos (arterias, venas y capilares)."
+    },
+    {
+      "pregunta": "El intercambio de gases entre el aire y la sangre ocurre específicamente en:",
+      "opciones": [
+        "Los bronquios principales",
+        "La tráquea",
+        "Los alvéolos pulmonares"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "La ventilación pulmonar se define como:",
+      "opciones": [
+        "El proceso mecánico y cíclico de entrada y salida de aire entre la atmósfera y los pulmones",
+        "El intercambio de oxígeno y dióxido de carbono a nivel celular",
+        "El transporte de oxígeno unido a la hemoglobina"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "¿Qué sustancia tensioactiva producen las células alveolares para evitar el colapso de los alvéolos?",
+      "opciones": [
+        "Mucina bronquial",
+        "Surfactante pulmonar",
+        "Bilis"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Los capilares sanguíneos permiten el intercambio de gases y nutrientes gracias a que:",
+      "opciones": [
+        "Carecen por completo de luz interna para el flujo sanguíneo",
+        "Tienen paredes musculares muy gruesas, similares a las arterias",
+        "Sus paredes están formadas por una sola capa de células endoteliales, extremadamente delgadas"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "Las arterias se caracterizan, a diferencia de las venas, por:",
+      "opciones": [
+        "Transportar sangre generalmente a mayor presión, alejándola del corazón",
+        "Poseer válvulas que evitan el retorno de la sangre",
+        "Llevar siempre sangre pobre en oxígeno"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Un paciente adulto en reposo presenta una frecuencia cardiaca de 45 latidos por minuto, por debajo de lo normal. ¿Cómo se denomina este hallazgo clínico?",
+      "opciones": [
+        "Taquicardia",
+        "Bradicardia",
+        "Arritmia sinusal"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Si un adulto en reposo presenta 26 respiraciones por minuto, por encima del rango normal, esta alteración se denomina:",
+      "opciones": [
+        "Eupnea",
+        "Bradipnea",
+        "Taquipnea"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "¿Cuál de las siguientes cifras corresponde a una presión arterial considerada normal en un adulto en reposo?",
+      "opciones": [
+        "120/80 mmHg",
+        "150/95 mmHg",
+        "85/40 mmHg"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "La proteína presente en los glóbulos rojos encargada de transportar oxígeno desde los pulmones hacia los tejidos es:",
+      "opciones": [
+        "La albúmina",
+        "La hemoglobina",
+        "La miosina"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "El lado izquierdo del corazón se encarga principalmente de:",
+      "opciones": [
+        "Enviar sangre a los pulmones para oxigenarse",
+        "Recibir sangre pobre en oxígeno proveniente del cuerpo",
+        "Bombear sangre oxigenada hacia todo el cuerpo a través de la circulación sistémica"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "La circulación pulmonar es el trayecto que sigue la sangre:",
+      "opciones": [
+        "Desde el corazón hacia los pulmones y de regreso al corazón, para oxigenarse",
+        "Desde el corazón hacia todo el cuerpo y de regreso, distribuyendo oxígeno",
+        "Exclusivamente dentro de las cavidades del corazón"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "El sistema endocrino regula funciones corporales mediante hormonas, sustancias químicas liberadas directamente al torrente sanguíneo por glándulas especializadas, que actúan sobre células u órganos blanco distantes. A diferencia del sistema nervioso, sus efectos suelen ser más lentos pero más duraderos."
+    },
+    {
+      "pregunta": "Una hormona se define como:",
+      "opciones": [
+        "Un neurotransmisor liberado únicamente en la sinapsis entre dos neuronas",
+        "Una sustancia química liberada a la sangre por una glándula, que regula la actividad de células u órganos distantes",
+        "Una enzima digestiva secretada por el páncreas exocrino"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "La glándula considerada el \"centro de control\" del sistema endocrino, por regular a otras glándulas, es:",
+      "opciones": [
+        "Las glándulas suprarrenales",
+        "La glándula tiroides",
+        "La hipófisis (pituitaria)"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "¿Qué glándula endocrina produce insulina y glucagón para regular la glucosa en sangre?",
+      "opciones": [
+        "El páncreas",
+        "El hígado",
+        "La tiroides"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "La insulina, secretada tras una comida, tiene como efecto principal:",
+      "opciones": [
+        "Aumentar la glucosa en sangre liberándola del hígado",
+        "Disminuir la glucosa en sangre al facilitar su entrada a las células",
+        "Estimular la producción de bilis en la vesícula"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Un paciente con niveles crónicamente elevados de glucosa en sangre, por deficiencia o resistencia a la insulina, probablemente padece:",
+      "opciones": [
+        "Enfermedad de Addison",
+        "Hipotiroidismo",
+        "Diabetes mellitus"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "La glándula tiroides regula principalmente:",
+      "opciones": [
+        "El metabolismo basal del organismo",
+        "La producción de células sanguíneas",
+        "La digestión de las proteínas"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Las glándulas suprarrenales, ubicadas sobre los riñones, secretan hormonas como la adrenalina, relacionada con:",
+      "opciones": [
+        "La regulación del ciclo menstrual",
+        "La respuesta de \"lucha o huida\" ante el estrés",
+        "La absorción de calcio en el intestino"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "¿Cuál de las siguientes es una glándula endocrina reproductiva?",
+      "opciones": [
+        "El timo",
+        "El bazo",
+        "El ovario"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "El mecanismo de retroalimentación negativa en el sistema endocrino sirve para:",
+      "opciones": [
+        "Mantener los niveles hormonales dentro de un rango estable, inhibiendo su propia producción cuando alcanzan cierto nivel",
+        "Aumentar sin límite la producción de una hormona una vez iniciada",
+        "Eliminar por completo una hormona del organismo tras su primera liberación"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "A diferencia de las glándulas endocrinas, las glándulas exocrinas se caracterizan por:",
+      "opciones": [
+        "Liberar hormonas directamente al torrente sanguíneo",
+        "Liberar sus secreciones a través de conductos hacia una superficie o cavidad, no directamente a la sangre",
+        "Carecer por completo de conductos o secreciones"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "La hormona del crecimiento (GH), secretada por la hipófisis, actúa principalmente para:",
+      "opciones": [
+        "Controlar la frecuencia cardiaca en reposo",
+        "Regular exclusivamente el ciclo del sueño",
+        "Estimular el crecimiento óseo y muscular durante la niñez y adolescencia"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "El sistema inmunológico protege al organismo contra agentes patógenos mediante dos líneas de defensa: la inmunidad innata (barreras físicas, células fagocíticas, inflamación), presente desde el nacimiento y de respuesta rápida pero inespecífica; y la inmunidad adaptativa, más lenta pero específica, mediada por linfocitos que \"recuerdan\" al patógeno para responder más rápido en exposiciones futuras."
+    },
+    {
+      "pregunta": "¿Cuál es la principal diferencia entre la inmunidad innata y la adaptativa?",
+      "opciones": [
+        "La innata es rápida e inespecífica; la adaptativa es más lenta pero específica y genera memoria",
+        "La innata solo actúa en la piel; la adaptativa actúa en el resto del cuerpo",
+        "La adaptativa está presente desde el nacimiento y la innata se desarrolla después"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Los glóbulos blancos encargados de englobar y destruir microorganismos mediante fagocitosis son principalmente:",
+      "opciones": [
+        "Los eritrocitos",
+        "Los neutrófilos y macrófagos",
+        "Las plaquetas"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "¿Qué tipo de células son responsables de producir anticuerpos específicos contra un antígeno?",
+      "opciones": [
+        "Los eritrocitos",
+        "Los linfocitos T citotóxicos",
+        "Los linfocitos B"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "Un anticuerpo (inmunoglobulina) es una proteína cuya función principal es:",
+      "opciones": [
+        "Unirse de forma específica a un antígeno para neutralizarlo o marcarlo para su destrucción",
+        "Transportar oxígeno hacia los tejidos periféricos",
+        "Coagular la sangre ante una herida"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Tras vacunarse contra una enfermedad, una persona expuesta después al mismo patógeno responde de forma mucho más rápida y eficaz. ¿Qué propiedad del sistema inmune adaptativo explica esto?",
+      "opciones": [
+        "La respuesta inflamatoria innata",
+        "La memoria inmunológica",
+        "La barrera física de la piel"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "La inflamación, como respuesta inmune innata ante una lesión o infección, se caracteriza por:",
+      "opciones": [
+        "Destrucción exclusiva de células propias sanas",
+        "Ausencia total de síntomas visibles",
+        "Enrojecimiento, calor, dolor e hinchazón en la zona afectada"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "Los linfocitos T citotóxicos actúan principalmente:",
+      "opciones": [
+        "Destruyendo directamente células infectadas o cancerosas",
+        "Produciendo anticuerpos solubles",
+        "Transportando antígenos hacia la médula ósea"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "¿Cuál de las siguientes es una barrera física de la inmunidad innata?",
+      "opciones": [
+        "Un linfocito B de memoria",
+        "La piel intacta",
+        "Un anticuerpo específico"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "La inmunidad adquirida de forma pasiva, como la que recibe un bebé a través de la leche materna, se caracteriza por:",
+      "opciones": [
+        "Requerir varias exposiciones al mismo antígeno para funcionar",
+        "Generar memoria inmunológica de por vida en el receptor",
+        "Transferir anticuerpos ya formados, sin que el receptor los produzca por sí mismo"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "Una vacuna funciona principalmente porque:",
+      "opciones": [
+        "Expone al sistema inmune a una versión inofensiva o inactivada del patógeno, generando memoria inmunológica",
+        "Elimina directamente al patógeno del ambiente",
+        "Sustituye por completo la función de los anticuerpos naturales"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "El timo es un órgano linfoide fundamental porque:",
+      "opciones": [
+        "Es donde se producen los eritrocitos",
+        "Es donde maduran los linfocitos T",
+        "Es donde se almacena la bilis"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "La piel es el órgano más extenso del cuerpo: protege contra agentes externos, regula la temperatura y actúa como órgano sensorial. Los signos vitales —frecuencia cardiaca, frecuencia respiratoria, presión arterial y temperatura— son indicadores básicos y medibles del estado fisiológico de una persona, usados como primera evaluación clínica."
+    },
+    {
+      "pregunta": "Las células de la epidermis encargadas de producir el pigmento que protege contra la radiación ultravioleta son:",
+      "opciones": [
+        "Los fibroblastos",
+        "Los queratinocitos",
+        "Los melanocitos"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "La proteína estructural principal que compone el pelo y las uñas es:",
+      "opciones": [
+        "La queratina",
+        "El colágeno",
+        "La elastina"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "¿Cuál es el término clínico para una frecuencia cardiaca en reposo superior a 100 latidos por minuto?",
+      "opciones": [
+        "Bradicardia",
+        "Taquicardia",
+        "Normocardia"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Un paciente adulto presenta, de forma simultánea, una frecuencia cardiaca de 115 lpm y una frecuencia respiratoria de 8 rpm. ¿Qué combinación de términos describe correctamente estos signos?",
+      "opciones": [
+        "Normocardia y eupnea",
+        "Bradicardia y taquipnea",
+        "Taquicardia y bradipnea"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "Una temperatura corporal axilar de 38.3 °C se clasifica clínicamente como:",
+      "opciones": [
+        "Fiebre o pirexia",
+        "Hipotermia",
+        "Febrícula"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Al medir la presión arterial, una lectura de 155/95 mmHg corresponde a un estado de:",
+      "opciones": [
+        "Hipotensión arterial",
+        "Hipertensión arterial",
+        "Presión normal-alta sin relevancia clínica"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Los corpúsculos de Pacini, receptores sensoriales de la piel, se encargan principalmente de detectar:",
+      "opciones": [
+        "Dolor superficial únicamente",
+        "Temperatura exclusivamente",
+        "Presión profunda y vibración"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "¿Qué tipo de glándula sudorípara está distribuida en casi todo el cuerpo y participa en la termorregulación mediante sudor acuoso?",
+      "opciones": [
+        "Glándulas ecrinas",
+        "Glándulas apocrinas",
+        "Glándulas sebáceas"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Una quemadura que afecta solo la epidermis, con enrojecimiento y dolor pero sin ampollas, se clasifica como:",
+      "opciones": [
+        "Quemadura de segundo grado",
+        "Quemadura de primer grado",
+        "Quemadura de tercer grado"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Una quemadura destruye por completo la epidermis y la dermis, dejando la piel de aspecto blanquecino y acartonado, con pérdida de sensibilidad. Corresponde a:",
+      "opciones": [
+        "Quemadura superficial leve",
+        "Quemadura de primer grado",
+        "Quemadura de tercer grado"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "Además de proteger contra agentes externos, una función fisiológica clave de la piel es:",
+      "opciones": [
+        "Contribuir a la regulación de la temperatura corporal mediante la sudoración y los vasos sanguíneos cutáneos",
+        "Sintetizar hormonas tiroideas",
+        "Filtrar la sangre para eliminar desechos metabólicos"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Un átomo está formado por un núcleo central con protones (carga positiva) y neutrones (sin carga), rodeado por electrones (carga negativa) que giran en niveles de energía. El número atómico ($Z$) indica el número de protones y define de qué elemento se trata; la tabla periódica organiza a los elementos en filas (periodos) y columnas (grupos o familias) según patrones que se repiten en sus propiedades."
+    },
+    {
+      "pregunta": "El número atómico de un elemento indica:",
+      "opciones": [
+        "El número total de neutrones y protones combinados",
+        "El número de protones en el núcleo de sus átomos",
+        "Únicamente el número de electrones en su último nivel"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Los isótopos de un mismo elemento se caracterizan por tener:",
+      "opciones": [
+        "Distinto número atómico entre sí",
+        "El mismo número de neutrones pero distinto número de protones",
+        "El mismo número de protones pero distinto número de neutrones"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "¿Cuál es la carga eléctrica de un electrón?",
+      "opciones": [
+        "Negativa",
+        "Positiva",
+        "Neutra"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "En la tabla periódica, los elementos de una misma columna (grupo) comparten:",
+      "opciones": [
+        "El mismo número de neutrones exactamente",
+        "Un número similar de electrones en su nivel de energía más externo (electrones de valencia)",
+        "El mismo estado físico a temperatura ambiente en todos los casos"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Al avanzar de izquierda a derecha en un mismo periodo de la tabla periódica, el radio atómico de los elementos tiende a:",
+      "opciones": [
+        "Permanecer exactamente igual",
+        "Aumentar de forma constante",
+        "Disminuir, debido al aumento de la carga nuclear efectiva"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "Un átomo neutro de sodio ($Z=11$) pierde un electrón para formar el ion $Na^{+}$. ¿Qué le ocurre a su carga y a su tamaño respecto al átomo neutro?",
+      "opciones": [
+        "Adquiere carga positiva y disminuye de tamaño",
+        "Adquiere carga negativa y aumenta de tamaño",
+        "Permanece neutro pero cambia de tamaño"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Los electrones de valencia son:",
+      "opciones": [
+        "Todos los electrones presentes en el núcleo atómico",
+        "Los electrones del nivel de energía más externo de un átomo, responsables principalmente de su reactividad química",
+        "Exclusivamente los electrones compartidos en un enlace metálico"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "¿Cómo se llama a los elementos del grupo 18 de la tabla periódica, caracterizados por su nula reactividad química?",
+      "opciones": [
+        "Halógenos",
+        "Metales alcalinos",
+        "Gases nobles"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "Los metales alcalinos (grupo 1) se caracterizan por:",
+      "opciones": [
+        "Tener un solo electrón de valencia y ser altamente reactivos",
+        "Ser gases inertes a temperatura ambiente",
+        "Formar iones con carga negativa fácilmente"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "La masa atómica de un elemento representa aproximadamente:",
+      "opciones": [
+        "Únicamente el número de electrones del átomo",
+        "La suma del número de protones y neutrones de su núcleo",
+        "El volumen total que ocupa el átomo"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Un ion se forma cuando un átomo:",
+      "opciones": [
+        "Cambia el número de neutrones sin alterar su carga",
+        "Gana o pierde protones de su núcleo",
+        "Gana o pierde uno o más electrones, adquiriendo carga eléctrica neta"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "Los átomos se unen entre sí mediante enlaces químicos para alcanzar mayor estabilidad. En el enlace iónico, un átomo cede electrones y otro los acepta, formando iones de carga opuesta que se atraen (típico entre metal y no metal). En el enlace covalente, dos átomos no metálicos comparten uno o más pares de electrones. Además existen fuerzas intermoleculares más débiles, como el puente de hidrógeno, que explican propiedades como el punto de ebullición del agua."
+    },
+    {
+      "pregunta": "El enlace iónico se forma típicamente entre:",
+      "opciones": [
+        "Un metal, que cede electrones, y un no metal, que los acepta",
+        "Dos átomos no metálicos que comparten electrones por igual",
+        "Dos átomos metálicos idénticos"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "En un enlace covalente, los átomos involucrados:",
+      "opciones": [
+        "Transfieren completamente electrones de un átomo a otro",
+        "Comparten uno o más pares de electrones entre sus núcleos",
+        "Se atraen únicamente por fuerzas gravitacionales"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "¿Qué tipo de enlace mantiene unidos los átomos de hidrógeno y oxígeno dentro de una sola molécula de agua ($H_2O$)?",
+      "opciones": [
+        "Puente de hidrógeno",
+        "Enlace iónico",
+        "Enlace covalente"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "El puente de hidrógeno es:",
+      "opciones": [
+        "Una fuerza de atracción intermolecular, más débil que un enlace covalente, entre moléculas con hidrógeno unido a átomos muy electronegativos",
+        "Un tipo de enlace covalente exclusivo del hidrógeno molecular ($H_2$)",
+        "Un enlace más fuerte que el enlace iónico"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "El cloruro de sodio ($NaCl$), sal de mesa, se disuelve fácilmente en agua y conduce electricidad en solución. ¿Qué tipo de enlace predomina en este compuesto?",
+      "opciones": [
+        "Enlace covalente no polar",
+        "Enlace iónico",
+        "Enlace metálico"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Un enlace covalente polar se caracteriza porque:",
+      "opciones": [
+        "No existe ninguna diferencia de electronegatividad entre los átomos",
+        "Los electrones se comparten exactamente por igual entre ambos átomos",
+        "Los electrones compartidos se distribuyen de forma desigual, hacia el átomo más electronegativo"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "La electronegatividad de un elemento se define como:",
+      "opciones": [
+        "La capacidad de un átomo para atraer hacia sí los electrones compartidos en un enlace",
+        "El número total de electrones que posee un átomo neutro",
+        "La masa atómica relativa de un elemento"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "¿Cuál de los siguientes compuestos presenta enlace covalente no polar entre sus átomos?",
+      "opciones": [
+        "Cloruro de sodio ($NaCl$)",
+        "Gas oxígeno ($O_2$)",
+        "Fluoruro de potasio ($KF$)"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "El enlace metálico, presente entre átomos de un mismo metal, se caracteriza por:",
+      "opciones": [
+        "La ausencia total de interacción entre los átomos vecinos",
+        "La transferencia completa de electrones de un átomo a otro",
+        "Un \"mar\" de electrones deslocalizados que se mueven libremente entre los núcleos atómicos"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "Los puentes de hidrógeno entre moléculas de agua explican principalmente por qué el agua:",
+      "opciones": [
+        "Tiene un punto de ebullición inusualmente alto comparado con moléculas de tamaño similar",
+        "Es un excelente conductor eléctrico en estado puro",
+        "No puede disolver compuestos iónicos"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "La regla del octeto establece que los átomos tienden a:",
+      "opciones": [
+        "Mantener siempre exactamente dos electrones de valencia",
+        "Ganar, perder o compartir electrones hasta completar ocho electrones en su nivel de valencia",
+        "Formar únicamente enlaces iónicos, nunca covalentes"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Una reacción química transforma sustancias (reactivos) en otras nuevas (productos), reacomodando sus átomos sin crearlos ni destruirlos: la Ley de la Conservación de la Masa exige que una ecuación química esté balanceada, con el mismo número de átomos de cada elemento en ambos lados. La estequiometría usa esas proporciones (en moles) para calcular cantidades de reactivos y productos."
+    },
+    {
+      "pregunta": "La Ley de la Conservación de la Masa establece que, en una reacción química:",
+      "opciones": [
+        "Se crean nuevos átomos para formar los productos",
+        "Los reactivos siempre pesan más que los productos",
+        "La masa total de los reactivos es igual a la masa total de los productos"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "Balancear una ecuación química consiste en:",
+      "opciones": [
+        "Ajustar los coeficientes para que exista el mismo número de átomos de cada elemento en reactivos y productos",
+        "Cambiar los subíndices de las fórmulas químicas de los compuestos",
+        "Igualar el número de moléculas de reactivos y productos sin importar los átomos"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "En la ecuación balanceada $2H_2 + O_2 \\rightarrow 2H_2O$, ¿cuántos átomos de hidrógeno hay en total del lado de los reactivos?",
+      "opciones": [
+        "Dos",
+        "Cuatro",
+        "Ocho"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Un mol de cualquier sustancia contiene un número fijo de partículas conocido como:",
+      "opciones": [
+        "Número de oxidación",
+        "Número atómico",
+        "Número de Avogadro"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "En una reacción de combustión, un hidrocarburo reacciona con oxígeno. ¿Cuáles son típicamente los productos principales de una combustión completa?",
+      "opciones": [
+        "Dióxido de carbono ($CO_2$) y agua ($H_2O$)",
+        "Hidrógeno gaseoso y oxígeno puro",
+        "Únicamente carbono sólido"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "En una reacción de síntesis (combinación), dos o más reactivos:",
+      "opciones": [
+        "Se descomponen en sustancias más simples",
+        "Se combinan para formar un único producto más complejo",
+        "Intercambian iones entre sí sin combinarse"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "En una reacción de descomposición:",
+      "opciones": [
+        "Un elemento desplaza a otro dentro de un compuesto",
+        "Dos elementos se combinan para formar un compuesto",
+        "Un compuesto se separa en dos o más sustancias más simples"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "¿Cuál de las siguientes es una reacción de desplazamiento simple?",
+      "opciones": [
+        "Un metal más reactivo desplaza a otro menos reactivo dentro de un compuesto",
+        "Dos compuestos intercambian iones entre sí",
+        "Un compuesto se separa en sus elementos por calor"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "El reactivo limitante en una reacción química es aquel que:",
+      "opciones": [
+        "Sobra al final de la reacción sin reaccionar por completo",
+        "Se consume por completo primero, determinando la cantidad máxima de producto que se puede formar",
+        "Actúa como catalizador sin consumirse"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Un catalizador es una sustancia que:",
+      "opciones": [
+        "Detiene por completo cualquier reacción química",
+        "Se consume por completo durante la reacción, formando parte del producto",
+        "Acelera la velocidad de una reacción química sin consumirse en el proceso"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "La estequiometría de una reacción permite principalmente:",
+      "opciones": [
+        "Calcular las cantidades de reactivos y productos involucrados, a partir de la ecuación balanceada",
+        "Determinar el color de los productos formados",
+        "Medir directamente la temperatura de la reacción"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Una disolución es una mezcla homogénea de un soluto disperso en un solvente. Su concentración puede expresarse en molaridad ($M = \\dfrac{n}{V}$, moles de soluto entre litros de disolución). El pH mide qué tan ácida o básica es una disolución acuosa, en una escala de 0 a 14: valores menores a 7 son ácidos, mayores a 7 son básicos (alcalinos), y 7 es neutro."
+    },
+    {
+      "pregunta": "La molaridad de una disolución se calcula como:",
+      "opciones": [
+        "La masa del soluto dividida entre la masa del solvente",
+        "$M = \\dfrac{n}{V}$ (moles de soluto entre litros de disolución)",
+        "El número de partículas de soluto sin importar el volumen"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "En la escala de pH, un valor de 3 corresponde a una sustancia:",
+      "opciones": [
+        "Neutra",
+        "Básica o alcalina",
+        "Ácida"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "¿Qué valor de pH se considera neutro?",
+      "opciones": [
+        "7",
+        "0",
+        "14"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Una sustancia con pH de 10 se clasifica como:",
+      "opciones": [
+        "Ácida",
+        "Básica o alcalina",
+        "Neutra"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Al agregar más soluto a un volumen fijo de disolución sin cambiar el volumen total, la concentración molar de esa disolución:",
+      "opciones": [
+        "Permanece exactamente igual",
+        "Disminuye",
+        "Aumenta"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "Un ácido, según la definición general, es una sustancia que en disolución acuosa:",
+      "opciones": [
+        "Libera iones hidrógeno ($H^+$), aumentando su concentración en la disolución",
+        "Libera iones hidroxilo ($OH^-$), aumentando el pH",
+        "Nunca se disocia en iones"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Una base, en contraste con un ácido, típicamente:",
+      "opciones": [
+        "Libera exclusivamente iones hidrógeno ($H^+$)",
+        "Libera iones hidroxilo ($OH^-$) en disolución acuosa",
+        "Tiene siempre un pH menor a 7"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "¿Cuál de las siguientes sustancias es un ejemplo típico de solución ácida?",
+      "opciones": [
+        "El hidróxido de sodio disuelto",
+        "El agua destilada pura",
+        "El jugo gástrico"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "Cuando un ácido y una base reaccionan entre sí, se produce típicamente:",
+      "opciones": [
+        "Una sal y agua, en una reacción de neutralización",
+        "Únicamente gas hidrógeno",
+        "Un precipitado sólido de forma obligatoria"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Una disolución saturada es aquella en la que:",
+      "opciones": [
+        "El soluto está presente en cantidad mínima, muy por debajo de su límite",
+        "Ya no es posible disolver más soluto a una temperatura dada, porque alcanzó su límite de solubilidad",
+        "No contiene ningún soluto disuelto"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "El agua se considera un buen disolvente de compuestos iónicos y polares principalmente porque:",
+      "opciones": [
+        "No forma puentes de hidrógeno con otras sustancias",
+        "Es una molécula completamente no polar",
+        "Sus moléculas son polares y pueden rodear y separar a los iones o moléculas polares del soluto"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "La química orgánica estudia los compuestos del carbono, elemento capaz de formar hasta cuatro enlaces covalentes estables y encadenarse consigo mismo formando esqueletos largos y ramificados. Los grupos funcionales son átomos o conjuntos de átomos específicos dentro de una molécula orgánica que determinan sus propiedades químicas características, como el grupo hidroxilo ($-OH$) de los alcoholes o el grupo carboxilo ($-COOH$) de los ácidos orgánicos."
+    },
+    {
+      "pregunta": "¿Qué propiedad del átomo de carbono le permite formar la enorme diversidad de compuestos orgánicos existentes?",
+      "opciones": [
+        "Su capacidad de formar hasta cuatro enlaces covalentes estables y encadenarse consigo mismo",
+        "Su alta carga eléctrica positiva permanente",
+        "Su incapacidad para compartir electrones con otros átomos"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Un grupo funcional en una molécula orgánica es:",
+      "opciones": [
+        "El número total de átomos de carbono presentes en la cadena",
+        "Un átomo o grupo de átomos específico que determina las propiedades químicas características de esa molécula",
+        "Exclusivamente el esqueleto de carbonos sin ningún otro átomo"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "¿Qué grupo funcional caracteriza a los alcoholes?",
+      "opciones": [
+        "Amino ($-NH_2$)",
+        "Carboxilo ($-COOH$)",
+        "Hidroxilo ($-OH$)"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "El grupo funcional carboxilo ($-COOH$) es característico de:",
+      "opciones": [
+        "Los ácidos orgánicos (ácidos carboxílicos)",
+        "Los alcoholes",
+        "Los hidrocarburos saturados"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Un hidrocarburo es un compuesto orgánico formado exclusivamente por:",
+      "opciones": [
+        "Carbono, hidrógeno y oxígeno en cualquier proporción",
+        "Átomos de carbono e hidrógeno",
+        "Nitrógeno y carbono únicamente"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Dos moléculas orgánicas tienen la misma fórmula molecular pero distinta disposición espacial o estructural de sus átomos, lo que les da propiedades diferentes. ¿Cómo se les llama a este tipo de moléculas?",
+      "opciones": [
+        "Alótropos",
+        "Isótopos",
+        "Isómeros"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "Un hidrocarburo saturado se caracteriza porque:",
+      "opciones": [
+        "Todos los enlaces entre sus átomos de carbono son enlaces simples",
+        "Contiene al menos un doble o triple enlace entre carbonos",
+        "Contiene siempre un anillo aromático"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "¿Cuál es el grupo funcional característico de las aminas, presente también en los aminoácidos?",
+      "opciones": [
+        "Carbonilo ($C=O$)",
+        "Amino ($-NH_2$)",
+        "Hidroxilo ($-OH$)"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Los enlaces dobles o triples entre átomos de carbono, propios de un hidrocarburo insaturado, hacen que la molécula sea, en general:",
+      "opciones": [
+        "Incapaz de formar ningún otro tipo de enlace",
+        "Completamente inerte químicamente",
+        "Más reactiva que un hidrocarburo saturado equivalente"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "Un polímero orgánico es una macromolécula formada por:",
+      "opciones": [
+        "La repetición de unidades más pequeñas llamadas monómeros, unidas covalentemente",
+        "Un único átomo de carbono con múltiples cargas eléctricas",
+        "La fusión de dos átomos de carbono sin ningún otro elemento"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "El grupo carbonilo ($C=O$) está presente, entre otros compuestos orgánicos, en:",
+      "opciones": [
+        "Los alcoholes exclusivamente",
+        "Las cetonas y los aldehídos",
+        "Los hidrocarburos saturados"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Las biomoléculas orgánicas esenciales para la vida se agrupan en cuatro grandes categorías: carbohidratos (fuente principal de energía rápida), lípidos (reserva energética a largo plazo y componentes de membranas), proteínas (estructura y función, formadas por aminoácidos) y ácidos nucleicos (información genética)."
+    },
+    {
+      "pregunta": "¿Cuál es el monosacárido de seis carbonos que constituye el principal sustrato de la glucólisis?",
+      "opciones": [
+        "La celulosa",
+        "La sacarosa",
+        "La glucosa"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "La unidad estructural básica (monómero) a partir de la cual se forman las proteínas es:",
+      "opciones": [
+        "El aminoácido",
+        "El monosacárido",
+        "El ácido graso"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "¿Cómo se llama el enlace covalente que une a dos aminoácidos consecutivos en una cadena polipeptídica?",
+      "opciones": [
+        "Enlace glucosídico",
+        "Enlace peptídico",
+        "Enlace éster"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Los triglicéridos, principal reserva de energía a largo plazo del cuerpo, están formados por:",
+      "opciones": [
+        "Una cadena larga de aminoácidos",
+        "Dos monosacáridos unidos entre sí",
+        "Una molécula de glicerol unida a tres ácidos grasos"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "Un ácido graso presenta uno o más dobles enlaces entre sus átomos de carbono, lo que lo mantiene líquido a temperatura ambiente. Este tipo de ácido graso se clasifica como:",
+      "opciones": [
+        "Insaturado",
+        "Saturado",
+        "Trans exclusivamente"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "El colesterol pertenece al grupo de los lípidos y es precursor para la síntesis de:",
+      "opciones": [
+        "Enzimas digestivas exclusivamente",
+        "Hormonas esteroideas y ácidos biliares",
+        "Anticuerpos del sistema inmune"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "La estructura primaria de una proteína corresponde a:",
+      "opciones": [
+        "La unión de varias subunidades proteicas independientes",
+        "El plegamiento tridimensional completo de la proteína",
+        "La secuencia lineal de aminoácidos unidos por enlaces peptídicos"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "¿Cuál de las siguientes moléculas es un carbohidrato de reserva energética en animales, almacenado principalmente en el hígado y el músculo?",
+      "opciones": [
+        "Glucógeno",
+        "Colesterol",
+        "Queratina"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "La desnaturalización de una proteína ocurre cuando:",
+      "opciones": [
+        "Se rompen todos sus enlaces peptídicos, liberando aminoácidos libres",
+        "Pierde su estructura tridimensional y su función biológica por cambios de temperatura o pH, sin romper los enlaces peptídicos",
+        "Gana aminoácidos adicionales a su cadena original"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Los aminoácidos esenciales se llaman así porque:",
+      "opciones": [
+        "Se producen exclusivamente en el hígado",
+        "Son los únicos aminoácidos que forman parte de las proteínas",
+        "El cuerpo humano no puede sintetizarlos por sí mismo y deben obtenerse de la dieta"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "Las enzimas son moléculas, generalmente de naturaleza proteica, que funcionan como:",
+      "opciones": [
+        "Catalizadores biológicos que aceleran reacciones químicas sin consumirse en el proceso",
+        "Reservas de energía a corto plazo",
+        "Estructuras exclusivas de la membrana celular"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "La cinemática describe el movimiento de los objetos sin considerar sus causas. La velocidad es el cambio de posición respecto al tiempo ($v = \\dfrac{\\Delta x}{\\Delta t}$), y la aceleración es el cambio de velocidad respecto al tiempo ($a = \\dfrac{\\Delta v}{\\Delta t}$). En un movimiento rectilíneo uniformemente acelerado, la velocidad cambia de forma constante."
+    },
+    {
+      "pregunta": "La velocidad de un objeto en movimiento se define como:",
+      "opciones": [
+        "El cambio de aceleración respecto al tiempo",
+        "El cambio de posición respecto al tiempo",
+        "La distancia total recorrida sin importar el tiempo empleado"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "La aceleración de un objeto representa:",
+      "opciones": [
+        "La fuerza neta que actúa sobre un objeto en reposo",
+        "La distancia total que recorre un objeto",
+        "La rapidez con la que cambia su velocidad en el tiempo"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "¿Cuál es la unidad de medida de la aceleración en el Sistema Internacional?",
+      "opciones": [
+        "$m/s^2$",
+        "$m/s$",
+        "$kg \\cdot m/s$"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Un movimiento rectilíneo uniforme (MRU) se caracteriza por:",
+      "opciones": [
+        "Velocidad que cambia constantemente y aceleración cero",
+        "Velocidad constante y aceleración igual a cero",
+        "Aceleración constante distinta de cero"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Un automóvil parte del reposo y alcanza una velocidad de $20\\ m/s$ en $4$ segundos, aumentando su velocidad de manera constante. ¿Cuál es su aceleración?",
+      "opciones": [
+        "$0.2\\ m/s^2$",
+        "$80\\ m/s^2$",
+        "$5\\ m/s^2$"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "En un movimiento de caída libre, ignorando la resistencia del aire, la aceleración que experimenta un objeto es:",
+      "opciones": [
+        "Constante, igual a la aceleración de la gravedad",
+        "Variable, disminuyendo conforme el objeto cae",
+        "Cero, porque el objeto se mueve libremente"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "La distancia recorrida por un objeto en movimiento rectilíneo uniforme se calcula mediante:",
+      "opciones": [
+        "$d = \\dfrac{1}{2} a t^2$",
+        "$d = v \\cdot t$",
+        "$d = \\dfrac{v}{t}$"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "¿Cuál de las siguientes magnitudes es vectorial, es decir, requiere de una dirección además de su valor numérico?",
+      "opciones": [
+        "El tiempo",
+        "La rapidez",
+        "La velocidad"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "Al graficar la posición de un objeto contra el tiempo en un movimiento rectilíneo uniforme, la pendiente de la recta obtenida representa:",
+      "opciones": [
+        "La velocidad del objeto",
+        "La aceleración del objeto",
+        "La distancia total recorrida"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Un objeto se lanza verticalmente hacia arriba. En el punto más alto de su trayectoria, ¿qué ocurre con su velocidad y su aceleración?",
+      "opciones": [
+        "Tanto su velocidad como su aceleración son cero",
+        "Su velocidad es momentáneamente cero, pero su aceleración sigue siendo la de la gravedad",
+        "Su velocidad es máxima y su aceleración es cero"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "El desplazamiento de un objeto se diferencia de la distancia recorrida en que el desplazamiento:",
+      "opciones": [
+        "Es una magnitud escalar sin dirección definida",
+        "Siempre es un valor mayor que la distancia recorrida",
+        "Es una magnitud vectorial que depende solo de las posiciones inicial y final"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "Isaac Newton formuló tres leyes fundamentales del movimiento: la primera (inercia) establece que un objeto permanece en reposo o en movimiento rectilíneo uniforme a menos que una fuerza neta actúe sobre él; la segunda relaciona fuerza, masa y aceleración mediante $F = m \\cdot a$; la tercera establece que a toda acción corresponde una reacción de igual magnitud y sentido opuesto."
+    },
+    {
+      "pregunta": "La primera ley de Newton, o ley de la inercia, establece que:",
+      "opciones": [
+        "Un cuerpo permanece en reposo o en movimiento rectilíneo uniforme a menos que actúe sobre él una fuerza neta",
+        "Todo cuerpo en movimiento tiende a detenerse por sí solo con el tiempo",
+        "La fuerza aplicada a un cuerpo siempre es proporcional a su velocidad"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Según la segunda ley de Newton ($F = m \\cdot a$), si se duplica la masa de un objeto manteniendo la misma fuerza aplicada, su aceleración:",
+      "opciones": [
+        "Se duplica",
+        "Se reduce a la mitad",
+        "Permanece exactamente igual"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "¿Cuál es la unidad de medida de la fuerza en el Sistema Internacional?",
+      "opciones": [
+        "Watt (W)",
+        "Joule (J)",
+        "Newton (N)"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "La tercera ley de Newton, de acción y reacción, establece que:",
+      "opciones": [
+        "Si un cuerpo ejerce una fuerza sobre otro, este segundo ejerce una fuerza de igual magnitud y sentido contrario sobre el primero",
+        "Toda fuerza aplicada produce una aceleración diez veces mayor en el objeto que la recibe",
+        "Las fuerzas solo existen cuando dos objetos están en contacto físico directo"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Un libro permanece en reposo sobre una mesa. La fuerza de gravedad lo atrae hacia abajo, pero no cae a través de la mesa. ¿Qué fuerza explica este equilibrio?",
+      "opciones": [
+        "La fuerza de fricción, que actúa verticalmente hacia arriba",
+        "La fuerza normal, ejercida por la mesa hacia arriba, de igual magnitud que el peso",
+        "La inercia del propio libro, que se opone a la gravedad"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "El peso de un objeto se diferencia de su masa en que el peso:",
+      "opciones": [
+        "Se mide en kilogramos, igual que la masa",
+        "Es una propiedad invariable del objeto sin importar dónde se encuentre",
+        "Es la fuerza con la que la gravedad atrae a ese objeto, y depende del campo gravitacional"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "La fuerza de fricción entre dos superficies en contacto actúa siempre:",
+      "opciones": [
+        "Oponiéndose al movimiento relativo o intento de movimiento entre esas superficies",
+        "En la misma dirección del movimiento, acelerándolo",
+        "Perpendicular a la superficie de contacto, nunca en su misma dirección"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "¿Cuál de las siguientes es una unidad válida de masa en el Sistema Internacional?",
+      "opciones": [
+        "Newton (N)",
+        "Kilogramo (kg)",
+        "Litro (L)"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Cuando un cohete expulsa gases hacia atrás a gran velocidad y esto lo impulsa hacia adelante, se está ejemplificando principalmente:",
+      "opciones": [
+        "La ley de la gravitación universal exclusivamente",
+        "La primera ley de Newton",
+        "La tercera ley de Newton"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "La fuerza neta que actúa sobre un objeto en equilibrio (en reposo o con velocidad constante) es:",
+      "opciones": [
+        "Igual a cero",
+        "Siempre positiva y distinta de cero",
+        "Igual a su peso multiplicado por dos"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Dos personas empujan una caja aplicando fuerzas de $30\\ N$ y $20\\ N$ en la misma dirección y sentido. Si la masa de la caja es de $10\\ kg$, ¿cuál es su aceleración aproximada?",
+      "opciones": [
+        "$50\\ m/s^2$",
+        "$5\\ m/s^2$",
+        "$2\\ m/s^2$"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "En física, el trabajo se realiza cuando una fuerza provoca un desplazamiento en su misma dirección ($W = F \\cdot d$). La energía es la capacidad de realizar trabajo, y existe en formas como la cinética (por movimiento) y la potencial (por posición). La Ley de la Conservación de la Energía establece que la energía no se crea ni se destruye, solo se transforma. La potencia mide qué tan rápido se realiza un trabajo."
+    },
+    {
+      "pregunta": "El trabajo mecánico realizado por una fuerza se calcula, cuando la fuerza y el desplazamiento tienen la misma dirección, como:",
+      "opciones": [
+        "$W = \\dfrac{d}{t}$",
+        "$W = F \\cdot t$",
+        "$W = F \\cdot d$"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "La energía cinética de un objeto depende de:",
+      "opciones": [
+        "Su masa y el cuadrado de su velocidad",
+        "Únicamente de su posición respecto al suelo",
+        "Exclusivamente de su peso, sin importar el movimiento"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "¿Cuál es la unidad de medida de la energía en el Sistema Internacional?",
+      "opciones": [
+        "Newton (N)",
+        "Joule (J)",
+        "Watt (W)"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "La energía potencial gravitacional de un objeto depende principalmente de:",
+      "opciones": [
+        "La fuerza de fricción que experimenta",
+        "Su velocidad instantánea de movimiento",
+        "Su masa y su altura respecto a un punto de referencia"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "Una pelota se deja caer desde cierta altura. Mientras cae, su energía potencial gravitacional disminuye. ¿Qué ocurre con su energía cinética, si se ignora la resistencia del aire?",
+      "opciones": [
+        "Aumenta, ya que la energía potencial se transforma en energía cinética",
+        "Disminuye en la misma proporción",
+        "Permanece constante durante toda la caída"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "La Ley de la Conservación de la Energía establece que, en un sistema aislado, la energía total:",
+      "opciones": [
+        "Aumenta progresivamente con el tiempo",
+        "Permanece constante, aunque puede transformarse de una forma a otra",
+        "Se destruye poco a poco hasta llegar a cero"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "La potencia se define como:",
+      "opciones": [
+        "La fuerza neta aplicada sobre un objeto en movimiento",
+        "La cantidad total de trabajo realizado, sin importar el tiempo",
+        "La rapidez con la que se realiza un trabajo o se transfiere energía"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "¿Cuál es la unidad de medida de la potencia en el Sistema Internacional?",
+      "opciones": [
+        "Watt (W)",
+        "Joule (J)",
+        "Newton (N)"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Si dos máquinas realizan exactamente el mismo trabajo, pero una lo hace en menos tiempo que la otra, se dice que la primera tiene:",
+      "opciones": [
+        "Mayor energía potencial",
+        "Mayor potencia",
+        "Menor eficiencia"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Un resorte comprimido almacena energía debido a su deformación. Este tipo de energía almacenada se clasifica como:",
+      "opciones": [
+        "Energía térmica exclusivamente",
+        "Energía cinética rotacional",
+        "Energía potencial elástica"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "Cuando un objeto en movimiento se detiene por efecto de la fricción, su energía cinética se transforma principalmente en:",
+      "opciones": [
+        "Energía térmica (calor), disipada al ambiente",
+        "Energía potencial gravitacional, sin ninguna pérdida",
+        "Energía eléctrica almacenada en el objeto"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "La presión se define como la fuerza aplicada por unidad de superficie ($P = \\dfrac{F}{A}$). En los fluidos, el Principio de Pascal establece que la presión aplicada a un fluido encerrado se transmite sin disminuir a todos los puntos del fluido; el Principio de Arquímedes explica por qué los objetos flotan, y estos conceptos ayudan a entender fenómenos médicos como la presión arterial."
+    },
+    {
+      "pregunta": "La presión se define como:",
+      "opciones": [
+        "La fuerza total aplicada sobre un objeto, sin importar el área",
+        "La fuerza aplicada perpendicularmente sobre una superficie, dividida entre el área de esa superficie",
+        "La masa de un fluido dividida entre su volumen"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Según el Principio de Pascal, la presión aplicada a un fluido encerrado en un recipiente:",
+      "opciones": [
+        "Disminuye progresivamente conforme se aleja del punto de aplicación",
+        "Solo se transmite en la dirección exacta en que fue aplicada",
+        "Se transmite sin disminuir a todos los puntos del fluido y las paredes del recipiente"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "¿Cuál es la unidad de medida de la presión en el Sistema Internacional?",
+      "opciones": [
+        "Pascal (Pa)",
+        "Newton (N)",
+        "Joule (J)"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "El Principio de Arquímedes explica que un cuerpo sumergido total o parcialmente en un fluido experimenta un empuje hacia arriba igual a:",
+      "opciones": [
+        "El peso total del propio cuerpo, sin importar su volumen",
+        "El peso del volumen de fluido que ese cuerpo desplaza",
+        "La presión atmosférica multiplicada por el volumen del recipiente"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Un objeto flota parcialmente sumergido en agua porque su densidad, en comparación con la del agua, es:",
+      "opciones": [
+        "Exactamente igual a la densidad del agua",
+        "Mayor que la densidad del agua",
+        "Menor que la densidad del agua"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "La presión arterial, medida en $mmHg$, representa la presión que ejerce:",
+      "opciones": [
+        "La sangre contra las paredes de las arterias al ser bombeada por el corazón",
+        "El aire atmosférico sobre la superficie de la piel",
+        "El líquido cefalorraquídeo dentro del cráneo"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "La presión hidrostática ejercida por un fluido en reposo depende principalmente de:",
+      "opciones": [
+        "La forma del recipiente que lo contiene, exclusivamente",
+        "La densidad del fluido y la profundidad o altura de la columna de fluido",
+        "La temperatura ambiente, sin relación con la profundidad"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "¿Cuál de los siguientes instrumentos se utiliza clínicamente para medir la presión arterial?",
+      "opciones": [
+        "El otoscopio",
+        "El termómetro clínico",
+        "El esfigmomanómetro"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "Un gato hidráulico permite levantar objetos muy pesados aplicando una fuerza pequeña gracias a:",
+      "opciones": [
+        "La transmisión de presión descrita por el Principio de Pascal, entre un pistón pequeño y uno grande",
+        "Un aumento espontáneo de la masa del fluido dentro del sistema",
+        "La disminución de la gravedad dentro del sistema hidráulico"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Si la fuerza aplicada sobre una superficie permanece constante pero el área sobre la que se aplica disminuye, la presión ejercida:",
+      "opciones": [
+        "Disminuye",
+        "Aumenta",
+        "Permanece exactamente igual"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "La presión atmosférica disminuye conforme aumenta la altitud principalmente porque:",
+      "opciones": [
+        "La temperatura ambiente siempre aumenta con la altitud",
+        "El aire se vuelve más denso a mayor altitud",
+        "Hay una menor columna de aire, y por lo tanto menos peso de aire, por encima de ese punto"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "La salud pública busca proteger y mejorar la salud de las poblaciones mediante acciones organizadas. Se distinguen niveles de prevención (primaria: evitar que la enfermedad aparezca, como la vacunación; secundaria: detección y tratamiento tempranos; terciaria: rehabilitación y reducción de secuelas) y niveles de atención médica (primer nivel: consulta general y prevención; segundo nivel: especialidades básicas; tercer nivel: alta especialidad)."
+    },
+    {
+      "pregunta": "La prevención primaria en salud pública busca principalmente:",
+      "opciones": [
+        "Evitar que una enfermedad llegue a presentarse, mediante acciones como la vacunación",
+        "Detectar una enfermedad ya presente en etapas tempranas",
+        "Rehabilitar a un paciente tras una enfermedad ya avanzada"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Realizar una mastografía para la detección oportuna de cáncer de mama en una persona sin síntomas corresponde a un nivel de prevención:",
+      "opciones": [
+        "Primaria",
+        "Secundaria",
+        "Terciaria"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "¿A qué nivel de atención médica corresponden los centros de salud que ofrecen consulta general y acciones de prevención?",
+      "opciones": [
+        "Tercer nivel de atención",
+        "Segundo nivel de atención",
+        "Primer nivel de atención"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "Un hospital de alta especialidad, con tecnología avanzada para padecimientos complejos y de baja prevalencia, corresponde al:",
+      "opciones": [
+        "Tercer nivel de atención",
+        "Primer nivel de atención",
+        "Segundo nivel de atención"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Un paciente que ya sufrió un infarto participa en un programa de rehabilitación cardiaca para recuperar su capacidad funcional y evitar complicaciones futuras. Esta acción corresponde a la prevención:",
+      "opciones": [
+        "Primaria",
+        "Terciaria",
+        "Secundaria"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "La diferencia principal entre promoción de la salud y prevención de la enfermedad es que la promoción:",
+      "opciones": [
+        "Solo puede realizarse dentro de un hospital de tercer nivel",
+        "Se enfoca siempre en una enfermedad concreta y su detección temprana",
+        "Busca fomentar estilos de vida saludables en general, sin dirigirse a una enfermedad específica"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "Impartir talleres comunitarios sobre alimentación correcta y hábitos higiénicos es un ejemplo de:",
+      "opciones": [
+        "Promoción de la salud",
+        "Prevención terciaria",
+        "Atención curativa especializada"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "¿Cuál de los siguientes conceptos se refiere al proceso de enviar a un paciente de un centro de salud a un hospital cuando requiere atención más compleja?",
+      "opciones": [
+        "Alta hospitalaria",
+        "Sistema de referencia",
+        "Diagnóstico diferencial"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "La epidemiología es la disciplina que estudia principalmente:",
+      "opciones": [
+        "La anatomía de los órganos afectados por una enfermedad",
+        "El tratamiento farmacológico individual de un paciente",
+        "La distribución y los determinantes de las enfermedades en las poblaciones"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "Un programa de vacunación masiva contra una enfermedad infecciosa es una estrategia clásica de:",
+      "opciones": [
+        "Prevención primaria a nivel poblacional",
+        "Rehabilitación de secuelas ya establecidas",
+        "Diagnóstico especializado de tercer nivel"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "El proceso salud-enfermedad se entiende actualmente, desde una perspectiva integral, como un fenómeno:",
+      "opciones": [
+        "Determinado exclusivamente por la presencia de un agente patógeno",
+        "Multidimensional, influido por factores biológicos, psicológicos, sociales y ambientales",
+        "Estático, en el que una persona está permanentemente sana o enferma"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "La bioética médica se rige por principios fundamentales: la beneficencia (procurar el mayor bienestar posible para el paciente), la no maleficencia (\"primero no hacer daño\"), la autonomía (respetar las decisiones informadas del paciente sobre su propio cuerpo) y la justicia (distribuir los recursos de salud de forma equitativa)."
+    },
+    {
+      "pregunta": "El principio de beneficencia en la práctica médica consiste en:",
+      "opciones": [
+        "Priorizar el beneficio económico de la institución de salud",
+        "Evitar a toda costa cualquier intervención médica",
+        "Actuar buscando el mayor bienestar posible para el paciente"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "El principio de \"primero no hacer daño\", conocido como no maleficencia, implica:",
+      "opciones": [
+        "La obligación de no infligir daño intencionado al paciente durante la atención médica",
+        "La obligación de curar cualquier enfermedad sin excepción",
+        "La prohibición absoluta de realizar cualquier procedimiento invasivo"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "¿Qué principio bioético se respeta cuando un paciente adulto y consciente rechaza un tratamiento tras haber sido informado de sus riesgos?",
+      "opciones": [
+        "Beneficencia",
+        "Autonomía",
+        "Justicia"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "El principio de justicia en bioética se refiere a:",
+      "opciones": [
+        "Priorizar la atención únicamente a quienes puedan pagarla",
+        "Aplicar siempre el mismo tratamiento a todos los pacientes sin excepción",
+        "Distribuir los recursos sanitarios de forma equitativa, según las necesidades de salud"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "Un médico explica a un paciente los riesgos, beneficios y alternativas de una cirugía antes de que este decida si acepta o no el procedimiento. Este proceso se denomina:",
+      "opciones": [
+        "Consentimiento informado",
+        "Secreto profesional",
+        "Diagnóstico diferencial"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "El secreto profesional en medicina obliga a no revelar información del paciente a terceros, excepto:",
+      "opciones": [
+        "En ninguna circunstancia, ni siquiera con autorización del paciente",
+        "Cuando el propio paciente lo autoriza o existe una excepción legal justificada",
+        "Siempre que un familiar directo lo solicite, sin necesidad de autorización"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Cuando un médico evita imponer tratamientos desproporcionados que solo prolongarían el sufrimiento de un paciente terminal, está equilibrando principalmente los principios de:",
+      "opciones": [
+        "Legalidad institucional, sin relación con la bioética",
+        "Justicia y autonomía exclusivamente",
+        "Beneficencia y no maleficencia"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "¿Cuál de los siguientes elementos NO es indispensable para que un consentimiento informado sea válido?",
+      "opciones": [
+        "Que el paciente firme sin recibir ninguna explicación previa",
+        "Que el paciente comprenda los riesgos y beneficios del procedimiento",
+        "Que la decisión del paciente sea voluntaria, sin coerción"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "La deontología profesional en medicina se refiere a:",
+      "opciones": [
+        "Los aspectos administrativos y financieros de una institución de salud",
+        "El conjunto de deberes, principios y normas éticas que regulan el ejercicio profesional",
+        "El estudio exclusivo de las enfermedades infecciosas"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Un dilema bioético surge típicamente cuando:",
+      "opciones": [
+        "La ley y la ética coinciden perfectamente en todos los casos",
+        "Existe un único curso de acción posible, sin ninguna alternativa",
+        "Dos o más principios éticos entran en conflicto entre sí en una situación clínica concreta"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "Reflexiona: en un conflicto real entre beneficencia y autonomía, ¿qué postura predomina hoy en la práctica médica?",
+      "opciones": [
+        "Respetar la autonomía del paciente, informándolo con claridad",
+        "Priorizar siempre el criterio médico sobre la decisión del paciente",
+        "Aplicar el tratamiento que resulte más económico"
+      ]
+    },
+    {
+      "pregunta": "La histología estudia los tejidos, agrupaciones de células especializadas con una función común. Existen cuatro tejidos básicos: epitelial (recubre superficies y cavidades, muy poco espacio intercelular), conectivo (sostiene y une estructuras, con abundante matriz extracelular), muscular (permite el movimiento mediante contracción) y nervioso (transmite impulsos eléctricos)."
+    },
+    {
+      "pregunta": "¿Cuál es la característica distintiva del tejido epitelial respecto a los demás tejidos básicos?",
+      "opciones": [
+        "Sus células están muy juntas entre sí, con escasa matriz extracelular, y recubre superficies o cavidades",
+        "Posee abundante matriz extracelular que separa ampliamente a sus células",
+        "Está compuesto exclusivamente por células capaces de contraerse"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "El tejido conectivo se caracteriza principalmente por:",
+      "opciones": [
+        "Cubrir exclusivamente las superficies externas del cuerpo",
+        "Presentar una abundante matriz extracelular entre sus células, que le da soporte y cohesión al cuerpo",
+        "Ser el único tejido capaz de generar impulsos eléctricos"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "¿Cuál de los siguientes es un ejemplo de tejido conectivo?",
+      "opciones": [
+        "El epitelio que recubre el intestino",
+        "El músculo esquelético del brazo",
+        "El tejido óseo y el cartílago"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "La sangre se considera un tejido conectivo especializado porque:",
+      "opciones": [
+        "Posee una matriz extracelular líquida (el plasma) que rodea a sus células y fragmentos celulares",
+        "Sus células se encuentran unidas firmemente unas a otras sin espacio entre ellas",
+        "Cumple funciones de contracción similares al tejido muscular"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "¿Cuál de los tres tipos de tejido muscular es voluntario y presenta estriaciones visibles al microscopio?",
+      "opciones": [
+        "El músculo liso",
+        "El músculo esquelético",
+        "El músculo cardíaco"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "El músculo cardíaco se distingue del esquelético porque:",
+      "opciones": [
+        "Carece por completo de estriaciones",
+        "Se contrae únicamente bajo control consciente",
+        "Es estriado pero de contracción involuntaria, y sus células están conectadas por discos intercalares"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "Un tejido observado al microscopio muestra células alargadas y fusiformes, sin estriaciones visibles, en la pared de un vaso sanguíneo. ¿Qué tipo de tejido muscular es?",
+      "opciones": [
+        "Músculo liso",
+        "Músculo esquelético",
+        "Músculo cardíaco"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "La función principal del tejido nervioso es:",
+      "opciones": [
+        "Almacenar reservas de energía en forma de grasa",
+        "Transmitir impulsos eléctricos entre distintas partes del cuerpo",
+        "Producir el movimiento voluntario de las extremidades"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "¿Cuál es la célula principal (funcional) del tejido nervioso?",
+      "opciones": [
+        "El osteocito",
+        "El adipocito",
+        "La neurona"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "La membrana basal es una estructura que:",
+      "opciones": [
+        "Ancla al tejido epitelial con el tejido conectivo subyacente",
+        "Se encuentra únicamente en el tejido nervioso",
+        "Es la responsable directa de la contracción muscular"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Un epitelio especializado en producir y secretar sustancias, como el que forma las glándulas, se denomina:",
+      "opciones": [
+        "Epitelio de revestimiento",
+        "Epitelio glandular",
+        "Epitelio sensorial"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "La taxonomía clasifica a los seres vivos en una jerarquía de categorías cada vez más amplias: especie, género, familia, orden, clase, filo (o división) y reino; actualmente se agrupan también en tres dominios: Bacteria, Archaea y Eukarya. Carlos Linneo estableció la nomenclatura binomial, que nombra a cada especie con dos palabras en latín: el género (con mayúscula) y el epíteto específico (en minúscula), como *Homo sapiens*."
+    },
+    {
+      "pregunta": "En la nomenclatura binomial de Linneo, el nombre científico de una especie se escribe con:",
+      "opciones": [
+        "Ambas palabras completamente en mayúsculas",
+        "Solo el epíteto específico, sin mencionar el género",
+        "El género con mayúscula inicial y el epíteto específico en minúscula, ambos en cursiva o subrayados"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "¿Cuál es la categoría taxonómica más amplia (más inclusiva) dentro de la jerarquía tradicional?",
+      "opciones": [
+        "El reino",
+        "La especie",
+        "El género"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Los tres dominios en los que se clasifica actualmente a todos los seres vivos son:",
+      "opciones": [
+        "Animalia, Plantae y Fungi",
+        "Bacteria, Archaea y Eukarya",
+        "Procariota, Eucariota y Virus"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "¿Cuál es la categoría taxonómica más específica, que agrupa a organismos capaces de reproducirse entre sí y generar descendencia fértil?",
+      "opciones": [
+        "El género",
+        "La familia",
+        "La especie"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "El ser humano se clasifica científicamente como *Homo sapiens*. En este nombre, 'Homo' corresponde a:",
+      "opciones": [
+        "El género",
+        "El epíteto específico",
+        "El nombre común de la especie"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Ordenando de la categoría más específica a la más amplia, la secuencia correcta es:",
+      "opciones": [
+        "Reino, filo, clase, orden, familia, género, especie",
+        "Especie, género, familia, orden, clase, filo, reino",
+        "Género, familia, especie, clase, orden, filo, reino"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Los dominios Bacteria y Archaea agrupan organismos procariontes, mientras que el dominio Eukarya incluye a:",
+      "opciones": [
+        "Únicamente a las bacterias fotosintéticas",
+        "Solamente a los virus y organismos acelulares",
+        "Protistas, hongos, plantas y animales"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "El epíteto específico de un nombre científico:",
+      "opciones": [
+        "Nunca se usa solo, siempre debe ir acompañado del nombre del género",
+        "Puede escribirse con mayúscula inicial al igual que el género",
+        "Es idéntico para todas las especies de un mismo género"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "¿Cuál de las siguientes parejas de organismos pertenece al mismo reino (Fungi)?",
+      "opciones": [
+        "Una bacteria y una levadura",
+        "Un hongo de sombrero (seta) y una levadura",
+        "Un helecho y un hongo de sombrero"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "La clasificación taxonómica moderna se basa principalmente en:",
+      "opciones": [
+        "El hábitat geográfico donde vive cada organismo",
+        "El tamaño corporal de cada especie",
+        "Relaciones evolutivas (filogenéticas) determinadas por similitudes morfológicas y moleculares"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "Dos especies pertenecen al mismo género pero son especies distintas. Esto significa que:",
+      "opciones": [
+        "Comparten un ancestro común cercano, pero generalmente no pueden producir descendencia fértil entre sí",
+        "Son genéticamente idénticas y pueden reproducirse sin restricción",
+        "Pertenecen obligatoriamente a reinos diferentes"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Las bacterias son organismos procariontes unicelulares, sin núcleo delimitado por membrana, que se reproducen por fisión binaria. Los virus son partículas acelulares (no se consideran seres vivos por sí mismos) formadas por material genético (ADN o ARN) rodeado de una cápside proteica, y requieren infectar una célula huésped para replicarse. Los hongos son eucariontes (unicelulares como las levaduras o pluricelulares como los mohos) con paredes celulares de quitina."
+    },
+    {
+      "pregunta": "¿Cuál es la principal diferencia estructural entre una bacteria y una célula eucariota?",
+      "opciones": [
+        "La bacteria posee múltiples núcleos, mientras la eucariota tiene solo uno",
+        "La bacteria carece de núcleo delimitado por membrana; su material genético está libre en el citoplasma",
+        "Solo la bacteria posee pared celular"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Las bacterias se reproducen principalmente mediante:",
+      "opciones": [
+        "Meiosis",
+        "Gemación exclusiva",
+        "Fisión binaria"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "¿Por qué los virus no se consideran seres vivos en sentido estricto por la mayoría de los biólogos?",
+      "opciones": [
+        "Porque carecen de metabolismo propio y no pueden reproducirse sin infectar una célula huésped",
+        "Porque no contienen ningún tipo de material genético",
+        "Porque son demasiado grandes para observarse al microscopio"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "La estructura proteica que rodea y protege el material genético de un virus se denomina:",
+      "opciones": [
+        "Pared celular",
+        "Cápside",
+        "Membrana nuclear"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "A diferencia de las células, el material genético de un virus puede ser:",
+      "opciones": [
+        "Únicamente ADN de doble cadena, igual que en las bacterias",
+        "Proteínas en lugar de ácidos nucleicos",
+        "ADN o ARN, pero nunca ambos en la misma partícula viral"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "Los hongos se diferencian de las bacterias principalmente porque los hongos:",
+      "opciones": [
+        "Son organismos eucariontes, con núcleo delimitado por membrana",
+        "Carecen por completo de pared celular",
+        "Nunca forman estructuras pluricelulares"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "La pared celular de los hongos está compuesta principalmente de:",
+      "opciones": [
+        "Celulosa",
+        "Quitina",
+        "Peptidoglicano"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "El peptidoglicano es un componente característico de la pared celular de:",
+      "opciones": [
+        "Los hongos",
+        "Los virus",
+        "Las bacterias"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "Una levadura es un ejemplo de hongo:",
+      "opciones": [
+        "Unicelular",
+        "Pluricelular filamentoso",
+        "Acelular"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "¿Cuál de las siguientes afirmaciones sobre los virus es correcta?",
+      "opciones": [
+        "Se reproducen por fisión binaria de forma independiente",
+        "Necesitan la maquinaria de una célula huésped para replicar su material genético",
+        "Poseen ribosomas propios para sintetizar sus proteínas"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Un antibiótico que ataca la síntesis de la pared celular bacteriana no tiene efecto contra los virus principalmente porque:",
+      "opciones": [
+        "Los virus son inmunes por naturaleza a cualquier sustancia química",
+        "Los antibióticos solo funcionan a temperaturas muy bajas",
+        "Los virus no poseen pared celular ni metabolismo propio sobre el cual actuar"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "El sistema óseo brinda soporte, protección y permite el movimiento junto con los músculos; los huesos se unen entre sí mediante articulaciones (móviles, semimóviles o fijas). El sistema muscular incluye tres tipos de tejido: esquelético (voluntario, une huesos mediante tendones), liso (involuntario, en paredes de órganos) y cardíaco (involuntario, exclusivo del corazón)."
+    },
+    {
+      "pregunta": "Las articulaciones que permiten un amplio rango de movimiento, como la del hombro o la cadera, se clasifican como:",
+      "opciones": [
+        "Articulaciones móviles (diartrosis)",
+        "Articulaciones fijas (sinartrosis)",
+        "Articulaciones semimóviles (anfiartrosis)"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Las suturas del cráneo son un ejemplo de articulación:",
+      "opciones": [
+        "Móvil (diartrosis)",
+        "Fija (sinartrosis), que casi no permite movimiento",
+        "Semimóvil (anfiartrosis), con ligero movimiento"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "La estructura que conecta un músculo esquelético con el hueso, transmitiendo la fuerza de la contracción, es:",
+      "opciones": [
+        "El ligamento",
+        "El cartílago",
+        "El tendón"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "El ligamento es una estructura que:",
+      "opciones": [
+        "Conecta un hueso con otro hueso, dando estabilidad a la articulación",
+        "Conecta un músculo con un hueso",
+        "Recubre la superficie articular para reducir la fricción"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "¿Cuál de los tres tipos de tejido muscular es de contracción voluntaria?",
+      "opciones": [
+        "El músculo liso",
+        "El músculo esquelético",
+        "El músculo cardíaco"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "El tejido óseo compacto se diferencia del esponjoso principalmente en que el compacto:",
+      "opciones": [
+        "Se encuentra únicamente en los huesos del cráneo",
+        "Contiene la médula ósea roja donde se producen las células sanguíneas",
+        "Es denso y forma la capa externa de los huesos, brindando resistencia"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "La médula ósea roja, encargada de producir células sanguíneas, se encuentra principalmente en:",
+      "opciones": [
+        "El tejido óseo esponjoso",
+        "El tejido óseo compacto",
+        "El cartílago articular"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "El cartílago que recubre los extremos de los huesos en una articulación móvil tiene como función principal:",
+      "opciones": [
+        "Producir células sanguíneas",
+        "Reducir la fricción entre los huesos y amortiguar impactos",
+        "Contraerse para generar movimiento"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Una fibra de músculo esquelético se caracteriza por ser:",
+      "opciones": [
+        "Mononucleada y sin estriaciones",
+        "Ramificada y unida por discos intercalares",
+        "Multinucleada y estriada"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "Los huesos largos, como el fémur, cumplen principalmente la función de:",
+      "opciones": [
+        "Servir de palanca para el movimiento y soportar el peso corporal",
+        "Proteger órganos internos como el corazón",
+        "Producir hormonas sexuales"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "El esqueleto humano se clasifica en:",
+      "opciones": [
+        "Esqueleto superior e inferior únicamente",
+        "Esqueleto axial (cráneo, columna, tórax) y esqueleto apendicular (extremidades y cinturas)",
+        "Esqueleto óseo y esqueleto cartilaginoso, sin más subdivisiones"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "El sistema urinario filtra la sangre y elimina desechos metabólicos en forma de orina. Sus órganos principales son los riñones (donde ocurre la filtración), los uréteres (conducen la orina hacia la vejiga), la vejiga urinaria (almacena la orina) y la uretra (la expulsa al exterior). La unidad funcional del riñón es la nefrona, donde ocurre la filtración glomerular, la reabsorción y la secreción tubular."
+    },
+    {
+      "pregunta": "¿Cuál es la unidad funcional y estructural básica del riñón?",
+      "opciones": [
+        "El glomérulo",
+        "El uréter",
+        "La nefrona"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "La filtración glomerular consiste en:",
+      "opciones": [
+        "El paso de agua y solutos pequeños de la sangre hacia la cápsula de Bowman, reteniendo células y proteínas grandes",
+        "La eliminación completa de la orina hacia el uréter",
+        "La producción de hormonas que regulan la presión arterial exclusivamente"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "El conducto que transporta la orina desde cada riñón hasta la vejiga urinaria es:",
+      "opciones": [
+        "La uretra",
+        "El uréter",
+        "La arteria renal"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "La uretra se diferencia del uréter en que la uretra:",
+      "opciones": [
+        "Conduce la orina desde el riñón hasta la vejiga",
+        "Filtra directamente la sangre para formar orina",
+        "Conduce la orina desde la vejiga hacia el exterior del cuerpo"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "Durante la reabsorción tubular en la nefrona, el organismo recupera hacia la sangre principalmente:",
+      "opciones": [
+        "Agua, glucosa y otros solutos útiles que habían sido filtrados",
+        "Únicamente los desechos nitrogenados como la urea",
+        "Proteínas plasmáticas de gran tamaño"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "La urea es un producto de desecho que se genera principalmente a partir de:",
+      "opciones": [
+        "La degradación de carbohidratos",
+        "La degradación de proteínas y aminoácidos",
+        "La degradación de ácidos grasos"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "La vejiga urinaria tiene como función principal:",
+      "opciones": [
+        "Filtrar la sangre para formar la orina",
+        "Reabsorber agua hacia el torrente sanguíneo",
+        "Almacenar temporalmente la orina antes de su expulsión"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "¿Qué estructura de la nefrona rodea al glomérulo y recibe el filtrado inicial de la sangre?",
+      "opciones": [
+        "La cápsula de Bowman",
+        "El asa de Henle",
+        "El túbulo colector"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "El proceso mediante el cual sustancias son transportadas activamente desde la sangre hacia el túbulo renal para ser excretadas se denomina:",
+      "opciones": [
+        "Filtración glomerular",
+        "Secreción tubular",
+        "Micción"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "La expulsión de la orina almacenada en la vejiga hacia el exterior se denomina:",
+      "opciones": [
+        "Secreción",
+        "Filtración",
+        "Micción"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "Si el riñón pierde la capacidad de reabsorber la glucosa filtrada, es probable encontrar en la orina:",
+      "opciones": [
+        "Presencia de glucosa (glucosuria)",
+        "Ausencia total de agua",
+        "Presencia de bilis en grandes cantidades"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "El ojo capta estímulos luminosos: la luz atraviesa la córnea y el cristalino, que la enfocan sobre la retina, donde los fotorreceptores (conos y bastones) transforman la luz en señales nerviosas que viajan por el nervio óptico. El oído se divide en oído externo (capta el sonido), oído medio (huesecillos que amplifican la vibración) y oído interno (cóclea, donde el sonido se transduce en impulso nervioso; y el sistema vestibular, encargado del equilibrio)."
+    },
+    {
+      "pregunta": "La estructura del ojo encargada de enfocar la luz variando su curvatura (acomodación) es:",
+      "opciones": [
+        "La córnea",
+        "El cristalino",
+        "El iris"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Los fotorreceptores responsables de la visión en blanco y negro y en condiciones de poca luz son:",
+      "opciones": [
+        "Los conos",
+        "Las células ganglionares",
+        "Los bastones"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "Los conos, a diferencia de los bastones, son responsables principalmente de:",
+      "opciones": [
+        "La visión a color y de alta agudeza en condiciones de buena iluminación",
+        "La visión periférica en la oscuridad total",
+        "La producción de humor acuoso"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "La retina transforma la energía luminosa en impulsos nerviosos que son enviados al cerebro a través de:",
+      "opciones": [
+        "El nervio auditivo",
+        "El nervio óptico",
+        "El nervio vago"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "El iris es la estructura del ojo que:",
+      "opciones": [
+        "Enfoca las imágenes sobre la retina",
+        "Transporta el impulso visual hacia el cerebro",
+        "Regula la cantidad de luz que entra al controlar el tamaño de la pupila"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "Los tres huesecillos del oído medio (martillo, yunque y estribo) tienen como función principal:",
+      "opciones": [
+        "Amplificar y transmitir las vibraciones del tímpano hacia el oído interno",
+        "Producir el líquido que llena la cóclea",
+        "Detectar la posición de la cabeza respecto a la gravedad"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "La estructura del oído interno encargada de transformar las vibraciones sonoras en impulsos nerviosos es:",
+      "opciones": [
+        "El tímpano",
+        "La cóclea",
+        "El pabellón auricular"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "El sistema vestibular, ubicado en el oído interno, es responsable principalmente de:",
+      "opciones": [
+        "La percepción del tono y volumen del sonido",
+        "La producción de cerumen",
+        "El equilibrio y la percepción de la posición y el movimiento de la cabeza"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "El tímpano es una membrana que:",
+      "opciones": [
+        "Vibra al recibir las ondas sonoras y transmite esa vibración a los huesecillos del oído medio",
+        "Convierte directamente el sonido en impulso nervioso",
+        "Se encuentra en el oído interno, junto a la cóclea"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "¿Qué parte del ojo aporta la mayor parte del poder de enfoque, aunque no puede ajustar su curvatura?",
+      "opciones": [
+        "El cristalino",
+        "La córnea",
+        "La retina"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Una persona que gira rápidamente y siente mareo o pérdida de equilibrio está experimentando principalmente una alteración en:",
+      "opciones": [
+        "La retina del ojo",
+        "El nervio óptico",
+        "El sistema vestibular del oído interno"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "Según la teoría de Brønsted-Lowry, un ácido es una sustancia capaz de donar protones ($H^+$) y una base es capaz de aceptarlos. Las reacciones de óxido-reducción (redox) implican transferencia de electrones: la oxidación es la pérdida de electrones y la reducción es la ganancia de electrones; el agente que se oxida reduce a otra sustancia (agente reductor) y el que se reduce oxida a otra (agente oxidante)."
+    },
+    {
+      "pregunta": "Según la teoría de Brønsted-Lowry, un ácido se define como una sustancia que:",
+      "opciones": [
+        "Dona protones ($H^+$) en una reacción química",
+        "Acepta protones ($H^+$) en una reacción química",
+        "Libera iones hidróxido ($OH^-$) exclusivamente"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "En una reacción ácido-base, la sustancia que acepta un protón se comporta como:",
+      "opciones": [
+        "Un ácido",
+        "Una base",
+        "Un agente oxidante"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "En química, la oxidación se define como:",
+      "opciones": [
+        "La ganancia de electrones por parte de un átomo, ion o molécula",
+        "La combinación de un ácido con una base para formar sal y agua",
+        "La pérdida de electrones por parte de un átomo, ion o molécula"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "La reducción, en el contexto de una reacción redox, implica:",
+      "opciones": [
+        "La ganancia de electrones por parte de una especie química",
+        "La pérdida de electrones por parte de una especie química",
+        "La liberación de protones hacia el medio acuoso"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "En una reacción redox, la sustancia que se oxida (pierde electrones) actúa como:",
+      "opciones": [
+        "Agente oxidante, porque provoca la oxidación de otra sustancia",
+        "Agente reductor, porque provoca la reducción de otra sustancia",
+        "Catalizador, porque acelera la reacción sin participar en ella"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Si el hierro metálico ($Fe$) reacciona con oxígeno y cede electrones para formar óxido de hierro, el hierro actúa como:",
+      "opciones": [
+        "Agente oxidante, ya que se reduce al ceder electrones",
+        "Un ácido, ya que dona protones",
+        "Agente reductor, ya que se oxida al ceder electrones"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "Una reacción de neutralización ocurre cuando:",
+      "opciones": [
+        "Un ácido reacciona con una base para producir una sal y agua",
+        "Un elemento se oxida completamente sin ninguna otra sustancia involucrada",
+        "Dos ácidos reaccionan entre sí para formar una base"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "El agente oxidante en una reacción redox es la sustancia que:",
+      "opciones": [
+        "Se oxida al perder electrones, provocando la reducción de otra sustancia",
+        "Se reduce al ganar electrones, provocando la oxidación de otra sustancia",
+        "Permanece químicamente inalterada durante toda la reacción"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "¿Cuál de las siguientes sustancias actúa como base según Brønsted-Lowry al aceptar un protón del agua?",
+      "opciones": [
+        "El ácido clorhídrico ($HCl$)",
+        "El dióxido de carbono ($CO_2$) sin disolver",
+        "El amoniaco ($NH_3$), que forma el ion amonio ($NH_4^+$)"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "En la combustión de un hidrocarburo, el carbono se combina con el oxígeno formando dióxido de carbono. Desde el punto de vista redox, el carbono:",
+      "opciones": [
+        "Se oxida, ya que pierde electrones frente al oxígeno",
+        "Se reduce, ya que gana electrones del oxígeno",
+        "No participa en ninguna transferencia de electrones"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Una disolución con exceso de iones hidróxido ($OH^-$) respecto a iones hidrógeno ($H^+$) se clasifica como:",
+      "opciones": [
+        "Ácida",
+        "Básica o alcalina",
+        "Neutra"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "El comportamiento de los gases ideales se describe mediante leyes empíricas: la Ley de Boyle relaciona presión y volumen a temperatura constante ($P_1V_1 = P_2V_2$); la Ley de Charles relaciona volumen y temperatura a presión constante ($\\dfrac{V_1}{T_1} = \\dfrac{V_2}{T_2}$); y la Ley de Avogadro relaciona el volumen con la cantidad de sustancia. Estas se combinan en la ecuación general de los gases ideales: $PV = nRT$."
+    },
+    {
+      "pregunta": "La Ley de Boyle establece que, a temperatura constante, la presión y el volumen de un gas son:",
+      "opciones": [
+        "Directamente proporcionales: si el volumen aumenta, la presión también aumenta",
+        "Independientes entre sí, sin ninguna relación matemática",
+        "Inversamente proporcionales: si el volumen disminuye, la presión aumenta"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "Según la Ley de Charles, si la presión de un gas se mantiene constante y su temperatura aumenta, su volumen:",
+      "opciones": [
+        "Aumenta de forma directamente proporcional a la temperatura",
+        "Disminuye de forma directamente proporcional a la temperatura",
+        "Permanece exactamente igual, sin cambio alguno"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "En la ecuación general de los gases ideales $PV = nRT$, la letra $n$ representa:",
+      "opciones": [
+        "La temperatura absoluta del gas",
+        "El número de moles del gas",
+        "La constante universal de los gases"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "En la ecuación $PV = nRT$, la temperatura $T$ debe expresarse siempre en:",
+      "opciones": [
+        "Grados Celsius",
+        "Grados Fahrenheit",
+        "Kelvin (escala absoluta)"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "Un gas se comprime a la mitad de su volumen original manteniendo la temperatura constante. Según la Ley de Boyle, su presión:",
+      "opciones": [
+        "Se duplica",
+        "Se reduce a la mitad",
+        "Permanece sin cambio"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "La Ley de Avogadro establece que, a la misma temperatura y presión, volúmenes iguales de gases distintos contienen:",
+      "opciones": [
+        "La misma masa, sin importar el tipo de gas",
+        "El mismo número de moléculas (o moles)",
+        "Diferente número de moléculas, según su densidad"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Si un gas se calienta dentro de un recipiente rígido de volumen constante, lo que ocurre principalmente es que:",
+      "opciones": [
+        "Su volumen aumenta proporcionalmente a la temperatura",
+        "El número de moles del gas disminuye",
+        "Su presión aumenta, ya que las partículas chocan con más frecuencia y energía contra las paredes"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "La constante $R$ en la ecuación de los gases ideales se conoce como:",
+      "opciones": [
+        "La constante universal de los gases",
+        "El número de Avogadro",
+        "La constante de Boltzmann exclusivamente"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Respirar a gran altitud resulta más difícil principalmente porque:",
+      "opciones": [
+        "La temperatura del aire aumenta considerablemente",
+        "La presión atmosférica disminuye, reduciendo la cantidad de oxígeno disponible por unidad de volumen de aire",
+        "El volumen de los pulmones se reduce de forma permanente"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Si se conocen la presión, el volumen y la temperatura de una muestra de gas, la ecuación $PV = nRT$ permite calcular directamente:",
+      "opciones": [
+        "La masa molecular exacta del gas sin ningún otro dato",
+        "El tipo de enlace químico presente en las moléculas del gas",
+        "El número de moles del gas presentes en la muestra"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "Un globo con gas se enfría considerablemente sin cambiar la presión externa. Según la Ley de Charles, se espera que el globo:",
+      "opciones": [
+        "Se contraiga, disminuyendo su volumen",
+        "Se expanda, aumentando su volumen",
+        "Explote debido al aumento de presión interna"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "La carga eléctrica es una propiedad fundamental de la materia: existen cargas positivas y negativas, y cargas iguales se repelen mientras que cargas opuestas se atraen. La corriente eléctrica ($I$) es el flujo de carga a través de un conductor, el voltaje ($V$) es la diferencia de potencial que impulsa esa corriente, y la resistencia ($R$) se opone al flujo de corriente. La Ley de Ohm relaciona estas tres cantidades: $V = IR$."
+    },
+    {
+      "pregunta": "La corriente eléctrica se define como:",
+      "opciones": [
+        "La fuerza con la que se atraen dos cargas eléctricas",
+        "El flujo de carga eléctrica a través de un conductor por unidad de tiempo",
+        "La cantidad total de carga almacenada en un cuerpo"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Según la Ley de Ohm ($V = IR$), si la resistencia de un circuito aumenta mientras el voltaje permanece constante, la corriente:",
+      "opciones": [
+        "Aumenta",
+        "Permanece exactamente igual",
+        "Disminuye"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "El voltaje (diferencia de potencial) en un circuito eléctrico representa:",
+      "opciones": [
+        "La energía necesaria para mover una unidad de carga entre dos puntos del circuito",
+        "La oposición que un material presenta al paso de la corriente",
+        "La cantidad de carga que fluye por segundo"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Dos cargas eléctricas del mismo signo, al acercarse, experimentan una fuerza de:",
+      "opciones": [
+        "Atracción",
+        "Repulsión",
+        "Ninguna fuerza, ya que se anulan entre sí"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Un material que ofrece muy poca resistencia al paso de la corriente eléctrica, como el cobre, se clasifica como:",
+      "opciones": [
+        "Buen aislante eléctrico",
+        "Semiconductor puro",
+        "Buen conductor eléctrico"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "La unidad de medida de la resistencia eléctrica en el Sistema Internacional es:",
+      "opciones": [
+        "El ohmio ($\\Omega$)",
+        "El voltio ($V$)",
+        "El amperio ($A$)"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Si un circuito tiene un voltaje de $12\\ V$ y una resistencia de $4\\ \\Omega$, la corriente que circula, según la Ley de Ohm, es de:",
+      "opciones": [
+        "$48\\ A$",
+        "$3\\ A$",
+        "$8\\ A$"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "En el cuerpo humano, los impulsos nerviosos se transmiten aprovechando principalmente el movimiento de:",
+      "opciones": [
+        "Electrones libres a través del citoplasma",
+        "Protones a través del núcleo celular",
+        "Iones (como sodio y potasio) a través de la membrana de la neurona"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "Un material aislante, como el plástico o el hule, se caracteriza por:",
+      "opciones": [
+        "Ofrecer una resistencia muy alta al paso de la corriente eléctrica",
+        "Permitir el flujo libre de corriente eléctrica",
+        "Atraer cargas eléctricas de cualquier signo con gran intensidad"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Para que exista una corriente eléctrica sostenida en un circuito, es indispensable que este forme:",
+      "opciones": [
+        "Un circuito abierto, sin conexión entre sus extremos",
+        "Un circuito cerrado, con una fuente de voltaje conectada al conductor",
+        "Una resistencia infinita en algún punto del circuito"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Si se duplica el voltaje aplicado a un circuito mientras la resistencia permanece constante, según la Ley de Ohm, la corriente:",
+      "opciones": [
+        "Se reduce a la mitad",
+        "Permanece sin cambio",
+        "También se duplica"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "El calor ($Q$) es energía que se transfiere entre cuerpos debido a una diferencia de temperatura, mientras que la temperatura mide la energía cinética promedio de las partículas de un cuerpo. La cantidad de calor necesaria para cambiar la temperatura de una sustancia se calcula con $Q = mc\\Delta T$, donde $m$ es la masa y $c$ el calor específico. El calor se transfiere por conducción, convección o radiación, y durante un cambio de estado (como la fusión o la ebullición) la temperatura permanece constante mientras dura el cambio."
+    },
+    {
+      "pregunta": "La diferencia fundamental entre calor y temperatura es que:",
+      "opciones": [
+        "El calor es energía en tránsito entre cuerpos, mientras que la temperatura mide la energía cinética promedio de sus partículas",
+        "El calor y la temperatura son exactamente lo mismo, solo con distinta unidad de medida",
+        "La temperatura es energía en tránsito, mientras que el calor mide el movimiento de las partículas"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "En la fórmula $Q = mc\\Delta T$, la letra $c$ representa:",
+      "opciones": [
+        "El cambio total de temperatura",
+        "El calor específico de la sustancia",
+        "La masa de la sustancia"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "El calor específico de una sustancia se define como:",
+      "opciones": [
+        "La temperatura máxima que puede alcanzar una sustancia antes de evaporarse",
+        "La cantidad total de energía almacenada en un cuerpo",
+        "La cantidad de calor necesaria para elevar en un grado la temperatura de una unidad de masa de esa sustancia"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "Durante el proceso de ebullición de un líquido, mientras dura el cambio de estado, su temperatura:",
+      "opciones": [
+        "Permanece constante, aunque se le siga suministrando calor",
+        "Aumenta de forma continua y proporcional al calor suministrado",
+        "Disminuye bruscamente hasta el punto de congelación"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "La transferencia de calor que ocurre por contacto directo entre partículas de un material, sin desplazamiento de materia, se denomina:",
+      "opciones": [
+        "Convección",
+        "Conducción",
+        "Radiación"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "El calentamiento del agua en una olla, donde las porciones más calientes ascienden y las más frías descienden, es un ejemplo de transferencia de calor por:",
+      "opciones": [
+        "Conducción",
+        "Radiación",
+        "Convección"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "La energía que el Sol transmite a la Tierra a través del espacio vacío se transfiere principalmente por:",
+      "opciones": [
+        "Radiación",
+        "Conducción",
+        "Convección"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Si dos cuerpos con distinta temperatura se ponen en contacto y se aíslan del exterior, el calor fluirá:",
+      "opciones": [
+        "Del cuerpo de menor temperatura hacia el de mayor temperatura",
+        "Del cuerpo de mayor temperatura hacia el de menor temperatura, hasta alcanzar el equilibrio térmico",
+        "En ambas direcciones por igual, sin alcanzar nunca el equilibrio"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Una sustancia con un calor específico muy alto, como el agua, necesita para elevar su temperatura una cantidad de calor:",
+      "opciones": [
+        "Menor que cualquier otra sustancia conocida",
+        "Exactamente igual, sin importar el calor específico de la sustancia",
+        "Mayor que otras sustancias de igual masa con menor calor específico"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "Durante la fiebre, el cuerpo humano eleva su temperatura interna. Desde el punto de vista termodinámico, esto implica:",
+      "opciones": [
+        "Un aumento en la energía cinética promedio de las partículas que forman los tejidos corporales",
+        "Una disminución total del calor almacenado en el organismo",
+        "La detención completa de la transferencia de calor con el ambiente"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "El equilibrio térmico entre dos cuerpos se alcanza cuando:",
+      "opciones": [
+        "Uno de los cuerpos transfiere toda su energía al otro sin recibir nada a cambio",
+        "Ambos cuerpos llegan a la misma temperatura y el flujo neto de calor entre ellos se detiene",
+        "La masa de ambos cuerpos se iguala por completo"
+      ],
+      "correcta": 1
+    }
+  ]
+}

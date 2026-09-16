@@ -1,5 +1,6 @@
-import { createContext, useContext, useEffect, useState, useCallback } from 'react'
+import { createContext, useContext, useEffect, useState, useCallback, useRef } from 'react'
 import { supabase } from '../services/supabaseClient'
+import { fusionarProgresoInvitado, leerProgresoInvitadoLocal } from '../services/progreso'
 
 const AuthContext = createContext(null)
 
@@ -9,6 +10,34 @@ export function AuthProvider({ children }) {
   const [perfil, setPerfil] = useState(null)
   const [esAdmin, setEsAdmin] = useState(false)
   const [esMaestro, setEsMaestro] = useState(false)
+  const fusionEnCursoRef = useRef(false)
+
+  // Progreso de invitado (sin cuenta) vive solo en localStorage (ver
+  // useProgreso.js) y useProgreso cambia de fuente en cuanto hay sesión —
+  // sin esto, el avance hecho antes de tener cuenta queda huérfano en el
+  // navegador y nunca se junta con lo que ya tenga la cuenta. Se intenta en
+  // cada aparición de sesión (carga inicial y cada cambio de auth): es
+  // idempotente porque solo borra las claves de localStorage si el RPC
+  // confirma que las guardó, así que reintentar tras un fallo de red no
+  // pierde nada, y una vez fusionado no queda nada que volver a fusionar.
+  const fusionarProgresoLocal = useCallback(async () => {
+    if (fusionEnCursoRef.current) return
+    const filas = leerProgresoInvitadoLocal()
+    if (filas.length === 0) return
+    fusionEnCursoRef.current = true
+    try {
+      const ok = await fusionarProgresoInvitado(filas)
+      if (ok) {
+        for (const { key } of filas) {
+          try { localStorage.removeItem(key) } catch { /* no crítico si falla */ }
+        }
+      }
+    } catch (e) {
+      console.error('[Auth] No se pudo fusionar el progreso de invitado:', e)
+    } finally {
+      fusionEnCursoRef.current = false
+    }
+  }, [])
 
   const refrescarPerfil = useCallback(async (userId) => {
     if (!userId) {
@@ -63,15 +92,17 @@ export function AuthProvider({ children }) {
       refrescarPerfil(sessionUser?.id)
       refrescarEsAdmin(sessionUser?.id)
       refrescarEsMaestro(sessionUser?.id)
+      if (sessionUser) fusionarProgresoLocal()
     })
     const { data: listener } = supabase.auth.onAuthStateChange((_event, session) => {
       setUser(session?.user ?? null)
       refrescarPerfil(session?.user?.id)
       refrescarEsAdmin(session?.user?.id)
       refrescarEsMaestro(session?.user?.id)
+      if (session?.user) fusionarProgresoLocal()
     })
     return () => listener.subscription.unsubscribe()
-  }, [refrescarPerfil, refrescarEsAdmin, refrescarEsMaestro])
+  }, [refrescarPerfil, refrescarEsAdmin, refrescarEsMaestro, fusionarProgresoLocal])
 
   return (
     <AuthContext.Provider value={{ user, cargando, perfil, esAdmin, esMaestro, refrescarPerfil: () => refrescarPerfil(user?.id) }}>

@@ -8,11 +8,11 @@
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import { obtenerAlumnosDeOfertas } from "../services/ofertasMaestro";
+import { obtenerAlumnosDeOfertas, marcarAgregadoGrupoWhatsapp } from "../services/ofertasMaestro";
 import { MATERIAS_TUTORIA, MATERIA_OTROS, nombreMateriaOferta } from "../data/materiasTutoria";
 
 import { AiOutlineClose } from "react-icons/ai";
-import { HiOutlineEnvelope, HiOutlinePhone } from "react-icons/hi2";
+import { HiOutlineEnvelope, HiOutlinePhone, HiOutlineClock, HiCheckCircle } from "react-icons/hi2";
 
 function fmtFecha(ts) {
   return ts
@@ -26,6 +26,7 @@ export default function AlumnosOfertas() {
 
   const [filas, setFilas] = useState(null);
   const [cargando, setCargando] = useState(true);
+  const [actualizandoId, setActualizandoId] = useState(null);
 
   useEffect(() => {
     if (!user) return;
@@ -36,6 +37,19 @@ export default function AlumnosOfertas() {
       setFilas(data);
     })();
   }, [user]);
+
+  async function alternarGrupoWhatsapp(alumno) {
+    const nuevoValor = !alumno.agregado_a_grupo_whatsapp;
+    setActualizandoId(alumno.transaccion_id);
+    const { error } = await marcarAgregadoGrupoWhatsapp(alumno.transaccion_id, nuevoValor);
+    setActualizandoId(null);
+    if (error) return;
+    setFilas((prev) =>
+      prev.map((f) =>
+        f.transaccion_id === alumno.transaccion_id ? { ...f, agregado_a_grupo_whatsapp: nuevoValor } : f
+      )
+    );
+  }
 
   const ofertas = useMemo(() => {
     if (!filas) return [];
@@ -133,6 +147,35 @@ export default function AlumnosOfertas() {
                         {alumno.telefono && (
                           <p style={{ fontSize: 12, color: "var(--text-muted)", margin: "4px 0 0", display: "flex", alignItems: "center", gap: 6 }}>
                             <HiOutlinePhone /> {alumno.telefono}
+                          </p>
+                        )}
+                        <button
+                          type="button"
+                          onClick={() => alternarGrupoWhatsapp(alumno)}
+                          disabled={actualizandoId === alumno.transaccion_id}
+                          style={{
+                            marginTop: 8,
+                            minHeight: 36,
+                            padding: "0 12px",
+                            borderRadius: 8,
+                            fontSize: 12,
+                            fontWeight: 700,
+                            display: "flex",
+                            alignItems: "center",
+                            gap: 6,
+                            cursor: actualizandoId === alumno.transaccion_id ? "default" : "pointer",
+                            opacity: actualizandoId === alumno.transaccion_id ? 0.6 : 1,
+                            border: alumno.agregado_a_grupo_whatsapp ? "1px solid var(--correct)" : "1px solid var(--border-strong)",
+                            background: alumno.agregado_a_grupo_whatsapp ? "rgba(74,222,128,0.12)" : "var(--surface)",
+                            color: alumno.agregado_a_grupo_whatsapp ? "var(--correct)" : "var(--text-muted)",
+                          }}
+                        >
+                          {alumno.agregado_a_grupo_whatsapp ? <HiCheckCircle /> : <HiOutlineClock />}
+                          {alumno.agregado_a_grupo_whatsapp ? "Agregado al grupo de WhatsApp" : "Marcar como agregado a WhatsApp"}
+                        </button>
+                        {alumno.agregado_a_grupo_whatsapp && (
+                          <p style={{ fontSize: 10.5, color: "var(--text-muted)", margin: "4px 0 0" }}>
+                            ¿Te equivocaste? Vuelve a tocar el botón para desmarcarlo.
                           </p>
                         )}
                       </div>

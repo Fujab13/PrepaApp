@@ -293,6 +293,17 @@ display: flex;
 @keyframes spin {
   to { transform: rotate(360deg); }
 }
+
+/* Anillo pulsante detrás de un ícono, para tarjetas de "esperando algo"
+   (ej. aviso de grupo de WhatsApp pendiente en PublicacionOfertas.jsx). */
+.pulso-espera {
+  animation: pulso-espera 1.8s ease-out infinite;
+}
+
+@keyframes pulso-espera {
+  0% { transform: scale(0.85); opacity: 0.35; }
+  70%, 100% { transform: scale(1.4); opacity: 0; }
+}
 /*---------------------------------------------------------------*/
 /* Cabecera superior estandar de las paginas, inspirada en Home.jsx */
 .page-topbar {
@@ -525,17 +536,6 @@ display: flex;
   transform-box: fill-box;
   transform-origin: center;
   animation: hg-brillo-sweep 7s ease-in-out infinite;
-}
-/*---------------------------------------------------------------*/
-/* Tutorias.jsx: ranking semanal. Anillo de brillo alrededor del avatar del
-   1er lugar, para que la sección se sienta como un sistema de logros y no
-   como una tarjeta más entre las demás opciones de la página. */
-@keyframes rk-brillo-anillo {
-  0%, 100% { box-shadow: 0 0 0 3px rgba(229, 193, 88, 0.55), 0 0 18px 2px rgba(229, 193, 88, 0.35); }
-  50%      { box-shadow: 0 0 0 3px rgba(229, 193, 88, 0.85), 0 0 26px 6px rgba(229, 193, 88, 0.55); }
-}
-.rk-anillo-oro {
-  animation: rk-brillo-anillo 2.4s ease-in-out infinite;
 }
 /*---------------------------------------------------------------*/
 /* Mascota.jsx: rebote de "vivo" para cada mascota en el sandbox — la

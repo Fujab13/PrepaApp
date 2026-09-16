@@ -16,3 +16,21 @@ export async function obtenerAlumnosDeOfertas() {
 
   return data ?? [];
 }
+
+/**
+ * Alterna (RPC SECURITY DEFINER `marcar_agregado_grupo_whatsapp`, ver
+ * migración 20260917140000) si un alumno ya fue agregado al grupo de
+ * WhatsApp de la clase. Solo el maestro dueño de la oferta puede llamarla.
+ */
+export async function marcarAgregadoGrupoWhatsapp(transaccionId, valor) {
+  const { error } = await supabase.rpc('marcar_agregado_grupo_whatsapp', {
+    p_transaccion_id: transaccionId,
+    p_valor: valor,
+  });
+
+  if (error) {
+    console.error('[ofertasMaestro] No se pudo actualizar el estado de WhatsApp:', error.message);
+  }
+
+  return { error };
+}

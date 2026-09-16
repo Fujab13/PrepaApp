@@ -84,7 +84,7 @@ export const COIN_ITEMS = [
     categoria: 'Mascotas',
     icono: 'FaHamburger',
     nombre: 'Snack Pack (x10)',
-    descripcion: 'Alimenta a tus mascotas en Mi Mascota.',
+    descripcion: 'Alimenta + clic y podrás ver las respuestas por 2 min.',
     type: 'coins',
     // ~9-10 monedas en promedio por unidad completada (ver
     // EscaneoRecompensa.jsx, calibrado ahí) — 25 la deja al alcance de

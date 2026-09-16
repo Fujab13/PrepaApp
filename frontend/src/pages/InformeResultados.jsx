@@ -22,6 +22,7 @@
 import { useMemo, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import { useNombreAlumno } from "../hooks/useNombreAlumno";
 import { obtenerFormulariosPorEmail, obtenerResultadosPorEmail, obtenerProgresoPorEmail } from "../services/informes";
 import { calcularStatsPorSeccion } from "../utils/examenStats";
 import { PREGUNTAS } from "../data/examen";
@@ -311,7 +312,12 @@ function VistaFormulario({ datos }) {
 }
 
 // ── Vista: examen simulador ─────────────────────────────────────────────────
-function VistaExamen({ datos }) {
+// `soloProblemas`: modo maestro (búsqueda por correo) — el detalle de
+// respuestas solo interesa para dar seguimiento a errores, así que se oculta
+// lo que ya está bien (correctas y sin contestar) y se deja incorrectas +
+// marcadas. En la vista del propio alumno (PaginaExamen) se sigue mostrando
+// el detalle completo.
+function VistaExamen({ datos, soloProblemas = false }) {
   const nivel = nivelExamen(datos.precisionGlobal);
   const tiempos = Object.values(datos.tiemposPregunta ?? {}).filter((t) => typeof t === "number");
   const tiempoMax = tiempos.length ? Math.max(...tiempos) : null;
@@ -384,10 +390,27 @@ function VistaExamen({ datos }) {
         </Section>
       )}
 
-      {datos.tieneDetalle && (
-        <Section title="Detalle de respuestas">
+      {datos.tieneDetalle && (() => {
+        const preguntasDetalle = soloProblemas
+          ? datos.preguntas.filter((p) => {
+              const resp = datos.respuestas[p.id];
+              const contestadaMal = Boolean(resp) && resp !== p.inciso_correcto;
+              return contestadaMal || datos.marcadas?.includes(p.id);
+            })
+          : datos.preguntas;
+        if (soloProblemas && preguntasDetalle.length === 0) {
+          return (
+            <Section title="Detalle de respuestas">
+              <p style={{ fontSize: 12.5, color: "var(--text-muted)", textAlign: "center", margin: "8px 0" }}>
+                Sin errores ni preguntas marcadas — todo lo demás está bien o sin contestar.
+              </p>
+            </Section>
+          );
+        }
+        return (
+        <Section title={soloProblemas ? `Errores y marcadas (${preguntasDetalle.length})` : "Detalle de respuestas"}>
           <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-            {datos.preguntas.map((p) => {
+            {preguntasDetalle.map((p) => {
               const resp = datos.respuestas[p.id];
               const correc = p.inciso_correcto;
               const acierto = resp === correc;
@@ -414,25 +437,30 @@ function VistaExamen({ datos }) {
             })}
           </div>
         </Section>
-      )}
+        );
+      })()}
     </div>
   );
 }
 
 // ── Vista: progreso de lecciones por materia (modo maestro únicamente) ─────
 // A diferencia del formulario/examen (una respuesta puntual), el progreso es
-// "cuánto lleva avanzado" en cada materia con lección gratuita — se calcula
-// contra el mismo total de unidades que usa Leccion.jsx (getTotalUnidades),
-// para que el porcentaje que ve el maestro sea el mismo que vería el alumno.
+// "cuánto lleva avanzado" en cada materia con lección — se calcula contra el
+// mismo total de unidades que usa Leccion.jsx (getTotalUnidades), para que
+// el porcentaje que ve el maestro sea el mismo que vería el alumno.
 function VistaProgreso({ progreso }) {
   const filas = progreso.map((p) => {
     // Lecciones gratuitas: el total de unidades se conoce localmente (mismo
     // JSON que carga el alumno). Lecciones premium (materia_id
-    // "premium-<producto_id>", ver Leccion.jsx): no hay forma de saber su
-    // total de unidades sin descargar el JSON privado del bucket, así que
-    // solo se muestra la unidad actual, sin porcentaje ni "de Y".
+    // "premium-<producto_id>", ver Leccion.jsx): el total lo trae ya
+    // resuelto la propia RPC (`total_unidades`, columna en `productos` que
+    // el comprador registra la primera vez que abre su lección — ver
+    // migración 20260916120000 y registrarTotalUnidadesProducto en
+    // Leccion.jsx). Si esa lección nunca se abrió desde este cambio en
+    // adelante, total_unidades sigue en null y se cae al mismo respaldo de
+    // antes: solo la unidad actual, sin porcentaje ni "de Y".
     const materia = MATERIAS.find((m) => m.id === p.materia_id);
-    const totalUnidades = materia ? getTotalUnidades(materia.preguntas) : null;
+    const totalUnidades = materia ? getTotalUnidades(materia.preguntas) : (p.total_unidades ?? null);
     const unidadesCompletas = totalUnidades ? Math.min(Math.max(p.unidad_actual - 1, 0), totalUnidades) : 0;
     const pct = totalUnidades ? Math.round((unidadesCompletas / totalUnidades) * 100) : 0;
     return {
@@ -440,7 +468,7 @@ function VistaProgreso({ progreso }) {
       label: materia?.nombre || p.nombre_premium || p.materia_id,
       color: materia?.color || "#7c5cbf",
       valorTexto: totalUnidades
-        ? `Unidad ${unidadesCompletas} de ${totalUnidades} · ${pct}%`
+        ? `Unidad ${unidadesCompletas}/${totalUnidades} · ${pct}%`
         : `Unidad ${Math.max(p.unidad_actual - 1, 0)}`,
       pct,
       ultimaInteraccion: p.ultima_interaccion,
@@ -514,12 +542,22 @@ function PaginaFormulario({ formulario, navigate }) {
 
 // ── Modo alumno: recién terminó el examen ──────────────────────────────────
 function PaginaExamen({ examen, navigate }) {
+  const { user } = useAuth();
   const datos = useMemo(() => adaptarExamen(examen, true), [examen]);
   const imprimir = () => imprimirComoPdf(nombrePdf("Resultados del examen", datos.generadoEn));
+
+  const nombre = useNombreAlumno(user?.email) || user?.email;
   return (
     <div className="informe-print" style={{ display: "flex", flexDirection: "column", minHeight: "100vh", background: "var(--bg)", color: "var(--text)" }}>
       <Topbar titulo="Resultados del examen" onSalir={() => navigate("/")} onImprimir={imprimir} />
       <main className="page-content-compact" style={{ flex: 1, paddingBottom: 40 }}>
+        <div style={{ textAlign: "center", marginBottom: 20 }}>
+          <p style={{ margin: 0, fontSize: 11, letterSpacing: "0.15em", textTransform: "uppercase", color: "#4f8ef7", fontWeight: 700 }}>PrepaApp</p>
+          <h1 style={{ margin: "4px 0 0", fontSize: 17, fontWeight: 800 }}>
+            Resultados de {nombre || "tu examen"}
+          </h1>
+          <p style={{ margin: "6px 0 0", fontSize: 11, color: "var(--text-muted)" }}>Generado el {fmtFecha(datos.generadoEn)}</p>
+        </div>
         <VistaExamen datos={datos} />
         <div className="no-print" style={{ display: "flex", gap: 10, marginTop: 20 }}>
           <button onClick={() => navigate("/")} className="gm-cta" style={{ flex: 1, minHeight: 44, borderRadius: 12, border: "0.5px solid var(--surface)", background: "var(--surface2)", color: "var(--text)", fontWeight: 600, fontSize: 14 }}>
@@ -603,7 +641,7 @@ function TarjetaAlumno({ alumno }) {
               {alumno.examenes.length > 1 && (
                 <SelectorHistorico items={alumno.examenes} idx={idxExamen} onChange={setIdxExamen} campoFecha="creado_en" etiqueta="examen" />
               )}
-              <VistaExamen datos={adaptarExamen(examen, false)} />
+              <VistaExamen datos={adaptarExamen(examen, false)} soloProblemas />
             </>
           )}
         </div>

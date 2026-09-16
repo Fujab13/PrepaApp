@@ -1,0 +1,226 @@
+Configurar Resend como SMTP de Supabase Auth
+=============================================
+
+Contexto: el correo de confirmación de registro (y el de "olvidé mi
+contraseña") no está llegando porque el proyecto usa el servicio de correo
+compartido de Supabase (sin SMTP propio configurado) — ese servicio tiene un
+límite muy bajo (pocos correos/hora) y no está pensado para producción.
+
+Ya existe un helper para Resend en supabase/functions/_shared/resend.ts
+(enviarCorreo, vía API HTTP de Resend), pero ese es para correos que mande un
+edge function a mano (ej. notificaciones a profesores) — es independiente de
+esto. Lo que falta configurar es el SMTP de Supabase Auth, que usa el
+protocolo SMTP, no la API de Resend.
+
+Pasos:
+
+1. Crear cuenta en resend.com (plan gratis: ~100 correos/día, ~3,000/mes,
+   gratis de forma permanente, no es trial).
+
+2. Verificar un dominio propio en Resend (Dashboard → Domains → Add Domain):
+   agrega los registros DNS que pida (SPF, DKIM, y DMARC si lo sugiere) en el
+   proveedor donde esté el dominio. Sin dominio verificado no se pueden
+   mandar correos desde una dirección tipo "no-reply@tudominio.com" (usar el
+   dominio de onboarding de Resend solo sirve para pruebas, no producción).
+
+3. Generar credenciales SMTP en Resend (Dashboard → SMTP, o reusar la
+   API key como password):
+     Host: smtp.resend.com
+     Puerto: 465 (SSL) o 587 (TLS)
+     Usuario: resend
+     Password: la API key de Resend (empieza con "re_")
+
+4. En el Dashboard de Supabase → Authentication → Emails → SMTP Settings:
+   - Activar "Enable Custom SMTP"
+   - Host / Puerto / Usuario / Password: los de arriba
+   - Sender email: una dirección del dominio verificado (ej.
+     no-reply@tudominio.com)
+   - Sender name: "PrepaApp"
+
+5. Probar: registrar una cuenta nueva con correo/contraseña y confirmar que
+   el correo de confirmación llega (revisar spam la primera vez). Repetir
+   con "¿Olvidaste tu contraseña?" en Login.jsx.
+
+Nota de costos (meta: 50,000 usuarios sin gastar antes de llegar ahí):
+el límite a vigilar es el de "por día" (~100/día en el plan gratis), no el
+mensual. Si algún día hay un pico de registros el mismo día (ej. un profesor
+comparte la app con muchos alumnos a la vez), ese día se trabarían las
+confirmaciones pasado el correo 100. Cuando eso empiece a pasar, subir de
+plan en Resend es barato y solo se paga cuando ya haya ese volumen real, no
+antes.
+
+
+Tengo una pregunta pero me parece que las lecciones del bucket privado de supabase tienen un manejo distinto que los examenes pero no estoy seguro
+
+   Searched for 2 patterns, read 3 files, ran 1 shell command
+
+Sí, confirmado: son dos sistemas completamente distintos, y tu sospecha es correcta. Te explico la diferencia técnica exacta:
+
+Lecciones premium (lo que edité: medicina.json)
+
+- Bucket: Lecciones privadas.
+- Clave del archivo en Storage: productos.nombre tal cual (ej. "medicina.json") — services/leccionesPremium.js.
+- Ruta al abrirla: /leccion/premium-<productoId>, la renderiza Leccion.jsx.
+- Esquema: { titulo, icono, color, descripcion, preguntas: [{ pregunta, opciones: [3 strings], correcta: 0|1|2 }] } — el mismo motor de las lecciones gratuitas (getPreguntasDeUnidad/getTotalUnidades, 12 preguntas por unidad, tarjetas de concepto sin opciones, etc.).
+
+Exámenes premium (lo que no toqué: EXAMEN_MEDICINA.json / EXAMEN_MATEMATICAS_60_PREGUNTAS.json)
+
+- Bucket distinto: Examenes comprados (no "Lecciones privadas").
+- Clave del archivo: productos.sku, no productos.nombre — services/examenesPremium.js lo explica: Supabase Storage rechaza keys con acentos/espacios, y el nombre real del producto tiene ambos (ej. "Intento adicional - Examen Diagnóstico"), así que usan el SKU como identificador estable.
+- Ruta al abrirla: /examen/premium-<productoId>, la renderiza Examen.jsx (el mismo motor del examen diagnóstico gratuito de /examen, no Leccion.jsx).
+- Esquema totalmente distinto: { nombre, secciones: [{ nombre, id_inicio, id_fin, color }], preguntas: [{ id, pregunta, enlace_svg, respuestas: [4 strings "A. ..."/"B. ..."/...], inciso_correcto: "A"|"B"|"C"|"D" }] } — 4 opciones con letra incrustada en el texto y inciso_correcto como letra, organizado por secciones con rango de IDs, igual que src/data/examen.js. Nada de "unidades de 12" ni tarjetas de concepto.
+
+En resumen: Inventario.jsx decide cuál usar según producto.tipo_producto — si es 'intento_examen' va por el flujo de exámenes (sku, bucket "Examenes comprados", esquema de 4 opciones/letra); cualquier otro tipo (leccion_digital, etc.) va por el flujo de lecciones (nombre, bucket "Lecciones privadas", esquema de 3 opciones/índice) — que es exactamente lo que ya edité en medicina.json.
+
+
+suspencion - Integración de Whapi.Cloud: grupo de WhatsApp por clase pagada
+================================================================
+
+Objetivo: cuando un alumno reserva y paga una clase de ofertas_maestro, se
+le agrega solo (sin que nadie tenga que invitarlo a mano) a un grupo de
+WhatsApp de esa clase — el profesor queda como admin, el número de PrepaApp
+(el que conecta el canal de Whapi) queda como dueño del grupo, el grupo
+tiene el logo de PrepaApp, y se llama:
+  <nombre que el profesor le dio a su oferta> <fecha de la clase> -PrepaApp
+Si el profesor no le puso nombre a su oferta, se usa el nombre de la materia.
+Es UN grupo por oferta (clase), no uno por alumno: todos los que reservan la
+misma clase entran al mismo grupo.
+
+YA IMPLEMENTADO EN EL CÓDIGO (esta conversación):
+  - supabase/migrations/20260917130000_whatsapp_grupo_clase.sql
+      · ofertas_maestro.titulo (nombre libre de la oferta, opcional)
+      · ofertas_maestro.grupo_whatsapp_id (se llena la primera vez que se
+        crea el grupo de esa oferta)
+      · transacciones.telefono_whatsapp (el alumno lo captura antes de pagar)
+      · RPC guardar_telefono_reserva(p_transaccion_id, p_telefono)
+  - supabase/functions/_shared/whapi.ts — todas las llamadas a la API de
+    Whapi (checar teléfono, crear grupo, promover admin, poner ícono,
+    agregar participante) y la función orquestadora
+    agregarAlumnoAGrupoClase(supabaseAdmin, transaccionId).
+  - Se llama desde supabase/functions/stripe-webhook/index.ts y
+    supabase/functions/verificar-pago-oferta-maestro/index.ts, justo
+    después de que procesar_pago_completado confirma el pago de una
+    oferta_maestro. Un fallo de Whapi NUNCA bloquea ni revierte el pago —
+    solo se loguea (console.error), igual que otros fallos "no críticos" ya
+    existentes en el proyecto (ver FormularioArea.jsx).
+  - src/components/PublicacionOfertas.jsx: input opcional de "nombre de la
+    clase" al publicar una oferta, e input obligatorio de WhatsApp justo
+    antes de "Pagar ahora" (se guarda vía guardar_telefono_reserva antes de
+    ir a Stripe Checkout).
+
+FALTA (esto SÍ lo tienes que hacer tú, fuera del código):
+
+1. Aplicar la migración a la base de datos real:
+     supabase db push
+   (o el flujo que ya uses para aplicar migraciones — no la apliqué yo
+   automáticamente porque toca la base de datos en producción).
+
+2. Desplegar los edge functions modificados:
+     supabase functions deploy stripe-webhook
+     supabase functions deploy verificar-pago-oferta-maestro
+
+3. Crear cuenta en whapi.cloud y crear un canal (channel):
+   - En el Dashboard de Whapi, al crear el canal te va a pedir escanear un
+     código QR con WhatsApp — hazlo desde el celular con el número oficial
+     de PrepaApp (necesita ser un número dedicado, con su propio SIM o al
+     menos no compartido con otro WhatsApp Web activo; si cierras sesión de
+     WhatsApp Web en ese teléfono, el canal se desconecta).
+   - Ese número queda como "dueño" (creator) de todos los grupos que cree el
+     canal — es justo el comportamiento que pediste.
+
+4. Copiar el token del canal (Dashboard → tu canal → Settings/API) y
+   guardarlo como secreto del proyecto (NUNCA en el frontend ni en .env
+   del repo):
+     supabase secrets set WHAPI_TOKEN=tu_token_aqui
+
+5. Confirmar que el logo esté accesible públicamente: el código usa
+   https://prepa-app-iota.vercel.app/logo.png (el mismo public/logo.png que
+   ya sirve el frontend). Si cambias de dominio (dominio propio, etc.) hay
+   que actualizar la constante LOGO_URL en
+   supabase/functions/_shared/whapi.ts.
+
+6. Asegurar que los profesores tengan su teléfono guardado: el código lee
+   profesores.telefono_contacto. Hoy ese campo es OPCIONAL al registrarse
+   (ver registrar_profesor_propio) — si un profesor no lo llenó, sus
+   ofertas nunca van a poder crear grupo (se loguea el error, pero nadie se
+   entera solo con eso). Vale la pena, en algún momento, hacerlo obligatorio
+   en el formulario de registro/edición de profesor, o avisarle al profesor
+   en su portal si le falta.
+
+7. Probar el flujo completo de punta a punta: publicar una oferta, reservarla
+   con OTRA cuenta, pagar con una tarjeta de prueba de Stripe, y confirmar
+   que el grupo se crea con el nombre esperado, el profesor queda de admin,
+   el ícono se ve, y el alumno entra solo.
+
+IMPORTANTE — Whapi NO es gratis de verdad para esto, a diferencia de Resend:
+  - Tiene un tier gratis para siempre ("Developer Sandbox"), pero con
+    límites chicos: ~5 conversaciones activas/mes, 150 mensajes/día, 30
+    checks de número/día, 1,000 requests de API/mes.
+  - Cada clase pagada gasta varias de esas cuotas (checar 1-2 teléfonos,
+    crear o usar grupo, agregar participante, a veces promover admin/poner
+    ícono) — en cuanto tengas más de un puñado de clases pagadas al mes, el
+    Sandbox se queda corto.
+  - El plan de verdad ("Developer Premium") cuesta $29-40 USD/mes POR
+    NÚMERO/canal (más barato en anual). A diferencia del correo (Resend),
+    aquí es probable que necesites empezar a pagar ANTES de los 50,000
+    usuarios, en cuanto el negocio de tutorías tenga tracción real — es un
+    costo a presupuestar, no algo que se quede gratis indefinidamente como
+    el correo transaccional.
+  - Recomendación: usa el Sandbox ahora para construir y probar todo el
+    flujo (ya lo cubre de sobra), y sube a Premium cuando empieces a ver
+    reservas reales de clases con cierto volumen.
+
+Nota aparte, sin relación con Whapi: el bloque justo arriba de este (sobre
+buckets de lecciones/exámenes) apareció pegado en este archivo entre mi
+última edición y esta — no lo escribí yo ni lo borré, por si no fue
+intencional.
+
+
+ACTUALIZACIÓN (misma conversación): EN PAUSA por ahora
+-------------------------------------------------------
+Se decidió NO activar esto por el momento (el costo de Whapi no encaja con
+la meta de mantenerse gratis hasta los 50,000 usuarios). Lo que quedó:
+
+- Se REVIRTIÓ el input obligatorio de WhatsApp antes de "Pagar ahora" y la
+  llamada a guardar_telefono_reserva en PublicacionOfertas.jsx — ya no
+  bloquean el pago (no tenía sentido pedir el teléfono sin nada que lo
+  consumiera todavía).
+- Se DEJARON tal cual, en pausa/sin usar: la migración
+  20260917130000_whatsapp_grupo_clase.sql (no se aplicó con `supabase db
+  push`, así que las columnas/RPC ni existen todavía en la base real),
+  supabase/functions/_shared/whapi.ts, y las dos líneas que lo llaman desde
+  stripe-webhook / verificar-pago-oferta-maestro. Son inofensivas: sin la
+  migración aplicada y sin WHAPI_TOKEN configurado, esas llamadas nunca se
+  disparan de verdad. Si más adelante se quiere retomar, todos los pasos de
+  arriba (1-7) siguen siendo el plan a seguir.
+- En vez de la automatización, se implementó coordinación 100% manual (ver
+  siguiente sección) — sin ninguna dependencia externa ni costo.
+
+
+Coordinación manual de WhatsApp: botón del maestro + mensaje de espera
+------------------------------------------------------------------------
+Reemplaza lo anterior: en vez de que la app cree el grupo sola, el maestro
+lo hace a mano y solo le avisa a la app cuándo ya agregó a cada alumno.
+
+- supabase/migrations/20260917140000_agregado_grupo_whatsapp.sql
+    · transacciones.agregado_a_grupo_whatsapp (boolean, default false)
+    · RPC marcar_agregado_grupo_whatsapp(p_transaccion_id, p_valor) — solo
+      el maestro dueño de la oferta puede llamarla; es un TOGGLE (se puede
+      desmarcar si el maestro se equivocó o rehace el grupo).
+    · obtener_alumnos_ofertas_maestro() rehecha (DROP+CREATE) para incluir
+      transaccion_id y agregado_a_grupo_whatsapp.
+  ESTA migración TAMPOCO se aplicó todavía — hace falta `supabase db push`
+  igual que la de Whapi (se puede aplicar una sola vez, junto con la
+  anterior).
+- src/pages/AlumnosOfertas.jsx (portal del maestro, "Alumnos inscritos"):
+  cada alumno tiene un botón "Marcar como agregado a WhatsApp" / "Agregado
+  al grupo de WhatsApp" (cambia de color/ícono según el estado) que llama
+  al RPC de arriba.
+- src/components/PublicacionOfertas.jsx, modo alumno (usado por /ofertas y
+  /tutorias/alumno): arriba de todo, un recuadro por cada clase ya pagada
+  cuyo agregado_a_grupo_whatsapp siga en false, con el texto "tu maestro te
+  añadirá al grupo de WhatsApp de esta clase en las próximas horas".
+  Desaparece solo (sin recargar la página) en cuanto el maestro lo marca:
+  se vuelve a consultar cada vez que el alumno regresa a la pestaña.
+  Deliberadamente NO está en el comprobante de OfertaConfirmada.jsx — ese
+  se dejó como estaba antes.
