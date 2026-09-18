@@ -245,6 +245,25 @@ export default function MisGanancias() {
           <p style={{ color: "var(--text-muted)", fontSize: 13, textAlign: "center" }}>Cargando…</p>
         )}
 
+        {!cargandoAuth && !user && (
+          <div className="sp-card" style={{ textAlign: "center" }}>
+            <p style={{ fontSize: 14, color: "var(--text)", marginBottom: 12 }}>
+              Necesitas iniciar sesión para ver tus ganancias.
+            </p>
+            <button
+              onClick={() => navigate("/login?modo=login")}
+              className="gm-cta"
+              style={{
+                minHeight: 44, padding: "0 20px", borderRadius: 12, border: "none",
+                background: "#4f8ef7", color: "#fff", fontWeight: 700, cursor: "pointer",
+                boxShadow: "0 4px 14px rgba(79, 142, 247, 0.3)",
+              }}
+            >
+              Iniciar sesión
+            </button>
+          </div>
+        )}
+
         {!cargandoAuth && user && !esMaestro && (
           <div className="sp-card" style={{ textAlign: "center" }}>
             <p style={{ fontSize: 14, color: "var(--text)", margin: 0 }}>Este portal es solo para maestros registrados.</p>

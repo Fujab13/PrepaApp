@@ -116,6 +116,23 @@ function iniciarMotorGenerativo(ctx, masterGain) {
   reverbGain.connect(limitador)
   limitador.connect(masterGain)
 
+  // Truco anti "denormal number stall": el filtro y el reverb son nodos
+  // RECURSIVOS (arrastran estado interno de un frame de audio al siguiente).
+  // Con las colas de decaimiento largas de las voces de piano (hasta ~15s
+  // por nota, setTargetAtTime nunca llega exactamente a 0), ese estado
+  // interno puede quedarse "vibrando" en el rango de números denormalizados
+  // — un valor tan cercano a cero que la CPU los procesa cientos de veces
+  // más lento en algunos navegadores (sobre todo móvil/Safari). Eso es justo
+  // lo que se oye como crujidos/interferencia intermitente: no es un bug de
+  // lógica, es que el hilo de audio se queda sin tiempo real cuando eso
+  // pasa. Una señal DC constante e inaudible (muy por debajo del umbral de
+  // audición humana) mantiene el estado interno lejos de cero para siempre,
+  // sin que se note, así nunca cae en ese rango.
+  const antiDenormal = ctx.createConstantSource()
+  antiDenormal.offset.value = 0.000001
+  antiDenormal.connect(filtro)
+  antiDenormal.start()
+
   let indiceAcorde = 0
 
   // Pedal grave: nota sostenida en la raíz del acorde ACTUAL, un recurso
@@ -259,6 +276,7 @@ function iniciarMotorGenerativo(ctx, masterGain) {
     timeouts.forEach(clearTimeout)
     lfo.stop()
     lfoSwellDrone.stop()
+    antiDenormal.stop()
     osciladoresDrone.forEach((o) => {
       try { o.stop() } catch { /* ya pudo haber terminado sola */ }
     })

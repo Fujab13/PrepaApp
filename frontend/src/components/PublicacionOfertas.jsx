@@ -1,14 +1,15 @@
 // PublicacionOfertas.jsx
-// Muestra y (opcionalmente) permite publicar ofertas de la tabla
-// `ofertas_maestro` (ver supabase/migrations/20260809120000_ofertas_maestro.sql)
-// — sistema simple, separado del marketplace bidireccional de
-// ofertas_tutoria: aquí solo el maestro publica.
+// Portal de ALUMNOS (solo lectura + reservar) sobre la tabla `ofertas_maestro`
+// (ver supabase/migrations/20260809120000_ofertas_maestro.sql) — sistema
+// simple, separado del marketplace bidireccional de ofertas_tutoria: aquí
+// solo el maestro publica (desde TutoriasMaestro.jsx, con su propio gate de
+// maestro verificado; este componente nunca publica ni borra ofertas).
 //
-// El lado alumno (permitirPublicar=false) YA sí tiene flujo de pago dentro
-// de la app (ver supabase/migrations/20260810130000_reservas_ofertas_maestro.sql
-// y 20260810140000_marcar_reserva_fallida_maestro.sql): reservar un asiento
-// es un mutex con TTL de 15 min sobre `transacciones`, no un INSERT directo.
-// El ciclo completo que sigue este componente es:
+// Ya tiene flujo de pago dentro de la app (ver
+// supabase/migrations/20260810130000_reservas_ofertas_maestro.sql y
+// 20260810140000_marcar_reserva_fallida_maestro.sql): reservar un asiento es
+// un mutex con TTL de 15 min sobre `transacciones`, no un INSERT directo. El
+// ciclo completo que sigue este componente es:
 //   1. "ping" -> asientos_disponibles_oferta_maestro (al cargar y tras cada
 //      acción, para no mostrar cupo desactualizado)
 //   2. "reservar" -> iniciar_reserva_oferta_maestro (mutex + hold pendiente,
@@ -21,26 +22,25 @@
 // la anterior si el alumno reserva otra oferta) para no complicar la UI con
 // varios checkouts en curso; el backend sí soportaría varias en paralelo.
 //
-// `permitirPublicar`: sin esto, es de solo lectura + reservar (portal de
-// alumnos). Con esto, muestra el formulario de publicación y el botón de
-// borrar en las ofertas propias (portal de maestros). No hay gate de rol
-// "maestro" todavía — cualquier usuario logueado puede publicar; la policy
-// de RLS solo exige que el autor sea quien la borra.
+// Antes tenía un modo `permitirPublicar` (formulario de publicación + borrar
+// oferta propia, para un portal de maestros sin gate de rol) usado por las
+// rutas /ofertas y /ofertas/publicar. Esas rutas quedaron huérfanas cuando
+// se construyó el registro de maestro verificado (TutoriasMaestro.jsx) y
+// ahora son puros redirects (ver Ofertas.jsx/PublicarOferta.jsx), así que
+// ese modo se quitó de aquí — nadie lo invocaba ya.
 
 import { useEffect, useRef, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { supabase } from "../services/supabaseClient";
 import { FilaChips } from "./FilaChips";
-import { Seccion } from "./Seccion";
 import { Estrellas } from "./Estrellas";
 import { MATERIAS_TUTORIA, MATERIA_OTROS, nombreMateriaOferta } from "../data/materiasTutoria";
 import {
   HiOutlineAdjustmentsHorizontal,
   HiOutlineClock,
   HiOutlineCreditCard,
-  HiOutlineTrash,
-  HiOutlineUserGroup,
+  HiOutlinePhone,
   HiOutlineXCircle,
   HiChevronDown,
   HiChevronUp,
@@ -51,6 +51,7 @@ const TTL_RESERVA_MINUTOS = 15;
 const MENSAJES_RESERVA = {
   no_autenticado: "Inicia sesión para reservar un asiento.",
   no_puedes_reservar_tu_propia_oferta: "No puedes reservar tu propia oferta.",
+  oferta_archivada: "Tu maestro retiró esta oferta, ya no se puede reservar.",
   oferta_vencida: "Esta clase ya pasó, ya no se puede reservar.",
   oferta_no_encontrada: "Esta oferta ya no existe.",
   sin_cupo_disponible: "Ya no queda cupo disponible para esta clase.",
@@ -69,10 +70,6 @@ function formatearRestante(ms) {
   return `${min}:${String(seg).padStart(2, "0")}`;
 }
 
-const DURACIONES_MIN = [60, 90, 120];
-const PRECIO_MIN = 50;
-const PRECIO_MAX = 5000;
-
 const inputStyle = {
   width: "100%",
   minHeight: 44,
@@ -86,28 +83,20 @@ const inputStyle = {
   boxSizing: "border-box",
 };
 
-function mensajeError(err) {
-  if (err?.code === "23514") {
-    return "Revisa los datos: alguno no cumple el formato esperado (p. ej. la CLABE debe tener 18 dígitos).";
-  }
-  if (err?.code === "23503") {
-    return "No puedes borrar esta oferta: ya tiene alumnos con una reserva pendiente o pagada. Espera a que se libere (o a que paguen) e intenta de nuevo.";
-  }
-  return "No se pudo procesar tu solicitud. Intenta de nuevo.";
-}
-
-export function PublicacionOfertas({ permitirPublicar = false }) {
+export function PublicacionOfertas() {
   const navigate = useNavigate();
-  const { user, perfil } = useAuth();
+  const { user } = useAuth();
   const [searchParams, setSearchParams] = useSearchParams();
 
   const [ofertas, setOfertas] = useState([]);
   const [cargando, setCargando] = useState(true);
   const [errorOfertas, setErrorOfertas] = useState("");
-  const [borrandoId, setBorrandoId] = useState(null);
   const [disponibilidad, setDisponibilidad] = useState({});
   const [calificaciones, setCalificaciones] = useState({});
   const [pendientesWhatsapp, setPendientesWhatsapp] = useState([]);
+  // null = todavia no se consulto, '' = se consulto y no tiene telefono
+  // registrado, cualquier otra cosa = ya tiene uno (ver efecto de abajo).
+  const [telefonoRegistrado, setTelefonoRegistrado] = useState(null);
 
   // Filtros del lado alumno (solo lectura + reservar): puramente client-side
   // sobre la lista ya cargada, no vuelven a pegarle a Supabase.
@@ -127,25 +116,7 @@ export function PublicacionOfertas({ permitirPublicar = false }) {
   const reservaRef = useRef(null);
   reservaRef.current = reserva;
 
-  const [profesor, setProfesor] = useState("");
-  const [titulo, setTitulo] = useState("");
-  const [materiaId, setMateriaId] = useState("");
-  const [materiaOtro, setMateriaOtro] = useState("");
-  const [fecha, setFecha] = useState("");
-  const [hora, setHora] = useState("");
-  const [duracionMin, setDuracionMin] = useState(60);
-  const [precio, setPrecio] = useState("");
-  const [cupo, setCupo] = useState(1);
-  const [notas, setNotas] = useState("");
-  const [cuentaClave, setCuentaClave] = useState("");
-
-  const [publicando, setPublicando] = useState(false);
   const [error, setError] = useState("");
-
-  useEffect(() => {
-    if (perfil?.nombre && !profesor) setProfesor(perfil.nombre);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [perfil?.nombre]);
 
   async function cargarOfertas() {
     setCargando(true);
@@ -153,6 +124,7 @@ export function PublicacionOfertas({ permitirPublicar = false }) {
       .from("ofertas_maestro")
       .select("*")
       .gte("fecha_hora", new Date().toISOString())
+      .is("archivada_en", null)
       .order("fecha_hora", { ascending: true });
     if (fetchError) {
       // No se pisa `ofertas` con [] aquí: un fallo de red no debe verse
@@ -171,11 +143,9 @@ export function PublicacionOfertas({ permitirPublicar = false }) {
     cargarOfertas();
   }, []);
 
-  // El "ping" del paso 1: se corre para cada oferta visible, siempre que
-  // esta vista sea de solo-consulta/reserva (portal de alumnos). El portal
-  // de maestros no necesita disponibilidad de cupo para publicar/borrar.
+  // El "ping" del paso 1: se corre para cada oferta visible.
   async function cargarDisponibilidad(lista) {
-    if (permitirPublicar || lista.length === 0) return;
+    if (lista.length === 0) return;
     const entradas = await Promise.all(
       lista.map(async (oferta) => {
         const { data, error } = await supabase.rpc("asientos_disponibles_oferta_maestro", {
@@ -255,7 +225,7 @@ export function PublicacionOfertas({ permitirPublicar = false }) {
   // consultar al volver a la pestaña para que el mensaje desaparezca solo en
   // cuanto el maestro lo marque, sin depender de un refresh manual.
   useEffect(() => {
-    if (permitirPublicar || !user) return;
+    if (!user) return;
 
     async function cargarPendientesWhatsapp() {
       const { data, error } = await supabase
@@ -271,6 +241,27 @@ export function PublicacionOfertas({ permitirPublicar = false }) {
         return;
       }
       setPendientesWhatsapp(data ?? []);
+
+      // Solo hace falta saber esto mientras haya algo pendiente: si el
+      // maestro ya lo tiene (por Formulario de área, ver fa.telefono en
+      // obtener_alumnos_ofertas_maestro), no hay nada que ofrecerle al
+      // alumno — no se le va a mostrar un botón para llenar algo que ya
+      // llenó.
+      if ((data ?? []).length === 0) return;
+
+      const { data: formulario, error: errorFormulario } = await supabase
+        .from("formularios_area")
+        .select("telefono")
+        .eq("user_id", user.id)
+        .order("creado_en", { ascending: false })
+        .limit(1)
+        .maybeSingle();
+
+      if (errorFormulario) {
+        console.error("No se pudo consultar si ya tienes un teléfono registrado:", errorFormulario.message);
+        return;
+      }
+      setTelefonoRegistrado(formulario?.telefono?.trim() || "");
     }
 
     cargarPendientesWhatsapp();
@@ -279,7 +270,7 @@ export function PublicacionOfertas({ permitirPublicar = false }) {
     };
     document.addEventListener("visibilitychange", alVolverAVer);
     return () => document.removeEventListener("visibilitychange", alVolverAVer);
-  }, [permitirPublicar, user]);
+  }, [user]);
 
   // Cuenta regresiva de la reserva activa: se apaga sola al llegar a 0 y
   // refresca disponibilidad (el propio backend ya liberó el asiento vía el
@@ -401,70 +392,6 @@ export function PublicacionOfertas({ permitirPublicar = false }) {
     cargarOfertas();
   }
 
-  async function publicar() {
-    setError("");
-    if (!profesor.trim()) return setError("Escribe tu nombre.");
-    if (!materiaId) return setError("Selecciona una materia.");
-    if (materiaId === MATERIA_OTROS.id && !materiaOtro.trim()) {
-      return setError("Escribe el nombre de la materia.");
-    }
-    if (!fecha || !hora) return setError("Elige la fecha y la hora.");
-
-    const fechaHora = new Date(`${fecha}T${hora}:00`);
-    if (Number.isNaN(fechaHora.getTime()) || fechaHora.getTime() < Date.now()) {
-      return setError("Elige una fecha y hora futuras.");
-    }
-    const precioNum = Number(precio);
-    if (!precioNum || precioNum < PRECIO_MIN || precioNum > PRECIO_MAX) {
-      return setError(`El precio debe estar entre $${PRECIO_MIN} y $${PRECIO_MAX} MXN.`);
-    }
-    const cupoNum = Number(cupo);
-    if (!cupoNum || cupoNum < 1 || cupoNum > 50) return setError("El cupo debe ser entre 1 y 50 alumnos.");
-    if (notas.length > 500) return setError("Tus notas son muy largas (máximo 500 caracteres).");
-    if (!/^\d{18}$/.test(cuentaClave.trim())) return setError("La CLABE debe tener exactamente 18 dígitos.");
-
-    setPublicando(true);
-    const { error: insertError } = await supabase.from("ofertas_maestro").insert({
-      profesor: profesor.trim(),
-      titulo: titulo.trim() || null,
-      materia_id: materiaId,
-      materia_otro: materiaId === MATERIA_OTROS.id ? materiaOtro.trim() : null,
-      fecha_hora: fechaHora.toISOString(),
-      duracion_minutos: duracionMin,
-      precio_mxn: precioNum,
-      cupo_maximo: cupoNum,
-      notas: notas.trim() || null,
-      cuenta_clave: cuentaClave.trim(),
-    });
-    setPublicando(false);
-
-    if (insertError) return setError(mensajeError(insertError));
-
-    setTitulo("");
-    setMateriaId("");
-    setMateriaOtro("");
-    setFecha("");
-    setHora("");
-    setDuracionMin(60);
-    setPrecio("");
-    setCupo(1);
-    setNotas("");
-    setCuentaClave("");
-    cargarOfertas();
-  }
-
-  async function borrar(oferta) {
-    setBorrandoId(oferta.id);
-    const { error: deleteError } = await supabase.from("ofertas_maestro").delete().eq("id", oferta.id);
-    setBorrandoId(null);
-    if (deleteError) return setError(mensajeError(deleteError));
-    cargarOfertas();
-  }
-
-  const materiaElegida =
-    materiaId === MATERIA_OTROS.id
-      ? MATERIA_OTROS
-      : MATERIAS_TUTORIA.find((m) => m.id === materiaId);
   const materiaFiltro =
     filtroMateria === MATERIA_OTROS.id
       ? MATERIA_OTROS
@@ -495,11 +422,11 @@ export function PublicacionOfertas({ permitirPublicar = false }) {
     setFiltroFechaHasta("");
   }
 
-  const listaVisible = permitirPublicar ? ofertas : ofertasFiltradas;
+  const listaVisible = ofertasFiltradas;
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-      {!permitirPublicar && pendientesWhatsapp.length > 0 && (
+      {pendientesWhatsapp.length > 0 && (
         <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
           {pendientesWhatsapp.map((p) => {
             const om = p.ofertas_maestro;
@@ -545,8 +472,25 @@ export function PublicacionOfertas({ permitirPublicar = false }) {
                   </p>
                   <p style={{ fontSize: 12.5, color: "var(--text)", lineHeight: 1.45, margin: "3px 0 0" }}>
                     <strong>{nombreClase}</strong> — tu maestro te añadirá al grupo de WhatsApp de esta clase en
-                    las próximas horas.
+                    el transcurso del día.
                   </p>
+                  {/* Solo aparece si de verdad no tenemos su teléfono (ver
+                      telefonoRegistrado arriba) — nunca obligatorio, y no se
+                      le muestra a quien ya lo tiene registrado. */}
+                  {telefonoRegistrado === "" && (
+                    <button
+                      type="button"
+                      onClick={() => navigate("/formulario-area")}
+                      style={{
+                        marginTop: 8, minHeight: 36, padding: "0 12px", borderRadius: 8,
+                        border: "1px solid rgba(124,92,191,0.4)", background: "rgba(124,92,191,0.12)",
+                        color: "#7c5cbf", fontWeight: 700, fontSize: 11.5, cursor: "pointer",
+                        display: "flex", alignItems: "center", gap: 6,
+                      }}
+                    >
+                      <HiOutlinePhone /> No tenemos tu celular — regístralo aquí
+                    </button>
+                  )}
                 </div>
               </div>
             );
@@ -557,228 +501,106 @@ export function PublicacionOfertas({ permitirPublicar = false }) {
       {error && <p style={{ color: "var(--wrong)", fontSize: 13, textAlign: "center", margin: 0 }}>{error}</p>}
       {info && <p style={{ color: "var(--text-muted)", fontSize: 13, textAlign: "center", margin: 0 }}>{info}</p>}
 
-      {permitirPublicar && (
-        <Seccion
-          icono={<HiOutlineUserGroup />}
-          color="#06b6d4"
-          title="Publica una oferta"
-          subtitle="Los alumnos la verán en su portal; coordina el resto por WhatsApp."
+      <div className="sp-card" style={{ margin: 0 }}>
+        <button
+          type="button"
+          onClick={() => setMostrarFiltros((v) => !v)}
+          style={{
+            width: "100%", minHeight: 24, padding: 0, background: "transparent", border: "none",
+            display: "flex", alignItems: "center", justifyContent: "space-between", cursor: "pointer",
+            color: "var(--text)", fontWeight: 700, fontSize: 14,
+          }}
         >
-          <input
-            style={inputStyle}
-            placeholder="Tu nombre"
-            value={profesor}
-            onChange={(e) => setProfesor(e.target.value)}
-            maxLength={80}
-          />
-
-          <input
-            style={inputStyle}
-            placeholder="Nombre de la clase (opcional, ej. Repaso de Álgebra)"
-            value={titulo}
-            onChange={(e) => setTitulo(e.target.value.slice(0, 80))}
-            maxLength={80}
-          />
-
-          <div>
-            <p style={{ fontSize: 13, color: "var(--text-muted)", marginBottom: 8 }}>Materia</p>
-            <FilaChips
-              opciones={[...MATERIAS_TUTORIA.map((m) => m.nombre), MATERIA_OTROS.nombre]}
-              valor={materiaElegida?.nombre}
-              onChange={(nombre) => {
-                if (nombre === MATERIA_OTROS.nombre) return setMateriaId(MATERIA_OTROS.id);
-                setMateriaId(MATERIAS_TUTORIA.find((m) => m.nombre === nombre)?.id ?? "");
-                setMateriaOtro("");
-              }}
-              color="#06b6d4"
-            />
-            {materiaId === MATERIA_OTROS.id && (
-              <input
-                style={{ ...inputStyle, marginTop: 10 }}
-                placeholder="¿Qué materia? (ej. Robótica, Contabilidad…)"
-                value={materiaOtro}
-                onChange={(e) => setMateriaOtro(e.target.value.slice(0, 60))}
-                maxLength={60}
-              />
+          <span style={{ display: "flex", alignItems: "center", gap: 8 }}>
+            <HiOutlineAdjustmentsHorizontal style={{ fontSize: 17 }} />
+            Filtros
+            {hayFiltrosActivos && (
+              <span style={{ minWidth: 18, height: 18, padding: "0 5px", borderRadius: 999, background: "#06b6d4", color: "#fff", fontSize: 11, fontWeight: 800, display: "inline-flex", alignItems: "center", justifyContent: "center" }}>
+                {[filtroMateria, filtroProfesor.trim(), filtroPrecioMin, filtroPrecioMax, filtroFechaDesde, filtroFechaHasta].filter(Boolean).length}
+              </span>
             )}
-          </div>
+          </span>
+          {mostrarFiltros ? <HiChevronUp /> : <HiChevronDown />}
+        </button>
 
-          <div style={{ display: "flex", gap: 10 }}>
-            <input style={inputStyle} type="date" value={fecha} onChange={(e) => setFecha(e.target.value)} />
-            <input style={inputStyle} type="time" value={hora} onChange={(e) => setHora(e.target.value)} />
-          </div>
+        {mostrarFiltros && (
+          <div style={{ marginTop: 14, display: "flex", flexDirection: "column", gap: 12 }}>
+            <div>
+              <p style={{ fontSize: 12.5, color: "var(--text-muted)", marginBottom: 8 }}>Materia</p>
+              <FilaChips
+                opciones={["Todas", ...MATERIAS_TUTORIA.map((m) => m.nombre), MATERIA_OTROS.nombre]}
+                valor={materiaFiltro?.nombre ?? "Todas"}
+                onChange={(nombre) => {
+                  if (nombre === "Todas") return setFiltroMateria("");
+                  if (nombre === MATERIA_OTROS.nombre) return setFiltroMateria(MATERIA_OTROS.id);
+                  setFiltroMateria(MATERIAS_TUTORIA.find((m) => m.nombre === nombre)?.id ?? "");
+                }}
+                color="#06b6d4"
+              />
+            </div>
 
-          <div>
-            <p style={{ fontSize: 13, color: "var(--text-muted)", marginBottom: 8 }}>Duración</p>
-            <FilaChips
-              opciones={DURACIONES_MIN.map((d) => `${d} min`)}
-              valor={`${duracionMin} min`}
-              onChange={(label) => setDuracionMin(Number(label.replace(" min", "")))}
-              color="#06b6d4"
-            />
-          </div>
-
-          <div style={{ display: "flex", gap: 10 }}>
             <input
               style={inputStyle}
-              type="number"
-              min={PRECIO_MIN}
-              max={PRECIO_MAX}
-              step={10}
-              placeholder={`Precio ($${PRECIO_MIN}-$${PRECIO_MAX})`}
-              value={precio}
-              onChange={(e) => setPrecio(e.target.value)}
+              placeholder="Buscar por profesor"
+              value={filtroProfesor}
+              onChange={(e) => setFiltroProfesor(e.target.value)}
             />
-            <input
-              style={inputStyle}
-              type="number"
-              min={1}
-              max={50}
-              placeholder="Cupo máx."
-              value={cupo}
-              onChange={(e) => setCupo(e.target.value)}
-            />
-          </div>
 
-          <textarea
-            style={{ ...inputStyle, minHeight: 80, resize: "vertical" }}
-            maxLength={500}
-            placeholder="Notas para tus alumnos (opcional)…"
-            value={notas}
-            onChange={(e) => setNotas(e.target.value)}
-          />
-
-          <input
-            style={inputStyle}
-            inputMode="numeric"
-            placeholder="CLABE (18 dígitos) para recibir el pago"
-            value={cuentaClave}
-            onChange={(e) => setCuentaClave(e.target.value.replace(/\D/g, "").slice(0, 18))}
-            maxLength={18}
-          />
-
-          <button
-            onClick={publicar}
-            disabled={publicando}
-            style={{
-              minHeight: 44,
-              borderRadius: 10,
-              border: "none",
-              background: "#06b6d4",
-              color: "#fff",
-              fontWeight: 700,
-              fontSize: 14,
-              cursor: publicando ? "default" : "pointer",
-              opacity: publicando ? 0.7 : 1,
-            }}
-          >
-            {publicando ? "Publicando…" : "Publicar oferta"}
-          </button>
-        </Seccion>
-      )}
-
-      {!permitirPublicar && (
-        <div className="sp-card" style={{ margin: 0 }}>
-          <button
-            type="button"
-            onClick={() => setMostrarFiltros((v) => !v)}
-            style={{
-              width: "100%", minHeight: 24, padding: 0, background: "transparent", border: "none",
-              display: "flex", alignItems: "center", justifyContent: "space-between", cursor: "pointer",
-              color: "var(--text)", fontWeight: 700, fontSize: 14,
-            }}
-          >
-            <span style={{ display: "flex", alignItems: "center", gap: 8 }}>
-              <HiOutlineAdjustmentsHorizontal style={{ fontSize: 17 }} />
-              Filtros
-              {hayFiltrosActivos && (
-                <span style={{ minWidth: 18, height: 18, padding: "0 5px", borderRadius: 999, background: "#06b6d4", color: "#fff", fontSize: 11, fontWeight: 800, display: "inline-flex", alignItems: "center", justifyContent: "center" }}>
-                  {[filtroMateria, filtroProfesor.trim(), filtroPrecioMin, filtroPrecioMax, filtroFechaDesde, filtroFechaHasta].filter(Boolean).length}
-                </span>
-              )}
-            </span>
-            {mostrarFiltros ? <HiChevronUp /> : <HiChevronDown />}
-          </button>
-
-          {mostrarFiltros && (
-            <div style={{ marginTop: 14, display: "flex", flexDirection: "column", gap: 12 }}>
-              <div>
-                <p style={{ fontSize: 12.5, color: "var(--text-muted)", marginBottom: 8 }}>Materia</p>
-                <FilaChips
-                  opciones={["Todas", ...MATERIAS_TUTORIA.map((m) => m.nombre), MATERIA_OTROS.nombre]}
-                  valor={materiaFiltro?.nombre ?? "Todas"}
-                  onChange={(nombre) => {
-                    if (nombre === "Todas") return setFiltroMateria("");
-                    if (nombre === MATERIA_OTROS.nombre) return setFiltroMateria(MATERIA_OTROS.id);
-                    setFiltroMateria(MATERIAS_TUTORIA.find((m) => m.nombre === nombre)?.id ?? "");
-                  }}
-                  color="#06b6d4"
+            <div>
+              <p style={{ fontSize: 12.5, color: "var(--text-muted)", marginBottom: 8 }}>Precio (MXN)</p>
+              <div style={{ display: "flex", gap: 10 }}>
+                <input
+                  style={{ ...inputStyle, flex: 1, minWidth: 0 }}
+                  type="number"
+                  min={0}
+                  placeholder="Mínimo"
+                  value={filtroPrecioMin}
+                  onChange={(e) => setFiltroPrecioMin(e.target.value)}
+                />
+                <input
+                  style={{ ...inputStyle, flex: 1, minWidth: 0 }}
+                  type="number"
+                  min={0}
+                  placeholder="Máximo"
+                  value={filtroPrecioMax}
+                  onChange={(e) => setFiltroPrecioMax(e.target.value)}
                 />
               </div>
-
-              <input
-                style={inputStyle}
-                placeholder="Buscar por profesor"
-                value={filtroProfesor}
-                onChange={(e) => setFiltroProfesor(e.target.value)}
-              />
-
-              <div>
-                <p style={{ fontSize: 12.5, color: "var(--text-muted)", marginBottom: 8 }}>Precio (MXN)</p>
-                <div style={{ display: "flex", gap: 10 }}>
-                  <input
-                    style={{ ...inputStyle, flex: 1, minWidth: 0 }}
-                    type="number"
-                    min={0}
-                    placeholder="Mínimo"
-                    value={filtroPrecioMin}
-                    onChange={(e) => setFiltroPrecioMin(e.target.value)}
-                  />
-                  <input
-                    style={{ ...inputStyle, flex: 1, minWidth: 0 }}
-                    type="number"
-                    min={0}
-                    placeholder="Máximo"
-                    value={filtroPrecioMax}
-                    onChange={(e) => setFiltroPrecioMax(e.target.value)}
-                  />
-                </div>
-              </div>
-
-              <div>
-                <p style={{ fontSize: 12.5, color: "var(--text-muted)", marginBottom: 8 }}>Fecha</p>
-                <div style={{ display: "flex", gap: 10 }}>
-                  <input
-                    style={{ ...inputStyle, flex: 1, minWidth: 0 }}
-                    type="date"
-                    value={filtroFechaDesde}
-                    onChange={(e) => setFiltroFechaDesde(e.target.value)}
-                  />
-                  <input
-                    style={{ ...inputStyle, flex: 1, minWidth: 0 }}
-                    type="date"
-                    value={filtroFechaHasta}
-                    onChange={(e) => setFiltroFechaHasta(e.target.value)}
-                  />
-                </div>
-              </div>
-
-              {hayFiltrosActivos && (
-                <button
-                  type="button"
-                  onClick={limpiarFiltros}
-                  style={{ minHeight: 40, borderRadius: 10, border: "1px solid var(--surface2)", background: "transparent", color: "var(--text-muted)", fontWeight: 700, fontSize: 13, cursor: "pointer" }}
-                >
-                  Limpiar filtros
-                </button>
-              )}
             </div>
-          )}
-        </div>
-      )}
+
+            <div>
+              <p style={{ fontSize: 12.5, color: "var(--text-muted)", marginBottom: 8 }}>Fecha</p>
+              <div style={{ display: "flex", gap: 10 }}>
+                <input
+                  style={{ ...inputStyle, flex: 1, minWidth: 0 }}
+                  type="date"
+                  value={filtroFechaDesde}
+                  onChange={(e) => setFiltroFechaDesde(e.target.value)}
+                />
+                <input
+                  style={{ ...inputStyle, flex: 1, minWidth: 0 }}
+                  type="date"
+                  value={filtroFechaHasta}
+                  onChange={(e) => setFiltroFechaHasta(e.target.value)}
+                />
+              </div>
+            </div>
+
+            {hayFiltrosActivos && (
+              <button
+                type="button"
+                onClick={limpiarFiltros}
+                style={{ minHeight: 40, borderRadius: 10, border: "1px solid var(--surface2)", background: "transparent", color: "var(--text-muted)", fontWeight: 700, fontSize: 13, cursor: "pointer" }}
+              >
+                Limpiar filtros
+              </button>
+            )}
+          </div>
+        )}
+      </div>
 
       <p style={{ fontSize: 13, fontWeight: 700, color: "var(--text)", margin: "4px 0 0" }}>
-        {permitirPublicar ? "Ofertas publicadas" : "Ofertas disponibles"}
+        Ofertas disponibles
       </p>
 
       {cargando && <p style={{ fontSize: 13, color: "var(--text-muted)", margin: 0 }}>Cargando…</p>}
@@ -797,7 +619,6 @@ export function PublicacionOfertas({ permitirPublicar = false }) {
           const color = materia?.color ?? MATERIA_OTROS.color;
           const nombreMateria = nombreMateriaOferta(oferta.materia_id, oferta.materia_otro);
           const fechaObj = new Date(oferta.fecha_hora);
-          const esPropia = permitirPublicar && user && oferta.creado_por === user.id;
           return (
             <div key={oferta.id} className="sp-card" style={{ margin: 0 }}>
               <div className="sp-card-header">
@@ -840,7 +661,7 @@ export function PublicacionOfertas({ permitirPublicar = false }) {
                 </p>
               )}
 
-              {!permitirPublicar && (() => {
+              {(() => {
                 const disp = disponibilidad[oferta.id];
                 const errorCupo = disp?.error === true;
                 const activa = reserva?.ofertaId === oferta.id;
@@ -942,32 +763,6 @@ export function PublicacionOfertas({ permitirPublicar = false }) {
                   </button>
                 );
               })()}
-
-              {esPropia && (
-                <button
-                  type="button"
-                  disabled={borrandoId === oferta.id}
-                  onClick={() => borrar(oferta)}
-                  style={{
-                    marginTop: 10,
-                    minHeight: 40,
-                    borderRadius: 10,
-                    border: "1px solid var(--wrong)",
-                    background: "transparent",
-                    color: "var(--wrong)",
-                    fontWeight: 700,
-                    fontSize: 13,
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    gap: 6,
-                    cursor: borrandoId === oferta.id ? "default" : "pointer",
-                    opacity: borrandoId === oferta.id ? 0.6 : 1,
-                  }}
-                >
-                  <HiOutlineTrash /> {borrandoId === oferta.id ? "Borrando…" : "Borrar oferta"}
-                </button>
-              )}
             </div>
           );
         })}

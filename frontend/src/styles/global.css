@@ -339,6 +339,35 @@ display: flex;
   margin-left: auto;
 }
 
+/* Widget de Google Website Translator (GoogleTranslateButton.jsx): a
+   diferencia de la franja de traduccion (esa si va en un iframe ajeno y no
+   se puede stylear), este selector se inserta como DOM normal, asi que se
+   puede reajustar para que no rompa el layout en pantallas angostas. */
+#google_translate_element .goog-te-gadget {
+  font-size: 0.7rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+  max-width: 100%;
+}
+#google_translate_element .goog-te-gadget-simple {
+  max-width: 100%;
+  white-space: normal !important;
+  border-radius: 10px !important;
+  overflow: hidden;
+}
+/* Esquinas redondeadas — funciona en Chrome/Edge/Firefox; algunas versiones
+   de Safari/iOS ignoran border-radius en <select> y muestran su propio
+   chrome nativo, sin que eso rompa el layout. */
+#google_translate_element select.goog-te-combo {
+  max-width: 100%;
+  min-height: 44px;
+  font-size: 0.85rem;
+  border-radius: 10px;
+  padding: 4px 8px;
+}
+
 /* Contenedor de contenido estandar, mismo margen horizontal que Home.jsx */
 .page-content {
   padding: 24px;
@@ -606,14 +635,22 @@ display: flex;
   animation: mascota-comida-cae 0.65s cubic-bezier(0.55, 0, 1, 0.45) forwards;
 }
 
-/* Piso de cuadrícula del sandbox (ver Mascota.jsx): desliza el patrón de
-   fondo una celda hacia abajo sin parar, para que el plano inclinado en 3D
-   se sienta como si avanzara hacia quien mira, no como una textura fija. */
-@keyframes mascota-piso-scroll {
-  from { background-position: 0 0; }
-  to   { background-position: 0 34px; }
-}
-.mascota-piso {
-  animation: mascota-piso-scroll 1s linear infinite;
+/* Filtro "vision nocturna" del sandbox de Mascota.jsx (FILTRO_DIA/NOCHE): se
+   aplica inline, no via clase, porque necesita transicionar suave entre dia
+   y noche (transition: filter) segun la hora real del dispositivo — una
+   clase con solo el filtro de noche no se puede animar contra "sin filtro".
+
+   Capa de viñeta + scanlines por encima de la escena ya filtrada, para
+   vender el efecto de estar mirando a traves de un visor de noche — solo
+   visible de noche (su opacidad cruza junto con esDeNoche, ver Mascota.jsx).
+   Estatica a propósito (sin parpadeo) para no ser molesta ni un riesgo con
+   pantallas sensibles a destellos. */
+.mascota-vision-vineta {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    repeating-linear-gradient(rgba(0, 0, 0, 0.08) 0px, rgba(0, 0, 0, 0.08) 1px, transparent 1px, transparent 3px),
+    radial-gradient(ellipse at center, transparent 45%, rgba(0, 12, 0, 0.6) 100%);
 }
 /*---------------------------------------------------------------*/

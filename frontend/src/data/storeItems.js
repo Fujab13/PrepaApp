@@ -87,9 +87,9 @@ export const COIN_ITEMS = [
     descripcion: 'Alimenta + clic y podrás ver las respuestas por 2 min.',
     type: 'coins',
     // ~9-10 monedas en promedio por unidad completada (ver
-    // EscaneoRecompensa.jsx, calibrado ahí) — 25 la deja al alcance de
-    // unas dos lecciones, no de una junta de varias sesiones.
-    priceCoins: 25,
+    // EscaneoRecompensa.jsx, calibrado ahí) — 15 la deja al alcance de una
+    // sola lección.
+    priceCoins: 15,
     comidaCantidad: 10,
   },
 ]

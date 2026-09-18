@@ -2,12 +2,22 @@
 // Panel de administración sobre TODAS las ofertas de `ofertas_maestro`
 // (cualquier profesor, no solo las propias) — a diferencia de la sección
 // "Tus ofertas" de TutoriasMaestro.jsx, que solo ve/edita lo que publicó el
-// propio usuario. Se apoya en dos políticas RLS nuevas (admin_update_todas /
-// admin_delete_todas, ver Supabase) que permiten a un admin editar o borrar
-// la oferta de cualquier profesor — incluyendo uno que un admin haya
-// desactivado desde AdminMaestros.jsx (`activo = false`): ese profesor
-// pierde el acceso a su propio portal de maestro, así que sin esto sus
-// ofertas quedarían sin nadie que pudiera corregirlas o retirarlas.
+// propio usuario. Se apoya en la política RLS `admin_update_todas` (creada
+// directo en Supabase, no vive en ningún archivo de esta carpeta) que
+// permite a un admin editar la oferta de cualquier profesor — incluyendo uno
+// que un admin haya desactivado desde AdminMaestros.jsx (`activo = false`):
+// ese profesor pierde el acceso a su propio portal de maestro, así que sin
+// esto sus ofertas quedarían sin nadie que pudiera corregirlas o retirarlas.
+//
+// "Borrar" ya no hace un DELETE real (ver migración
+// 20260917150000_archivar_ofertas_maestro.sql: `transacciones` nunca borra
+// filas, solo cambia su estado, así que cualquier reserva vieja — aunque
+// nunca se haya pagado — bloqueaba el DELETE para siempre vía la FK restrict
+// de `transacciones.oferta_maestro_id`) — ahora archiva (`archivada_en`),
+// reversible, y el registro se conserva para siempre por auditoría. La
+// policy `admin_delete_todas` sigue existiendo en Supabase por si algún día
+// hace falta un borrado real desde SQL directo, pero esta pantalla ya no la
+// usa.
 //
 // Filtro y búsqueda son puramente client-side sobre la lista ya cargada
 // (mismo patrón que AdminReportes.jsx/AdminMaestros.jsx) — el dataset
@@ -19,6 +29,7 @@ import { useAuth } from "../context/AuthContext";
 import { supabase } from "../services/supabaseClient";
 import { FilaChips } from "../components/FilaChips";
 import { Seccion } from "../components/Seccion";
+import ConfirmDialog from "../components/ConfirmDialog";
 import { MATERIAS_TUTORIA, MATERIA_OTROS, nombreMateriaOferta } from "../data/materiasTutoria";
 import { DURACIONES, PRECIO_MIN_MXN, PRECIO_MAX_MXN, inputStyle } from "../utils/tutorias";
 
@@ -27,7 +38,8 @@ import {
   HiOutlineMagnifyingGlass,
   HiOutlineInboxStack,
   HiOutlinePencilSquare,
-  HiOutlineTrash,
+  HiOutlineArchiveBoxArrowDown,
+  HiOutlineArrowUturnLeft,
 } from "react-icons/hi2";
 
 function fmtFecha(fechaIso) {
@@ -54,9 +66,11 @@ export default function AdminOfertas() {
 
   const [busqueda, setBusqueda] = useState(searchParams.get("buscar") || "");
   const [filtroMateria, setFiltroMateria] = useState("");
+  const [ocultarArchivadas, setOcultarArchivadas] = useState(true);
 
   const [editandoId, setEditandoId] = useState(null);
-  const [borrandoId, setBorrandoId] = useState(null);
+  const [procesandoId, setProcesandoId] = useState(null);
+  const [ofertaAEliminar, setOfertaAEliminar] = useState(null);
   const [guardando, setGuardando] = useState(false);
   const [errorEdicion, setErrorEdicion] = useState("");
 
@@ -169,16 +183,38 @@ export default function AdminOfertas() {
     cargar();
   }
 
-  async function borrarOferta(oferta) {
-    setBorrandoId(oferta.id);
-    const { error: deleteError } = await supabase.from("ofertas_maestro").delete().eq("id", oferta.id);
-    setBorrandoId(null);
-    if (deleteError) {
-      console.error("No se pudo borrar la oferta (admin):", deleteError.message);
-      setError("No se pudo borrar esa oferta. Intenta de nuevo.");
+  async function confirmarBorrarOferta() {
+    const oferta = ofertaAEliminar;
+    if (!oferta) return;
+    setOfertaAEliminar(null);
+    setProcesandoId(oferta.id);
+    const { error: archivarError } = await supabase
+      .from("ofertas_maestro")
+      .update({ archivada_en: new Date().toISOString() })
+      .eq("id", oferta.id);
+    setProcesandoId(null);
+    if (archivarError) {
+      console.error("No se pudo archivar la oferta (admin):", archivarError.message);
+      setError("No se pudo archivar esa oferta. Intenta de nuevo.");
       return;
     }
     if (editandoId === oferta.id) setEditandoId(null);
+    cargar();
+  }
+
+  async function reactivarOferta(oferta) {
+    setError("");
+    setProcesandoId(oferta.id);
+    const { error: reactivarError } = await supabase
+      .from("ofertas_maestro")
+      .update({ archivada_en: null })
+      .eq("id", oferta.id);
+    setProcesandoId(null);
+    if (reactivarError) {
+      console.error("No se pudo reactivar la oferta (admin):", reactivarError.message);
+      setError("No se pudo reactivar esa oferta. Intenta de nuevo.");
+      return;
+    }
     cargar();
   }
 
@@ -200,11 +236,19 @@ export default function AdminOfertas() {
   }
 
   const ofertasFiltradas = useMemo(() => {
-    return (ofertas ?? []).filter(
-      (o) => (!filtroMateria || o.materia_id === filtroMateria) && coincideBusqueda(o)
-    );
+    return (ofertas ?? []).filter((o) => {
+      if (!filtroMateria || o.materia_id === filtroMateria) {
+        if (!coincideBusqueda(o)) return false;
+        if (ocultarArchivadas) {
+          const archivadaOVencida = Boolean(o.archivada_en) || new Date(o.fecha_hora).getTime() < Date.now();
+          if (archivadaOVencida) return false;
+        }
+        return true;
+      }
+      return false;
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [ofertas, filtroMateria, busqueda]);
+  }, [ofertas, filtroMateria, busqueda, ocultarArchivadas]);
 
   const opcionesFiltroMateria = [
     { id: "", nombre: "Todas" },
@@ -290,6 +334,20 @@ export default function AdminOfertas() {
                 );
               })}
             </div>
+
+            <button
+              type="button"
+              onClick={() => setOcultarArchivadas((v) => !v)}
+              style={{
+                alignSelf: "flex-start", minHeight: 36, padding: "0 12px", borderRadius: 999,
+                fontSize: 12, fontWeight: 700, cursor: "pointer",
+                border: ocultarArchivadas ? "1px solid var(--surface2)" : "1px solid #7c5cbf",
+                background: ocultarArchivadas ? "var(--surface)" : "rgba(124,92,191,0.15)",
+                color: ocultarArchivadas ? "var(--text-muted)" : "#7c5cbf",
+              }}
+            >
+              {ocultarArchivadas ? "Ocultando archivadas y vencidas" : "Mostrando todo (incluye archivadas y vencidas)"}
+            </button>
 
             {cargando && <p style={{ fontSize: 13, color: "var(--text-muted)", textAlign: "center", margin: "8px 0" }}>Cargando…</p>}
 
@@ -433,8 +491,11 @@ export default function AdminOfertas() {
                 );
               }
 
+              const archivada = Boolean(oferta.archivada_en);
+              const procesando = procesandoId === oferta.id;
+
               return (
-                <div key={oferta.id} className="sp-card" style={{ margin: 0 }}>
+                <div key={oferta.id} className="sp-card" style={{ margin: 0, opacity: archivada ? 0.75 : 1 }}>
                   <div className="sp-card-header">
                     <div className="sp-card-icon" style={{ background: `${color}22`, color }}>
                       {nombreMateria[0] ?? "?"}
@@ -442,6 +503,11 @@ export default function AdminOfertas() {
                     <div className="sp-card-body">
                       <p className="sp-card-title">
                         {nombreMateria} · {oferta.duracion_minutos} min
+                        {archivada && (
+                          <span style={{ marginLeft: 8, fontSize: 10.5, fontWeight: 800, color: "var(--text-muted)", background: "var(--surface2)", borderRadius: 999, padding: "2px 8px", verticalAlign: "middle" }}>
+                            ARCHIVADA
+                          </span>
+                        )}
                       </p>
                       <p className="sp-card-description">{fmtFecha(oferta.fecha_hora)}</p>
                       <p style={{ fontSize: 12, color: "var(--text-muted)", margin: "4px 0 0" }}>
@@ -460,31 +526,49 @@ export default function AdminOfertas() {
                   )}
 
                   <div style={{ display: "flex", gap: 8, marginTop: 10 }}>
-                    <button
-                      type="button"
-                      onClick={() => iniciarEdicion(oferta)}
-                      style={{
-                        flex: 1, minHeight: 40, borderRadius: 10, border: `1px solid ${color}`,
-                        background: "transparent", color, fontWeight: 700, fontSize: 13,
-                        display: "flex", alignItems: "center", justifyContent: "center", gap: 6, cursor: "pointer",
-                      }}
-                    >
-                      <HiOutlinePencilSquare /> Editar
-                    </button>
-                    <button
-                      type="button"
-                      disabled={borrandoId === oferta.id}
-                      onClick={() => borrarOferta(oferta)}
-                      style={{
-                        flex: 1, minHeight: 40, borderRadius: 10, border: "1px solid var(--wrong)",
-                        background: "transparent", color: "var(--wrong)", fontWeight: 700, fontSize: 13,
-                        display: "flex", alignItems: "center", justifyContent: "center", gap: 6,
-                        cursor: borrandoId === oferta.id ? "default" : "pointer",
-                        opacity: borrandoId === oferta.id ? 0.6 : 1,
-                      }}
-                    >
-                      <HiOutlineTrash /> {borrandoId === oferta.id ? "Borrando…" : "Borrar"}
-                    </button>
+                    {archivada ? (
+                      <button
+                        type="button"
+                        disabled={procesando}
+                        onClick={() => reactivarOferta(oferta)}
+                        style={{
+                          flex: 1, minHeight: 40, borderRadius: 10, border: "1px solid #7c5cbf",
+                          background: "transparent", color: "#7c5cbf", fontWeight: 700, fontSize: 13,
+                          display: "flex", alignItems: "center", justifyContent: "center", gap: 6,
+                          cursor: procesando ? "default" : "pointer", opacity: procesando ? 0.6 : 1,
+                        }}
+                      >
+                        <HiOutlineArrowUturnLeft /> {procesando ? "Reactivando…" : "Reactivar"}
+                      </button>
+                    ) : (
+                      <>
+                        <button
+                          type="button"
+                          onClick={() => iniciarEdicion(oferta)}
+                          style={{
+                            flex: 1, minHeight: 40, borderRadius: 10, border: `1px solid ${color}`,
+                            background: "transparent", color, fontWeight: 700, fontSize: 13,
+                            display: "flex", alignItems: "center", justifyContent: "center", gap: 6, cursor: "pointer",
+                          }}
+                        >
+                          <HiOutlinePencilSquare /> Editar
+                        </button>
+                        <button
+                          type="button"
+                          disabled={procesando}
+                          onClick={() => setOfertaAEliminar(oferta)}
+                          style={{
+                            flex: 1, minHeight: 40, borderRadius: 10, border: "1px solid var(--wrong)",
+                            background: "transparent", color: "var(--wrong)", fontWeight: 700, fontSize: 13,
+                            display: "flex", alignItems: "center", justifyContent: "center", gap: 6,
+                            cursor: procesando ? "default" : "pointer",
+                            opacity: procesando ? 0.6 : 1,
+                          }}
+                        >
+                          <HiOutlineArchiveBoxArrowDown /> {procesando ? "Archivando…" : "Archivar"}
+                        </button>
+                      </>
+                    )}
                   </div>
                 </div>
               );
@@ -492,6 +576,20 @@ export default function AdminOfertas() {
           </>
         )}
       </main>
+
+      <ConfirmDialog
+        abierto={Boolean(ofertaAEliminar)}
+        titulo="Archivar oferta"
+        mensaje={
+          ofertaAEliminar
+            ? `¿Archivar la oferta de ${nombreMateriaOferta(ofertaAEliminar.materia_id, ofertaAEliminar.materia_otro)} (${ofertaAEliminar.profesor})? Deja de verse en el portal de alumnos, pero se puede reactivar después.`
+            : ""
+        }
+        textoConfirmar="Archivar"
+        colorConfirmar="var(--wrong)"
+        onConfirmar={confirmarBorrarOferta}
+        onCancelar={() => setOfertaAEliminar(null)}
+      />
     </div>
   );
 }

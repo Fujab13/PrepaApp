@@ -2,8 +2,10 @@
 // Sub-página de "/tutorias" (ver Tutorias.jsx) para el lado Maestro: publica
 // su disponibilidad (materia, horario, precio, cupo, notas y la CLABE donde
 // recibe el pago) en la tabla `ofertas_maestro` para que los alumnos la vean
-// en su portal. No hay flujo de aceptar/pagar dentro de la app — el maestro
-// coordina grupo de WhatsApp y pago directamente con cada alumno.
+// en su portal. El alumno paga dentro de la app vía Stripe (ver
+// PublicacionOfertas.jsx / crear-sesion-pago-oferta-maestro); el maestro
+// marca manualmente cuándo agregó a cada alumno al grupo de WhatsApp de la
+// clase (ver AlumnosOfertas.jsx / marcar_agregado_grupo_whatsapp).
 
 import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -11,6 +13,7 @@ import { useAuth } from "../context/AuthContext";
 import { supabase } from "../services/supabaseClient";
 import { FilaChips, chip } from "../components/FilaChips";
 import { Seccion } from "../components/Seccion";
+import ConfirmDialog from "../components/ConfirmDialog";
 import { MATERIAS_TUTORIA, MATERIA_OTROS, nombreMateriaOferta } from "../data/materiasTutoria";
 import {
   registrarProfesorPropio,
@@ -32,7 +35,8 @@ import { PiChalkboardTeacher } from "react-icons/pi";
 import {
   HiOutlineChatBubbleLeftRight,
   HiOutlinePencilSquare,
-  HiOutlineTrash,
+  HiOutlineArchiveBoxArrowDown,
+  HiOutlineArrowUturnLeft,
   HiOutlineCurrencyDollar,
   HiOutlineBanknotes,
   HiOutlineClipboardDocumentList,
@@ -79,6 +83,96 @@ function horaInput(date) {
   return `${pad(date.getHours())}:${pad(date.getMinutes())}`;
 }
 
+// Una oferta en "Tus ofertas": activa (Editar/Archivar) o de Historial
+// (vencida y/o archivada). `archivada` decide el set de botones — una
+// vencida-pero-no-archivada sigue siendo editable/archivable (p.ej. el
+// maestro quiere recorrer la fecha), solo una YA archivada ofrece
+// "Reactivar" en su lugar.
+function TarjetaOferta({ oferta, enEdicion, procesando, archivada, onEditar, onArchivar, onReactivar }) {
+  const materia = MATERIAS_TUTORIA.find((m) => m.id === oferta.materia_id);
+  const color = materia?.color ?? MATERIA_OTROS.color;
+  const nombreMateria = nombreMateriaOferta(oferta.materia_id, oferta.materia_otro);
+  const fechaObj = new Date(oferta.fecha_hora);
+
+  return (
+    <div
+      className="sp-card"
+      style={{ margin: 0, border: enEdicion ? `1.5px solid ${color}` : undefined, opacity: archivada ? 0.75 : 1 }}
+    >
+      <div className="sp-card-header">
+        <div className="sp-card-icon" style={{ background: `${color}22`, color }}>
+          {nombreMateria[0] ?? "?"}
+        </div>
+        <div className="sp-card-body">
+          <p className="sp-card-title">
+            {nombreMateria} · {oferta.duracion_minutos} min
+          </p>
+          <p className="sp-card-description">
+            {fechaObj.toLocaleString("es-MX", { dateStyle: "medium", timeStyle: "short" })}
+          </p>
+          <p style={{ fontSize: 12, color: "var(--text-muted)", margin: "4px 0 0" }}>
+            {oferta.profesor} · Cupo: {oferta.cupo_maximo} · CLABE: {oferta.cuenta_clave}
+          </p>
+        </div>
+        <p style={{ fontSize: 17, fontWeight: 800, color, margin: 0, whiteSpace: "nowrap" }}>
+          ${Number(oferta.precio_mxn).toFixed(0)}
+        </p>
+      </div>
+
+      {oferta.notas && (
+        <p style={{ fontSize: 13, color: "var(--text-muted)", margin: "10px 0 0", lineHeight: 1.5 }}>
+          {oferta.notas}
+        </p>
+      )}
+
+      <div style={{ display: "flex", gap: 8, marginTop: 10 }}>
+        {archivada ? (
+          <button
+            type="button"
+            disabled={procesando}
+            onClick={onReactivar}
+            style={{
+              flex: 1, minHeight: 40, borderRadius: 10, border: "1px solid #7c5cbf",
+              background: "transparent", color: "#7c5cbf", fontWeight: 700, fontSize: 13,
+              display: "flex", alignItems: "center", justifyContent: "center", gap: 6,
+              cursor: procesando ? "default" : "pointer", opacity: procesando ? 0.6 : 1,
+            }}
+          >
+            <HiOutlineArrowUturnLeft /> {procesando ? "Reactivando…" : "Reactivar"}
+          </button>
+        ) : (
+          <>
+            <button
+              type="button"
+              onClick={onEditar}
+              style={{
+                flex: 1, minHeight: 40, borderRadius: 10, border: `1px solid ${color}`,
+                background: enEdicion ? `${color}22` : "transparent", color, fontWeight: 700, fontSize: 13,
+                display: "flex", alignItems: "center", justifyContent: "center", gap: 6, cursor: "pointer",
+              }}
+            >
+              <HiOutlinePencilSquare /> {enEdicion ? "Editando…" : "Editar"}
+            </button>
+            <button
+              type="button"
+              disabled={procesando}
+              onClick={onArchivar}
+              style={{
+                flex: 1, minHeight: 40, borderRadius: 10, border: "1px solid var(--wrong)",
+                background: "transparent", color: "var(--wrong)", fontWeight: 700, fontSize: 13,
+                display: "flex", alignItems: "center", justifyContent: "center", gap: 6,
+                cursor: procesando ? "default" : "pointer", opacity: procesando ? 0.6 : 1,
+              }}
+            >
+              <HiOutlineArchiveBoxArrowDown /> {procesando ? "Archivando…" : "Archivar"}
+            </button>
+          </>
+        )}
+      </div>
+    </div>
+  );
+}
+
 export default function TutoriasMaestro() {
   const navigate = useNavigate();
   const { user, cargando: cargandoAuth, esMaestro } = useAuth();
@@ -86,8 +180,10 @@ export default function TutoriasMaestro() {
   const [misOfertas, setMisOfertas] = useState([]);
   const [cargandoOfertas, setCargandoOfertas] = useState(true);
   const [mostrarOfertas, setMostrarOfertas] = useState(false);
+  const [mostrarHistorial, setMostrarHistorial] = useState(false);
 
-  const [borrandoId, setBorrandoId] = useState(null);
+  const [procesandoId, setProcesandoId] = useState(null);
+  const [ofertaAEliminar, setOfertaAEliminar] = useState(null);
   const [editandoId, setEditandoId] = useState(null);
 
   const [materiaId, setMateriaId] = useState("");
@@ -310,12 +406,38 @@ export default function TutoriasMaestro() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
-  async function borrarOferta(oferta) {
-    setBorrandoId(oferta.id);
-    const { error: deleteError } = await supabase.from("ofertas_maestro").delete().eq("id", oferta.id);
-    setBorrandoId(null);
-    if (deleteError) return setError("No se pudo borrar tu oferta. Intenta de nuevo.");
+  // "Borrar" ya no es un DELETE real (ver migración
+  // 20260917150000_archivar_ofertas_maestro.sql: transacciones nunca borra
+  // filas, solo cambia su estado, así que cualquier reserva vieja e incluso
+  // nunca pagada bloqueaba el DELETE para siempre) — ahora archiva: la
+  // oferta se queda en la base (historial de ganancias, reportes de admin),
+  // pero deja de verse en el portal de alumnos y se mueve a "Historial" en
+  // esta pantalla. Reversible con reactivarOferta.
+  async function confirmarBorrarOferta() {
+    const oferta = ofertaAEliminar;
+    if (!oferta) return;
+    setOfertaAEliminar(null);
+    setError("");
+    setProcesandoId(oferta.id);
+    const { error: archivarError } = await supabase
+      .from("ofertas_maestro")
+      .update({ archivada_en: new Date().toISOString() })
+      .eq("id", oferta.id);
+    setProcesandoId(null);
+    if (archivarError) return setError("No se pudo archivar tu oferta. Intenta de nuevo.");
     if (editandoId === oferta.id) limpiarFormulario();
+    cargarMisOfertas();
+  }
+
+  async function reactivarOferta(oferta) {
+    setError("");
+    setProcesandoId(oferta.id);
+    const { error: reactivarError } = await supabase
+      .from("ofertas_maestro")
+      .update({ archivada_en: null })
+      .eq("id", oferta.id);
+    setProcesandoId(null);
+    if (reactivarError) return setError("No se pudo reactivar tu oferta. Intenta de nuevo.");
     cargarMisOfertas();
   }
 
@@ -404,6 +526,17 @@ export default function TutoriasMaestro() {
     materiaId === MATERIA_OTROS.id
       ? MATERIA_OTROS
       : MATERIAS_TUTORIA.find((m) => m.id === materiaId);
+
+  // Activas = lo que el alumno puede ver y reservar ahora mismo. Historial =
+  // vencidas y/o archivadas — se agrupan aparte para que la lista de trabajo
+  // no se llene de clases que ya pasaron o que el maestro retiró.
+  const ahoraMs = Date.now();
+  const ofertasActivas = misOfertas.filter(
+    (o) => !o.archivada_en && new Date(o.fecha_hora).getTime() >= ahoraMs
+  );
+  const ofertasHistorial = misOfertas.filter(
+    (o) => o.archivada_en || new Date(o.fecha_hora).getTime() < ahoraMs
+  );
 
   return (
     <div style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
@@ -793,7 +926,7 @@ export default function TutoriasMaestro() {
               icono={<HiOutlineChatBubbleLeftRight />}
               color="#06b6d4"
               title={editandoId ? "Editando oferta" : "Publicar una clase"}
-              subtitle="Los alumnos la ven en su portal; el grupo de WhatsApp y el pago se coordinan directamente contigo."
+              subtitle="Los alumnos la ven y la pagan en su portal; después de pagar, marca a cada alumno en 'Alumnos inscritos' cuando lo agregues al grupo de WhatsApp."
               style={
                 editandoId
                   ? { border: "1.5px solid #06b6d4", boxShadow: "0 0 0 4px rgba(6,182,212,0.18)" }
@@ -923,119 +1056,86 @@ export default function TutoriasMaestro() {
               </div>
             </Seccion>
 
-            <Seccion icono={<HiOutlineCurrencyDollar />} color="#7c5cbf" title="Tus ofertas" subtitle="Guardadas en Supabase; edítalas o bórralas cuando quieras.">
-                {cargandoOfertas && (
-                  <p style={{ fontSize: 13, color: "var(--text-muted)", margin: 0 }}>Cargando tus ofertas…</p>
-                )}
-                {!cargandoOfertas && misOfertas.length === 0 && (
-                  <p style={{ fontSize: 13, color: "var(--text-muted)", margin: 0 }}>Todavía no has publicado ninguna oferta.</p>
-                )}
-                {!cargandoOfertas && misOfertas.length > 0 && (
-                  <button
-                    type="button"
-                    onClick={() => setMostrarOfertas((v) => !v)}
-                    style={{
-                      minHeight: 44, borderRadius: 10, border: "1px solid #7c5cbf",
-                      background: mostrarOfertas ? "rgba(124,92,191,0.15)" : "transparent",
-                      color: "#7c5cbf", fontWeight: 700, fontSize: 14, cursor: "pointer",
-                      display: "flex", alignItems: "center", justifyContent: "center", gap: 8,
-                    }}
-                  >
-                    {mostrarOfertas ? "Ocultar mis ofertas" : `Ver mis ofertas (${misOfertas.length})`}
-                    {mostrarOfertas ? <HiChevronUp /> : <HiChevronDown />}
-                  </button>
-                )}
-                {mostrarOfertas && misOfertas.map((oferta) => {
-                  const materia = MATERIAS_TUTORIA.find((m) => m.id === oferta.materia_id);
-                  const color = materia?.color ?? MATERIA_OTROS.color;
-                  const nombreMateria = nombreMateriaOferta(oferta.materia_id, oferta.materia_otro);
-                  const fechaObj = new Date(oferta.fecha_hora);
-                  const enEdicion = editandoId === oferta.id;
-                  return (
-                    <div
-                      key={oferta.id}
-                      className="sp-card"
-                      style={{ margin: 0, border: enEdicion ? `1.5px solid ${color}` : undefined }}
-                    >
-                      <div className="sp-card-header">
-                        <div className="sp-card-icon" style={{ background: `${color}22`, color }}>
-                          {nombreMateria[0] ?? "?"}
-                        </div>
-                        <div className="sp-card-body">
-                          <p className="sp-card-title">
-                            {nombreMateria} · {oferta.duracion_minutos} min
-                          </p>
-                          <p className="sp-card-description">
-                            {fechaObj.toLocaleString("es-MX", { dateStyle: "medium", timeStyle: "short" })}
-                          </p>
-                          <p style={{ fontSize: 12, color: "var(--text-muted)", margin: "4px 0 0" }}>
-                            {oferta.profesor} · Cupo: {oferta.cupo_maximo} · CLABE: {oferta.cuenta_clave}
-                          </p>
-                        </div>
-                        <p style={{ fontSize: 17, fontWeight: 800, color, margin: 0, whiteSpace: "nowrap" }}>
-                          ${Number(oferta.precio_mxn).toFixed(0)}
-                        </p>
-                      </div>
+            <Seccion icono={<HiOutlineCurrencyDollar />} color="#7c5cbf" title="Tus ofertas" subtitle="Las activas se ven en el portal de alumnos; archivar una no la borra, solo la retira.">
+              {cargandoOfertas && (
+                <p style={{ fontSize: 13, color: "var(--text-muted)", margin: 0 }}>Cargando tus ofertas…</p>
+              )}
+              {!cargandoOfertas && misOfertas.length === 0 && (
+                <p style={{ fontSize: 13, color: "var(--text-muted)", margin: 0 }}>Todavía no has publicado ninguna oferta.</p>
+              )}
 
-                      {oferta.notas && (
-                        <p style={{ fontSize: 13, color: "var(--text-muted)", margin: "10px 0 0", lineHeight: 1.5 }}>
-                          {oferta.notas}
-                        </p>
-                      )}
+              {!cargandoOfertas && ofertasActivas.length > 0 && (
+                <button
+                  type="button"
+                  onClick={() => setMostrarOfertas((v) => !v)}
+                  style={{
+                    minHeight: 44, borderRadius: 10, border: "1px solid #7c5cbf",
+                    background: mostrarOfertas ? "rgba(124,92,191,0.15)" : "transparent",
+                    color: "#7c5cbf", fontWeight: 700, fontSize: 14, cursor: "pointer",
+                    display: "flex", alignItems: "center", justifyContent: "center", gap: 8,
+                  }}
+                >
+                  {mostrarOfertas ? "Ocultar mis ofertas" : `Ver mis ofertas activas (${ofertasActivas.length})`}
+                  {mostrarOfertas ? <HiChevronUp /> : <HiChevronDown />}
+                </button>
+              )}
+              {mostrarOfertas && ofertasActivas.map((oferta) => (
+                <TarjetaOferta
+                  key={oferta.id}
+                  oferta={oferta}
+                  enEdicion={editandoId === oferta.id}
+                  procesando={procesandoId === oferta.id}
+                  archivada={false}
+                  onEditar={() => (editandoId === oferta.id ? limpiarFormulario() : iniciarEdicion(oferta))}
+                  onArchivar={() => setOfertaAEliminar(oferta)}
+                />
+              ))}
 
-                      <div style={{ display: "flex", gap: 8, marginTop: 10 }}>
-                        <button
-                          type="button"
-                          onClick={() => (enEdicion ? limpiarFormulario() : iniciarEdicion(oferta))}
-                          style={{
-                            flex: 1,
-                            minHeight: 40,
-                            borderRadius: 10,
-                            border: `1px solid ${color}`,
-                            background: enEdicion ? `${color}22` : "transparent",
-                            color,
-                            fontWeight: 700,
-                            fontSize: 13,
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center",
-                            gap: 6,
-                            cursor: "pointer",
-                          }}
-                        >
-                          <HiOutlinePencilSquare /> {enEdicion ? "Editando…" : "Editar"}
-                        </button>
-                        <button
-                          type="button"
-                          disabled={borrandoId === oferta.id}
-                          onClick={() => borrarOferta(oferta)}
-                          style={{
-                            flex: 1,
-                            minHeight: 40,
-                            borderRadius: 10,
-                            border: "1px solid var(--wrong)",
-                            background: "transparent",
-                            color: "var(--wrong)",
-                            fontWeight: 700,
-                            fontSize: 13,
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center",
-                            gap: 6,
-                            cursor: borrandoId === oferta.id ? "default" : "pointer",
-                            opacity: borrandoId === oferta.id ? 0.6 : 1,
-                          }}
-                        >
-                          <HiOutlineTrash /> {borrandoId === oferta.id ? "Borrando…" : "Borrar"}
-                        </button>
-                      </div>
-                    </div>
-                  );
-                })}
-              </Seccion>
+              {!cargandoOfertas && ofertasHistorial.length > 0 && (
+                <button
+                  type="button"
+                  onClick={() => setMostrarHistorial((v) => !v)}
+                  style={{
+                    minHeight: 44, borderRadius: 10, border: "1px solid var(--border-strong)",
+                    background: mostrarHistorial ? "var(--surface2)" : "transparent",
+                    color: "var(--text-muted)", fontWeight: 700, fontSize: 14, cursor: "pointer",
+                    display: "flex", alignItems: "center", justifyContent: "center", gap: 8,
+                  }}
+                >
+                  {mostrarHistorial ? "Ocultar historial" : `Ver historial (${ofertasHistorial.length})`}
+                  {mostrarHistorial ? <HiChevronUp /> : <HiChevronDown />}
+                </button>
+              )}
+              {mostrarHistorial && ofertasHistorial.map((oferta) => (
+                <TarjetaOferta
+                  key={oferta.id}
+                  oferta={oferta}
+                  enEdicion={editandoId === oferta.id}
+                  procesando={procesandoId === oferta.id}
+                  archivada={Boolean(oferta.archivada_en)}
+                  onEditar={() => (editandoId === oferta.id ? limpiarFormulario() : iniciarEdicion(oferta))}
+                  onArchivar={() => setOfertaAEliminar(oferta)}
+                  onReactivar={() => reactivarOferta(oferta)}
+                />
+              ))}
+            </Seccion>
           </>
         )}
       </main>
+
+      <ConfirmDialog
+        abierto={Boolean(ofertaAEliminar)}
+        titulo="Archivar oferta"
+        mensaje={
+          ofertaAEliminar
+            ? `¿Archivar la oferta de ${nombreMateriaOferta(ofertaAEliminar.materia_id, ofertaAEliminar.materia_otro)}? Deja de verse en el portal de alumnos, pero puedes reactivarla después desde "Historial".`
+            : ""
+        }
+        textoConfirmar="Archivar"
+        colorConfirmar="var(--wrong)"
+        onConfirmar={confirmarBorrarOferta}
+        onCancelar={() => setOfertaAEliminar(null)}
+      />
     </div>
   );
 }

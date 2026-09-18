@@ -495,7 +495,7 @@ export default function PerfilProfesor() {
                     background: "var(--surface)", border: "1px solid rgba(255,255,255,0.06)",
                     borderRadius: 12, padding: "12px 14px", color: "var(--text)", fontSize: "0.9rem", outline: "none",
                   }}
-                  placeholder="Tu Correo de contacto ( opcional )"
+                  placeholder="Tu correo de contacto (opcional)"
                   value={contactoReporte}
                   onChange={(e) => setContactoReporte(e.target.value)}
                   maxLength={200}

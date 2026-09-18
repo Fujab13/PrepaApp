@@ -115,7 +115,7 @@ export default function TutoriasAlumno() {
               icono={<HiOutlineClipboardDocumentCheck />}
               color="#7c5cbf"
               title="Antes de reservar"
-              subtitle="Consulta las clases que tus maestros tienen disponibles. El grupo de WhatsApp y el pago se coordinan directamente con ellos."
+              subtitle="Consulta las clases que tus maestros tienen disponibles, reserva y paga aquí mismo. Después de pagar, tu maestro te agrega a un grupo de WhatsApp."
             >
               <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
                 <EstadoPill completado={examenOk} etiqueta="Examen Simulador" onClick={() => navigate("/examen")} />

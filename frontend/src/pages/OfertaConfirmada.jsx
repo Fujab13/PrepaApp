@@ -30,7 +30,7 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { useNombreAlumno } from "../hooks/useNombreAlumno";
 import { supabase } from "../services/supabaseClient";
-import { MATERIAS_TUTORIA, nombreMateriaOferta } from "../data/materiasTutoria";
+import { nombreMateriaOferta } from "../data/materiasTutoria";
 import { CORREO_CONTACTO_APP } from "../utils/contacto";
 import { imprimirComoPdf, nombrePdf } from "../utils/imprimirPdf";
 
@@ -61,7 +61,7 @@ function FilaDato({ label, valor, mono = false }) {
   );
 }
 
-function Recibo({ transaccion, oferta, materia, user }) {
+function Recibo({ transaccion, oferta, user }) {
   const folio = transaccion.id.slice(0, 8).toUpperCase();
   const fechaConfirmacion = new Date(transaccion.actualizado_en).toLocaleString("es-MX", {
     dateStyle: "medium",
@@ -77,7 +77,7 @@ function Recibo({ transaccion, oferta, materia, user }) {
         <HiCheckCircle style={{ fontSize: "2.3rem", color: "var(--correct)", marginBottom: 8 }} />
         <p style={{ fontSize: 16, fontWeight: 800, color: "var(--text)", margin: 0 }}>Comprobante de reserva</p>
         <p style={{ fontSize: 11, color: "var(--text-muted)", margin: "2px 0 0", letterSpacing: 0.3 }}>
-          PrepaApp · Tutorías 1-a-1
+          PrepaApp · Tutorías
         </p>
         <p style={{ fontSize: 13.5, fontWeight: 700, color: "var(--correct)", margin: "12px 0 0" }}>
           Folio #{folio}
@@ -119,8 +119,8 @@ function Recibo({ transaccion, oferta, materia, user }) {
       </div>
 
       <p style={{ fontSize: 11, color: "var(--text-muted)", textAlign: "center", lineHeight: 1.5, margin: 0, padding: "14px 20px" }}>
-        Guarda este comprobante. El grupo de WhatsApp y cualquier detalle adicional de la clase se coordinan
-        directamente con tu maestro.
+        Guarda este comprobante. Tu maestro te agregará a un grupo de WhatsApp en el transcurso del día; cualquier
+        detalle adicional de la clase se coordina ahí.
       </p>
     </div>
   );
@@ -212,7 +212,6 @@ export default function OfertaConfirmada() {
   }, [transaccion?.estado_pago]);
 
   const oferta = transaccion?.ofertas_maestro;
-  const materia = oferta ? MATERIAS_TUTORIA.find((m) => m.id === oferta.materia_id) : null;
   const confirmado = transaccion?.estado_pago === "completado";
   const imprimir = () => imprimirComoPdf(nombrePdf("Comprobante de reserva", transaccion?.actualizado_en));
 
@@ -261,7 +260,7 @@ export default function OfertaConfirmada() {
 
         {!cargando && !errorCarga && confirmado && (
           <>
-            <Recibo transaccion={transaccion} oferta={oferta} materia={materia} user={user} />
+            <Recibo transaccion={transaccion} oferta={oferta} user={user} />
 
             <div className="no-print" style={{ display: "flex", gap: 10, marginTop: 16 }}>
               <button

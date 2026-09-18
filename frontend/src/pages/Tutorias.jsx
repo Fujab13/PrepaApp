@@ -1,7 +1,8 @@
 // Tutorias.jsx
 // Punto de entrada de "/tutorias": deja elegir entre el flujo de Alumnos
-// (reservar una clase) y el de Maestros (aún en desarrollo). No requiere
-// sesión para verse; cada sub-página valida el acceso por su cuenta.
+// (reservar y pagar una clase) y el de Maestros (publicar disponibilidad,
+// una vez verificado — ver TutoriasMaestro.jsx). No requiere sesión para
+// verse; cada sub-página valida el acceso por su cuenta.
 
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -349,7 +350,7 @@ const OPCIONES = [
     icono: <PiChalkboardTeacher />,
     color: "#06b6d4",
     titulo: "Maestros",
-    subtitulo: "Consulta y gestiona tus tutorías asignadas.",
+    subtitulo: "Publica tus clases y cobra directo en la app.",
   },
 ];
 

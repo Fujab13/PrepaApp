@@ -5,6 +5,7 @@ import { cargarYCachearLeccion } from '../services/leccionesPremium';
 import { cargarYCachearExamen } from '../services/examenesPremium';
 import { obtenerMetaProducto } from '../data/storeItems';
 import { renderIconoMateria } from '../utils/renderIconoMateria';
+import GoogleTranslateButton from '../components/GoogleTranslateButton';
 
 import { AiOutlineClose, AiOutlineLoading3Quarters } from "react-icons/ai";
 import { HiOutlineArchiveBoxXMark, HiOutlineSquares2X2 } from "react-icons/hi2";
@@ -171,16 +172,14 @@ export default function Inventario({ onClose, onNavigateStore }) {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', width: '100%' }}>
 
-      <div className="page-topbar-compact">
+      <div className="page-topbar-compact" style={{ flexWrap: 'wrap', rowGap: 6 }}>
         <button onClick={handleClose} title="Salir" className="page-topbar-btn">
           <AiOutlineClose />
         </button>
         <h2 className="page-topbar-title">Inventario</h2>
-        {!loading && inventario.length > 0 && (
-          <span style={{ marginLeft: 'auto', fontSize: '0.78rem', fontWeight: 700, color: 'var(--text-muted)' }}>
-            {inventario.length} {inventario.length === 1 ? 'objeto' : 'objetos'}
-          </span>
-        )}
+        <div className="page-topbar-actions" style={{ minWidth: 0 }}>
+          <GoogleTranslateButton />
+        </div>
       </div>
 
       <div className="page-content-compact" style={{ display: 'flex', flexDirection: 'column', gap: '20px', flex: 1 }}>

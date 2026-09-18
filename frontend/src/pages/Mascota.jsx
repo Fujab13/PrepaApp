@@ -29,6 +29,36 @@ const TOQUES_PARA_DANIO = 3
 const VENTANA_TOQUES_MS = 600
 const DURACION_DANIO_TOQUES_MS = 500
 
+// ── Ciclo día/noche ──────────────────────────────────────────────────────
+// Ciclo simulado y acelerado (antes se guiaba por la hora real del
+// dispositivo, pero un día completo era demasiado lento para notarse en una
+// sesión normal) — un "día" (mitad luz, mitad noche) dura DURACION_DIA_MS de
+// principio a fin, arrancando en día apenas se abre la pantalla.
+const DURACION_DIA_MS = 5 * 60 * 1000 // 5 min por día completo (día + noche)
+const DURACION_FASE_MS = DURACION_DIA_MS / 2 // mitad luz, mitad noche
+// Mismas funciones de filtro, mismo orden, en ambas — así el navegador
+// puede interpolar cada una al transicionar (ver `transition: filter` en el
+// JSX) en vez de solo cortar de golpe entre "sin filtro" y "con filtro".
+const FILTRO_DIA = 'grayscale(0) sepia(0) hue-rotate(0deg) saturate(1) brightness(1) contrast(1)'
+const FILTRO_NOCHE = 'grayscale(0.15) sepia(0.75) hue-rotate(75deg) saturate(2.1) brightness(0.97) contrast(1.15)'
+
+// ── Luna ─────────────────────────────────────────────────────────────────
+// Posición aleatoria (una vez por entrada/recarga, no cambia mientras dura
+// la sesión) pero acotada: un centro fijo + un radio máximo de variación,
+// para que nunca aparezca fuera del cielo ni demasiado cerca del horizonte.
+// % relativos al sandbox completo (mismo sistema que top/left de la luna).
+const LUNA_CENTRO_TOP = 11
+const LUNA_CENTRO_LEFT = 80
+const LUNA_RADIO = 9
+function posicionLunaAleatoria() {
+  const angulo = Math.random() * Math.PI * 2
+  const distancia = Math.sqrt(Math.random()) * LUNA_RADIO // sqrt: distribución uniforme dentro del círculo, no amontonada al centro
+  return {
+    top: clamp(LUNA_CENTRO_TOP + Math.sin(angulo) * distancia, 3, Y_MIN - 4),
+    left: clamp(LUNA_CENTRO_LEFT + Math.cos(angulo) * distancia, 58, 93),
+  }
+}
+
 // ── Profundidad ──────────────────────────────────────────────────────────
 // El sandbox no es una sola línea horizontal: cada mascota también tiene
 // una posición Y que representa "qué tan lejos" está (0 = al fondo, cerca
@@ -54,6 +84,18 @@ function zIndexPorProfundidad(y) {
 function clamp(valor, minimo, maximo) {
   return Math.max(minimo, Math.min(maximo, valor))
 }
+
+// ── Decoración del piso ──────────────────────────────────────────────────
+// Posiciones fijas (% dentro del plano rotado, mismo sistema que el lago) de
+// las matas de pasto sueltas — esquivan la carretera (left ~10-19%) y el
+// lago (left ~37-67%, top ~26-46%) a ojo, nada más es ambientación.
+const MATAS_PASTO = [
+  { left: 26, top: 10 },
+  { left: 82, top: 16 },
+  { left: 78, top: 58 },
+  { left: 45, top: 76 },
+  { left: 28, top: 86 },
+]
 
 // ── Física del sandbox ──────────────────────────────────────────────────
 // Cada mascota es un cuerpo con posición y velocidad continuas (en píxeles
@@ -110,6 +152,20 @@ export default function Mascota() {
     clearTimeout(ocultarMensajeRef.current)
     ocultarMensajeRef.current = setTimeout(() => setMensaje(null), 2400)
   }, [])
+
+  // Ciclo día/noche del sandbox (ver DURACION_DIA_MS/DURACION_FASE_MS
+  // arriba) — arranca en día o noche al azar (así cada vez que se entra o
+  // se recarga se puede ver una parte distinta del ciclo) y alterna cada
+  // DURACION_FASE_MS de ahí en adelante.
+  const [esDeNoche, setEsDeNoche] = useState(() => Math.random() < 0.5)
+  useEffect(() => {
+    const id = setInterval(() => setEsDeNoche(v => !v), DURACION_FASE_MS)
+    return () => clearInterval(id)
+  }, [])
+
+  // Posición de la luna: se sortea una vez por entrada/recarga (ver
+  // posicionLunaAleatoria arriba) y no vuelve a cambiar durante la sesión.
+  const [posicionLuna] = useState(posicionLunaAleatoria)
 
   // Fuerza a recalcular felicidad/temporizador de cada mascota cada
   // INTERVALO_RELOJ_MS (ver más abajo, donde se leen fresco en cada render).
@@ -430,17 +486,30 @@ export default function Mascota() {
       <div className="page-content-compact" style={{ display: 'flex', flexDirection: 'column', gap: 16, flex: 1 }}>
         {/* El sandbox: un "entorno virtual" fijo (no las variables de tema —
             es la ambientación propia de este minijuego, como el "neón" de
-            Inventario.jsx) — un campo verde con un lago, bajo un cielo azul.
-            Sigue siendo el mismo truco simple de "grid floor" retro que
-            antes (rotateX + perspective sobre un plano de cuadrícula), solo
-            que ahora la cuadrícula es pasto en vez de neón, y el lago es
-            una elipse hija de ese mismo plano rotado — al heredar la
-            perspectiva se ve como un charco visto en ángulo, no como un
-            círculo pegado encima. La línea de horizonte sigue marcando
-            justo donde arranca la banda de profundidad de las mascotas
-            (Y_MIN). Envuelto en un marco con degradado + sombra (mismo
-            lenguaje que .sp-card/las tarjetas primarias del resto de la
-            app) para que se sienta una pieza de UI, no una imagen suelta. */}
+            Inventario.jsx) — un campo con un lago, carretera, pasto y un
+            par de farolas, con ciclo día/noche simulado (ver esDeNoche
+            arriba, se sortea al azar en cada entrada/recarga). De noche se
+            ve a través de un filtro estilo "visión nocturna" (monocromo
+            verde + viñeta + scanlines, ver FILTRO_NOCHE/.mascota-vision-
+            vineta en global.css). Dos capas apiladas (mismo inset:0, mismo
+            sistema de % para el loop de física): 1) TODO el escenario
+            (cielo, luna, piso, lago, mascotas, comida) CON el filtro
+            (mismas funciones que FILTRO_DIA, para que el navegador pueda
+            interpolar la transición) — de noche el sprite y el flash de
+            color de pelea/alimentar (PixelArt `tinte`) también se ven
+            verdosos, como el resto de la escena; 2) la viñeta, sin filtrar,
+            encima de todo (es el "visor", no la escena), cuya opacidad
+            cruza junto con esDeNoche. Sigue siendo el mismo
+            truco simple de "grid floor" retro de antes (rotateX +
+            perspective sobre un plano de cuadrícula, fijo — ya no se
+            desliza solo), y el lago es una elipse hija de ese mismo plano
+            rotado — al heredar la perspectiva se ve como un charco visto
+            en ángulo, no como un círculo pegado encima. La línea de
+            horizonte sigue marcando justo donde arranca la banda de
+            profundidad de las mascotas (Y_MIN). Envuelto en un marco con
+            degradado + sombra (mismo lenguaje que .sp-card/las tarjetas
+            primarias del resto de la app) para que se sienta una pieza de
+            UI, no una imagen suelta. */}
         <div style={{
           borderRadius: 24, padding: 4,
           background: 'linear-gradient(145deg, var(--surface2), var(--surface))',
@@ -451,85 +520,137 @@ export default function Mascota() {
             height: 380,
             borderRadius: 20,
             overflow: 'hidden',
-            border: '1px solid rgba(255, 255, 255, 0.5)',
-            backgroundColor: '#bfe3f7',
+            border: '1px solid rgba(60, 255, 140, 0.35)',
+            backgroundColor: '#020a03',
           }}>
-            {/* Cielo */}
-            <div style={{
-              position: 'absolute', top: 0, left: 0, right: 0, height: `${Y_MIN}%`,
-              background: 'linear-gradient(180deg, #4f9fe0 0%, #cdecfb 100%)',
-            }} />
+            <div style={{ position: 'absolute', inset: 0, filter: esDeNoche ? FILTRO_NOCHE : FILTRO_DIA, transition: 'filter 1.2s ease' }}>
+              {/* Cielo: alterna con el ciclo día/noche simulado (ver esDeNoche arriba) */}
+              <div style={{
+                position: 'absolute', top: 0, left: 0, right: 0, height: `${Y_MIN}%`,
+                background: esDeNoche
+                  ? 'linear-gradient(180deg, #050d08 0%, #17331c 100%)'
+                  : 'linear-gradient(180deg, #4f9fe0 0%, #cdecfb 100%)',
+              }} />
 
-            {/* Horizonte: una bruma suave justo donde el cielo se convierte en pasto */}
-            <div style={{
-              position: 'absolute', top: `${Y_MIN}%`, left: 0, right: 0, height: 3,
-              background: 'rgba(255, 255, 255, 0.45)',
-            }} />
+              {/* Luna: posición aleatoria por sesión dentro de un radio fijo
+                  (ver posicionLunaAleatoria arriba), solo visible de noche */}
+              <div style={{
+                position: 'absolute', top: `${posicionLuna.top}%`, left: `${posicionLuna.left}%`,
+                width: 30, height: 30, borderRadius: '50%',
+                background: 'radial-gradient(circle at 35% 35%, #ffffff 0%, #eef7e8 55%, #cfe8c9 100%)',
+                boxShadow: '0 0 18px 6px rgba(255, 255, 255, 0.45)',
+                opacity: esDeNoche ? 1 : 0,
+                transition: 'opacity 1.2s ease',
+              }} />
 
-            {/* Piso: plano cartesiano con perspectiva real (rotateX), no una
-                cuadrícula plana — así sí se ve "en 3D" y no solo dibujado. */}
-            <div style={{
-              position: 'absolute', top: `${Y_MIN}%`, left: 0, right: 0, bottom: 0,
-              overflow: 'hidden', perspective: '340px', perspectiveOrigin: '50% 0%',
-            }}>
-              <div className="mascota-piso" style={{
-                position: 'absolute', top: 0, left: '-50%', width: '200%', height: '340%',
-                backgroundColor: '#4f9e4f',
-                backgroundImage:
-                  'linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px),' +
-                  'linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px)',
-                backgroundSize: '34px 34px',
-                transform: 'rotateX(62deg)',
-                transformOrigin: 'top',
+              {/* Horizonte: una bruma suave justo donde el cielo se convierte en pasto */}
+              <div style={{
+                position: 'absolute', top: `${Y_MIN}%`, left: 0, right: 0, height: 3,
+                background: 'rgba(255, 255, 255, 0.45)',
+              }} />
+
+              {/* Piso: plano cartesiano con perspectiva real (rotateX), no una
+                  cuadrícula plana — así sí se ve "en 3D" y no solo dibujado. */}
+              <div style={{
+                position: 'absolute', top: `${Y_MIN}%`, left: 0, right: 0, bottom: 0,
+                overflow: 'hidden', perspective: '340px', perspectiveOrigin: '50% 0%',
               }}>
-                {/* Lago: hijo del mismo plano rotado, para heredar su
-                    perspectiva sin cálculos aparte. */}
                 <div style={{
-                  position: 'absolute', top: '36%', left: '52%', width: '30%', height: '20%',
-                  borderRadius: '50%',
-                  background: 'radial-gradient(ellipse at 35% 30%, #d6f4ff 0%, #6fc0e8 35%, #2f83b5 72%, #1f5f8a 100%)',
-                  boxShadow: 'inset 0 0 14px rgba(255, 255, 255, 0.35)',
-                }} />
+                  position: 'absolute', top: 0, left: '-50%', width: '200%', height: '340%',
+                  backgroundColor: esDeNoche ? '#173d1a' : '#4f9e4f',
+                  transition: 'background-color 1.2s ease',
+                  backgroundImage:
+                    'linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px),' +
+                    'linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px)',
+                  backgroundSize: '34px 34px',
+                  transform: 'rotateX(62deg)',
+                  transformOrigin: 'top',
+                }}>
+                  {/* Carretera: franja recta que se aleja hacia el horizonte,
+                      hija del mismo plano rotado (es plana, va pintada sobre
+                      el suelo, como el lago). */}
+                  <div style={{
+                    position: 'absolute', top: 0, left: '10%', width: '9%', height: '100%',
+                    background: '#3b3b3b',
+                  }}>
+                    <div style={{
+                      position: 'absolute', top: 0, left: '50%', width: 2, height: '100%',
+                      transform: 'translateX(-50%)',
+                      backgroundImage: 'repeating-linear-gradient(to bottom, #e8d36a 0px 16px, transparent 16px 32px)',
+                    }} />
+                  </div>
+
+                  {/* Lago: hijo del mismo plano rotado, para heredar su
+                      perspectiva sin cálculos aparte. */}
+                  <div style={{
+                    position: 'absolute', top: '36%', left: '52%', width: '30%', height: '20%',
+                    borderRadius: '50%',
+                    background: 'radial-gradient(ellipse at 35% 30%, #d6f4ff 0%, #6fc0e8 35%, #2f83b5 72%, #1f5f8a 100%)',
+                    boxShadow: 'inset 0 0 14px rgba(255, 255, 255, 0.35)',
+                  }} />
+
+                  {/* Matas de pasto sueltas: puro detalle de ambientación,
+                      esquivan la carretera (left 10-19%) y el lago. */}
+                  {MATAS_PASTO.map((m, i) => <MataPasto key={i} left={m.left} top={m.top} />)}
+                </div>
               </div>
+
+              {/* Farolas: FUERA del plano rotado a propósito — son objetos
+                  de pie, no una textura plana sobre el suelo (a diferencia
+                  de la carretera/el lago/el pasto de arriba), así que van en
+                  el mismo sistema de coordenadas 2D que el cielo/la luna. Su
+                  halo solo se ve de noche (`encendida`). */}
+              <Farola left={15} encendida={esDeNoche} />
+              <Farola left={85} encendida={esDeNoche} />
+
+              {/* Mascotas + comida: de vuelta DENTRO de la capa filtrada
+                  (se intentó sacarlas a una capa aparte sin filtro para que
+                  el rojo de pelea/verde de alimentar no se lavaran de
+                  noche, pero separar solo ese flash de color del sprite
+                  habría requerido renderizar cada mascota dos veces
+                  sincronizadas — más complejidad de la que vale la pena por
+                  ahora). Se ven verdosas de noche como el resto de la
+                  escena, igual que antes de ese experimento. */}
+              {propias.length === 0 ? (
+                <p style={{
+                  position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  textAlign: 'center', padding: '0 32px', color: 'rgba(225, 255, 225, 0.9)', fontSize: 13, fontWeight: 600, margin: 0, zIndex: 999,
+                }}>
+                  Aún no tienes mascotas. Consíguelas aquí abajo.
+                </p>
+              ) : (
+                propias.map(m => (
+                  <MascotaViva
+                    key={m.id}
+                    ref={obtenerRefCallback(m.id)}
+                    mascota={m}
+                    tamanoPx={tamanoCeldaPixelArt(m, TAMANO_PX)}
+                    felicidad={felicidadDe(m.id)}
+                    textoEdad={textoEdad(m.id)}
+                    hambrienta={estaHambrienta(m.id)}
+                    enPelea={peleando.has(m.id)}
+                    onTap={alimentar}
+                  />
+                ))
+              )}
+
+              {comidaCayendo && (
+                <div style={{
+                  position: 'absolute',
+                  left: `${comidaCayendo.xPercent}%`,
+                  top: `${comidaCayendo.yPercent}%`,
+                  transform: 'translate(-50%, -50%)',
+                  zIndex: zIndexPorProfundidad(comidaCayendo.yPercent) + 1,
+                  pointerEvents: 'none',
+                }}>
+                  <span className="mascota-comida-cae" style={{ display: 'inline-block' }}>
+                    <FaHamburger style={{ fontSize: 22, color: '#caa46b', filter: 'drop-shadow(0 2px 2px rgba(0, 0, 0, 0.4))' }} />
+                  </span>
+                </div>
+              )}
             </div>
 
-            {propias.length === 0 ? (
-              <p style={{
-                position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center',
-                textAlign: 'center', padding: '0 32px', color: 'rgba(20, 40, 15, 0.75)', fontSize: 13, fontWeight: 600, margin: 0, zIndex: 999,
-              }}>
-                Aún no tienes mascotas. Consíguelas aquí abajo.
-              </p>
-            ) : (
-              propias.map(m => (
-                <MascotaViva
-                  key={m.id}
-                  ref={obtenerRefCallback(m.id)}
-                  mascota={m}
-                  tamanoPx={tamanoCeldaPixelArt(m, TAMANO_PX)}
-                  felicidad={felicidadDe(m.id)}
-                  textoEdad={textoEdad(m.id)}
-                  hambrienta={estaHambrienta(m.id)}
-                  enPelea={peleando.has(m.id)}
-                  onTap={alimentar}
-                />
-              ))
-            )}
-
-            {comidaCayendo && (
-              <div style={{
-                position: 'absolute',
-                left: `${comidaCayendo.xPercent}%`,
-                top: `${comidaCayendo.yPercent}%`,
-                transform: 'translate(-50%, -50%)',
-                zIndex: zIndexPorProfundidad(comidaCayendo.yPercent) + 1,
-                pointerEvents: 'none',
-              }}>
-                <span className="mascota-comida-cae" style={{ display: 'inline-block' }}>
-                  <FaHamburger style={{ fontSize: 22, color: '#caa46b', filter: 'drop-shadow(0 2px 2px rgba(0, 0, 0, 0.4))' }} />
-                </span>
-              </div>
-            )}
+            <div className="mascota-vision-vineta" style={{ opacity: esDeNoche ? 1 : 0, transition: 'opacity 1.2s ease' }} />
           </div>
         </div>
 
@@ -676,6 +797,44 @@ export default function Mascota() {
         onConfirmar={confirmarEliminar}
         onCancelar={() => setMascotaAEliminar(null)}
       />
+    </div>
+  )
+}
+
+// Mata de pasto suelta (ver MATAS_PASTO): 3 briznas simples vía <path>, nada
+// de assets externos — mismo espíritu low-fi que el resto del sandbox.
+// `left`/`top` son % dentro del plano rotado del piso (mismo sistema que el
+// lago), no de la pantalla.
+function MataPasto({ left, top }) {
+  return (
+    <svg
+      width={14} height={12} viewBox="0 0 14 12"
+      style={{ position: 'absolute', left: `${left}%`, top: `${top}%`, transform: 'translate(-50%, -100%)' }}
+    >
+      <path d="M2 12 Q1 5 4 0" stroke="#2f6b33" strokeWidth="1.4" fill="none" strokeLinecap="round" />
+      <path d="M7 12 Q7 4 7 0" stroke="#3a8a3f" strokeWidth="1.4" fill="none" strokeLinecap="round" />
+      <path d="M12 12 Q13 5 10 0" stroke="#2f6b33" strokeWidth="1.4" fill="none" strokeLinecap="round" />
+    </svg>
+  )
+}
+
+// Farola: objeto de pie fijo junto al horizonte (ver comentario en el JSX de
+// Mascota sobre por qué va fuera del plano rotado) — un poste simple con su
+// cono de luz (triangular, cae del cabezal al piso — antes era un halo
+// circular), que solo se enciende de noche.
+function Farola({ left, encendida }) {
+  return (
+    <div style={{ position: 'absolute', left: `${left}%`, top: `${Y_MIN}%`, transform: 'translate(-50%, -78%)' }}>
+      <div style={{
+        position: 'absolute', left: '50%', top: 7, width: 44, height: 46,
+        transform: 'translateX(-50%)',
+        clipPath: 'polygon(50% 0%, 100% 100%, 0% 100%)',
+        background: 'linear-gradient(180deg, rgba(255, 224, 150, 0.75) 0%, rgba(255, 224, 150, 0.18) 65%, transparent 100%)',
+        opacity: encendida ? 1 : 0, transition: 'opacity 1.2s ease',
+        pointerEvents: 'none',
+      }} />
+      <div style={{ width: 10, height: 7, borderRadius: '50% 50% 20% 20%', background: '#2b2b2b', margin: '0 auto', position: 'relative' }} />
+      <div style={{ width: 3, height: 46, background: '#2b2b2b', margin: '0 auto', position: 'relative' }} />
     </div>
   )
 }
