@@ -124,6 +124,8 @@ export default function Sidenav({ open, onClose }) {
     onClose()
   }
 
+  const mostrarBotonNotif = Boolean(user && notificacionesSoportadas());
+
   return (
     <>
       {/* Overlay con un desenfoque sutil */}
@@ -447,12 +449,12 @@ export default function Sidenav({ open, onClose }) {
         </div>
 
         {/* Sección Inferior de Botones (Despegada con Sombra y Borde superior) */}
-        <div style={{ 
-          marginTop: 'auto', 
+        <div style={{
+          marginTop: 'auto',
           pt: '16px',
-          display: 'flex', 
-          flexDirection: 'column', 
-          gap: 10,
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 6,
           padding: '16px 4px 4px 4px',
           borderTop: '1px solid rgba(255,255,255,0.03)',
           background: 'var(--surface)',
@@ -465,14 +467,14 @@ export default function Sidenav({ open, onClose }) {
               onMouseEnter={() => setHoveredBtn('instalar-app')}
               onMouseLeave={() => setHoveredBtn(null)}
               className="btn-sidernav"
-              style={{ marginBottom: 0 }}
+              style={{ margin: 0, height: 44, padding: '0 10px', gap: 8 }}
             >
               <span style={{
-                fontSize: '1.1rem',
-                width: '32px', height: '32px',
+                fontSize: '0.95rem',
+                width: '26px', height: '26px',
                 background: 'rgba(16, 185, 129, 0.15)',
                 color: '#10b981',
-                borderRadius: '10px',
+                borderRadius: '8px',
                 display: 'flex', alignItems: 'center',
                 justifyContent: 'center', flexShrink: 0
               }}>
@@ -481,46 +483,52 @@ export default function Sidenav({ open, onClose }) {
               <span>Instalar app</span>
             </button>
           )}
-          {(music || (user && notificacionesSoportadas())) && (
-            <div style={{ display: 'flex', gap: 8, marginBottom: 16 }}>
+          {(music || mostrarBotonNotif) && (
+            <div style={{ display: 'flex', gap: 8 }}>
               {music && (
                 <button
                   onClick={music.toggleMuted}
                   onMouseEnter={() => setHoveredBtn('musica')}
                   onMouseLeave={() => setHoveredBtn(null)}
                   className="btn-sidernav"
-                  style={{ margin: 0, flex: 1, justifyContent: 'center' }}
+                  style={{ margin: 0, flex: 1, height: 44, justifyContent: 'center', padding: '0 10px', gap: 8 }}
                   aria-label={music.muted ? 'Activar música' : 'Silenciar música'}
                 >
                   <span style={{
-                    fontSize: '1.1rem',
-                    width: '32px', height: '32px',
+                    fontSize: '0.95rem',
+                    width: '26px', height: '26px',
                     background: 'rgba(124, 92, 191, 0.15)',
                     color: '#7c5cbf',
-                    borderRadius: '10px',
+                    borderRadius: '8px',
                     display: 'flex', alignItems: 'center',
                     justifyContent: 'center', flexShrink: 0
                   }}>
                     {music.muted ? <FaVolumeMute /> : <FaVolumeUp />}
                   </span>
+                  {/* Sin el botón de notificaciones al lado, el de música
+                      queda solo y angosto: se le agrega el texto para que no
+                      se vea como un icono suelto sin explicación. Con los
+                      dos botones juntos, el texto no cabe cómodo — se deja
+                      solo el icono (el aria-label sigue cubriendo a11y). */}
+                  {!mostrarBotonNotif && <span>{music.muted ? 'Activar música' : 'Silenciar música'}</span>}
                 </button>
               )}
-              {user && notificacionesSoportadas() && (
+              {mostrarBotonNotif && (
                 <button
                   onClick={alternarNotificaciones}
                   disabled={cambiandoNotif || notifActivas === null}
                   onMouseEnter={() => setHoveredBtn('notif-estudio')}
                   onMouseLeave={() => setHoveredBtn(null)}
                   className="btn-sidernav"
-                  style={{ margin: 0, flex: 1, justifyContent: 'center', opacity: cambiandoNotif ? 0.7 : 1 }}
+                  style={{ margin: 0, flex: 1, height: 44, justifyContent: 'center', padding: '0 10px', opacity: cambiandoNotif ? 0.7 : 1 }}
                   aria-label={notifActivas ? 'Desactivar recordatorios de estudio' : 'Activar recordatorios de estudio'}
                 >
                   <span style={{
-                    fontSize: '1.1rem',
-                    width: '32px', height: '32px',
+                    fontSize: '0.95rem',
+                    width: '26px', height: '26px',
                     background: 'rgba(79, 142, 247, 0.15)',
                     color: '#4f8ef7',
-                    borderRadius: '10px',
+                    borderRadius: '8px',
                     display: 'flex', alignItems: 'center',
                     justifyContent: 'center', flexShrink: 0
                   }}>
@@ -536,13 +544,17 @@ export default function Sidenav({ open, onClose }) {
               onMouseEnter={() => setHoveredBtn('logout')}
               onMouseLeave={() => setHoveredBtn(null)}
               style={{
-                background: hoveredBtn === 'logout' ? 'rgba(239, 68, 68, 0.15)' : 'var(--surface2)', 
-                color: hoveredBtn === 'logout' ? '#ef4444' : 'var(--wrong)', 
+                background: hoveredBtn === 'logout' ? 'rgba(239, 68, 68, 0.15)' : 'var(--surface2)',
+                color: hoveredBtn === 'logout' ? '#ef4444' : 'var(--wrong)',
                 border: '1px solid rgba(255,255,255,0.03)',
-                borderRadius: '12px', 
-                padding: '12px', 
-                fontWeight: 600, 
-                fontSize: '0.9rem', 
+                borderRadius: '12px',
+                height: 44,
+                padding: '0 12px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontWeight: 600,
+                fontSize: '0.9rem',
                 cursor: 'pointer',
                 transition: 'all 0.2s ease',
                 boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
@@ -561,7 +573,11 @@ export default function Sidenav({ open, onClose }) {
                   color: '#fff',
                   border: 'none',
                   borderRadius: '12px',
-                  padding: '12px',
+                  height: 44,
+                  padding: '0 12px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
                   fontWeight: 600,
                   fontSize: '0.9rem',
                   cursor: 'pointer',
@@ -576,13 +592,17 @@ export default function Sidenav({ open, onClose }) {
                 onMouseEnter={() => setHoveredBtn('signup')}
                 onMouseLeave={() => setHoveredBtn(null)}
                 style={{
-                  background: hoveredBtn === 'signup' ? 'rgba(255,255,255,0.05)' : 'var(--surface2)', 
-                  color: 'var(--text)', 
+                  background: hoveredBtn === 'signup' ? 'rgba(255,255,255,0.05)' : 'var(--surface2)',
+                  color: 'var(--text)',
                   border: '1px solid rgba(255,255,255,0.05)',
-                  borderRadius: '12px', 
-                  padding: '12px', 
-                  fontWeight: 600, 
-                  fontSize: '0.9rem', 
+                  borderRadius: '12px',
+                  height: 44,
+                  padding: '0 12px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontWeight: 600,
+                  fontSize: '0.9rem',
                   cursor: 'pointer',
                   transition: 'all 0.2s ease',
                   boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
