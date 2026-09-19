@@ -24,6 +24,7 @@
 // cancel_url de Stripe. Ahora son hostnames exactos, uno por entorno real.
 const ORIGENES_PERMITIDOS = new Set([
   'prepa-app-iota.vercel.app',
+  'prepaapp.fujab13.workers.dev', // Cloudflare Workers — en pruebas junto a Vercel, ver referencia/requerimientos/notas.txt
   'skid-uncolored-napped.ngrok-free.dev',
 ])
 
