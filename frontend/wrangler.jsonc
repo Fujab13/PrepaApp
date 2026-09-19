@@ -1,0 +1,15 @@
+{
+  // Este Worker no tiene lógica propia (sin "main", sin bindings): solo
+  // sirve los archivos estáticos que genera "vite build" en dist/. Todo lo
+  // dinámico (Stripe, auth, notificaciones) sigue viviendo en Supabase Edge
+  // Functions — ver CLAUDE.md.
+  "name": "prepaapp",
+  "compatibility_date": "2026-09-19",
+  "assets": {
+    // Sin esto, entrar directo a una ruta de React Router (ej.
+    // /leccion/espanol) o refrescar la página en esa ruta daría 404 — con
+    // "single-page-application" cualquier ruta no encontrada como archivo
+    // real cae a index.html, igual que hacía el rewrite de vercel.json.
+    "not_found_handling": "single-page-application"
+  }
+}

@@ -6,6 +6,9 @@ dist/
 *.log
 .DS_Store
 
+# Estado/caché local de Wrangler (Cloudflare Workers CLI)
+.wrangler/
+
 # --- NUEVO: Reglas para Supabase ---
 # Ignorar estados locales y ramas de Supabase
 **/supabase/.temp/
