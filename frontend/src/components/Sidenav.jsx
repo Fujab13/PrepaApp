@@ -4,6 +4,13 @@ import { supabase } from '../services/supabaseClient'
 import { useAuth } from '../context/AuthContext'
 import { useMusic } from '../context/MusicContext'
 import { resolverAvatarUsuario } from '../utils/avatar'
+import { hayPromptDeInstalacion, suscribirseAPromptInstalacion, mostrarPromptInstalacion } from '../utils/pwaInstall'
+import {
+  notificacionesSoportadas,
+  obtenerSuscripcionActual,
+  activarNotificaciones,
+  desactivarNotificaciones,
+} from '../services/pushNotifications'
 
 import { FaCreditCard } from "react-icons/fa6";
 import { FaUserGraduate, FaPaw } from "react-icons/fa";
@@ -16,7 +23,7 @@ import { FaClock } from "react-icons/fa6";
 import { MdSdStorage, MdLibraryBooks } from "react-icons/md";
 import { FaVolumeUp, FaVolumeMute } from "react-icons/fa";
 import { PiChalkboardTeacher } from "react-icons/pi";
-import { HiOutlineShieldCheck, HiOutlineUserPlus, HiOutlineFlag, HiOutlineClipboardDocumentList } from "react-icons/hi2";
+import { HiOutlineShieldCheck, HiOutlineUserPlus, HiOutlineFlag, HiOutlineClipboardDocumentList, HiOutlineArrowDownTray, HiOutlineBell, HiOutlineBellSlash } from "react-icons/hi2";
 
 
 export default function Sidenav({ open, onClose }) {
@@ -29,6 +36,16 @@ export default function Sidenav({ open, onClose }) {
   const [viewportHeight, setViewportHeight] = useState(
     () => (typeof window !== 'undefined' ? window.innerHeight : null)
   );
+  const [puedeInstalar, setPuedeInstalar] = useState(hayPromptDeInstalacion);
+
+  // Recordatorio de estudio cada ~3 días (ver edge function
+  // recordatorio-estudio) — usa la MISMA suscripción push genérica que ya
+  // usa el maestro para "alumno nuevo" en TutoriasMaestro.jsx, así que
+  // activarla aquí también deja al usuario recibiendo cualquier otro push
+  // que le corresponda (es una sola suscripción por navegador, no una por
+  // tipo de aviso). `null` = todavía no se sabe.
+  const [notifActivas, setNotifActivas] = useState(null);
+  const [cambiandoNotif, setCambiandoNotif] = useState(false);
 
   useEffect(() => {
     let cancelado = false;
@@ -36,6 +53,41 @@ export default function Sidenav({ open, onClose }) {
     resolverAvatarUsuario(user).then((src) => { if (!cancelado) setAvatarSrc(src); });
     return () => { cancelado = true; };
   }, [user]);
+
+  useEffect(() => suscribirseAPromptInstalacion(setPuedeInstalar), []);
+
+  useEffect(() => {
+    if (!user || !notificacionesSoportadas()) return;
+    let cancelado = false;
+    obtenerSuscripcionActual().then((sub) => {
+      if (!cancelado) setNotifActivas(Boolean(sub));
+    });
+    return () => { cancelado = true; };
+  }, [user]);
+
+  async function instalarApp() {
+    const resultado = await mostrarPromptInstalacion();
+    if (resultado !== null) setPuedeInstalar(false);
+  }
+
+  async function alternarNotificaciones() {
+    setCambiandoNotif(true);
+    try {
+      if (notifActivas) {
+        await desactivarNotificaciones();
+        setNotifActivas(false);
+      } else {
+        await activarNotificaciones();
+        setNotifActivas(true);
+      }
+    } catch {
+      // Silencioso a propósito: el botón simplemente no cambia de estado si
+      // el usuario niega el permiso o algo falla — no hay espacio dedicado
+      // a un mensaje de error en este panel angosto (a diferencia del panel
+      // completo de TutoriasMaestro.jsx, que sí lo tiene).
+    }
+    setCambiandoNotif(false);
+  }
 
   // El navegador movil recalcula 100dvh/100svh (y dispara el evento
   // 'resize' de visualViewport) solo hasta que la barra de direcciones
@@ -407,28 +459,76 @@ export default function Sidenav({ open, onClose }) {
           boxShadow: '0 -12px 20px -10px rgba(0, 0, 0, 0.25)', // Logra el efecto de separación/elevación del fondo
           zIndex: 5
         }}>
-          {music && (
+          {puedeInstalar && (
             <button
-              onClick={music.toggleMuted}
-              onMouseEnter={() => setHoveredBtn('musica')}
+              onClick={instalarApp}
+              onMouseEnter={() => setHoveredBtn('instalar-app')}
               onMouseLeave={() => setHoveredBtn(null)}
               className="btn-sidernav"
               style={{ marginBottom: 0 }}
-              aria-label={music.muted ? 'Activar música' : 'Silenciar música'}
             >
               <span style={{
                 fontSize: '1.1rem',
                 width: '32px', height: '32px',
-                background: 'rgba(124, 92, 191, 0.15)',
-                color: '#7c5cbf',
+                background: 'rgba(16, 185, 129, 0.15)',
+                color: '#10b981',
                 borderRadius: '10px',
                 display: 'flex', alignItems: 'center',
                 justifyContent: 'center', flexShrink: 0
               }}>
-                {music.muted ? <FaVolumeMute /> : <FaVolumeUp />}
+                <HiOutlineArrowDownTray />
               </span>
-              <span>{music.muted ? 'Música silenciada' : 'Silenciar música'}</span>
+              <span>Instalar app</span>
             </button>
+          )}
+          {(music || (user && notificacionesSoportadas())) && (
+            <div style={{ display: 'flex', gap: 8, marginBottom: 16 }}>
+              {music && (
+                <button
+                  onClick={music.toggleMuted}
+                  onMouseEnter={() => setHoveredBtn('musica')}
+                  onMouseLeave={() => setHoveredBtn(null)}
+                  className="btn-sidernav"
+                  style={{ margin: 0, flex: 1, justifyContent: 'center' }}
+                  aria-label={music.muted ? 'Activar música' : 'Silenciar música'}
+                >
+                  <span style={{
+                    fontSize: '1.1rem',
+                    width: '32px', height: '32px',
+                    background: 'rgba(124, 92, 191, 0.15)',
+                    color: '#7c5cbf',
+                    borderRadius: '10px',
+                    display: 'flex', alignItems: 'center',
+                    justifyContent: 'center', flexShrink: 0
+                  }}>
+                    {music.muted ? <FaVolumeMute /> : <FaVolumeUp />}
+                  </span>
+                </button>
+              )}
+              {user && notificacionesSoportadas() && (
+                <button
+                  onClick={alternarNotificaciones}
+                  disabled={cambiandoNotif || notifActivas === null}
+                  onMouseEnter={() => setHoveredBtn('notif-estudio')}
+                  onMouseLeave={() => setHoveredBtn(null)}
+                  className="btn-sidernav"
+                  style={{ margin: 0, flex: 1, justifyContent: 'center', opacity: cambiandoNotif ? 0.7 : 1 }}
+                  aria-label={notifActivas ? 'Desactivar recordatorios de estudio' : 'Activar recordatorios de estudio'}
+                >
+                  <span style={{
+                    fontSize: '1.1rem',
+                    width: '32px', height: '32px',
+                    background: 'rgba(79, 142, 247, 0.15)',
+                    color: '#4f8ef7',
+                    borderRadius: '10px',
+                    display: 'flex', alignItems: 'center',
+                    justifyContent: 'center', flexShrink: 0
+                  }}>
+                    {notifActivas ? <HiOutlineBellSlash /> : <HiOutlineBell />}
+                  </span>
+                </button>
+              )}
+            </div>
           )}
           {user ? (
             <button 

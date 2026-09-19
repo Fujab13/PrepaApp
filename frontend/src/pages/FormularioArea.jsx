@@ -69,6 +69,24 @@ const DECISION_CARRERA = ["Sí, ya la sé", "Tengo dudas", "No, aún no"];
 // reusa en Tutorías y no queremos que ese acento aparezca ahí también).
 const acento = (color) => ({ borderTop: `2.5px solid ${color}` });
 
+// Numeral antes del título de cada sección: refuerza que el formulario es
+// una secuencia de pasos (6 en total), no una lista de tarjetas sueltas.
+// Se pasa como `title` de Seccion (acepta cualquier nodo, no solo string).
+function tituloPaso(n, texto, color) {
+  return (
+    <span style={{ display: "inline-flex", alignItems: "center", gap: 8 }}>
+      <span style={{
+        width: 18, height: 18, borderRadius: "50%", flexShrink: 0, fontSize: 10.5, fontWeight: 800,
+        display: "inline-flex", alignItems: "center", justifyContent: "center",
+        background: `${color}22`, color,
+      }}>
+        {n}
+      </span>
+      {texto}
+    </span>
+  );
+}
+
 // ── Estilos compartidos ───────────────────────────────────────────────────
 const inputStyle = {
   width: "100%",
@@ -278,7 +296,7 @@ export default function FormularioArea() {
         style={{ flex: 1, paddingBottom: "45vh", display: "flex", flexDirection: "column", gap: 16 }}
       >
 
-        <Seccion icono={<HiOutlineUser />} color="#4f8ef7" title="Datos personales" style={acento("#4f8ef7")}>
+        <Seccion icono={<HiOutlineUser />} color="#4f8ef7" title={tituloPaso(1, "Datos personales", "#4f8ef7")} style={acento("#4f8ef7")}>
           <input style={inputStyle} placeholder="Nombre completo *" value={nombre} onChange={(e) => setNombre(e.target.value)} />
           <div style={{ display: "flex", gap: 10 }}>
             <input style={inputStyle} placeholder="Edad" type="number" min="10" max="99" value={edad} onChange={(e) => setEdad(e.target.value)} />
@@ -287,11 +305,11 @@ export default function FormularioArea() {
           <input style={inputStyle} placeholder="Correo de contacto" type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
         </Seccion>
 
-        <Seccion icono={<FaUserGraduate />} color="#7c5cbf" title="Grado de preparatoria" style={acento("#7c5cbf")}>
+        <Seccion icono={<FaUserGraduate />} color="#7c5cbf" title={tituloPaso(2, "Grado de preparatoria", "#7c5cbf")} style={acento("#7c5cbf")}>
           <FilaChips opciones={GRADOS} valor={grado} onChange={setGrado} color="#7c5cbf" />
         </Seccion>
 
-        <Seccion icono={<HiOutlineFlag />} color="#f59e0b" title="Área a la que deseas aplicar" subtitle="Elige el área que más te llama la atención para tu carrera universitaria." style={acento("#f59e0b")}>
+        <Seccion icono={<HiOutlineFlag />} color="#f59e0b" title={tituloPaso(3, "Área a la que deseas aplicar", "#f59e0b")} subtitle="Elige el área que más te llama la atención para tu carrera universitaria." style={acento("#f59e0b")}>
           <FilaChips opciones={AREAS_INTERES} valor={areaInteres} onChange={setAreaInteres} color="#f59e0b" />
           <input
             style={inputStyle}
@@ -301,7 +319,7 @@ export default function FormularioArea() {
           />
         </Seccion>
 
-        <Seccion icono={<HiOutlineChartBarSquare />} color="#22c55e" title="Autoevaluación" subtitle="Del 1 al 5, ¿qué tan preparado te sientes en cada área? Sé honesto, no hay respuestas incorrectas." style={acento("#22c55e")}>
+        <Seccion icono={<HiOutlineChartBarSquare />} color="#22c55e" title={tituloPaso(4, "Autoevaluación", "#22c55e")} subtitle="Del 1 al 5, ¿qué tan preparado te sientes en cada área? Sé honesto, no hay respuestas incorrectas." style={acento("#22c55e")}>
           {CATEGORIAS_AUTOEVALUACION.map((cat) => (
             <Escala key={cat.id} label={cat.label} valor={autoevaluacion[cat.id]} onChange={(n) => setNivel(cat.id, n)} color="#22c55e" />
           ))}
@@ -311,7 +329,7 @@ export default function FormularioArea() {
           </div>
         </Seccion>
 
-        <Seccion icono={<HiOutlineAdjustmentsHorizontal />} color="#ec4899" title="Preferencias de estudio" style={acento("#ec4899")}>
+        <Seccion icono={<HiOutlineAdjustmentsHorizontal />} color="#ec4899" title={tituloPaso(5, "Preferencias de estudio", "#ec4899")} style={acento("#ec4899")}>
           <div>
             <p style={{ fontSize: 13, color: "var(--text-muted)", marginBottom: 8 }}>Horario en el que estudias mejor</p>
             <FilaChips opciones={HORARIOS} valor={horarioPreferido} onChange={setHorarioPreferido} color="#ec4899" />
@@ -326,7 +344,7 @@ export default function FormularioArea() {
           </div>
         </Seccion>
 
-        <Seccion icono={<HiOutlineUserGroup />} color="#06b6d4" title="Tutor o responsable" subtitle="Opcional: nombre y contacto de un padre, madre o tutor." style={acento("#06b6d4")}>
+        <Seccion icono={<HiOutlineUserGroup />} color="#06b6d4" title={tituloPaso(6, "Tutor o responsable", "#06b6d4")} subtitle="Opcional: nombre y contacto de un padre, madre o tutor." style={acento("#06b6d4")}>
           <input style={inputStyle} placeholder="Nombre del tutor o responsable" value={tutorNombre} onChange={(e) => setTutorNombre(e.target.value)} />
           <input style={inputStyle} placeholder="Teléfono de contacto" type="tel" value={tutorTelefono} onChange={(e) => setTutorTelefono(e.target.value)} />
         </Seccion>

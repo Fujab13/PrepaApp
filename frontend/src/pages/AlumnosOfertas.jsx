@@ -135,7 +135,7 @@ export default function AlumnosOfertas() {
                   <div style={{ marginTop: 12, display: "flex", flexDirection: "column", gap: 8 }}>
                     {oferta.alumnos.map((alumno) => (
                       <div
-                        key={alumno.comprador_id}
+                        key={alumno.transaccion_id}
                         style={{ background: "var(--surface2)", border: "0.5px solid var(--surface)", borderRadius: 10, padding: "10px 12px" }}
                       >
                         <p style={{ fontSize: 13, fontWeight: 700, color: "var(--text)", margin: 0 }}>

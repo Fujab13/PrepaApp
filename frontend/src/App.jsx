@@ -1,35 +1,47 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, Suspense, lazy } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import { StoreProvider } from './context/StoreContext'
 import { MusicProvider } from './context/MusicContext'
 
+// Home se queda con import estático (es la pantalla de entrada, se necesita
+// de inmediato); el resto de las rutas se cargan bajo demanda para no meter
+// páginas pesadas (ej. Leccion/Examen, que arrastran KaTeX) en el bundle
+// inicial — mejora el primer render en móvil/conexiones lentas.
 import Home from './pages/Home';
-import Leccion from './pages/Leccion';
-import Lectura from './pages/Lectura';
-import Login from './pages/Login';
-import ActualizarPassword from './pages/ActualizarPassword';
-import Store from './pages/Store'
-import Examen from './pages/Examen';
-import Inventario from './pages/Inventario';
-import Mascota from './pages/Mascota';
-import FormularioArea from './pages/FormularioArea';
-import InformeResultados from './pages/InformeResultados';
-import AlumnosOfertas from './pages/AlumnosOfertas';
-import AdminPagos from './pages/AdminPagos';
-import AdminMaestros from './pages/AdminMaestros';
-import AdminReportes from './pages/AdminReportes';
-import AdminOfertas from './pages/AdminOfertas';
-import MisGanancias from './pages/MisGanancias';
-import Tutorias from './pages/Tutorias';
-import TutoriasAlumno from './pages/TutoriasAlumno';
-import TutoriasMaestro from './pages/TutoriasMaestro';
-import PerfilProfesor from './pages/PerfilProfesor';
-import Ofertas from './pages/Ofertas';
-import PublicarOferta from './pages/PublicarOferta';
-import OfertaConfirmada from './pages/OfertaConfirmada';
+const Leccion = lazy(() => import('./pages/Leccion'));
+const Lectura = lazy(() => import('./pages/Lectura'));
+const Login = lazy(() => import('./pages/Login'));
+const ActualizarPassword = lazy(() => import('./pages/ActualizarPassword'));
+const Store = lazy(() => import('./pages/Store'));
+const Examen = lazy(() => import('./pages/Examen'));
+const Inventario = lazy(() => import('./pages/Inventario'));
+const Mascota = lazy(() => import('./pages/Mascota'));
+const FormularioArea = lazy(() => import('./pages/FormularioArea'));
+const InformeResultados = lazy(() => import('./pages/InformeResultados'));
+const AlumnosOfertas = lazy(() => import('./pages/AlumnosOfertas'));
+const AdminPagos = lazy(() => import('./pages/AdminPagos'));
+const AdminMaestros = lazy(() => import('./pages/AdminMaestros'));
+const AdminReportes = lazy(() => import('./pages/AdminReportes'));
+const AdminOfertas = lazy(() => import('./pages/AdminOfertas'));
+const MisGanancias = lazy(() => import('./pages/MisGanancias'));
+const Tutorias = lazy(() => import('./pages/Tutorias'));
+const TutoriasAlumno = lazy(() => import('./pages/TutoriasAlumno'));
+const TutoriasMaestro = lazy(() => import('./pages/TutoriasMaestro'));
+const PerfilProfesor = lazy(() => import('./pages/PerfilProfesor'));
+const Ofertas = lazy(() => import('./pages/Ofertas'));
+const PublicarOferta = lazy(() => import('./pages/PublicarOferta'));
+const OfertaConfirmada = lazy(() => import('./pages/OfertaConfirmada'));
 
 import { triggerVibration } from './utils/haptics';
+
+function CargandoRuta() {
+  return (
+    <div style={{ minHeight: '100dvh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--bg)' }}>
+      <p style={{ color: 'var(--text-muted)', fontSize: '0.85rem' }}>Cargando…</p>
+    </div>
+  );
+}
 
 export default function App() {
 
@@ -58,6 +70,7 @@ export default function App() {
     <AuthProvider>
       <StoreProvider>
       <MusicProvider>
+      <Suspense fallback={<CargandoRuta />}>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/leccion/:materiaId" element={<Leccion />} />
@@ -85,6 +98,7 @@ export default function App() {
         <Route path="/ofertas/publicar" element={<PublicarOferta />} />
         <Route path="/oferta-confirmada" element={<OfertaConfirmada />} />
       </Routes>
+      </Suspense>
       </MusicProvider>
       </StoreProvider>
     </AuthProvider>

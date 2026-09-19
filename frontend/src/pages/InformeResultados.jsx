@@ -168,8 +168,8 @@ function adaptarExamen(e, desdeState) {
 // con sombra suave, en vez del surface2 plano que tenía esta página antes).
 function Section({ title, children }) {
   return (
-    <div style={{ marginBottom: 18 }}>
-      <p style={{ margin: "0 0 10px", color: "var(--text-muted)", fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "1.5px" }}>
+    <div style={{ marginBottom: 12 }}>
+      <p style={{ margin: "0 0 7px", color: "var(--text-muted)", fontSize: "0.68rem", textTransform: "uppercase", letterSpacing: "1.2px", fontWeight: 700 }}>
         {title}
       </p>
       {children}
@@ -182,8 +182,8 @@ function Tarjeta({ children, style }) {
     <div style={{
       background: "linear-gradient(135deg, var(--surface2), var(--surface))",
       border: "0.5px solid var(--surface)",
-      borderRadius: "var(--radius)",
-      padding: "14px 16px",
+      borderRadius: 12,
+      padding: "10px 13px",
       boxShadow: "0 4px 16px -10px rgba(0,0,0,0.6)",
       ...style,
     }}>
@@ -198,28 +198,28 @@ function MetricCard({ icono, label, valor, sub, color = "#7c5cbf" }) {
       background: "linear-gradient(135deg, var(--surface2), var(--surface))",
       borderLeft: `3px solid ${color}`,
       borderRadius: 6,
-      padding: "14px 16px",
-      display: "flex", flexDirection: "column", gap: 4, minHeight: 62,
+      padding: "9px 11px",
+      display: "flex", flexDirection: "column", gap: 2, minHeight: 48,
       boxShadow: "0 4px 16px -10px rgba(0,0,0,0.6)",
     }}>
-      <div style={{ display: "flex", alignItems: "center", gap: 7 }}>
-        <span style={{ fontSize: 15, color }}>{icono}</span>
-        <span style={{ fontSize: 11.5, color: "var(--text-muted)", letterSpacing: 0.3 }}>{label}</span>
+      <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+        <span style={{ fontSize: 13, color }}>{icono}</span>
+        <span style={{ fontSize: 10.5, color: "var(--text-muted)", letterSpacing: 0.2 }}>{label}</span>
       </div>
-      <span style={{ fontSize: 17, fontWeight: 700, color: "var(--text)", lineHeight: 1.25 }}>{valor ?? "—"}</span>
-      {sub && <span style={{ fontSize: 11, color: "var(--text-muted)" }}>{sub}</span>}
+      <span style={{ fontSize: 15, fontWeight: 700, color: "var(--text)", lineHeight: 1.2 }}>{valor ?? "—"}</span>
+      {sub && <span style={{ fontSize: 10, color: "var(--text-muted)" }}>{sub}</span>}
     </div>
   );
 }
 
 function Barra({ label, valorTexto, pct, color }) {
   return (
-    <div style={{ marginBottom: 12 }}>
-      <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 5 }}>
-        <span style={{ fontSize: 12.5, color: "var(--text)" }}>{label}</span>
-        <span style={{ fontSize: 11.5, color: "var(--text-muted)" }}>{valorTexto}</span>
+    <div style={{ marginBottom: 8 }}>
+      <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 4 }}>
+        <span style={{ fontSize: 12, color: "var(--text)" }}>{label}</span>
+        <span style={{ fontSize: 11, color: "var(--text-muted)" }}>{valorTexto}</span>
       </div>
-      <div style={{ height: 6, background: "var(--surface)", borderRadius: "99px", overflow: "hidden" }}>
+      <div style={{ height: 5, background: "var(--surface)", borderRadius: "99px", overflow: "hidden" }}>
         <div style={{ height: "100%", width: `${pct}%`, background: color, borderRadius: "99px", transition: "width 0.4s ease" }} />
       </div>
     </div>
@@ -229,9 +229,9 @@ function Barra({ label, valorTexto, pct, color }) {
 function FilaDato({ label, valor }) {
   if (!valor) return null;
   return (
-    <div style={{ display: "flex", justifyContent: "space-between", gap: 12, padding: "8px 0", borderBottom: "0.5px solid var(--surface)" }}>
-      <span style={{ fontSize: 12, color: "var(--text-muted)" }}>{label}</span>
-      <span style={{ fontSize: 12, color: "var(--text)", fontWeight: 600, textAlign: "right" }}>{valor}</span>
+    <div style={{ display: "flex", justifyContent: "space-between", gap: 12, padding: "5px 0", borderBottom: "0.5px solid var(--surface)" }}>
+      <span style={{ fontSize: 11.5, color: "var(--text-muted)" }}>{label}</span>
+      <span style={{ fontSize: 11.5, color: "var(--text)", fontWeight: 600, textAlign: "right" }}>{valor}</span>
     </div>
   );
 }
@@ -242,31 +242,33 @@ function VistaFormulario({ datos }) {
   return (
     <div>
       <div style={{
-        background: "var(--surface2)", borderRadius: "var(--radius)", padding: "26px 20px",
-        display: "flex", flexDirection: "column", alignItems: "center", gap: 8, marginBottom: 20,
+        background: "var(--surface2)", borderRadius: 14, padding: "14px 16px",
+        display: "flex", alignItems: "center", gap: 14, marginBottom: 12,
       }}>
-        <p style={{ color: "var(--text-muted)", fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "1.5px", margin: 0 }}>
-          Índice de preparación
-        </p>
         <div style={{
-          width: 96, height: 96, borderRadius: "50%",
+          width: 66, height: 66, borderRadius: "50%", flexShrink: 0,
           display: "flex", alignItems: "center", justifyContent: "center",
           background: `conic-gradient(${nivel.color} ${nivel.pct ?? 0}%, var(--surface) 0)`,
         }}>
           <div style={{
-            width: 78, height: 78, borderRadius: "50%", background: "var(--surface2)",
+            width: 53, height: 53, borderRadius: "50%", background: "var(--surface2)",
             display: "flex", alignItems: "center", justifyContent: "center",
-            fontSize: "1.3rem", fontWeight: 800, color: nivel.color,
+            fontSize: "0.95rem", fontWeight: 800, color: nivel.color,
           }}>
             {nivel.pct !== null ? `${nivel.pct}%` : "—"}
           </div>
         </div>
-        <div style={{ fontSize: "0.95rem", fontWeight: 700, color: nivel.color, marginTop: 2 }}>{nivel.texto}</div>
-        <div style={{ fontSize: "0.75rem", color: "var(--text-muted)" }}>Basado en su autoevaluación por área</div>
+        <div style={{ minWidth: 0 }}>
+          <p style={{ color: "var(--text-muted)", fontSize: "0.65rem", textTransform: "uppercase", letterSpacing: "1px", margin: 0, fontWeight: 700 }}>
+            Índice de preparación
+          </p>
+          <p style={{ fontSize: "0.9rem", fontWeight: 700, color: nivel.color, margin: "3px 0 0" }}>{nivel.texto}</p>
+          <p style={{ fontSize: "0.7rem", color: "var(--text-muted)", margin: "2px 0 0" }}>Basado en su autoevaluación por área</p>
+        </div>
       </div>
 
       <Section title="Datos clave">
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 6 }}>
           <MetricCard icono={<HiOutlineAcademicCap />} label="Grado" valor={datos.grado} color="#7c5cbf" />
           <MetricCard icono={<HiOutlineFlag />} label="Área de interés" valor={datos.areaInteres} color="#f59e0b" />
           <MetricCard icono={<HiOutlineClock />} label="Horas de estudio/sem." valor={datos.horasEstudio} color="#4f8ef7" />
@@ -328,22 +330,22 @@ function VistaExamen({ datos, soloProblemas = false }) {
 
   return (
     <div>
-      <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 16 }}>
-        <span style={{ fontSize: 26, color: nivel.color }}>{nivel.emoji}</span>
+      <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12 }}>
+        <span style={{ fontSize: 21, color: nivel.color }}>{nivel.emoji}</span>
         <div style={{ flex: 1 }}>
-          <div style={{ fontSize: 20, fontWeight: 800, color: nivel.color }}>{datos.precisionGlobal}%</div>
-          <div style={{ fontSize: 11.5, color: "var(--text-muted)" }}>
+          <div style={{ fontSize: 17, fontWeight: 800, color: nivel.color }}>{datos.precisionGlobal}%</div>
+          <div style={{ fontSize: 11, color: "var(--text-muted)" }}>
             {fmtTiempo(datos.tiempoTotalSegundos)} · {totalPreguntas} preguntas
           </div>
         </div>
-        <span style={{ fontSize: 18, fontWeight: 700, color: nivel.color, background: `${nivel.color}15`, padding: "8px 12px", borderRadius: 16, border: `1px solid ${nivel.color}30` }}>
+        <span style={{ fontSize: 15, fontWeight: 700, color: nivel.color, background: `${nivel.color}15`, padding: "6px 10px", borderRadius: 14, border: `1px solid ${nivel.color}30` }}>
           {nivel.texto}
         </span>
       </div>
 
       {tiempos.length > 0 && (
         <Section title="Tiempos">
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 6 }}>
             <MetricCard icono={<HiOutlineClock />} label="Promedio/pregunta" valor={fmtMinSeg(tiempoPromedio)} color="#4f8ef7" />
             <MetricCard icono={<AiOutlineThunderbolt />} label="Más rápido" valor={fmtMinSeg(tiempoMin)} color="#22c55e" />
             <MetricCard icono={<LuTurtle />} label="Más lento" valor={fmtMinSeg(tiempoMax)} color="#f59e0b" />
@@ -364,14 +366,14 @@ function VistaExamen({ datos, soloProblemas = false }) {
       </Section>
 
       {!datos.tieneDetalle && (
-        <p style={{ fontSize: 11.5, color: "var(--text-muted)", fontStyle: "italic", margin: "0 0 18px" }}>
+        <p style={{ fontSize: 11, color: "var(--text-muted)", fontStyle: "italic", margin: "0 0 12px" }}>
           Este resultado se guardó antes de registrar el detalle por pregunta; solo se muestra el resumen por área.
         </p>
       )}
 
       {datos.tieneDetalle && (datos.marcadas?.length ?? 0) > 0 && (
         <Section title={`Preguntas marcadas (${datos.marcadas.length})`}>
-          <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 5 }}>
             {datos.marcadas.map((id) => {
               const p = datos.preguntas.find((q) => q.id === id);
               const esCor = datos.respuestas[id] === p?.inciso_correcto;
@@ -379,7 +381,7 @@ function VistaExamen({ datos, soloProblemas = false }) {
                 <div key={id} style={{
                   background: esCor ? "rgba(74,222,128,0.12)" : "rgba(248,113,113,0.12)",
                   border: `1px solid ${esCor ? "var(--correct)" : "var(--wrong)"}`,
-                  borderRadius: 8, padding: "5px 10px", fontSize: 11.5,
+                  borderRadius: 7, padding: "3px 8px", fontSize: 11,
                   color: esCor ? "var(--correct)" : "var(--wrong)",
                 }}>
                   {id}
@@ -409,7 +411,7 @@ function VistaExamen({ datos, soloProblemas = false }) {
         }
         return (
         <Section title={soloProblemas ? `Errores y marcadas (${preguntasDetalle.length})` : "Detalle de respuestas"}>
-          <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 5 }}>
             {preguntasDetalle.map((p) => {
               const resp = datos.respuestas[p.id];
               const correc = p.inciso_correcto;
@@ -420,13 +422,13 @@ function VistaExamen({ datos, soloProblemas = false }) {
               else if (acierto) estado = { bg: "rgba(74,222,128,0.1)", border: "var(--correct)", dot: "var(--correct)" };
               else estado = { bg: "rgba(248,113,113,0.1)", border: "var(--wrong)", dot: "var(--wrong)" };
               return (
-                <div key={p.id} style={{ background: estado.bg, border: `0.5px solid ${estado.border}`, borderRadius: 6, padding: "12px 14px", display: "flex", alignItems: "center", gap: 12 }}>
-                  <div style={{ width: 9, height: 9, borderRadius: "50%", background: estado.dot, flexShrink: 0 }} />
-                  <div style={{ flex: 1, minWidth: 0, fontSize: 13.5 }}>
+                <div key={p.id} style={{ background: estado.bg, border: `0.5px solid ${estado.border}`, borderRadius: 6, padding: "8px 11px", display: "flex", alignItems: "center", gap: 10 }}>
+                  <div style={{ width: 7, height: 7, borderRadius: "50%", background: estado.dot, flexShrink: 0 }} />
+                  <div style={{ flex: 1, minWidth: 0, fontSize: 12.5 }}>
                     <span style={{ color: "var(--text-muted)" }}>{p.id} </span>
                     <span style={{ color: "var(--text)" }}>{p.pregunta.slice(0, 55)}{p.pregunta.length > 55 ? "…" : ""}</span>
                   </div>
-                  <div style={{ textAlign: "right", flexShrink: 0, fontSize: 12.5 }}>
+                  <div style={{ textAlign: "right", flexShrink: 0, fontSize: 11.5 }}>
                     <div style={{ color: "var(--text-muted)" }}>
                       {resp ? `Su: ${resp}` : "Sin resp."}{!acierto && resp && ` · Cor: ${correc}`}
                     </div>
@@ -614,7 +616,7 @@ function TarjetaAlumno({ alumno }) {
       </button>
 
       {abierto && (
-        <div style={{ borderTop: "0.5px solid var(--surface)", paddingTop: 14 }}>
+        <div style={{ borderTop: "0.5px solid var(--surface)", paddingTop: 10 }}>
           {!formulario && !examen && alumno.progreso.length === 0 && (
             <p style={{ fontSize: 12.5, color: "var(--text-muted)", textAlign: "center", margin: "8px 0" }}>
               Este correo no tiene formulario de área, examen ni progreso de lecciones registrados todavía.

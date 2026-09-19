@@ -236,18 +236,30 @@ export default function Leccion() {
   // datos que el render usa para "pregunta" más abajo, porque ese valor
   // todavía no existe en este punto del componente (se calcula después del
   // primer return condicional, y los hooks no pueden depender de él).
+  //
+  // OJO: tiene que usar `preguntasPool` (ya filtrado a solo preguntas con
+  // opciones en Modo difícil, ver arriba) y pasar `tamanoUnidad` — antes
+  // usaba `materia.preguntas` (sin filtrar) con el tamaño de unidad normal,
+  // así que en Modo difícil "cola[0]" (un índice válido para el pool
+  // filtrado/con unidades más largas) se leía contra un arreglo y corte
+  // distintos, y terminaba leyendo el texto de otra posición por completo
+  // — a veces una tarjeta de concepto (que Modo difícil ya no debería
+  // mostrar), a veces la pregunta de un lugar distinto en la unidad, lo que
+  // se sentía como que el lector "se atrasaba/adelantaba" al pasar de
+  // pregunta. El cronómetro de Modo difícil (efecto de abajo) ya usaba el
+  // par correcto (preguntasPool, tamanoUnidad); esto solo lo alinea.
   useEffect(() => {
     if (!lecturaAutomatica || cargando || cargandoProgreso || !materia || cola === null) return
 
     const preguntaActual = enRepaso
       ? (colaRepaso[0] || null)
-      : (cola.length > 0 ? getPreguntasDeUnidad(materia.preguntas, unidad)[cola[0]] : null)
+      : (cola.length > 0 ? getPreguntasDeUnidad(preguntasPool, unidad, tamanoUnidad)[cola[0]] : null)
 
     if (!preguntaActual || typeof preguntaActual.pregunta !== 'string' || !preguntaActual.pregunta.trim()) return
 
     const iniciado = hablarTexto(preguntaActual.pregunta, { onEnd: () => setLeyendo(false) })
     if (iniciado) setLeyendo(true)
-  }, [lecturaAutomatica, cargando, cargandoProgreso, materia, unidad, cola, enRepaso, colaRepaso])
+  }, [lecturaAutomatica, cargando, cargandoProgreso, materia, unidad, cola, enRepaso, colaRepaso, preguntasPool, tamanoUnidad])
 
   // ── Cronómetro por pregunta (Modo difícil) ────────────────────────────────
   // Mismo problema que el efecto de lectura automática de arriba: en este

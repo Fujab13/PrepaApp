@@ -1,6 +1,7 @@
 import Stripe from 'stripe'
 import { createClient } from '@supabase/supabase-js'
 import { agregarAlumnoAGrupoClase } from '../_shared/whapi.ts'
+import { notificarNuevoAlumno } from '../_shared/pushNotifications.ts'
 
 function getEnv(name: string): string {
   const value = Deno.env.get(name)
@@ -83,6 +84,7 @@ Deno.serve(async (req: Request) => {
 
       if (transaccion?.oferta_maestro_id) {
         await agregarAlumnoAGrupoClase(supabaseAdmin, transaccion.id)
+        await notificarNuevoAlumno(supabaseAdmin, transaccion.id)
       }
     }
   } else if (event.type === 'checkout.session.expired') {

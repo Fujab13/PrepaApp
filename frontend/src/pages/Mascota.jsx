@@ -40,7 +40,7 @@ const DURACION_FASE_MS = DURACION_DIA_MS / 2 // mitad luz, mitad noche
 // puede interpolar cada una al transicionar (ver `transition: filter` en el
 // JSX) en vez de solo cortar de golpe entre "sin filtro" y "con filtro".
 const FILTRO_DIA = 'grayscale(0) sepia(0) hue-rotate(0deg) saturate(1) brightness(1) contrast(1)'
-const FILTRO_NOCHE = 'grayscale(0.15) sepia(0.75) hue-rotate(75deg) saturate(2.1) brightness(0.97) contrast(1.15)'
+const FILTRO_NOCHE = 'grayscale(0.15) sepia(0.75) hue-rotate(190deg) saturate(2.3) brightness(0.97) contrast(1.15)'
 
 // ── Luna ─────────────────────────────────────────────────────────────────
 // Posición aleatoria (una vez por entrada/recarga, no cambia mientras dura
@@ -490,14 +490,14 @@ export default function Mascota() {
             par de farolas, con ciclo día/noche simulado (ver esDeNoche
             arriba, se sortea al azar en cada entrada/recarga). De noche se
             ve a través de un filtro estilo "visión nocturna" (monocromo
-            verde + viñeta + scanlines, ver FILTRO_NOCHE/.mascota-vision-
+            azul + viñeta + scanlines, ver FILTRO_NOCHE/.mascota-vision-
             vineta en global.css). Dos capas apiladas (mismo inset:0, mismo
             sistema de % para el loop de física): 1) TODO el escenario
             (cielo, luna, piso, lago, mascotas, comida) CON el filtro
             (mismas funciones que FILTRO_DIA, para que el navegador pueda
             interpolar la transición) — de noche el sprite y el flash de
             color de pelea/alimentar (PixelArt `tinte`) también se ven
-            verdosos, como el resto de la escena; 2) la viñeta, sin filtrar,
+            azulados, como el resto de la escena; 2) la viñeta, sin filtrar,
             encima de todo (es el "visor", no la escena), cuya opacidad
             cruza junto con esDeNoche. Sigue siendo el mismo
             truco simple de "grid floor" retro de antes (rotateX +
@@ -520,15 +520,15 @@ export default function Mascota() {
             height: 380,
             borderRadius: 20,
             overflow: 'hidden',
-            border: '1px solid rgba(60, 255, 140, 0.35)',
-            backgroundColor: '#020a03',
+            border: '1px solid rgba(70, 150, 255, 0.35)',
+            backgroundColor: '#02060f',
           }}>
             <div style={{ position: 'absolute', inset: 0, filter: esDeNoche ? FILTRO_NOCHE : FILTRO_DIA, transition: 'filter 1.2s ease' }}>
               {/* Cielo: alterna con el ciclo día/noche simulado (ver esDeNoche arriba) */}
               <div style={{
                 position: 'absolute', top: 0, left: 0, right: 0, height: `${Y_MIN}%`,
                 background: esDeNoche
-                  ? 'linear-gradient(180deg, #050d08 0%, #17331c 100%)'
+                  ? 'linear-gradient(180deg, #050a14 0%, #16294d 100%)'
                   : 'linear-gradient(180deg, #4f9fe0 0%, #cdecfb 100%)',
               }} />
 

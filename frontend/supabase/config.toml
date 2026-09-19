@@ -452,3 +452,9 @@ enabled = true
 verify_jwt = false
 import_map = "./functions/admin-acceso-profesor/deno.json"
 entrypoint = "./functions/admin-acceso-profesor/index.ts"
+
+[functions.recordatorio-estudio]
+enabled = true
+verify_jwt = false
+import_map = "./functions/recordatorio-estudio/deno.json"
+entrypoint = "./functions/recordatorio-estudio/index.ts"

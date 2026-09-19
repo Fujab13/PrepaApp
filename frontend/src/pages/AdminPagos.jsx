@@ -33,7 +33,50 @@ import {
   HiOutlineShieldExclamation,
   HiOutlineInboxStack,
   HiOutlineChartBar,
+  HiOutlineClipboard,
+  HiCheck,
 } from "react-icons/hi2";
+
+// Botón de copiar genérico (CLABE, monto a pagar): `stopPropagation` porque
+// siempre vive dentro de la tarjeta clicable del profesor (que expande/
+// colapsa el detalle) — sin esto, tocar "copiar" también dispararía ese
+// toggle. El feedback de "copiado" es visual únicamente (icono + color por
+// 1.5s), no bloquea ni deshabilita el botón.
+function BotonCopiar({ texto, etiqueta }) {
+  const [copiado, setCopiado] = useState(false);
+
+  async function copiar(e) {
+    e.stopPropagation();
+    if (!texto) return;
+    try {
+      await navigator.clipboard.writeText(String(texto));
+      setCopiado(true);
+      setTimeout(() => setCopiado(false), 1500);
+    } catch {
+      // Clipboard API puede fallar sin permiso/HTTPS; no es crítico, el
+      // dato sigue visible para seleccionarlo a mano.
+    }
+  }
+
+  return (
+    <button
+      type="button"
+      onClick={copiar}
+      disabled={!texto}
+      title={etiqueta ? `Copiar ${etiqueta}` : "Copiar"}
+      style={{
+        minWidth: 32, minHeight: 32, padding: 0, borderRadius: 8, border: "none",
+        background: copiado ? "rgba(74,222,128,0.18)" : "var(--surface2)",
+        color: copiado ? "var(--correct)" : "var(--text-muted)",
+        display: "flex", alignItems: "center", justifyContent: "center",
+        fontSize: 13, cursor: texto ? "pointer" : "default", flexShrink: 0,
+        opacity: texto ? 1 : 0.5,
+      }}
+    >
+      {copiado ? <HiCheck /> : <HiOutlineClipboard />}
+    </button>
+  );
+}
 
 function fmtMoneda(n) {
   return `$${Number(n ?? 0).toLocaleString("es-MX", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
@@ -229,10 +272,10 @@ export default function AdminPagos() {
               </button>
 
               {statsAbiertas && (
-                <div style={{ borderTop: "0.5px solid var(--surface)", marginTop: 12, paddingTop: 12, display: "flex", flexDirection: "column", gap: 8 }}>
+                <div style={{ borderTop: "0.5px solid var(--surface)", marginTop: 12, paddingTop: 12, display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
                   <TarjetaResumen icono={<HiOutlineUserGroup />} label="Usuarios registrados" valor={totalUsuarios ?? "…"} color="#06b6d4" />
-                  <TarjetaResumen icono={<HiOutlineBanknotes />} label="Comisión de la plataforma" valor={fmtMoneda(resumenGlobal.comision)} color="#22c55e" />
-                  <TarjetaResumen icono={<HiOutlineBanknotes />} label="Pendiente de pagar" valor={fmtMoneda(resumenGlobal.pendiente)} color="#f59e0b" />
+                  <TarjetaResumen icono={<HiOutlineBanknotes />} label="Comisión" valor={fmtMoneda(resumenGlobal.comision)} color="#22c55e" />
+                  <TarjetaResumen icono={<HiOutlineBanknotes />} label="Pendiente" valor={fmtMoneda(resumenGlobal.pendiente)} color="#f59e0b" />
                   <TarjetaResumen icono={<HiCheckCircle />} label="Ya pagado" valor={fmtMoneda(resumenGlobal.pagado)} color="#4f8ef7" />
                 </div>
               )}
@@ -282,9 +325,19 @@ export default function AdminPagos() {
                     <HiOutlineEnvelope style={{ flexShrink: 0 }} /> {p.email}
                   </p>
 
-                  <p style={{ fontSize: 11, color: "var(--text-muted)", margin: "6px 0 0", fontFamily: "monospace", background: "var(--surface)", display: "inline-block", padding: "3px 8px", borderRadius: 6 }}>
-                    CLABE: {p.numeroCuenta || "No configurada"}
-                  </p>
+                  <div style={{ display: "flex", alignItems: "center", gap: 8, marginTop: 8, flexWrap: "wrap" }}>
+                    <span style={{ fontSize: 11, color: "var(--text-muted)", fontFamily: "monospace", background: "var(--surface)", padding: "5px 8px", borderRadius: 6, display: "flex", alignItems: "center", gap: 6 }}>
+                      CLABE: {p.numeroCuenta || "No configurada"}
+                      {p.numeroCuenta && <BotonCopiar texto={p.numeroCuenta} etiqueta="CLABE" />}
+                    </span>
+
+                    {p.totalPendiente > 0 && (
+                      <span style={{ fontSize: 11.5, fontWeight: 700, color: "#f59e0b", background: "rgba(245,158,11,0.12)", padding: "5px 8px", borderRadius: 6, display: "flex", alignItems: "center", gap: 6 }}>
+                        Total a pagar: {fmtMoneda(p.totalPendiente)}
+                        <BotonCopiar texto={p.totalPendiente.toFixed(2)} etiqueta="el monto a pagar" />
+                      </span>
+                    )}
+                  </div>
 
                   {expandido && (
                     <div style={{ borderTop: "0.5px solid var(--surface)", marginTop: 12, paddingTop: 12, display: "flex", flexDirection: "column", gap: 8 }}>
@@ -315,7 +368,7 @@ export default function AdminPagos() {
                                 disabled={procesandoId === t.transaccion_id}
                                 onClick={() => marcar(t)}
                                 style={{
-                                  minHeight: 36, padding: "0 12px", borderRadius: 8, fontSize: 12, fontWeight: 700,
+                                  minHeight: 44, padding: "0 12px", borderRadius: 8, fontSize: 12, fontWeight: 700,
                                   border: t.pagado_profesor ? "1px solid var(--surface)" : "none",
                                   background: t.pagado_profesor ? "transparent" : "#4f8ef7",
                                   color: t.pagado_profesor ? "var(--text-muted)" : "#fff",

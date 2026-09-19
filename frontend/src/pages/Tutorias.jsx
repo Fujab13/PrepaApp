@@ -456,6 +456,13 @@ export default function Tutorias() {
 
         {tutorialAbajo && <TutorialAlumno onCerrar={moverTutorialAbajo} />}
 
+        <p style={{
+          fontSize: 11, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase",
+          color: "var(--text-muted)", textAlign: "center", margin: "10px 0 -6px",
+        }}>
+          ¿Cómo vas esta semana?
+        </p>
+
         <RankingSemanal />
       </main>
     </div>

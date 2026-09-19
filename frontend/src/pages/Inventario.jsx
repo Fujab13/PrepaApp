@@ -241,6 +241,12 @@ export default function Inventario({ onClose, onNavigateStore }) {
               }}>
                 Tu colección
               </p>
+              <span style={{
+                marginLeft: 'auto', fontSize: '0.72rem', fontWeight: 700, color: '#47a6ff',
+                background: 'rgba(71, 166, 255, 0.14)', padding: '2px 8px', borderRadius: 999,
+              }}>
+                {inventario.length}
+              </span>
             </div>
 
             <div style={styles.zoneBlue}>

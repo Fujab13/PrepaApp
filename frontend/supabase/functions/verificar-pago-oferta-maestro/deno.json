@@ -2,6 +2,7 @@
   "imports": {
     "@supabase/functions-js": "jsr:@supabase/functions-js@^2",
     "@supabase/supabase-js": "npm:@supabase/supabase-js@^2.49.0",
-    "stripe": "npm:stripe@^14.0.0"
+    "stripe": "npm:stripe@^14.0.0",
+    "web-push": "npm:web-push@^3.6.7"
   }
 }

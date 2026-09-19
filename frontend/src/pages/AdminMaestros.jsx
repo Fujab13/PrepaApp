@@ -153,11 +153,12 @@ export default function AdminMaestros() {
     const clabes = [...(clabesPorProfesor[p.user_id] ?? [])];
 
     return (
-      <div className="sp-card" style={{ margin: 0, border: `1.5px solid ${colorBorde}` }}>
-        <div className="sp-card-header">
+      <div className="sp-card" style={{ margin: 0, gap: 7, padding: 12, border: `1.5px solid ${colorBorde}` }}>
+        <div className="sp-card-header" style={{ gap: 8 }}>
           <div
             className="sp-card-icon"
             style={{
+              width: 36, height: 36, fontSize: "1.05rem", borderRadius: 10,
               background: tieneReportes ? "rgba(239,68,68,0.15)" : esPendiente ? "rgba(234,179,8,0.15)" : "rgba(124,92,191,0.15)",
               color: tieneReportes ? "#ef4444" : esPendiente ? "#eab308" : "#7c5cbf",
               flexShrink: 0,
@@ -171,27 +172,27 @@ export default function AdminMaestros() {
               onClick={() => navigate(`/perfil-profesor/${p.user_id}`)}
               className="sp-card-title"
               style={{
-                wordBreak: "break-word", background: "transparent", border: "none", padding: 0, margin: 0,
+                fontSize: 13.5, wordBreak: "break-word", background: "transparent", border: "none", padding: 0, margin: 0,
                 color: "var(--text)", textAlign: "left", cursor: "pointer", textDecoration: "underline", textUnderlineOffset: 2,
               }}
             >
               {p.nombre}
             </button>
-            <p style={{ fontSize: 14, fontWeight: 700, color: "var(--text)", margin: "2px 0 0", wordBreak: "break-word" }}>
+            <p style={{ fontSize: 12.5, fontWeight: 700, color: "var(--text)", margin: "1px 0 0", wordBreak: "break-word" }}>
               {p.email_cuenta}
             </p>
-            <p className="sp-card-description" style={{ wordBreak: "break-word" }}>
+            <p className="sp-card-description" style={{ fontSize: 11, margin: "1px 0 0", wordBreak: "break-word" }}>
               CURP: {p.curp || "—"} · Desde {fmtFecha(p.creado_en)}
             </p>
           </div>
         </div>
 
         {tieneReportes && (
-          <div style={{ marginTop: 10, display: "flex", alignItems: "center", gap: 6, flexWrap: "wrap" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 6, flexWrap: "wrap" }}>
             <span
               style={{
-                display: "inline-flex", alignItems: "center", gap: 6, fontSize: 11.5, fontWeight: 800,
-                color: "#fff", background: "#ef4444", borderRadius: 999, padding: "4px 10px",
+                display: "inline-flex", alignItems: "center", gap: 6, fontSize: 11, fontWeight: 800,
+                color: "#fff", background: "#ef4444", borderRadius: 999, padding: "3px 9px",
               }}
             >
               <HiOutlineFlag />
@@ -202,59 +203,59 @@ export default function AdminMaestros() {
           </div>
         )}
 
-        <div style={{ marginTop: 10, fontSize: 12, color: "var(--text-muted)", lineHeight: 1.6, wordBreak: "break-word" }}>
-          <p style={{ margin: 0 }}>Contacto: {p.email_contacto || "—"} {p.telefono_contacto ? `· ${p.telefono_contacto}` : ""}</p>
-          <p style={{ margin: 0 }}>Materias: {(p.materias || []).join(", ") || "—"}</p>
-        </div>
+        <p style={{ fontSize: 11, color: "var(--text-muted)", lineHeight: 1.45, wordBreak: "break-word", margin: 0 }}>
+          Contacto: {p.email_contacto || "—"} {p.telefono_contacto ? `· ${p.telefono_contacto}` : ""}
+          {" · "}Materias: {(p.materias || []).join(", ") || "—"}
+        </p>
 
         {/* CLABE del registro (profesores.numero_cuenta, migración
             20260904130000): desde esa migración es la que se publica en
             TODAS sus ofertas nuevas — ya no se captura a mano por oferta. */}
-        <div style={{ marginTop: 10, background: "var(--surface)", border: "1px solid var(--surface2)", borderRadius: 10, padding: 10 }}>
-          <p style={{ fontSize: 12, color: "var(--text-muted)", margin: "0 0 6px" }}>CLABE de su registro</p>
-          <p style={{ fontSize: 14, fontWeight: 700, color: "var(--text)", fontFamily: "monospace", margin: 0 }}>
+        <div style={{ background: "var(--surface)", border: "1px solid var(--surface2)", borderRadius: 8, padding: "6px 9px", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 8, flexWrap: "wrap" }}>
+          <span style={{ fontSize: 11, color: "var(--text-muted)" }}>CLABE de su registro</span>
+          <span style={{ fontSize: 12.5, fontWeight: 700, color: "var(--text)", fontFamily: "monospace" }}>
             {p.numero_cuenta || "No configurada"}
-          </p>
+          </span>
         </div>
 
         {/* Legado de antes de esa migración: ofertas publicadas con una
             CLABE distinta a la del registro (typo, cambio de cuenta, o
             profesores verificados antes de que existiera numero_cuenta). */}
         {clabes.length > 0 && !(clabes.length === 1 && clabes[0] === p.numero_cuenta) && (
-          <div style={{ marginTop: 10, background: "var(--surface)", border: "1px solid var(--surface2)", borderRadius: 10, padding: 10 }}>
-            <p style={{ fontSize: 12, color: "var(--text-muted)", margin: "0 0 6px" }}>
+          <div style={{ background: "var(--surface)", border: "1px solid var(--surface2)", borderRadius: 8, padding: "6px 9px" }}>
+            <p style={{ fontSize: 10.5, color: "var(--text-muted)", margin: "0 0 3px" }}>
               CLABE{clabes.length > 1 ? "s" : ""} usada{clabes.length > 1 ? "s" : ""} en sus ofertas (histórico)
             </p>
             {clabes.map((clabe) => (
-              <p key={clabe} style={{ fontSize: 14, fontWeight: 700, color: "var(--text)", fontFamily: "monospace", margin: 0 }}>
+              <p key={clabe} style={{ fontSize: 12.5, fontWeight: 700, color: "var(--text)", fontFamily: "monospace", margin: 0 }}>
                 {clabe}
               </p>
             ))}
           </div>
         )}
 
-        <div style={{ marginTop: 10, background: "var(--surface)", border: "1px solid var(--surface2)", borderRadius: 10, padding: 10, display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
-          <span style={{ fontSize: 12, color: "var(--text-muted)", flex: 1, minWidth: 120 }}>Contraseña de profesor:</span>
-          <span style={{ fontSize: 15, fontWeight: 800, color: "#eab308", fontFamily: "monospace" }}>{p["contraseña"] || "—"}</span>
+        <div style={{ background: "var(--surface)", border: "1px solid var(--surface2)", borderRadius: 8, padding: "6px 9px", display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
+          <span style={{ fontSize: 11, color: "var(--text-muted)", flex: 1, minWidth: 110 }}>Contraseña de profesor:</span>
+          <span style={{ fontSize: 13.5, fontWeight: 800, color: "#eab308", fontFamily: "monospace" }}>{p["contraseña"] || "—"}</span>
           {p["contraseña"] && (
             <button
               type="button"
               onClick={() => copiarPassword(p)}
-              style={{ minHeight: 36, padding: "0 10px", borderRadius: 8, border: "1px solid var(--surface2)", background: "transparent", color: "var(--text)", cursor: "pointer", display: "flex", alignItems: "center", gap: 6, fontSize: 12 }}
+              style={{ minHeight: 30, padding: "0 9px", borderRadius: 7, border: "1px solid var(--surface2)", background: "transparent", color: "var(--text)", cursor: "pointer", display: "flex", alignItems: "center", gap: 5, fontSize: 11 }}
             >
               {copiadoId === p.id ? <HiCheckCircle /> : <HiOutlineClipboardDocument />} {copiadoId === p.id ? "Copiado" : "Copiar"}
             </button>
           )}
         </div>
 
-        <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginTop: 10 }}>
+        <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
           {esPendiente ? (
             <button
               type="button"
               disabled={procesandoId === p.id}
               onClick={() => alternarVerificado(p)}
               style={{
-                flex: "1 1 160px", minHeight: 44, borderRadius: 10, fontSize: 13, fontWeight: 700,
+                flex: "1 1 150px", minHeight: 40, borderRadius: 9, fontSize: 12.5, fontWeight: 700,
                 border: "1px solid var(--correct)", background: "transparent", color: "var(--correct)",
                 cursor: procesandoId === p.id ? "default" : "pointer", opacity: procesandoId === p.id ? 0.6 : 1,
               }}
@@ -267,7 +268,7 @@ export default function AdminMaestros() {
               disabled={procesandoId === p.id}
               onClick={() => alternarActivo(p)}
               style={{
-                flex: "1 1 160px", minHeight: 44, borderRadius: 10, fontSize: 13, fontWeight: 700,
+                flex: "1 1 150px", minHeight: 40, borderRadius: 9, fontSize: 12.5, fontWeight: 700,
                 border: p.activo ? "1px solid var(--wrong)" : "1px solid var(--correct)",
                 background: "transparent",
                 color: p.activo ? "var(--wrong)" : "var(--correct)",
@@ -282,7 +283,7 @@ export default function AdminMaestros() {
             type="button"
             onClick={() => setAccesoObjetivo(p)}
             style={{
-              flex: "1 1 160px", minHeight: 44, borderRadius: 10, fontSize: 13, fontWeight: 700,
+              flex: "1 1 150px", minHeight: 40, borderRadius: 9, fontSize: 12.5, fontWeight: 700,
               border: "1px solid #4f8ef7", background: "transparent", color: "#4f8ef7", cursor: "pointer",
               display: "flex", alignItems: "center", justifyContent: "center", gap: 6,
             }}
@@ -299,7 +300,7 @@ export default function AdminMaestros() {
             type="button"
             onClick={() => navigate(`/admin/ofertas?buscar=${encodeURIComponent(p.nombre || "")}`)}
             style={{
-              flex: "1 1 160px", minHeight: 44, borderRadius: 10, fontSize: 13, fontWeight: 700,
+              flex: "1 1 150px", minHeight: 40, borderRadius: 9, fontSize: 12.5, fontWeight: 700,
               border: "1px solid #eab308", background: "transparent", color: "#eab308", cursor: "pointer",
               display: "flex", alignItems: "center", justifyContent: "center", gap: 6,
             }}
@@ -320,7 +321,7 @@ export default function AdminMaestros() {
         <h2 className="page-topbar-title" style={{ fontSize: "1rem", flex: 1 }}>Profesores</h2>
       </header>
 
-      <main className="page-content-compact" style={{ flex: 1, paddingBottom: 40, display: "flex", flexDirection: "column", gap: 14 }}>
+      <main className="page-content-compact" style={{ flex: 1, paddingBottom: 40, display: "flex", flexDirection: "column", gap: 9 }}>
         {cargandoAuth && <p style={{ color: "var(--text-muted)", fontSize: 13, textAlign: "center" }}>Cargando…</p>}
 
         {!cargandoAuth && !user && (

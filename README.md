@@ -72,7 +72,7 @@ npm install
 npm run dev   # http://localhost:5173
 ```
 
-Variables de entorno (`frontend/.env`, ver `.env.example`): solo `VITE_SUPABASE_URL` y `VITE_SUPABASE_ANON_KEY`. Las llaves privadas (Stripe, `SUPABASE_SERVICE_ROLE_KEY`) nunca van aquí — viven solo en el entorno de las Edge Functions.
+Variables de entorno (`frontend/.env`, ver `.env.example`): `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY` y `VITE_VAPID_PUBLIC_KEY` (mitad pública del par VAPID de las notificaciones push — mismo valor que `VAPID_PUBLIC_KEY` en las Edge Functions, ver `supabase/functions/_shared/pushNotifications.ts`). Las llaves privadas (Stripe, `SUPABASE_SERVICE_ROLE_KEY`, `VAPID_PRIVATE_KEY`) nunca van aquí — viven solo en el entorno de las Edge Functions.
 
 **Supabase → Authentication → URL Configuration**:
 - Site URL: `http://localhost:5173`

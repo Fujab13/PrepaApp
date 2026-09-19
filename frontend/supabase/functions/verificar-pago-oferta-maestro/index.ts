@@ -19,6 +19,7 @@
 import Stripe from 'stripe'
 import { createClient } from '@supabase/supabase-js'
 import { agregarAlumnoAGrupoClase } from '../_shared/whapi.ts'
+import { notificarNuevoAlumno } from '../_shared/pushNotifications.ts'
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -131,6 +132,7 @@ Deno.serve(async (req: Request) => {
     // webhook ganó la carrera.
     if (!rpcError) {
       await agregarAlumnoAGrupoClase(supabaseAdmin, transaccion.id)
+      await notificarNuevoAlumno(supabaseAdmin, transaccion.id)
     }
 
     return new Response(JSON.stringify({ estado_pago: 'completado' }), {

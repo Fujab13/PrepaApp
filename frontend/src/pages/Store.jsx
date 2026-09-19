@@ -6,7 +6,7 @@ import { useAuth } from '../context/AuthContext'
 import { supabase } from '../services/supabaseClient'
 
 import { MdToken, MdWorkspacePremium } from 'react-icons/md'
-import { HiOutlineRectangleStack, HiOutlineSparkles, HiOutlineSwatch } from 'react-icons/hi2'
+import { HiOutlineRectangleStack, HiOutlineSparkles, HiOutlineSwatch, HiCheckCircle, HiOutlineShoppingBag } from 'react-icons/hi2'
 import { FaPaw } from 'react-icons/fa'
 import { FaStripe } from "react-icons/fa";
 import { AiOutlineClose } from "react-icons/ai";
@@ -91,12 +91,123 @@ export default function Store() {
     return categorias.find(cat => items.find(i => i.categoria === cat)?.type === 'coins')
   }, [categorias, items])
 
-  // Tarjeta "banner" genérica (ícono + descripción + botón de precio) — la
-  // usan todas las categorías salvo Mascotas, que en cambio muestra el
-  // sprite real (ver más abajo). También cubre a los items de Mascotas que
-  // NO son una mascota en sí (el Snack Pack de comida), para que no
-  // desaparezcan de la tienda por no tener `mascotaId`.
+  // Tarjeta de producto de dinero real (Práctica extra/Suscripción): a
+  // diferencia de la genérica de monedas, esta se diseñó para sentirse
+  // "premium" — insignia de pago real arriba, ícono con resplandor morado
+  // (mismo lenguaje que las tarjetas de Alumnos/Maestros en Tutorias.jsx),
+  // precio grande en vez de metido en el texto del botón, y un botón de
+  // acción compacto en vez de uno de ancho completo con solo el precio.
+  function tarjetaPremium(item) {
+    const owned = ownsItem(item.id)
+    const isLoading = loadingId === item.id
+    const esGratis = item.priceMXN === 0
+
+    return (
+      <div
+        key={item.id}
+        style={{
+          position: 'relative',
+          overflow: 'hidden',
+          borderRadius: 'var(--radius)',
+          padding: '16px',
+          // `.sp-grid` (contenedor de la lista, ver más abajo) no define
+          // ningún gap propio — las tarjetas de monedas se separan gracias
+          // al margin-bottom:16px que trae la clase .sp-card, pero esta
+          // tarjeta no la usa (estilo propio, no reutiliza .sp-card), así
+          // que sin este margin quedarían pegadas una con otra.
+          marginBottom: 12,
+          background: 'linear-gradient(155deg, rgba(124,92,191,0.16), var(--surface2) 55%)',
+          border: '1px solid rgba(124,92,191,0.35)',
+          boxShadow: '0 10px 26px -14px rgba(124,92,191,0.55)',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 12,
+        }}
+      >
+        {/* Resplandor decorativo, puramente ambiental — mismo truco que
+            RankingSemanal en Tutorias.jsx (un círculo difuminado detrás del
+            contenido, nunca clicable). */}
+        <div style={{
+          position: 'absolute', top: -36, right: -24, width: 110, height: 110, borderRadius: '50%',
+          background: '#7c5cbf', opacity: 0.16, filter: 'blur(36px)', pointerEvents: 'none',
+        }} />
+
+        <div style={{ position: 'relative', display: 'flex', alignItems: 'flex-start', gap: 12 }}>
+          <div style={{
+            width: 52, height: 52, borderRadius: 14, flexShrink: 0,
+            display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.5rem',
+            background: 'radial-gradient(circle at 32% 28%, rgba(124,92,191,0.45), rgba(124,92,191,0.16))',
+            color: '#c4b5fd',
+            boxShadow: '0 0 0 1px rgba(124,92,191,0.3) inset',
+          }}>
+            {renderIconoMateria(item.icono, { size: 26 })}
+          </div>
+
+          <div style={{ flex: 1, minWidth: 0 }}>
+            <span style={{
+              display: 'inline-block', fontSize: 9.5, fontWeight: 800, letterSpacing: '0.08em',
+              textTransform: 'uppercase', color: '#c4b5fd', background: 'rgba(124,92,191,0.2)',
+              padding: '2px 7px', borderRadius: 999, marginBottom: 5,
+            }}>
+              {esGratis ? 'Acceso gratuito' : 'Compra única'}
+            </span>
+            <p style={{ fontSize: '0.95rem', fontWeight: 800, color: 'var(--text)', margin: 0, lineHeight: 1.3 }}>
+              {item.nombre}
+            </p>
+            <p style={{ fontSize: '0.78rem', color: 'var(--text-muted)', margin: '3px 0 0', lineHeight: 1.4 }}>
+              {item.descripcion}
+            </p>
+          </div>
+        </div>
+
+        <div style={{
+          position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 10,
+          paddingTop: 12, borderTop: '1px solid rgba(124,92,191,0.2)',
+        }}>
+          <div style={{ lineHeight: 1.1 }}>
+            {esGratis ? (
+              <span style={{ fontSize: '1rem', fontWeight: 800, color: 'var(--correct)' }}>Gratis</span>
+            ) : (
+              <>
+                <span style={{ fontSize: '1.35rem', fontWeight: 800, color: 'var(--text)' }}>${item.priceMXN}</span>
+                <span style={{ fontSize: '0.7rem', fontWeight: 700, color: 'var(--text-muted)', marginLeft: 4 }}>MXN</span>
+              </>
+            )}
+          </div>
+
+          <button
+            onClick={() => manejarCompra(item)}
+            disabled={owned || isLoading}
+            style={{
+              minHeight: 44, padding: '0 18px', borderRadius: 12, border: 'none', flexShrink: 0,
+              display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 7,
+              fontSize: '0.85rem', fontWeight: 700,
+              background: owned ? 'var(--surface)' : '#7c5cbf',
+              color: owned ? 'var(--text-muted)' : '#fff',
+              cursor: owned || isLoading ? 'default' : 'pointer',
+              opacity: isLoading ? 0.75 : 1,
+              boxShadow: owned ? 'none' : '0 6px 16px -6px rgba(124,92,191,0.6)',
+            }}
+          >
+            {owned
+              ? (<><HiCheckCircle /> Ya lo tienes</>)
+              : isLoading
+                ? (<><span className="sp-spinner" />Procesando…</>)
+                : (<><HiOutlineShoppingBag /> {esGratis ? 'Activar' : 'Comprar'}</>)}
+          </button>
+        </div>
+      </div>
+    )
+  }
+
+  // Tarjeta "banner" genérica (ícono + descripción + botón de precio) — hoy
+  // solo la usan los items de monedas (ver tarjetaPremium arriba para los de
+  // dinero real). También cubre a los items de Mascotas que NO son una
+  // mascota en sí (el Snack Pack de comida), para que no desaparezcan de la
+  // tienda por no tener `mascotaId`.
   function tarjetaGenerica(item) {
+    if (item.type === 'real') return tarjetaPremium(item)
+
     const owned = ownsItem(item.id)
     const isLoading = loadingId === item.id
     const puedeComprar = item.type === 'coins' ? coins >= item.priceCoins : true

@@ -30,7 +30,7 @@ const PUNTOS_POR_ESCANEO = 4
 const DURACION_BARRIDO_MS = 1300
 const RADIO_BASE = 9
 const MARGEN = 26
-const FONDO_MONITOR = '#062b18' // verde oscuro tipo pantalla de radar/sonar, fijo siempre (no cambia con el resultado)
+const FONDO_MONITOR = '#04152b' // azul oscuro tipo cuadrícula digital, fijo siempre (no cambia con el resultado)
 
 // Colores de rareza: el peso se normaliza para sumar 100% (la probabilidad
 // real de cada uno es la del comentario). `valorMin`/`valorMax` son el
@@ -46,14 +46,15 @@ const COLORES_NORMAL = [
 ]
 
 // Modo difícil (el rayo en MateriaCard/Leccion.jsx): mismos colores y
-// mismos rangos de valor, pero con dorado/rojo varias veces más probables
-// que en modo normal (4x cada uno) — el incentivo para usarlo.
+// mismos rangos de valor, pero con dorado/rojo bastante más probables que en
+// modo normal — el incentivo para usarlo. Subidas de nuevo (antes 5%/1.6%/
+// 0.4%) para que el riesgo del cronómetro de 22s se sienta más recompensado.
 const COLORES_DIFICIL = [
-  { id: 'gris', nombre: 'Gris', peso: 750, color: '#9ca3af', valorMin: 1, valorMax: 3 }, // 75%
-  { id: 'verde', nombre: 'Verde', peso: 180, color: '#22c55e', valorMin: 3, valorMax: 5 }, // 18%
-  { id: 'morado', nombre: 'Morado', peso: 50, color: '#a855f7', valorMin: 5, valorMax: 10 }, // 5%
-  { id: 'dorado', nombre: 'Dorado', peso: 16, color: '#facc15', valorMin: 11, valorMax: 25 }, // 1.6%
-  { id: 'rojo', nombre: 'Rojo', peso: 4, color: '#ef4444', valorMin: 40, valorMax: 40 }, // 0.4%
+  { id: 'gris', nombre: 'Gris', peso: 700, color: '#9ca3af', valorMin: 1, valorMax: 3 }, // 70%
+  { id: 'verde', nombre: 'Verde', peso: 190, color: '#22c55e', valorMin: 3, valorMax: 5 }, // 19%
+  { id: 'morado', nombre: 'Morado', peso: 70, color: '#a855f7', valorMin: 5, valorMax: 10 }, // 7%
+  { id: 'dorado', nombre: 'Dorado', peso: 30, color: '#facc15', valorMin: 11, valorMax: 25 }, // 3%
+  { id: 'rojo', nombre: 'Rojo', peso: 10, color: '#ef4444', valorMin: 40, valorMax: 40 }, // 1%
 ]
 
 function generarColor(colores) {
@@ -120,11 +121,18 @@ export default function EscaneoRecompensa({ materiaId, unidad, colorAcento = '#7
     ctx.fillStyle = FONDO_MONITOR
     ctx.fillRect(0, 0, ANCHO, ALTO)
 
-    // Rejilla sutil, en un verde más claro que el fondo para que combine.
-    ctx.strokeStyle = 'rgba(74, 222, 128, 0.12)'
+    // Cuadrícula azul: líneas finas cada 20px y unas más marcadas cada 60px
+    // encima, para que se lea como una rejilla deliberada (el motivo visual
+    // de esta pantalla) y no solo una textura de fondo apenas perceptible.
+    ctx.strokeStyle = 'rgba(96, 165, 250, 0.22)'
     ctx.lineWidth = 1
     for (let x = 0; x <= ANCHO; x += 20) { ctx.beginPath(); ctx.moveTo(x + 0.5, 0); ctx.lineTo(x + 0.5, ALTO); ctx.stroke() }
     for (let y = 0; y <= ALTO; y += 20) { ctx.beginPath(); ctx.moveTo(0, y + 0.5); ctx.lineTo(ANCHO, y + 0.5); ctx.stroke() }
+
+    ctx.strokeStyle = 'rgba(147, 197, 253, 0.35)'
+    ctx.lineWidth = 1
+    for (let x = 0; x <= ANCHO; x += 60) { ctx.beginPath(); ctx.moveTo(x + 0.5, 0); ctx.lineTo(x + 0.5, ALTO); ctx.stroke() }
+    for (let y = 0; y <= ALTO; y += 60) { ctx.beginPath(); ctx.moveTo(0, y + 0.5); ctx.lineTo(ANCHO, y + 0.5); ctx.stroke() }
 
     // Puntos ya revelados: aparecen con un "pop" que decae en ~300ms.
     for (const p of puntosRef.current) {

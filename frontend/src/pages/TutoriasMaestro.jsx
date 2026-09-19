@@ -22,6 +22,13 @@ import {
   obtenerMiEstadoProfesor,
   verificarLoginProfesor,
 } from "../services/profesores";
+import { obtenerAlumnosDeOfertas } from "../services/ofertasMaestro";
+import {
+  notificacionesSoportadas,
+  obtenerSuscripcionActual,
+  activarNotificaciones,
+  desactivarNotificaciones,
+} from "../services/pushNotifications";
 import {
   DURACIONES,
   PRECIO_MIN_MXN,
@@ -45,8 +52,8 @@ import {
   HiOutlineClock,
   HiOutlinePauseCircle,
   HiOutlineLockClosed,
-  HiChevronDown,
-  HiChevronUp,
+  HiOutlineBell,
+  HiOutlineBellSlash,
 } from "react-icons/hi2";
 
 // Documentación que valida a un profesor: hoy se manda a mano por correo
@@ -83,56 +90,140 @@ function horaInput(date) {
   return `${pad(date.getHours())}:${pad(date.getMinutes())}`;
 }
 
-// Una oferta en "Tus ofertas": activa (Editar/Archivar) o de Historial
-// (vencida y/o archivada). `archivada` decide el set de botones — una
-// vencida-pero-no-archivada sigue siendo editable/archivable (p.ej. el
-// maestro quiere recorrer la fecha), solo una YA archivada ofrece
-// "Reactivar" en su lugar.
-function TarjetaOferta({ oferta, enEdicion, procesando, archivada, onEditar, onArchivar, onReactivar }) {
+// Fila label/valor para la tarjeta de resumen de "Tu registro está en
+// revisión" — antes era un volcado plano de <p> en monospace sin jerarquía;
+// esto le da el mismo lenguaje de tabla ligera que ya usa el resto de la app
+// (ver FilaDato en InformeResultados.jsx/OfertaConfirmada.jsx).
+function FilaRegistro({ label, valor, mono = false }) {
+  return (
+    <div style={{ display: "flex", justifyContent: "space-between", gap: 12, padding: "7px 0", borderBottom: "0.5px solid var(--surface2)" }}>
+      <span style={{ fontSize: 11.5, color: "var(--text-muted)", flexShrink: 0 }}>{label}</span>
+      <span style={{ fontSize: 12, color: "var(--text)", fontWeight: 600, textAlign: "right", fontFamily: mono ? "monospace" : "inherit", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+        {valor}
+      </span>
+    </div>
+  );
+}
+
+// Indicador de los 3 pasos del alta de profesor: Registro → Revisión →
+// Activo. Puramente informativo (no es clicable) — le da al maestro nuevo
+// una idea de en qué parte del proceso está sin tener que leer el párrafo
+// completo cada vez. `paso` es 1-indexado.
+const PASOS_REGISTRO = ["Registro", "Revisión", "Activo"];
+function PasosRegistro({ paso, color }) {
+  return (
+    <div style={{ display: "flex", alignItems: "center", gap: 4, marginBottom: 2 }}>
+      {PASOS_REGISTRO.map((label, i) => {
+        const n = i + 1;
+        const completado = n < paso;
+        const actual = n === paso;
+        const tono = completado || actual ? color : "var(--text-muted)";
+        return (
+          <div key={label} style={{ display: "flex", alignItems: "center", gap: 4, flex: i < PASOS_REGISTRO.length - 1 ? 1 : undefined }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 5, flexShrink: 0 }}>
+              <span style={{
+                width: 18, height: 18, borderRadius: "50%", flexShrink: 0, fontSize: 10, fontWeight: 800,
+                display: "flex", alignItems: "center", justifyContent: "center",
+                background: completado ? color : actual ? `${color}22` : "var(--surface2)",
+                color: completado ? "#fff" : tono,
+                border: actual ? `1.5px solid ${color}` : "none",
+              }}>
+                {completado ? "✓" : n}
+              </span>
+              <span style={{ fontSize: 10.5, fontWeight: actual ? 800 : 600, color: tono, whiteSpace: "nowrap" }}>{label}</span>
+            </div>
+            {i < PASOS_REGISTRO.length - 1 && (
+              <div style={{ flex: 1, height: 2, borderRadius: 1, background: n < paso ? color : "var(--surface2)", minWidth: 10 }} />
+            )}
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+// Estado visible de una oferta en "Tus ofertas": 'activa' (se ve y se puede
+// reservar en el portal de alumnos), 'vencida' (la fecha ya pasó pero el
+// maestro no la archivó — sigue editable/archivable, p.ej. para recorrer la
+// fecha) o 'archivada' (el maestro la retiró a mano; solo ofrece Reactivar).
+function estadoOferta(oferta) {
+  if (oferta.archivada_en) return "archivada";
+  if (new Date(oferta.fecha_hora).getTime() < Date.now()) return "vencida";
+  return "activa";
+}
+
+const ETIQUETA_ESTADO_OFERTA = {
+  activa: { texto: "Activa", color: "#4ade80" },
+  vencida: { texto: "Vencida", color: "#f59e0b" },
+  archivada: { texto: "Archivada", color: "var(--text-muted)" },
+};
+
+const OPCIONES_DIA = { weekday: "short", day: "numeric", month: "short" };
+const OPCIONES_HORA = { hour: "numeric", minute: "2-digit" };
+
+function TarjetaOferta({ oferta, enEdicion, procesando, estado, onEditar, onArchivar, onReactivar }) {
   const materia = MATERIAS_TUTORIA.find((m) => m.id === oferta.materia_id);
   const color = materia?.color ?? MATERIA_OTROS.color;
   const nombreMateria = nombreMateriaOferta(oferta.materia_id, oferta.materia_otro);
   const fechaObj = new Date(oferta.fecha_hora);
+  const archivada = estado === "archivada";
+  const etiqueta = ETIQUETA_ESTADO_OFERTA[estado];
 
   return (
     <div
       className="sp-card"
-      style={{ margin: 0, border: enEdicion ? `1.5px solid ${color}` : undefined, opacity: archivada ? 0.75 : 1 }}
+      style={{
+        margin: 0, padding: "14px 16px 14px 14px", gap: 10,
+        border: enEdicion ? `1.5px solid ${color}` : "1px solid var(--border)",
+        borderLeftWidth: 3, borderLeftColor: color,
+        opacity: archivada ? 0.7 : 1,
+      }}
     >
-      <div className="sp-card-header">
-        <div className="sp-card-icon" style={{ background: `${color}22`, color }}>
+      <div style={{ display: "flex", alignItems: "flex-start", gap: 10 }}>
+        <div className="sp-card-icon" style={{ width: 40, height: 40, fontSize: "1.15rem", background: `${color}1c`, color }}>
           {nombreMateria[0] ?? "?"}
         </div>
-        <div className="sp-card-body">
-          <p className="sp-card-title">
-            {nombreMateria} · {oferta.duracion_minutos} min
-          </p>
-          <p className="sp-card-description">
-            {fechaObj.toLocaleString("es-MX", { dateStyle: "medium", timeStyle: "short" })}
-          </p>
-          <p style={{ fontSize: 12, color: "var(--text-muted)", margin: "4px 0 0" }}>
-            {oferta.profesor} · Cupo: {oferta.cupo_maximo} · CLABE: {oferta.cuenta_clave}
-          </p>
+        <div style={{ flex: 1, minWidth: 0 }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+            <p style={{ fontSize: 14.5, fontWeight: 800, color: "var(--text)", margin: 0, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+              {nombreMateria}
+            </p>
+            <span style={{
+              flexShrink: 0, fontSize: 10, fontWeight: 800, color: etiqueta.color,
+              background: `${etiqueta.color}1c`, padding: "2px 7px", borderRadius: 999, textTransform: "uppercase", letterSpacing: 0.3,
+            }}>
+              {etiqueta.texto}
+            </span>
+          </div>
+          <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: 6, marginTop: 5 }}>
+            <span style={{ fontSize: 11.5, fontWeight: 700, color: "var(--text)", background: "var(--surface)", padding: "3px 8px", borderRadius: 7 }}>
+              {fechaObj.toLocaleDateString("es-MX", OPCIONES_DIA)}
+            </span>
+            <span style={{ fontSize: 11.5, fontWeight: 700, color: "var(--text)", background: "var(--surface)", padding: "3px 8px", borderRadius: 7 }}>
+              {fechaObj.toLocaleTimeString("es-MX", OPCIONES_HORA)}
+            </span>
+            <span style={{ fontSize: 11.5, color: "var(--text-muted)" }}>{oferta.duracion_minutos} min · cupo {oferta.cupo_maximo}</span>
+          </div>
         </div>
-        <p style={{ fontSize: 17, fontWeight: 800, color, margin: 0, whiteSpace: "nowrap" }}>
+        <p style={{ fontSize: 18, fontWeight: 800, color, margin: 0, whiteSpace: "nowrap", flexShrink: 0 }}>
           ${Number(oferta.precio_mxn).toFixed(0)}
         </p>
       </div>
 
       {oferta.notas && (
-        <p style={{ fontSize: 13, color: "var(--text-muted)", margin: "10px 0 0", lineHeight: 1.5 }}>
+        <p style={{ fontSize: 12.5, color: "var(--text-muted)", margin: 0, lineHeight: 1.5, paddingLeft: 50 }}>
           {oferta.notas}
         </p>
       )}
 
-      <div style={{ display: "flex", gap: 8, marginTop: 10 }}>
+      <div style={{ display: "flex", gap: 8 }}>
         {archivada ? (
           <button
             type="button"
             disabled={procesando}
             onClick={onReactivar}
             style={{
-              flex: 1, minHeight: 40, borderRadius: 10, border: "1px solid #7c5cbf",
+              flex: 1, minHeight: 44, borderRadius: 10, border: "1px solid #7c5cbf",
               background: "transparent", color: "#7c5cbf", fontWeight: 700, fontSize: 13,
               display: "flex", alignItems: "center", justifyContent: "center", gap: 6,
               cursor: procesando ? "default" : "pointer", opacity: procesando ? 0.6 : 1,
@@ -146,7 +237,7 @@ function TarjetaOferta({ oferta, enEdicion, procesando, archivada, onEditar, onA
               type="button"
               onClick={onEditar}
               style={{
-                flex: 1, minHeight: 40, borderRadius: 10, border: `1px solid ${color}`,
+                flex: 1, minHeight: 44, borderRadius: 10, border: `1px solid ${color}`,
                 background: enEdicion ? `${color}22` : "transparent", color, fontWeight: 700, fontSize: 13,
                 display: "flex", alignItems: "center", justifyContent: "center", gap: 6, cursor: "pointer",
               }}
@@ -158,7 +249,7 @@ function TarjetaOferta({ oferta, enEdicion, procesando, archivada, onEditar, onA
               disabled={procesando}
               onClick={onArchivar}
               style={{
-                flex: 1, minHeight: 40, borderRadius: 10, border: "1px solid var(--wrong)",
+                flex: 1, minHeight: 44, borderRadius: 10, border: "1px solid var(--wrong)",
                 background: "transparent", color: "var(--wrong)", fontWeight: 700, fontSize: 13,
                 display: "flex", alignItems: "center", justifyContent: "center", gap: 6,
                 cursor: procesando ? "default" : "pointer", opacity: procesando ? 0.6 : 1,
@@ -179,8 +270,18 @@ export default function TutoriasMaestro() {
 
   const [misOfertas, setMisOfertas] = useState([]);
   const [cargandoOfertas, setCargandoOfertas] = useState(true);
-  const [mostrarOfertas, setMostrarOfertas] = useState(false);
-  const [mostrarHistorial, setMostrarHistorial] = useState(false);
+  const [alumnosPendientesWhatsapp, setAlumnosPendientesWhatsapp] = useState(0);
+
+  // Notificaciones push del navegador (aviso de alumno nuevo inscrito, ver
+  // services/pushNotifications.js). `null` = todavía no se sabe.
+  const [notifActivas, setNotifActivas] = useState(null);
+  const [cambiandoNotif, setCambiandoNotif] = useState(false);
+  const [errorNotif, setErrorNotif] = useState("");
+  // Pestaña de "Tus ofertas": null = ambas listas ocultas (default, para no
+  // recibir a un maestro con una pared de tarjetas), o 'activas'/'historial'
+  // — a diferencia de la versión anterior (dos toggles independientes que
+  // podían quedar abiertos a la vez), aquí solo una lista se ve a la vez.
+  const [pestanaOfertas, setPestanaOfertas] = useState(null);
 
   const [procesandoId, setProcesandoId] = useState(null);
   const [ofertaAEliminar, setOfertaAEliminar] = useState(null);
@@ -406,6 +507,50 @@ export default function TutoriasMaestro() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
+  // Cuenta de alumnos que ya pagaron un cupo pero el maestro todavía no
+  // marca como agregados al grupo de WhatsApp (ver AlumnosOfertas.jsx) —
+  // solo importa una vez que el portal de maestro está desbloqueado, que es
+  // cuando se muestra el badge en "Alumnos inscritos".
+  useEffect(() => {
+    if (!user || !esMaestro || !desbloqueado) return;
+    let cancelado = false;
+    obtenerAlumnosDeOfertas().then((data) => {
+      if (cancelado) return;
+      setAlumnosPendientesWhatsapp(data.filter((a) => !a.agregado_a_grupo_whatsapp).length);
+    });
+    return () => { cancelado = true; };
+  }, [user, esMaestro, desbloqueado]);
+
+  useEffect(() => {
+    if (!user || !esMaestro || !desbloqueado || !notificacionesSoportadas()) return;
+    let cancelado = false;
+    obtenerSuscripcionActual().then((sub) => {
+      if (!cancelado) setNotifActivas(Boolean(sub));
+    });
+    return () => { cancelado = true; };
+  }, [user, esMaestro, desbloqueado]);
+
+  async function alternarNotificaciones() {
+    setErrorNotif("");
+    setCambiandoNotif(true);
+    try {
+      if (notifActivas) {
+        await desactivarNotificaciones();
+        setNotifActivas(false);
+      } else {
+        await activarNotificaciones();
+        setNotifActivas(true);
+      }
+    } catch (err) {
+      setErrorNotif(
+        err?.message === "permiso_denegado"
+          ? "Bloqueaste las notificaciones para este sitio. Actívalas desde los ajustes del navegador para poder encenderlas aquí."
+          : "No se pudieron activar las notificaciones. Intenta de nuevo."
+      );
+    }
+    setCambiandoNotif(false);
+  }
+
   // "Borrar" ya no es un DELETE real (ver migración
   // 20260917150000_archivar_ofertas_maestro.sql: transacciones nunca borra
   // filas, solo cambia su estado, así que cualquier reserva vieja e incluso
@@ -612,6 +757,11 @@ export default function TutoriasMaestro() {
                     : "Llena tus datos; tu acceso se activa después de validar tu documentación."
                 }
               >
+                <PasosRegistro paso={1} color="#06b6d4" />
+
+                <p style={{ fontSize: 11, fontWeight: 700, color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: 0.4, margin: "4px 0 -2px" }}>
+                  Datos personales
+                </p>
                 <input
                   style={inputStyle}
                   placeholder="Nombre completo"
@@ -641,8 +791,11 @@ export default function TutoriasMaestro() {
                   onChange={(e) => setRegTelefono(e.target.value)}
                   maxLength={20}
                 />
+
+                <p style={{ fontSize: 11, fontWeight: 700, color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: 0.4, margin: "6px 0 -2px" }}>
+                  Materias que puedes impartir
+                </p>
                 <div>
-                  <p style={{ fontSize: 13, color: "var(--text-muted)", marginBottom: 8 }}>Materias que puedes impartir</p>
                   <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
                     {MATERIAS_TUTORIA.map((m) => (
                       <button
@@ -657,6 +810,9 @@ export default function TutoriasMaestro() {
                   </div>
                 </div>
 
+                <p style={{ fontSize: 11, fontWeight: 700, color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: 0.4, margin: "6px 0 -2px" }}>
+                  Cobro
+                </p>
                 <input
                   style={inputStyle}
                   inputMode="numeric"
@@ -701,16 +857,20 @@ export default function TutoriasMaestro() {
                 title="Tu registro está en revisión"
                 subtitle="Falta un paso: mándanos tu documentación para validar tu cuenta."
               >
-                <div style={{ background: "var(--surface)", border: "1px solid var(--surface2)", borderRadius: 10, padding: 12, display: "flex", flexDirection: "column", gap: 6 }}>
-                  <p style={{ fontSize: 12, color: "var(--text-muted)", margin: 0, textTransform: "uppercase", letterSpacing: 0.5 }}>Lo que enviaste</p>
-                  <p style={{ fontSize: 13, color: "var(--text)", margin: 0 }}>Nombre: {estadoProfesor.nombre}</p>
-                  <p style={{ fontSize: 13, color: "var(--text)", margin: 0, fontFamily: "monospace" }}>CURP: {estadoProfesor.curp}</p>
-                  <p style={{ fontSize: 13, color: "var(--text)", margin: 0 }}>Correo de contacto: {estadoProfesor.email_contacto}</p>
-                  <p style={{ fontSize: 13, color: "var(--text)", margin: 0 }}>Teléfono: {estadoProfesor.telefono_contacto || "—"}</p>
-                  <p style={{ fontSize: 13, color: "var(--text)", margin: 0, fontFamily: "monospace" }}>CLABE: {estadoProfesor.numero_cuenta || "—"}</p>
-                  <p style={{ fontSize: 13, color: "var(--text)", margin: 0 }}>
-                    Materias: {(estadoProfesor.materias || []).map((id) => MATERIAS_TUTORIA.find((m) => m.id === id)?.nombre ?? id).join(", ") || "—"}
-                  </p>
+                <PasosRegistro paso={2} color="#eab308" />
+
+                <div style={{ background: "var(--surface)", border: "1px solid var(--surface2)", borderRadius: 12, padding: "4px 14px" }}>
+                  <FilaRegistro label="Nombre" valor={estadoProfesor.nombre} />
+                  <FilaRegistro label="CURP" valor={estadoProfesor.curp} mono />
+                  <FilaRegistro label="Correo de contacto" valor={estadoProfesor.email_contacto} />
+                  <FilaRegistro label="Teléfono" valor={estadoProfesor.telefono_contacto || "—"} />
+                  <FilaRegistro label="CLABE" valor={estadoProfesor.numero_cuenta || "—"} mono />
+                  <div style={{ display: "flex", justifyContent: "space-between", gap: 12, padding: "7px 0" }}>
+                    <span style={{ fontSize: 11.5, color: "var(--text-muted)", flexShrink: 0 }}>Materias</span>
+                    <span style={{ fontSize: 12, color: "var(--text)", fontWeight: 600, textAlign: "right" }}>
+                      {(estadoProfesor.materias || []).map((id) => MATERIAS_TUTORIA.find((m) => m.id === id)?.nombre ?? id).join(", ") || "—"}
+                    </span>
+                  </div>
                 </div>
 
                 <button
@@ -764,6 +924,7 @@ export default function TutoriasMaestro() {
                 title="Tu acceso está pausado"
                 subtitle="Estamos revisando tu perfil — no es nada que tengas que hacer."
               >
+                <PasosRegistro paso={3} color="#f97316" />
                 <p style={{ fontSize: 13, color: "var(--text)", lineHeight: 1.6, margin: 0 }}>
                   El equipo de PrepaApp pausó temporalmente tu acceso al portal de maestros mientras revisa tu perfil.
                   En cuanto termine, tu acceso se restablece solo — no necesitas volver a registrarte.
@@ -906,7 +1067,7 @@ export default function TutoriasMaestro() {
               </button>
             </Seccion>
 
-            <Seccion icono={<HiOutlineUserGroup />} color="#06b6d4" title="Alumnos inscritos" subtitle="Correo, nombre y teléfono de quienes ya compraron un cupo en tus ofertas.">
+            <Seccion icono={<HiOutlineUserGroup />} color="#06b6d4" title="Alumnos inscritos" subtitle="Correo, nombre y teléfono de quienes ya compraron un cupo en tus ofertas." badge={alumnosPendientesWhatsapp}>
               <button
                 type="button"
                 onClick={() => navigate("/tutorias/maestro/alumnos")}
@@ -918,6 +1079,38 @@ export default function TutoriasMaestro() {
               >
                 Ver alumnos inscritos
               </button>
+
+              {notificacionesSoportadas() && (
+                <>
+                  <button
+                    type="button"
+                    onClick={alternarNotificaciones}
+                    disabled={cambiandoNotif || notifActivas === null}
+                    style={{
+                      minHeight: 44, borderRadius: 12, border: "1px solid #06b6d4",
+                      background: notifActivas ? "rgba(6,182,212,0.15)" : "transparent",
+                      color: "#06b6d4", fontWeight: 700, fontSize: 14,
+                      cursor: cambiandoNotif ? "default" : "pointer", opacity: cambiandoNotif ? 0.7 : 1,
+                      display: "flex", alignItems: "center", justifyContent: "center", gap: 8,
+                    }}
+                  >
+                    {notifActivas ? <HiOutlineBellSlash /> : <HiOutlineBell />}
+                    {cambiandoNotif
+                      ? "Guardando…"
+                      : notifActivas
+                        ? "Desactivar avisos de alumno nuevo"
+                        : "Avisarme cuando llegue un alumno nuevo"}
+                  </button>
+                  {errorNotif && <p style={{ color: "var(--wrong)", fontSize: 12.5, margin: 0 }}>{errorNotif}</p>}
+                </>
+              )}
+
+              {!notificacionesSoportadas() && (
+                <p style={{ fontSize: 11.5, color: "var(--text-muted)", margin: 0, lineHeight: 1.5 }}>
+                  Este navegador no soporta notificaciones push (en iPhone: agrega PrepaApp a tu pantalla de inicio
+                  desde Safari y ábrela desde ahí para poder activarlas).
+                </p>
+              )}
             </Seccion>
 
             {error && <p style={{ color: "var(--wrong)", fontSize: 13, textAlign: "center", margin: 0 }}>{error}</p>}
@@ -934,7 +1127,9 @@ export default function TutoriasMaestro() {
               }
             >
               <div>
-                <p style={{ fontSize: 13, color: "var(--text-muted)", marginBottom: 8 }}>Se publica con tus datos registrados</p>
+                <p style={{ fontSize: 11, fontWeight: 700, color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: 0.4, marginBottom: 8 }}>
+                  Se publica con tus datos registrados
+                </p>
                 <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
                   <div style={{ ...inputStyle, display: "flex", alignItems: "center", gap: 8, color: "var(--text-muted)", background: "var(--surface2)", cursor: "not-allowed" }}>
                     <HiOutlineLockClosed style={{ flexShrink: 0, fontSize: 14, opacity: 0.7 }} />
@@ -951,8 +1146,10 @@ export default function TutoriasMaestro() {
                 </div>
               </div>
 
-              <div>
-                <p style={{ fontSize: 13, color: "var(--text-muted)", marginBottom: 8 }}>Materia</p>
+              <div style={{ borderTop: "0.5px solid var(--surface2)", paddingTop: 14 }}>
+                <p style={{ fontSize: 11, fontWeight: 700, color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: 0.4, marginBottom: 8 }}>
+                  Materia
+                </p>
                 <FilaChips
                   opciones={[...MATERIAS_TUTORIA.map((m) => m.nombre), MATERIA_OTROS.nombre]}
                   valor={materiaElegida?.nombre}
@@ -974,60 +1171,79 @@ export default function TutoriasMaestro() {
                 )}
               </div>
 
-              <div style={{ display: "flex", gap: 10 }}>
-                <input
-                  style={{ ...inputStyle, flex: 1, minWidth: 0 }}
-                  type="date"
-                  value={fecha}
-                  onChange={(e) => setFecha(e.target.value)}
-                />
-                <input
-                  style={{ ...inputStyle, flex: 1, minWidth: 0 }}
-                  type="time"
-                  value={hora}
-                  onChange={(e) => setHora(e.target.value)}
-                />
+              <div style={{ borderTop: "0.5px solid var(--surface2)", paddingTop: 14, display: "flex", flexDirection: "column", gap: 10 }}>
+                <p style={{ fontSize: 11, fontWeight: 700, color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: 0.4, margin: 0 }}>
+                  Cuándo
+                </p>
+                <div style={{ display: "flex", gap: 10 }}>
+                  <input
+                    style={{ ...inputStyle, flex: 1, minWidth: 0 }}
+                    type="date"
+                    value={fecha}
+                    onChange={(e) => setFecha(e.target.value)}
+                  />
+                  <input
+                    style={{ ...inputStyle, flex: 1, minWidth: 0 }}
+                    type="time"
+                    value={hora}
+                    onChange={(e) => setHora(e.target.value)}
+                  />
+                </div>
+                <div>
+                  <p style={{ fontSize: 12.5, color: "var(--text-muted)", marginBottom: 8 }}>Duración</p>
+                  <FilaChips
+                    opciones={DURACIONES.map((d) => d.label)}
+                    valor={DURACIONES.find((d) => d.minutos === duracionMin)?.label}
+                    onChange={(label) => setDuracionMin(DURACIONES.find((d) => d.label === label)?.minutos ?? 60)}
+                    color="#06b6d4"
+                  />
+                </div>
               </div>
 
-              <div>
-                <p style={{ fontSize: 13, color: "var(--text-muted)", marginBottom: 8 }}>Duración</p>
-                <FilaChips
-                  opciones={DURACIONES.map((d) => d.label)}
-                  valor={DURACIONES.find((d) => d.minutos === duracionMin)?.label}
-                  onChange={(label) => setDuracionMin(DURACIONES.find((d) => d.label === label)?.minutos ?? 60)}
-                  color="#06b6d4"
+              <div style={{ borderTop: "0.5px solid var(--surface2)", paddingTop: 14, display: "flex", gap: 10 }}>
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <p style={{ fontSize: 11, fontWeight: 700, color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: 0.4, marginBottom: 8 }}>
+                    Cupo
+                  </p>
+                  <input
+                    style={inputStyle}
+                    type="number"
+                    min={1}
+                    max={50}
+                    placeholder="Máx. alumnos"
+                    value={cupo}
+                    onChange={(e) => setCupo(e.target.value)}
+                  />
+                </div>
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <p style={{ fontSize: 11, fontWeight: 700, color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: 0.4, marginBottom: 8 }}>
+                    Precio (MXN)
+                  </p>
+                  <input
+                    style={inputStyle}
+                    type="number"
+                    min={PRECIO_MIN_MXN}
+                    max={PRECIO_MAX_MXN}
+                    step={10}
+                    placeholder={`$${PRECIO_MIN_MXN}-$${PRECIO_MAX_MXN}`}
+                    value={precioMxn}
+                    onChange={(e) => setPrecioMxn(e.target.value)}
+                  />
+                </div>
+              </div>
+
+              <div style={{ borderTop: "0.5px solid var(--surface2)", paddingTop: 14 }}>
+                <p style={{ fontSize: 11, fontWeight: 700, color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: 0.4, marginBottom: 8 }}>
+                  Notas (opcional)
+                </p>
+                <textarea
+                  style={{ ...inputStyle, minHeight: 80, resize: "vertical" }}
+                  maxLength={500}
+                  placeholder="Notas para tu alumno (ej. qué traer, en qué se va a enfocar la clase)…"
+                  value={notas}
+                  onChange={(e) => setNotas(e.target.value)}
                 />
               </div>
-              <div>
-              <p style={{ fontSize: 13, color: "var(--text-muted)", marginBottom: 8 }}>Cupo de alumnos</p>
-              <input
-                style={inputStyle}
-                type="number"
-                min={1}
-                max={50}
-                placeholder="Cupo máximo de alumnos"
-                value={cupo}
-                onChange={(e) => setCupo(e.target.value)}
-              />
-              </div>
-              <textarea
-                style={{ ...inputStyle, minHeight: 80, resize: "vertical" }}
-                maxLength={500}
-                placeholder="Notas para tu alumno (opcional)…"
-                value={notas}
-                onChange={(e) => setNotas(e.target.value)}
-              />
-
-              <input
-                style={inputStyle}
-                type="number"
-                min={PRECIO_MIN_MXN}
-                max={PRECIO_MAX_MXN}
-                step={10}
-                placeholder={`¿Cuánto cobras? (Ej. 350, $${PRECIO_MIN_MXN}-$${PRECIO_MAX_MXN} MXN)`}
-                value={precioMxn}
-                onChange={(e) => setPrecioMxn(e.target.value)}
-              />
 
               {errorPublicar && <p style={{ color: "var(--wrong)", fontSize: 13, margin: 0 }}>{errorPublicar}</p>}
 
@@ -1064,60 +1280,73 @@ export default function TutoriasMaestro() {
                 <p style={{ fontSize: 13, color: "var(--text-muted)", margin: 0 }}>Todavía no has publicado ninguna oferta.</p>
               )}
 
-              {!cargandoOfertas && ofertasActivas.length > 0 && (
-                <button
-                  type="button"
-                  onClick={() => setMostrarOfertas((v) => !v)}
-                  style={{
-                    minHeight: 44, borderRadius: 10, border: "1px solid #7c5cbf",
-                    background: mostrarOfertas ? "rgba(124,92,191,0.15)" : "transparent",
-                    color: "#7c5cbf", fontWeight: 700, fontSize: 14, cursor: "pointer",
-                    display: "flex", alignItems: "center", justifyContent: "center", gap: 8,
-                  }}
-                >
-                  {mostrarOfertas ? "Ocultar mis ofertas" : `Ver mis ofertas activas (${ofertasActivas.length})`}
-                  {mostrarOfertas ? <HiChevronUp /> : <HiChevronDown />}
-                </button>
+              {!cargandoOfertas && misOfertas.length > 0 && (
+                <div style={{ display: "flex", gap: 6, background: "var(--surface)", padding: 4, borderRadius: 12 }}>
+                  {[
+                    { id: "activas", label: "Activas", n: ofertasActivas.length },
+                    { id: "historial", label: "Historial", n: ofertasHistorial.length },
+                  ].map((t) => {
+                    const activa = pestanaOfertas === t.id;
+                    return (
+                      <button
+                        key={t.id}
+                        type="button"
+                        onClick={() => setPestanaOfertas((v) => (v === t.id ? null : t.id))}
+                        style={{
+                          flex: 1, minHeight: 40, borderRadius: 9, border: "none",
+                          background: activa ? "#7c5cbf" : "transparent",
+                          color: activa ? "#fff" : "var(--text-muted)", fontWeight: 700, fontSize: 13,
+                          cursor: "pointer", transition: "all 0.15s ease",
+                          display: "flex", alignItems: "center", justifyContent: "center", gap: 6,
+                        }}
+                      >
+                        {t.label}
+                        <span style={{
+                          minWidth: 18, height: 18, padding: "0 5px", borderRadius: 999, fontSize: 10.5, fontWeight: 800,
+                          display: "inline-flex", alignItems: "center", justifyContent: "center",
+                          background: activa ? "rgba(255,255,255,0.25)" : "var(--surface2)",
+                          color: activa ? "#fff" : "var(--text-muted)",
+                        }}>
+                          {t.n}
+                        </span>
+                      </button>
+                    );
+                  })}
+                </div>
               )}
-              {mostrarOfertas && ofertasActivas.map((oferta) => (
-                <TarjetaOferta
-                  key={oferta.id}
-                  oferta={oferta}
-                  enEdicion={editandoId === oferta.id}
-                  procesando={procesandoId === oferta.id}
-                  archivada={false}
-                  onEditar={() => (editandoId === oferta.id ? limpiarFormulario() : iniciarEdicion(oferta))}
-                  onArchivar={() => setOfertaAEliminar(oferta)}
-                />
-              ))}
 
-              {!cargandoOfertas && ofertasHistorial.length > 0 && (
-                <button
-                  type="button"
-                  onClick={() => setMostrarHistorial((v) => !v)}
-                  style={{
-                    minHeight: 44, borderRadius: 10, border: "1px solid var(--border-strong)",
-                    background: mostrarHistorial ? "var(--surface2)" : "transparent",
-                    color: "var(--text-muted)", fontWeight: 700, fontSize: 14, cursor: "pointer",
-                    display: "flex", alignItems: "center", justifyContent: "center", gap: 8,
-                  }}
-                >
-                  {mostrarHistorial ? "Ocultar historial" : `Ver historial (${ofertasHistorial.length})`}
-                  {mostrarHistorial ? <HiChevronUp /> : <HiChevronDown />}
-                </button>
+              {pestanaOfertas === "activas" && (
+                ofertasActivas.length === 0 ? (
+                  <p style={{ fontSize: 12.5, color: "var(--text-muted)", margin: 0, textAlign: "center" }}>No tienes ofertas activas.</p>
+                ) : ofertasActivas.map((oferta) => (
+                  <TarjetaOferta
+                    key={oferta.id}
+                    oferta={oferta}
+                    enEdicion={editandoId === oferta.id}
+                    procesando={procesandoId === oferta.id}
+                    estado={estadoOferta(oferta)}
+                    onEditar={() => (editandoId === oferta.id ? limpiarFormulario() : iniciarEdicion(oferta))}
+                    onArchivar={() => setOfertaAEliminar(oferta)}
+                  />
+                ))
               )}
-              {mostrarHistorial && ofertasHistorial.map((oferta) => (
-                <TarjetaOferta
-                  key={oferta.id}
-                  oferta={oferta}
-                  enEdicion={editandoId === oferta.id}
-                  procesando={procesandoId === oferta.id}
-                  archivada={Boolean(oferta.archivada_en)}
-                  onEditar={() => (editandoId === oferta.id ? limpiarFormulario() : iniciarEdicion(oferta))}
-                  onArchivar={() => setOfertaAEliminar(oferta)}
-                  onReactivar={() => reactivarOferta(oferta)}
-                />
-              ))}
+
+              {pestanaOfertas === "historial" && (
+                ofertasHistorial.length === 0 ? (
+                  <p style={{ fontSize: 12.5, color: "var(--text-muted)", margin: 0, textAlign: "center" }}>Todavía no tienes historial.</p>
+                ) : ofertasHistorial.map((oferta) => (
+                  <TarjetaOferta
+                    key={oferta.id}
+                    oferta={oferta}
+                    enEdicion={editandoId === oferta.id}
+                    procesando={procesandoId === oferta.id}
+                    estado={estadoOferta(oferta)}
+                    onEditar={() => (editandoId === oferta.id ? limpiarFormulario() : iniciarEdicion(oferta))}
+                    onArchivar={() => setOfertaAEliminar(oferta)}
+                    onReactivar={() => reactivarOferta(oferta)}
+                  />
+                ))
+              )}
             </Seccion>
           </>
         )}
