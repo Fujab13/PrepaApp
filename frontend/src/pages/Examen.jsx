@@ -29,19 +29,39 @@ import { IoBookmarkOutline } from "react-icons/io5";
 // ─── CONFIGURACIÓN ──────────────────────────────────────────────────────────
 // ════════════════════════════════════════════════════════════════════════════
 const CONFIG = {
-  HORAS_GLOBAL:      1,      // ← Modifica aquí el tiempo global del examen
-  MINUTOS_GLOBAL:    1,
-  SEGUNDOS_GLOBAL:   0,
-
   TIEMPO_RECOMENDADO_SEG: 90, // Tiempo recomendado por pregunta (en segundos)
 };
 // ════════════════════════════════════════════════════════════════════════════
 // ─── HELPERS ────────────────────────────────────────────────────────────────
 // ════════════════════════════════════════════════════════════════════════════
-const TIEMPO_GLOBAL_INICIAL =
-  CONFIG.HORAS_GLOBAL * 3600 +
-  CONFIG.MINUTOS_GLOBAL * 60 +
-  CONFIG.SEGUNDOS_GLOBAL;
+
+// ── Duración global dinámica ────────────────────────────────────────────────
+// El examen ya no dura un fijo de horas/minutos sin importar cuántas
+// preguntas tenga: se calcula a partir del mismo ritmo de
+// CONFIG.TIEMPO_RECOMENDADO_SEG (90s/pregunta) que ya usa el cronómetro por
+// pregunta, y se redondea hacia ARRIBA a la duración "redonda" más cercana
+// de esta lista fija — nunca un número raro tipo "1h47min", siempre una de
+// estas 5 sesiones estándar. Redondear hacia arriba (nunca al bucket más
+// cercano) garantiza que nadie termine con MENOS que el ritmo recomendado
+// por pregunta.
+//
+// Con 90s/pregunta, los cortes exactos en número de preguntas son:
+//   ≤20 preguntas  → 30 min   (20 × 90s = 30min exactos)
+//   21–40          → 1:00 h   (40 × 90s = 60min exactos)
+//   41–60          → 1:30 h   (60 × 90s = 90min exactos — el examen por
+//                    defecto de 60 preguntas cae aquí, justo en el límite)
+//   61–80          → 2:00 h   (80 × 90s = 120min exactos)
+//   81 en adelante → 2:30 h   (tope: un examen de 120 preguntas, por ejemplo,
+//                    también cae aquí — más preguntas ya no alargan el
+//                    examen, solo lo hacen más exigente por pregunta)
+const DURACIONES_GLOBAL_DISPONIBLES_MIN = [30, 60, 90, 120, 150];
+
+function calcularTiempoGlobalSegundos(numPreguntas) {
+  const crudoSeg = numPreguntas * CONFIG.TIEMPO_RECOMENDADO_SEG;
+  const bucketMin = DURACIONES_GLOBAL_DISPONIBLES_MIN.find((min) => min * 60 >= crudoSeg);
+  const elegidoMin = bucketMin ?? DURACIONES_GLOBAL_DISPONIBLES_MIN[DURACIONES_GLOBAL_DISPONIBLES_MIN.length - 1];
+  return elegidoMin * 60;
+}
 
 const fmtGlobal = (seg) => {
   const h = Math.floor(Math.abs(seg) / 3600);
@@ -137,13 +157,29 @@ export default function Examen() {
   const tiemposRef = useRef({});
 
   // ── Cronómetro global (cuenta regresiva) ─────────────────────────────────
-  const [tiempoGlobal, setTiempoGlobal] = useState(TIEMPO_GLOBAL_INICIAL);
-  const tiempoGlobalRef = useRef(TIEMPO_GLOBAL_INICIAL);
+  // null hasta que se sepa cuántas preguntas tiene ESTE examen (preguntas
+  // carga async para un examen premium, ver el efecto de arriba) — recién
+  // ahí se puede calcular la duración total real (calcularTiempoGlobalSegundos).
+  // tiempoGlobalInicialRef congela ese total una sola vez (nunca cambia
+  // después): lo usan siguiente()/el efecto de "se acabó el tiempo" más
+  // abajo para reportar cuántos segundos se usaron en total.
+  const [tiempoGlobal, setTiempoGlobal] = useState(null);
+  const tiempoGlobalRef = useRef(null);
+  const tiempoGlobalInicialRef = useRef(null);
+
+  useEffect(() => {
+    if (!preguntas || tiempoGlobalInicialRef.current !== null) return;
+    const inicial = calcularTiempoGlobalSegundos(preguntas.length);
+    tiempoGlobalInicialRef.current = inicial;
+    tiempoGlobalRef.current = inicial;
+    setTiempoGlobal(inicial);
+  }, [preguntas]);
 
   useEffect(() => {
     const id = setInterval(() => {
+      if (tiempoGlobalRef.current === null) return; // todavía no se sabe la duración total
       tiempoGlobalRef.current -= 1;
-      setTiempoGlobal(prev => prev - 1);
+      setTiempoGlobal(prev => (prev === null ? null : prev - 1));
     }, 1000);
     return () => clearInterval(id);
   }, []);
@@ -274,7 +310,7 @@ export default function Examen() {
         guardarTiempoPregunta(pregunta.id);
         guardarResultadoExamen({
           respuestasFinal: respuestas,
-          tiempoTotalSegundos: TIEMPO_GLOBAL_INICIAL - tiempoGlobal,
+          tiempoTotalSegundos: tiempoGlobalInicialRef.current - tiempoGlobal,
           marcadasFinal: [...marcadas],
         });
         navigate("/informe-resultados", {
@@ -287,7 +323,7 @@ export default function Examen() {
               marcadas        : [...marcadas],
               preguntas,
               secciones,
-              tiempoTotalSegundos: TIEMPO_GLOBAL_INICIAL - tiempoGlobal,
+              tiempoTotalSegundos: tiempoGlobalInicialRef.current - tiempoGlobal,
             },
           },
         });
@@ -340,13 +376,15 @@ export default function Examen() {
 
   // ── Tiempo sin tiempo → ir a resultados automáticamente ──────────────────
   // `pregunta` puede no existir aún si esto dispara mientras el examen sigue
-  // cargando (caso extremo: nunca cargó y se agotaron las 2h por defecto).
+  // cargando. `tiempoGlobal === null` es "todavía no se calculó la duración
+  // real" (ver arriba) — sin este chequeo, `null <= 0` da `true` en JS y
+  // esto dispararía apenas monta, antes de saber cuántas preguntas hay.
   useEffect(() => {
-    if (tiempoGlobal <= 0 && pregunta) {
+    if (tiempoGlobal !== null && tiempoGlobal <= 0 && pregunta) {
       guardarTiempoPregunta(pregunta.id);
       guardarResultadoExamen({
         respuestasFinal: respuestas,
-        tiempoTotalSegundos: TIEMPO_GLOBAL_INICIAL,
+        tiempoTotalSegundos: tiempoGlobalInicialRef.current,
         marcadasFinal: [...marcadas],
       });
       navigate("/informe-resultados", {
@@ -359,7 +397,7 @@ export default function Examen() {
             marcadas        : [...marcadas],
             preguntas,
             secciones,
-            tiempoTotalSegundos: TIEMPO_GLOBAL_INICIAL,
+            tiempoTotalSegundos: tiempoGlobalInicialRef.current,
           },
         },
       });
@@ -369,8 +407,12 @@ export default function Examen() {
   // ── Carga/error del examen: recién aquí, después de declarar todos los
   // hooks de arriba (deben correr siempre en el mismo orden en cada
   // render), es seguro cortar el render si preguntas/pregunta no existen
-  // todavía. Mismo patrón que Leccion.jsx con sus lecciones premium. ──────
-  if (cargandoExamen || errorExamen || !pregunta) {
+  // todavía. Mismo patrón que Leccion.jsx con sus lecciones premium. También
+  // espera a `tiempoGlobal` (todavía null justo después de que "preguntas"
+  // carga, hasta que el efecto de arriba calcule la duración real) para que
+  // el cronómetro nunca se alcance a pintar en 0:00:00 por una fracción de
+  // segundo antes del valor real. ──────
+  if (cargandoExamen || errorExamen || !pregunta || tiempoGlobal === null) {
     return (
       <div style={{
         display: 'flex',

@@ -15,7 +15,7 @@ import { getPreguntasDeUnidad, getTotalUnidades, PREGUNTAS_POR_UNIDAD, PREGUNTAS
 import { obtenerLeccionDeSesion } from '../services/leccionesPremium';
 import { registrarTotalUnidadesProducto } from '../services/progreso';
 import { triggerVibration } from '../utils/haptics';
-import { leerModoDificil } from '../utils/modoDificil';
+import { leerModoDificil, calcularTiempoLimiteDecimas } from '../utils/modoDificil';
 import { hablarTexto, detenerLectura } from '../utils/tts';
 import { getLectura } from '../data/lecturas/index';
 import { buscarConceptoSimilar } from '../utils/buscarConcepto';
@@ -30,7 +30,7 @@ import { VscDebugRestart } from "react-icons/vsc";
 import { MdRestartAlt } from "react-icons/md";
 import { PiCopy, PiCheckBold } from "react-icons/pi";
 import { MdOutlineReplay } from "react-icons/md";
-import { FaVolumeUp, FaGoogle } from "react-icons/fa";
+import { FaVolumeUp, FaGoogle, FaCheck, FaTimes } from "react-icons/fa";
 import { FiSearch } from "react-icons/fi";
 
 const COLOR_REFUERZO = '#26d1e8' // mismo azul que la lección de español, por coincidencia
@@ -121,7 +121,12 @@ export default function Leccion() {
   // local por materia (localStorage), no toca progreso_usuario: el
   // contador de unidad/elemento sigue siendo el mismo en ambos modos.
   const [modoDificil, setModoDificil] = useState(false)
-  const [tiempoRestante, setTiempoRestante] = useState(220) // décimas de segundo (22.0s)
+  // Décimas de segundo. 220 (22.0s) es solo el valor inicial antes de que el
+  // efecto de abajo calcule el límite real según el largo de la primera
+  // pregunta (ver calcularTiempoLimiteDecimas en utils/modoDificil.js) — se
+  // sobreescribe casi de inmediato, nunca se usa un cronómetro fijo de ahí
+  // en adelante.
+  const [tiempoRestante, setTiempoRestante] = useState(220)
   const tamanoUnidad = modoDificil ? PREGUNTAS_POR_UNIDAD_DIFICIL : PREGUNTAS_POR_UNIDAD
   const preguntasPool = materia
     ? (modoDificil ? materia.preguntas.filter(p => Array.isArray(p.opciones) && p.opciones.length > 0) : materia.preguntas)
@@ -133,7 +138,13 @@ export default function Leccion() {
   const [correctasIniciales, setCorrectasIniciales]  = useState(0)
   const [correctasNuevas, setCorrectasNuevas]        = useState(0)
   const [respondido, setRespondido]                  = useState(false)
-  const [feedback, setFeedback]                      = useState('')
+  // null = sin feedback; si no, { texto, tipo: 'correcto' | 'incorrecto' } —
+  // tipo decide tanto el color (var(--correct)/var(--wrong)) como el ícono
+  // (FaCheck/FaTimes, los mismos que ya usa TarjetaRepaso en sus zonas de
+  // respuesta) que se muestran junto al texto. "Tiempo agotado" cuenta como
+  // 'incorrecto' — es la misma idea de "no lo lograste", solo que por reloj
+  // en vez de por elegir mal.
+  const [feedback, setFeedback]                      = useState(null)
   const [estados, setEstados]                        = useState(['normal', 'normal', 'normal'])
   const { esFullscreen, toggleFullscreen, soportado: fullscreenSoportado } = useFullscreen()
   const [enRepaso, setEnRepaso]                      = useState(false)
@@ -248,6 +259,15 @@ export default function Leccion() {
   // se sentía como que el lector "se atrasaba/adelantaba" al pasar de
   // pregunta. El cronómetro de Modo difícil (efecto de abajo) ya usaba el
   // par correcto (preguntasPool, tamanoUnidad); esto solo lo alinea.
+  //
+  // OJO 2: "preguntasPool" y "tamanoUnidad" NO van en las dependencias del
+  // efecto (se usan del closure nada más) — mismo motivo que el cronómetro
+  // de abajo: al ser un array nuevo (.filter()) en cada render, listarlos
+  // aquí hacía que este efecto se reiniciara en CADA tick del cronómetro de
+  // Modo difícil (cada ~100ms), cancelando y relanzando la lectura sin
+  // parar — el audio nunca llegaba a sonar, solo parpadeaba el botón. En
+  // lecciones normales no se notaba porque nada más fuerza un re-render
+  // cada 100ms.
   useEffect(() => {
     if (!lecturaAutomatica || cargando || cargandoProgreso || !materia || cola === null) return
 
@@ -259,25 +279,41 @@ export default function Leccion() {
 
     const iniciado = hablarTexto(preguntaActual.pregunta, { onEnd: () => setLeyendo(false) })
     if (iniciado) setLeyendo(true)
-  }, [lecturaAutomatica, cargando, cargandoProgreso, materia, unidad, cola, enRepaso, colaRepaso, preguntasPool, tamanoUnidad])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [lecturaAutomatica, cargando, cargandoProgreso, materia, unidad, cola, enRepaso, colaRepaso])
 
   // ── Cronómetro por pregunta (Modo difícil) ────────────────────────────────
   // Mismo problema que el efecto de lectura automática de arriba: en este
-  // punto del componente "pregunta"/"tieneCorrecta" (más abajo, después del
-  // primer return condicional) todavía no existen, así que este efecto solo
-  // cuenta décimas de segundo — no necesita saber nada de la pregunta en sí,
-  // solo cuándo cambia (cola/colaRepaso/enRepaso) y si ya se respondió.
+  // punto del componente "pregunta" (más abajo, después del primer return
+  // condicional) todavía no existe como variable, así que aquí se recalcula
+  // con los mismos ingredientes crudos (cola/colaRepaso/enRepaso + el pool ya
+  // filtrado). El límite ya no es fijo: se deriva del largo de ESA pregunta
+  // vía calcularTiempoLimiteDecimas (ver utils/modoDificil.js) — una
+  // pregunta más larga da más tiempo, una corta da menos, calibrado para que
+  // el largo promedio siga dando los ~22s de antes.
+  //
+  // OJO: "preguntasPool" y "tamanoUnidad" NO van en las dependencias — se
+  // derivan solo de materia/modoDificil (que sí son dependencias), así que
+  // ya cambian solos cuando esos cambian de verdad. Si se agregaran tal
+  // cual, al ser un array nuevo (.filter()) en cada render, el efecto se
+  // reiniciaría en cada tick del propio cronómetro (el setInterval de abajo
+  // causa un re-render por tick) y el conteo nunca avanzaría.
   useEffect(() => {
     if (!modoDificil || cargando || cargandoProgreso || !materia || cola === null) return
     if (respondido) return
 
-    setTiempoRestante(220)
+    const preguntaActual = enRepaso
+      ? (colaRepaso[0] || null)
+      : (cola.length > 0 ? getPreguntasDeUnidad(preguntasPool, unidad, tamanoUnidad)[cola[0]] : null)
+
+    setTiempoRestante(calcularTiempoLimiteDecimas(preguntaActual))
 
     const id = setInterval(() => {
       setTiempoRestante(prev => (prev <= 1 ? 0 : prev - 1))
     }, 100)
 
     return () => clearInterval(id)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [modoDificil, cargando, cargandoProgreso, materia, cola, colaRepaso, enRepaso, respondido])
 
   // Al llegar a 0 sin responder: revela la opción correcta y marca la
@@ -299,7 +335,7 @@ export default function Leccion() {
 
     setEstados(nuevosEstados)
     setRespondido(true)
-    setFeedback('⏰ Tiempo agotado. Corrigela al final.')
+    setFeedback({ texto: 'Tiempo agotado. Corrigela al final.', tipo: 'incorrecto' })
     triggerVibration('error')
 
     if (!enRepaso) {
@@ -407,6 +443,7 @@ export default function Leccion() {
         unidad={resumen.unidad}
         colorAcento={materia.color}
         modoDificil={modoDificil}
+        precisionAlta={resumen.precisionAlta}
         onContinuar={continuarDesdeResumen}
       />
     )
@@ -488,7 +525,9 @@ export default function Leccion() {
     })
     setEstados(nuevos)
     setRespondido(true)
-    setFeedback(esCorrecta ? '✅ ¡Correcto!' : '❌ Incorrecto. Corrigela al final.')
+    setFeedback(esCorrecta
+      ? { texto: '¡Correcto!', tipo: 'correcto' }
+      : { texto: 'Incorrecto. Corrigela al final.', tipo: 'incorrecto' })
     triggerVibration(esCorrecta ? 'success' : 'error')
 
     if (!esCorrecta && !enRepaso) {
@@ -529,7 +568,18 @@ export default function Leccion() {
       // "unidad" de forma optimista mientras esa pantalla sigue montada
       // (unidadCompletadaRef ya tiene la unidad correcta congelada).
       guardarProgreso(unidad + 1, 0)
-      setResumen({ unidad: unidadCompletadaRef.current })
+
+      // Precisión de la unidad recién terminada: qué fracción de sus
+      // preguntas se contestó bien AL PRIMER INTENTO (indicesFallados solo
+      // suma en responder() cuando !enRepaso, así que un acierto logrado
+      // después, ya en repaso, no cuenta como "sin fallar"). Solo importa en
+      // Modo difícil — es el premio a mantener buena precisión bajo el
+      // cronómetro (ver EscaneoRecompensa: con precisionAlta, el escaneo
+      // favorece muchísimo el objeto rojo).
+      const precision = preguntas.length > 0 ? 1 - indicesFallados.size / preguntas.length : 1
+      const precisionAlta = modoDificil && precision > 0.93
+
+      setResumen({ unidad: unidadCompletadaRef.current, precisionAlta })
     }, 550)
   }
 
@@ -586,9 +636,17 @@ export default function Leccion() {
       }
 
       setRespondido(false)
-      setFeedback('')
+      setFeedback(null)
       setColaRepaso(nuevaColaRepaso)
       setEstados(Array(nuevaColaRepaso[0].opciones.length).fill('normal'))
+      // Ver comentario en el cronómetro de Modo difícil (más arriba, cerca
+      // de "tiempoRestante"): hay que dejarlo ya en un valor correcto y
+      // positivo AQUÍ, en el mismo render que pone "respondido" en false,
+      // para que el efecto que detecta "se acabó el tiempo" no alcance a
+      // leer todavía el 0 de la pregunta ANTERIOR (la que sí venció) y
+      // marque de una vez como vencida a esta pregunta nueva, que ni
+      // siquiera había empezado su propio cronómetro.
+      setTiempoRestante(calcularTiempoLimiteDecimas(nuevaColaRepaso[0]))
       return
     }
 
@@ -620,10 +678,11 @@ export default function Leccion() {
 
       if (fallosPrevios.length > 0) {
         setRespondido(false)
-        setFeedback('')
+        setFeedback(null)
         setEnRepaso(true)
         setColaRepaso(fallosPrevios)
         setEstados(Array(fallosPrevios[0].opciones.length).fill('normal'))
+        setTiempoRestante(calcularTiempoLimiteDecimas(fallosPrevios[0])) // ver comentario arriba
         return
       }
 
@@ -634,11 +693,12 @@ export default function Leccion() {
     }
 
     setRespondido(false)
-    setFeedback('')
+    setFeedback(null)
     setCola(nuevaCola)
     const siguienteIdx = nuevaCola[0]
     const siguientesOpciones = preguntas[siguienteIdx].opciones
     setEstados(Array(Array.isArray(siguientesOpciones) ? siguientesOpciones.length : 0).fill('normal'))
+    setTiempoRestante(calcularTiempoLimiteDecimas(preguntas[siguienteIdx])) // ver comentario arriba
 
     if (!respondioMal) {
       await guardarProgreso(unidad, correctasIniciales + nuevasCorrectas)
@@ -665,7 +725,7 @@ export default function Leccion() {
         setColaRepaso([])
         setEstados(['normal', 'normal', 'normal'])
         setRespondido(false)
-        setFeedback('')
+        setFeedback(null)
         navigate('/')
       },
     })
@@ -684,12 +744,14 @@ export default function Leccion() {
     setEnRepaso(anterior.enRepaso)
     setCorrectasNuevas(anterior.correctasNuevas)
     setRespondido(false)
-    setFeedback('')
+    setFeedback(null)
     setCelebrando(false)
-    const opcionesPrevias = anterior.enRepaso
-      ? anterior.colaRepaso[0]?.opciones
-      : preguntas[anterior.cola?.[0]]?.opciones
+    const preguntaPrevia = anterior.enRepaso
+      ? anterior.colaRepaso[0]
+      : preguntas[anterior.cola?.[0]]
+    const opcionesPrevias = preguntaPrevia?.opciones
     setEstados(Array(Array.isArray(opcionesPrevias) ? opcionesPrevias.length : 0).fill('normal'))
+    setTiempoRestante(calcularTiempoLimiteDecimas(preguntaPrevia)) // ver comentario en siguiente()
   }
 
   // Atajo del menú del ícono: a diferencia del botón "Siguiente/Continuar"
@@ -716,7 +778,7 @@ export default function Leccion() {
         setColaRepaso([])
         setEstados(['normal', 'normal', 'normal'])
         setRespondido(false)
-        setFeedback('')
+        setFeedback(null)
         setHistorial([])
         navigate('/')
       },
@@ -1072,13 +1134,19 @@ export default function Leccion() {
           <div style={{ minHeight: 22, marginBottom: 10 }}>
             {feedback && (
               <p style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: 6,
                 textAlign: 'center',
                 fontWeight: 600,
                 fontSize: '0.88rem',
                 margin: 0,
-                color: feedback.startsWith('✅') ? 'var(--correct)' : 'var(--wrong)',
+                color: feedback.tipo === 'correcto' ? 'var(--correct)' : 'var(--wrong)',
               }}>
-                {feedback}
+                {feedback.tipo === 'correcto' && <FaCheck />}
+                {feedback.tipo === 'incorrecto' && <FaTimes />}
+                {feedback.texto}
               </p>
             )}
           </div>
@@ -1092,6 +1160,8 @@ export default function Leccion() {
               onResponder={responder}
               leyendo={leyendo}
               onLeer={() => alternarLectura(pregunta.pregunta)}
+              lecturaAutomatica={lecturaAutomatica}
+              onAlternarLecturaAutomatica={alternarLecturaAutomatica}
               onExplicar={explicarConIA}
               pista={pistaActiva && tieneCorrecta && !respondido}
             />
@@ -1214,13 +1284,19 @@ export default function Leccion() {
           <div style={{ minHeight: 22, marginBottom: 10 }}>
             {feedback && (
               <p style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: 6,
                 textAlign: 'center',
                 fontWeight: 600,
                 fontSize: '0.88rem',
                 margin: 0,
-                color: feedback.startsWith('✅') ? 'var(--correct)' : 'var(--wrong)',
+                color: feedback.tipo === 'correcto' ? 'var(--correct)' : 'var(--wrong)',
               }}>
-                {feedback}
+                {feedback.tipo === 'correcto' && <FaCheck />}
+                {feedback.tipo === 'incorrecto' && <FaTimes />}
+                {feedback.texto}
               </p>
             )}
           </div>

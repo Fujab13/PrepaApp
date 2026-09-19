@@ -73,7 +73,7 @@ function calcularFraccionFuera(dx, dy, anchoContenedor, altoContenedor) {
   return { fueraX, fueraY, haciaIzquierda: dx < 0, haciaAbajo: dy > 0 }
 }
 
-export default function TarjetaRepaso({ pregunta, estados, respondido, color, onResponder, leyendo, onLeer, onExplicar, pista = false }) {
+export default function TarjetaRepaso({ pregunta, estados, respondido, color, onResponder, leyendo, onLeer, lecturaAutomatica, onAlternarLecturaAutomatica, onExplicar, pista = false }) {
   const contenedorRef = useRef(null)
   const arrastreRef = useRef(null) // { inicioX, inicioY, activo }
 
@@ -261,6 +261,50 @@ export default function TarjetaRepaso({ pregunta, estados, respondido, color, on
           }}
         >
           <FaVolumeUp />
+        </button>
+      )}
+
+      {/* Mismo control deslizable de "lectura automática" que la vista
+          normal de pregunta (ver Leccion.jsx) — antes solo existía ahí, así
+          que apenas una pregunta entraba a repaso (algo frecuente en Modo
+          difícil, por el cronómetro de 22s) el toggle desaparecía sin más:
+          no es que fallara, es que este componente nunca lo recibía. */}
+      {onAlternarLecturaAutomatica && (
+        <button
+          onClick={onAlternarLecturaAutomatica}
+          title={lecturaAutomatica ? 'Lectura automática activada' : 'Activar lectura automática'}
+          aria-pressed={lecturaAutomatica}
+          className="util-btn"
+          style={{
+            position: 'absolute',
+            top: 10,
+            right: 102,
+            width: 44, height: 36,
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            background: 'transparent',
+            border: 'none',
+            zIndex: 6,
+          }}
+        >
+          <span style={{
+            width: 34, height: 20,
+            borderRadius: 999,
+            background: lecturaAutomatica ? color : 'var(--surface2)',
+            position: 'relative',
+            flexShrink: 0,
+            transition: 'background 0.2s ease',
+          }}>
+            <span style={{
+              position: 'absolute',
+              top: 2,
+              left: lecturaAutomatica ? 16 : 2,
+              width: 16, height: 16,
+              borderRadius: '50%',
+              background: '#fff',
+              boxShadow: '0 1px 3px rgba(0,0,0,0.4)',
+              transition: 'left 0.2s ease',
+            }} />
+          </span>
         </button>
       )}
 

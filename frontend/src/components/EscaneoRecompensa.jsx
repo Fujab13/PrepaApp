@@ -18,14 +18,14 @@ import { HiOutlineArrowRight, HiMagnifyingGlass, HiOutlineGift } from 'react-ico
 //      — ya no son sorteos independientes como en la primera versión. En
 //      modo difícil se usa una tabla de pesos distinta, con dorado/rojo
 //      más probables.
-//   2. Hay 3 intentos de escaneo; cada uno reemplaza el resultado anterior
+//   2. Hay 4 intentos de escaneo; cada uno reemplaza el resultado anterior
 //      por uno nuevo (no se acumulan). El alumno reclama la suma de lo que
 //      tenga revelado en pantalla, cuando guste, con "Reclamar" — si nunca
 //      reclama, no se otorga nada.
 
 const ANCHO = 300
 const ALTO = 170
-const INTENTOS_MAX = 3
+const INTENTOS_MAX = 4
 const PUNTOS_POR_ESCANEO = 4
 const DURACION_BARRIDO_MS = 1300
 const RADIO_BASE = 9
@@ -57,6 +57,22 @@ const COLORES_DIFICIL = [
   { id: 'rojo', nombre: 'Rojo', peso: 10, color: '#ef4444', valorMin: 40, valorMax: 40 }, // 1%
 ]
 
+// Bonus de "alta precisión" (ver Leccion.jsx → celebrarYNavegar): si la
+// unidad se terminó en Modo difícil con más de 93% de preguntas contestadas
+// bien al primer intento, el escaneo usa esta tabla en vez de
+// COLORES_DIFICIL — 45% de que CADA punto salga rojo, así que con los 4
+// puntos de un escaneo la probabilidad de que salga AL MENOS uno rojo es
+// ~91% (1 - 0.55⁴), y casi segura (~99.99%) si se usan los 4 intentos. Se
+// deja "casi segura" y no 100% garantizada a propósito, para que siga
+// sintiéndose como un premio del minijuego y no un valor fijo.
+const COLORES_DIFICIL_PRECISION_ALTA = [
+  { id: 'gris', nombre: 'Gris', peso: 100, color: '#9ca3af', valorMin: 1, valorMax: 3 }, // 10%
+  { id: 'verde', nombre: 'Verde', peso: 150, color: '#22c55e', valorMin: 3, valorMax: 5 }, // 15%
+  { id: 'morado', nombre: 'Morado', peso: 150, color: '#a855f7', valorMin: 5, valorMax: 10 }, // 15%
+  { id: 'dorado', nombre: 'Dorado', peso: 150, color: '#facc15', valorMin: 11, valorMax: 25 }, // 15%
+  { id: 'rojo', nombre: 'Rojo', peso: 450, color: '#ef4444', valorMin: 40, valorMax: 40 }, // 45%
+]
+
 function generarColor(colores) {
   const totalPesos = colores.reduce((a, c) => a + c.peso, 0)
   let r = Math.random() * totalPesos
@@ -84,8 +100,10 @@ function generarPunto(colores) {
   }
 }
 
-export default function EscaneoRecompensa({ materiaId, unidad, colorAcento = '#7c5cbf', modoDificil = false, onContinuar }) {
-  const colores = modoDificil ? COLORES_DIFICIL : COLORES_NORMAL
+export default function EscaneoRecompensa({ materiaId, unidad, colorAcento = '#7c5cbf', modoDificil = false, precisionAlta = false, onContinuar }) {
+  const colores = modoDificil
+    ? (precisionAlta ? COLORES_DIFICIL_PRECISION_ALTA : COLORES_DIFICIL)
+    : COLORES_NORMAL
   const { reclamarRecompensaUnidad } = useStore()
   const canvasRef = useRef(null)
   const puntosRef = useRef([])
@@ -250,6 +268,11 @@ export default function EscaneoRecompensa({ materiaId, unidad, colorAcento = '#7
         <p style={{ margin: '4px 0 0', fontSize: 12, color: 'var(--text-muted)' }}>
           {`Te quedan ${intentosRestantes} de ${INTENTOS_MAX} escaneos. Reclama cuando te guste lo que salió.`}
         </p>
+        {precisionAlta && (
+          <p style={{ margin: '6px 0 0', fontSize: 11.5, fontWeight: 700, color: '#ef4444' }}>
+            +93% de precisión: el escaneo casi seguro saca algo rojo
+          </p>
+        )}
       </div>
 
       <canvas
