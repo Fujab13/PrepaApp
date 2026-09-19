@@ -339,33 +339,18 @@ display: flex;
   margin-left: auto;
 }
 
-/* Widget de Google Website Translator (GoogleTranslateButton.jsx): a
-   diferencia de la franja de traduccion (esa si va en un iframe ajeno y no
-   se puede stylear), este selector se inserta como DOM normal, asi que se
-   puede reajustar para que no rompa el layout en pantallas angostas. */
-#google_translate_element .goog-te-gadget {
-  font-size: 0.7rem;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 4px;
-  max-width: 100%;
+/* Guia visual de "como traducir" (GoogleTranslateButton.jsx): ya no se usa
+   el widget embebido de Google (insistia en su franja/globo de feedback
+   propios, ademas de que el traductor NATIVO del navegador ya hace mejor
+   el trabajo) — el boton ahora solo señala con un resplandor pulsante
+   hacia la esquina superior derecha, donde vive el menu del navegador. */
+@keyframes guia-traducir-pulso {
+  0%   { transform: scale(0.85); opacity: 0.55; }
+  50%  { transform: scale(1.15); opacity: 0.95; }
+  100% { transform: scale(0.85); opacity: 0.55; }
 }
-#google_translate_element .goog-te-gadget-simple {
-  max-width: 100%;
-  white-space: normal !important;
-  border-radius: 10px !important;
-  overflow: hidden;
-}
-/* Esquinas redondeadas — funciona en Chrome/Edge/Firefox; algunas versiones
-   de Safari/iOS ignoran border-radius en <select> y muestran su propio
-   chrome nativo, sin que eso rompa el layout. */
-#google_translate_element select.goog-te-combo {
-  max-width: 100%;
-  min-height: 44px;
-  font-size: 0.85rem;
-  border-radius: 10px;
-  padding: 4px 8px;
+.guia-traducir-resplandor {
+  animation: guia-traducir-pulso 1.4s ease-in-out infinite;
 }
 
 /* Contenedor de contenido estandar, mismo margen horizontal que Home.jsx */
