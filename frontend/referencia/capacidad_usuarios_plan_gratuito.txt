@@ -1,8 +1,234 @@
 CAPACIDAD DE USUARIOS EN PLAN GRATUITO — PrepaApp
 ====================================================
-Fecha del análisis: 1 de septiembre de 2026
-Alcance: Supabase (Free) + Vercel (Hobby), sin Stripe activo (sin cobros reales todavía)
+Fecha de este análisis: 19 de septiembre de 2026 (reemplaza el del 1 de
+septiembre de 2026, que queda pegado abajo como referencia histórica).
+Alcance: Supabase (Free) + Cloudflare Workers (Static Assets, Free) — el
+hosting del frontend YA NO es Vercel, ver sección 0.
 
+
+0. QUÉ CAMBIÓ DESDE EL ANÁLISIS DEL 1 DE SEPTIEMBRE
+------------------------------------------------------
+Dos cambios de fondo, independientes entre sí, que juntos vuelven obsoleta
+la conclusión anterior:
+
+  a) MIGRACIÓN DE HOSTING: el frontend se movió de Vercel (Hobby) a
+     Cloudflare Workers (Static Assets). Vercel queda PAUSADO, ya no sirve
+     tráfico ni recibe deploys. Esto es lo que más importa aquí: en
+     Cloudflare, las peticiones a archivos estáticos son GRATIS E
+     ILIMITADAS, tanto en el plan Free como en el de pago — no existe un
+     tope de "GB transferidos al mes" como el de 100GB de Vercel. El motivo
+     original de la migración fue evitar la restricción de uso NO comercial
+     de los términos de Vercel Hobby (la Tienda ya cobra con Stripe), pero
+     como efecto secundario, también elimina por completo el cuello de
+     botella que encontró el análisis anterior.
+
+  b) LA MÚSICA DE FONDO YA NO ES UN ARCHIVO: `MusicContext.jsx` fue
+     reescrito de cero. El MP3 de 41.5MB que se descargaba (silenciada o
+     no) en cada visita ya NO EXISTE — `public/music/` está vacío salvo un
+     README. En su lugar, la música es 100% generativa con Web Audio API
+     (osciladores sintetizando notas en tiempo real, con una progresión de
+     acordes I-vi-IV-V) — cero bytes descargados, nunca, sin importar
+     cuántas sesiones tenga un usuario. Esto no es "la recomendación #1 del
+     análisis anterior, aplicada" — es una solución más radical: no se
+     optimizó la descarga, se eliminó la necesidad de descargar nada.
+
+Con (a) resuelto, el techo de ~700-2,200 usuarios/mes que encontró el
+análisis de septiembre 1 (impuesto por el límite de 100GB/mes de Vercel)
+YA NO EXISTE, sin importar qué tan pesada sea cada sesión. Con (b) resuelto
+también, la sesión promedio además es mucho más liviana de por sí — pero
+esto ahora es un tema de VELOCIDAD DE CARGA para el usuario, no de
+capacidad/costo, porque no hay ningún límite de transferencia que agotar.
+
+
+1. SUPUESTOS DE PARTIDA (se mantienen del análisis anterior)
+----------------------------------------------------------------
+  a) "Usuario activo" = alguien que abre la app y usa al menos una lección
+     o el examen en el mes (equivalente a MAU de Supabase Auth).
+  b) Sigue sin haber cobros reales vía Stripe en volumen (solo tráfico de
+     uso normal).
+  c) 1 a 3 sesiones por usuario activo al mes (sigue sin haber datos reales
+     de retención/analytics conectados).
+  d) Los límites de "Free" de Supabase y Cloudflare son los públicos
+     vigentes al momento de este análisis (ver fuentes al final);
+     conviene revisar de nuevo si pasan varios meses.
+  e) No se cuenta a profesores/administradores aparte: su tráfico es
+     marginal comparado con el de alumnos.
+
+
+2. LÍMITES REALES DE LOS PLANES GRATUITOS (actualizado)
+------------------------------------------------------------
+
+SUPABASE FREE (sin cambios respecto al análisis anterior, verificado de
+nuevo hoy):
+  - Tamaño de base de datos:      500 MB
+  - Almacenamiento de archivos:   1 GB
+  - Usuarios activos (MAU):       50,000 / mes
+  - Egreso de base de datos:      5 GB / mes (+ 5 GB de egreso cacheado)
+  - Conexiones realtime:          200 concurrentes (no se usa Realtime en
+    el código — no aplica)
+  - Invocaciones Edge Functions:  500,000 / mes
+  - Política de inactividad:      el proyecto se PAUSA tras 1 semana sin uso
+
+CLOUDFLARE WORKERS FREE (reemplaza la sección de límites de Vercel):
+  - Peticiones a assets ESTÁTICOS (todo lo que sirve esta app — HTML, JS,
+    CSS, SVGs, fuentes, JSON de lecciones/examen): GRATIS E ILIMITADO,
+    sin excepción, tanto en Free como en el plan de pago. Confirmado en la
+    documentación oficial: "Requests to static assets are free and
+    unlimited — no count against your quota."
+  - Límite de 100,000 peticiones/día del plan gratis: solo aplica a
+    invocaciones de LÓGICA de un Worker (SSR, funciones, bindings) — este
+    proyecto no tiene ninguna de esas, es un sitio 100% estático (todo lo
+    dinámico vive en Supabase Edge Functions). Ese límite, en la práctica,
+    no aplica a esta app en absoluto.
+  - Límite de almacenamiento del build: 20,000 archivos / 25MiB por
+    archivo — el build actual de esta app tiene ~150 archivos, muy lejos
+    de ese techo.
+  - Uso comercial: permitido explícitamente, sin restricción (a diferencia
+    de Vercel Hobby).
+
+CONCLUSIÓN DE ESTA SECCIÓN: ya no existe, en ningún plan gratuito de los
+que usa esta app, un límite de "cuántos megabytes puede transferir el
+frontend al mes". El único techo real que queda es el de Supabase.
+
+
+3. QUÉ CONSUME CADA USUARIO, SEGÚN EL CÓDIGO ACTUAL
+--------------------------------------------------------
+
+3.1 Base de datos y egreso de Supabase — sigue sin ser un límite práctico
+  Mismo patrón que en septiembre: 1 SELECT a `perfiles` + 2 RPC de rol al
+  cargar cualquier página, 1 SELECT a `progreso_usuario` por lección, y 1
+  UPSERT por cada respuesta correcta. Único cambio real: Modo difícil
+  ahora completa unidades de 20 preguntas en vez de 12
+  (`PREGUNTAS_POR_UNIDAD_DIFICIL` en `unidades.js`), así que hay hasta ~20
+  upserts por unidad en ese modo en vez de 12 — sigue siendo filas de
+  ~100-200 bytes cada una. Los 500MB de base y los 5GB/mes de egreso
+  aguantarían varios millones de estas escrituras sin problema.
+
+3.2 Autenticación (MAU, 50,000/mes) — EL LÍMITE REAL HOY
+  Sin cambios: cada usuario que inicia sesión al menos una vez en el mes
+  cuenta 1 MAU. Con el cuello de botella de hosting eliminado, este es
+  ahora, sin competencia, el límite que de verdad importa.
+
+3.3 Invocaciones de Edge Functions (500,000/mes) — revisado, sigue sobrado
+  Desde septiembre se agregaron funciones nuevas (notificaciones push:
+  `recordatorio-estudio` por cron cada 6h, `confirmar-notificaciones-push`
+  al activar notificaciones, avisos de alumno nuevo). El cron corre 4
+  veces al día ≈ 120 invocaciones/mes — trivial. Las demás escalan con
+  acciones reales de usuarios (activar notificaciones, comprar un cupo),
+  volumen muy por debajo de 500,000/mes incluso con miles de usuarios
+  activos.
+
+3.4 Almacenamiento de Storage (1GB) — sin cambios, sigue sobrado
+  El catálogo de lecciones/exámenes premium sigue siendo pequeño; no es
+  cuello de botella mientras no crezca mucho.
+
+3.5 Peso por sesión del frontend — YA NO ES UN LÍMITE DE CAPACIDAD, pero
+    sigue importando para la VELOCIDAD de carga
+  Con Cloudflare, ningún byte transferido cuenta contra un tope mensual —
+  pero un frontend más pesado sigue tardando más en cargar para el
+  usuario, sobre todo en conexiones móviles lentas (el público real de
+  esta app). Con el build actual (Vite 7 + code-splitting por ruta):
+
+    - JS/CSS compartido (se descarga en CUALQUIER primera visita, antes de
+      caché): ~360KB comprimido (gzip) — react + router + supabase-js +
+      el shell de la app.
+    - Cada ruta agrega su propio chunk aparte, cargado solo al entrar a
+      esa página (ej. Leccion.jsx pesa ~12KB gzip aparte, Examen.jsx unos
+      5KB gzip aparte) — gracias al code-splitting ya aplicado.
+    - Fuentes de KaTeX (~1.2MB en total, repartidas en decenas de
+      archivos): el navegador solo descarga las que de verdad necesita
+      para los símbolos que aparecen en pantalla, no las 1.2MB de golpe.
+    - Visitas repetidas del MISMO navegador: casi gratis, porque
+      `/assets/*` tiene `Cache-Control: immutable` de un año (ver
+      `public/_headers`) y los nombres de archivo cambian solo cuando
+      cambia el contenido.
+
+  ACTUALIZACIÓN (mismo día, 19 de sept.): se revisó `public/svgs/` contra
+  todo el código y se encontraron 4 archivos SIN NINGUNA referencia real
+  (`billete.svg` 2.9MB, `leopardo.svg` 1.8MB, `mochila.svg` 1.1MB,
+  `ranger_dorado.svg` 0.3MB — ~6.2MB en total) — ya se borraron.
+
+  PENDIENTE, mismo hallazgo que en septiembre para los que SÍ se usan: 10
+  preguntas de la unidad-tutorial de Español y 2 del examen por defecto
+  siguen usando SVGs de 1-4MB cada uno (`estudiantes.svg` 3.8MB,
+  `determinacion.svg` 2.8MB, `recomendados.svg` 2.0MB, `profesor.svg`
+  1.9MB, `mapa.svg` 1.6MB, `cajafuerte.svg` 1.3MB, `examen.svg` 1.2MB, más
+  `sidenav.svg`, `seguridad.svg`, `pluma.svg`, `interfaz.svg`,
+  `espacio.svg` de tamaño no confirmado pero seguramente similar) — son
+  solo ~12 preguntas de cientos, así que la mayoría de los usuarios nunca
+  las ve, pero quien SÍ llega a esas preguntas en una conexión lenta va a
+  notar la espera. Ya no amenaza con "acabarse un límite gratis", pero
+  sigue siendo mala experiencia de usuario que vale la pena arreglar —
+  este caso SÍ hace falta optimizar el contenido de cada SVG (no borrar el
+  archivo, porque sí se usa), a diferencia de los 4 de arriba.
+
+
+4. EL CÁLCULO: CUÁNTOS USUARIOS CABEN HOY
+----------------------------------------------
+Con el cuello de botella de ancho de banda eliminado (Cloudflare), la
+cuenta ya no depende de MB por sesión — depende directo del límite de
+autenticación de Supabase:
+
+  → CAPACIDAD REAL HOY: ~50,000 USUARIOS ACTIVOS AL MES.
+
+Es el mismo número al que el análisis de septiembre llegaba SOLO EN EL
+ESCENARIO OPTIMISTA (arreglando la música) — la diferencia es que ahora es
+la realidad actual, no un "si arreglas X esto sube a Y". Y a diferencia de
+septiembre, este número YA NO depende de qué tan pesada sea cada sesión
+individual (los SVGs grandes, si acaso, retrasan a un usuario particular,
+pero no acercan a la app a ningún techo compartido).
+
+Más allá de los 50,000 MAU, lo siguiente que tocaría revisar (no antes)
+seria el egreso de base de datos y las invocaciones de Edge Functions,
+pero con el patrón de uso actual (filas chicas, funciones de bajo volumen)
+esos límites quedan muy por detrás del de MAU — habría que crecer varias
+veces más allá de 50,000 para que empezaran a preocupar.
+
+
+5. RECOMENDACIONES, EN ORDEN DE IMPACTO (actualizado)
+----------------------------------------------------------
+  1. (Impacto medio, solo UX) Optimizar los ~12 SVGs de 1-4MB que SÍ se
+     usan en preguntas (los 4 que no se usaban para nada ya se borraron
+     el 19 de sept., ver sección 3.5) — muy
+     probablemente tienen imágenes rasterizadas incrustadas en base64
+     dentro del propio SVG (exportar como PNG/WebP comprimido y referenciar
+     aparte, o limpiar el SVG con una herramienta como SVGO, normalmente
+     los deja en un 5-10% del tamaño original). Ya no es cuestión de
+     capacidad, es que ~12 preguntas cargan mucho más lento que el resto
+     de la app en conexiones móviles.
+  2. (Bajo impacto, ya no urgente) Confirmar en el dashboard de Cloudflare
+     que `_headers` se está aplicando como se espera en producción — se
+     verificó localmente (`dist/_headers` se genera bien) pero no se
+     confirmó en el sitio ya desplegado.
+  3. Cuando se acerque a varios miles de usuarios reales, vale la pena
+     conectar analytics de uso (Cloudflare Web Analytics, gratis) para
+     reemplazar el supuesto de "1 a 3 sesiones por usuario" por un número
+     real y afinar este análisis.
+  4. Si el catálogo de lecciones/exámenes premium (Storage, 1GB) crece
+     mucho, revisar ese límite aparte — hoy no es un problema.
+
+
+FUENTES DE ESTE ANÁLISIS (19 de septiembre de 2026)
+------------------------------------------------------
+- Supabase Pricing (límites Free, confirmado de nuevo hoy):
+  https://supabase.com/pricing
+- Cloudflare Workers — Static Assets, billing and limitations:
+  https://developers.cloudflare.com/workers/static-assets/billing-and-limitations
+- Cloudflare Workers — Pricing:
+  https://developers.cloudflare.com/workers/platform/pricing/
+- Verificación directa en el repositorio: `MusicContext.jsx`,
+  `public/music/`, `public/svgs/`, `src/data/unidades.js`,
+  `src/data/examen.js`, `src/data/lecciones/espanol.json`, y un build
+  real (`npm run build`) corrido hoy para confirmar los tamaños de bundle.
+
+
+
+
+════════════════════════════════════════════════════════════════════════
+ANÁLISIS ANTERIOR (1 de septiembre de 2026) — SE QUEDA COMO REFERENCIA
+HISTÓRICA. Las conclusiones de abajo YA NO APLICAN (ver sección 0 arriba);
+se conserva completo para no perder el razonamiento original.
+════════════════════════════════════════════════════════════════════════
 
 RESPUESTA CORTA
 ----------------
