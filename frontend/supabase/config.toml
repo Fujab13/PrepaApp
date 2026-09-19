@@ -458,3 +458,9 @@ enabled = true
 verify_jwt = false
 import_map = "./functions/recordatorio-estudio/deno.json"
 entrypoint = "./functions/recordatorio-estudio/index.ts"
+
+[functions.confirmar-notificaciones-push]
+enabled = true
+verify_jwt = false
+import_map = "./functions/confirmar-notificaciones-push/deno.json"
+entrypoint = "./functions/confirmar-notificaciones-push/index.ts"

@@ -1,3 +1,20 @@
+[HECHO] Recuerda que las notificaciones que da la app deben ser cada 3 dias y no cada 3 hrs
+además, permite que la primera notificacion llegue cuando el user active el boton
+o lo reactive, sirviendo como feedback de que ya estan funcionando las
+notificaciones
+
+- Cadencia de 3 días: ya estaba así (edge function recordatorio-estudio, el
+  cron de Postgres solo corre cada 6h para ser puntual, pero cada suscripción
+  individual respeta el cooldown de 3 días vía ultimo_recordatorio_en — ver
+  supabase/migrations/20260918140000_recordatorios_estudio.sql).
+- Feedback inmediato al activar/reactivar: agregado. Nueva edge function
+  supabase/functions/confirmar-notificaciones-push manda un push de
+  "Notificaciones activadas" justo después de guardar_suscripcion_push (ver
+  activarNotificaciones en src/services/pushNotifications.js), y resetea
+  ultimo_recordatorio_en para que el recordatorio genérico no se duplique
+  poco después. Falta desplegar: `supabase functions deploy
+  confirmar-notificaciones-push`.
+
 Configurar Resend como SMTP de Supabase Auth
 =============================================
 

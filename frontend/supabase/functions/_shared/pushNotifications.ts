@@ -1,6 +1,6 @@
 // pushNotifications.ts
 // Envía notificaciones push (Notification API del navegador, vía Service
-// Worker en public/sw.js) — hoy dos casos, ambos sobre la misma tabla
+// Worker en public/sw.js) — hoy tres casos, todos sobre la misma tabla
 // `push_subscriptions` genérica (una fila por navegador suscrito, sin
 // distinguir "para qué" se suscribió: quien activa notificaciones recibe
 // TODO lo que esta app mande por push):
@@ -9,6 +9,9 @@
 //   2. enviarRecordatoriosEstudio: recordatorio genérico de estudio cada ~3
 //      días a cualquier suscrito (ver edge function recordatorio-estudio,
 //      disparada por un cron de Postgres — migración 20260918140000).
+//   3. enviarConfirmacionActivacion: un solo push inmediato al activar (o
+//      reactivar) las notificaciones, de feedback de que sí funcionan (ver
+//      edge function confirmar-notificaciones-push).
 //
 // VAPID_PRIVATE_KEY/VAPID_PUBLIC_KEY/VAPID_SUBJECT son las variables de
 // entorno del edge function (nunca del frontend); VITE_VAPID_PUBLIC_KEY en
@@ -168,4 +171,31 @@ export async function enviarRecordatoriosEstudio(supabaseAdmin: any, suscripcion
     .in("id", suscripciones.map((s) => s.id));
 
   return enviados;
+}
+
+// Push de confirmación al activar (o reactivar) las notificaciones: sirve de
+// feedback inmediato de que sí están funcionando, en vez de que el usuario
+// tenga que esperar hasta 3 días a su primer recordatorio de estudio para
+// enterarse. Llamado desde la edge function confirmar-notificaciones-push,
+// justo después de guardar_suscripcion_push (ver services/pushNotifications.js
+// en el frontend). Marca `ultimo_recordatorio_en` igual que un recordatorio
+// normal, así el cron de recordatorio-estudio cuenta los 3 días a partir de
+// esta confirmación y no manda uno duplicado poco después.
+export async function enviarConfirmacionActivacion(supabaseAdmin: any, suscripcion: Suscripcion): Promise<boolean> {
+  if (!asegurarVapid()) return false;
+
+  const payload = JSON.stringify({
+    title: "Notificaciones activadas",
+    body: "Así se verán tus recordatorios de estudio. Te avisaremos cada varios días para que no pierdas el ritmo.",
+    url: "/",
+  });
+
+  const enviados = await enviarATodas(supabaseAdmin, [suscripcion], payload);
+
+  await supabaseAdmin
+    .from("push_subscriptions")
+    .update({ ultimo_recordatorio_en: new Date().toISOString() })
+    .eq("id", suscripcion.id);
+
+  return enviados > 0;
 }

@@ -72,7 +72,30 @@ export async function activarNotificaciones() {
   });
   if (error) throw error;
 
+  // Push de confirmación inmediato (edge function
+  // confirmar-notificaciones-push): feedback de que ya están funcionando,
+  // en vez de esperar hasta 3 días al primer recordatorio de estudio. Nunca
+  // bloquea la activación — si falla, el usuario ya quedó suscrito igual.
+  mandarConfirmacionActivacion(json.endpoint);
+
   return suscripcion;
+}
+
+async function mandarConfirmacionActivacion(endpoint) {
+  try {
+    const { data: { session } } = await supabase.auth.getSession();
+    if (!session) return;
+    await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/confirmar-notificaciones-push`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${session.access_token}`,
+      },
+      body: JSON.stringify({ endpoint }),
+    });
+  } catch (err) {
+    console.error('[pushNotifications] No se pudo mandar el push de confirmación:', err);
+  }
 }
 
 /**
