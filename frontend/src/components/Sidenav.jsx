@@ -236,7 +236,7 @@ export default function Sidenav({ open, onClose }) {
             }}>
               <FaUserGraduate />
             </span>
-            <span>Tutorías</span>
+            <span>Ranking</span>
           </button>
           
           {/* Botón Examen Simulador */}

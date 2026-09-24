@@ -8,7 +8,6 @@ import { supabase } from '../services/supabaseClient'
 import { MdToken, MdWorkspacePremium } from 'react-icons/md'
 import { HiOutlineRectangleStack, HiOutlineSparkles, HiOutlineSwatch, HiCheckCircle, HiOutlineShoppingBag } from 'react-icons/hi2'
 import { FaPaw } from 'react-icons/fa'
-import { FaStripe } from "react-icons/fa";
 import { AiOutlineClose } from "react-icons/ai";
 import { PiShoppingCartSimpleFill } from "react-icons/pi";
 import { BiSolidCoin } from "react-icons/bi";
@@ -538,32 +537,8 @@ export default function Store() {
           )
         })}
 
-        <p style={{ 
-          color: 'var(--text-muted)', 
-          fontSize: '0.7rem', 
-          marginTop: 4,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          gap: '4px' 
-        }}> 
-          <span>Tus pagos están protegidos y procesados por</span>
-          <a href="https://stripe.com" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            style={{ 
-              display: 'inline-flex', 
-              alignItems: 'center',
-              color: 'inherit', 
-              textDecoration: 'none', 
-              cursor: 'pointer'
-            }}
-          >
-            <FaStripe size="3.1em" />
-          </a>
-        </p>
-
-        
+        {/* Mensaje de "pagos protegidos por Stripe" oculto temporalmente
+            (ver referencia/temporal_desactivar_pagos/Store.mensaje-stripe.backup.jsx) */}
       </div>
 
       {feedback && (
