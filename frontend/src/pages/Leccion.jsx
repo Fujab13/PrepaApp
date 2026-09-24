@@ -17,6 +17,7 @@ import { registrarTotalUnidadesProducto } from '../services/progreso';
 import { triggerVibration } from '../utils/haptics';
 import { leerModoDificil, calcularTiempoLimiteDecimas } from '../utils/modoDificil';
 import { hablarTexto, detenerLectura } from '../utils/tts';
+import { esNavegadorEmbebido, intentarAbrirEnNavegador } from '../utils/navegadorEmbebido';
 import { getLectura } from '../data/lecturas/index';
 import { buscarConceptoSimilar } from '../utils/buscarConcepto';
 import { useFullscreen } from '../hooks/useFullscreen';
@@ -270,6 +271,12 @@ export default function Leccion() {
   // cada 100ms.
   useEffect(() => {
     if (!lecturaAutomatica || cargando || cargandoProgreso || !materia || cola === null) return
+    // En el navegador embebido de Instagram/Facebook, speechSynthesis nunca
+    // reproduce audio ni dispara onend: sin este corte, el botón de TTS se
+    // quedaría "pegado" en estado de lectura sin que el alumno haya tocado
+    // nada (ver alternarLectura más abajo para el caso de clic manual, que
+    // sí avisa con un diálogo).
+    if (esNavegadorEmbebido()) return
 
     const preguntaActual = enRepaso
       ? (colaRepaso[0] || null)
@@ -593,6 +600,23 @@ export default function Leccion() {
       setLeyendo(false)
       return
     }
+
+    // speechSynthesis existe en el navegador embebido de Instagram/Facebook
+    // pero nunca reproduce audio ahí (ver navegadorEmbebido.js): en vez de
+    // dejar el botón "pegado" en estado de lectura sin sonido, se avisa y se
+    // ofrece salir al navegador normal.
+    if (esNavegadorEmbebido()) {
+      setConfirmacion({
+        titulo: 'Lectura en voz alta no disponible aquí',
+        mensaje: 'El navegador dentro de Instagram no deja reproducir audio de lectura. Ábrelo en tu navegador normal para poder usarla.',
+        textoConfirmar: 'Abrir en el navegador',
+        textoCancelar: 'Ahora no',
+        colorConfirmar: materia.color,
+        accion: () => intentarAbrirEnNavegador(),
+      })
+      return
+    }
+
     const iniciado = hablarTexto(texto, { onEnd: () => setLeyendo(false) })
     if (iniciado) setLeyendo(true)
   }
