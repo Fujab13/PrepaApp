@@ -15,6 +15,7 @@ const Login = lazy(() => import('./pages/Login'));
 const ActualizarPassword = lazy(() => import('./pages/ActualizarPassword'));
 const Store = lazy(() => import('./pages/Store'));
 const Examen = lazy(() => import('./pages/Examen'));
+const SeleccionExamen = lazy(() => import('./pages/SeleccionExamen'));
 const Inventario = lazy(() => import('./pages/Inventario'));
 const Mascota = lazy(() => import('./pages/Mascota'));
 const FormularioArea = lazy(() => import('./pages/FormularioArea'));
@@ -78,7 +79,7 @@ export default function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/actualizar-password" element={<ActualizarPassword />} />
         <Route path="/tienda" element={<Store />} />
-        <Route path="/examen" element={<Examen />} />
+        <Route path="/examen" element={<SeleccionExamen />} />
         <Route path="/examen/:examenId" element={<Examen />} />
         <Route path="/inventario" element={<Inventario />} />
         <Route path="/mi-mascota" element={<Mascota />} />

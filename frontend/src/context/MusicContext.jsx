@@ -109,12 +109,29 @@ function iniciarMotorGenerativo(ctx, masterGain) {
   limitador.attack.value = 0.005
   limitador.release.value = 0.25
 
+  // Segunda etapa, un "brickwall" real después del compresor de arriba:
+  // ese primer compresor suaviza la dinámica general, pero cuando MUCHAS
+  // voces coinciden en su pico a la vez (raro, pero pasa) la suma puede
+  // seguir empujando la señal cerca de 0dBFS, lo que se oía como crujido
+  // solo al subir el volumen físico del dispositivo (a volumen bajo el
+  // recorte digital es inaudible, a volumen alto se nota). Umbral alto y
+  // ratio/ataque agresivos para que esta etapa casi nunca actúe en uso
+  // normal (no cambia el volumen de siempre) y solo intervenga en esos
+  // picos puntuales.
+  const limitadorPico = ctx.createDynamicsCompressor()
+  limitadorPico.threshold.value = -6
+  limitadorPico.knee.value = 3
+  limitadorPico.ratio.value = 20
+  limitadorPico.attack.value = 0.001
+  limitadorPico.release.value = 0.1
+
   filtro.connect(secoGain)
   filtro.connect(reverb)
   reverb.connect(reverbGain)
   secoGain.connect(limitador)
   reverbGain.connect(limitador)
-  limitador.connect(masterGain)
+  limitador.connect(limitadorPico)
+  limitadorPico.connect(masterGain)
 
   // Truco anti "denormal number stall": el filtro y el reverb son nodos
   // RECURSIVOS (arrastran estado interno de un frame de audio al siguiente).

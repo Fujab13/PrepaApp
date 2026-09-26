@@ -37,11 +37,10 @@ import {
   HiOutlineMagnifyingGlass, HiChevronDown, HiChevronUp, HiOutlineUserGroup,
   HiOutlineChartBar,
 } from "react-icons/hi2";
-import { GiJewelCrown, GiQueenCrown } from "react-icons/gi";
+import { GiJewelCrown, GiQueenCrown, GiWeightLiftingUp } from "react-icons/gi";
 import { CgCrown } from "react-icons/cg";
 import { ImTrophy } from "react-icons/im";
 import { SiBookstack } from "react-icons/si";
-import { PiSmileySadLight } from "react-icons/pi";
 import { AiOutlineThunderbolt } from "react-icons/ai";
 import { LuTurtle } from "react-icons/lu";
 import { PiEmpty } from "react-icons/pi";
@@ -75,7 +74,7 @@ function nivelExamen(precision) {
   if (precision >= 80) return { texto: "B", color: "#a3e635", emoji: <CgCrown /> };
   if (precision >= 70) return { texto: "C", color: "#f59e0b", emoji: <ImTrophy /> };
   if (precision >= 60) return { texto: "D", color: "#f97316", emoji: <SiBookstack /> };
-  return { texto: "F", color: "#ef4444", emoji: <PiSmileySadLight /> };
+  return { texto: "F", color: "#ef4444", emoji: <GiWeightLiftingUp /> };
 }
 
 function nivelPreparacion(autoevaluacion) {
@@ -196,8 +195,7 @@ function MetricCard({ icono, label, valor, sub, color = "#7c5cbf" }) {
   return (
     <div style={{
       background: "linear-gradient(135deg, var(--surface2), var(--surface))",
-      borderLeft: `3px solid ${color}`,
-      borderRadius: 6,
+      border: "0.5px solid var(--surface)",
       padding: "9px 11px",
       display: "flex", flexDirection: "column", gap: 2, minHeight: 48,
       boxShadow: "0 4px 16px -10px rgba(0,0,0,0.6)",
@@ -554,8 +552,10 @@ function PaginaExamen({ examen, navigate }) {
       <Topbar titulo="Resultados del examen" onSalir={() => navigate("/")} onImprimir={imprimir} />
       <main className="page-content-compact" style={{ flex: 1, paddingBottom: 40 }}>
         <div style={{ textAlign: "center", marginBottom: 20 }}>
-          <p style={{ margin: 0, fontSize: 11, letterSpacing: "0.15em", textTransform: "uppercase", color: "#4f8ef7", fontWeight: 700 }}>PrepaApp</p>
-          <h1 style={{ margin: "4px 0 0", fontSize: 17, fontWeight: 800 }}>
+          <p style={{ margin: 0, fontSize: 22, fontWeight: 500, letterSpacing: "-0.01em" }}>
+            <span style={{ color: "#4f8ef7" }}>Prepa</span><span style={{ fontWeight: 300, color: "var(--text-muted)" }}>App</span>
+          </p>
+          <h1 style={{ margin: "8px 0 0", fontSize: 17, fontWeight: 800 }}>
             Resultados de {nombre || "tu examen"}
           </h1>
           <p style={{ margin: "6px 0 0", fontSize: 11, color: "var(--text-muted)" }}>Generado el {fmtFecha(datos.generadoEn)}</p>

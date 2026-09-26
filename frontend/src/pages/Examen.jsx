@@ -1,13 +1,13 @@
 // Examen.jsx
 // ─────────────────────────────────────────────────────────────────────────────
 // Dependencias: react, react-router-dom
-// Importa: examen.js (PREGUNTAS, SECCIONES)
+// Importa: examenesDisponibles.js (bancos propios) / examenesPremium.js (comprados)
 // Navega a: /resultados  (con state completo)
 // ─────────────────────────────────────────────────────────────────────────────
 
 import { useState, useEffect, useRef, useCallback } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { PREGUNTAS as PREGUNTAS_DEFAULT, SECCIONES as SECCIONES_DEFAULT } from "../data/examen.js";
+import { obtenerExamenPropio } from "../data/examenesDisponibles.js";
 import SidenavMatrix from "../components/SidenavMatrix";
 import ConfirmDialog from "../components/ConfirmDialog";
 import Latex from "../components/Latex";
@@ -19,6 +19,7 @@ import { obtenerExamenDeSesion } from "../services/examenesPremium";
 import { useConfirmarSalida } from "../hooks/useConfirmarSalida";
 import { useImpulsoActivo } from "../hooks/useImpulsoActivo";
 import MascotaCompanera from "../components/MascotaCompanera";
+import { convertirTextoParaVoz } from "../utils/latexAHabla";
 
 import { AiOutlineClose, AiOutlineLoading3Quarters } from "react-icons/ai";
 import { IoIosArrowBack } from "react-icons/io";
@@ -29,7 +30,7 @@ import { IoBookmarkOutline } from "react-icons/io5";
 // ─── CONFIGURACIÓN ──────────────────────────────────────────────────────────
 // ════════════════════════════════════════════════════════════════════════════
 const CONFIG = {
-  TIEMPO_RECOMENDADO_SEG: 90, // Tiempo recomendado por pregunta (en segundos)
+  TIEMPO_RECOMENDADO_SEG: 90, // Tiempo recomendado PROMEDIO por pregunta (en segundos) — ver calcularTiempoPreguntaSeg más abajo, que reparte este mismo ritmo según el largo real de cada pregunta en vez de dar siempre el mismo número fijo.
 };
 // ════════════════════════════════════════════════════════════════════════════
 // ─── HELPERS ────────────────────────────────────────────────────────────────
@@ -38,8 +39,9 @@ const CONFIG = {
 // ── Duración global dinámica ────────────────────────────────────────────────
 // El examen ya no dura un fijo de horas/minutos sin importar cuántas
 // preguntas tenga: se calcula a partir del mismo ritmo de
-// CONFIG.TIEMPO_RECOMENDADO_SEG (90s/pregunta) que ya usa el cronómetro por
-// pregunta, y se redondea hacia ARRIBA a la duración "redonda" más cercana
+// CONFIG.TIEMPO_RECOMENDADO_SEG (90s/pregunta EN PROMEDIO — el cronómetro por
+// pregunta reparte ese mismo ritmo según el largo real de cada una, ver
+// calcularTiempoPreguntaSeg), y se redondea hacia ARRIBA a la duración "redonda" más cercana
 // de esta lista fija — nunca un número raro tipo "1h47min", siempre una de
 // estas 5 sesiones estándar. Redondear hacia arriba (nunca al bucket más
 // cercano) garantiza que nadie termine con MENOS que el ritmo recomendado
@@ -78,6 +80,33 @@ const fmtPregunta = (seg) => {
   return seg < 0 ? `+${base}` : base;
 };
 
+// ── Cronómetro por pregunta dinámico según su largo ─────────────────────────
+// Mismo criterio que Modo difícil en Leccion.jsx (ver calcularTiempoLimiteDecimas
+// en utils/modoDificil.js): en vez de un fijo de 90s para cualquier pregunta,
+// cada una da segundos/palabra sobre el texto "hablado" (convertirTextoParaVoz,
+// así una fórmula LaTeX cuenta las palabras que en realidad se leen, no sus
+// símbolos crudos). Calibrado con el banco real de data/examen.js (60
+// preguntas, ~17 palabras en promedio) para que una pregunta de largo
+// PROMEDIO siga dando los mismos 90s de antes.
+//
+// A diferencia de Modo difícil, este cronómetro es puramente ESTÉTICO: nunca
+// bloquea ni fuerza avanzar de pregunta al llegar a 0 (ver tiempoNegativo más
+// abajo, que solo cambia de color y sigue contando en negativo) — por eso el
+// piso y el techo son mucho más generosos que en Modo difícil, solo para que
+// el número no se vea absurdo en preguntas muy cortas o muy largas.
+const PALABRAS_REFERENCIA_EXAMEN = 17;
+const SEGUNDOS_POR_PALABRA_EXAMEN = CONFIG.TIEMPO_RECOMENDADO_SEG / PALABRAS_REFERENCIA_EXAMEN;
+const SEGUNDOS_MINIMO_EXAMEN = 45;
+const SEGUNDOS_MAXIMO_EXAMEN = 180;
+
+function calcularTiempoPreguntaSeg(pregunta) {
+  const texto = convertirTextoParaVoz(typeof pregunta?.pregunta === 'string' ? pregunta.pregunta : '');
+  const palabras = texto && texto.trim() ? texto.trim().split(/\s+/).length : PALABRAS_REFERENCIA_EXAMEN;
+
+  const segundos = palabras * SEGUNDOS_POR_PALABRA_EXAMEN;
+  return Math.round(Math.min(SEGUNDOS_MAXIMO_EXAMEN, Math.max(SEGUNDOS_MINIMO_EXAMEN, segundos)));
+}
+
 // ════════════════════════════════════════════════════════════════════════════
 // ─── COMPONENTE PRINCIPAL ───────────────────────────────────────────────────
 // ════════════════════════════════════════════════════════════════════════════
@@ -94,11 +123,13 @@ export default function Examen() {
   const impulsoActivo = useImpulsoActivo(mascotaSeleccionada);
   const pistaActiva = impulsoActivo && Boolean(mascotaSeleccionada) && ownsItem(`mascota-${mascotaSeleccionada}`);
 
-  // ── Preguntas/secciones del examen: por defecto las de data/examen.js, o
-  // las de un examen comprado en la Tienda (ver Inventario.jsx, que ya las
-  // descargó+cacheó antes de navegar aquí — mismo patrón que Leccion.jsx con
-  // /leccion/premium-<id>). Un examenId desconocido cae al examen por
-  // defecto en vez de dejar la pantalla en blanco.
+  // ── Preguntas/secciones del examen: uno de los propios en
+  // data/examenesDisponibles.js ('general', 'historia', 'matematicas' — ver
+  // SeleccionExamen.jsx, que es de donde se elige), o uno comprado en la
+  // Tienda (ver Inventario.jsx, que ya lo descargó+cacheó antes de navegar
+  // aquí — mismo patrón que Leccion.jsx con /leccion/premium-<id>). Un
+  // examenId desconocido cae al examen general en vez de dejar la pantalla
+  // en blanco (ver obtenerExamenPropio).
   const [preguntas, setPreguntas] = useState(null);
   const [secciones, setSecciones] = useState(null);
   const [cargandoExamen, setCargandoExamen] = useState(true);
@@ -106,8 +137,9 @@ export default function Examen() {
 
   useEffect(() => {
     if (!examenId || !examenId.startsWith('premium-')) {
-      setPreguntas(PREGUNTAS_DEFAULT);
-      setSecciones(SECCIONES_DEFAULT);
+      const propio = obtenerExamenPropio(examenId);
+      setPreguntas(propio.preguntas);
+      setSecciones(propio.secciones);
       setErrorExamen('');
       setCargandoExamen(false);
       return;
@@ -184,18 +216,22 @@ export default function Examen() {
     return () => clearInterval(id);
   }, []);
 
-  // ── Cronómetro por pregunta (cuenta desde CONFIG.TIEMPO_RECOMENDADO_SEG hacia 0) ──
+  // ── Cronómetro por pregunta (cuenta hacia 0 desde un tiempo calculado según
+  // el largo de CADA pregunta — ver calcularTiempoPreguntaSeg) ──
   const [tiempoPregunta, setTiempoPregunta] = useState(CONFIG.TIEMPO_RECOMENDADO_SEG);
   const tiempoPregRef = useRef(CONFIG.TIEMPO_RECOMENDADO_SEG);
   const startTimeRef  = useRef(Date.now());
 
-  // Cuando cambia la pregunta: guarda el tiempo usado y reinicia el contador
+  // Cuando cambia la pregunta (o termina de cargar, para examenes premium
+  // async): guarda el tiempo usado y reinicia el contador con el tiempo
+  // propio de la nueva pregunta.
   useEffect(() => {
-    // Guardar tiempo de la pregunta anterior no lo hacemos aquí (ver cambio de index)
-    tiempoPregRef.current = CONFIG.TIEMPO_RECOMENDADO_SEG;
-    setTiempoPregunta(CONFIG.TIEMPO_RECOMENDADO_SEG);
+    const preguntaSiguiente = preguntas?.[indexActual];
+    const seg = preguntaSiguiente ? calcularTiempoPreguntaSeg(preguntaSiguiente) : CONFIG.TIEMPO_RECOMENDADO_SEG;
+    tiempoPregRef.current = seg;
+    setTiempoPregunta(seg);
     startTimeRef.current = Date.now();
-  }, [indexActual]);
+  }, [indexActual, preguntas]);
 
   useEffect(() => {
     const id = setInterval(() => {

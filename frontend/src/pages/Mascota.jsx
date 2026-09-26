@@ -752,9 +752,6 @@ export default function Mascota() {
                             transition: 'width 300ms ease',
                           }} />
                         </div>
-                        <span style={{ fontSize: 9.5, color: 'var(--text-muted)', textAlign: 'center' }}>
-                          Felicidad {felicidad}%
-                        </span>
                       </div>
                       <button
                         type="button"

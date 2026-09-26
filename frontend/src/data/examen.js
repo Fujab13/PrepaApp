@@ -1,4 +1,7 @@
-// examen.js — Banco de preguntas del examen diagnóstico
+// examen.js — Banco de preguntas del Examen General (el examen diagnóstico
+// completo; ver también examenHistoria.js/examenMatematicas.js para los
+// exámenes de práctica cortos, y examenesDisponibles.js donde los tres se
+// registran para la pantalla de selección en SeleccionExamen.jsx)
 // Formato de pregunta:
 //   id: número único (define la sección por rango)
 //   pregunta: string con el texto de la pregunta

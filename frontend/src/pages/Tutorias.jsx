@@ -10,7 +10,6 @@ import { obtenerRankingSemanal, obtenerMiPosicionSemanal } from "../services/ran
 import { construirTableroConBots } from "../utils/bots";
 import { useAuth } from "../context/AuthContext";
 
-import { FaUserGraduate } from "react-icons/fa";
 import { PiChalkboardTeacher } from "react-icons/pi";
 import { AiOutlineClose } from "react-icons/ai";
 import { GiJewelCrown, GiQueenCrown } from "react-icons/gi";
@@ -234,9 +233,6 @@ export default function Tutorias() {
         <button onClick={() => navigate("/")} title="Salir" className="page-topbar-btn">
           <AiOutlineClose />
         </button>
-        <span className="page-topbar-btn" style={{ fontSize: "1.35rem" }}>
-          <FaUserGraduate />
-        </span>
         <h2 className="page-topbar-title" style={{ fontSize: "1rem" }}>Ranking</h2>
       </header>
 
@@ -244,13 +240,6 @@ export default function Tutorias() {
         className="page-content-compact"
         style={{ flex: 1, display: "flex", flexDirection: "column", justifyContent: "flex-start", gap: 14 }}
       >
-        <p style={{
-          fontSize: 11, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase",
-          color: "var(--text-muted)", textAlign: "center", margin: "4px 0 2px",
-        }}>
-          ¿Cómo vas esta semana?
-        </p>
-
         <RankingSemanal />
 
         <p style={{

@@ -67,23 +67,29 @@ const DECISION_CARRERA = ["Sí, ya la sé", "Tengo dudas", "No, aún no"];
 // Acento de color arriba de cada tarjeta de sección — un guiño visual a que
 // el formulario tiene varios bloques distintos, sin tocar Seccion.jsx (se
 // reusa en Tutorías y no queremos que ese acento aparezca ahí también).
-const acento = (color) => ({ borderTop: `2.5px solid ${color}` });
+// `position: relative` es lo que le da a tituloPaso() un ancla para anclar
+// el numeral en la esquina superior derecha DE LA TARJETA (no del título).
+const acento = (color) => ({ borderTop: `2.5px solid ${color}`, position: "relative" });
 
-// Numeral antes del título de cada sección: refuerza que el formulario es
-// una secuencia de pasos (6 en total), no una lista de tarjetas sueltas.
-// Se pasa como `title` de Seccion (acepta cualquier nodo, no solo string).
+// Numeral en la esquina superior derecha de cada tarjeta: refuerza que el
+// formulario es una secuencia de pasos (6 en total), no una lista de
+// tarjetas sueltas. Se pasa como `title` de Seccion (acepta cualquier nodo,
+// no solo string) — el <span> con position:absolute "escapa" del <p> donde
+// vive y se ancla contra el <div class="sp-card"> gracias al position:relative
+// de acento() de arriba, así que no tapa el ícono ni el texto del título.
 function tituloPaso(n, texto, color) {
   return (
-    <span style={{ display: "inline-flex", alignItems: "center", gap: 8 }}>
+    <>
       <span style={{
-        width: 18, height: 18, borderRadius: "50%", flexShrink: 0, fontSize: 10.5, fontWeight: 800,
+        position: "absolute", top: 10, right: 12,
+        width: 20, height: 20, borderRadius: "50%", fontSize: 10.5, fontWeight: 800,
         display: "inline-flex", alignItems: "center", justifyContent: "center",
         background: `${color}22`, color,
       }}>
         {n}
       </span>
       {texto}
-    </span>
+    </>
   );
 }
 
@@ -273,9 +279,6 @@ export default function FormularioArea() {
         <button onClick={confirmarSalir} title="Salir" className="page-topbar-btn">
           <AiOutlineClose />
         </button>
-        <span className="page-topbar-btn" style={{ fontSize: "1.35rem" }}>
-          <FaUserGraduate />
-        </span>
         <h2 className="page-topbar-title" style={{ fontSize: "1rem" }}>Formulario Área</h2>
         <span style={{ fontSize: 11.5, fontWeight: 700, color: "var(--text-muted)" }}>{progreso}%</span>
         <div style={{ width: "100%", height: 3, borderRadius: 999, background: "var(--surface2)", overflow: "hidden" }}>
@@ -309,7 +312,7 @@ export default function FormularioArea() {
           <FilaChips opciones={GRADOS} valor={grado} onChange={setGrado} color="#7c5cbf" />
         </Seccion>
 
-        <Seccion icono={<HiOutlineFlag />} color="#f59e0b" title={tituloPaso(3, "Área a la que deseas aplicar", "#f59e0b")} subtitle="Elige el área que más te llama la atención para tu carrera universitaria." style={acento("#f59e0b")}>
+        <Seccion icono={<HiOutlineFlag />} color="#f59e0b" title={tituloPaso(3, "Área a la que deseas aplicar", "#f59e0b")} style={acento("#f59e0b")}>
           <FilaChips opciones={AREAS_INTERES} valor={areaInteres} onChange={setAreaInteres} color="#f59e0b" />
           <input
             style={inputStyle}
