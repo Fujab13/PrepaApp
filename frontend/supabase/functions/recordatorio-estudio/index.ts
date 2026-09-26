@@ -1,11 +1,11 @@
 // recordatorio-estudio/index.ts
-// Disparada por un cron de Postgres cada 6 horas (ver migración
-// 20260918140000_recordatorios_estudio.sql, cron.schedule +
-// net.http_post). Manda un recordatorio de estudio genérico a cualquier
-// suscripción push (tabla push_subscriptions, ver
-// 20260918120000_push_subscriptions_profesor.sql) a la que le toque: nunca
-// antes de 3 días desde su último recordatorio (o nunca, si es la primera
-// vez). El envío real y la elección del mensaje viven en
+// Disparada por un cron de Postgres CADA HORA en punto (ver migraciones
+// 20260918140000_recordatorios_estudio.sql y
+// 20260926200000_preferencias_recordatorio.sql). Manda el recordatorio de
+// estudio a las suscripciones push a las que les toca AHORA según las
+// preferencias de cada alumno (frecuencia diaria / cada 3 días / semanal y
+// hora en SU zona horaria, elegidas en Ajustes). La regla vive en la RPC
+// suscripciones_recordatorio_pendientes(), no aquí. El envío real y la elección del mensaje viven en
 // _shared/pushNotifications.ts (enviarRecordatoriosEstudio), compartido con
 // el aviso de "alumno nuevo" del maestro.
 //
@@ -26,16 +26,10 @@ function getEnv(name: string): string {
 
 const supabaseAdmin = createClient(getEnv('SUPABASE_URL'), getEnv('SUPABASE_SERVICE_ROLE_KEY'))
 
-const TRES_DIAS_MS = 3 * 24 * 60 * 60 * 1000
-
 Deno.serve(async (_req: Request) => {
   try {
-    const limite = new Date(Date.now() - TRES_DIAS_MS).toISOString()
-
     const { data: suscripciones, error } = await supabaseAdmin
-      .from('push_subscriptions')
-      .select('id, endpoint, p256dh, auth_key')
-      .or(`ultimo_recordatorio_en.is.null,ultimo_recordatorio_en.lte.${limite}`)
+      .rpc('suscripciones_recordatorio_pendientes')
 
     if (error) throw error
 

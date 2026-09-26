@@ -8,7 +8,8 @@ import { renderIconoMateria } from '../utils/renderIconoMateria';
 import GoogleTranslateButton from '../components/GoogleTranslateButton';
 
 import { AiOutlineClose, AiOutlineLoading3Quarters } from "react-icons/ai";
-import { HiOutlineArchiveBoxXMark, HiOutlineSquares2X2 } from "react-icons/hi2";
+import { ColeccionSkeleton } from "../components/skeletons/InventarioSkeleton";
+import { HiOutlineArchiveBoxXMark } from "react-icons/hi2";
 
 export default function Inventario({ onClose, onNavigateStore }) {
   const navigate = useNavigate();
@@ -187,15 +188,17 @@ export default function Inventario({ onClose, onNavigateStore }) {
           <p style={{ color: 'var(--wrong)', fontSize: 13, textAlign: 'center', margin: 0 }}>{errorLeccion}</p>
         )}
 
-        {loading ? (
+        {/* Cargar la colección = esperar contenido → skeleton. Confirmar una
+            compra = esperar una acción → se queda el spinner con su aviso. */}
+        {loading && !confirmandoCompra ? (
+          <ColeccionSkeleton />
+        ) : loading ? (
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 10, padding: '48px 0' }}>
             <AiOutlineLoading3Quarters className="spin" style={{ fontSize: '1.4rem', color: '#47a6ff' }} />
             <p style={{ color: 'var(--text-muted)', fontSize: 13, margin: 0 }}>
-              {confirmandoCompra ? 'Confirmando tu compra…' : 'Cargando tu inventario…'}
+              Confirmando tu compra…
             </p>
-            {confirmandoCompra && (
-              <p style={{ color: 'var(--text-muted)', fontSize: 11.5, margin: 0 }}>Esto puede tardar unos segundos.</p>
-            )}
+            <p style={{ color: 'var(--text-muted)', fontSize: 11.5, margin: 0 }}>Esto puede tardar unos segundos.</p>
           </div>
         ) : inventario.length === 0 ? (
           <div className="sp-card" style={{ textAlign: 'center', alignItems: 'center' }}>
@@ -226,28 +229,12 @@ export default function Inventario({ onClose, onNavigateStore }) {
           </div>
         ) : (
           <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-              <span style={{
-                width: 22, height: 22, borderRadius: 7,
-                background: 'rgba(71, 166, 255, 0.18)', color: '#47a6ff',
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                fontSize: '0.85rem', flexShrink: 0,
-              }}>
-                <HiOutlineSquares2X2 />
-              </span>
-              <p style={{
-                color: 'var(--text-muted)', fontSize: '0.72rem', fontWeight: 700,
-                textTransform: 'uppercase', letterSpacing: '1.3px', margin: 0,
-              }}>
-                Tu colección
-              </p>
-              <span style={{
-                marginLeft: 'auto', fontSize: '0.72rem', fontWeight: 700, color: '#47a6ff',
-                background: 'rgba(71, 166, 255, 0.14)', padding: '2px 8px', borderRadius: 999,
-              }}>
-                {inventario.length}
-              </span>
-            </div>
+            <p style={{
+              color: 'var(--text-muted)', fontSize: '0.72rem', fontWeight: 700,
+              textTransform: 'uppercase', letterSpacing: '1.3px', margin: 0,
+            }}>
+              Tu colección
+            </p>
 
             <div style={styles.zoneBlue}>
               {inventario.map((item) => {

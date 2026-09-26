@@ -10,6 +10,7 @@ import {
   obtenerSuscripcionActual,
   activarNotificaciones,
   desactivarNotificaciones,
+  mensajeErrorNotificaciones,
 } from '../services/pushNotifications'
 
 import { FaCreditCard } from "react-icons/fa6";
@@ -23,7 +24,7 @@ import { FaClock } from "react-icons/fa6";
 import { MdSdStorage, MdLibraryBooks } from "react-icons/md";
 import { FaVolumeUp, FaVolumeMute } from "react-icons/fa";
 import { PiChalkboardTeacher } from "react-icons/pi";
-import { HiOutlineShieldCheck, HiOutlineUserPlus, HiOutlineFlag, HiOutlineClipboardDocumentList, HiOutlineArrowDownTray, HiOutlineBell, HiOutlineBellSlash } from "react-icons/hi2";
+import { HiOutlineCog6Tooth, HiOutlineShieldCheck, HiOutlineUserPlus, HiOutlineFlag, HiOutlineClipboardDocumentList, HiOutlineArrowDownTray, HiOutlineBell, HiOutlineBellSlash } from "react-icons/hi2";
 
 
 export default function Sidenav({ open, onClose }) {
@@ -46,6 +47,9 @@ export default function Sidenav({ open, onClose }) {
   // tipo de aviso). `null` = todavía no se sabe.
   const [notifActivas, setNotifActivas] = useState(null);
   const [cambiandoNotif, setCambiandoNotif] = useState(false);
+  // Por qué no se pudo activar (permiso negado/bloqueado…): antes el botón
+  // fallaba en silencio y parecía roto.
+  const [errorNotif, setErrorNotif] = useState('');
 
   useEffect(() => {
     let cancelado = false;
@@ -56,6 +60,8 @@ export default function Sidenav({ open, onClose }) {
 
   useEffect(() => suscribirseAPromptInstalacion(setPuedeInstalar), []);
 
+  // Se revisa también al abrir el panel: se pueden activar/desactivar desde
+  // Ajustes mientras el Sidenav está cerrado.
   useEffect(() => {
     if (!user || !notificacionesSoportadas()) return;
     let cancelado = false;
@@ -63,7 +69,13 @@ export default function Sidenav({ open, onClose }) {
       if (!cancelado) setNotifActivas(Boolean(sub));
     });
     return () => { cancelado = true; };
-  }, [user]);
+  }, [user, open]);
+
+  useEffect(() => {
+    if (!errorNotif) return;
+    const t = setTimeout(() => setErrorNotif(''), 5000);
+    return () => clearTimeout(t);
+  }, [errorNotif]);
 
   async function instalarApp() {
     const resultado = await mostrarPromptInstalacion();
@@ -72,19 +84,19 @@ export default function Sidenav({ open, onClose }) {
 
   async function alternarNotificaciones() {
     setCambiandoNotif(true);
+    setErrorNotif('');
     try {
       if (notifActivas) {
         await desactivarNotificaciones();
         setNotifActivas(false);
       } else {
+        // Al activar, el navegador muestra enseguida la primera
+        // notificación ("Notificaciones activadas") como confirmación.
         await activarNotificaciones();
         setNotifActivas(true);
       }
-    } catch {
-      // Silencioso a propósito: el botón simplemente no cambia de estado si
-      // el usuario niega el permiso o algo falla — no hay espacio dedicado
-      // a un mensaje de error en este panel angosto (a diferencia del panel
-      // completo de TutoriasMaestro.jsx, que sí lo tiene).
+    } catch (err) {
+      setErrorNotif(mensajeErrorNotificaciones(err));
     }
     setCambiandoNotif(false);
   }
@@ -115,6 +127,13 @@ export default function Sidenav({ open, onClose }) {
   }, [open]);
 
   async function cerrarSesion() {
+    // Da de baja las notificaciones de ESTE navegador antes de salir: si no,
+    // en un dispositivo compartido seguirían llegando los recordatorios de
+    // esta cuenta (y la campanita saldría "activada" para el siguiente).
+    if (notifActivas) {
+      try { await desactivarNotificaciones() } catch { /* no bloquea el cierre */ }
+      setNotifActivas(false)
+    }
     await supabase.auth.signOut()
     onClose()
   }
@@ -196,7 +215,7 @@ export default function Sidenav({ open, onClose }) {
               <RiUser3Fill />
             )}
           </div>
-          <div style={{ overflow: 'hidden' }}>
+          <div style={{ overflow: 'hidden', flex: 1, minWidth: 0 }}>
             {user ? (
               <>
                 <p style={{ fontWeight: 700, fontSize: '0.9rem', margin: 0, textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap', color: 'var(--text)' }}>
@@ -210,6 +229,25 @@ export default function Sidenav({ open, onClose }) {
               <p style={{ color: 'var(--text-muted)', fontSize: '0.85rem', fontWeight: 500, margin: 0 }}>No has iniciado sesión</p>
             )}
           </div>
+
+          {/* Engrane → panel de Ajustes (borrar tus datos, etc.). Solo con
+              sesión: sin cuenta no hay datos propios que administrar. */}
+          {user && (
+            <button
+              onClick={() => ir('/ajustes')}
+              title="Ajustes"
+              aria-label="Ajustes"
+              className="util-btn"
+              style={{
+                width: 44, height: 44, flexShrink: 0,
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                background: 'transparent', border: 'none', borderRadius: 12,
+                color: 'var(--text-muted)', fontSize: '1.3rem', cursor: 'pointer',
+              }}
+            >
+              <HiOutlineCog6Tooth />
+            </button>
+          )}
         </div>
           
         <hr style={{ border: 'none', borderTop: '1px solid var(--surface2)', marginBottom: 16, opacity: 0.6 }} />
@@ -302,7 +340,7 @@ export default function Sidenav({ open, onClose }) {
             <span>Inventario</span>
           </button>
 
-          {/* Botón Mi Mascota */}
+          {/* Botón Mascotas */}
           <button
             type="button"
             onClick={() => ir('/mi-mascota')}
@@ -321,7 +359,7 @@ export default function Sidenav({ open, onClose }) {
             }}>
               <FaPaw />
             </span>
-            <span>Mi Mascota</span>
+            <span>Mascotas</span>
           </button>
 
           {/* Botón Tienda */}
@@ -538,6 +576,11 @@ export default function Sidenav({ open, onClose }) {
               )}
             </div>
           )}
+          {errorNotif && (
+            <p role="alert" style={{ margin: '-4px 4px 0', fontSize: '0.76rem', lineHeight: 1.4, color: 'var(--wrong)' }}>
+              {errorNotif}
+            </p>
+          )}
           {user ? (
             <button 
               onClick={cerrarSesion} 
@@ -563,9 +606,10 @@ export default function Sidenav({ open, onClose }) {
               Cerrar sesión
             </button>
           ) : (
-            <>
-              <button
-                onClick={() => ir('/login?modo=login')}
+            // Un solo acceso: el login por pasos ya ofrece "¿No tienes
+            // cuenta? Crea una" desde su primera pantalla.
+            <button
+                onClick={() => ir('/login')}
                 onMouseEnter={() => setHoveredBtn('login')}
                 onMouseLeave={() => setHoveredBtn(null)}
                 style={{
@@ -587,30 +631,6 @@ export default function Sidenav({ open, onClose }) {
               >
                 Iniciar sesión
               </button>
-              <button
-                onClick={() => ir('/login?modo=registro')}
-                onMouseEnter={() => setHoveredBtn('signup')}
-                onMouseLeave={() => setHoveredBtn(null)}
-                style={{
-                  background: hoveredBtn === 'signup' ? 'rgba(255,255,255,0.05)' : 'var(--surface2)',
-                  color: 'var(--text)',
-                  border: '1px solid rgba(255,255,255,0.05)',
-                  borderRadius: '12px',
-                  height: 44,
-                  padding: '0 12px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  fontWeight: 600,
-                  fontSize: '0.9rem',
-                  cursor: 'pointer',
-                  transition: 'all 0.2s ease',
-                  boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
-                }}
-              >
-                Registrarse
-              </button>
-            </>
           )}
         </div>
 

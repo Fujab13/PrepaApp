@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import Hexagono from '../components/Hexagono'
 import OpcionBtn from '../components/OpcionBtn'
+import LeccionSkeleton from '../components/skeletons/LeccionSkeleton'
 import TarjetaRepaso from '../components/TarjetaRepaso'
 import EscaneoRecompensa from '../components/EscaneoRecompensa'
 import Latex from '../components/Latex'
@@ -25,7 +26,7 @@ import { renderIconoMateria } from '../utils/renderIconoMateria';
 
 import { IoMdClose } from "react-icons/io";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
-import { AiOutlineClose, AiOutlineLoading3Quarters } from "react-icons/ai";
+import { AiOutlineClose } from "react-icons/ai";
 import { MdFullscreen, MdFullscreenExit, MdSkipNext, MdTimer } from "react-icons/md";
 import { VscDebugRestart } from "react-icons/vsc";
 import { MdRestartAlt } from "react-icons/md";
@@ -466,6 +467,7 @@ export default function Leccion() {
     : (idxActual !== null ? preguntas[idxActual] : null)
 
   if (cargando || cargandoProgreso || !colaLista || preguntas.length === 0 || !pregunta) {
+    if (!errorCarga) return <LeccionSkeleton color={materia?.color} icono={materia?.icono} />
     return (
       <div style={{
         display: 'flex',
@@ -477,31 +479,17 @@ export default function Leccion() {
         padding: '24px',
         textAlign: 'center',
       }}>
-        {errorCarga ? (
-          <>
-            <p style={{ color: 'var(--wrong)', fontSize: '0.9rem', margin: 0 }}>{errorCarga}</p>
-            <button
-              type="button"
-              onClick={() => navigate('/')}
-              style={{
-                minHeight: 44, padding: '0 20px', borderRadius: 12, border: 'none',
-                background: 'var(--surface2)', color: 'var(--text)', fontWeight: 700, cursor: 'pointer',
-              }}
-            >
-              Volver al inicio
-            </button>
-          </>
-        ) : (
-          <>
-            <AiOutlineLoading3Quarters
-              className="spin"
-              style={{ fontSize: '1.8rem', color: materia?.color || '#7c5cbf' }}
-            />
-            <p style={{ color: 'var(--text-muted)', fontSize: '0.85rem', margin: 0 }}>
-              Preparando tu lección…
-            </p>
-          </>
-        )}
+        <p style={{ color: 'var(--wrong)', fontSize: '0.9rem', margin: 0 }}>{errorCarga}</p>
+        <button
+          type="button"
+          onClick={() => navigate('/')}
+          style={{
+            minHeight: 44, padding: '0 20px', borderRadius: 12, border: 'none',
+            background: 'var(--surface2)', color: 'var(--text)', fontWeight: 700, cursor: 'pointer',
+          }}
+        >
+          Volver al inicio
+        </button>
       </div>
     )
   }

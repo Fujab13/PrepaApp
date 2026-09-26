@@ -21,7 +21,8 @@ import { useImpulsoActivo } from "../hooks/useImpulsoActivo";
 import MascotaCompanera from "../components/MascotaCompanera";
 import { convertirTextoParaVoz } from "../utils/latexAHabla";
 
-import { AiOutlineClose, AiOutlineLoading3Quarters } from "react-icons/ai";
+import { AiOutlineClose } from "react-icons/ai";
+import ExamenSkeleton from "../components/skeletons/ExamenSkeleton";
 import { IoIosArrowBack } from "react-icons/io";
 import { IoIosArrowForward } from "react-icons/io";
 import { HiOutlineSquares2X2 } from "react-icons/hi2";
@@ -176,7 +177,7 @@ export default function Examen() {
   const confirmarSalir = useCallback(() => {
     setConfirmacion({
       titulo: "Salir del examen",
-      mensaje: "Perderás todas tus respuestas: no se guarda nada hasta terminar el examen. ¿Salir de todas formas?",
+      mensaje: "Se perderán todas tus respuestas.",
       textoConfirmar: "Salir",
       colorConfirmar: "var(--wrong)",
       accion: () => navigate('/', { replace: true }),
@@ -449,6 +450,7 @@ export default function Examen() {
   // el cronómetro nunca se alcance a pintar en 0:00:00 por una fracción de
   // segundo antes del valor real. ──────
   if (cargandoExamen || errorExamen || !pregunta || tiempoGlobal === null) {
+    if (!errorExamen) return <ExamenSkeleton />
     return (
       <div style={{
         display: 'flex',
@@ -460,28 +462,17 @@ export default function Examen() {
         padding: '24px',
         textAlign: 'center',
       }}>
-        {errorExamen ? (
-          <>
-            <p style={{ color: 'var(--wrong)', fontSize: '0.9rem', margin: 0 }}>{errorExamen}</p>
-            <button
-              type="button"
-              onClick={() => navigate('/')}
-              style={{
-                minHeight: 44, padding: '0 20px', borderRadius: 12, border: 'none',
-                background: 'var(--surface2)', color: 'var(--text)', fontWeight: 700, cursor: 'pointer',
-              }}
-            >
-              Volver al inicio
-            </button>
-          </>
-        ) : (
-          <>
-            <AiOutlineLoading3Quarters className="spin" style={{ fontSize: '1.8rem', color: '#4f8ef7' }} />
-            <p style={{ color: 'var(--text-muted)', fontSize: '0.85rem', margin: 0 }}>
-              Preparando tu examen…
-            </p>
-          </>
-        )}
+        <p style={{ color: 'var(--wrong)', fontSize: '0.9rem', margin: 0 }}>{errorExamen}</p>
+        <button
+          type="button"
+          onClick={() => navigate('/')}
+          style={{
+            minHeight: 44, padding: '0 20px', borderRadius: 12, border: 'none',
+            background: 'var(--surface2)', color: 'var(--text)', fontWeight: 700, cursor: 'pointer',
+          }}
+        >
+          Volver al inicio
+        </button>
       </div>
     );
   }

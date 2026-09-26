@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { Skeleton } from './Skeleton'
 
 let pdfjsLib = null
 
@@ -97,9 +98,8 @@ export default function LibroCard({ libro, onClick }) {
         justifyContent: 'center',
         border: `2px solid ${libro.color}33`,
       }}>
-        {cargando && (
-          <span style={{ fontSize: '1.4rem' }}>📄</span>
-        )}
+        {/* Silueta de la portada mientras pdf.js la dibuja. */}
+        {cargando && <Skeleton width="100%" height="100%" radius={0} sutil />}
         {error && (
           <span style={{ fontSize: '1.4rem' }}>📄</span>
         )}

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import MarcaPrepaApp from '../components/MarcaPrepaApp'
 import { MATERIAS } from '../data/leccionesGratis'
 import { LIBROS } from '../data/libros'
 import { useProgreso } from '../hooks/useProgreso'
@@ -154,15 +155,7 @@ export default function Home() {
 
         </span>
 
-        <h1 style={{
-          fontSize: '1.4rem',
-          fontWeight: 500,
-          margin: 0,
-          color: 'var(--text)',
-          letterSpacing: '-0.01em'
-        }}>
-          Prepa<span style={{ fontWeight: 300, opacity: 0.6 }}>App</span>
-        </h1>
+        <MarcaPrepaApp as="h1" size="1.4rem" />
         <div className="page-topbar-actions">
           <button className="util-btn"
           title="Déjanos tu feedback"

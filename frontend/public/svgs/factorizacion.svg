@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <defs>
+    <!-- Gradiente sutil opcional para dar profundidad flat -->
+    <linearGradient id="purple-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8b68d4" />
+      <stop offset="100%" stop-color="#7c5cbf" />
+    </linearGradient>
+    <linearGradient id="cyan-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#22d3ee" />
+      <stop offset="100%" stop-color="#06b6d4" />
+    </linearGradient>
+  </defs>
+
+  <!-- Paréntesis izquierdos y derechos (Símbolo de factorización) -->
+  <g fill="none" stroke="#06b6d4" stroke-width="16" stroke-linecap="round">
+    <!-- Paréntesis Izquierdo -->
+    <path d="M 96 140 C 56 200, 56 312, 96 372" />
+    <!-- Paréntesis Derecho -->
+    <path d="M 416 140 C 456 200, 456 312, 416 372" />
+  </g>
+
+  <!-- Contenedor central: Bloques algebraicos descompuestos -->
+  <g transform="translate(0, 0)">
+    
+    <!-- Bloque Principal / Cuadrado x² (Morado) -->
+    <rect x="136" y="136" width="140" height="140" rx="20" fill="url(#purple-grad)" />
+    <!-- Detalle interno del bloque x² -->
+    <rect x="156" y="156" width="100" height="100" rx="12" fill="#f0f0f0" opacity="0.15" />
+
+    <!-- Bloque Rectangular ax (Cian - Superior Derecho) -->
+    <rect x="292" y="136" width="84" height="140" rx="16" fill="url(#cyan-grad)" />
+    <!-- Línea decorativa interna -->
+    <rect x="326" y="156" width="16" height="100" rx="8" fill="#f0f0f0" opacity="0.25" />
+
+    <!-- Bloque Rectangular bx (Cian - Inferior Izquierdo) -->
+    <rect x="136" y="292" width="140" height="84" rx="16" fill="url(#cyan-grad)" />
+    <!-- Línea decorativa interna -->
+    <rect x="156" y="326" width="100" height="16" rx="8" fill="#f0f0f0" opacity="0.25" />
+
+    <!-- Bloque Unidad ab (Rojo/Matemáticas - Inferior Derecho) -->
+    <rect x="292" y="292" width="84" height="84" rx="16" fill="#cf3b3b" />
+    <!-- Centro decorativo suave -->
+    <circle cx="334" cy="334" r="14" fill="#f0f0f0" opacity="0.3" />
+
+  </g>
+
+  <!-- Elementos flotantes de conexión / expansión (descomposición en factores) -->
+  <g fill="#7c5cbf">
+    <circle cx="284" cy="206" r="5" opacity="0.8" />
+    <circle cx="206" cy="284" r="5" opacity="0.8" />
+    <circle cx="284" cy="334" r="5" opacity="0.8" />
+    <circle cx="334" cy="284" r="5" opacity="0.8" />
+  </g>
+
+  <!-- Pequeños acentos brillantes neutros -->
+  <circle cx="112" cy="120" r="6" fill="#f0f0f0" opacity="0.6" />
+  <circle cx="400" cy="392" r="6" fill="#f0f0f0" opacity="0.6" />
+</svg>

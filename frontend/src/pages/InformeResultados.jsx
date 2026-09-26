@@ -30,6 +30,7 @@ import { MATERIAS } from "../data/leccionesGratis";
 import { getTotalUnidades } from "../data/unidades";
 import { inputStyle } from "../utils/tutorias";
 import { imprimirComoPdf, nombrePdf } from "../utils/imprimirPdf";
+import MarcaPrepaApp from "../components/MarcaPrepaApp";
 
 import { AiOutlineClose } from "react-icons/ai";
 import {
@@ -37,7 +38,8 @@ import {
   HiOutlineMagnifyingGlass, HiChevronDown, HiChevronUp, HiOutlineUserGroup,
   HiOutlineChartBar,
 } from "react-icons/hi2";
-import { GiJewelCrown, GiQueenCrown, GiWeightLiftingUp } from "react-icons/gi";
+import { GiJewelCrown, GiQueenCrown } from "react-icons/gi";
+import { MdOutlineSmsFailed } from "react-icons/md";
 import { CgCrown } from "react-icons/cg";
 import { ImTrophy } from "react-icons/im";
 import { SiBookstack } from "react-icons/si";
@@ -74,7 +76,7 @@ function nivelExamen(precision) {
   if (precision >= 80) return { texto: "B", color: "#a3e635", emoji: <CgCrown /> };
   if (precision >= 70) return { texto: "C", color: "#f59e0b", emoji: <ImTrophy /> };
   if (precision >= 60) return { texto: "D", color: "#f97316", emoji: <SiBookstack /> };
-  return { texto: "F", color: "#ef4444", emoji: <GiWeightLiftingUp /> };
+  return { texto: "F", color: "#ef4444", emoji: <MdOutlineSmsFailed /> };
 }
 
 function nivelPreparacion(autoevaluacion) {
@@ -520,8 +522,8 @@ function PaginaFormulario({ formulario, navigate }) {
       <Topbar titulo="Informe de preparación" onSalir={() => navigate("/")} onImprimir={imprimir} />
       <main className="page-content-compact" style={{ flex: 1, paddingBottom: 40 }}>
         <div style={{ textAlign: "center", marginBottom: 20 }}>
-          <p style={{ margin: 0, fontSize: 11, letterSpacing: "0.15em", textTransform: "uppercase", color: "#7c5cbf", fontWeight: 700 }}>PrepaApp</p>
-          <h1 style={{ margin: "4px 0 0", fontSize: 17, fontWeight: 800 }}>
+          <MarcaPrepaApp size={22} />
+          <h1 style={{ margin: "8px 0 0", fontSize: 17, fontWeight: 800 }}>
             Informe de {datos.nombre || "Preparación Universitaria"}
           </h1>
           <p style={{ margin: "6px 0 0", fontSize: 11, color: "var(--text-muted)" }}>Generado el {fmtFecha(datos.generadoEn)}</p>
@@ -531,7 +533,7 @@ function PaginaFormulario({ formulario, navigate }) {
           <button onClick={() => navigate("/")} className="gm-cta" style={{ flex: 1, minHeight: 44, borderRadius: 12, border: "0.5px solid var(--surface)", background: "var(--surface2)", color: "var(--text)", fontWeight: 600, fontSize: 14 }}>
             Volver al inicio
           </button>
-          <button onClick={imprimir} className="gm-cta" style={{ flex: 1, minHeight: 44, borderRadius: 12, border: "none", background: "linear-gradient(355deg, #7c5cbf, #ffffffbe)", color: "#000", fontWeight: 700, fontSize: 14, boxShadow: "0 6px 18px -6px #7c5cbf80" }}>
+          <button onClick={imprimir} className="gm-cta" style={{ flex: 1, minHeight: 44, borderRadius: 12, border: "none", background: "linear-gradient(355deg, #4f8ef7, #ffffffbe)", color: "#000", fontWeight: 700, fontSize: 14, boxShadow: "0 6px 18px -6px #4f8ef780" }}>
             Imprimir informe
           </button>
         </div>
@@ -552,9 +554,7 @@ function PaginaExamen({ examen, navigate }) {
       <Topbar titulo="Resultados del examen" onSalir={() => navigate("/")} onImprimir={imprimir} />
       <main className="page-content-compact" style={{ flex: 1, paddingBottom: 40 }}>
         <div style={{ textAlign: "center", marginBottom: 20 }}>
-          <p style={{ margin: 0, fontSize: 22, fontWeight: 500, letterSpacing: "-0.01em" }}>
-            <span style={{ color: "#4f8ef7" }}>Prepa</span><span style={{ fontWeight: 300, color: "var(--text-muted)" }}>App</span>
-          </p>
+          <MarcaPrepaApp size={22} />
           <h1 style={{ margin: "8px 0 0", fontSize: 17, fontWeight: 800 }}>
             Resultados de {nombre || "tu examen"}
           </h1>

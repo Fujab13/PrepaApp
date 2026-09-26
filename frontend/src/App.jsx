@@ -33,16 +33,23 @@ const PerfilProfesor = lazy(() => import('./pages/PerfilProfesor'));
 const Ofertas = lazy(() => import('./pages/Ofertas'));
 const PublicarOferta = lazy(() => import('./pages/PublicarOferta'));
 const OfertaConfirmada = lazy(() => import('./pages/OfertaConfirmada'));
+const Ajustes = lazy(() => import('./pages/Ajustes'));
+const AvisoPrivacidad = lazy(() => import('./pages/AvisoPrivacidad'));
 
+import PaginaSkeleton from './components/skeletons/PaginaSkeleton';
+import { PedirUsuarioPendiente } from './components/ElegirUsuarioDialog';
+import LeccionSkeleton from './components/skeletons/LeccionSkeleton';
+import LecturaSkeleton from './components/skeletons/LecturaSkeleton';
+import RankingSkeleton from './components/skeletons/RankingSkeleton';
+import ExamenSkeleton from './components/skeletons/ExamenSkeleton';
+import AjustesSkeleton from './components/skeletons/AjustesSkeleton';
+import LoginSkeleton from './components/skeletons/LoginSkeleton';
+import TiendaSkeleton from './components/skeletons/TiendaSkeleton';
+import SeleccionExamenSkeleton from './components/skeletons/SeleccionExamenSkeleton';
+import InventarioSkeleton from './components/skeletons/InventarioSkeleton';
+import MascotasSkeleton from './components/skeletons/MascotasSkeleton';
+import FormularioAreaSkeleton from './components/skeletons/FormularioAreaSkeleton';
 import { triggerVibration } from './utils/haptics';
-
-function CargandoRuta() {
-  return (
-    <div style={{ minHeight: '100dvh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--bg)' }}>
-      <p style={{ color: 'var(--text-muted)', fontSize: '0.85rem' }}>Cargando…</p>
-    </div>
-  );
-}
 
 export default function App() {
 
@@ -71,19 +78,23 @@ export default function App() {
     <AuthProvider>
       <StoreProvider>
       <MusicProvider>
-      <Suspense fallback={<CargandoRuta />}>
+      <Suspense fallback={<PaginaSkeleton />}>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/leccion/:materiaId" element={<Leccion />} />
-        <Route path="/lectura/:materiaId" element={<Lectura />} />
-        <Route path="/login" element={<Login />} />
+        {/* Suspense propio: mientras baja el código de la lección se ve ya
+            su skeleton, no el genérico (PaginaSkeleton). */}
+        <Route path="/leccion/:materiaId" element={<Suspense fallback={<LeccionSkeleton />}><Leccion /></Suspense>} />
+        <Route path="/lectura/:materiaId" element={<Suspense fallback={<LecturaSkeleton />}><Lectura /></Suspense>} />
+        <Route path="/login" element={<Suspense fallback={<LoginSkeleton />}><Login /></Suspense>} />
         <Route path="/actualizar-password" element={<ActualizarPassword />} />
-        <Route path="/tienda" element={<Store />} />
-        <Route path="/examen" element={<SeleccionExamen />} />
-        <Route path="/examen/:examenId" element={<Examen />} />
-        <Route path="/inventario" element={<Inventario />} />
-        <Route path="/mi-mascota" element={<Mascota />} />
-        <Route path="/formulario-area" element={<FormularioArea />} />
+        <Route path="/tienda" element={<Suspense fallback={<TiendaSkeleton />}><Store /></Suspense>} />
+        <Route path="/examen" element={<Suspense fallback={<SeleccionExamenSkeleton />}><SeleccionExamen /></Suspense>} />
+        <Route path="/examen/:examenId" element={<Suspense fallback={<ExamenSkeleton />}><Examen /></Suspense>} />
+        <Route path="/privacidad" element={<AvisoPrivacidad />} />
+        <Route path="/ajustes" element={<Suspense fallback={<AjustesSkeleton />}><Ajustes /></Suspense>} />
+        <Route path="/inventario" element={<Suspense fallback={<InventarioSkeleton />}><Inventario /></Suspense>} />
+        <Route path="/mi-mascota" element={<Suspense fallback={<MascotasSkeleton />}><Mascota /></Suspense>} />
+        <Route path="/formulario-area" element={<Suspense fallback={<FormularioAreaSkeleton />}><FormularioArea /></Suspense>} />
         <Route path="/informe-resultados" element={<InformeResultados />} />
         <Route path="/tutorias/maestro/alumnos" element={<AlumnosOfertas />} />
         <Route path="/tutorias/maestro/ganancias" element={<MisGanancias />} />
@@ -91,7 +102,7 @@ export default function App() {
         <Route path="/admin/maestros" element={<AdminMaestros />} />
         <Route path="/admin/reportes" element={<AdminReportes />} />
         <Route path="/admin/ofertas" element={<AdminOfertas />} />
-        <Route path="/tutorias" element={<Tutorias />} />
+        <Route path="/tutorias" element={<Suspense fallback={<RankingSkeleton />}><Tutorias /></Suspense>} />
         <Route path="/tutorias/alumno" element={<TutoriasAlumno />} />
         <Route path="/tutorias/maestro" element={<TutoriasMaestro />} />
         <Route path="/perfil-profesor/:profesorId" element={<PerfilProfesor />} />
@@ -100,6 +111,8 @@ export default function App() {
         <Route path="/oferta-confirmada" element={<OfertaConfirmada />} />
       </Routes>
       </Suspense>
+      {/* Pide elegir usuario a cuentas con uno genérico sin confirmar. */}
+      <PedirUsuarioPendiente />
       </MusicProvider>
       </StoreProvider>
     </AuthProvider>

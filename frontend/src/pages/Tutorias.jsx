@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { obtenerRankingSemanal, obtenerMiPosicionSemanal } from "../services/ranking";
 import { construirTableroConBots } from "../utils/bots";
 import { useAuth } from "../context/AuthContext";
+import { RankingSemanalSkeleton } from "../components/skeletons/RankingSkeleton";
 
 import { PiChalkboardTeacher } from "react-icons/pi";
 import { AiOutlineClose } from "react-icons/ai";
@@ -81,7 +82,7 @@ function ColumnaPodio({ fila }) {
 // sensación de movimiento/tráfico, nunca sacan a un alumno real del
 // tablero (construirTableroConBots lo garantiza).
 function RankingSemanal() {
-  const { user } = useAuth();
+  const { user, perfil } = useAuth();
   const [ranking, setRanking] = useState(null);
   const [miPosicion, setMiPosicion] = useState(null); // { puntos } | null
   const [error, setError] = useState("");
@@ -156,20 +157,16 @@ function RankingSemanal() {
             fontSize: 14, fontWeight: 800, color: "#e9c86a",
             maxWidth: "60%", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap",
           }}>
-            {/* Mismo criterio que obtener_ranking_semanal para el nombre
-                (split_part del email antes de la @) — obtener_mi_posicion_semanal
-                no lo trae, y el propio email ya está disponible en el
-                usuario logueado, así que no hace falta tocar el RPC. */}
-            {user.email?.split("@")[0] ?? "Tú"} · {miPosicion.puntos} pts
+            {/* Mismo nombre que muestra obtener_ranking_semanal: el usuario
+                público del perfil (perfiles.usuario), nunca el correo. */}
+            {perfil?.usuario ?? "Tú"} · {miPosicion.puntos} pts
           </span>
         </div>
       )}
 
       {error && <p style={{ fontSize: 13, color: "var(--wrong)", textAlign: "center", margin: 0 }}>{error}</p>}
 
-      {!error && ranking === null && (
-        <p style={{ fontSize: 13, color: "var(--text-muted)", textAlign: "center", margin: 0 }}>Cargando…</p>
-      )}
+      {!error && ranking === null && <RankingSemanalSkeleton />}
 
       {!error && ranking?.length === 0 && (
         <p style={{ fontSize: 13, color: "var(--text-muted)", textAlign: "center", margin: 0 }}>

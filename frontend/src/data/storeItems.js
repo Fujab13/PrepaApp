@@ -74,7 +74,7 @@ export const COIN_ITEMS = [
     categoria: 'Mascotas',
     icono: ICONOS_MASCOTA[m.id] || 'FaPaw',
     nombre: m.nombre,
-    descripcion: `Desbloquea a ${m.nombre} en Mi Mascota.`,
+    descripcion: `Desbloquea a ${m.nombre} en Mascotas.`,
     type: 'coins',
     priceCoins: m.precioCoins,
     mascotaId: m.id,

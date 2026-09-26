@@ -236,6 +236,51 @@ display: flex;
   color: var(--text-muted);
 }
 
+/* ── Login por pasos (pages/Login.jsx) ─────────────────────────────────────
+   Cada paso entra deslizándose desde el lado hacia el que se avanza
+   (.login-paso) o desde el contrario al regresar (.login-paso-atras). */
+.login-paso {
+  animation: login-entra 0.32s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+.login-paso-atras {
+  animation: login-entra-atras 0.32s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+@keyframes login-entra {
+  from { opacity: 0; transform: translateX(28px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes login-entra-atras {
+  from { opacity: 0; transform: translateX(-28px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+/* Elementos de un paso que aparecen en cascada (animation-delay en línea). */
+.login-cascada {
+  animation: gm-entrada 0.4s ease-out both;
+}
+
+/* Avatar hexagonal de la credencial (mismo hexágono con punta arriba que
+   Hexagono.jsx) y el brillo que la recorre al cambiar el usuario. */
+.login-hex {
+  clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%);
+}
+.login-credencial-brillo {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, transparent 35%, rgba(255, 255, 255, 0.10) 50%, transparent 65%);
+  transform: translateX(-100%);
+  animation: login-brillo 0.9s ease-out both;
+  pointer-events: none;
+}
+@keyframes login-brillo {
+  to { transform: translateX(100%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .login-paso, .login-paso-atras, .login-cascada { animation: none; }
+  .login-credencial-brillo { display: none; }
+}
+
 .opcion-btn {
   transition: transform 0.12s ease, border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
 }
@@ -292,6 +337,93 @@ display: flex;
 
 @keyframes spin {
   to { transform: rotate(360deg); }
+}
+
+/* Skeletons de carga (components/Skeleton.jsx). Todo sale de las
+   variables del tema, así que se adaptan solos a cualquier tema.
+
+   - .skeleton-pantalla: contenedor. Aparece con un fundido que arranca a
+     los 150 ms: si los datos llegan antes, el skeleton nunca se llega a ver
+     (evita el "parpadeo" en cargas rápidas).
+   - .skeleton: un bloque (--surface2 sobre el fondo de página).
+   - .skeleton-sutil: bloque ENCIMA de una tarjeta (fondo --surface2 o
+     degradado), donde el tono base no se distinguiría.
+   - .skeleton-tarjeta: silueta de un contenedor (opción, fila, tarjeta)
+     con el mismo fondo/borde que las tarjetas reales; no brilla, lo que
+     brilla son los bloques de adentro.
+
+   El brillo es una franja de ancho FIJO en px que avanza a la misma
+   velocidad en todos los bloques, así que, como casi todos empiezan en el
+   mismo margen izquierdo, se ve como una sola ola que cruza la pantalla
+   (con % cada bloque la cruzaría a su propio ritmo según su ancho). Anima
+   solo transform, que lo hace la GPU. */
+.skeleton-pantalla {
+  animation: skeleton-aparecer 0.3s ease-out 0.15s both;
+}
+
+@keyframes skeleton-aparecer {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.skeleton {
+  display: block;
+  position: relative;
+  overflow: hidden;
+  background: var(--surface2);
+  border-radius: 6px;
+  flex-shrink: 0;
+}
+
+.skeleton-sutil {
+  background: var(--overlay-sutil);
+}
+
+.skeleton::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 160px;
+  background: linear-gradient(90deg, transparent, var(--overlay-sutil), transparent);
+  transform: translateX(-160px);
+  animation: skeleton-brillo 1.8s ease-in-out infinite;
+}
+
+/* 0–65%: la franja cruza; 65–100%: pausa antes de la siguiente pasada. */
+@keyframes skeleton-brillo {
+  65%, 100% { transform: translateX(100vw); }
+}
+
+.skeleton-tarjeta {
+  background: linear-gradient(180deg, var(--surface2), var(--surface));
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  box-sizing: border-box;
+}
+
+/* Entrada escalonada para listas dentro de un skeleton (ej. las opciones
+   de LeccionSkeleton): cada elemento pone su propio animation-delay. */
+.skeleton-entrada {
+  animation: gm-entrada 0.35s ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skeleton-pantalla,
+  .skeleton-entrada { animation: none; }
+  .skeleton::after { animation: none; display: none; }
+}
+
+/* Solo para lectores de pantalla: el skeleton es decorativo (aria-hidden),
+   esto es lo que se anuncia en su lugar. */
+.solo-lector {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
 }
 
 /* Anillo pulsante detrás de un ícono, para tarjetas de "esperando algo"
@@ -497,6 +629,11 @@ display: flex;
   .no-print { display: none !important; }
   body, #root { background: #ffffff; display: block; max-width: none; }
   .informe-print {
+    /* Sin esto el navegador descarta al imprimir los fondos de color
+       (barras de avance, insignias, el anillo de nivel) y el informe sale
+       "deslavado"; con exact se imprimen tal cual. */
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
     --bg: #ffffff;
     --surface: #ffffff;
     --surface2: #e5e7eb;

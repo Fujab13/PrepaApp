@@ -3,15 +3,21 @@
 // que el aspirante desea aplicar, su grado de preparatoria, una autoevaluación
 // (NO es un examen de admisión) y preferencias de estudio.
 // Navega a: /informe (con state completo) → ver Informe.jsx
+// Con sesión, al entrar se precargan las respuestas del último formulario
+// guardado; "Generar informe" guarda uno nuevo con lo que haya en pantalla.
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { supabase } from "../services/supabaseClient";
 import { FilaChips } from "../components/FilaChips";
+import CasillaConsentimiento from "../components/CasillaConsentimiento";
+import { VERSION_AVISO } from "../data/avisoPrivacidad";
 import { Seccion } from "../components/Seccion";
 import ConfirmDialog from "../components/ConfirmDialog";
 import { useConfirmarSalida } from "../hooks/useConfirmarSalida";
+import { obtenerUltimoFormulario } from "../services/misDatos";
+import FormularioAreaSkeleton from "../components/skeletons/FormularioAreaSkeleton";
 
 import { AiOutlineClose } from "react-icons/ai";
 import { FaUserGraduate } from "react-icons/fa";
@@ -67,31 +73,14 @@ const DECISION_CARRERA = ["Sí, ya la sé", "Tengo dudas", "No, aún no"];
 // Acento de color arriba de cada tarjeta de sección — un guiño visual a que
 // el formulario tiene varios bloques distintos, sin tocar Seccion.jsx (se
 // reusa en Tutorías y no queremos que ese acento aparezca ahí también).
-// `position: relative` es lo que le da a tituloPaso() un ancla para anclar
-// el numeral en la esquina superior derecha DE LA TARJETA (no del título).
-const acento = (color) => ({ borderTop: `2.5px solid ${color}`, position: "relative" });
-
-// Numeral en la esquina superior derecha de cada tarjeta: refuerza que el
-// formulario es una secuencia de pasos (6 en total), no una lista de
-// tarjetas sueltas. Se pasa como `title` de Seccion (acepta cualquier nodo,
-// no solo string) — el <span> con position:absolute "escapa" del <p> donde
-// vive y se ancla contra el <div class="sp-card"> gracias al position:relative
-// de acento() de arriba, así que no tapa el ícono ni el texto del título.
-function tituloPaso(n, texto, color) {
-  return (
-    <>
-      <span style={{
-        position: "absolute", top: 10, right: 12,
-        width: 20, height: 20, borderRadius: "50%", fontSize: 10.5, fontWeight: 800,
-        display: "inline-flex", alignItems: "center", justifyContent: "center",
-        background: `${color}22`, color,
-      }}>
-        {n}
-      </span>
-      {texto}
-    </>
-  );
-}
+// Encabezado compacto: menos aire arriba del ícono+título (paddingTop) y
+// entre éste y el contenido (gap de .sp-card, que se suma al marginTop de
+// 14 que ya pone Seccion). Ícono y título conservan su tamaño.
+const acento = (color) => ({
+  borderTop: `2.5px solid ${color}`,
+  paddingTop: 10,
+  gap: 4,
+});
 
 // ── Estilos compartidos ───────────────────────────────────────────────────
 const inputStyle = {
@@ -152,7 +141,7 @@ function Escala({ label, valor, onChange, color }) {
 // ═══════════════════════════════════════════════════════════════════════════
 export default function FormularioArea() {
   const navigate = useNavigate();
-  const { user } = useAuth();
+  const { user, cargando: cargandoAuth } = useAuth();
 
   const [nombre, setNombre] = useState("");
   const [edad, setEdad] = useState("");
@@ -174,9 +163,56 @@ export default function FormularioArea() {
   const [tutorTelefono, setTutorTelefono] = useState("");
 
   const [error, setError] = useState("");
+  // Aceptación del Aviso de privacidad (con autorización de madre/padre/
+  // tutor si es menor): obligatoria para generar el informe.
+  const [aceptaAviso, setAceptaAviso] = useState(false);
+  const [resaltarAviso, setResaltarAviso] = useState(false);
   const [confirmacion, setConfirmacion] = useState(null);
 
+  // Último formulario guardado: `cargandoPrevio` muestra el skeleton mientras
+  // llega; `fechaPrevia` alimenta el aviso de arriba; `guardadoRef` es la
+  // foto de lo precargado, para avisar al salir solo si hubo CAMBIOS.
+  const [cargandoPrevio, setCargandoPrevio] = useState(true);
+  const [fechaPrevia, setFechaPrevia] = useState(null);
+  const guardadoRef = useRef(null);
+
   const setNivel = (id, n) => setAutoevaluacion((prev) => ({ ...prev, [id]: n }));
+
+  useEffect(() => {
+    if (cargandoAuth) return;
+    if (!user) { setCargandoPrevio(false); return; }
+    let cancelado = false;
+    obtenerUltimoFormulario(user.id)
+      .then((f) => {
+        if (cancelado) return;
+        if (!f) {
+          setEmail((e) => e || user.email || "");
+          return;
+        }
+        const pref = f.preferencias || {};
+        const valores = {
+          nombre: f.nombre ?? "", edad: String(f.edad ?? ""), email: f.email_contacto || user.email || "",
+          telefono: f.telefono ?? "", grado: f.grado ?? "", areaInteres: f.area_interes ?? "",
+          carreraInteres: f.carrera_interes ?? "", autoevaluacion: f.autoevaluacion || {},
+          horasEstudio: f.horas_estudio ?? "", horarioPreferido: pref.horarioPreferido ?? "",
+          modalidadPreferida: pref.modalidadPreferida ?? "", decisionCarrera: pref.decisionCarrera ?? "",
+          tutorNombre: f.tutor_nombre ?? "", tutorTelefono: f.tutor_telefono ?? "",
+        };
+        setNombre(valores.nombre); setEdad(valores.edad); setEmail(valores.email);
+        setTelefono(valores.telefono); setGrado(valores.grado); setAreaInteres(valores.areaInteres);
+        setCarreraInteres(valores.carreraInteres); setAutoevaluacion(valores.autoevaluacion);
+        setHorasEstudio(valores.horasEstudio); setHorarioPreferido(valores.horarioPreferido);
+        setModalidadPreferida(valores.modalidadPreferida); setDecisionCarrera(valores.decisionCarrera);
+        setTutorNombre(valores.tutorNombre); setTutorTelefono(valores.tutorTelefono);
+        guardadoRef.current = JSON.stringify(valores);
+        setFechaPrevia(f.creado_en);
+        // Si ya aceptó ESTA misma versión del aviso, no se le vuelve a pedir.
+        if (f.aviso_privacidad_version === VERSION_AVISO) setAceptaAviso(true);
+      })
+      .catch((e) => console.error("No se pudo cargar tu último formulario:", e?.message))
+      .finally(() => { if (!cancelado) setCargandoPrevio(false); });
+    return () => { cancelado = true; };
+  }, [cargandoAuth, user]);
 
   // Barra de progreso: solo cuenta los campos que de verdad indican avance
   // (no los opcionales como edad/teléfono/carrera) para que no se sienta
@@ -191,12 +227,19 @@ export default function FormularioArea() {
 
   // Solo avisa si ya hay algo que perder (no molesta si el alumno abre el
   // formulario y se arrepiente de inmediato, sin haber tocado nada).
-  const hayDatosSinGuardar = Boolean(
-    nombre.trim() || edad.trim() || telefono.trim() || grado || areaInteres ||
-    carreraInteres.trim() || Object.keys(autoevaluacion).length > 0 ||
-    horasEstudio || horarioPreferido || modalidadPreferida || decisionCarrera ||
-    tutorNombre.trim() || tutorTelefono.trim()
-  );
+  // Con respuestas precargadas, "sin guardar" = distinto de lo precargado.
+  const valoresActuales = JSON.stringify({
+    nombre, edad, email, telefono, grado, areaInteres, carreraInteres, autoevaluacion,
+    horasEstudio, horarioPreferido, modalidadPreferida, decisionCarrera, tutorNombre, tutorTelefono,
+  });
+  const hayDatosSinGuardar = guardadoRef.current !== null
+    ? valoresActuales !== guardadoRef.current
+    : Boolean(
+      nombre.trim() || edad.trim() || telefono.trim() || grado || areaInteres ||
+      carreraInteres.trim() || Object.keys(autoevaluacion).length > 0 ||
+      horasEstudio || horarioPreferido || modalidadPreferida || decisionCarrera ||
+      tutorNombre.trim() || tutorTelefono.trim()
+    );
 
   // Salir a medio llenar (botón "X" o Atrás del navegador) pierde todo:
   // nada se guarda hasta enviar el formulario. `replace: true` sobreescribe
@@ -206,7 +249,7 @@ export default function FormularioArea() {
     if (!hayDatosSinGuardar) return navigate('/');
     setConfirmacion({
       titulo: "Salir del formulario",
-      mensaje: "Perderás los datos que ya llenaste: no se guarda nada hasta enviarlo. ¿Salir de todas formas?",
+      mensaje: "Se perderán tus cambios sin guardar.",
       textoConfirmar: "Salir",
       colorConfirmar: "var(--wrong)",
       accion: () => navigate('/', { replace: true }),
@@ -224,6 +267,10 @@ export default function FormularioArea() {
     if (!nombre.trim()) return mostrarError("Escribe tu nombre para generar el informe.");
     if (!grado) return mostrarError("Selecciona tu grado de preparatoria.");
     if (!areaInteres) return mostrarError("Selecciona el área a la que deseas aplicar.");
+    if (!aceptaAviso) {
+      setResaltarAviso(true);
+      return mostrarError("Acepta el aviso de privacidad.");
+    }
     setError("");
 
     // Se persiste en Supabase (solo si hay sesión) para que /tutorias pueda
@@ -249,6 +296,8 @@ export default function FormularioArea() {
         preferencias: { horarioPreferido, modalidadPreferida, decisionCarrera },
         tutor_nombre: tutorNombre.trim(),
         tutor_telefono: tutorTelefono.trim(),
+        aviso_privacidad_version: VERSION_AVISO,
+        aviso_privacidad_aceptado_en: new Date().toISOString(),
       });
       if (errorInsert) console.error("No se pudo guardar el formulario de área:", errorInsert.message);
     }
@@ -272,6 +321,8 @@ export default function FormularioArea() {
     });
   }
 
+  if (cargandoPrevio) return <FormularioAreaSkeleton />;
+
   return (
     <div style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
       {/* ── BARRA SUPERIOR ── */}
@@ -279,9 +330,7 @@ export default function FormularioArea() {
         <button onClick={confirmarSalir} title="Salir" className="page-topbar-btn">
           <AiOutlineClose />
         </button>
-        <h2 className="page-topbar-title" style={{ fontSize: "1rem" }}>Formulario Área</h2>
-        <span style={{ fontSize: 11.5, fontWeight: 700, color: "var(--text-muted)" }}>{progreso}%</span>
-        <div style={{ width: "100%", height: 3, borderRadius: 999, background: "var(--surface2)", overflow: "hidden" }}>
+        <h2 className="page-topbar-title" style={{ fontSize: "1rem" }}>Formulario Área</h2>        <div style={{ width: "100%", height: 3, borderRadius: 999, background: "var(--surface2)", overflow: "hidden" }}>
           <div
             style={{
               width: `${progreso}%`, height: "100%", borderRadius: 999,
@@ -299,7 +348,13 @@ export default function FormularioArea() {
         style={{ flex: 1, paddingBottom: "45vh", display: "flex", flexDirection: "column", gap: 16 }}
       >
 
-        <Seccion icono={<HiOutlineUser />} color="#4f8ef7" title={tituloPaso(1, "Datos personales", "#4f8ef7")} style={acento("#4f8ef7")}>
+        {fechaPrevia && (
+          <p style={{ margin: 0, fontSize: 12.5, color: "var(--text-muted)", textAlign: "center" }}>
+            Tus respuestas del {new Date(fechaPrevia).toLocaleDateString("es-MX", { day: "numeric", month: "long", year: "numeric" })}
+          </p>
+        )}
+
+        <Seccion icono={<HiOutlineUser />} color="#4f8ef7" title="Datos personales" style={acento("#4f8ef7")}>
           <input style={inputStyle} placeholder="Nombre completo *" value={nombre} onChange={(e) => setNombre(e.target.value)} />
           <div style={{ display: "flex", gap: 10 }}>
             <input style={inputStyle} placeholder="Edad" type="number" min="10" max="99" value={edad} onChange={(e) => setEdad(e.target.value)} />
@@ -308,11 +363,11 @@ export default function FormularioArea() {
           <input style={inputStyle} placeholder="Correo de contacto" type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
         </Seccion>
 
-        <Seccion icono={<FaUserGraduate />} color="#7c5cbf" title={tituloPaso(2, "Grado de preparatoria", "#7c5cbf")} style={acento("#7c5cbf")}>
+        <Seccion icono={<FaUserGraduate />} color="#7c5cbf" title="Grado de preparatoria" style={acento("#7c5cbf")}>
           <FilaChips opciones={GRADOS} valor={grado} onChange={setGrado} color="#7c5cbf" />
         </Seccion>
 
-        <Seccion icono={<HiOutlineFlag />} color="#f59e0b" title={tituloPaso(3, "Área a la que deseas aplicar", "#f59e0b")} style={acento("#f59e0b")}>
+        <Seccion icono={<HiOutlineFlag />} color="#f59e0b" title="Área a la que deseas aplicar" style={acento("#f59e0b")}>
           <FilaChips opciones={AREAS_INTERES} valor={areaInteres} onChange={setAreaInteres} color="#f59e0b" />
           <input
             style={inputStyle}
@@ -322,7 +377,7 @@ export default function FormularioArea() {
           />
         </Seccion>
 
-        <Seccion icono={<HiOutlineChartBarSquare />} color="#22c55e" title={tituloPaso(4, "Autoevaluación", "#22c55e")} subtitle="Del 1 al 5, ¿qué tan preparado te sientes en cada área? Sé honesto, no hay respuestas incorrectas." style={acento("#22c55e")}>
+        <Seccion icono={<HiOutlineChartBarSquare />} color="#22c55e" title="Autoevaluación" style={acento("#22c55e")}>
           {CATEGORIAS_AUTOEVALUACION.map((cat) => (
             <Escala key={cat.id} label={cat.label} valor={autoevaluacion[cat.id]} onChange={(n) => setNivel(cat.id, n)} color="#22c55e" />
           ))}
@@ -332,7 +387,7 @@ export default function FormularioArea() {
           </div>
         </Seccion>
 
-        <Seccion icono={<HiOutlineAdjustmentsHorizontal />} color="#ec4899" title={tituloPaso(5, "Preferencias de estudio", "#ec4899")} style={acento("#ec4899")}>
+        <Seccion icono={<HiOutlineAdjustmentsHorizontal />} color="#ec4899" title="Preferencias de estudio" style={acento("#ec4899")}>
           <div>
             <p style={{ fontSize: 13, color: "var(--text-muted)", marginBottom: 8 }}>Horario en el que estudias mejor</p>
             <FilaChips opciones={HORARIOS} valor={horarioPreferido} onChange={setHorarioPreferido} color="#ec4899" />
@@ -347,10 +402,16 @@ export default function FormularioArea() {
           </div>
         </Seccion>
 
-        <Seccion icono={<HiOutlineUserGroup />} color="#06b6d4" title={tituloPaso(6, "Tutor o responsable", "#06b6d4")} subtitle="Opcional: nombre y contacto de un padre, madre o tutor." style={acento("#06b6d4")}>
+        <Seccion icono={<HiOutlineUserGroup />} color="#06b6d4" title="Tutor o responsable" style={acento("#06b6d4")}>
           <input style={inputStyle} placeholder="Nombre del tutor o responsable" value={tutorNombre} onChange={(e) => setTutorNombre(e.target.value)} />
           <input style={inputStyle} placeholder="Teléfono de contacto" type="tel" value={tutorTelefono} onChange={(e) => setTutorTelefono(e.target.value)} />
         </Seccion>
+
+        <CasillaConsentimiento
+          aceptado={aceptaAviso}
+          onChange={(v) => { setAceptaAviso(v); if (v) setResaltarAviso(false); }}
+          resaltar={resaltarAviso}
+        />
 
       </main>
 

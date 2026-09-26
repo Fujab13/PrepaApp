@@ -5,7 +5,9 @@
 export function Seccion({ icono, color, title, subtitle, children, style, badge }) {
   return (
     <div className="sp-card" style={style}>
-      <div className="sp-card-header">
+      {/* Sin subtítulo, el título se centra verticalmente con el ícono en vez
+          de quedar pegado arriba (el hueco que dejaría la descripción). */}
+      <div className="sp-card-header" style={subtitle ? undefined : { alignItems: "center" }}>
         <div className="sp-card-icon" style={{ background: `${color}22`, color, position: "relative" }}>
           {icono}
           {badge > 0 && (

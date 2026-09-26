@@ -5,9 +5,8 @@ import { useAuth } from '../context/AuthContext'
 
 import { supabase } from '../services/supabaseClient'
 
-import { MdToken, MdWorkspacePremium } from 'react-icons/md'
-import { HiOutlineRectangleStack, HiOutlineSparkles, HiOutlineSwatch, HiCheckCircle, HiOutlineShoppingBag } from 'react-icons/hi2'
-import { FaPaw } from 'react-icons/fa'
+import { MdToken } from 'react-icons/md'
+import { HiCheckCircle, HiOutlineShoppingBag } from 'react-icons/hi2'
 import { AiOutlineClose } from "react-icons/ai";
 import { PiShoppingCartSimpleFill } from "react-icons/pi";
 import { BiSolidCoin } from "react-icons/bi";
@@ -15,19 +14,14 @@ import { PiHexagonDuotone  } from "react-icons/pi";
 import { renderIconoMateria } from '../utils/renderIconoMateria'
 import { MASCOTAS, paletaSilueta, tamanoCeldaPixelArt } from '../data/mascotas'
 import PixelArt from '../components/PixelArt'
+import { ProductosPremiumSkeleton } from '../components/skeletons/TiendaSkeleton'
 
 // Referencia estable (ver PixelArt.jsx: memo) — un objeto literal inline en
 // el JSX de abajo se recrearía en cada render y anularía la memoización.
 const ESTILO_SPRITE_TIENDA = { maxWidth: '100%', height: 'auto', color: 'var(--text-muted)' }
 
-const CATEGORIA_ESTILO = {
-  'Práctica extra': { Icon: HiOutlineRectangleStack, tinte: '96, 165, 250' },
-  'Suscripción': { Icon: MdWorkspacePremium, tinte: '167, 139, 250' },
-  'Personalización': { Icon: HiOutlineSwatch, tinte: '96, 165, 250' },
-  'Mascotas': { Icon: FaPaw, tinte: '251, 146, 60' },
-}
-const ESTILO_DEFAULT = { Icon: HiOutlineSparkles, tinte: '148, 163, 184' }
-
+// Los encabezados de categoría son solo texto, sin icono — también para
+// categorías nuevas que se agreguen a futuro.
 // Rediseño: lo que se paga con dinero real va primero (ver categorias más
 // abajo) — una categoría que no aparezca aquí simplemente cae al final, en
 // el orden en que Set la haya recogido.
@@ -407,15 +401,9 @@ export default function Store() {
 
       <div className="page-content-compact" style={{ paddingTop: 20, paddingBottom: 28, display: 'flex', flexDirection: 'column', gap: '28px', flex: 1 }}>
 
-        {productosLoading && (
-          <p style={{ color: 'var(--text-muted)', fontSize: '0.8rem', textAlign: 'center' }}>
-            Cargando tienda…
-          </p>
-        )}
+        {productosLoading && <ProductosPremiumSkeleton />}
 
         {categorias.map(categoria => {
-          const { Icon, tinte } = CATEGORIA_ESTILO[categoria] || ESTILO_DEFAULT
-
           return (
             <div key={categoria} style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
               {categoria === primeraCategoriaMonedas && (
@@ -429,29 +417,16 @@ export default function Store() {
                   <span style={{ flex: 1, height: 1, background: 'var(--border)' }} />
                 </div>
               )}
-              <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                <span style={{
-                  width: 22, height: 22,
-                  borderRadius: '7px',
-                  background: `rgba(${tinte}, 0.18)`,
-                  color: `rgb(${tinte})`,
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  fontSize: '0.85rem',
-                  flexShrink: 0
-                }}>
-                  <Icon />
-                </span>
-                <p style={{
-                  color: 'var(--text-muted)',
-                  fontSize: '0.72rem',
-                  fontWeight: 700,
-                  textTransform: 'uppercase',
-                  letterSpacing: '1.3px',
-                  margin: 0
-                }}>
-                  {categoria}
-                </p>
-              </div>
+              <p style={{
+                color: 'var(--text-muted)',
+                fontSize: '0.72rem',
+                fontWeight: 700,
+                textTransform: 'uppercase',
+                letterSpacing: '1.3px',
+                margin: 0
+              }}>
+                {categoria}
+              </p>
 
               {categoria === 'Mascotas' ? (
                 <>

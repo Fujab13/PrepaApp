@@ -473,7 +473,7 @@ export default function Mascota() {
         <button onClick={() => navigate(-1)} className="page-topbar-btn" title="Salir">
           <AiOutlineClose />
         </button>
-        <h1 className="page-topbar-title">Mi Mascota</h1>
+        <h1 className="page-topbar-title">Mascotas</h1>
         <div className="fondo-sutil" style={{
           marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: 6,
           padding: '6px 12px', borderRadius: 999,
@@ -672,12 +672,14 @@ export default function Mascota() {
               boxShadow: comida < propias.length ? 'none' : '0 6px 18px -6px #7c5cbf80',
             }}
           >
-            <FaHamburger /> Alimentar a todos
+            Alimentar a todos
+            {/* Lo que CUESTA (1 de comida por mascota propia, ver
+                alimentarATodos) — el saldo ya se ve en la barra superior. */}
             <span className="fondo-sutil" style={{
               padding: '2px 8px', borderRadius: 999, fontSize: 12,
               background: comida < propias.length ? undefined : 'rgba(255, 255, 255, 0.22)',
             }}>
-              {comida}
+              -{propias.length}
             </span>
           </button>
         )}

@@ -6,12 +6,15 @@
 // TODO lo que esta app mande por push):
 //   1. notificarNuevoAlumno: al maestro, cuando un alumno paga un cupo en su
 //      oferta (ver stripe-webhook / verificar-pago-oferta-maestro).
-//   2. enviarRecordatoriosEstudio: recordatorio genérico de estudio cada ~3
-//      días a cualquier suscrito (ver edge function recordatorio-estudio,
-//      disparada por un cron de Postgres — migración 20260918140000).
-//   3. enviarConfirmacionActivacion: un solo push inmediato al activar (o
-//      reactivar) las notificaciones, de feedback de que sí funcionan (ver
-//      edge function confirmar-notificaciones-push).
+//   2. enviarRecordatoriosEstudio: recordatorio de estudio con la
+//      frecuencia y hora que cada alumno eligió en Ajustes (ver edge function
+//      recordatorio-estudio, cron de Postgres cada hora — migración
+//      20260926200000).
+//   3. enviarConfirmacionActivacion: push de confirmación al activar. YA NO
+//      lo usa el frontend (desde 2026-09-26 la confirmación la muestra el
+//      propio navegador al instante, ver src/services/pushNotifications.js);
+//      se conserva por si se quiere volver a usar la edge function
+//      confirmar-notificaciones-push.
 //
 // VAPID_PRIVATE_KEY/VAPID_PUBLIC_KEY/VAPID_SUBJECT son las variables de
 // entorno del edge function (nunca del frontend); VITE_VAPID_PUBLIC_KEY en
@@ -135,11 +138,11 @@ export async function notificarNuevoAlumno(supabaseAdmin: any, transaccionId: st
 // texto plano. Varios para que no se sienta el mismo mensaje repetido cada
 // 3 días; se elige uno al azar por envío, no rotan en orden fijo.
 const MENSAJES_RECORDATORIO_ESTUDIO = [
-  "Han pasado unos días desde tu ultima sesion de estudio. Retomalo cuando puedas.",
+  "Es buen momento para retomar tu estudio. Unos minutos hoy ya suman.",
   "Un recordatorio rapido: sigue avanzando en tus lecciones de PrepaApp.",
   "Tu progreso te espera. Dedica unos minutos hoy a repasar una leccion.",
   "La constancia rinde mas que la intensidad. Unos minutos de estudio hoy ya suman.",
-  "No has entrado a estudiar en unos dias. Un repaso corto ahora te ayuda despues.",
+  "Un repaso corto ahora te ayuda despues. Entra y sigue donde te quedaste.",
 ];
 
 function elegirMensajeRecordatorio(): string {

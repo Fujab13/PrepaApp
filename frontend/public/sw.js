@@ -1,10 +1,11 @@
 // sw.js
 // Service worker mínimo: solo existe para recibir Web Push (no cachea nada,
 // no hay soporte offline — eso no se pidió). Se registra desde
-// src/services/pushNotifications.js. Ver supabase/functions/_shared/
-// pushNotifications.ts para quién envía el push (nuevo alumno inscrito en
-// una oferta de tutoría) y src/pages/TutoriasMaestro.jsx para el botón que
-// activa/desactiva la suscripción.
+// src/services/pushNotifications.js, que también lo usa para mostrar al
+// instante la notificación de "activadas". Quién manda push: ver
+// supabase/functions/_shared/pushNotifications.ts (recordatorios de estudio,
+// alumno nuevo del maestro). Se activan/desactivan desde la campanita del
+// Sidenav, Ajustes y TutoriasMaestro.jsx.
 
 self.addEventListener("install", () => {
   self.skipWaiting();
@@ -43,7 +44,9 @@ self.addEventListener("notificationclick", (event) => {
     self.clients.matchAll({ type: "window", includeUncontrolled: true }).then((clientList) => {
       for (const client of clientList) {
         if ("focus" in client) {
-          client.navigate(url);
+          // navigate() falla en pestañas que este SW no controla: no debe
+          // impedir que al menos se enfoque la app.
+          if ("navigate" in client) client.navigate(url).catch(() => {});
           return client.focus();
         }
       }

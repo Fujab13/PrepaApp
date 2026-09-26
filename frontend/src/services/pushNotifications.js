@@ -1,8 +1,11 @@
 // services/pushNotifications.js
 // Activa/desactiva las notificaciones push del navegador (Push API +
-// Service Worker en public/sw.js) para el usuario en sesión. Hoy solo las
-// usa el maestro en TutoriasMaestro.jsx (aviso de alumno nuevo inscrito),
-// pero no hay nada específico de ese caso aquí — es genérico por diseño.
+// Service Worker en public/sw.js) para el usuario en sesión: campanita del
+// Sidenav y Ajustes (recordatorios de estudio) y TutoriasMaestro.jsx (aviso
+// de alumno nuevo). Genérico por diseño.
+//
+// Preferencias de los recordatorios (frecuencia y hora local): tabla
+// preferencias_recordatorio, migración 20260926200000.
 import { supabase } from './supabaseClient';
 
 const VAPID_PUBLIC_KEY = import.meta.env.VITE_VAPID_PUBLIC_KEY;
@@ -24,6 +27,22 @@ export function notificacionesSoportadas() {
     'Notification' in window &&
     Boolean(VAPID_PUBLIC_KEY)
   );
+}
+
+// 'granted' | 'denied' | 'default' | 'no_soportado'. Con 'denied' el
+// navegador ya NO vuelve a preguntar: hay que desbloquearlo en la
+// configuración del sitio, y la UI debe decirlo.
+export function estadoPermiso() {
+  if (!notificacionesSoportadas()) return 'no_soportado';
+  return Notification.permission;
+}
+
+// Mensaje corto para mostrar cuando activar falla.
+export function mensajeErrorNotificaciones(err) {
+  if (err?.message === 'permiso_denegado') return 'Permite las notificaciones en tu navegador.';
+  if (err?.message === 'permiso_bloqueado') return 'Desbloquéalas en la configuración del sitio.';
+  if (err?.message === 'no_soportado') return 'Tu navegador no las permite.';
+  return 'No se pudieron activar. Intenta de nuevo.';
 }
 
 /**
@@ -48,6 +67,10 @@ export async function activarNotificaciones() {
     throw new Error('no_soportado');
   }
 
+  // Bloqueado de antes: requestPermission() ni siquiera mostraría el aviso.
+  if (Notification.permission === 'denied') {
+    throw new Error('permiso_bloqueado');
+  }
   const permiso = await Notification.requestPermission();
   if (permiso !== 'granted') {
     throw new Error('permiso_denegado');
@@ -72,30 +95,56 @@ export async function activarNotificaciones() {
   });
   if (error) throw error;
 
-  // Push de confirmación inmediato (edge function
-  // confirmar-notificaciones-push): feedback de que ya están funcionando,
-  // en vez de esperar hasta 3 días al primer recordatorio de estudio. Nunca
-  // bloquea la activación — si falla, el usuario ya quedó suscrito igual.
-  mandarConfirmacionActivacion(json.endpoint);
+  // Preferencias de recordatorio con la hora ACTUAL del alumno si aún no
+  // tiene (si ya las había ajustado, la RPC no las toca).
+  await supabase.rpc('asegurar_preferencias_recordatorio', {
+    p_hora: new Date().getHours(),
+    p_zona: zonaHorariaLocal(),
+  }).then(({ error: e }) => { if (e) console.error('[pushNotifications] Preferencias:', e.message); });
+
+  // Primera notificación = la confirmación, mostrada por el PROPIO navegador
+  // al instante (antes la mandaba el servidor y podía tardar o no llegar).
+  mostrarConfirmacion(registro);
 
   return suscripcion;
 }
 
-async function mandarConfirmacionActivacion(endpoint) {
+function mostrarConfirmacion(registro) {
+  registro.showNotification('Notificaciones activadas', {
+    body: 'Así te recordaremos estudiar. Ajusta cuándo en Ajustes.',
+    icon: '/logo.png',
+    badge: '/logo.png',
+    data: { url: '/ajustes' },
+  }).catch((err) => console.error('[pushNotifications] No se pudo mostrar la confirmación:', err));
+}
+
+export function zonaHorariaLocal() {
   try {
-    const { data: { session } } = await supabase.auth.getSession();
-    if (!session) return;
-    await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/confirmar-notificaciones-push`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${session.access_token}`,
-      },
-      body: JSON.stringify({ endpoint }),
-    });
-  } catch (err) {
-    console.error('[pushNotifications] No se pudo mandar el push de confirmación:', err);
+    return Intl.DateTimeFormat().resolvedOptions().timeZone || 'America/Mexico_City';
+  } catch {
+    return 'America/Mexico_City';
   }
+}
+
+// Preferencias del propio usuario, o null si nunca las guardó (el servidor
+// usa entonces: cada 3 días, 17:00, hora de México).
+export async function obtenerPreferenciasRecordatorio(userId) {
+  const { data, error } = await supabase
+    .from('preferencias_recordatorio')
+    .select('frecuencia_dias, hora, zona_horaria')
+    .eq('user_id', userId)
+    .maybeSingle();
+  if (error) throw error;
+  return data;
+}
+
+export async function guardarPreferenciasRecordatorio({ frecuenciaDias, hora }) {
+  const { error } = await supabase.rpc('guardar_preferencias_recordatorio', {
+    p_frecuencia: frecuenciaDias,
+    p_hora: hora,
+    p_zona: zonaHorariaLocal(),
+  });
+  if (error) throw error;
 }
 
 /**

@@ -17,14 +17,25 @@
 -- a los últimos 90 días — eso es lo que crece sin límite útil, ya que
 -- nadie necesita ver en cada carga un pago de hace un año que ya se hizo.
 
+-- Corrección (2026-09-26): la primera versión de este archivo se escribió
+-- sobre definiciones viejas de ambas funciones y nunca se llegó a aplicar
+-- (falló con "cannot change return type of existing function"): le
+-- faltaban columnas que ya están en la base y que el panel de admin usa
+-- — profesor_numero_cuenta y materia_otro (AdminPagos.jsx) y
+-- profesor_email (AdminReportes.jsx). Esta versión parte de la definición
+-- VIGENTE de cada función (pg_get_functiondef en la base real), con las
+-- mismas columnas de retorno, y solo le agrega el filtro de 90 días.
+
 create or replace function public.admin_detalle_transacciones_profesores()
 returns table (
   transaccion_id uuid,
   profesor_id uuid,
   profesor_nombre text,
   profesor_email text,
+  profesor_numero_cuenta text,
   oferta_id uuid,
   materia_id text,
+  materia_otro text,
   fecha_hora timestamptz,
   cuenta_clave text,
   alumno_nombre text,
@@ -51,8 +62,10 @@ begin
       om.creado_por,
       coalesce(pp.nombre, om.profesor),
       pu.email::text,
+      pf.numero_cuenta,
       om.id,
       om.materia_id,
+      om.materia_otro,
       om.fecha_hora,
       om.cuenta_clave,
       coalesce(ap.nombre, af.nombre),
@@ -67,6 +80,7 @@ begin
     join ofertas_maestro om on om.id = t.oferta_maestro_id
     join auth.users pu on pu.id = om.creado_por
     left join perfiles pp on pp.id = om.creado_por
+    left join profesores pf on pf.user_id = om.creado_por
     join auth.users au on au.id = t.user_id
     left join perfiles ap on ap.id = t.user_id
     left join lateral (
@@ -89,6 +103,7 @@ returns table (
   id uuid,
   profesor_user_id uuid,
   profesor_nombre text,
+  profesor_email text,
   oferta_maestro_id uuid,
   categoria text,
   gravedad text,
@@ -111,11 +126,12 @@ begin
 
   return query
     select
-      r.id, r.profesor_user_id, coalesce(p.nombre, '—'), r.oferta_maestro_id,
+      r.id, r.profesor_user_id, coalesce(p.nombre, '—'), pu.email::text, r.oferta_maestro_id,
       r.categoria, r.gravedad, r.descripcion, r.reportante_user_id,
       ru.email::text, r.reportante_contacto, r.estado, r.notas_admin, r.creado_en
     from reportes r
     left join profesores p on p.user_id = r.profesor_user_id
+    left join auth.users pu on pu.id = r.profesor_user_id
     left join auth.users ru on ru.id = r.reportante_user_id
     where
       -- Igual que arriba: lo que sigue abierto (pendiente/en_revision)
