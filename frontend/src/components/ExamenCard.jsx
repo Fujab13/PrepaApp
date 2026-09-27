@@ -11,10 +11,10 @@ export default function ExamenCard({ nombre, color, icono, onClick }) {
       style={{
         background: 'var(--surface2)',
         borderRadius: 'var(--radius)',
-        padding: '20px',
+        padding: '10px 14px',
         display: 'flex',
         alignItems: 'center',
-        gap: '16px',
+        gap: '12px',
         cursor: 'pointer',
         border: '2px solid transparent',
         transition: 'border-color 0.2s, transform 0.15s',
@@ -35,11 +35,11 @@ export default function ExamenCard({ nombre, color, icono, onClick }) {
       onPointerCancel={e => { e.currentTarget.style.transform = 'translateY(0)' }}
     >
       <div style={{
-        fontSize: '1.6rem',
-        width: '52px', height: '52px',
+        fontSize: '1.3rem',
+        width: '40px', height: '40px',
         background: `${color}26`,
         color,
-        borderRadius: '12px',
+        borderRadius: '10px',
         display: 'flex', alignItems: 'center', justifyContent: 'center',
         flexShrink: 0,
       }}>
@@ -47,7 +47,7 @@ export default function ExamenCard({ nombre, color, icono, onClick }) {
       </div>
 
       <div style={{ flex: 1 }}>
-        <div style={{ fontWeight: 700, fontSize: '1.05rem' }}>{nombre}</div>
+        <div style={{ fontWeight: 700, fontSize: '1rem' }}>{nombre}</div>
       </div>
 
       <span style={{ color: 'var(--text-muted)', fontSize: '1.3rem' }}>›</span>

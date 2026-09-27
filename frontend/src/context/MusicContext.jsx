@@ -1,4 +1,13 @@
 import { createContext, useContext, useEffect, useRef, useState } from 'react'
+import { useAuth } from './AuthContext'
+import {
+  COMPARTIDAS_REQUERIDAS,
+  ESPERA_DESBLOQUEO_MS,
+  marcarAppCompartida,
+  leerProgresoCompartir,
+  guardarProgresoCompartir,
+  borrarProgresoCompartir,
+} from '../services/compartirApp'
 
 // ─────────────────────────────────────────────────────────────────────────
 // Música ambiente generada en vivo con Web Audio API. Antes se usaba una
@@ -34,7 +43,10 @@ import { createContext, useContext, useEffect, useRef, useState } from 'react'
 const MusicContext = createContext(null)
 
 const STORAGE_KEY = 'musica_silenciada'
-const VOLUMEN_OBJETIVO = 0.077 // bajo a propósito: es música DE FONDO, no debe competir con el contenido
+// Bajos a propósito: es música DE FONDO, no debe competir con el contenido.
+// Cada motor tiene su tope; el master solo se usa para silenciar (0 o 1).
+const VOLUMEN_GENERATIVA = 0.06
+const VOLUMEN_CANCIONES = 0.077
 const MAX_VOCES_SIMULTANEAS = 6 // más que antes: las notas de piano se traslapan más seguido que un pad
 const RAMPA_VOLUMEN_SEG = 0.08 // evita el "click" audible de saltar el volumen de golpe al (des)silenciar
 
@@ -303,9 +315,238 @@ function iniciarMotorGenerativo(ctx, masterGain) {
   }
 }
 
+// ─────────────────────────────────────────────────────────────────────────
+// "Música enriquecida" (opción en pages/Ajustes.jsx): lista de .mp3 en vez
+// del motor generativo. El navegador no puede listar una carpeta del
+// servidor, así que Vite arma la lista al compilar con import.meta.glob:
+// basta soltar archivos en src/assets/musica/.
+// Salen a dist/assets con hash, así que heredan el caché de 1 año de
+// /assets/ y solo se descargan al reproducirse.
+//
+// Se reproducen con <audio> (streaming, no se decodifica la canción entera
+// en memoria) pero pasando por Web Audio: en iOS `audio.volume` es de solo
+// lectura, así que el volumen/silencio y los fundidos se hacen con GainNode.
+// Dos reproductores alternados permiten el fundido cruzado de 1s entre
+// canciones. Orden aleatorio como en un reproductor: se baraja la lista
+// completa (sin repetir) y se toca en ese orden; al acabarla se vuelve a
+// barajar, cuidando que la primera nueva no sea la que acaba de sonar.
+// ─────────────────────────────────────────────────────────────────────────
+
+const CANCIONES = Object.entries(
+  import.meta.glob('../assets/musica/*.mp3', { eager: true, query: '?url', import: 'default' })
+)
+  .sort(([a], [b]) => a.localeCompare(b, 'es', { numeric: true }))
+  .map(([, url]) => url)
+
+const STORAGE_KEY_ENRIQUECIDA = 'musica_enriquecida'
+const TRANSICION_SEG = 1
+const PRECARGA_SEG = 15 // cuánto antes del final se empieza a bajar la siguiente canción
+// Un mp3 masterizado sale mucho más fuerte que la suma de voces del motor
+// generativo; esto los empareja antes de aplicar VOLUMEN_CANCIONES. Ajustar al oído.
+const GANANCIA_CANCIONES = 0.25
+
+// Índices 0..n-1 en orden aleatorio (Fisher-Yates). `evitarPrimero`: la
+// canción que acaba de sonar, para no repetirla al empezar otra vuelta.
+function barajar(n, evitarPrimero = null) {
+  const orden = Array.from({ length: n }, (_, i) => i)
+  for (let i = n - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1))
+    ;[orden[i], orden[j]] = [orden[j], orden[i]]
+  }
+  if (n > 1 && orden[0] === evitarPrimero) {
+    const j = 1 + Math.floor(Math.random() * (n - 1))
+    ;[orden[0], orden[j]] = [orden[j], orden[0]]
+  }
+  return orden
+}
+
+function fundir(param, valor, seg, ctx) {
+  const ahora = ctx.currentTime
+  param.cancelScheduledValues(ahora)
+  param.setValueAtTime(param.value, ahora)
+  param.linearRampToValueAtTime(valor, ahora + seg)
+}
+
+// Regresa { detener, pausar, reanudar, reintentar }. `alFallar` se llama si
+// ninguna canción de la lista se pudo reproducir.
+function iniciarListaReproduccion(ctx, destino, canciones, alFallar) {
+  const reproductores = [0, 1].map(() => {
+    const audio = new Audio()
+    audio.preload = 'none'
+    const gain = ctx.createGain()
+    gain.gain.value = 0
+    ctx.createMediaElementSource(audio).connect(gain)
+    gain.connect(destino)
+    return { audio, gain, cargada: null }
+  })
+
+  let activo = 0 // cuál de los dos reproductores es el principal
+  let orden = barajar(canciones.length)
+  let pos = 0 // posición en `orden` de la canción actual
+  // Orden de la siguiente vuelta, fijado en cuanto se necesita (la precarga
+  // ya tiene que saber cuál sigue) para que precarga y cambio coincidan.
+  let ordenSiguiente = null
+  let transicionando = false
+  let pausado = false
+  let detenido = false
+  let erroresSeguidos = 0
+  const timeouts = []
+
+  function cargar(r, i) {
+    if (r.cargada === i) return
+    r.audio.src = canciones[i]
+    r.cargada = i
+  }
+
+  function siguientePosicion() {
+    if (pos + 1 < orden.length) return { orden, pos: pos + 1 }
+    if (!ordenSiguiente) ordenSiguiente = barajar(canciones.length, orden[pos])
+    return { orden: ordenSiguiente, pos: 0 }
+  }
+
+  function cancionSiguiente() {
+    const s = siguientePosicion()
+    return s.orden[s.pos]
+  }
+
+  function reproducir(r) {
+    if (pausado || detenido) return
+    // Puede rechazarse por la política de autoplay; `reintentar` lo vuelve a
+    // intentar en el siguiente toque del usuario.
+    r.audio.play().catch(() => {})
+  }
+
+  function siguiente() {
+    if (transicionando || detenido) return
+    transicionando = true
+    const anterior = reproductores[activo]
+    activo = 1 - activo
+    const s = siguientePosicion()
+    if (s.orden !== orden) ordenSiguiente = null
+    orden = s.orden
+    pos = s.pos
+    const nuevo = reproductores[activo]
+    cargar(nuevo, orden[pos])
+    nuevo.audio.currentTime = 0
+    fundir(nuevo.gain.gain, 1, TRANSICION_SEG, ctx)
+    reproducir(nuevo)
+    fundir(anterior.gain.gain, 0, TRANSICION_SEG, ctx)
+    timeouts.push(setTimeout(() => {
+      anterior.audio.pause()
+      transicionando = false
+    }, TRANSICION_SEG * 1000 + 100))
+  }
+
+  reproductores.forEach((r) => {
+    r.audio.addEventListener('timeupdate', () => {
+      if (detenido || r !== reproductores[activo] || !r.audio.duration) return
+      const restante = r.audio.duration - r.audio.currentTime
+      if (restante <= PRECARGA_SEG) {
+        const otro = reproductores[1 - activo]
+        cargar(otro, cancionSiguiente())
+        otro.audio.preload = 'auto'
+      }
+      if (restante <= TRANSICION_SEG) siguiente()
+    })
+    // Respaldo por si timeupdate no alcanzó a disparar el fundido.
+    r.audio.addEventListener('ended', () => {
+      if (!detenido && r === reproductores[activo]) siguiente()
+    })
+    r.audio.addEventListener('playing', () => { erroresSeguidos = 0 })
+    r.audio.addEventListener('error', () => {
+      if (detenido || r !== reproductores[activo]) return
+      erroresSeguidos += 1
+      if (erroresSeguidos >= canciones.length) {
+        detenido = true
+        alFallar()
+        return
+      }
+      transicionando = false
+      siguiente()
+    })
+  })
+
+  cargar(reproductores[0], orden[0])
+  fundir(reproductores[0].gain.gain, 1, TRANSICION_SEG, ctx)
+  reproducir(reproductores[0])
+
+  return {
+    detener() {
+      detenido = true
+      timeouts.forEach(clearTimeout)
+      reproductores.forEach((r) => {
+        r.audio.pause()
+        r.audio.removeAttribute('src')
+        r.audio.load() // corta la descarga en curso
+        r.gain.disconnect()
+      })
+    },
+    // Al silenciar se pausa de verdad: sin esto seguiría bajando datos.
+    pausar() {
+      pausado = true
+      reproductores.forEach((r) => r.audio.pause())
+    },
+    reanudar() {
+      pausado = false
+      reproducir(reproductores[activo])
+      if (transicionando) reproducir(reproductores[1 - activo])
+    },
+    reintentar() {
+      if (reproductores[activo].audio.paused) reproducir(reproductores[activo])
+    },
+  }
+}
+
 export function MusicProvider({ children }) {
   const [muted, setMuted] = useState(() => localStorage.getItem(STORAGE_KEY) === 'true')
+  const [enriquecida, setEnriquecida] = useState(
+    () => CANCIONES.length > 0 && localStorage.getItem(STORAGE_KEY_ENRIQUECIDA) === 'true'
+  )
+  // Si la lista falla se cae al motor generativo sin tocar la preferencia guardada.
+  const [falloLista, setFalloLista] = useState(false)
+  const [ctxListo, setCtxListo] = useState(false)
   const masterGainRef = useRef(null)
+  const motorRef = useRef(null)
+  const mutedRef = useRef(muted)
+  mutedRef.current = muted
+
+  // Requiere haber compartido la app (perfiles.compartio_app, ver
+  // pages/Ajustes.jsx); sin sesión o sin eso, suena la música generada.
+  const { user, perfil, refrescarPerfil } = useAuth()
+  const desbloqueada = perfil?.compartio_app === true
+  const usarLista = enriquecida && desbloqueada && !falloLista && CANCIONES.length > 0
+
+  // Tras compartir 2 veces, espera 2 min y desbloquea. Vive aquí (no en
+  // Ajustes) para que se cumpla aunque el usuario salga de esa página.
+  const [esperaDesde, setEsperaDesde] = useState(null)
+  useEffect(() => {
+    setEsperaDesde(user ? leerProgresoCompartir(user.id).desde : null)
+  }, [user])
+
+  useEffect(() => {
+    if (!user || desbloqueada || !esperaDesde) return
+    const restante = Math.max(0, esperaDesde + ESPERA_DESBLOQUEO_MS - Date.now())
+    const t = setTimeout(async () => {
+      try {
+        await marcarAppCompartida()
+        await refrescarPerfil()
+        borrarProgresoCompartir(user.id)
+        setEsperaDesde(null)
+        cambiarEnriquecida(true)
+      } catch (e) {
+        console.error('[Música] No se pudo desbloquear:', e?.message)
+      }
+    }, restante)
+    return () => clearTimeout(t)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user, desbloqueada, esperaDesde])
+
+  function iniciarEsperaDesbloqueo() {
+    if (!user) return
+    const desde = Date.now()
+    guardarProgresoCompartir(user.id, { compartidas: COMPARTIDAS_REQUERIDAS, desde })
+    setEsperaDesde(desde)
+  }
 
   useEffect(() => {
     const AudioContextCtor = window.AudioContext || window.webkitAudioContext
@@ -313,28 +554,62 @@ export function MusicProvider({ children }) {
 
     const ctx = new AudioContextCtor()
     const masterGain = ctx.createGain()
-    masterGain.gain.value = muted ? 0 : VOLUMEN_OBJETIVO
+    masterGain.gain.value = muted ? 0 : 1
     masterGain.connect(ctx.destination)
     masterGainRef.current = masterGain
-
-    const detenerMotor = iniciarMotorGenerativo(ctx, masterGain)
+    setCtxListo(true)
 
     // Los navegadores (sobre todo móviles) arrancan el AudioContext
-    // "suspended" hasta la primera interacción del usuario.
+    // "suspended" hasta la primera interacción del usuario — y bloquean
+    // audio.play() igual, por eso también se reintenta la lista.
     function reanudarConInteraccion() {
       if (ctx.state === 'suspended') ctx.resume().catch(() => {})
+      if (!mutedRef.current) motorRef.current?.reintentar?.()
     }
     document.addEventListener('click', reanudarConInteraccion)
     reanudarConInteraccion()
 
     return () => {
       document.removeEventListener('click', reanudarConInteraccion)
-      detenerMotor()
       masterGainRef.current = null
+      setCtxListo(false)
       ctx.close().catch(() => {})
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
+  // Arranca el motor elegido (lista o generativo) en su propia salida para
+  // poder fundir 1s al cambiar de uno a otro.
+  useEffect(() => {
+    const masterGain = masterGainRef.current
+    if (!ctxListo || !masterGain) return
+    const ctx = masterGain.context
+
+    const salida = ctx.createGain()
+    salida.gain.value = 0
+    salida.connect(masterGain)
+    fundir(salida.gain, usarLista ? VOLUMEN_CANCIONES * GANANCIA_CANCIONES : VOLUMEN_GENERATIVA, TRANSICION_SEG, ctx)
+
+    let motor
+    if (usarLista) {
+      motor = iniciarListaReproduccion(ctx, salida, CANCIONES, () => setFalloLista(true))
+      if (mutedRef.current) motor.pausar()
+    } else {
+      motor = { detener: iniciarMotorGenerativo(ctx, salida) }
+    }
+    motorRef.current = motor
+
+    return () => {
+      if (motorRef.current === motor) motorRef.current = null
+      fundir(salida.gain, 0, TRANSICION_SEG, ctx)
+      setTimeout(() => {
+        try {
+          motor.detener()
+          salida.disconnect()
+        } catch { /* el contexto ya pudo haberse cerrado */ }
+      }, TRANSICION_SEG * 1000 + 100)
+    }
+  }, [ctxListo, usarLista])
 
   useEffect(() => {
     const masterGain = masterGainRef.current
@@ -346,8 +621,10 @@ export function MusicProvider({ children }) {
       const ahora = context.currentTime
       gain.cancelScheduledValues(ahora)
       gain.setValueAtTime(gain.value, ahora)
-      gain.linearRampToValueAtTime(muted ? 0 : VOLUMEN_OBJETIVO, ahora + RAMPA_VOLUMEN_SEG)
+      gain.linearRampToValueAtTime(muted ? 0 : 1, ahora + RAMPA_VOLUMEN_SEG)
     }
+    if (muted) motorRef.current?.pausar?.()
+    else motorRef.current?.reanudar?.()
     localStorage.setItem(STORAGE_KEY, String(muted))
   }, [muted])
 
@@ -355,8 +632,18 @@ export function MusicProvider({ children }) {
     setMuted(m => !m)
   }
 
+  function cambiarEnriquecida(valor) {
+    setEnriquecida(valor)
+    setFalloLista(false)
+    localStorage.setItem(STORAGE_KEY_ENRIQUECIDA, String(valor))
+  }
+
   return (
-    <MusicContext.Provider value={{ muted, toggleMuted, hayMusica: true }}>
+    <MusicContext.Provider value={{
+      muted, toggleMuted, hayMusica: true,
+      enriquecida: enriquecida && desbloqueada, cambiarEnriquecida, totalCanciones: CANCIONES.length,
+      desbloqueada, esperandoDesbloqueo: !!esperaDesde && !desbloqueada, iniciarEsperaDesbloqueo,
+    }}>
       {children}
     </MusicContext.Provider>
   )

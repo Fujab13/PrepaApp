@@ -1,6 +1,8 @@
 // Ajustes.jsx
 // Panel de opciones del usuario (botón de engrane junto al perfil en
-// Sidenav.jsx). Por ahora solo "Tus datos": deja borrar los resultados del
+// Sidenav.jsx). "Música enriquecida" cambia la música generada por la lista
+// de .mp3 de src/assets/musica (ver MusicContext.jsx); se desbloquea
+// compartiendo la app 2 veces (services/compartirApp.js). "Tus datos": deja borrar los resultados del
 // examen y el formulario de área guardados en Supabase — primer paso de
 // control de datos personales para alumnos que en su mayoría son menores.
 // Requiere sesión: sin ella no hay datos propios que mostrar.
@@ -8,13 +10,21 @@
 import { useCallback, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
+import { useMusic } from '../context/MusicContext'
 import { contarMisDatos, borrarMisDatos } from '../services/misDatos'
+import {
+  COMPARTIDAS_REQUERIDAS,
+  compartirEnlaceApp,
+  leerProgresoCompartir,
+  guardarProgresoCompartir,
+} from '../services/compartirApp'
 import ConfirmDialog from '../components/ConfirmDialog'
 import ElegirUsuarioDialog from '../components/ElegirUsuarioDialog'
 import RecordatoriosAjustes from '../components/RecordatoriosAjustes'
 import AjustesSkeleton from '../components/skeletons/AjustesSkeleton'
 
 import { AiOutlineClose } from 'react-icons/ai'
+import { RiShareForwardLine } from 'react-icons/ri'
 
 const OPCIONES = [
   { clave: 'examen', titulo: 'Resultados del examen', confirmar: 'Borrar resultados del examen' },
@@ -41,6 +51,29 @@ export default function Ajustes() {
   const navigate = useNavigate()
   const { user, cargando: cargandoAuth, perfil, refrescarPerfil } = useAuth()
   const [editandoUsuario, setEditandoUsuario] = useState(false)
+  const music = useMusic()
+  const hayCanciones = music.totalCanciones > 0
+  const [compartidas, setCompartidas] = useState(0)
+
+  useEffect(() => {
+    if (user) setCompartidas(leerProgresoCompartir(user.id).compartidas)
+  }, [user])
+
+  const bloqueada = !hayCanciones || !music.desbloqueada
+
+  const compartir = async () => {
+    try {
+      if (!(await compartirEnlaceApp())) return
+    } catch {
+      return // ni compartir ni copiar funcionaron: no cuenta
+    }
+    const n = Math.min(compartidas + 1, COMPARTIDAS_REQUERIDAS)
+    setCompartidas(n)
+    guardarProgresoCompartir(user.id, { compartidas: n })
+    if (n >= COMPARTIDAS_REQUERIDAS) {
+      if (!music.esperandoDesbloqueo) music.iniciarEsperaDesbloqueo()
+    }
+  }
 
   const [conteos, setConteos] = useState(null) // { examen: n, formulario: n }
   const [borrando, setBorrando] = useState(null) // clave en curso
@@ -102,9 +135,8 @@ export default function Ajustes() {
           <div style={filaStyle(0)}>
             <div style={{ flex: 1, minWidth: 0 }}>
               <p style={{ margin: 0, fontSize: '0.92rem', fontWeight: 600, color: 'var(--text)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                @{perfil?.usuario ?? '—'}
+                <span style={{ color: 'var(--text-muted)', fontWeight: 500 }}>Usuario: </span>@{perfil?.usuario ?? '—'}
               </p>
-              <p style={{ margin: '2px 0 0', fontSize: '0.76rem', color: 'var(--text-muted)' }}>Tu nombre en el ranking</p>
             </div>
             <button
               type="button"
@@ -124,6 +156,63 @@ export default function Ajustes() {
         <p style={{ ...estiloEncabezado, marginTop: 8 }}>Notificaciones</p>
         <RecordatoriosAjustes user={user} />
 
+        <p style={{ ...estiloEncabezado, marginTop: 8 }}>Música</p>
+        <div style={estiloTarjeta}>
+          <div style={filaStyle(0)}>
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <p style={{ margin: 0, fontSize: '0.92rem', fontWeight: 600, color: 'var(--text)' }}>Música enriquecida</p>
+            </div>
+            {hayCanciones && !music.desbloqueada && (
+              <button
+                type="button"
+                onClick={compartir}
+                title="Compartir"
+                aria-label={`Compartir (${compartidas} de ${COMPARTIDAS_REQUERIDAS})`}
+                style={{
+                  width: 44, height: 44, borderRadius: '50%', flexShrink: 0, position: 'relative',
+                  border: '1px solid var(--border)', background: 'transparent',
+                  color: 'var(--text)', fontSize: '1.25rem', cursor: 'pointer',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                }}
+              >
+                <RiShareForwardLine />
+                {/* Progreso hacia el desbloqueo, como insignia en la esquina. */}
+                <span style={{
+                  position: 'absolute', top: -6, right: -8, padding: '1px 5px', borderRadius: 999,
+                  background: '#4f8ef7', color: '#fff', fontSize: '0.62rem', fontWeight: 700, lineHeight: 1.4,
+                }}>
+                  {compartidas}/{COMPARTIDAS_REQUERIDAS}
+                </span>
+              </button>
+            )}
+            <button
+              type="button"
+              role="switch"
+              aria-checked={music.enriquecida}
+              aria-label="Música enriquecida"
+              onClick={() => music.cambiarEnriquecida(!music.enriquecida)}
+              disabled={bloqueada}
+              style={{
+                width: 56, height: 44, flexShrink: 0, background: 'transparent', border: 'none',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                cursor: bloqueada ? 'default' : 'pointer',
+                opacity: bloqueada ? 0.5 : 1,
+              }}
+            >
+              <span style={{
+                width: 44, height: 26, borderRadius: 999, position: 'relative',
+                background: music.enriquecida ? '#4f8ef7' : 'var(--surface)', border: '1px solid var(--border)',
+                transition: 'background 0.2s ease',
+              }}>
+                <span style={{
+                  position: 'absolute', top: 2, left: music.enriquecida ? 20 : 2, width: 20, height: 20, borderRadius: '50%',
+                  background: '#fff', boxShadow: '0 1px 3px rgba(0,0,0,0.4)', transition: 'left 0.2s ease',
+                }} />
+              </span>
+            </button>
+          </div>
+        </div>
+
         <p style={{ ...estiloEncabezado, marginTop: 8 }}>Tus datos</p>
 
         <div style={estiloTarjeta}>
@@ -132,12 +221,7 @@ export default function Ajustes() {
             const enCurso = borrando === op.clave
             return (
               <div key={op.clave} style={filaStyle(i)}>
-                <div style={{ flex: 1, minWidth: 0 }}>
-                  <p style={{ margin: 0, fontSize: '0.92rem', fontWeight: 600, color: 'var(--text)' }}>{op.titulo}</p>
-                  <p style={{ margin: '2px 0 0', fontSize: '0.76rem', color: 'var(--text-muted)' }}>
-                    {conteos === null ? '—' : hayDatos ? 'Guardado en tu cuenta' : 'Sin datos guardados'}
-                  </p>
-                </div>
+                <p style={{ flex: 1, minWidth: 0, margin: 0, fontSize: '0.92rem', fontWeight: 600, color: 'var(--text)' }}>{op.titulo}</p>
                 <button
                   type="button"
                   onClick={() => pedirConfirmacion(op)}

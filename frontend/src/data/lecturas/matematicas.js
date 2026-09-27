@@ -10,7 +10,7 @@ const lecturaMatematicas = {
           titulo: 'Números naturales',
           conceptos: [
             'Los números naturales se usan para contar objetos y ordenar elementos, y forman el conjunto más básico de la aritmética: 0, 1, 2, 3, 4... (representado como ℕ). No incluyen números negativos, fracciones ni decimales, por lo que responden preguntas como "¿cuántas manzanas hay?" pero no "¿cuánto debo?" o "¿qué fracción queda?".',
-            'Los números naturales excluyen completamente los números negativos, las fracciones y los decimales, manteniéndose siempre como entidades completas y positivas. Por ejemplo, puedes contar 5 monedas, pero no puedes contar "−3 monedas" o "2.5 monedas" en el sentido literal de un natural. Esta restricción es precisamente lo que los hace ideales para contar cosas del mundo real.',
+            'Los números naturales excluyen completamente los números negativos, las fracciones y los decimales, manteniéndose siempre como entidades completas y no negativas. Por ejemplo, puedes contar 5 monedas, pero no puedes contar "−3 monedas" o "2.5 monedas" en el sentido literal de un natural. Esta restricción es precisamente lo que los hace ideales para contar cosas del mundo real.',
             'Los números naturales son el fundamento sobre el cual se construye toda la matemática, pues constituyen el sistema más elemental de la aritmética. Sin la capacidad de contar mediante los naturales, sería imposible desarrollar cualquier operación matemática más compleja, y toda la edificación de la matemática moderna descansa en este primer conjunto.'
           ]
         },
@@ -76,7 +76,7 @@ const lecturaMatematicas = {
           id: 'multiplicacion',
           titulo: 'Multiplicación',
           conceptos: [
-            'La multiplicación es una forma abreviada de realizar sumas repetidas del mismo número: 4 × 3 significa "sumar 4 tres veces", es decir, 4 + 4 + 4 = 12. Así, multiplicar es una operación eficiente cuando necesitas repetir muchas veces una cantidad; por ejemplo, si compras 5 docenas de huevos (60 por docena), calcular 5 × 60 es mucho más rápido que sumar 60 cincuenta veces.',
+            'La multiplicación es una forma abreviada de realizar sumas repetidas del mismo número: 4 × 3 significa "sumar 4 tres veces", es decir, 4 + 4 + 4 = 12. Así, multiplicar es una operación eficiente cuando necesitas repetir muchas veces una cantidad; por ejemplo, si compras 5 docenas de huevos (12 por docena), calcular 5 × 12 = 60 es mucho más rápido que sumar 12 cinco veces.',
             'La regla de los signos en multiplicación es fundamental: cuando multiplicas dos números con signos iguales (ambos positivos o ambos negativos), el resultado es positivo; cuando tienen signos distintos, el resultado es negativo. Por ejemplo: (+3) × (+4) = +12, (−3) × (−4) = +12, pero (+3) × (−4) = −12. Esta regla asegura consistencia en todos los cálculos con números enteros.'
           ]
         },
@@ -218,7 +218,7 @@ const lecturaMatematicas = {
             'Al multiplicar dos potencias que tienen la misma base, el resultado es esa misma base elevada a la suma de los exponentes (xᵃ × xᵇ = xᵃ⁺ᵇ). Esta regla es fundamental porque transforma una operación compleja en una suma simple. Por ejemplo, 2³ × 2⁴ = 2⁷ = 128, mucho más rápido que calcular 2³ = 8 y 2⁴ = 16 por separado y luego multiplicarlos.',
             'Al dividir dos potencias que tienen la misma base, el resultado es esa misma base elevada a la resta de los exponentes (xᵃ ÷ xᵇ = xᵃ⁻ᵇ). Esta regla simplifica la división de potencias de forma elegante. Por ejemplo, 3⁵ ÷ 3² = 3³ = 27, en lugar de calcular 3⁵ = 243 y 3² = 9 por separado y luego hacer la división larga.',
             'Cuando elevas una potencia a otra potencia, multiplicas los exponentes: (xᵃ)ᵇ = xᵃᵇ. Esta regla es sorprendentemente poderosa en cálculos complejos. Por ejemplo, (2³)² = 2⁶ = 64, que es mucho más simple que calcular 2³ = 8 primero, y luego 8² = 64; el resultado es idéntico pero el atajo es velocidad pura.',
-            'Cualquier número elevado a la potencia 0 siempre da 1, sin importar cuál sea el número: x⁰ = 1. Un exponente negativo invierte la base, transformándola en su recíproco: x⁻ⁿ = 1/xⁿ. Por ejemplo, 5⁻² = 1/(5²) = 1/25 = 0.04, una forma compacta de expresar fracciones pequeñas muy utilizadas en ciencias.'
+            'Cualquier número distinto de cero elevado a la potencia 0 da 1: x⁰ = 1 (0⁰ no está definido). Un exponente negativo invierte la base, transformándola en su recíproco: x⁻ⁿ = 1/xⁿ. Por ejemplo, 5⁻² = 1/(5²) = 1/25 = 0.04, una forma compacta de expresar fracciones pequeñas muy utilizadas en ciencias.'
           ]
         },
         {
@@ -288,7 +288,7 @@ const lecturaMatematicas = {
           id: 'regla-de-tres-compuesta',
           titulo: 'Regla de tres compuesta',
           conceptos: [
-            'La regla de tres compuesta extiende la idea a tres o más magnitudes que se relacionan simultáneamente, generalmente en problemas complejos del mundo real. Por ejemplo: "10 obreros en 8 horas construyen 40 metros de pared. ¿Cuántos metros construirán 15 obreros en 6 horas?" Aquí intervienen 4 magnitudes: número de obreros, horas de trabajo, metros construidos, y potencialmente velocidad de trabajo. Cada magnitud puede tener una relación directa o inversa con el resultado.',
+            'La regla de tres compuesta extiende la idea a tres o más magnitudes que se relacionan simultáneamente, generalmente en problemas complejos del mundo real. Por ejemplo: "10 obreros en 8 horas construyen 40 metros de pared. ¿Cuántos metros construirán 15 obreros en 6 horas?" Aquí intervienen 3 magnitudes: número de obreros, horas de trabajo y metros construidos. Cada magnitud puede tener una relación directa o inversa con el resultado.',
             'La estrategia para resolver una regla de tres compuesta es reducir el problema a varias reglas de tres simples encadenadas, resolviendo una relación a la vez mientras mantienes las otras magnitudes constantes mentalmente. Alternativamente, puedes plantear una ecuación única que integre todas las relaciones con sus correspondientes proporciones y cocientes. Por ejemplo, si A aumenta y B también aumenta (directa), pero C y B son inversas, todo eso se refleja en la estructura de la ecuación final.'
           ]
         },
@@ -303,7 +303,7 @@ const lecturaMatematicas = {
           id: 'variacion-inversa',
           titulo: 'Variación inversa',
           conceptos: [
-            'En variación inversa, cuando una magnitud aumenta, la otra disminuye en la misma proporción, y su producto permanece constante. La relación es y = k/x, donde k es la constante de proporcionalidad inversa. Por ejemplo, para pintar una casa: 4 obreros toman 12 días (k = 4 × 12 = 48). Si contratas 8 obreros, tomarán 48/8 = 6 días. Si añades 12 obreros, tomarán 48/12 = 4 días. Más trabajadores significan menos días, exactamente inversamente proporcional.'
+            'En variación inversa, cuando una magnitud aumenta, la otra disminuye en la misma proporción, y su producto permanece constante. La relación es y = k/x, donde k es la constante de proporcionalidad inversa. Por ejemplo, para pintar una casa: 4 obreros toman 12 días (k = 4 × 12 = 48). Si contratas 8 obreros, tomarán 48/8 = 6 días. Si contratas 12 obreros, tomarán 48/12 = 4 días. Más trabajadores significan menos días, exactamente inversamente proporcional.'
           ]
         },
         {
@@ -352,7 +352,7 @@ const lecturaMatematicas = {
           conceptos: [
             'Para sumar o restar polinomios, primero identifica todos los términos semejantes (misma parte literal) en ambas expresiones, luego combina sus coeficientes mientras preservas la parte literal. Por ejemplo, (3x² + 2x − 5) + (x² − 4x + 3) = (3x² + x²) + (2x − 4x) + (−5 + 3) = 4x² − 2x − 2. Los términos que no tienen pareja en la otra expresión se copian tal cual.',
             'Al multiplicar polinomios, cada término del primero se multiplica por cada término del segundo, aplicando la propiedad distributiva. Cuando multiplicas potencias de la misma base, sumas los exponentes: xᵃ × xᵇ = xᵃ⁺ᵇ. Por ejemplo, (2x)(3x²) = 6x³ (porque x × x² = x³), y (x + 2)(x + 3) = x² + 3x + 2x + 6 = x² + 5x + 6 (multiplicando cada término del primer binomio por cada uno del segundo).',
-            'En la división de polinomios, cada término del dividendo se divide entre cada término del divisor (cuando la división es simple) o se realiza una división larga si el divisor es un polinomio. Cuando divides potencias de la misma base, restas los exponentes: xᵃ ÷ xᵇ = xᵃ⁻ᵇ. Por ejemplo, 6x³ ÷ 2x = 3x² (porque 6 ÷ 2 = 3 y x³ ÷ x = x²). Con polinomios más complejos, la división larga es necesaria.'
+            'En la división de polinomios, cada término del dividendo se divide entre el divisor (cuando el divisor es un monomio) o se realiza una división larga si el divisor es un polinomio. Cuando divides potencias de la misma base, restas los exponentes: xᵃ ÷ xᵇ = xᵃ⁻ᵇ. Por ejemplo, 6x³ ÷ 2x = 3x² (porque 6 ÷ 2 = 3 y x³ ÷ x = x²). Con polinomios más complejos, la división larga es necesaria.'
           ]
         },
         {
@@ -421,7 +421,7 @@ const lecturaMatematicas = {
           titulo: 'Simplificación',
           conceptos: [
             'Simplificar una fracción algebraica requiere factorizar completamente tanto el numerador como el denominador, identificar los factores que aparecen en ambos, y cancelarlos. Solo puedes cancelar factores completos, nunca términos individuales. Por ejemplo, en (x² − 9)/(x − 3), factorizas el numerador como (x + 3)(x − 3), así que tienes [(x + 3)(x − 3)]/(x − 3), y cancelando (x − 3) queda simplemente (x + 3).',
-            'Ejemplo detallado: simplifica (x² − 9)/(x − 3). Paso 1: reconoce x² − 9 como diferencia de cuadrados, factoriza a (x + 3)(x − 3). Paso 2: escribe [(x + 3)(x − 3)]/(x − 3). Paso 3: cancela (x − 3) del numerador y denominador. Resultado: (x + 3). Nota: la fracción original no está definida en x = 3 (división entre cero), pero la forma simplificada sí lo está en x = 3; técnicamente, la simplificación remueve esa singularidad removible.'
+            'Ejemplo detallado: simplifica (x² − 9)/(x − 3). Paso 1: reconoce x² − 9 como diferencia de cuadrados, factoriza a (x + 3)(x − 3). Paso 2: escribe [(x + 3)(x − 3)]/(x − 3). Paso 3: cancela (x − 3) del numerador y denominador. Resultado: (x + 3). Nota: la fracción original no está definida en x = 3 (división entre cero), así que la igualdad (x² − 9)/(x − 3) = x + 3 solo es válida para x ≠ 3.'
           ]
         },
         {
@@ -587,7 +587,7 @@ const lecturaMatematicas = {
           id: 'funcion-lineal',
           titulo: 'Función lineal',
           conceptos: [
-            'Una función lineal es cualquier función de la forma f(x) = mx + b, donde m y b son constantes (números reales). La característica que la define es que su gráfica es siempre una línea recta, sin curvas ni cambios en la dirección. Por ejemplo, f(x) = 2x + 3 es lineal, f(x) = −x + 5 es lineal, incluso f(x) = x (donde m = 1, b = 0) es lineal. Las funciones lineales son fundamentales en modelación porque describen relaciones proporcionales constantes.',
+            'En sentido amplio, se llama función lineal a cualquier función de la forma f(x) = mx + b, donde m y b son constantes (números reales); en este curso, cuando b ≠ 0 se le llama función afín (ver abajo). La característica que la define es que su gráfica es siempre una línea recta, sin curvas ni cambios en la dirección. Por ejemplo, f(x) = 2x + 3 es lineal, f(x) = −x + 5 es lineal, incluso f(x) = x (donde m = 1, b = 0) es lineal. Las funciones lineales son fundamentales en modelación porque describen relaciones proporcionales constantes.',
             'En la expresión f(x) = mx + b, el parámetro m se llama pendiente e indica la inclinación de la recta: mide cuántas unidades suben (o bajan) la salida por cada unidad que aumenta la entrada. Si m = 2, por cada aumento de 1 en x, y aumenta 2. Si m = −3, por cada aumento de 1 en x, y disminuye 3. El parámetro b se llama intersección con el eje Y (u ordenada al origen) e indica exactamente dónde cruza la recta el eje Y: en el punto (0, b). Por ejemplo, en f(x) = 2x + 3, la pendiente es 2 y la recta cruza el eje Y en (0, 3).'
           ]
         },
@@ -611,7 +611,7 @@ const lecturaMatematicas = {
           id: 'funcion-afin',
           titulo: 'Función afín',
           conceptos: [
-            'Una función afín es un caso especial de función lineal de la forma f(x) = mx + b, donde b ≠ 0. La característica que la distingue es que su gráfica (una línea recta) NO pasa por el origen de coordenadas (0, 0), sino que intersecta el eje Y en algún otro punto (0, b). Por ejemplo, f(x) = 2x + 3 es afín porque b = 3 ≠ 0, y su gráfica cruza el eje Y en (0, 3), no en el origen. Esta es la diferencia clave con las funciones lineales "puras".',
+            'Una función afín es una función de primer grado de la forma f(x) = mx + b, donde b ≠ 0. La característica que la distingue es que su gráfica (una línea recta) NO pasa por el origen de coordenadas (0, 0), sino que intersecta el eje Y en algún otro punto (0, b). Por ejemplo, f(x) = 2x + 3 es afín porque b = 3 ≠ 0, y su gráfica cruza el eje Y en (0, 3), no en el origen. Esta es la diferencia clave con las funciones lineales "puras".',
             'Es importante notar que la terminología varía según el país: en algunos lugares, "función lineal" incluye ambos casos (con y sin desplazamiento), mientras que en otros, "función lineal pura" (o función de proporcionalidad directa) es aquella donde b = 0, y "función afín" es donde b ≠ 0. Para este curso, entiende que una función afín es una línea recta con pendiente m que no pasa por el origen. En contextos de proporcionalidad, esto significa que no hay relación directa pura entre variables: siempre hay un término independiente que desplaza el resultado.'
           ]
         }
@@ -654,14 +654,14 @@ const lecturaMatematicas = {
           id: 'recta',
           titulo: 'Recta',
           conceptos: [
-            'Una recta es una sucesión infinita de puntos que siguen una sola dirección, extendiendo se infinitamente hacia ambos lados sin jamás terminar. No tiene principio ni fin, solo dirección única. Se nombra con dos puntos cualesquiera que estén en ella (como la "recta AB"), o a veces con una letra minúscula (como la "recta m"). Las rectas son ideales geométricos; en la realidad nunca vemos una recta perfecta infinita, pero el concepto es fundamental para la geometría.'
+            'Una recta es una sucesión infinita de puntos que siguen una sola dirección, extendiéndose infinitamente hacia ambos lados sin jamás terminar. No tiene principio ni fin, solo dirección única. Se nombra con dos puntos cualesquiera que estén en ella (como la "recta AB"), o a veces con una letra minúscula (como la "recta m"). Las rectas son ideales geométricos; en la realidad nunca vemos una recta perfecta infinita, pero el concepto es fundamental para la geometría.'
           ]
         },
         {
           id: 'plano',
           titulo: 'Plano',
           conceptos: [
-            'Un plano es una superficie que se extiende infinitamente en dos direcciones distintas, sin espesor (altura nula). Contiene infinitas rectas e infinitos puntos, todos perfectamente planos y coplanares. Se nombra generalmente con una letra mayúscula griega (como el "plano π") o con tres puntos no colineales que lo definen. Una página de un cuaderno o la superficie de una mesa son aproximaciones finitas de la idea de un plano infinito.'
+            'Un plano es una superficie que se extiende infinitamente en dos direcciones distintas, sin espesor (altura nula). Contiene infinitas rectas e infinitos puntos, todos perfectamente planos y coplanares. Se nombra generalmente con una letra griega (como el "plano π") o con tres puntos no colineales que lo definen. Una página de un cuaderno o la superficie de una mesa son aproximaciones finitas de la idea de un plano infinito.'
           ]
         },
         {
@@ -675,7 +675,7 @@ const lecturaMatematicas = {
           id: 'semirrecta',
           titulo: 'Semirrecta',
           conceptos: [
-            'Una semirrecta (o rayo) es una línea que tiene un punto de origen bien definido, pero se extiende infinitamente en una sola dirección, sin fin ni límite hacia un lado. Se nombra indicando primero el punto de origen, luego otro punto por el cual pasa (como "semirrecta AB", donde A es el origen y B está en la dirección del infinito). Visualmente, si imaginas que partes un punto en dos con una recta, una de las dos mitades es una semirrecta, con el punto de corte como su origen.'
+            'Una semirrecta (o rayo) es una línea que tiene un punto de origen bien definido, pero se extiende infinitamente en una sola dirección, sin fin ni límite hacia un lado. Se nombra indicando primero el punto de origen, luego otro punto por el cual pasa (como "semirrecta AB", donde A es el origen y B está en la dirección del infinito). Visualmente, si partes una recta en dos con un punto, cada una de las dos mitades es una semirrecta, con el punto de corte como su origen.'
           ]
         }
       ]
@@ -733,7 +733,7 @@ const lecturaMatematicas = {
           id: 'cuadrilateros',
           titulo: 'Cuadriláteros',
           conceptos: [
-            'Los cuadriláteros son polígonos de 4 lados que se clasifican en familias según sus propiedades de lados y ángulos. El cuadrado tiene 4 lados iguales y 4 ángulos rectos (90° cada uno); el rectángulo tiene lados opuestos iguales y 4 ángulos rectos; el rombo tiene 4 lados iguales pero ángulos opuestos iguales (no todos 90°); el romboide combina características del rectángulo y el rombo; el trapecio tiene solo un par de lados paralelos (llamados bases). Existen muchas variaciones más, pero estas son las más comunes y útiles.',
+            'Los cuadriláteros son polígonos de 4 lados que se clasifican en familias según sus propiedades de lados y ángulos. El cuadrado tiene 4 lados iguales y 4 ángulos rectos (90° cada uno); el rectángulo tiene lados opuestos iguales y 4 ángulos rectos; el rombo tiene 4 lados iguales pero ángulos opuestos iguales (no todos 90°); el romboide tiene lados opuestos iguales y paralelos, pero ningún ángulo recto; el trapecio tiene solo un par de lados paralelos (llamados bases). Existen muchas variaciones más, pero estas son las más comunes y útiles.',
             'Una regla invariante para todos los cuadriláteros, sin excepción de su tipo, es que la suma de sus cuatro ángulos internos siempre es exactamente 360°. Por ejemplo, en un rectángulo con cuatro ángulos de 90° cada uno: 90 + 90 + 90 + 90 = 360°. En un cuadrilátero irregular con ángulos de 80°, 100°, 95° y 85°: 80 + 100 + 95 + 85 = 360°. Esta propiedad te permite hallar un ángulo desconocido en un cuadrilátero si conoces los otros tres: si los ángulos conocidos suman 280°, el cuarto debe medir 360 − 280 = 80°. Es una herramienta confiable para resolver problemas.'
           ]
         },
@@ -748,7 +748,7 @@ const lecturaMatematicas = {
           id: 'poligonos-irregulares',
           titulo: 'Polígonos irregulares',
           conceptos: [
-            'Un polígono irregular es aquél en el cual no todos los lados tienen la misma medida y/o no todos los ángulos interiores tienen la misma medida, es decir, carece de la simetría perfecta de los polígonos regulares. Por ejemplo, un triángulo escaleno (3 lados de distintas longitudes), un rectángulo (4 lados, pero solo los opuestos son iguales, no todos), o un trapecio son polígonos irregulares. La mayoría de figuras que encontrarás en problemas reales son irregulares, aunque seguir siendo más complejas de analizar, sus propiedades fundamentales (como la suma de ángulos) siguen siendo válidas.'
+            'Un polígono irregular es aquél en el cual no todos los lados tienen la misma medida y/o no todos los ángulos interiores tienen la misma medida, es decir, carece de la simetría perfecta de los polígonos regulares. Por ejemplo, un triángulo escaleno (3 lados de distintas longitudes), un rectángulo (4 lados, pero solo los opuestos son iguales, no todos), o un trapecio son polígonos irregulares. La mayoría de figuras que encontrarás en problemas reales son irregulares, aunque sean más complejas de analizar, sus propiedades fundamentales (como la suma de ángulos) siguen siendo válidas.'
           ]
         }
       ]
@@ -822,7 +822,7 @@ const lecturaMatematicas = {
           titulo: 'Teorema de Pitágoras',
           conceptos: [
             'El teorema de Pitágoras es uno de los teoremas más poderosos e importantes de la geometría, pero **solo se aplica a triángulos rectángulos** (aquellos con un ángulo de 90°). Establece que en cualquier triángulo rectángulo, la suma de los cuadrados de los dos lados más cortos (llamados catetos, a y b) es igual al cuadrado del lado más largo (la hipotenusa, c): a² + b² = c². La hipotenusa es siempre el lado opuesto al ángulo recto y es invariablemente el lado más largo del triángulo.',
-            'La utilidad práctica del teorema es que si conoces dos lados cualesquiera de un triángulo rectángulo, puedes encontrar el tercero desconocido despejando la fórmula. Si conoces a = 3 y b = 4, hallables c: c² = 3² + 4² = 9 + 16 = 25, así c = √25 = 5. Si conoces a = 5 y c = 13 (donde c es la hipotenusa), hallas b: 5² + b² = 13², entonces 25 + b² = 169, luego b² = 144, finalmente b = 12. Esta flexibilidad hace del teorema de Pitágoras una herramienta universal para resolver cualquier triángulo rectángulo.',
+            'La utilidad práctica del teorema es que si conoces dos lados cualesquiera de un triángulo rectángulo, puedes encontrar el tercero desconocido despejando la fórmula. Si conoces a = 3 y b = 4, hallas c: c² = 3² + 4² = 9 + 16 = 25, así c = √25 = 5. Si conoces a = 5 y c = 13 (donde c es la hipotenusa), hallas b: 5² + b² = 13², entonces 25 + b² = 169, luego b² = 144, finalmente b = 12. Esta flexibilidad hace del teorema de Pitágoras una herramienta universal para resolver cualquier triángulo rectángulo.',
             'El "triplete pitagórico" más famoso es (3, 4, 5): un triángulo rectángulo con catetos de 3 y 4 unidades tiene hipotenusa de 5 unidades, verificando que 3² + 4² = 9 + 16 = 25 = 5². Este triplete aparece constantemente en problemas y es tan útil que memorizar algunos tripletes comunes (3-4-5, 5-12-13, 8-15-17, 7-24-25) te ahorra tiempo en exámenes: si ves un triángulo con lados 3 y 4, sabes inmediatamente que la hipotenusa es 5 sin necesidad de calcular. Estos números también forman escalas: (6, 8, 10), (9, 12, 15), etc., simplemente multiplicando todos los términos del triplete base por una constante.'
           ]
         }
@@ -866,7 +866,7 @@ const lecturaMatematicas = {
           id: 'ecuacion-de-la-recta',
           titulo: 'Ecuación de la recta',
           conceptos: [
-            'La ecuación de una recta en su forma más útil es y = mx + b, llamada forma pendiente-ordenada al origen (o forma punto-pendiente). Aquí, m es la pendiente (la inclinación) y b es la ordenada al origen (el valor de y cuando x = 0), representando exactamente dónde cruza la recta el eje Y. Por ejemplo, la recta y = 2x + 3 tiene pendiente m = 2 (sube 2 por cada unidad horizontal) y cruza el eje Y en el punto (0, 3). Si tienes dos puntos y necesitas hallar la ecuación, primero calculas la pendiente, luego usas uno de los puntos para encontrar b: es un proceso mecánico y confiable.',
+            'La ecuación de una recta en su forma más útil es y = mx + b, llamada forma pendiente-ordenada al origen (no confundir con la forma punto-pendiente, y − y₁ = m(x − x₁)). Aquí, m es la pendiente (la inclinación) y b es la ordenada al origen (el valor de y cuando x = 0), representando exactamente dónde cruza la recta el eje Y. Por ejemplo, la recta y = 2x + 3 tiene pendiente m = 2 (sube 2 por cada unidad horizontal) y cruza el eje Y en el punto (0, 3). Si tienes dos puntos y necesitas hallar la ecuación, primero calculas la pendiente, luego usas uno de los puntos para encontrar b: es un proceso mecánico y confiable.',
             'Las relaciones entre rectas se revelan mediante sus pendientes: dos rectas son paralelas (nunca se cruzan) si y solo si tienen exactamente la misma pendiente (m₁ = m₂). Por ejemplo, y = 2x + 3 e y = 2x − 5 son paralelas porque ambas tienen m = 2. Dos rectas son perpendiculares (forman un ángulo de 90°) si y solo si el producto de sus pendientes es −1, es decir, m₁ × m₂ = −1, o equivalentemente, m₂ = −1/m₁. Por ejemplo, si una recta tiene pendiente m = 2, una recta perpendicular a ella tiene pendiente −1/2. Estas relaciones de pendientes son herramientas poderosas para análisis geométrico y resolución de problemas sin necesidad de gráficos.'
           ]
         }
@@ -888,7 +888,7 @@ const lecturaMatematicas = {
           titulo: 'Punto medio',
           conceptos: [
             'El punto medio de un segmento es el punto que se ubica exactamente a la mitad de la distancia entre los dos extremos del segmento, dividiéndolo en dos partes iguales. Se calcula promediando las coordenadas de los puntos extremos: si los extremos son (x₁, y₁) y (x₂, y₂), el punto medio es M = ((x₁+x₂)/2, (y₁+y₂)/2). Por ejemplo, el punto medio entre (2, 4) y (8, 10) es M = ((2+8)/2, (4+10)/2) = (5, 7). Este concepto es útil en geometría (encontrar centros de figuras), en análisis de datos (hallar promedios posicionales), y en bisección de segmentos.',
-            'La fórmula del punto medio es M = ((x₁+x₂)/2, (y₁+y₂)/2), donde simplemente promedias cada coordenada independientemente. La coordenada x del punto medio es el promedio de las x de los extremos; la coordenada y es el promedio de las y. Por ejemplo, entre (−3, 5) y (7, 1), el punto medio es M = ((−3+7)/2, (5+1)/2) = (2, 3). Esta fórmula es rápida, confiable, y fundamental: la usarás constantemente en geometría analítica, y es tan simple que cometería un error al calcularla solo por distracción, no por falta de comprensión.'
+            'La fórmula del punto medio es M = ((x₁+x₂)/2, (y₁+y₂)/2), donde simplemente promedias cada coordenada independientemente. La coordenada x del punto medio es el promedio de las x de los extremos; la coordenada y es el promedio de las y. Por ejemplo, entre (−3, 5) y (7, 1), el punto medio es M = ((−3+7)/2, (5+1)/2) = (2, 3). Esta fórmula es rápida, confiable, y fundamental: la usarás constantemente en geometría analítica, y es tan simple que, si te equivocas al calcularla, será por distracción y no por falta de comprensión.'
           ]
         }
       ]
@@ -901,7 +901,7 @@ const lecturaMatematicas = {
           id: 'tablas',
           titulo: 'Tablas',
           conceptos: [
-            'Las tablas organizan datos en filas y columnas para facilitar su lectura, comparación y análisis rápido. Por ejemplo, una tabla de precios de frutas por kg podría mostrar "Manzana: $25, Plátano: $15, Naranja: $30" en filas y columnas claramente diferenciadas. Estructurar así los datos permite identificar patrones y patrones visuales sin hacer cálculos complejos.'
+            'Las tablas organizan datos en filas y columnas para facilitar su lectura, comparación y análisis rápido. Por ejemplo, una tabla de precios de frutas por kg podría mostrar "Manzana: $25, Plátano: $15, Naranja: $30" en filas y columnas claramente diferenciadas. Estructurar así los datos permite identificar patrones y tendencias visuales sin hacer cálculos complejos.'
           ]
         },
         {
@@ -1105,7 +1105,7 @@ const lecturaMatematicas = {
           id: 'series-numericas',
           titulo: 'Series numéricas',
           conceptos: [
-            'En una serie numérica, identifica la operación o regla que transforma un término en el siguiente. Puede ser suma (1, 3, 5, 7: suma 2), resta (20, 17, 14, 11: resta 3), multiplicación (2, 6, 18, 54: multiplica por 3), división, o combinaciones más complejas (1, 2, 4, 7, 11: suma 1, 2, 3, 4... incrementalmente). Una vez descubiertas la regla, puedes predecir cualquier término futuro sin calcular todos los anteriores. El truco es probar varias operaciones hasta encontrar la consistente.'
+            'En una serie numérica, identifica la operación o regla que transforma un término en el siguiente. Puede ser suma (1, 3, 5, 7: suma 2), resta (20, 17, 14, 11: resta 3), multiplicación (2, 6, 18, 54: multiplica por 3), división, o combinaciones más complejas (1, 2, 4, 7, 11: suma 1, 2, 3, 4... incrementalmente). Una vez descubierta la regla, puedes predecir cualquier término futuro sin calcular todos los anteriores. El truco es probar varias operaciones hasta encontrar la consistente.'
           ]
         },
         {
@@ -1141,7 +1141,7 @@ const lecturaMatematicas = {
           id: 'resolucion-problemas-verbales',
           titulo: 'Resolución de problemas verbales',
           conceptos: [
-            'Antes de escribir una sola operación, lee el problema completo de principio a fin para entender el contexto completo y qué exactamente te preguntan. Muchos errores ocurren porque los estudiantes empiezan a calcular a mitad de la lectura sin saber qué es lo que buscan. Por ejemplo, si un problema dice "Juan tiene 5 manzanas, compra 3 más, regala 2", pero pregunta "¿cuánto dinero gasta si cada manzana cuesta $1?", la respuesta no es solo 6 manzanas (5+3−2), sino 6×$1=$6. Identificar la pregunta exacta antes de calcular es crucial.',
+            'Antes de escribir una sola operación, lee el problema completo de principio a fin para entender el contexto completo y qué exactamente te preguntan. Muchos errores ocurren porque los estudiantes empiezan a calcular a mitad de la lectura sin saber qué es lo que buscan. Por ejemplo, si un problema dice "Juan tiene 5 manzanas, compra 3 más, regala 2", pero pregunta "¿cuánto dinero gasta si cada manzana cuesta $1?", la respuesta no es 6 manzanas (5+3−2) ni $6: solo compró 3, así que gastó 3×$1=$3. Identificar la pregunta exacta antes de calcular es crucial.',
             'Una vez identificada la pregunta, subraya todos los datos numéricos y las relaciones clave (quién hace qué, en qué orden, qué se compara). Por ejemplo, en "una tienda descuenta 20% a productos de más de $100", subraya "20%" (el descuento), "$100" (el umbral), y "descuenta si precio > $100" (la relación). Luego plantea la operación basado en estos datos organizados. Este enfoque sistemático previene confusiones y errores de cálculo.'
           ]
         },
@@ -1165,8 +1165,8 @@ const lecturaMatematicas = {
           id: 'estimacion-resultados',
           titulo: 'Estimación de resultados',
           conceptos: [
-            'La estimación es una técnica donde redondeas números a valores más simples, realizas el cálculo aproximado, y obtienes una idea rápida de si tu respuesta final debería estar en ese rango. Por ejemplo, para 23.7 × 48.2, redondea a 24 × 48 ≈ 1200 (mental: 24 × 50 − 24 × 2 = 1200 − 48 ≈ 1152). El resultado exacto es 1142.34, que está muy cercano a la estimación. Si hubiera salido 114 o 11423, la estimación habría alertado el error.',
-            'Una estimación es una herramienta de verificación poderosa que detecta errores obvios sin necesidad de recalcular completamente. Por ejemplo, si un problema pide "¿Cuánto cuesta 100 artículos a $12 cada uno?" y tu calculadora da $1200, una estimación mental (100 × 12 ≈ 1200) confirma que es correcto. Si hubiera dado $120 o $12000, la estimación revelado el error de inmediato. En exámenes de selección múltiple, las estimaciones eliminan opciones claramente incorrectas en segundos.'
+            'La estimación es una técnica donde redondeas números a valores más simples, realizas el cálculo aproximado, y obtienes una idea rápida de si tu respuesta final debería estar en ese rango. Por ejemplo, para 23.7 × 48.2, redondea a 24 × 50 = 1200 (o, más fino, 24 × 48 = 1152). El resultado exacto es 1142.34, que está muy cercano a la estimación. Si hubiera salido 114 o 11423, la estimación habría alertado el error.',
+            'Una estimación es una herramienta de verificación poderosa que detecta errores obvios sin necesidad de recalcular completamente. Por ejemplo, si un problema pide "¿Cuánto cuesta 100 artículos a $12 cada uno?" y tu calculadora da $1200, una estimación mental (100 × 12 ≈ 1200) confirma que es correcto. Si hubiera dado $120 o $12000, la estimación habría revelado el error de inmediato. En exámenes de selección múltiple, las estimaciones eliminan opciones claramente incorrectas en segundos.'
           ]
         }
       ]

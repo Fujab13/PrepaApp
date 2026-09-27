@@ -1,0 +1,63 @@
+Dibuja una ilustración SVG plana sobre: "{TEMA}".
+
+QUÉ DIBUJAR
+- El tema viene de una pregunta o lección de nivel preuniversitario (examen de admisión). No te
+  voy a decir qué dibujar: decide tú qué diagrama explica mejor el concepto. Puedes revisar los
+  requerimientos de lecciones y exámenes para entender el nivel.
+- Prefiere un DIAGRAMA que muestre la idea (conjuntos que se contienen, niveles, partes de un
+  todo, antes/después, comparación) en vez de un objeto decorativo.
+- Ejemplo: para "clasificación de los números", conjuntos anidados N ⊂ Z ⊂ Q ⊂ R con I al lado
+  de Q (ver SVG DE REFERENCIA abajo).
+
+FORMATO
+- viewBox="0 0 320 180" (16:9). Todo el dibujo dentro del área x 60–260, y 20–160 (margen
+  generoso), incluidos grosor de trazo, puntas de flecha y sombra.
+- Fondo transparente: sin <rect> de fondo.
+- Solo formas nativas: <path>, <circle>, <rect rx>, <ellipse>, <polygon>. Sin <image>, <text>,
+  <filter>, <mask>, fuentes ni base64.
+- Máximo 20 elementos. Menos de 4 KB. Sin metadata ni comentarios.
+- En el <svg> raíz: fill="none" stroke-linecap="round" stroke-linejoin="round".
+
+ESTILO (igual al SVG DE REFERENCIA)
+- Formas en CONTORNO: relleno translúcido del mismo tono (fill-opacity .14–.30) + borde de color
+  de stroke-width 2.5. Esquinas redondeadas (rx 10–16, más chico en las formas interiores).
+- UN SOLO punto focal sólido: el elemento más importante o más interno va con relleno sólido
+  (#7c5cbf) y su detalle encima en #f0f0f0. Todo lo demás, en contorno.
+- Letras y símbolos: nunca <text>. Solo si SON el concepto (N, Z, π, √, H₂O, +, ×), dibujados
+  con <path> de stroke-width 3, del mismo color que el borde de su forma, en la esquina
+  superior izquierda de su forma (o centrados si la forma es el punto focal). Nada de palabras,
+  frases ni números decorativos.
+- Formas de distinto nivel se distinguen alternando morados y cianes.
+- Si hay personas: geométricas simples y neutrales, estilo para adolescentes (no infantil).
+- Opcional: sombra elíptica muy plana debajo (#7c5cbf, fill-opacity .15, ry 2–3), dentro del área.
+
+COLOR (debe verse bien sobre #1a1a2e Y sobre #ffffff)
+- Morados: #7c5cbf, #9b7fd4, #5a3fa0. Cianes: #06b6d4, #22d3ee, #0891b2.
+- Acento opcional: #f59e0b (dorado), solo para logros/premios.
+- Bordes, letras y símbolos en tonos medios (#7c5cbf, #0891b2, #06b6d4, #9b7fd4): se leen en
+  ambos fondos.
+- #f0f0f0 solo encima del punto focal sólido, nunca como borde ni sobre relleno translúcido.
+- Nada de negro ni grises oscuros.
+
+SVG DE REFERENCIA ("clasificación de los números"): imita este estilo, no su contenido.
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 180" fill="none" stroke-linecap="round" stroke-linejoin="round">
+<ellipse cx="160" cy="158" rx="92" ry="2" fill="#7c5cbf" fill-opacity=".15"/>
+<rect x="62" y="22" width="196" height="132" rx="16" fill="#7c5cbf" fill-opacity=".14" stroke="#7c5cbf" stroke-width="2.5"/>
+<rect x="70" y="46" width="128" height="100" rx="14" fill="#06b6d4" fill-opacity=".14" stroke="#0891b2" stroke-width="2.5"/>
+<rect x="206" y="46" width="44" height="100" rx="12" fill="#9b7fd4" fill-opacity=".3" stroke="#9b7fd4" stroke-width="2.5"/>
+<rect x="80" y="70" width="108" height="68" rx="12" fill="#22d3ee" fill-opacity=".18" stroke="#06b6d4" stroke-width="2.5"/>
+<rect x="100" y="92" width="48" height="38" rx="10" fill="#7c5cbf"/>
+<path d="M68 38V26h5a3.5 3.5 0 0 1 0 7h-5M73 33l4 5" stroke="#7c5cbf" stroke-width="3"/>
+<path d="M78 58a5 6 0 1 0 10 0a5 6 0 1 0-10 0M85 61l3 4" stroke="#0891b2" stroke-width="3"/>
+<path d="M228 52v12M225 52h6M225 64h6" stroke="#9b7fd4" stroke-width="3"/>
+<path d="M88 76h9l-9 12h9" stroke="#06b6d4" stroke-width="3"/>
+<path d="M119 117v-12l10 12v-12" stroke="#f0f0f0" stroke-width="3"/>
+</svg>
+
+PROCESO
+1. Escribe en 2–3 líneas qué diagrama vas a dibujar, qué formas usas y cuál es el punto focal.
+2. Lista los elementos que el tema DEBE incluir (p. ej. para jerarquía de operaciones: agrupación
+   ( ) [ ] { }, potencias Y raíces, × ÷, + −). Revisa dos veces que no falte ninguno.
+3. Dibuja el SVG.
+4. Revisa coordenada por coordenada que todo quede dentro de x 60–260, y 20–160.
+5. Entrega el SVG completo en un solo bloque de código.

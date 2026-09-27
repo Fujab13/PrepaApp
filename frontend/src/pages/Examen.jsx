@@ -504,63 +504,92 @@ export default function Examen() {
   background: "var(--bg)",
   paddingTop: 14,
 }}>
+  {/* Dos bloques que pueden pasar a otra línea sin romperse: con un nombre
+      de sección corto caben en una sola fila como siempre; con uno largo,
+      el nombre se queda arriba solo con la X (partiéndose en varias líneas
+      si hace falta) y pregunta/total + progreso + reloj bajan juntos a la
+      segunda fila. */}
   <div style={{
+    flex: 1,
+    minWidth: 0,
     display: 'flex',
+    flexWrap: 'wrap',
     alignItems: 'center',
-    gap: 10,
+    columnGap: 10,
+    rowGap: 6,
   }}>
-    <button
-      onClick={confirmarSalir}
-      title="Salir"
-      className="page-topbar-btn"
-    >
-    <AiOutlineClose />
-    </button>
-    {/* Sección actual (como el icono de materia) */}
-    <span style={{
-      background: 'transparent',
-      color: seccion?.color ?? '#4f8ef7',
-      fontSize: '0.7rem',
-      fontWeight: 600,
-      textTransform: 'uppercase',
-      letterSpacing: '0.08em',
-      whiteSpace: 'nowrap',
-    }}>
-      {seccion?.nombre ?? "Examen"}
-    </span>
-
-    {/* Barra de progreso en píldora */}
+    {/* Bloque 1: salir + sección */}
     <div style={{
-      flex: 1,
-      height: '6px',
-      background: 'var(--surface2)',
-      borderRadius: '99px',
-      overflow: 'hidden',
+      flex: '0 1 auto',
+      minWidth: 0,
+      display: 'flex',
+      alignItems: 'center',
+      gap: 10,
     }}>
-      <div style={{
-        height: '100%',
-        borderRadius: '99px',
-        background: seccion?.color ?? '#4f8ef7',
-        width: `${progresoPct}%`,
-        transition: 'width 0.4s ease',
-      }} />
+      <button
+        onClick={confirmarSalir}
+        title="Salir"
+        className="page-topbar-btn"
+      >
+      <AiOutlineClose />
+      </button>
+      {/* Sección actual (como el icono de materia) */}
+      <span style={{
+        minWidth: 0,
+        background: 'transparent',
+        color: seccion?.color ?? '#4f8ef7',
+        fontSize: '0.7rem',
+        fontWeight: 600,
+        textTransform: 'uppercase',
+        letterSpacing: '0.08em',
+        lineHeight: 1.3,
+        overflowWrap: 'anywhere',
+      }}>
+        {seccion?.nombre ?? "Examen"}
+      </span>
     </div>
 
-    {/* Contador de preguntas + cronómetro, estilo "util-btn" */}
-    <div className="page-topbar-actions" style={{
-      gap: '10px',
-      fontSize: '0.75rem',
-      color: 'var(--text-muted)',
+    {/* Bloque 2: pregunta/total + barra de progreso + cronómetro general */}
+    <div style={{
+      flex: '1 1 200px',
+      display: 'flex',
+      alignItems: 'center',
+      gap: 10,
     }}>
-      <span style={{ fontVariantNumeric: 'tabular-nums', whiteSpace: 'nowrap' }}>
+      <span style={{
+        flexShrink: 0,
+        fontSize: '0.75rem',
+        color: 'var(--text-muted)',
+        fontVariantNumeric: 'tabular-nums',
+        whiteSpace: 'nowrap',
+      }}>
         {indexActual + 1} / {totalPreguntas}
       </span>
+      {/* Barra de progreso en píldora */}
+      <div style={{
+        flex: 1,
+        height: '6px',
+        background: 'var(--surface2)',
+        borderRadius: '99px',
+        overflow: 'hidden',
+      }}>
+        <div style={{
+          height: '100%',
+          borderRadius: '99px',
+          background: seccion?.color ?? '#4f8ef7',
+          width: `${progresoPct}%`,
+          transition: 'width 0.4s ease',
+        }} />
+      </div>
 
-      <span 
+      <span
       className="reloj-minimal"
       style={{
+        flexShrink: 0,
+        fontSize: '0.75rem',
         color: colorGlobal,
         fontVariantNumeric: 'tabular-nums',
+        whiteSpace: 'nowrap',
       }}>
         {fmtGlobal(tiempoGlobal)}
       </span>

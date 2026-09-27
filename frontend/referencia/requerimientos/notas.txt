@@ -1,3 +1,16 @@
+Nota esta es una tarea extensa y repite esto en bucle
+  1. Lee concepto matematicas
+  2. Identifica idea general
+  3. Tomalo como tema y basado en @referencia\requerimientos\svg.txt genera un svg
+  4. Revisa que tu svg no tenga errores una ultima vez
+     4.1 si tiene errores corrigelos
+  5. Añade el enlace svg a ese concepto de leccion matematicas de donde lo sacaste
+  6. Desplazate hasta el siguiente concepto o explicación en leccion matematicas y reptite hasta llegar a la ultima unidad
+
+
+
+
+
 [HECHO] Recuerda que las notificaciones que da la app deben ser cada 3 dias y no cada 3 hrs
 además, permite que la primera notificacion llegue cuando el user active el boton
 o lo reactive, sirviendo como feedback de que ya estan funcionando las

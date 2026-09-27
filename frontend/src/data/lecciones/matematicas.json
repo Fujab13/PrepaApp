@@ -5,7 +5,8 @@
   "descripcion": "Álgebra, geometría, funciones, estadística y razonamiento matemático",
   "preguntas": [
     {
-      "pregunta": "Los números se agrupan en conjuntos según sus características: los naturales ($\\mathbb{N}$) sirven para contar ($0, 1, 2, 3,\\ldots$); los enteros ($\\mathbb{Z}$) agregan los negativos; los racionales ($\\mathbb{Q}$) son los que se pueden escribir como una fracción $\\frac{a}{b}$, con decimal exacto o periódico; los irracionales tienen un decimal infinito sin patrón, como $\\sqrt{2}$ o $\\pi$. La unión de racionales e irracionales forma los números reales ($\\mathbb{R}$)."
+      "pregunta": "Los números se agrupan en conjuntos según sus características: los naturales ($\\mathbb{N}$) sirven para contar ($0, 1, 2, 3,\\ldots$); los enteros ($\\mathbb{Z}$) agregan los negativos; los racionales ($\\mathbb{Q}$) son los que se pueden escribir como una fracción $\\frac{a}{b}$, con decimal exacto o periódico; los irracionales tienen un decimal infinito sin patrón, como $\\sqrt{2}$ o $\\pi$. La unión de racionales e irracionales forma los números reales ($\\mathbb{R}$).",
+      "enlace_svg": "clasificacion-numeros.svg"
     },
     {
       "pregunta": "¿Cuál de los siguientes números es racional?",
@@ -62,7 +63,8 @@
       "correcta": 2
     },
     {
-      "pregunta": "Cuando una expresión combina varias operaciones, deben resolverse en un orden específico: primero lo que está entre paréntesis, después potencias y raíces, luego multiplicaciones y divisiones, y al final sumas y restas; entre operaciones del mismo nivel se resuelve de izquierda a derecha. Por ejemplo, en $5 + 2 \\times (8-3)^2$ primero se resuelve el paréntesis, luego la potencia, después la multiplicación y al final la suma: el resultado es $55$."
+      "pregunta": "Cuando una expresión combina varias operaciones, deben resolverse en un orden específico: primero lo que está entre paréntesis, después potencias y raíces, luego multiplicaciones y divisiones, y al final sumas y restas; entre operaciones del mismo nivel se resuelve de izquierda a derecha. Por ejemplo, en $5 + 2 \\times (8-3)^2$ primero se resuelve el paréntesis, luego la potencia, después la multiplicación y al final la suma: el resultado es $55$.",
+      "enlace_svg": "jerarquia-operaciones.svg"
     },
     {
       "pregunta": "Calcula: $7 + 3 \\times 2$",
@@ -119,7 +121,8 @@
       "correcta": 2
     },
     {
-      "pregunta": "Al sumar o restar números con signo, el resultado conserva el signo del número con mayor valor absoluto; al multiplicar o dividir, el resultado es positivo si ambos factores tienen el mismo signo, y negativo si los signos son distintos."
+      "pregunta": "Al sumar o restar números con signo, el resultado conserva el signo del número con mayor valor absoluto; al multiplicar o dividir, el resultado es positivo si ambos factores tienen el mismo signo, y negativo si los signos son distintos.",
+      "enlace_svg": "leyes-signos.svg"
     },
     {
       "pregunta": "¿Cuál es el resultado de $-8 + 3$?",
@@ -167,7 +170,8 @@
       "correcta": 1
     },
     {
-      "pregunta": "El valor absoluto de un número representa su distancia al cero en la recta numérica, y siempre es positivo o cero. Se escribe entre barras verticales: $|x|$. Por ejemplo, $|-8| = 8$ y $|8| = 8$, porque ambos están a $8$ unidades del cero, sin importar la dirección."
+      "pregunta": "El valor absoluto de un número representa su distancia al cero en la recta numérica, y siempre es positivo o cero. Se escribe entre barras verticales: $|x|$. Por ejemplo, $|-8| = 8$ y $|8| = 8$, porque ambos están a $8$ unidades del cero, sin importar la dirección.",
+      "enlace_svg": "valor-absoluto.svg"
     },
     {
       "pregunta": "¿Cuál es el resultado de $|-12|$?",
@@ -215,7 +219,8 @@
       "correcta": 1
     },
     {
-      "pregunta": "Un número primo solo es divisible entre $1$ y sí mismo; si tiene más divisores, es compuesto. Los criterios de divisibilidad ayudan a detectarlo rápido: un número es divisible entre $2$ si termina en cifra par, entre $3$ si la suma de sus dígitos es múltiplo de $3$, y entre $5$ si termina en $0$ o $5$. Descomponer un número en sus factores primos permite calcular el Máximo Común Divisor (MCD) y el Mínimo Común Múltiplo (MCM) entre dos o más números."
+      "pregunta": "Un número primo solo es divisible entre $1$ y sí mismo; si tiene más divisores, es compuesto. Los criterios de divisibilidad ayudan a detectarlo rápido: un número es divisible entre $2$ si termina en cifra par, entre $3$ si la suma de sus dígitos es múltiplo de $3$, y entre $5$ si termina en $0$ o $5$. Descomponer un número en sus factores primos permite calcular el Máximo Común Divisor (MCD) y el Mínimo Común Múltiplo (MCM) entre dos o más números.",
+      "enlace_svg": "mcd-mcm.svg"
     },
     {
       "pregunta": "¿Cuál de los siguientes números es primo?",
@@ -272,7 +277,8 @@
       "correcta": 2
     },
     {
-      "pregunta": "Para sumar o restar fracciones se necesita un común denominador; para multiplicarlas se multiplican numeradores y denominadores por separado, y para dividirlas se multiplica por el recíproco de la segunda fracción. Toda fracción tiene una representación decimal: se obtiene dividiendo el numerador entre el denominador."
+      "pregunta": "Para sumar o restar fracciones se necesita un común denominador; para multiplicarlas se multiplican numeradores y denominadores por separado, y para dividirlas se multiplica por el recíproco de la segunda fracción. Toda fracción tiene una representación decimal: se obtiene dividiendo el numerador entre el denominador.",
+      "enlace_svg": "suma-fracciones.svg"
     },
     {
       "pregunta": "¿Cuál es el resultado de $\\frac{1}{2} + \\frac{1}{3}$?",
@@ -329,7 +335,8 @@
       "correcta": 0
     },
     {
-      "pregunta": "Las leyes de los exponentes permiten simplificar expresiones con potencias: al multiplicar potencias de la misma base se suman los exponentes ($x^a \\times x^b = x^{a+b}$), al dividir se restan ($x^a \\div x^b = x^{a-b}$) y al elevar una potencia a otra se multiplican ($(x^a)^b = x^{ab}$). Todo número elevado a la $0$ es igual a $1$, y un exponente negativo indica un recíproco: $x^{-n} = \\frac{1}{x^n}$."
+      "pregunta": "Las leyes de los exponentes permiten simplificar expresiones con potencias: al multiplicar potencias de la misma base se suman los exponentes ($x^a \\times x^b = x^{a+b}$), al dividir se restan ($x^a \\div x^b = x^{a-b}$) y al elevar una potencia a otra se multiplican ($(x^a)^b = x^{ab}$). Todo número distinto de cero elevado a la $0$ es igual a $1$, y un exponente negativo indica un recíproco: $x^{-n} = \\frac{1}{x^n}$.",
+      "enlace_svg": "leyes-exponentes.svg"
     },
     {
       "pregunta": "Según las leyes de los exponentes, $x^3 \\times x^4$ es igual a:",
@@ -386,7 +393,8 @@
       "correcta": 2
     },
     {
-      "pregunta": "Una proporción es la igualdad entre dos razones, como $\\frac{a}{b} = \\frac{c}{d}$, y se resuelve con el producto cruzado ($a \\times d = b \\times c$). Cuando dos magnitudes son directamente proporcionales, al aumentar una la otra aumenta en la misma razón; si son inversamente proporcionales, al aumentar una la otra disminuye. Un porcentaje es una razón especial con denominador $100$: el $x\\%$ de una cantidad $C$ equivale a $\\frac{x}{100} \\times C$."
+      "pregunta": "Una proporción es la igualdad entre dos razones, como $\\frac{a}{b} = \\frac{c}{d}$, y se resuelve con el producto cruzado ($a \\times d = b \\times c$). Cuando dos magnitudes son directamente proporcionales, al aumentar una la otra aumenta en la misma razón; si son inversamente proporcionales, al aumentar una la otra disminuye. Un porcentaje es una razón especial con denominador $100$: el $x\\%$ de una cantidad $C$ equivale a $\\frac{x}{100} \\times C$.",
+      "enlace_svg": "proporciones.svg"
     },
     {
       "pregunta": "En la proporción $\\frac{3}{4} = \\frac{x}{20}$, el valor de $x$ es:",
@@ -443,7 +451,8 @@
       "correcta": 0
     },
     {
-      "pregunta": "En una variación directa, dos magnitudes cambian en la misma proporción: si una aumenta al doble, la otra también lo hace, y su cociente se mantiene constante ($\\frac{y}{x}=k$). En una variación inversa ocurre lo contrario: cuando una magnitud aumenta, la otra disminuye en la misma proporción, y es su producto el que se mantiene constante ($x \\times y = k$). Cuando un problema relaciona tres o más magnitudes a la vez -algunas de forma directa y otras de forma inversa respecto a la incógnita- se resuelve con una regla de tres compuesta: se plantea una razón por cada magnitud, cuidando el sentido (directo o inverso) de cada una respecto a lo que se busca."
+      "pregunta": "En una variación directa, dos magnitudes cambian en la misma proporción: si una aumenta al doble, la otra también lo hace, y su cociente se mantiene constante ($\\frac{y}{x}=k$). En una variación inversa ocurre lo contrario: cuando una magnitud aumenta, la otra disminuye en la misma proporción, y es su producto el que se mantiene constante ($x \\times y = k$). Cuando un problema relaciona tres o más magnitudes a la vez -algunas de forma directa y otras de forma inversa respecto a la incógnita- se resuelve con una regla de tres compuesta: se plantea una razón por cada magnitud, cuidando el sentido (directo o inverso) de cada una respecto a lo que se busca.",
+      "enlace_svg": "variacion-directa-inversa.svg"
     },
     {
       "pregunta": "Si el número de horas trabajadas y el salario recibido cambian en la misma proporción (a más horas, más dinero, en la misma razón), esta es una relación de variación:",
@@ -500,7 +509,8 @@
       "correcta": 1
     },
     {
-      "pregunta": "Un monomio es una expresión algebraica con un solo término, como $5x^3y^2$; un polinomio tiene varios términos separados por sumas o restas. Para sumar o restar polinomios se combinan los términos semejantes (mismos literales y exponentes); para multiplicarlos se aplica la propiedad distributiva."
+      "pregunta": "Un monomio es una expresión algebraica con un solo término, como $5x^3y^2$; un polinomio tiene varios términos separados por sumas o restas. Para sumar o restar polinomios se combinan los términos semejantes (mismos literales y exponentes); para multiplicarlos se aplica la propiedad distributiva.",
+      "enlace_svg": "polinomios.svg"
     },
     {
       "pregunta": "¿Cuál es el grado del monomio $5x^3y^2$?",
@@ -548,7 +558,8 @@
       "correcta": 0
     },
     {
-      "pregunta": "Los productos notables evitan multiplicar término por término: $(a+b)^2 = a^2+2ab+b^2$, $(a-b)^2 = a^2-2ab+b^2$ y $(a+b)(a-b) = a^2-b^2$. Factorizar es el proceso inverso: escribir un polinomio como producto de factores más simples, por ejemplo extrayendo el factor común o reconociendo una diferencia de cuadrados o un trinomio cuadrado perfecto."
+      "pregunta": "Los productos notables evitan multiplicar término por término: $(a+b)^2 = a^2+2ab+b^2$, $(a-b)^2 = a^2-2ab+b^2$ y $(a+b)(a-b) = a^2-b^2$. Factorizar es el proceso inverso: escribir un polinomio como producto de factores más simples, por ejemplo extrayendo el factor común o reconociendo una diferencia de cuadrados o un trinomio cuadrado perfecto.",
+      "enlace_svg": "productos-notables.svg"
     },
     {
       "pregunta": "El producto notable $(a-b)^2$ es igual a:",
@@ -605,7 +616,8 @@
       "correcta": 2
     },
     {
-      "pregunta": "Una fracción algebraica se simplifica igual que una fracción numérica: se factorizan numerador y denominador y se cancelan los factores comunes. Al sumarlas se necesita un denominador común, y al multiplicarlas o dividirlas se opera igual que con fracciones numéricas."
+      "pregunta": "Una fracción algebraica se simplifica igual que una fracción numérica: se factorizan numerador y denominador y se cancelan los factores comunes. Al sumarlas se necesita un denominador común, y al multiplicarlas o dividirlas se opera igual que con fracciones numéricas.",
+      "enlace_svg": "fracciones-algebraicas.svg"
     },
     {
       "pregunta": "Simplifica: $\\dfrac{x^2-9}{x-3}$",
@@ -653,7 +665,8 @@
       "correcta": 2
     },
     {
-      "pregunta": "Resolver una ecuación de primer grado significa despejar la variable, aplicando la misma operación a ambos lados de la igualdad hasta dejarla sola: se agrupan los términos con la variable de un lado y los términos independientes del otro."
+      "pregunta": "Resolver una ecuación de primer grado significa despejar la variable, aplicando la misma operación a ambos lados de la igualdad hasta dejarla sola: se agrupan los términos con la variable de un lado y los términos independientes del otro.",
+      "enlace_svg": "ecuacion-primer-grado.svg"
     },
     {
       "pregunta": "Resuelve: $3x+5=20$",
@@ -701,7 +714,8 @@
       "correcta": 2
     },
     {
-      "pregunta": "Una ecuación cuadrática tiene la forma $ax^2+bx+c=0$. Puede resolverse factorizando, o con la fórmula general $x = \\dfrac{-b \\pm \\sqrt{b^2-4ac}}{2a}$; el discriminante $b^2-4ac$ indica cuántas soluciones reales tiene: dos si es positivo, una si es cero, y ninguna real si es negativo."
+      "pregunta": "Una ecuación cuadrática tiene la forma $ax^2+bx+c=0$. Puede resolverse factorizando, o con la fórmula general $x = \\dfrac{-b \\pm \\sqrt{b^2-4ac}}{2a}$; el discriminante $b^2-4ac$ indica cuántas soluciones reales tiene: dos si es positivo, una si es cero, y ninguna real si es negativo.",
+      "enlace_svg": "ecuacion-cuadratica.svg"
     },
     {
       "pregunta": "Resuelve $x^2-16=0$",
@@ -749,7 +763,8 @@
       "correcta": 0
     },
     {
-      "pregunta": "Un sistema de dos ecuaciones con dos incógnitas se resuelve encontrando los valores que satisfacen ambas ecuaciones a la vez, ya sea por sustitución, igualación o suma y resta. Una inecuación se resuelve como una ecuación, con una diferencia clave: al multiplicar o dividir ambos lados entre un número negativo, el sentido de la desigualdad se invierte."
+      "pregunta": "Un sistema de dos ecuaciones con dos incógnitas se resuelve encontrando los valores que satisfacen ambas ecuaciones a la vez, ya sea por sustitución, igualación o suma y resta. Una inecuación se resuelve como una ecuación, con una diferencia clave: al multiplicar o dividir ambos lados entre un número negativo, el sentido de la desigualdad se invierte.",
+      "enlace_svg": "sistemas-inecuaciones.svg"
     },
     {
       "pregunta": "Resuelve el sistema: $x+y=12$, $x-y=4$. ¿Cuál es el valor de $x$?",
@@ -806,7 +821,8 @@
       "correcta": 2
     },
     {
-      "pregunta": "Para resolver un problema con ecuaciones, primero se traduce el enunciado a lenguaje algebraico (asignando una variable a la cantidad desconocida), después se plantea la ecuación que representa la relación descrita, y finalmente se despeja la incógnita."
+      "pregunta": "Para resolver un problema con ecuaciones, primero se traduce el enunciado a lenguaje algebraico (asignando una variable a la cantidad desconocida), después se plantea la ecuación que representa la relación descrita, y finalmente se despeja la incógnita.",
+      "enlace_svg": "problemas-ecuaciones.svg"
     },
     {
       "pregunta": "'El triple de un número, disminuido en 7' se representa algebraicamente como:",
@@ -818,7 +834,7 @@
       "correcta": 1
     },
     {
-      "pregunta": "La edad de Sofía es el triple de la de su hermano. Si entre las dos suman 32 años, ¿cuántos años tiene el hermano?",
+      "pregunta": "La edad de Sofía es el triple de la de su hermano. Si entre los dos suman 32 años, ¿cuántos años tiene el hermano?",
       "opciones": [
         "24",
         "16",
@@ -863,7 +879,8 @@
       "correcta": 1
     },
     {
-      "pregunta": "Una relación se convierte en función cuando cada elemento del dominio (los valores de entrada) tiene asociado exactamente un elemento del rango (los valores de salida). El dominio es el conjunto de valores para los que la función está definida, y el rango es el conjunto de valores que efectivamente toma."
+      "pregunta": "Una relación se convierte en función cuando cada elemento del dominio (los valores de entrada) tiene asociado exactamente un elemento del rango (los valores de salida). El dominio es el conjunto de valores para los que la función está definida, y el rango es el conjunto de valores que efectivamente toma.",
+      "enlace_svg": "funcion-dominio-rango.svg"
     },
     {
       "pregunta": "Dado el conjunto de pares ordenados $\\{(1,3), (2,5), (2,8)\\}$, ¿por qué esta relación NO es una función?",
@@ -911,7 +928,8 @@
       "correcta": 0
     },
     {
-      "pregunta": "Evaluar una función en un valor significa sustituir ese valor en lugar de la variable y simplificar. Según su forma, una función puede ser constante ($f(x)=k$), lineal ($f(x)=mx+b$) o cuadrática ($f(x)=ax^2+bx+c$, con $a \\neq 0$)."
+      "pregunta": "Evaluar una función en un valor significa sustituir ese valor en lugar de la variable y simplificar. Según su forma, una función puede ser constante ($f(x)=k$), lineal ($f(x)=mx+b$) o cuadrática ($f(x)=ax^2+bx+c$, con $a \\neq 0$).",
+      "enlace_svg": "evaluar-funcion.svg"
     },
     {
       "pregunta": "En la función $f(x)=3x-2$, ¿cuál es el valor de $f(5)$?",
@@ -968,7 +986,8 @@
       "correcta": 0
     },
     {
-      "pregunta": "Una función lineal tiene la forma $y=mx$ y siempre pasa por el origen (cuando $x=0$, $y=0$); una función afín tiene la forma $y=mx+b$ con $b \\neq 0$, por lo que su gráfica es una recta que NO pasa por el origen, sino que corta al eje $y$ en el punto $(0,b)$."
+      "pregunta": "Una función lineal tiene la forma $y=mx$ y siempre pasa por el origen (cuando $x=0$, $y=0$); una función afín tiene la forma $y=mx+b$ con $b \\neq 0$, por lo que su gráfica es una recta que NO pasa por el origen, sino que corta al eje $y$ en el punto $(0,b)$.",
+      "enlace_svg": "funcion-lineal-afin.svg"
     },
     {
       "pregunta": "¿Cuál de las siguientes funciones es lineal (no afín)?",
@@ -984,7 +1003,7 @@
       "opciones": [
         "$y=2x-7$",
         "$y=2x$",
-        "$y=-7$"
+        "$y=x^2-7$"
       ],
       "correcta": 0
     },
@@ -1007,7 +1026,7 @@
       "correcta": 2
     },
     {
-      "pregunta": "Si una función afín tiene la forma $y=mx+b$, ¿qué condición debe cumplir $b$ para que la función sea además lineal?",
+      "pregunta": "En la forma $y=mx+b$, ¿qué condición debe cumplir $b$ para que la función sea lineal y no afín?",
       "opciones": [
         "$b=0$",
         "$m=0$",
@@ -1025,7 +1044,8 @@
       "correcta": 0
     },
     {
-      "pregunta": "La gráfica de una función lineal es siempre una línea recta, mientras que la de una función cuadrática es una parábola. Cuando a la expresión de una función se le suma o resta una constante, su gráfica se desplaza verticalmente hacia arriba o hacia abajo esa misma cantidad."
+      "pregunta": "La gráfica de una función lineal es siempre una línea recta, mientras que la de una función cuadrática es una parábola. Cuando a la expresión de una función se le suma o resta una constante, su gráfica se desplaza verticalmente hacia arriba o hacia abajo esa misma cantidad.",
+      "enlace_svg": "graficas-funciones.svg"
     },
     {
       "pregunta": "¿Qué tipo de gráfica genera una función lineal?",
@@ -1073,7 +1093,8 @@
       "correcta": 2
     },
     {
-      "pregunta": "Además de desplazarse, la gráfica de una función puede reflejarse: $y=-f(x)$ refleja la gráfica respecto al eje $x$ (lo que estaba arriba queda abajo, y viceversa), mientras que $y=f(-x)$ la refleja respecto al eje $y$ (lo que estaba a la derecha queda a la izquierda)."
+      "pregunta": "Además de desplazarse, la gráfica de una función puede reflejarse: $y=-f(x)$ refleja la gráfica respecto al eje $x$ (lo que estaba arriba queda abajo, y viceversa), mientras que $y=f(-x)$ la refleja respecto al eje $y$ (lo que estaba a la derecha queda a la izquierda).",
+      "enlace_svg": "reflexiones-graficas.svg"
     },
     {
       "pregunta": "Si la gráfica de $y=x^2$ se refleja respecto al eje $x$, la nueva función es:",
@@ -1130,7 +1151,8 @@
       "correcta": 2
     },
     {
-      "pregunta": "Un ángulo agudo mide menos de 90°, uno recto mide exactamente 90°, uno obtuso mide entre 90° y 180°, y uno llano mide 180°. Dos ángulos son complementarios si su suma es 90°, y suplementarios si su suma es 180°. Los ángulos opuestos por el vértice, formados por dos rectas que se cruzan, siempre son iguales entre sí."
+      "pregunta": "Un ángulo agudo mide menos de 90°, uno recto mide exactamente 90°, uno obtuso mide entre 90° y 180°, y uno llano mide 180°. Dos ángulos son complementarios si su suma es 90°, y suplementarios si su suma es 180°. Los ángulos opuestos por el vértice, formados por dos rectas que se cruzan, siempre son iguales entre sí.",
+      "enlace_svg": "angulos.svg"
     },
     {
       "pregunta": "Si un ángulo mide 58°, ¿cuánto mide su complemento?",
@@ -1187,7 +1209,8 @@
       "correcta": 0
     },
     {
-      "pregunta": "Los triángulos se clasifican según sus lados en escalenos (todos los lados diferentes), isósceles (dos lados iguales) y equiláteros (los tres lados iguales); y según sus ángulos en acutángulos, rectángulos (con un ángulo de 90°) y obtusángulos. En todo triángulo, la suma de sus ángulos internos siempre es 180°."
+      "pregunta": "Los triángulos se clasifican según sus lados en escalenos (todos los lados diferentes), isósceles (dos lados iguales) y equiláteros (los tres lados iguales); y según sus ángulos en acutángulos, rectángulos (con un ángulo de 90°) y obtusángulos. En todo triángulo, la suma de sus ángulos internos siempre es 180°.",
+      "enlace_svg": "clasificacion-triangulos.svg"
     },
     {
       "pregunta": "Un triángulo cuyos tres lados tienen diferente longitud se llama:",
@@ -1235,7 +1258,8 @@
       "correcta": 0
     },
     {
-      "pregunta": "Un cuadrilátero con todos sus lados y ángulos iguales es un cuadrado; si solo los ángulos son de 90° pero los lados no son todos iguales, es un rectángulo. La suma de los ángulos internos de cualquier cuadrilátero es 360°, y en un polígono regular todos los lados y todos los ángulos son iguales entre sí."
+      "pregunta": "Un cuadrilátero con todos sus lados y ángulos iguales es un cuadrado; si solo los ángulos son de 90° pero los lados no son todos iguales, es un rectángulo. La suma de los ángulos internos de cualquier cuadrilátero es 360°, y en un polígono regular todos los lados y todos los ángulos son iguales entre sí.",
+      "enlace_svg": "cuadrilateros-poligonos.svg"
     },
     {
       "pregunta": "Un cuadrilátero con lados opuestos iguales y paralelos, pero sin ángulos de 90°, se llama:",
@@ -1283,7 +1307,8 @@
       "correcta": 1
     },
     {
-      "pregunta": "Un polígono irregular no tiene todos sus lados ni todos sus ángulos iguales entre sí (a diferencia de un polígono regular). Su perímetro se calcula igual que en cualquier polígono: sumando la longitud de todos sus lados. Para el área, como no existe una fórmula única, se descompone la figura en triángulos, rectángulos u otras figuras conocidas, se calcula el área de cada una y se suman."
+      "pregunta": "Un polígono irregular no tiene todos sus lados ni todos sus ángulos iguales entre sí (a diferencia de un polígono regular). Su perímetro se calcula igual que en cualquier polígono: sumando la longitud de todos sus lados. Para el área, como no existe una fórmula única, se descompone la figura en triángulos, rectángulos u otras figuras conocidas, se calcula el área de cada una y se suman.",
+      "enlace_svg": "poligono-irregular.svg"
     },
     {
       "pregunta": "Un polígono irregular con lados de $5\\,cm$, $7\\,cm$, $4\\,cm$, $6\\,cm$ y $3\\,cm$ tiene un perímetro de:",
@@ -1340,7 +1365,8 @@
       "correcta": 2
     },
     {
-      "pregunta": "El radio es la distancia del centro de la circunferencia a cualquier punto de ella, y el diámetro es el doble del radio. La longitud (perímetro) de una circunferencia se calcula con $2\\pi r$, y el área del círculo que encierra con $\\pi r^2$."
+      "pregunta": "El radio es la distancia del centro de la circunferencia a cualquier punto de ella, y el diámetro es el doble del radio. La longitud (perímetro) de una circunferencia se calcula con $2\\pi r$, y el área del círculo que encierra con $\\pi r^2$.",
+      "enlace_svg": "circunferencia.svg"
     },
     {
       "pregunta": "Si el radio de una circunferencia es $9\\,cm$, ¿cuál es su diámetro?",
@@ -1388,7 +1414,8 @@
       "correcta": 2
     },
     {
-      "pregunta": "El perímetro de una figura es la suma de las longitudes de todos sus lados, mientras que el área mide la superficie que encierra. El volumen, en cuerpos como el cubo o el prisma rectangular, mide el espacio tridimensional que ocupan y se calcula multiplicando sus tres dimensiones."
+      "pregunta": "El perímetro de una figura es la suma de las longitudes de todos sus lados, mientras que el área mide la superficie que encierra. El volumen, en cuerpos como el cubo o el prisma rectangular, mide el espacio tridimensional que ocupan y se calcula multiplicando sus tres dimensiones.",
+      "enlace_svg": "perimetro-area-volumen.svg"
     },
     {
       "pregunta": "El área de un rectángulo con base $9\\,cm$ y altura $5\\,cm$ es:",
@@ -1445,7 +1472,8 @@
       "correcta": 2
     },
     {
-      "pregunta": "El teorema de Pitágoras se aplica únicamente a triángulos rectángulos y relaciona sus tres lados: $a^2+b^2=c^2$, donde $c$ es la hipotenusa (el lado más largo, opuesto al ángulo recto) y $a$, $b$ son los catetos."
+      "pregunta": "El teorema de Pitágoras se aplica únicamente a triángulos rectángulos y relaciona sus tres lados: $a^2+b^2=c^2$, donde $c$ es la hipotenusa (el lado más largo, opuesto al ángulo recto) y $a$, $b$ son los catetos.",
+      "enlace_svg": "teorema-pitagoras.svg"
     },
     {
       "pregunta": "Un triángulo rectángulo tiene catetos de $9\\,cm$ y $12\\,cm$. ¿Cuánto mide la hipotenusa?",
@@ -1493,7 +1521,8 @@
       "correcta": 2
     },
     {
-      "pregunta": "En el plano cartesiano, cada punto se ubica con un par ordenado $(x,y)$: la abscisa $x$ indica la posición horizontal y la ordenada $y$ la vertical. El punto $(0,0)$ se llama origen, y los ejes dividen al plano en cuatro cuadrantes."
+      "pregunta": "En el plano cartesiano, cada punto se ubica con un par ordenado $(x,y)$: la abscisa $x$ indica la posición horizontal y la ordenada $y$ la vertical. El punto $(0,0)$ se llama origen, y los ejes dividen al plano en cuatro cuadrantes.",
+      "enlace_svg": "plano-cartesiano.svg"
     },
     {
       "pregunta": "En el par ordenado $(x,y)$, la coordenada $y$ se conoce como:",
@@ -1541,7 +1570,8 @@
       "correcta": 0
     },
     {
-      "pregunta": "La pendiente $m$ de una recta mide su inclinación y se calcula como $m = \\dfrac{y_2-y_1}{x_2-x_1}$ entre dos puntos de la recta. La ecuación de la recta en su forma pendiente-ordenada al origen es $y=mx+b$, donde $b$ es el punto donde la recta cruza el eje $y$. Dos rectas son paralelas cuando tienen la misma pendiente, y perpendiculares cuando el producto de sus pendientes es $-1$."
+      "pregunta": "La pendiente $m$ de una recta mide su inclinación y se calcula como $m = \\dfrac{y_2-y_1}{x_2-x_1}$ entre dos puntos de la recta. La ecuación de la recta en su forma pendiente-ordenada al origen es $y=mx+b$, donde $b$ es el punto donde la recta cruza el eje $y$. Dos rectas son paralelas cuando tienen la misma pendiente, y perpendiculares cuando el producto de sus pendientes es $-1$.",
+      "enlace_svg": "pendiente-recta.svg"
     },
     {
       "pregunta": "La pendiente de la recta que pasa por los puntos $(2,3)$ y $(5,9)$ es:",
@@ -1598,7 +1628,8 @@
       "correcta": 1
     },
     {
-      "pregunta": "Dos rectas son paralelas cuando tienen exactamente la misma pendiente ($m_1=m_2$); son perpendiculares cuando el producto de sus pendientes es $-1$ ($m_1 \\times m_2=-1$), es decir, la pendiente de una es el recíproco negativo de la otra."
+      "pregunta": "Dos rectas son paralelas cuando tienen exactamente la misma pendiente ($m_1=m_2$); son perpendiculares cuando el producto de sus pendientes es $-1$ ($m_1 \\times m_2=-1$), es decir, la pendiente de una es el recíproco negativo de la otra.",
+      "enlace_svg": "paralelas-perpendiculares.svg"
     },
     {
       "pregunta": "¿Cuál es la pendiente de una recta paralela a $y=3x-2$?",
@@ -1655,7 +1686,8 @@
       "correcta": 1
     },
     {
-      "pregunta": "La distancia entre dos puntos $(x_1,y_1)$ y $(x_2,y_2)$ se calcula con $d=\\sqrt{(x_2-x_1)^2+(y_2-y_1)^2}$, una aplicación directa del teorema de Pitágoras. El punto medio entre ellos se obtiene promediando sus coordenadas: $M=\\left(\\dfrac{x_1+x_2}{2}, \\dfrac{y_1+y_2}{2}\\right)$."
+      "pregunta": "La distancia entre dos puntos $(x_1,y_1)$ y $(x_2,y_2)$ se calcula con $d=\\sqrt{(x_2-x_1)^2+(y_2-y_1)^2}$, una aplicación directa del teorema de Pitágoras. El punto medio entre ellos se obtiene promediando sus coordenadas: $M=\\left(\\dfrac{x_1+x_2}{2}, \\dfrac{y_1+y_2}{2}\\right)$.",
+      "enlace_svg": "distancia-punto-medio.svg"
     },
     {
       "pregunta": "La distancia entre los puntos $(0,0)$ y $(6,8)$ es:",
@@ -1703,7 +1735,8 @@
       "correcta": 1
     },
     {
-      "pregunta": "La media es el promedio de los datos (se suman todos y se dividen entre el número de datos); la mediana es el valor central cuando los datos están ordenados; y la moda es el valor que más se repite. El rango se obtiene restando el valor mínimo al máximo."
+      "pregunta": "La media es el promedio de los datos (se suman todos y se dividen entre el número de datos); la mediana es el valor central cuando los datos están ordenados; y la moda es el valor que más se repite. El rango se obtiene restando el valor mínimo al máximo.",
+      "enlace_svg": "medidas-tendencia-central.svg"
     },
     {
       "pregunta": "¿Cuál es la media de los siguientes datos: $5, 9, 7, 11, 3$?",
@@ -1760,7 +1793,8 @@
       "correcta": 2
     },
     {
-      "pregunta": "En una tabla de frecuencias, la frecuencia absoluta indica cuántas veces se repite un dato, y la frecuencia relativa se obtiene dividiendo esa frecuencia entre el total de datos. Las gráficas circulares son útiles para mostrar proporciones de un total, las de barras para comparar categorías, y las lineales para mostrar la evolución de un dato en el tiempo."
+      "pregunta": "En una tabla de frecuencias, la frecuencia absoluta indica cuántas veces se repite un dato, y la frecuencia relativa se obtiene dividiendo esa frecuencia entre el total de datos. Las gráficas circulares son útiles para mostrar proporciones de un total, las de barras para comparar categorías, y las lineales para mostrar la evolución de un dato en el tiempo.",
+      "enlace_svg": "graficas-estadisticas.svg"
     },
     {
       "pregunta": "En una tabla de frecuencias, la frecuencia absoluta representa:",
@@ -1817,7 +1851,8 @@
       "correcta": 0
     },
     {
-      "pregunta": "Muchas preguntas de este tipo describen los datos de una tabla o gráfica en palabras: hay que leer con cuidado cada valor, identificar qué representa cada uno, y luego comparar, sumar o calcular lo que se pida, igual que si se tuviera la tabla o la gráfica dibujada enfrente."
+      "pregunta": "Muchas preguntas de este tipo describen los datos de una tabla o gráfica en palabras: hay que leer con cuidado cada valor, identificar qué representa cada uno, y luego comparar, sumar o calcular lo que se pida, igual que si se tuviera la tabla o la gráfica dibujada enfrente.",
+      "enlace_svg": "interpretar-tablas.svg"
     },
     {
       "pregunta": "Una tienda registró sus ventas de café durante 4 meses: enero 120 tazas, febrero 150 tazas, marzo 90 tazas y abril 180 tazas. ¿En qué mes se vendió menos café?",
@@ -1874,7 +1909,8 @@
       "correcta": 2
     },
     {
-      "pregunta": "El espacio muestral es el conjunto de todos los resultados posibles de un experimento aleatorio, y un evento es cualquier subconjunto de ese espacio. La probabilidad de un evento se calcula como $P = \\dfrac{\\text{casos favorables}}{\\text{casos posibles}}$ y siempre está entre $0$ y $1$. Si dos eventos son independientes, la probabilidad de que ambos ocurran es el producto de sus probabilidades individuales."
+      "pregunta": "El espacio muestral es el conjunto de todos los resultados posibles de un experimento aleatorio, y un evento es cualquier subconjunto de ese espacio. La probabilidad de un evento se calcula como $P = \\dfrac{\\text{casos favorables}}{\\text{casos posibles}}$ y siempre está entre $0$ y $1$. Si dos eventos son independientes, la probabilidad de que ambos ocurran es el producto de sus probabilidades individuales.",
+      "enlace_svg": "espacio-muestral.svg"
     },
     {
       "pregunta": "Al lanzar un dado de $6$ caras, ¿cuántos elementos tiene el espacio muestral?",
@@ -1949,7 +1985,8 @@
       "correcta": 0
     },
     {
-      "pregunta": "Cuando se busca la probabilidad de que ocurra el evento $A$ o el evento $B$ (unión), se usa $P(A \\cup B) = P(A) + P(B) - P(A \\cap B)$; el último término evita contar dos veces los resultados que pertenecen a ambos eventos. Si dos eventos no pueden ocurrir al mismo tiempo (no comparten ningún resultado), se llaman mutuamente excluyentes, y entonces $P(A \\cap B) = 0$, por lo que $P(A \\cup B) = P(A) + P(B)$."
+      "pregunta": "Cuando se busca la probabilidad de que ocurra el evento $A$ o el evento $B$ (unión), se usa $P(A \\cup B) = P(A) + P(B) - P(A \\cap B)$; el último término evita contar dos veces los resultados que pertenecen a ambos eventos. Si dos eventos no pueden ocurrir al mismo tiempo (no comparten ningún resultado), se llaman mutuamente excluyentes, y entonces $P(A \\cap B) = 0$, por lo que $P(A \\cup B) = P(A) + P(B)$.",
+      "enlace_svg": "union-eventos.svg"
     },
     {
       "pregunta": "Al lanzar un dado, ¿cuál es la probabilidad de obtener un número par o un número mayor que $4$?",
@@ -2006,7 +2043,8 @@
       "correcta": 1
     },
     {
-      "pregunta": "En una secuencia aritmética, cada término se obtiene sumando siempre la misma cantidad (la razón o diferencia) al anterior; en una secuencia geométrica, cada término se obtiene multiplicando siempre por la misma razón. El término $n$ de una secuencia aritmética se calcula con $a_n = a_1+(n-1)d$."
+      "pregunta": "En una secuencia aritmética, cada término se obtiene sumando siempre la misma cantidad (la razón o diferencia) al anterior; en una secuencia geométrica, cada término se obtiene multiplicando siempre por la misma razón. El término $n$ de una secuencia aritmética se calcula con $a_n = a_1+(n-1)d$.",
+      "enlace_svg": "secuencias.svg"
     },
     {
       "pregunta": "¿Cuál es el siguiente número en la secuencia: $3, 7, 11, 15, \\ldots$?",
@@ -2063,7 +2101,8 @@
       "correcta": 1
     },
     {
-      "pregunta": "En una serie o patrón numérico, encontrar la regla que relaciona un término con el siguiente permite predecir los términos que faltan; esa regla puede ser una suma constante, una multiplicación, o incluso una diferencia que también cambia de forma regular, como en $1, 3, 6, 10, 15,\\ldots$, donde la diferencia entre términos aumenta en uno cada vez."
+      "pregunta": "En una serie o patrón numérico, encontrar la regla que relaciona un término con el siguiente permite predecir los términos que faltan; esa regla puede ser una suma constante, una multiplicación, o incluso una diferencia que también cambia de forma regular, como en $1, 3, 6, 10, 15,\\ldots$, donde la diferencia entre términos aumenta en uno cada vez.",
+      "enlace_svg": "patrones-numericos.svg"
     },
     {
       "pregunta": "¿Cuál es el siguiente número en la secuencia: $1, 4, 9, 16, \\_\\_$?",
@@ -2165,7 +2204,8 @@
       "correcta": 2
     },
     {
-      "pregunta": "En un razonamiento deductivo, si las premisas son verdaderas y el razonamiento sigue una estructura válida, la conclusión también debe serlo. Un caso común es el silogismo: dos premisas (una general y una particular) llevan a una conclusión, como 'Todos los A son B; C es A; por lo tanto, C es B'. También es frecuente el razonamiento condicional: si se sabe que 'si ocurre A, entonces ocurre B' y se confirma que A ocurrió, puede concluirse que B también ocurrió; y si se confirma que B NO ocurrió, puede concluirse que A tampoco ocurrió."
+      "pregunta": "En un razonamiento deductivo, si las premisas son verdaderas y el razonamiento sigue una estructura válida, la conclusión también debe serlo. Un caso común es el silogismo: dos premisas (una general y una particular) llevan a una conclusión, como 'Todos los A son B; C es A; por lo tanto, C es B'. También es frecuente el razonamiento condicional: si se sabe que 'si ocurre A, entonces ocurre B' y se confirma que A ocurrió, puede concluirse que B también ocurrió; y si se confirma que B NO ocurrió, puede concluirse que A tampoco ocurrió.",
+      "enlace_svg": "razonamiento-deductivo.svg"
     },
     {
       "pregunta": "Todos los múltiplos de $6$ son múltiplos de $3$. El número $18$ es múltiplo de $6$. ¿Qué se puede concluir?",
@@ -2222,7 +2262,8 @@
       "correcta": 2
     },
     {
-      "pregunta": "Para convertir entre unidades del mismo sistema métrico se multiplica o divide por potencias de $10$ según la relación entre ellas: por ejemplo, $1\\,km = 1000\\,m$, $1\\,m=100\\,cm$, $1\\,kg=1000\\,g$ y $1\\,L=1000\\,mL$."
+      "pregunta": "Para convertir entre unidades del mismo sistema métrico se multiplica o divide por potencias de $10$ según la relación entre ellas: por ejemplo, $1\\,km = 1000\\,m$, $1\\,m=100\\,cm$, $1\\,kg=1000\\,g$ y $1\\,L=1000\\,mL$.",
+      "enlace_svg": "conversion-unidades.svg"
     },
     {
       "pregunta": "¿Cuántos metros hay en $4.2$ kilómetros?",

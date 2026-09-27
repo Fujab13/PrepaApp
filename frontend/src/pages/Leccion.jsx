@@ -88,10 +88,19 @@ function guardarFalloEnUnidad(materiaId, unidad, preguntaObj) {
 
 // Extrae hasta `cantidad` preguntas falladas de una unidad (al azar) y las
 // retira de la reserva para no repetirlas en el siguiente repaso.
-function tomarFallosDeUnidad(materiaId, unidad, cantidad) {
+// Lo guardado es una copia de cuando se falló: si después se corrigió la
+// pregunta en data/lecciones (opciones o respuesta), esa copia quedaría
+// vieja. Por eso se regresa la versión ACTUAL de `preguntasActuales`
+// (buscada por su texto), y se descartan las que ya no existen.
+function tomarFallosDeUnidad(materiaId, unidad, cantidad, preguntasActuales) {
   const todos = leerFallosGuardados(materiaId)
-  const lista = todos[unidad] || []
-  if (lista.length === 0) return []
+  const porTexto = new Map(preguntasActuales.map(p => [p.pregunta, p]))
+  const lista = (todos[unidad] || []).filter(p => porTexto.has(p.pregunta))
+  if (lista.length === 0) {
+    delete todos[unidad]
+    localStorage.setItem(`refuerzo_${materiaId}`, JSON.stringify(todos))
+    return []
+  }
 
   const barajada = [...lista].sort(() => Math.random() - 0.5)
   const elegidas = barajada.slice(0, cantidad)
@@ -99,7 +108,7 @@ function tomarFallosDeUnidad(materiaId, unidad, cantidad) {
   todos[unidad] = lista.filter(p => !elegidas.includes(p))
   localStorage.setItem(`refuerzo_${materiaId}`, JSON.stringify(todos))
 
-  return elegidas
+  return elegidas.map(p => porTexto.get(p.pregunta))
 }
 
 export default function Leccion() {
@@ -682,7 +691,7 @@ export default function Leccion() {
     if (nuevaCola.length === 0) {
       // Unidad terminada: si en la unidad anterior hubo preguntas falladas,
       // se hace un repaso de refuerzo antes de avanzar de verdad.
-      const fallosPrevios = unidad > 1 ? tomarFallosDeUnidad(materiaId, unidad - 1, 3) : []
+      const fallosPrevios = unidad > 1 ? tomarFallosDeUnidad(materiaId, unidad - 1, 3, preguntasPool) : []
 
       // Congela qué unidad se completó ahora mismo — celebrarYNavegar() lo
       // lee de aquí, pase o no por el repaso de abajo primero.

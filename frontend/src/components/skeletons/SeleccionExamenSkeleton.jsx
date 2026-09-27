@@ -1,7 +1,7 @@
 // SeleccionExamenSkeleton.jsx
 // Silueta de pages/SeleccionExamen.jsx para el fallback de <Suspense> de
 // su ruta: barra con "Gratuitos" y la lista de tarjetas de examen
-// (components/ExamenCard.jsx) — ícono de 52px, UNA línea con el nombre (no
+// (components/ExamenCard.jsx) — ícono de 40px, UNA línea con el nombre (no
 // tienen descripción) y la flecha "›" a la derecha.
 
 import { Skeleton, SkeletonPantalla, SkeletonBarra } from '../Skeleton'
@@ -17,19 +17,19 @@ export default function SeleccionExamenSkeleton() {
     >
       <SkeletonBarra titulo="Gratuitos" />
 
-      <div className="page-content-compact" style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+      <div className="page-content-compact" style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
         {EXAMENES.map((ancho, i) => (
           <div
             key={i}
             className="skeleton-entrada"
             style={{
-              background: 'var(--surface2)', borderRadius: 'var(--radius)', padding: 20,
+              background: 'var(--surface2)', borderRadius: 'var(--radius)', padding: '10px 14px',
               border: '2px solid transparent',
-              display: 'flex', alignItems: 'center', gap: 16,
+              display: 'flex', alignItems: 'center', gap: 12,
               animationDelay: `${0.2 + i * 0.05}s`,
             }}
           >
-            <Skeleton width={52} height={52} radius={12} sutil />
+            <Skeleton width={40} height={40} radius={10} sutil />
             <Skeleton width={ancho} height={14} sutil />
             <span style={{ flex: 1 }} />
             <span style={{ color: 'var(--text-muted)', fontSize: '1.3rem', opacity: 0.5 }}>›</span>

@@ -23,9 +23,8 @@ export default function AjustesSkeleton() {
       <div className="page-content-compact" style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
         <p style={ENCABEZADO}>Tu cuenta</p>
         <div style={{ background: 'var(--surface2)', borderRadius: 'var(--radius)', display: 'flex', alignItems: 'center', gap: 12, padding: '12px 16px' }}>
-          <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 5 }}>
+          <div style={{ flex: 1 }}>
             <Skeleton width={130} height={13} sutil />
-            <p style={{ margin: 0, fontSize: '0.76rem', color: 'var(--text-muted)' }}>Tu nombre en el ranking</p>
           </div>
           <Skeleton width={78} height={44} radius={12} sutil />
         </div>
@@ -40,10 +39,7 @@ export default function AjustesSkeleton() {
                 borderTop: i > 0 ? '1px solid var(--border)' : 'none',
               }}
             >
-              <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 5 }}>
-                <p style={{ margin: 0, fontSize: '0.92rem', fontWeight: 600, color: 'var(--text)' }}>{titulo}</p>
-                <Skeleton width={120} height={10} sutil />
-              </div>
+              <p style={{ flex: 1, margin: 0, fontSize: '0.92rem', fontWeight: 600, color: 'var(--text)' }}>{titulo}</p>
               <Skeleton width={78} height={44} radius={12} sutil />
             </div>
           ))}

@@ -34,8 +34,12 @@ function textoHora(h) {
   return fecha.toLocaleTimeString('es-MX', { hour: 'numeric', minute: '2-digit' })
 }
 
-const estiloTarjeta = { background: 'var(--surface2)', borderRadius: 'var(--radius)', padding: '14px 16px', display: 'flex', flexDirection: 'column', gap: 14 }
-const estiloEtiqueta = { margin: 0, fontSize: '0.78rem', fontWeight: 600, color: 'var(--text-muted)' }
+const estiloTarjeta = { background: 'var(--surface2)', borderRadius: 'var(--radius)', padding: '12px 16px', display: 'flex', flexDirection: 'column', gap: 10 }
+// Mismo estilo que los botones "Cambiar"/"Borrar" de pages/Ajustes.jsx.
+const estiloBoton = {
+  minHeight: 44, padding: '0 14px', borderRadius: 12, background: 'transparent',
+  border: '1px solid var(--border)', color: 'var(--text)', fontWeight: 700, fontSize: '0.82rem',
+}
 
 export default function RecordatoriosAjustes({ user }) {
   const soportadas = notificacionesSoportadas()
@@ -116,9 +120,9 @@ export default function RecordatoriosAjustes({ user }) {
       <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
         <div style={{ flex: 1, minWidth: 0 }}>
           <p style={{ margin: 0, fontSize: '0.92rem', fontWeight: 600, color: 'var(--text)' }}>Recordatorios de estudio</p>
-          <p style={{ margin: '2px 0 0', fontSize: '0.76rem', color: 'var(--text-muted)' }}>
-            {!soportadas ? 'Tu navegador no las permite.' : activas ? 'Activados en este dispositivo' : 'Desactivados'}
-          </p>
+          {!soportadas && (
+            <p style={{ margin: '2px 0 0', fontSize: '0.76rem', color: 'var(--text-muted)' }}>Tu navegador no las permite.</p>
+          )}
         </div>
         {soportadas && (
           <button
@@ -154,67 +158,59 @@ export default function RecordatoriosAjustes({ user }) {
         </p>
       )}
 
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-        <p style={estiloEtiqueta}>Frecuencia</p>
-        <div style={{ display: 'flex', gap: 8 }}>
-          {FRECUENCIAS.map(f => {
-            const elegida = prefs.frecuenciaDias === f.dias
-            return (
-              <button
-                key={f.dias}
-                type="button"
-                onClick={() => !elegida && cambiar({ frecuenciaDias: f.dias })}
-                aria-pressed={elegida}
-                style={{
-                  flex: 1, minHeight: 44, borderRadius: 999, cursor: 'pointer',
-                  border: `1px solid ${elegida ? '#4f8ef7' : 'var(--border)'}`,
-                  background: elegida ? 'rgba(79,142,247,0.16)' : 'var(--surface)',
-                  color: 'var(--text)', fontSize: '0.84rem', fontWeight: elegida ? 700 : 600,
-                }}
-              >
-                {f.texto}
-              </button>
-            )
-          })}
-        </div>
+      <div role="group" aria-label="Frecuencia" style={{ display: 'flex', gap: 8 }}>
+        {FRECUENCIAS.map(f => {
+          const elegida = prefs.frecuenciaDias === f.dias
+          return (
+            <button
+              key={f.dias}
+              type="button"
+              onClick={() => !elegida && cambiar({ frecuenciaDias: f.dias })}
+              aria-pressed={elegida}
+              style={{
+                ...estiloBoton, flex: 1, padding: '0 8px', cursor: elegida ? 'default' : 'pointer',
+                borderColor: elegida ? '#4f8ef7' : 'var(--border)',
+                color: elegida ? '#4f8ef7' : 'var(--text)',
+              }}
+            >
+              {f.texto}
+            </button>
+          )
+        })}
       </div>
 
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-        <p style={estiloEtiqueta}>Hora</p>
-        <div style={{ display: 'flex', gap: 8 }}>
-          <select
-            value={prefs.hora}
-            onChange={e => cambiar({ hora: Number(e.target.value) })}
-            aria-label="Hora del recordatorio"
-            style={{
-              flex: 1, minHeight: 44, borderRadius: 12, padding: '0 12px',
-              background: 'var(--surface)', color: 'var(--text)', border: '1px solid var(--border)',
-              fontSize: '0.9rem', fontFamily: 'inherit',
-            }}
-          >
-            {Array.from({ length: 24 }, (_, h) => (
-              <option key={h} value={h}>{textoHora(h)}</option>
-            ))}
-          </select>
-          <button
-            type="button"
-            onClick={() => cambiar({ hora: horaActual })}
-            disabled={prefs.hora === horaActual}
-            style={{
-              minHeight: 44, padding: '0 14px', borderRadius: 12, flexShrink: 0,
-              background: 'transparent', border: '1px solid var(--border)', color: 'var(--text)',
-              fontSize: '0.82rem', fontWeight: 600,
-              cursor: prefs.hora === horaActual ? 'default' : 'pointer', opacity: prefs.hora === horaActual ? 0.5 : 1,
-            }}
-          >
-            Usar hora actual
-          </button>
-        </div>
+      <div style={{ display: 'flex', gap: 8 }}>
+        <select
+          value={prefs.hora}
+          onChange={e => cambiar({ hora: Number(e.target.value) })}
+          aria-label="Hora del recordatorio"
+          style={{
+            ...estiloBoton, flex: 1, padding: '0 12px', minWidth: 0,
+            background: 'var(--surface2)', fontFamily: 'inherit', cursor: 'pointer',
+          }}
+        >
+          {Array.from({ length: 24 }, (_, h) => (
+            <option key={h} value={h}>{textoHora(h)}</option>
+          ))}
+        </select>
+        <button
+          type="button"
+          onClick={() => cambiar({ hora: horaActual })}
+          disabled={prefs.hora === horaActual}
+          style={{
+            ...estiloBoton, flexShrink: 0,
+            cursor: prefs.hora === horaActual ? 'default' : 'pointer', opacity: prefs.hora === horaActual ? 0.5 : 1,
+          }}
+        >
+          Usar hora actual
+        </button>
       </div>
 
-      <p style={{ margin: 0, fontSize: '0.76rem', minHeight: 16, color: error ? 'var(--wrong)' : 'var(--correct)' }} role={error ? 'alert' : undefined}>
-        {error || (guardado ? 'Guardado' : '')}
-      </p>
+      {(error || guardado) && (
+        <p style={{ margin: 0, fontSize: '0.76rem', color: error ? 'var(--wrong)' : 'var(--correct)' }} role={error ? 'alert' : undefined}>
+          {error || 'Guardado'}
+        </p>
+      )}
     </div>
   )
 }

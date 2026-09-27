@@ -30,7 +30,7 @@ export default function SeleccionExamen() {
         <h2 className="page-topbar-title" style={{ fontSize: '1rem' }}>Gratuitos</h2>
       </header>
 
-      <main className="page-content-compact" style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 12 }}>
+      <main className="page-content-compact" style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 8 }}>
         {EXAMENES_DISPONIBLES.map((examen) => (
           <ExamenCard
             key={examen.id}
