@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 180" fill="none" stroke-linecap="round" stroke-linejoin="round">
+<ellipse cx="160" cy="156" rx="92" ry="2" fill="#7c5cbf" fill-opacity=".15"/>
+<rect x="136" y="26" width="48" height="30" rx="10" fill="#7c5cbf"/>
+<path d="M148 41h24" stroke="#f0f0f0" stroke-width="3"/>
+<path d="M150 58L90 104M162 58v46M168 58l28 46M174 58l56 46M90 104v-8M90 104h8M162 104l-4-6M162 104l4-6M196 104l-1-8M196 104l-7-3M230 104h-8M230 104v-8" stroke="#9b7fd4" stroke-width="2.5"/>
+<rect x="64" y="108" width="192" height="44" rx="14" fill="#7c5cbf" fill-opacity=".14" stroke="#7c5cbf" stroke-width="2.5"/>
+<rect x="72" y="116" width="32" height="28" rx="9" fill="#9b7fd4" fill-opacity=".3" stroke="#9b7fd4" stroke-width="2.5"/>
+<rect x="110" y="116" width="32" height="28" rx="9" fill="#22d3ee" fill-opacity=".18" stroke="#06b6d4" stroke-width="2.5"/>
+<path d="M118 130h16m-5-5 5 5-5 5" stroke="#0891b2" stroke-width="3"/>
+<rect x="148" y="116" width="28" height="28" rx="9" fill="#9b7fd4" fill-opacity=".3" stroke="#9b7fd4" stroke-width="2.5"/>
+<rect x="182" y="116" width="28" height="28" rx="9" fill="#9b7fd4" fill-opacity=".3" stroke="#9b7fd4" stroke-width="2.5"/>
+<rect x="216" y="116" width="32" height="28" rx="9" fill="#9b7fd4" fill-opacity=".3" stroke="#9b7fd4" stroke-width="2.5"/>
+</svg>

@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 180" fill="none" stroke-linecap="round" stroke-linejoin="round">
+<rect x="64" y="24" width="92" height="42" rx="12" fill="#7c5cbf" fill-opacity=".14" stroke="#7c5cbf" stroke-width="2.5"/>
+<rect x="164" y="24" width="92" height="42" rx="12" fill="#06b6d4" fill-opacity=".14" stroke="#0891b2" stroke-width="2.5"/>
+<rect x="64" y="74" width="92" height="42" rx="12" fill="#06b6d4" fill-opacity=".14" stroke="#0891b2" stroke-width="2.5"/>
+<rect x="164" y="74" width="92" height="42" rx="12" fill="#7c5cbf" fill-opacity=".14" stroke="#7c5cbf" stroke-width="2.5"/>
+<rect x="64" y="124" width="192" height="32" rx="12" fill="#9b7fd4" fill-opacity=".3" stroke="#9b7fd4" stroke-width="2.5"/>
+<rect x="92" y="33" width="36" height="24" rx="8" fill="#7c5cbf"/>
+<path d="M110 39v7M110 51v0" stroke="#f0f0f0" stroke-width="3"/>
+<path d="M176 38h22v16h-22zM204 46h8m-4-4 4 4-4 4M220 35h26v22h-26zM233 40v7M233 52v0M88 88a5 5 0 1 0 10 0a5 5 0 1 0-10 0M83 107a10 8 0 0 1 20 0M126 104c-7-4-10-8-10-12a5 5 0 0 1 10-2a5 5 0 0 1 10 2c0 4-3 8-10 12z" stroke="#0891b2" stroke-width="2.5"/>
+<path d="M184 88a5 5 0 1 0 10 0a5 5 0 1 0-10 0M179 107a10 8 0 0 1 20 0M202 96h14m-5-5 5 5-5 5M226 88a5 5 0 1 0 10 0a5 5 0 1 0-10 0M221 107a10 8 0 0 1 20 0" stroke="#7c5cbf" stroke-width="2.5"/>
+<path d="M130 140h4M142 134v12M152 130v20M162 134v12M172 137v6M182 134v12M192 130v20" stroke="#9b7fd4" stroke-width="2.5"/>
+</svg>

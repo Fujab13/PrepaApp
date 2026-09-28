@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 180" fill="none" stroke-linecap="round" stroke-linejoin="round">
+<rect x="72" y="28" width="56" height="44" rx="12" fill="#7c5cbf" fill-opacity=".14" stroke="#7c5cbf" stroke-width="2.5"/>
+<path d="M95 41a5 5 0 1 0 10 0a5 5 0 1 0-10 0M90 58a10 9 0 0 1 20 0" stroke="#7c5cbf" stroke-width="2.5"/>
+<path d="M136 50h44m-5-5 5 5-5 5M180 130h-44m5-5-5 5 5 5" stroke="#9b7fd4" stroke-width="2.5"/>
+<rect x="192" y="28" width="56" height="44" rx="12" fill="#06b6d4" fill-opacity=".14" stroke="#0891b2" stroke-width="2.5"/>
+<path d="M208 64v-20l12-8 12 8v20zM216 64v-8h8v8" stroke="#0891b2" stroke-width="2.5"/>
+<path d="M104 76L214 104M216 76L106 104M214 104l-8-5M214 104l-6 5M106 104l6-5M106 104l8 5" stroke="#9b7fd4" stroke-opacity=".6" stroke-width="2"/>
+<rect x="72" y="108" width="56" height="44" rx="12" fill="#7c5cbf"/>
+<path d="M88 144v-20l12-8 12 8v20zM96 144v-8h8v8" stroke="#f0f0f0" stroke-width="2.5"/>
+<rect x="192" y="108" width="56" height="44" rx="12" fill="#7c5cbf" fill-opacity=".14" stroke="#7c5cbf" stroke-width="2.5" stroke-dasharray="5 5"/>
+<path d="M215 121a5 5 0 1 0 10 0a5 5 0 1 0-10 0M210 138a10 9 0 0 1 20 0" stroke="#7c5cbf" stroke-width="2.5"/>
+</svg>

@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 180" fill="none" stroke-linecap="round" stroke-linejoin="round">
+<rect x="64" y="26" width="94" height="28" rx="10" fill="#7c5cbf"/>
+<rect x="162" y="26" width="94" height="28" rx="10" fill="#06b6d4" fill-opacity=".14" stroke="#0891b2" stroke-width="2.5"/>
+<rect x="64" y="58" width="94" height="28" rx="10" fill="#06b6d4" fill-opacity=".14" stroke="#0891b2" stroke-width="2.5"/>
+<rect x="162" y="58" width="94" height="28" rx="10" fill="#7c5cbf" fill-opacity=".14" stroke="#7c5cbf" stroke-width="2.5"/>
+<rect x="64" y="90" width="94" height="28" rx="10" fill="#7c5cbf" fill-opacity=".14" stroke="#7c5cbf" stroke-width="2.5"/>
+<rect x="162" y="90" width="94" height="28" rx="10" fill="#06b6d4" fill-opacity=".14" stroke="#0891b2" stroke-width="2.5"/>
+<rect x="64" y="122" width="94" height="28" rx="10" fill="#06b6d4" fill-opacity=".14" stroke="#0891b2" stroke-width="2.5"/>
+<rect x="162" y="122" width="94" height="28" rx="10" fill="#7c5cbf" fill-opacity=".14" stroke="#7c5cbf" stroke-width="2.5"/>
+<path d="M104 40h14M111 33v14" stroke="#f0f0f0" stroke-width="3"/>
+<path d="M209 48v-6l-7-7M209 42l7-7M96 72h10m-4-4 4 4-4 4M126 72h-10m4-4-4 4 4 4M209 96l8 8-8 8-8-8zM98 142c4-12 22-12 26 0M124 142l-5-1M124 142l1-5M111 136v8" stroke="#0891b2" stroke-width="2.5"/>
+<path d="M218 72h-18m5-5-5 5 5 5M102 104h18m-5-5 5 5-5 5M203 146v-20l12 5-12 5" stroke="#7c5cbf" stroke-width="2.5"/>
+</svg>

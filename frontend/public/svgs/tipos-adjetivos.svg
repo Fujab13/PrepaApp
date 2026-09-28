@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 180" fill="none" stroke-linecap="round" stroke-linejoin="round">
+<rect x="66" y="24" width="38" height="34" rx="10" fill="#7c5cbf" fill-opacity=".14" stroke="#7c5cbf" stroke-width="2.5"/>
+<rect x="116" y="24" width="38" height="34" rx="10" fill="#06b6d4" fill-opacity=".14" stroke="#0891b2" stroke-width="2.5"/>
+<rect x="166" y="24" width="38" height="34" rx="10" fill="#7c5cbf" fill-opacity=".14" stroke="#7c5cbf" stroke-width="2.5"/>
+<rect x="216" y="24" width="38" height="34" rx="10" fill="#06b6d4" fill-opacity=".14" stroke="#0891b2" stroke-width="2.5"/>
+<rect x="91" y="66" width="38" height="34" rx="10" fill="#06b6d4" fill-opacity=".14" stroke="#0891b2" stroke-width="2.5"/>
+<rect x="141" y="66" width="38" height="34" rx="10" fill="#7c5cbf" fill-opacity=".14" stroke="#7c5cbf" stroke-width="2.5"/>
+<rect x="191" y="66" width="38" height="34" rx="10" fill="#06b6d4" fill-opacity=".14" stroke="#0891b2" stroke-width="2.5"/>
+<path d="M85 31q1.5 8.5 10 10q-8.5 1.5-10 10q-1.5-8.5-10-10q8.5-1.5 10-10zM176 41a4.5 4.5 0 1 0 9 0a4.5 4.5 0 1 0-9 0h19m-4 0v5M151 79a4 4 0 1 1 6 3.5v3M157 92v0M169 76v9M169 92v0" stroke="#7c5cbf" stroke-width="2.5"/>
+<path d="M125 41h20m-6-6 6 6-6 6M226 36l4-3v16M237 37a4 4 0 1 1 6.5 3.5L237 49h9M101 76v0M113 81v0M104 89v0M118 92v0M199 87h5a5 5 0 0 0 0-10h-5a5 5 0 0 0 0 10M212 81h5a5 5 0 0 1 0 10h-5a5 5 0 0 1 0-10" stroke="#0891b2" stroke-width="2.5"/>
+<path d="M160 100v12" stroke="#9b7fd4" stroke-width="2.5"/>
+<rect x="96" y="114" width="128" height="30" rx="10" fill="#7c5cbf"/>
+<path d="M128 129h64" stroke="#f0f0f0" stroke-width="3"/>
+<ellipse cx="160" cy="152" rx="70" ry="2" fill="#7c5cbf" fill-opacity=".15"/>
+</svg>

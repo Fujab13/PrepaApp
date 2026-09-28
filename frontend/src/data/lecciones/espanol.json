@@ -83,7 +83,8 @@
       "intro": true
     },
     {
-      "pregunta": "Los sustantivos son palabras que nombran personas, animales, objetos, lugares, ideas o sentimientos, funcionando como el núcleo de los sintagmas nominales. Varían en género y número, y pueden ser concretos (tangibles) o abstractos (intangibles). En la oración 'El conocimiento, la amistad y el cansancio son sentimientos humanos', las palabras 'conocimiento', 'amistad' y 'cansancio' son sustantivos que nombran conceptos abstractos."
+      "pregunta": "Los sustantivos son palabras que nombran personas, animales, objetos, lugares, ideas o sentimientos, funcionando como el núcleo de los sintagmas nominales. Varían en género y número, y pueden ser concretos (tangibles) o abstractos (intangibles). En la oración 'El conocimiento, la amistad y el cansancio son sentimientos humanos', las palabras 'conocimiento', 'amistad' y 'cansancio' son sustantivos que nombran conceptos abstractos.",
+      "enlace_svg": "sustantivo.svg"
     },
     {
       "pregunta": "¿Cuál de las siguientes palabras es un sustantivo propio?",
@@ -95,7 +96,8 @@
       "correcta": 0
     },
     {
-      "pregunta": "Funciones del sustantivo:\n• Sujeto: quien realiza la acción.\n• Complemento directo: recibe la acción del verbo.\n• Complemento indirecto: recibe el beneficio o perjuicio.\n• Complemento circunstancial: indica lugar, tiempo o modo."
+      "pregunta": "Funciones del sustantivo:\n• Sujeto: quien realiza la acción.\n• Complemento directo: recibe la acción del verbo.\n• Complemento indirecto: recibe el beneficio o perjuicio.\n• Complemento circunstancial: indica lugar, tiempo o modo.",
+      "enlace_svg": "funciones-sustantivo.svg"
     },
     {
       "pregunta": "¿Qué función cumple 'María' en la oración 'María compró un cuaderno'?",
@@ -107,7 +109,8 @@
       "correcta": 0
     },
     {
-      "pregunta": "Tipos de sustantivos:\n• Comunes y propios\n• Concretos y abstractos\n• Individuales y colectivos\n• Contables e incontables\n• Simples y compuestos"
+      "pregunta": "Tipos de sustantivos:\n• Comunes y propios\n• Concretos y abstractos\n• Individuales y colectivos\n• Contables e incontables\n• Simples y compuestos",
+      "enlace_svg": "tipos-sustantivos.svg"
     },
     {
       "pregunta": "¿Cuál de los siguientes es un sustantivo abstracto?",
@@ -128,7 +131,8 @@
       "correcta": 0
     },
     {
-      "pregunta": "Los pronombres son palabras que sustituyen a un sustantivo para evitar su repetición y hacer más clara la comunicación. Varían según la persona gramatical y número, adoptando diferentes formas: personales, posesivos, demostrativos, entre otros. Por ejemplo, en la oración 'Marco estudia, pero él necesita descansar', el pronombre personal 'él' reemplaza a 'Marco' para evitar la redundancia."
+      "pregunta": "Los pronombres son palabras que sustituyen a un sustantivo para evitar su repetición y hacer más clara la comunicación. Varían según la persona gramatical y número, adoptando diferentes formas: personales, posesivos, demostrativos, entre otros. Por ejemplo, en la oración 'Marco estudia, pero él necesita descansar', el pronombre personal 'él' reemplaza a 'Marco' para evitar la redundancia.",
+      "enlace_svg": "pronombre.svg"
     },
     {
       "pregunta": "¿Cuál de las siguientes palabras es un pronombre personal?",
@@ -140,7 +144,8 @@
       "correcta": 0
     },
     {
-      "pregunta": "Funciones del pronombre:\n• Sujeto: reemplaza al sustantivo que realiza la acción.\n• Complemento directo: sustituye al que recibe la acción.\n• Complemento indirecto: sustituye al que recibe el beneficio o perjuicio.\n• Término de preposición: acompaña a una preposición."
+      "pregunta": "Funciones del pronombre:\n• Sujeto: reemplaza al sustantivo que realiza la acción.\n• Complemento directo: sustituye al que recibe la acción.\n• Complemento indirecto: sustituye al que recibe el beneficio o perjuicio.\n• Término de preposición: acompaña a una preposición.",
+      "enlace_svg": "funciones-pronombre.svg"
     },
     {
       "pregunta": "¿Qué función cumple 'Ella' en la oración 'Ella estudia para el examen'?",
@@ -152,7 +157,8 @@
       "correcta": 2
     },
     {
-      "pregunta": "Tipos de pronombres:\n• Personales, posesivos, demostrativos\n• Indefinidos, numerales\n• Interrogativos, exclamativos\n• Relativos: conectan una oración con otra"
+      "pregunta": "Tipos de pronombres:\n• Personales, posesivos, demostrativos\n• Indefinidos, numerales\n• Interrogativos, exclamativos\n• Relativos: conectan una oración con otra",
+      "enlace_svg": "tipos-pronombres.svg"
     },
     {
       "pregunta": "¿Cuál de los siguientes es un pronombre posesivo?",
@@ -173,7 +179,8 @@
       "correcta": 2
     },
     {
-      "pregunta": "Los adjetivos son palabras que acompañan al sustantivo para describirlo, calificarlo o aportar información sobre sus características, cantidad o relación. Concuerdan en género y número con el sustantivo al cual modifican, y pueden adoptar diferentes posiciones dentro de la frase según el énfasis. En 'Los exámenes difíciles requieren una preparación rigurosa', tanto 'difíciles' como 'rigurosa' son adjetivos que califican respectivamente al sustantivo."
+      "pregunta": "Los adjetivos son palabras que acompañan al sustantivo para describirlo, calificarlo o aportar información sobre sus características, cantidad o relación. Concuerdan en género y número con el sustantivo al cual modifican, y pueden adoptar diferentes posiciones dentro de la frase según el énfasis. En 'Los exámenes difíciles requieren una preparación rigurosa', tanto 'difíciles' como 'rigurosa' son adjetivos que califican respectivamente al sustantivo.",
+      "enlace_svg": "adjetivo.svg"
     },
     {
       "pregunta": "¿Cuál de las siguientes palabras es un adjetivo calificativo?",
@@ -185,7 +192,8 @@
       "correcta": 2
     },
     {
-      "pregunta": "Funciones del adjetivo:\n• Calificativa: describe cualidades.\n• Determinativa: precisa cantidad, posesión o ubicación.\n• Atributo: complementa con un verbo copulativo (ser, estar, parecer).\n• Complemento del sustantivo: amplía su información."
+      "pregunta": "Funciones del adjetivo:\n• Calificativa: describe cualidades.\n• Determinativa: precisa cantidad, posesión o ubicación.\n• Atributo: complementa con un verbo copulativo (ser, estar, parecer).\n• Complemento del sustantivo: amplía su información.",
+      "enlace_svg": "funciones-adjetivo.svg"
     },
     {
       "pregunta": "¿Qué función cumple 'nuevo' en la oración 'El automóvil nuevo está en el estacionamiento'?",
@@ -197,7 +205,8 @@
       "correcta": 0
     },
     {
-      "pregunta": "Tipos de adjetivos:\n• Calificativos, demostrativos, posesivos\n• Numerales, indefinidos\n• Interrogativos, exclamativos\n• Relacionales: vinculan con un ámbito o actividad"
+      "pregunta": "Tipos de adjetivos:\n• Calificativos, demostrativos, posesivos\n• Numerales, indefinidos\n• Interrogativos, exclamativos\n• Relacionales: vinculan con un ámbito o actividad",
+      "enlace_svg": "tipos-adjetivos.svg"
     },
     {
       "pregunta": "¿Cuál de los siguientes es un adjetivo posesivo?",
@@ -218,7 +227,8 @@
       "correcta": 1
     },
     {
-      "pregunta": "Los artículos son palabras que acompañan al sustantivo para indicar su género, número y si se refiere a algo conocido o no conocido. Existen dos clases principales: los definidos (el, la, los, las) que presentan algo ya mencionado o conocido, y los indefinidos (un, una, unos, unas) que presentan algo nuevo. Por ejemplo, 'Encontré un libro en la biblioteca' usa el artículo indefinido 'un' porque el libro es nuevo, mientras 'El libro que encontré' usa 'el' porque ya se conoce."
+      "pregunta": "Los artículos son palabras que acompañan al sustantivo para indicar su género, número y si se refiere a algo conocido o no conocido. Existen dos clases principales: los definidos (el, la, los, las) que presentan algo ya mencionado o conocido, y los indefinidos (un, una, unos, unas) que presentan algo nuevo. Por ejemplo, 'Encontré un libro en la biblioteca' usa el artículo indefinido 'un' porque el libro es nuevo, mientras 'El libro que encontré' usa 'el' porque ya se conoce.",
+      "enlace_svg": "articulo.svg"
     },
     {
       "pregunta": "¿Cuál de las siguientes palabras es un artículo definido?",
@@ -230,7 +240,8 @@
       "correcta": 1
     },
     {
-      "pregunta": "Funciones del artículo:\n• Determinar: precisa si el sustantivo es específico o general.\n• Concordancia: coincide en género y número con el sustantivo.\n• Introducir al sustantivo dentro de la oración."
+      "pregunta": "Funciones del artículo:\n• Determinar: precisa si el sustantivo es específico o general.\n• Concordancia: coincide en género y número con el sustantivo.\n• Introducir al sustantivo dentro de la oración.",
+      "enlace_svg": "funciones-articulo.svg"
     },
     {
       "pregunta": "¿Qué función cumple 'La' en la oración 'La maestra explicó el tema'?",
@@ -242,7 +253,8 @@
       "correcta": 1
     },
     {
-      "pregunta": "Tipos de artículos:\n• Definidos: sustantivo conocido.\n• Indefinidos: sustantivo no conocido.\n• Contractos: unión de preposición + artículo (al, del).\n• Neutro (lo): convierte una idea en concepto general."
+      "pregunta": "Tipos de artículos:\n• Definidos: sustantivo conocido.\n• Indefinidos: sustantivo no conocido.\n• Contractos: unión de preposición + artículo (al, del).\n• Neutro (lo): convierte una idea en concepto general.",
+      "enlace_svg": "tipos-articulos.svg"
     },
     {
       "pregunta": "¿Cuál de los siguientes es un artículo indefinido?",
@@ -263,7 +275,8 @@
       "correcta": 0
     },
     {
-      "pregunta": "Los adverbios son palabras invariables que modifican a un verbo, un adjetivo, otro adverbio o una oración entera. No cambian su forma según género, número o persona, y aportan información sobre el cómo, cuándo, dónde o en qué medida ocurre una acción. En la oración 'Los investigadores trabajaron muy cuidadosamente durante toda la noche', el adverbio 'cuidadosamente' modifica al verbo y 'muy' intensifica al adverbio anterior."
+      "pregunta": "Los adverbios son palabras invariables que modifican a un verbo, un adjetivo, otro adverbio o una oración entera. No cambian su forma según género, número o persona, y aportan información sobre el cómo, cuándo, dónde o en qué medida ocurre una acción. En la oración 'Los investigadores trabajaron muy cuidadosamente durante toda la noche', el adverbio 'cuidadosamente' modifica al verbo y 'muy' intensifica al adverbio anterior.",
+      "enlace_svg": "adverbio.svg"
     },
     {
       "pregunta": "¿Cuál de las siguientes palabras es un adverbio de tiempo?",
@@ -275,7 +288,8 @@
       "correcta": 2
     },
     {
-      "pregunta": "Funciones del adverbio:\n• Modificar al verbo: cómo, cuándo, dónde o con qué frecuencia.\n• Modificar al adjetivo: intensifica una cualidad.\n• Modificar a otro adverbio.\n• Modificar a la oración: afirmación, negación o duda."
+      "pregunta": "Funciones del adverbio:\n• Modificar al verbo: cómo, cuándo, dónde o con qué frecuencia.\n• Modificar al adjetivo: intensifica una cualidad.\n• Modificar a otro adverbio.\n• Modificar a la oración: afirmación, negación o duda.",
+      "enlace_svg": "funciones-adverbio.svg"
     },
     {
       "pregunta": "¿Qué función cumple 'temprano' en la oración 'María llegó temprano'?",
@@ -287,7 +301,8 @@
       "correcta": 0
     },
     {
-      "pregunta": "Tipos de adverbios:\n• Lugar, tiempo, modo\n• Cantidad\n• Afirmación, negación, duda"
+      "pregunta": "Tipos de adverbios:\n• Lugar, tiempo, modo\n• Cantidad\n• Afirmación, negación, duda",
+      "enlace_svg": "tipos-adverbios.svg"
     },
     {
       "pregunta": "¿Cuál de los siguientes es un adverbio de lugar?",
@@ -308,7 +323,8 @@
       "correcta": 1
     },
     {
-      "pregunta": "Las preposiciones son palabras invariables que relacionan palabras o grupos de palabras dentro de una oración. Establecen vínculos de lugar, tiempo, causa, modo, compañía o posesión entre los elementos que conectan. En 'El investigador trabajó con sus colegas en el laboratorio durante tres meses', las preposiciones 'con', 'en' y 'durante' relacionan el verbo con sus complementos de compañía, lugar y tiempo respectivamente."
+      "pregunta": "Las preposiciones son palabras invariables que relacionan palabras o grupos de palabras dentro de una oración. Establecen vínculos de lugar, tiempo, causa, modo, compañía o posesión entre los elementos que conectan. En 'El investigador trabajó con sus colegas en el laboratorio durante tres meses', las preposiciones 'con', 'en' y 'durante' relacionan el verbo con sus complementos de compañía, lugar y tiempo respectivamente.",
+      "enlace_svg": "preposicion.svg"
     },
     {
       "pregunta": "¿Cuál de las siguientes palabras es una preposición?",
@@ -320,7 +336,8 @@
       "correcta": 1
     },
     {
-      "pregunta": "Funciones de la preposición:\n• Relacionar palabras entre sí.\n• Introducir complementos que amplían un sustantivo, verbo o adjetivo.\n• Precisar relaciones de lugar, tiempo, causa o finalidad."
+      "pregunta": "Funciones de la preposición:\n• Relacionar palabras entre sí.\n• Introducir complementos que amplían un sustantivo, verbo o adjetivo.\n• Precisar relaciones de lugar, tiempo, causa o finalidad.",
+      "enlace_svg": "funciones-preposicion.svg"
     },
     {
       "pregunta": "¿Qué función cumple 'sobre' en la oración 'El libro está sobre la mesa'?",
@@ -332,7 +349,8 @@
       "correcta": 1
     },
     {
-      "pregunta": "Tipos de relación que expresan las preposiciones:\n• Lugar, tiempo, dirección\n• Origen, causa, finalidad\n• Compañía\n• Instrumento o medio"
+      "pregunta": "Tipos de relación que expresan las preposiciones:\n• Lugar, tiempo, dirección\n• Origen, causa, finalidad\n• Compañía\n• Instrumento o medio",
+      "enlace_svg": "relaciones-preposiciones.svg"
     },
     {
       "pregunta": "¿Cuál de las siguientes preposiciones expresa compañía?",
@@ -353,7 +371,8 @@
       "correcta": 2
     },
     {
-      "pregunta": "Las conjunciones son palabras invariables que unen palabras, grupos de palabras u oraciones, estableciendo relaciones lógicas entre ellas. Pueden expresar unión (y, e), alternancia (o, u), oposición (pero, sino), causa-consecuencia (porque, luego), o condición (si, aunque). Por ejemplo, en 'Los estudiantes estudiaron porque querían aprobar y obtuvieron los resultados esperados', las conjunciones 'porque' y 'y' estructuran la relación entre acciones."
+      "pregunta": "Las conjunciones son palabras invariables que unen palabras, grupos de palabras u oraciones, estableciendo relaciones lógicas entre ellas. Pueden expresar unión (y, e), alternancia (o, u), oposición (pero, sino), causa-consecuencia (porque, luego), o condición (si, aunque). Por ejemplo, en 'Los estudiantes estudiaron porque querían aprobar y obtuvieron los resultados esperados', las conjunciones 'porque' y 'y' estructuran la relación entre acciones.",
+      "enlace_svg": "conjuncion.svg"
     },
     {
       "pregunta": "¿Cuál de las siguientes palabras es una conjunción?",
@@ -365,7 +384,8 @@
       "correcta": 0
     },
     {
-      "pregunta": "Funciones de la conjunción:\n• Unir elementos con la misma función.\n• Unir oraciones para formar estructuras más amplias.\n• Establecer relaciones de unión, oposición, elección, causa o consecuencia."
+      "pregunta": "Funciones de la conjunción:\n• Unir elementos con la misma función.\n• Unir oraciones para formar estructuras más amplias.\n• Establecer relaciones de unión, oposición, elección, causa o consecuencia.",
+      "enlace_svg": "funciones-conjuncion.svg"
     },
     {
       "pregunta": "¿Qué función cumple 'y' en la oración 'María estudia y trabaja'?",
@@ -377,7 +397,8 @@
       "correcta": 0
     },
     {
-      "pregunta": "Tipos de conjunciones:\n• Copulativas (unión) y disyuntivas (elección)\n• Adversativas (oposición)\n• Causales y consecutivas\n• Condicionales y concesivas\n• Finales"
+      "pregunta": "Tipos de conjunciones:\n• Copulativas (unión) y disyuntivas (elección)\n• Adversativas (oposición)\n• Causales y consecutivas\n• Condicionales y concesivas\n• Finales",
+      "enlace_svg": "tipos-conjunciones.svg"
     },
     {
       "pregunta": "¿Cuál de las siguientes es una conjunción adversativa?",
@@ -398,7 +419,8 @@
       "correcta": 1
     },
     {
-      "pregunta": "Las interjecciones son palabras o expresiones invariables que comunican emociones, reacciones o llamados de forma inmediata. Pueden ser propias (¡ay!, ¡oh!, ¡uf!) o impropias (¡cuidado!, ¡excelente!), y suelen aparecer entre signos de exclamación. En la oración '¡Ay! Me duele el brazo', la interjección '¡Ay!' expresa espontáneamente una sensación de dolor sin necesidad de estructura gramatical compleja."
+      "pregunta": "Las interjecciones son palabras o expresiones invariables que comunican emociones, reacciones o llamados de forma inmediata. Pueden ser propias (¡ay!, ¡oh!, ¡uf!) o impropias (¡cuidado!, ¡excelente!), y suelen aparecer entre signos de exclamación. En la oración '¡Ay! Me duele el brazo', la interjección '¡Ay!' expresa espontáneamente una sensación de dolor sin necesidad de estructura gramatical compleja.",
+      "enlace_svg": "interjeccion.svg"
     },
     {
       "pregunta": "¿Cuál de las siguientes palabras es una interjección?",
@@ -410,7 +432,8 @@
       "correcta": 0
     },
     {
-      "pregunta": "Funciones de la interjección:\n• Expresar emociones (alegría, sorpresa, dolor, miedo).\n• Expresar una reacción espontánea.\n• Llamar la atención.\n• Imitar sonidos."
+      "pregunta": "Funciones de la interjección:\n• Expresar emociones (alegría, sorpresa, dolor, miedo).\n• Expresar una reacción espontánea.\n• Llamar la atención.\n• Imitar sonidos.",
+      "enlace_svg": "funciones-interjeccion.svg"
     },
     {
       "pregunta": "¿Qué función cumple '¡Eh!' en la expresión '¡Eh! Ven aquí'?",
@@ -422,7 +445,8 @@
       "correcta": 1
     },
     {
-      "pregunta": "Tipos de interjecciones:\n• Propias e impropias\n• Expresivas y apelativas\n• Onomatopéyicas: imitan sonidos"
+      "pregunta": "Tipos de interjecciones:\n• Propias e impropias\n• Expresivas y apelativas\n• Onomatopéyicas: imitan sonidos",
+      "enlace_svg": "tipos-interjecciones.svg"
     },
     {
       "pregunta": "¿Cuál de las siguientes es una interjección expresiva?",
@@ -443,7 +467,8 @@
       "correcta": 0
     },
     {
-      "pregunta": "La conjugación verbal es el conjunto de cambios que experimenta un verbo para expresar persona, número, tiempo, modo y aspecto. Cada cambio refleja información importante sobre quién realiza la acción, cuántas personas intervienen, cuándo ocurre y la actitud del hablante frente a ella. En 'Yo cantaré, tú cantabas, ellos cantaban', cada forma del verbo 'cantar' varía según persona, número y tiempo para precisar la información."
+      "pregunta": "La conjugación verbal es el conjunto de cambios que experimenta un verbo para expresar persona, número, tiempo, modo y aspecto. Cada cambio refleja información importante sobre quién realiza la acción, cuántas personas intervienen, cuándo ocurre y la actitud del hablante frente a ella. En 'Yo cantaré, tú cantabas, ellos cantaban', cada forma del verbo 'cantar' varía según persona, número y tiempo para precisar la información.",
+      "enlace_svg": "conjugacion.svg"
     },
     {
       "pregunta": "¿En cuál de las siguientes oraciones el verbo está conjugado en modo subjuntivo?",
@@ -455,7 +480,8 @@
       "correcta": 0
     },
     {
-      "pregunta": "Elementos de la conjugación:\n• Persona: quién realiza la acción.\n• Número: singular o plural.\n• Tiempo: cuándo ocurre.\n• Modo: actitud del hablante.\n• Aspecto: si la acción está terminada o en desarrollo."
+      "pregunta": "Elementos de la conjugación:\n• Persona: quién realiza la acción.\n• Número: singular o plural.\n• Tiempo: cuándo ocurre.\n• Modo: actitud del hablante.\n• Aspecto: si la acción está terminada o en desarrollo.",
+      "enlace_svg": "elementos-conjugacion.svg"
     },
     {
       "pregunta": "¿En cuál de las siguientes oraciones el verbo pertenece a la tercera conjugación?",
@@ -467,7 +493,8 @@
       "correcta": 1
     },
     {
-      "pregunta": "Tipos de conjugación según la terminación:\n• Primera: verbos en -ar\n• Segunda: verbos en -er\n• Tercera: verbos en -ir\n\nModos: indicativo (hechos reales), subjuntivo (deseos, dudas) e imperativo (órdenes)."
+      "pregunta": "Tipos de conjugación según la terminación:\n• Primera: verbos en -ar\n• Segunda: verbos en -er\n• Tercera: verbos en -ir\n\nModos: indicativo (hechos reales), subjuntivo (deseos, dudas) e imperativo (órdenes).",
+      "enlace_svg": "tipos-conjugacion.svg"
     },
     {
       "pregunta": "¿Qué elemento de la conjugación verbal cambia entre las formas \"cantábamos\" y \"cantaremos\", mientras se mantiene la misma persona y número?",
@@ -479,7 +506,8 @@
       "correcta": 1
     },
     {
-      "pregunta": "La persona y el número son elementos de la conjugación verbal que indican quién realiza la acción y cuántos participantes intervienen. La persona puede ser primera (hablante), segunda (oyente) o tercera (de quien se habla), mientras que el número especifica si es singular o plural. Por ejemplo, en 'Nosotros escribimos' la primera persona plural indica que son varios los que realizan la acción de escribir."
+      "pregunta": "La persona y el número son elementos de la conjugación verbal que indican quién realiza la acción y cuántos participantes intervienen. La persona puede ser primera (hablante), segunda (oyente) o tercera (de quien se habla), mientras que el número especifica si es singular o plural. Por ejemplo, en 'Nosotros escribimos' la primera persona plural indica que son varios los que realizan la acción de escribir.",
+      "enlace_svg": "persona-numero.svg"
     },
     {
       "pregunta": "¿En cuál de las siguientes oraciones el verbo está conjugado en tercera persona del plural?",
@@ -491,7 +519,8 @@
       "correcta": 0
     },
     {
-      "pregunta": "Persona gramatical:\n• Primera: quien habla.\n• Segunda: quien escucha.\n• Tercera: de quien se habla.\n\nNúmero: singular (una persona) o plural (dos o más)."
+      "pregunta": "Persona gramatical:\n• Primera: quien habla.\n• Segunda: quien escucha.\n• Tercera: de quien se habla.\n\nNúmero: singular (una persona) o plural (dos o más).",
+      "enlace_svg": "persona-gramatical.svg"
     },
     {
       "pregunta": "¿En cuál de las siguientes oraciones el verbo está conjugado en primera persona del singular?",
@@ -503,7 +532,8 @@
       "correcta": 1
     },
     {
-      "pregunta": "Relación entre persona y número:\n• 1.ª singular: yo\n• 2.ª singular: tú, usted\n• 3.ª singular: él, ella\n• 1.ª plural: nosotros\n• 2.ª plural: ustedes\n• 3.ª plural: ellos, ellas"
+      "pregunta": "Relación entre persona y número:\n• 1.ª singular: yo\n• 2.ª singular: tú, usted\n• 3.ª singular: él, ella\n• 1.ª plural: nosotros\n• 2.ª plural: ustedes\n• 3.ª plural: ellos, ellas",
+      "enlace_svg": "persona-numero-tabla.svg"
     },
     {
       "pregunta": "¿Qué opción presenta un cambio únicamente en el número gramatical, conservando la misma persona?",
@@ -524,7 +554,8 @@
       "correcta": 1
     },
     {
-      "pregunta": "Los tiempos verbales indican el momento en que ocurre una acción: pasado, presente o futuro. Dentro de cada momento pueden existir múltiples formas que matizan la duración o la relación con otras acciones. Por ejemplo, 'Cuando llegué a la casa, mi hermana había cocinado la comida' utiliza el pretérito pluscuamperfecto para indicar que la acción de cocinar ocurrió antes de la acción de llegar, ambas en el pasado."
+      "pregunta": "Los tiempos verbales indican el momento en que ocurre una acción: pasado, presente o futuro. Dentro de cada momento pueden existir múltiples formas que matizan la duración o la relación con otras acciones. Por ejemplo, 'Cuando llegué a la casa, mi hermana había cocinado la comida' utiliza el pretérito pluscuamperfecto para indicar que la acción de cocinar ocurrió antes de la acción de llegar, ambas en el pasado.",
+      "enlace_svg": "tiempos-verbales.svg"
     },
     {
       "pregunta": "¿En cuál de las siguientes oraciones el verbo está conjugado en pretérito pluscuamperfecto del modo indicativo?",
@@ -536,7 +567,8 @@
       "correcta": 2
     },
     {
-      "pregunta": "Tiempos del modo indicativo:\n• Presente: acción actual o habitual.\n• Pretérito perfecto simple: terminada en el pasado.\n• Pretérito imperfecto: habitual o en desarrollo en el pasado.\n• Pretérito perfecto compuesto: pasada relacionada con el presente.\n• Pretérito pluscuamperfecto: anterior a otra acción pasada.\n• Futuro simple y futuro compuesto.\n• Condicional simple y compuesto."
+      "pregunta": "Tiempos del modo indicativo:\n• Presente: acción actual o habitual.\n• Pretérito perfecto simple: terminada en el pasado.\n• Pretérito imperfecto: habitual o en desarrollo en el pasado.\n• Pretérito perfecto compuesto: pasada relacionada con el presente.\n• Pretérito pluscuamperfecto: anterior a otra acción pasada.\n• Futuro simple y futuro compuesto.\n• Condicional simple y compuesto.",
+      "enlace_svg": "tiempos-indicativo.svg"
     },
     {
       "pregunta": "¿En cuál de las siguientes oraciones el verbo está conjugado en pretérito perfecto compuesto?",
@@ -548,7 +580,8 @@
       "correcta": 2
     },
     {
-      "pregunta": "Tiempos del subjuntivo e imperativo:\n• Presente: deseos o posibilidades.\n• Pretérito imperfecto: hipótesis o situaciones improbables.\n• Pretérito perfecto: pasado relacionado con deseos o dudas.\n• Pretérito pluscuamperfecto: hipótesis anterior a otra acción pasada.\n\nEl imperativo solo tiene forma de presente."
+      "pregunta": "Tiempos del subjuntivo e imperativo:\n• Presente: deseos o posibilidades.\n• Pretérito imperfecto: hipótesis o situaciones improbables.\n• Pretérito perfecto: pasado relacionado con deseos o dudas.\n• Pretérito pluscuamperfecto: hipótesis anterior a otra acción pasada.\n\nEl imperativo solo tiene forma de presente.",
+      "enlace_svg": "tiempos-subjuntivo-imperativo.svg"
     },
     {
       "pregunta": "¿En cuál de las siguientes oraciones el verbo expresa una acción habitual en tiempo presente?",
@@ -569,7 +602,8 @@
       "correcta": 1
     },
     {
-      "pregunta": "Los modos verbales expresan la actitud del hablante frente a la acción: si es real, posible o una orden. El indicativo presenta hechos objetivos, el subjuntivo expresa deseos o dudas, y el imperativo comunica órdenes o ruegos. En 'Estudio mucho' (indicativo) afirmo un hecho, pero en 'Espero que estudies' (subjuntivo) expreso un deseo, demostrando cómo el modo cambia el significado."
+      "pregunta": "Los modos verbales expresan la actitud del hablante frente a la acción: si es real, posible o una orden. El indicativo presenta hechos objetivos, el subjuntivo expresa deseos o dudas, y el imperativo comunica órdenes o ruegos. En 'Estudio mucho' (indicativo) afirmo un hecho, pero en 'Espero que estudies' (subjuntivo) expreso un deseo, demostrando cómo el modo cambia el significado.",
+      "enlace_svg": "modos-verbales.svg"
     },
     {
       "pregunta": "¿En cuál de las siguientes oraciones el verbo está conjugado en modo subjuntivo?",
@@ -581,7 +615,8 @@
       "correcta": 2
     },
     {
-      "pregunta": "Tipos de modo verbal:\n• Indicativo: hechos reales u objetivos; narra y describe.\n• Subjuntivo: deseos, dudas o hipótesis; aparece tras expresiones de duda o necesidad.\n• Imperativo: órdenes, consejos o ruegos dirigidos al receptor."
+      "pregunta": "Tipos de modo verbal:\n• Indicativo: hechos reales u objetivos; narra y describe.\n• Subjuntivo: deseos, dudas o hipótesis; aparece tras expresiones de duda o necesidad.\n• Imperativo: órdenes, consejos o ruegos dirigidos al receptor.",
+      "enlace_svg": "tipos-modo-verbal.svg"
     },
     {
       "pregunta": "¿En cuál de las siguientes oraciones el verbo está conjugado en modo imperativo?",
@@ -602,7 +637,8 @@
       "correcta": 1
     },
     {
-      "pregunta": "La voz verbal indica si el sujeto realiza la acción (voz activa) o la recibe (voz pasiva). En la voz activa, el sujeto es agente y el verbo predicativo; en la voz pasiva, el sujeto es paciente y se utiliza ser más participio. Por ejemplo, 'Los arquitectos diseñaron el edificio' está en voz activa, mientras que 'El edificio fue diseñado por los arquitectos' está en voz pasiva, mostrando el cambio de perspectiva."
+      "pregunta": "La voz verbal indica si el sujeto realiza la acción (voz activa) o la recibe (voz pasiva). En la voz activa, el sujeto es agente y el verbo predicativo; en la voz pasiva, el sujeto es paciente y se utiliza ser más participio. Por ejemplo, 'Los arquitectos diseñaron el edificio' está en voz activa, mientras que 'El edificio fue diseñado por los arquitectos' está en voz pasiva, mostrando el cambio de perspectiva.",
+      "enlace_svg": "voz-verbal.svg"
     },
     {
       "pregunta": "¿En cuál de las siguientes oraciones el verbo está en voz pasiva?",
@@ -614,7 +650,8 @@
       "correcta": 2
     },
     {
-      "pregunta": "Voz activa: sujeto + verbo + complemento directo.\nEjemplo: 'Los investigadores publicaron los resultados.'"
+      "pregunta": "Voz activa: sujeto + verbo + complemento directo.\nEjemplo: 'Los investigadores publicaron los resultados.'",
+      "enlace_svg": "voz-activa.svg"
     },
     {
       "pregunta": "¿Cuál de las siguientes oraciones está escrita en voz activa?",
@@ -626,7 +663,8 @@
       "correcta": 1
     },
     {
-      "pregunta": "Voz pasiva: sujeto paciente + verbo ser + participio + complemento agente.\nEjemplo: 'Los resultados fueron publicados por los investigadores.'\n\nSolo puede pasarse a voz pasiva un verbo transitivo con complemento directo."
+      "pregunta": "Voz pasiva: sujeto paciente + verbo ser + participio + complemento agente.\nEjemplo: 'Los resultados fueron publicados por los investigadores.'\n\nSolo puede pasarse a voz pasiva un verbo transitivo con complemento directo.",
+      "enlace_svg": "voz-pasiva.svg"
     },
     {
       "pregunta": "¿Qué elemento desempeña la función de sujeto paciente en la siguiente oración? \"La conferencia fue impartida por la especialista.\"",
@@ -647,7 +685,8 @@
       "correcta": 1
     },
     {
-      "pregunta": "Verbos regulares: conservan la misma raíz durante toda su conjugación y solo cambian la terminación (-ar, -er, -ir).\nEjemplo: 'analizar' → analizaron."
+      "pregunta": "Verbos regulares: conservan la misma raíz durante toda su conjugación y solo cambian la terminación (-ar, -er, -ir).\nEjemplo: 'analizar' → analizaron.",
+      "enlace_svg": "verbos-regulares.svg"
     },
     {
       "pregunta": "¿Cuál de las siguientes oraciones contiene un verbo irregular?",
@@ -659,7 +698,8 @@
       "correcta": 2
     },
     {
-      "pregunta": "Verbos irregulares: cambian la raíz, la terminación o ambas, apartándose del modelo regular.\nEjemplo: 'obtener' → obtuvo (la raíz 'obten' cambia a 'obtuv').\n\nAlgunos verbos, como 'imprimir', tienen doble participio: uno regular ('imprimido') y uno irregular ('impreso')."
+      "pregunta": "Verbos irregulares: cambian la raíz, la terminación o ambas, apartándose del modelo regular.\nEjemplo: 'obtener' → obtuvo (la raíz 'obten' cambia a 'obtuv').\n\nAlgunos verbos, como 'imprimir', tienen doble participio: uno regular ('imprimido') y uno irregular ('impreso').",
+      "enlace_svg": "verbos-irregulares.svg"
     },
     {
       "pregunta": "¿Qué característica permite identificar que el verbo \"hizo\" es irregular en la oración \"El director hizo modificaciones al proyecto\"?",
@@ -689,7 +729,8 @@
       "correcta": 2
     },
     {
-      "pregunta": "Las perífrasis verbales son construcciones de dos o más verbos que funcionan como una sola unidad y expresan obligación, posibilidad, inicio, duración o final de una acción. El verbo auxiliar aporta la información de tiempo y modo, mientras el verbo principal mantiene su forma de infinitivo, gerundio o participio. En 'Los investigadores deben completar el informe', la perífrasis 'deben completar' expresa una obligación como una unidad verbal única."
+      "pregunta": "Las perífrasis verbales son construcciones de dos o más verbos que funcionan como una sola unidad y expresan obligación, posibilidad, inicio, duración o final de una acción. El verbo auxiliar aporta la información de tiempo y modo, mientras el verbo principal mantiene su forma de infinitivo, gerundio o participio. En 'Los investigadores deben completar el informe', la perífrasis 'deben completar' expresa una obligación como una unidad verbal única.",
+      "enlace_svg": "perifrasis.svg"
     },
     {
       "pregunta": "¿En cuál de las siguientes oraciones aparece una perífrasis verbal de obligación?",
@@ -701,7 +742,8 @@
       "correcta": 2
     },
     {
-      "pregunta": "Elementos de la perífrasis:\n• Verbo auxiliar: conjugado, aporta persona, tiempo y modo.\n• Nexo: preposición o conjunción (a veces se omite).\n• Verbo principal: infinitivo, gerundio o participio."
+      "pregunta": "Elementos de la perífrasis:\n• Verbo auxiliar: conjugado, aporta persona, tiempo y modo.\n• Nexo: preposición o conjunción (a veces se omite).\n• Verbo principal: infinitivo, gerundio o participio.",
+      "enlace_svg": "elementos-perifrasis.svg"
     },
     {
       "pregunta": "¿Qué función desempeña 'comenzó' en la perífrasis verbal de la oración \"La investigadora comenzó a redactar el artículo científico\"?",
@@ -713,7 +755,8 @@
       "correcta": 0
     },
     {
-      "pregunta": "Tipos de perífrasis:\n• Obligación y posibilidad\n• Incoativas e ingresivas (inicio)\n• Durativas (en desarrollo)\n• Terminativas (final)\n• Reiterativas y resultativas\n\nEn una perífrasis los verbos forman una sola unidad ('tiene que revisar'); en una sucesión de verbos, cada uno conserva su función ('quiere revisar')."
+      "pregunta": "Tipos de perífrasis:\n• Obligación y posibilidad\n• Incoativas e ingresivas (inicio)\n• Durativas (en desarrollo)\n• Terminativas (final)\n• Reiterativas y resultativas\n\nEn una perífrasis los verbos forman una sola unidad ('tiene que revisar'); en una sucesión de verbos, cada uno conserva su función ('quiere revisar').",
+      "enlace_svg": "tipos-perifrasis.svg"
     },
     {
       "pregunta": "¿Cuál de las siguientes oraciones contiene una perífrasis verbal durativa?",
@@ -734,13 +777,16 @@
       "correcta": 1
     },
     {
-      "pregunta": "La sintaxis estudia cómo se organizan y relacionan las palabras dentro de una oración para construir mensajes con sentido, analizando la función que cumple cada una. Examina estructuras como el sujeto y predicado, así como los complementos verbales y sus modificadores, permitiendo reconocer cómo se construye la coherencia. En 'La estudiante brillante resolvió el problema matemático', la sintaxis identifica que 'estudiante' es sujeto, 'resolvió' es verbo y 'problema' es complemento directo."
+      "pregunta": "La sintaxis estudia cómo se organizan y relacionan las palabras dentro de una oración para construir mensajes con sentido, analizando la función que cumple cada una. Examina estructuras como el sujeto y predicado, así como los complementos verbales y sus modificadores, permitiendo reconocer cómo se construye la coherencia. En 'La estudiante brillante resolvió el problema matemático', la sintaxis identifica que 'estudiante' es sujeto, 'resolvió' es verbo y 'problema' es complemento directo.",
+      "enlace_svg": "sintaxis.svg"
     },
     {
-      "pregunta": "La concordancia es la correspondencia gramatical entre elementos de la oración (género, número o persona) que evita ambigüedades.\n\nExisten dos tipos:\n• Concordancia nominal: entre el sustantivo y sus acompañantes.\n• Concordancia verbal: entre el sujeto y el verbo."
+      "pregunta": "La concordancia es la correspondencia gramatical entre elementos de la oración (género, número o persona) que evita ambigüedades.\n\nExisten dos tipos:\n• Concordancia nominal: entre el sustantivo y sus acompañantes.\n• Concordancia verbal: entre el sujeto y el verbo.",
+      "enlace_svg": "concordancia.svg"
     },
     {
-      "pregunta": "La concordancia nominal es la relación gramatical entre un sustantivo y las palabras que lo acompañan (artículo, adjetivo, pronombre), de manera que coincidan en género y número. Esta correspondencia es fundamental para la corrección gramatical y la claridad del mensaje. Por ejemplo, en 'Las investigaciones científicas fueron exitosas', todas las palabras concuerdan en género femenino y número plural con el sustantivo 'investigaciones'."
+      "pregunta": "La concordancia nominal es la relación gramatical entre un sustantivo y las palabras que lo acompañan (artículo, adjetivo, pronombre), de manera que coincidan en género y número. Esta correspondencia es fundamental para la corrección gramatical y la claridad del mensaje. Por ejemplo, en 'Las investigaciones científicas fueron exitosas', todas las palabras concuerdan en género femenino y número plural con el sustantivo 'investigaciones'.",
+      "enlace_svg": "concordancia-nominal.svg"
     },
     {
       "pregunta": "¿En cuál de las siguientes oraciones existe una concordancia nominal correcta?",
@@ -752,7 +798,8 @@
       "correcta": 0
     },
     {
-      "pregunta": "Reglas principales:\n• El artículo y el sustantivo coinciden en género y número.\n• El adjetivo adopta el género y número del sustantivo.\n• Si un adjetivo modifica sustantivos de distinto género, se usa el masculino plural.\n• Con sustantivos colectivos, la concordancia sigue al núcleo del sujeto."
+      "pregunta": "Reglas principales:\n• El artículo y el sustantivo coinciden en género y número.\n• El adjetivo adopta el género y número del sustantivo.\n• Si un adjetivo modifica sustantivos de distinto género, se usa el masculino plural.\n• Con sustantivos colectivos, la concordancia sigue al núcleo del sujeto.",
+      "enlace_svg": "reglas-concordancia-nominal.svg"
     },
     {
       "pregunta": "¿Qué palabra rompe la concordancia nominal en la siguiente oración? \"El análisis estadística permitió interpretar correctamente los resultados.\"",
@@ -782,7 +829,8 @@
       "correcta": 1
     },
     {
-      "pregunta": "La concordancia verbal es la relación gramatical entre el sujeto y el verbo, de manera que coincidan en persona y número. Esta correspondencia asegura que la información sea consistente y el mensaje sea claro. En 'Nosotros estudiamos diligentemente para la prueba', el verbo 'estudiamos' en primera persona plural concuerda con el sujeto 'nosotros', demostrando la relación de dependencia entre ambos elementos."
+      "pregunta": "La concordancia verbal es la relación gramatical entre el sujeto y el verbo, de manera que coincidan en persona y número. Esta correspondencia asegura que la información sea consistente y el mensaje sea claro. En 'Nosotros estudiamos diligentemente para la prueba', el verbo 'estudiamos' en primera persona plural concuerda con el sujeto 'nosotros', demostrando la relación de dependencia entre ambos elementos.",
+      "enlace_svg": "concordancia-verbal.svg"
     },
     {
       "pregunta": "¿En cuál de las siguientes oraciones la concordancia verbal es correcta?",
@@ -794,7 +842,8 @@
       "correcta": 2
     },
     {
-      "pregunta": "Reglas principales:\n• Sujeto simple: el verbo coincide con él en persona y número.\n• Sujeto compuesto: el verbo suele ir en plural.\n• Sujeto colectivo: el verbo concuerda con el colectivo, no con sus elementos.\n• Con varias personas gramaticales, prevalece la primera sobre la segunda, y la segunda sobre la tercera."
+      "pregunta": "Reglas principales:\n• Sujeto simple: el verbo coincide con él en persona y número.\n• Sujeto compuesto: el verbo suele ir en plural.\n• Sujeto colectivo: el verbo concuerda con el colectivo, no con sus elementos.\n• Con varias personas gramaticales, prevalece la primera sobre la segunda, y la segunda sobre la tercera.",
+      "enlace_svg": "reglas-concordancia-verbal.svg"
     },
     {
       "pregunta": "¿Cuál de las siguientes oraciones presenta un error de concordancia verbal?",
@@ -824,7 +873,8 @@
       "correcta": 2
     },
     {
-      "pregunta": "El sujeto es la palabra o conjunto de palabras que indica quién realiza la acción del verbo, quién la recibe o de quién se dice algo. Concuerda con el verbo en persona y número."
+      "pregunta": "El sujeto es la palabra o conjunto de palabras que indica quién realiza la acción del verbo, quién la recibe o de quién se dice algo. Concuerda con el verbo en persona y número.",
+      "enlace_svg": "sujeto.svg"
     },
     {
       "pregunta": "¿Cuál es el núcleo del sujeto en la siguiente oración? \"Los reconocidos especialistas en biotecnología desarrollaron un nuevo método para el diagnóstico molecular.\"",
@@ -836,7 +886,8 @@
       "correcta": 2
     },
     {
-      "pregunta": "Elementos del sujeto:\n• Núcleo: sustantivo o pronombre; determina la concordancia.\n• Modificador directo: artículos y adjetivos.\n• Modificador indirecto: complementa mediante preposición.\n• Aposición: precisa al núcleo."
+      "pregunta": "Elementos del sujeto:\n• Núcleo: sustantivo o pronombre; determina la concordancia.\n• Modificador directo: artículos y adjetivos.\n• Modificador indirecto: complementa mediante preposición.\n• Aposición: precisa al núcleo.",
+      "enlace_svg": "elementos-sujeto.svg"
     },
     {
       "pregunta": "¿Qué tipo de sujeto presenta la siguiente oración? \"Presentaremos los resultados de la investigación durante el congreso internacional.\"",
@@ -848,7 +899,8 @@
       "correcta": 1
     },
     {
-      "pregunta": "Tipos de sujeto:\n• Expreso y tácito\n• Simple y compuesto\n• Indeterminado\n• Agente (voz activa) y paciente (voz pasiva)"
+      "pregunta": "Tipos de sujeto:\n• Expreso y tácito\n• Simple y compuesto\n• Indeterminado\n• Agente (voz activa) y paciente (voz pasiva)",
+      "enlace_svg": "tipos-sujeto.svg"
     },
     {
       "pregunta": "¿Cuál de las siguientes oraciones contiene un sujeto compuesto?",
@@ -869,7 +921,8 @@
       "correcta": 2
     },
     {
-      "pregunta": "El predicado expresa la acción, el estado o la característica del sujeto. Su núcleo es siempre un verbo conjugado y concuerda con el sujeto en persona y número."
+      "pregunta": "El predicado expresa la acción, el estado o la característica del sujeto. Su núcleo es siempre un verbo conjugado y concuerda con el sujeto en persona y número.",
+      "enlace_svg": "predicado.svg"
     },
     {
       "pregunta": "¿Cuál es el núcleo del predicado en la siguiente oración? \"Los investigadores analizaron cuidadosamente cada una de las muestras obtenidas durante el estudio.\"",
@@ -881,7 +934,8 @@
       "correcta": 1
     },
     {
-      "pregunta": "Elementos del predicado:\n• Complemento directo: recibe la acción (lo/la/los/las).\n• Complemento indirecto: beneficio o perjuicio (le/les).\n• Complemento circunstancial: lugar, tiempo, modo, etc.\n• Complemento agente: en voz pasiva, introducido por 'por'.\n• Atributo: acompaña a ser, estar o parecer."
+      "pregunta": "Elementos del predicado:\n• Complemento directo: recibe la acción (lo/la/los/las).\n• Complemento indirecto: beneficio o perjuicio (le/les).\n• Complemento circunstancial: lugar, tiempo, modo, etc.\n• Complemento agente: en voz pasiva, introducido por 'por'.\n• Atributo: acompaña a ser, estar o parecer.",
+      "enlace_svg": "elementos-predicado.svg"
     },
     {
       "pregunta": "¿Qué función desempeña \"el protocolo de investigación\" en la siguiente oración? \"El comité científico aprobó el protocolo de investigación después de varias revisiones.\"",
@@ -893,7 +947,8 @@
       "correcta": 0
     },
     {
-      "pregunta": "Tipos de predicado:\n• Predicado verbal: núcleo con verbo predicativo (acción o proceso).\n• Predicado nominal: núcleo con verbo copulativo + atributo que describe al sujeto."
+      "pregunta": "Tipos de predicado:\n• Predicado verbal: núcleo con verbo predicativo (acción o proceso).\n• Predicado nominal: núcleo con verbo copulativo + atributo que describe al sujeto.",
+      "enlace_svg": "tipos-predicado.svg"
     },
     {
       "pregunta": "¿Cuál de las siguientes oraciones contiene un predicado nominal?",
@@ -914,7 +969,8 @@
       "correcta": 0
     },
     {
-      "pregunta": "El complemento directo recibe de manera directa la acción del verbo. Responde a ¿qué? o ¿a quién? y solo aparece con verbos transitivos."
+      "pregunta": "El complemento directo recibe de manera directa la acción del verbo. Responde a ¿qué? o ¿a quién? y solo aparece con verbos transitivos.",
+      "enlace_svg": "complemento-directo.svg"
     },
     {
       "pregunta": "¿Cuál es el complemento directo en la siguiente oración? \"El comité científico evaluó las propuestas de investigación antes de emitir el dictamen.\"",
@@ -926,7 +982,8 @@
       "correcta": 2
     },
     {
-      "pregunta": "Cómo identificarlo:\n• Se sustituye por lo, la, los o las.\n• Se construye sin preposición, salvo con personas determinadas ('a').\n• Al pasar a voz pasiva, se convierte en sujeto paciente."
+      "pregunta": "Cómo identificarlo:\n• Se sustituye por lo, la, los o las.\n• Se construye sin preposición, salvo con personas determinadas ('a').\n• Al pasar a voz pasiva, se convierte en sujeto paciente.",
+      "enlace_svg": "identificar-cd.svg"
     },
     {
       "pregunta": "¿En cuál de las siguientes oraciones \"a los estudiantes\" desempeña la función de complemento directo?",
@@ -956,7 +1013,8 @@
       "correcta": 1
     },
     {
-      "pregunta": "El complemento indirecto indica quién recibe el beneficio o el perjuicio de la acción. Responde a ¿a quién? o ¿para quién?."
+      "pregunta": "El complemento indirecto indica quién recibe el beneficio o el perjuicio de la acción. Responde a ¿a quién? o ¿para quién?.",
+      "enlace_svg": "complemento-indirecto.svg"
     },
     {
       "pregunta": "¿Cuál es el complemento indirecto en la siguiente oración? \"El investigador presentó los resultados del estudio a la comunidad científica.\"",
@@ -968,7 +1026,8 @@
       "correcta": 0
     },
     {
-      "pregunta": "Cómo identificarlo:\n• Suele ir introducido por 'a' o 'para'.\n• Se sustituye por le o les.\n• No se convierte en sujeto paciente al pasar a voz pasiva.\n• Puede aparecer junto con un complemento directo."
+      "pregunta": "Cómo identificarlo:\n• Suele ir introducido por 'a' o 'para'.\n• Se sustituye por le o les.\n• No se convierte en sujeto paciente al pasar a voz pasiva.\n• Puede aparecer junto con un complemento directo.",
+      "enlace_svg": "identificar-ci.svg"
     },
     {
       "pregunta": "¿En cuál de las siguientes oraciones \"a los estudiantes\" desempeña la función de complemento indirecto?",
@@ -998,7 +1057,8 @@
       "correcta": 0
     },
     {
-      "pregunta": "El complemento circunstancial aporta información sobre las circunstancias de la acción: lugar, tiempo, modo, causa, finalidad, instrumento, compañía, entre otras. Se puede reconocer respondiendo preguntas como ¿dónde?, ¿cuándo?, ¿cómo? o ¿por qué?, y puede omitirse sin alterar la estructura fundamental de la oración, aunque cambie el significado. En 'El experimento se realizó en el laboratorio ayer con mucha precisión', los complementos circunstanciales 'en el laboratorio' (lugar), 'ayer' (tiempo) y 'con mucha precisión' (modo) especifican las circunstancias."
+      "pregunta": "El complemento circunstancial aporta información sobre las circunstancias de la acción: lugar, tiempo, modo, causa, finalidad, instrumento, compañía, entre otras. Se puede reconocer respondiendo preguntas como ¿dónde?, ¿cuándo?, ¿cómo? o ¿por qué?, y puede omitirse sin alterar la estructura fundamental de la oración, aunque cambie el significado. En 'El experimento se realizó en el laboratorio ayer con mucha precisión', los complementos circunstanciales 'en el laboratorio' (lugar), 'ayer' (tiempo) y 'con mucha precisión' (modo) especifican las circunstancias.",
+      "enlace_svg": "complemento-circunstancial.svg"
     },
     {
       "pregunta": "¿Cuál es el complemento circunstancial de lugar en la siguiente oración? \"Los investigadores realizaron el experimento en el laboratorio central durante la tarde.\"",
@@ -1010,7 +1070,8 @@
       "correcta": 1
     },
     {
-      "pregunta": "Características:\n• Puede eliminarse sin afectar la estructura gramatical (aunque cambia el significado).\n• Puede ir al inicio, en medio o al final de la oración.\n• Una oración puede tener varios.\n\nPara identificarlo, pregunta ¿dónde?, ¿cuándo?, ¿cómo?, ¿por qué? o ¿con quién?."
+      "pregunta": "Características:\n• Puede eliminarse sin afectar la estructura gramatical (aunque cambia el significado).\n• Puede ir al inicio, en medio o al final de la oración.\n• Una oración puede tener varios.\n\nPara identificarlo, pregunta ¿dónde?, ¿cuándo?, ¿cómo?, ¿por qué? o ¿con quién?.",
+      "enlace_svg": "caracteristicas-cc.svg"
     },
     {
       "pregunta": "¿Qué tipo de complemento circunstancial es \"con absoluta objetividad\" en la siguiente oración? \"El comité científico evaluó el proyecto con absoluta objetividad.\"",

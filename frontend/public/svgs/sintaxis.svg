@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 180" fill="none" stroke-linecap="round" stroke-linejoin="round">
+<path d="M160 50L108 70M160 50L212 70M108 94L86 118M108 94L126 118M212 94L194 118M212 94L236 118" stroke="#9b7fd4" stroke-width="2.5"/>
+<rect x="136" y="26" width="48" height="24" rx="9" fill="#7c5cbf"/>
+<path d="M148 38h24" stroke="#f0f0f0" stroke-width="3"/>
+<rect x="80" y="70" width="56" height="24" rx="9" fill="#06b6d4" fill-opacity=".14" stroke="#0891b2" stroke-width="2.5"/>
+<rect x="184" y="70" width="56" height="24" rx="9" fill="#7c5cbf" fill-opacity=".14" stroke="#7c5cbf" stroke-width="2.5"/>
+<rect x="70" y="118" width="32" height="26" rx="8" fill="#22d3ee" fill-opacity=".18" stroke="#06b6d4" stroke-width="2.5"/>
+<rect x="108" y="118" width="40" height="26" rx="8" fill="#22d3ee" fill-opacity=".18" stroke="#06b6d4" stroke-width="2.5"/>
+<rect x="174" y="118" width="40" height="26" rx="8" fill="#9b7fd4" fill-opacity=".3" stroke="#9b7fd4" stroke-width="2.5"/>
+<rect x="220" y="118" width="32" height="26" rx="8" fill="#9b7fd4" fill-opacity=".3" stroke="#9b7fd4" stroke-width="2.5"/>
+<path d="M121 131h14" stroke="#06b6d4" stroke-width="3"/>
+<path d="M186 131h16" stroke="#7c5cbf" stroke-width="3"/>
+<ellipse cx="160" cy="152" rx="92" ry="2" fill="#7c5cbf" fill-opacity=".15"/>
+</svg>

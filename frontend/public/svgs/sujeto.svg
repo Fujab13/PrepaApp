@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 180" fill="none" stroke-linecap="round" stroke-linejoin="round">
+<ellipse cx="160" cy="146" rx="92" ry="2" fill="#7c5cbf" fill-opacity=".15"/>
+<rect x="64" y="28" width="38" height="30" rx="9" fill="#9b7fd4" fill-opacity=".3" stroke="#9b7fd4" stroke-width="2.5"/>
+<rect x="108" y="28" width="38" height="30" rx="9" fill="#9b7fd4" fill-opacity=".3" stroke="#9b7fd4" stroke-width="2.5"/>
+<rect x="152" y="28" width="38" height="30" rx="9" fill="#9b7fd4" fill-opacity=".3" stroke="#9b7fd4" stroke-width="2.5"/>
+<path d="M73 43h20m-5-5 5 5-5 5M137 43h-20m5-5-5 5 5 5M171 36q1.05 5.95 7 7q-5.95 1.05-7 7q-1.05-5.95-7-7q5.95-1.05 7-7z" stroke="#7c5cbf" stroke-width="2.5"/>
+<path d="M83 58l20 26M127 58l-10 26M171 58l-40 26" stroke="#9b7fd4" stroke-opacity=".7" stroke-width="2"/>
+<rect x="64" y="84" width="192" height="52" rx="14" fill="#7c5cbf" fill-opacity=".14" stroke="#7c5cbf" stroke-width="2.5"/>
+<rect x="72" y="92" width="72" height="36" rx="10" fill="#7c5cbf"/>
+<path d="M103 102a5 5 0 1 0 10 0a5 5 0 1 0-10 0M98 118a10 8 0 0 1 20 0" stroke="#f0f0f0" stroke-width="2.5"/>
+<rect x="152" y="92" width="96" height="36" rx="10" fill="#22d3ee" fill-opacity=".18" stroke="#06b6d4" stroke-width="2.5"/>
+<path d="M186 110h28m-5-5 5 5-5 5" stroke="#0891b2" stroke-width="2.5"/>
+</svg>

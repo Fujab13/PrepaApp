@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 180" fill="none" stroke-linecap="round" stroke-linejoin="round">
+<path d="M124 82L112 58M196 82L208 58M124 98L112 122M196 98L208 122" stroke="#9b7fd4" stroke-width="2.5"/>
+<rect x="64" y="28" width="48" height="30" rx="10" fill="#22d3ee" fill-opacity=".18" stroke="#06b6d4" stroke-width="2.5"/>
+<rect x="208" y="28" width="48" height="30" rx="10" fill="#9b7fd4" fill-opacity=".3" stroke="#9b7fd4" stroke-width="2.5"/>
+<rect x="64" y="122" width="48" height="30" rx="10" fill="#9b7fd4" fill-opacity=".3" stroke="#9b7fd4" stroke-width="2.5"/>
+<rect x="208" y="122" width="48" height="30" rx="10" fill="#22d3ee" fill-opacity=".18" stroke="#06b6d4" stroke-width="2.5"/>
+<path d="M82 43v0M94 43v0M226 137v0M238 137v0" stroke="#0891b2" stroke-width="5"/>
+<path d="M226 43v0M238 43v0M82 137v0M94 137v0" stroke="#7c5cbf" stroke-width="5"/>
+<rect x="124" y="70" width="72" height="40" rx="12" fill="#7c5cbf"/>
+<path d="M153 90v0M167 90v0" stroke="#f0f0f0" stroke-width="5"/>
+<ellipse cx="160" cy="158" rx="80" ry="1.5" fill="#7c5cbf" fill-opacity=".15"/>
+</svg>

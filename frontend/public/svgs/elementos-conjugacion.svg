@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 180" fill="none" stroke-linecap="round" stroke-linejoin="round">
+<rect x="64" y="26" width="32" height="40" rx="10" fill="#7c5cbf" fill-opacity=".14" stroke="#7c5cbf" stroke-width="2.5"/>
+<rect x="104" y="26" width="32" height="40" rx="10" fill="#06b6d4" fill-opacity=".14" stroke="#0891b2" stroke-width="2.5"/>
+<rect x="144" y="26" width="32" height="40" rx="10" fill="#7c5cbf" fill-opacity=".14" stroke="#7c5cbf" stroke-width="2.5"/>
+<rect x="184" y="26" width="32" height="40" rx="10" fill="#06b6d4" fill-opacity=".14" stroke="#0891b2" stroke-width="2.5"/>
+<rect x="224" y="26" width="32" height="40" rx="10" fill="#7c5cbf" fill-opacity=".14" stroke="#7c5cbf" stroke-width="2.5"/>
+<path d="M76 40a4 4 0 1 0 8 0a4 4 0 1 0-8 0M72 53.8a8 6.8 0 0 1 16 0M152 46a8 8 0 1 0 16 0a8 8 0 1 0-16 0M160 41v5l4 3M232 41h16v10h-16zM232 46h8" stroke="#7c5cbf" stroke-width="2.5"/>
+<path d="M112 46v0M122 40v0M128 46v0M122 52v0M191 38h18v13h-10l-5 4v-4h-3z" stroke="#0891b2" stroke-width="3"/>
+<path d="M80 66L136 104M120 66L148 104M160 66v38M200 66L172 104M240 66L184 104" stroke="#9b7fd4" stroke-opacity=".7" stroke-width="2"/>
+<rect x="96" y="104" width="128" height="36" rx="12" fill="#7c5cbf"/>
+<path d="M118 122h84" stroke="#f0f0f0" stroke-width="3"/>
+<ellipse cx="160" cy="150" rx="70" ry="2" fill="#7c5cbf" fill-opacity=".15"/>
+</svg>

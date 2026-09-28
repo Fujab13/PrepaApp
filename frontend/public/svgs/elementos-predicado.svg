@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 180" fill="none" stroke-linecap="round" stroke-linejoin="round">
+<path d="M118 90C134 90 134 34 150 34M118 90C134 90 134 62 150 62M118 90C134 90 134 90 150 90M118 90C134 90 134 118 150 118M118 90C134 90 134 146 150 146" stroke="#9b7fd4" stroke-width="2.5"/>
+<rect x="66" y="70" width="52" height="40" rx="12" fill="#7c5cbf"/>
+<path d="M78 90h28m-5-5 5 5-5 5" stroke="#f0f0f0" stroke-width="2.5"/>
+<rect x="150" y="24" width="100" height="20" rx="7" fill="#06b6d4" fill-opacity=".14" stroke="#0891b2" stroke-width="2.5"/>
+<rect x="150" y="52" width="100" height="20" rx="7" fill="#7c5cbf" fill-opacity=".14" stroke="#7c5cbf" stroke-width="2.5"/>
+<rect x="150" y="80" width="100" height="20" rx="7" fill="#06b6d4" fill-opacity=".14" stroke="#0891b2" stroke-width="2.5"/>
+<rect x="150" y="108" width="100" height="20" rx="7" fill="#7c5cbf" fill-opacity=".14" stroke="#7c5cbf" stroke-width="2.5"/>
+<rect x="150" y="136" width="100" height="20" rx="7" fill="#06b6d4" fill-opacity=".14" stroke="#0891b2" stroke-width="2.5"/>
+<path d="M194.5 28.5h11v11h-11zM194.5 33.5h11M191 95.5c-3.15-4.05-4.5-5.8500000000000005-4.5-8.1a4.5 4.5 0 0 1 9.0 0c0 2.25-1.3499999999999999 4.05-4.5 8.1zM191 86.65v0M204.5 90a5.5 5.5 0 1 0 11.0 0a5.5 5.5 0 1 0-11.0 0M210 86.7v3.3l2.475 2.2M189 144h8M189 148h8M210 140.5q0.825 4.675 5.5 5.5q-4.675 0.825-5.5 5.5q-0.825-4.675-5.5-5.5q4.675-0.825 5.5-5.5z" stroke="#0891b2" stroke-width="2"/>
+<path d="M197 58a3 3 0 1 0 6 0a3 3 0 1 0-6 0M194 69a6 5 0 0 1 12 0M186 118h12m-5-5 5 5-5 5M207 114a3 3 0 1 0 6 0a3 3 0 1 0-6 0M204 124a6 4 0 0 1 12 0" stroke="#7c5cbf" stroke-width="2"/>
+</svg>
