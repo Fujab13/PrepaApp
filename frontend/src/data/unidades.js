@@ -7,6 +7,10 @@ export const PREGUNTAS_POR_UNIDAD = 12
 // cuando un subtema no alcanza este tamaño por sí solo.
 export const PREGUNTAS_POR_UNIDAD_DIFICIL = 20
 
+// Modo conceptos (la pesa en MateriaCard): solo tarjetas de teoría, que se
+// leen más despacio que una pregunta; unidades más cortas.
+export const PREGUNTAS_POR_UNIDAD_CONCEPTOS = 8
+
 // Cuántas unidades tiene el curso completo de una materia, según su propia
 // cantidad de preguntas (antes era un tope fijo igual para todas: con bancos
 // grandes como el de Español, eso dejaba una buena parte del contenido

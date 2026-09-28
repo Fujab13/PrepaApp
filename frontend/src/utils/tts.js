@@ -86,6 +86,23 @@ function obtenerVozPreferida() {
   )
 }
 
+// Volumen de la voz (0-100), elegido en Ajustes → Música → Volumen. Se lee
+// en cada lectura para que el cambio aplique sin recargar.
+const STORAGE_KEY_VOLUMEN = 'volumen_tts'
+
+export function leerVolumenTts() {
+  try {
+    const v = Number(localStorage.getItem(STORAGE_KEY_VOLUMEN))
+    return localStorage.getItem(STORAGE_KEY_VOLUMEN) !== null && Number.isFinite(v) ? v : 100
+  } catch {
+    return 100
+  }
+}
+
+export function guardarVolumenTts(v) {
+  try { localStorage.setItem(STORAGE_KEY_VOLUMEN, String(v)) } catch { /* sin almacenamiento */ }
+}
+
 export function hablarTexto(texto, { onEnd } = {}) {
   if (typeof window === 'undefined' || !('speechSynthesis' in window) || !texto) return false
 
@@ -110,6 +127,7 @@ export function hablarTexto(texto, { onEnd } = {}) {
   // robótica, sin llegar a sonar lenta o distorsionada.
   utterance.rate = 0.94
   utterance.pitch = 0.92
+  utterance.volume = leerVolumenTts() / 100
 
   if (onEnd) {
     utterance.onend = onEnd

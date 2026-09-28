@@ -19,6 +19,9 @@ export const triggerVibration = (type = 'success') => {
     case 'warning':
       navigator.vibrate(200)
       break
+    case 'tick': // "clic" corto al pasar de tarjeta en la tómbola
+      navigator.vibrate(8)
+      break
     case 'celebracion':
       navigator.vibrate([40, 40, 40, 40, 90])
       break

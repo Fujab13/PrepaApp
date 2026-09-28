@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import Hexagono from '../components/Hexagono'
+import Pizarron from '../components/Pizarron'
 import OpcionBtn from '../components/OpcionBtn'
 import LeccionSkeleton from '../components/skeletons/LeccionSkeleton'
 import TarjetaRepaso from '../components/TarjetaRepaso'
@@ -12,11 +13,12 @@ import MascotaCompanera from '../components/MascotaCompanera'
 import { useStore } from '../context/StoreContext'
 import { useImpulsoActivo } from '../hooks/useImpulsoActivo'
 import { useProgreso } from '../hooks/useProgreso'
-import { getPreguntasDeUnidad, getTotalUnidades, PREGUNTAS_POR_UNIDAD, PREGUNTAS_POR_UNIDAD_DIFICIL } from '../data/unidades'
+import { getPreguntasDeUnidad, getTotalUnidades, PREGUNTAS_POR_UNIDAD, PREGUNTAS_POR_UNIDAD_DIFICIL, PREGUNTAS_POR_UNIDAD_CONCEPTOS } from '../data/unidades'
 import { obtenerLeccionDeSesion } from '../services/leccionesPremium';
 import { registrarTotalUnidadesProducto } from '../services/progreso';
 import { triggerVibration } from '../utils/haptics';
 import { leerModoDificil, calcularTiempoLimiteDecimas } from '../utils/modoDificil';
+import { leerModoConceptos, esConcepto } from '../utils/modoConceptos';
 import { hablarTexto, detenerLectura } from '../utils/tts';
 import { esNavegadorEmbebido, intentarAbrirEnNavegador } from '../utils/navegadorEmbebido';
 import { getLectura } from '../data/lecturas/index';
@@ -27,7 +29,7 @@ import { renderIconoMateria } from '../utils/renderIconoMateria';
 import { IoMdClose } from "react-icons/io";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { AiOutlineClose } from "react-icons/ai";
-import { MdFullscreen, MdFullscreenExit, MdSkipNext, MdTimer } from "react-icons/md";
+import { MdFullscreen, MdFullscreenExit, MdSkipNext, MdTimer, MdFitnessCenter } from "react-icons/md";
 import { VscDebugRestart } from "react-icons/vsc";
 import { MdRestartAlt } from "react-icons/md";
 import { PiCopy, PiCheckBold } from "react-icons/pi";
@@ -131,19 +133,30 @@ export default function Leccion() {
   // de solo concepto, y con cronómetro por pregunta. Es una preferencia
   // local por materia (localStorage), no toca progreso_usuario: el
   // contador de unidad/elemento sigue siendo el mismo en ambos modos.
-  const [modoDificil, setModoDificil] = useState(false)
+  // Se leen al montar (no en un efecto) para que useProgreso arranque ya con
+  // la clave correcta: Modo conceptos usa un progreso local aparte.
+  const [modoDificilGuardado, setModoDificil] = useState(() => leerModoDificil(materiaId))
+  // Modo conceptos (la pesa en MateriaCard, ver utils/modoConceptos.js): solo
+  // tarjetas de teoría, unidades cortas, sin cronómetro, sin repaso de fallos
+  // ni recompensa de monedas, y con su propio avance local. Si por alguna
+  // razón quedaran activos los dos modos, gana este.
+  const [modoConceptos, setModoConceptos] = useState(() => leerModoConceptos(materiaId))
+  const modoDificil = modoDificilGuardado && !modoConceptos
   // Décimas de segundo. 220 (22.0s) es solo el valor inicial antes de que el
   // efecto de abajo calcule el límite real según el largo de la primera
   // pregunta (ver calcularTiempoLimiteDecimas en utils/modoDificil.js) — se
   // sobreescribe casi de inmediato, nunca se usa un cronómetro fijo de ahí
   // en adelante.
   const [tiempoRestante, setTiempoRestante] = useState(220)
-  const tamanoUnidad = modoDificil ? PREGUNTAS_POR_UNIDAD_DIFICIL : PREGUNTAS_POR_UNIDAD
+  const tamanoUnidad = modoConceptos ? PREGUNTAS_POR_UNIDAD_CONCEPTOS : modoDificil ? PREGUNTAS_POR_UNIDAD_DIFICIL : PREGUNTAS_POR_UNIDAD
   const preguntasPool = materia
-    ? (modoDificil ? materia.preguntas.filter(p => Array.isArray(p.opciones) && p.opciones.length > 0) : materia.preguntas)
+    ? (modoConceptos
+        ? materia.preguntas.filter(esConcepto)
+        : modoDificil ? materia.preguntas.filter(p => Array.isArray(p.opciones) && p.opciones.length > 0) : materia.preguntas)
     : []
-  const totalUnidades = materia ? getTotalUnidades(preguntasPool, tamanoUnidad) : undefined
-  const { unidad, elemento, cargando: cargandoProgreso, guardarProgreso } = useProgreso(materiaId, totalUnidades)
+  const sinConceptos = modoConceptos && Boolean(materia) && preguntasPool.length === 0
+  const totalUnidades = materia && preguntasPool.length > 0 ? getTotalUnidades(preguntasPool, tamanoUnidad) : undefined
+  const { unidad, elemento, cargando: cargandoProgreso, guardarProgreso } = useProgreso(materiaId, totalUnidades, { soloLocal: modoConceptos })
 
   const [cola, setCola]                             = useState(null)
   const [correctasIniciales, setCorrectasIniciales]  = useState(0)
@@ -188,6 +201,7 @@ export default function Leccion() {
   // en Home, no hay control para cambiarlo aquí dentro de la lección).
   useEffect(() => {
     setModoDificil(leerModoDificil(materiaId))
+    setModoConceptos(leerModoConceptos(materiaId))
   }, [materiaId])
 
   useEffect(() => {
@@ -208,7 +222,7 @@ export default function Leccion() {
     setCola(restantes.length > 0 ? restantes : Array.from({ length: total }, (_, i) => i))
 
     inicializadoRef.current = true
-  }, [cargando, cargandoProgreso, elemento, materia, unidad, modoDificil])
+  }, [cargando, cargandoProgreso, elemento, materia, unidad, modoDificil, modoConceptos])
 
   useEffect(() => {
     // Se inicializa una sola vez, ya con la unidad real cargada (no la 1 por
@@ -220,7 +234,7 @@ export default function Leccion() {
     if (cargando || cargandoProgreso || !materia) return
 
     const guardada = leerPreferenciaAutoLectura()
-    setLecturaAutomatica(guardada !== null ? guardada : (materiaId === 'espanol' && unidad === 1))
+    setLecturaAutomatica(guardada !== null ? guardada : (materiaId === 'espanol' && unidad === 1 && !modoConceptos))
     autoLecturaInicializadaRef.current = true
   }, [cargando, cargandoProgreso, materia, materiaId, unidad])
 
@@ -453,6 +467,27 @@ export default function Leccion() {
   // solo se veía devuelto a Home sin explicación.
   if (!materia && !errorCarga) return null
 
+  if (sinConceptos) {
+    return (
+      <div style={{
+        display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
+        gap: 14, minHeight: '100vh', padding: '24px', textAlign: 'center',
+      }}>
+        <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', margin: 0 }}>Esta lección no tiene conceptos.</p>
+        <button
+          type="button"
+          onClick={() => navigate('/')}
+          style={{
+            minHeight: 44, padding: '0 20px', borderRadius: 12, border: 'none',
+            background: 'var(--surface2)', color: 'var(--text)', fontWeight: 700, cursor: 'pointer',
+          }}
+        >
+          Volver al inicio
+        </button>
+      </div>
+    )
+  }
+
   if (resumen) {
     return (
       <EscaneoRecompensa
@@ -561,7 +596,7 @@ export default function Leccion() {
       // lectura automática por default (ver el efecto de inicialización más
       // arriba); al terminarla, se apaga para que el resto de las lecciones
       // vuelvan al comportamiento normal (leer solo al tocar el botón de TTS).
-      if (materiaId === 'espanol' && unidad === 1) {
+      if (materiaId === 'espanol' && unidad === 1 && !modoConceptos) {
         setLecturaAutomatica(false)
         guardarPreferenciaAutoLectura(false)
       }
@@ -572,6 +607,13 @@ export default function Leccion() {
       // "unidad" de forma optimista mientras esa pantalla sigue montada
       // (unidadCompletadaRef ya tiene la unidad correcta congelada).
       guardarProgreso(unidad + 1, 0)
+
+      // Modo conceptos: sin el minijuego de monedas (pasar tarjetas no se
+      // premia como contestar); de vuelta al inicio.
+      if (modoConceptos) {
+        navigate('/')
+        return
+      }
 
       // Precisión de la unidad recién terminada: qué fracción de sus
       // preguntas se contestó bien AL PRIMER INTENTO (indicesFallados solo
@@ -691,7 +733,9 @@ export default function Leccion() {
     if (nuevaCola.length === 0) {
       // Unidad terminada: si en la unidad anterior hubo preguntas falladas,
       // se hace un repaso de refuerzo antes de avanzar de verdad.
-      const fallosPrevios = unidad > 1 ? tomarFallosDeUnidad(materiaId, unidad - 1, 3, preguntasPool) : []
+      // En Modo conceptos no hay repaso: sus unidades no son las de la
+      // lección normal, que es donde se guardan los fallos.
+      const fallosPrevios = unidad > 1 && !modoConceptos ? tomarFallosDeUnidad(materiaId, unidad - 1, 3, preguntasPool) : []
 
       // Congela qué unidad se completó ahora mismo — celebrarYNavegar() lo
       // lee de aquí, pase o no por el repaso de abajo primero.
@@ -1007,6 +1051,15 @@ export default function Leccion() {
           }} />
         </div>
 
+        {modoConceptos && (
+          <span
+            title="Modo conceptos"
+            style={{ display: 'inline-flex', color: materia.color, fontSize: '1.1rem', flexShrink: 0 }}
+          >
+            <MdFitnessCenter />
+          </span>
+        )}
+
         {modoDificil && (
           <span
             className="reloj-minimal"
@@ -1132,24 +1185,12 @@ export default function Leccion() {
       {enRepaso ? (
         <>
           {pregunta.enlace_svg && (
-            <div style={{
-              background: "linear-gradient(135deg, var(--surface2), var(--surface))",
-              border: "1px solid rgba(255,255,255,0.06)",
-              borderRadius: 6,
-              marginBottom: 14,
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              minHeight: 120,
-              boxShadow: "0 4px 16px -10px rgba(0,0,0,0.6)",
-            }}>
-              <img
-                src={`/svgs/${pregunta.enlace_svg}`}
-                alt={`Imagen de la pregunta ${pregunta.id}`}
-                style={{ maxWidth: "100%", maxHeight: 400, width: "100%", objectFit: "contain", margin: 4 }}
-                onError={e => { e.currentTarget.style.display = "none"; }}
-              />
-            </div>
+            <Pizarron
+              key={pregunta.enlace_svg}
+              src={`/svgs/${pregunta.enlace_svg}`}
+              alt={`Imagen de la pregunta ${pregunta.id}`}
+              color={COLOR_REFUERZO}
+            />
           )}
 
           <div style={{ minHeight: 22, marginBottom: 10 }}>
@@ -1191,24 +1232,12 @@ export default function Leccion() {
       ) : (
         <div key={idxActual} className="gm-entrada" data-mascota-evitar="true" style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
           {pregunta.enlace_svg && (
-            <div style={{
-              background: "linear-gradient(135deg, var(--surface2), var(--surface))",
-              border: "1px solid rgba(255,255,255,0.06)",
-              borderRadius: 6,
-              marginBottom: 14,
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              minHeight: 120,
-              boxShadow: "0 4px 16px -10px rgba(0,0,0,0.6)",
-            }}>
-              <img
-                src={`/svgs/${pregunta.enlace_svg}`}
-                alt={`Imagen de la pregunta ${pregunta.id}`}
-                style={{ maxWidth: "100%", maxHeight: 400, width: "100%", objectFit: "contain", margin: 4 }}
-                onError={e => { e.currentTarget.style.display = "none"; }}
-              />
-            </div>
+            <Pizarron
+              key={pregunta.enlace_svg}
+              src={`/svgs/${pregunta.enlace_svg}`}
+              alt={`Imagen de la pregunta ${pregunta.id}`}
+              color={materia.color}
+            />
           )}
 
           {tienePreguntaTexto && (

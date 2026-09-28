@@ -23,12 +23,20 @@ import ElegirUsuarioDialog from '../components/ElegirUsuarioDialog'
 import RecordatoriosAjustes from '../components/RecordatoriosAjustes'
 import AjustesSkeleton from '../components/skeletons/AjustesSkeleton'
 
+import { hablarTexto } from '../utils/tts'
+
 import { AiOutlineClose } from 'react-icons/ai'
 import { RiShareForwardLine } from 'react-icons/ri'
 
 const OPCIONES = [
   { clave: 'examen', titulo: 'Resultados del examen', confirmar: 'Borrar resultados del examen' },
   { clave: 'formulario', titulo: 'Formulario de área', confirmar: 'Borrar formulario de área' },
+]
+
+const BARRAS_VOLUMEN = [
+  { tipo: 'fondo', titulo: 'Música de fondo' },
+  { tipo: 'enriquecida', titulo: 'Música enriquecida' },
+  { tipo: 'tts', titulo: 'Voz de lectura' },
 ]
 
 const estiloEncabezado = {
@@ -54,6 +62,7 @@ export default function Ajustes() {
   const music = useMusic()
   const hayCanciones = music.totalCanciones > 0
   const [compartidas, setCompartidas] = useState(0)
+  const [volumenAbierto, setVolumenAbierto] = useState(false)
 
   useEffect(() => {
     if (user) setCompartidas(leerProgresoCompartir(user.id).compartidas)
@@ -67,6 +76,8 @@ export default function Ajustes() {
     } catch {
       return // ni compartir ni copiar funcionaron: no cuenta
     }
+    // Ya desbloqueada, el botón sigue para compartir por gusto: no cuenta.
+    if (music.desbloqueada) return
     const n = Math.min(compartidas + 1, COMPARTIDAS_REQUERIDAS)
     setCompartidas(n)
     guardarProgresoCompartir(user.id, { compartidas: n })
@@ -162,12 +173,12 @@ export default function Ajustes() {
             <div style={{ flex: 1, minWidth: 0 }}>
               <p style={{ margin: 0, fontSize: '0.92rem', fontWeight: 600, color: 'var(--text)' }}>Música enriquecida</p>
             </div>
-            {hayCanciones && !music.desbloqueada && (
+            {hayCanciones && (
               <button
                 type="button"
                 onClick={compartir}
                 title="Compartir"
-                aria-label={`Compartir (${compartidas} de ${COMPARTIDAS_REQUERIDAS})`}
+                aria-label={music.desbloqueada ? 'Compartir' : `Compartir (${compartidas} de ${COMPARTIDAS_REQUERIDAS})`}
                 style={{
                   width: 44, height: 44, borderRadius: '50%', flexShrink: 0, position: 'relative',
                   border: '1px solid var(--border)', background: 'transparent',
@@ -177,12 +188,14 @@ export default function Ajustes() {
               >
                 <RiShareForwardLine />
                 {/* Progreso hacia el desbloqueo, como insignia en la esquina. */}
-                <span style={{
-                  position: 'absolute', top: -6, right: -8, padding: '1px 5px', borderRadius: 999,
-                  background: '#4f8ef7', color: '#fff', fontSize: '0.62rem', fontWeight: 700, lineHeight: 1.4,
-                }}>
-                  {compartidas}/{COMPARTIDAS_REQUERIDAS}
-                </span>
+                {!music.desbloqueada && (
+                  <span style={{
+                    position: 'absolute', top: -6, right: -8, padding: '1px 5px', borderRadius: 999,
+                    background: '#4f8ef7', color: '#fff', fontSize: '0.62rem', fontWeight: 700, lineHeight: 1.4,
+                  }}>
+                    {compartidas}/{COMPARTIDAS_REQUERIDAS}
+                  </span>
+                )}
               </button>
             )}
             <button
@@ -211,6 +224,47 @@ export default function Ajustes() {
               </span>
             </button>
           </div>
+
+          {/* Desplegable con un volumen independiente para cada fuente. */}
+          <button
+            type="button"
+            onClick={() => setVolumenAbierto(v => !v)}
+            aria-expanded={volumenAbierto}
+            style={{
+              ...filaStyle(1), width: '100%', minHeight: 48, background: 'transparent', border: 'none',
+              borderTop: '1px solid var(--border)', cursor: 'pointer', textAlign: 'left',
+              color: 'var(--text)', fontSize: '0.92rem', fontWeight: 600,
+            }}
+          >
+            <span style={{ flex: 1 }}>Volumen</span>
+            <span style={{
+              color: 'var(--text-muted)', fontSize: '1.2rem', lineHeight: 1,
+              transform: volumenAbierto ? 'rotate(90deg)' : 'none', transition: 'transform 0.2s ease',
+            }}>›</span>
+          </button>
+          {volumenAbierto && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 4, padding: '0 16px 12px' }}>
+              {BARRAS_VOLUMEN.map(({ tipo, titulo }) => (
+                <label key={tipo} style={{ display: 'flex', flexDirection: 'column' }}>
+                  <span style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.84rem', color: 'var(--text-muted)' }}>
+                    <span>{titulo}</span>
+                    <span>{music.volumenes[tipo]}%</span>
+                  </span>
+                  <input
+                    type="range"
+                    min={0}
+                    max={100}
+                    step={5}
+                    value={music.volumenes[tipo]}
+                    onChange={e => music.cambiarVolumen(tipo, Number(e.target.value))}
+                    // La voz no suena sola en Ajustes: al soltar se oye una muestra.
+                    onPointerUp={tipo === 'tts' ? () => hablarTexto('Así se escucha la voz.') : undefined}
+                    style={{ width: '100%', height: 44, margin: 0, accentColor: '#4f8ef7', cursor: 'pointer' }}
+                  />
+                </label>
+              ))}
+            </div>
+          )}
         </div>
 
         <p style={{ ...estiloEncabezado, marginTop: 8 }}>Tus datos</p>

@@ -8,6 +8,7 @@ import {
   guardarProgresoCompartir,
   borrarProgresoCompartir,
 } from '../services/compartirApp'
+import { leerVolumenTts, guardarVolumenTts } from '../utils/tts'
 
 // ─────────────────────────────────────────────────────────────────────────
 // Música ambiente generada en vivo con Web Audio API. Antes se usaba una
@@ -43,10 +44,34 @@ import {
 const MusicContext = createContext(null)
 
 const STORAGE_KEY = 'musica_silenciada'
-// Bajos a propósito: es música DE FONDO, no debe competir con el contenido.
-// Cada motor tiene su tope; el master solo se usa para silenciar (0 o 1).
-const VOLUMEN_GENERATIVA = 0.06
-const VOLUMEN_CANCIONES = 0.077
+// Volúmenes de Ajustes → Música → Volumen, de 0 a 100 cada uno e
+// independientes: música de fondo (motor generativo), música enriquecida
+// (lista de .mp3) y la voz (TTS, utils/tts.js). Cada motor tiene su tope de
+// ganancia y la barra escala con curva cuadrática (el oído percibe el
+// volumen de forma logarítmica: así la mitad de la barra "suena" a la
+// mitad). El master solo se usa para silenciar (0 o 1).
+// Fondo: 50 = 0.06, el nivel de siempre (bajo a propósito, no debe competir
+// con el contenido). Enriquecida: 50 = 0.075, ~4 veces el nivel anterior,
+// para acercarla a la voz. Un mp3 masterizado ya sale fuerte, por eso su tope
+// es bajo comparado con la voz (que va de 0 a 1).
+const GANANCIA_MAX = { fondo: 0.24, enriquecida: 0.3 }
+const VOLUMEN_POR_DEFECTO = { fondo: 50, enriquecida: 50 }
+const STORAGE_KEY_VOLUMENES = 'musica_volumenes'
+
+function gananciaDe(tipo, valor) {
+  return GANANCIA_MAX[tipo] * (valor / 100) ** 2
+}
+
+function leerVolumenesGuardados() {
+  let guardados = {}
+  try { guardados = JSON.parse(localStorage.getItem(STORAGE_KEY_VOLUMENES)) || {} } catch { /* valores por defecto */ }
+  const limpio = (v, porDefecto) => (Number.isFinite(v) ? Math.min(100, Math.max(0, v)) : porDefecto)
+  return {
+    fondo: limpio(guardados.fondo, VOLUMEN_POR_DEFECTO.fondo),
+    enriquecida: limpio(guardados.enriquecida, VOLUMEN_POR_DEFECTO.enriquecida),
+    tts: leerVolumenTts(),
+  }
+}
 const MAX_VOCES_SIMULTANEAS = 6 // más que antes: las notas de piano se traslapan más seguido que un pad
 const RAMPA_VOLUMEN_SEG = 0.08 // evita el "click" audible de saltar el volumen de golpe al (des)silenciar
 
@@ -341,9 +366,6 @@ const CANCIONES = Object.entries(
 const STORAGE_KEY_ENRIQUECIDA = 'musica_enriquecida'
 const TRANSICION_SEG = 1
 const PRECARGA_SEG = 15 // cuánto antes del final se empieza a bajar la siguiente canción
-// Un mp3 masterizado sale mucho más fuerte que la suma de voces del motor
-// generativo; esto los empareja antes de aplicar VOLUMEN_CANCIONES. Ajustar al oído.
-const GANANCIA_CANCIONES = 0.25
 
 // Índices 0..n-1 en orden aleatorio (Fisher-Yates). `evitarPrimero`: la
 // canción que acaba de sonar, para no repetirla al empezar otra vuelta.
@@ -505,8 +527,14 @@ export function MusicProvider({ children }) {
   // Si la lista falla se cae al motor generativo sin tocar la preferencia guardada.
   const [falloLista, setFalloLista] = useState(false)
   const [ctxListo, setCtxListo] = useState(false)
+  const [volumenes, setVolumenes] = useState(leerVolumenesGuardados)
+  const volumenesRef = useRef(volumenes)
+  volumenesRef.current = volumenes
   const masterGainRef = useRef(null)
   const motorRef = useRef(null)
+  // Salida del motor que suena ahora (con su tipo), para mover su volumen
+  // en vivo desde la barra sin reiniciar la música.
+  const salidaRef = useRef(null)
   const mutedRef = useRef(muted)
   mutedRef.current = muted
 
@@ -588,7 +616,9 @@ export function MusicProvider({ children }) {
     const salida = ctx.createGain()
     salida.gain.value = 0
     salida.connect(masterGain)
-    fundir(salida.gain, usarLista ? VOLUMEN_CANCIONES * GANANCIA_CANCIONES : VOLUMEN_GENERATIVA, TRANSICION_SEG, ctx)
+    const tipo = usarLista ? 'enriquecida' : 'fondo'
+    fundir(salida.gain, gananciaDe(tipo, volumenesRef.current[tipo]), TRANSICION_SEG, ctx)
+    salidaRef.current = { salida, tipo }
 
     let motor
     if (usarLista) {
@@ -601,6 +631,7 @@ export function MusicProvider({ children }) {
 
     return () => {
       if (motorRef.current === motor) motorRef.current = null
+      if (salidaRef.current?.salida === salida) salidaRef.current = null
       fundir(salida.gain, 0, TRANSICION_SEG, ctx)
       setTimeout(() => {
         try {
@@ -632,6 +663,22 @@ export function MusicProvider({ children }) {
     setMuted(m => !m)
   }
 
+  // Mueve el volumen del motor que está sonando (si es de ese tipo) con una
+  // rampa corta, y lo guarda. El de la voz aplica en la siguiente lectura.
+  function cambiarVolumen(tipo, valor) {
+    setVolumenes(v => ({ ...v, [tipo]: valor }))
+    if (tipo === 'tts') {
+      guardarVolumenTts(valor)
+      return
+    }
+    const actual = salidaRef.current
+    if (actual?.tipo === tipo) fundir(actual.salida.gain, gananciaDe(tipo, valor), RAMPA_VOLUMEN_SEG, actual.salida.context)
+    try {
+      const { fondo, enriquecida: enr } = { ...volumenesRef.current, [tipo]: valor }
+      localStorage.setItem(STORAGE_KEY_VOLUMENES, JSON.stringify({ fondo, enriquecida: enr }))
+    } catch { /* sin almacenamiento: solo dura esta sesión */ }
+  }
+
   function cambiarEnriquecida(valor) {
     setEnriquecida(valor)
     setFalloLista(false)
@@ -643,6 +690,7 @@ export function MusicProvider({ children }) {
       muted, toggleMuted, hayMusica: true,
       enriquecida: enriquecida && desbloqueada, cambiarEnriquecida, totalCanciones: CANCIONES.length,
       desbloqueada, esperandoDesbloqueo: !!esperaDesde && !desbloqueada, iniciarEsperaDesbloqueo,
+      volumenes, cambiarVolumen,
     }}>
       {children}
     </MusicContext.Provider>

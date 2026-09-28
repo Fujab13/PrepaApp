@@ -8,8 +8,13 @@ import { useAuth } from '../context/AuthContext'
 // con getTotalUnidades() y ese es el que realmente se usa.
 const MAX_UNIDADES_RESPALDO = 26
 
-export function useProgreso(materiaId, totalUnidades = MAX_UNIDADES_RESPALDO) {
+// `soloLocal`: el avance vive solo en este dispositivo, con su propia clave
+// (Modo conceptos, ver utils/modoConceptos.js): no toca progreso_usuario ni el
+// progreso de la lección normal, aunque haya sesión.
+export function useProgreso(materiaId, totalUnidades = MAX_UNIDADES_RESPALDO, { soloLocal = false } = {}) {
   const { user } = useAuth()
+  const usarSupabase = Boolean(user) && !soloLocal
+  const claveLocal = soloLocal ? `progreso_conceptos_${materiaId}` : `progreso_quiz_${materiaId}`
   const [unidad, setUnidad]     = useState(1)
   const [elemento, setElemento] = useState(0)
   const [cargando, setCargando] = useState(true)
@@ -18,7 +23,7 @@ export function useProgreso(materiaId, totalUnidades = MAX_UNIDADES_RESPALDO) {
     if (!materiaId) return
     setCargando(true)
 
-    if (user) {
+    if (usarSupabase) {
       supabase
         .from('progreso_usuario')
         .select('unidad_actual, elemento_actual')
@@ -36,7 +41,7 @@ export function useProgreso(materiaId, totalUnidades = MAX_UNIDADES_RESPALDO) {
           setCargando(false)
         })
     } else {
-      const raw = localStorage.getItem(`progreso_quiz_${materiaId}`)
+      const raw = localStorage.getItem(claveLocal)
       if (raw) {
         try {
           const { unidad_actual, elemento_actual } = JSON.parse(raw)
@@ -46,10 +51,13 @@ export function useProgreso(materiaId, totalUnidades = MAX_UNIDADES_RESPALDO) {
           setUnidad(1)
           setElemento(0)
         }
+      } else {
+        setUnidad(1)
+        setElemento(0)
       }
       setCargando(false)
     }
-  }, [materiaId, user])
+  }, [materiaId, user, soloLocal])
 
   // `avanceValido` (default true): en false cuando el avance viene de
   // "Omitir unidad" (Leccion.jsx) en vez de terminarla de verdad — la
@@ -70,7 +78,7 @@ export function useProgreso(materiaId, totalUnidades = MAX_UNIDADES_RESPALDO) {
     setUnidad(unidadFinal)
     setElemento(elementoFinal)
 
-    if (user) {
+    if (usarSupabase) {
       const { error } = await supabase.from('progreso_usuario').upsert(
         {
           user_id:         user.id,
@@ -89,7 +97,7 @@ export function useProgreso(materiaId, totalUnidades = MAX_UNIDADES_RESPALDO) {
       }
     } else {
       localStorage.setItem(
-        `progreso_quiz_${materiaId}`,
+        claveLocal,
         JSON.stringify({ unidad_actual: unidadFinal, elemento_actual: elementoFinal })
       )
     }
@@ -101,7 +109,7 @@ export function useProgreso(materiaId, totalUnidades = MAX_UNIDADES_RESPALDO) {
 
     setUnidad(1)
     setElemento(0)
-    if (user) {
+    if (usarSupabase) {
       const { error } = await supabase.from('progreso_usuario').upsert(
         {
           user_id:         user.id,
@@ -120,7 +128,7 @@ export function useProgreso(materiaId, totalUnidades = MAX_UNIDADES_RESPALDO) {
         setElemento(elementoPrevio)
       }
     } else {
-      localStorage.removeItem(`progreso_quiz_${materiaId}`)
+      localStorage.removeItem(claveLocal)
     }
   }
 

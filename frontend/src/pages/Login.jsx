@@ -36,7 +36,7 @@ import { VERSION_AVISO } from '../data/avisoPrivacidad'
 
 import { AiOutlineClose, AiOutlineLoading3Quarters } from 'react-icons/ai'
 import { IoIosArrowBack } from 'react-icons/io'
-import { HiOutlineEnvelope, HiOutlineLockClosed, HiOutlineEnvelopeOpen } from 'react-icons/hi2'
+import { HiOutlineEnvelope, HiOutlineLockClosed } from 'react-icons/hi2'
 import { FiEye, FiEyeOff } from 'react-icons/fi'
 import { FcGoogle } from 'react-icons/fc'
 import { RiUser3Fill } from 'react-icons/ri'
@@ -325,10 +325,6 @@ export default function Login() {
   const [cargandoGoogle, setCargandoGoogle] = useState(false)
   const [celebrando, setCelebrando] = useState(false)
   const [enlaceEnviado, setEnlaceEnviado] = useState(false)
-  // "Revisa tu correo": segundos que faltan para poder reenviar la
-  // confirmación, y aviso de que ya se reenvió.
-  const [esperaReenvio, setEsperaReenvio] = useState(0)
-  const [reenviado, setReenviado] = useState(false)
 
   const pasos = FLUJOS[flujo]
   const indice = Math.max(0, pasos.indexOf(paso))
@@ -403,22 +399,6 @@ export default function Login() {
     return () => { cancelado = true; clearTimeout(t) }
   }, [paso, usuario, email])
 
-  // Cuenta regresiva del reenvío (1 por segundo mientras quede espera).
-  useEffect(() => {
-    if (esperaReenvio <= 0) return
-    const t = setTimeout(() => setEsperaReenvio(n => n - 1), 1000)
-    return () => clearTimeout(t)
-  }, [esperaReenvio])
-
-  async function reenviarConfirmacion() {
-    if (esperaReenvio > 0) return
-    setError('')
-    const { error: err } = await supabase.auth.resend({ type: 'signup', email })
-    if (err) return setError(traducirErrorAuth(err.message))
-    setReenviado(true)
-    setEsperaReenvio(60)
-  }
-
   // El historial manda: cada vez que cambia la entrada (avanzar, Atrás del
   // celular o de la pantalla), el paso y el flujo se toman de su estado.
   useEffect(() => {
@@ -451,7 +431,7 @@ export default function Login() {
 
   function retroceder() {
     // Primer paso de cada flujo, o pantallas finales: la flecha/X sale.
-    const esInicio = (indice === 0 && paso !== 'recuperar') || paso === 'revisa'
+    const esInicio = (indice === 0 && paso !== 'recuperar')
       || (flujo === 'completar' && paso === 'usuario')
     if (esInicio || !location.state?.loginPaso) return navigate('/')
     navigate(-1)
@@ -544,14 +524,12 @@ export default function Login() {
       return
     }
 
-    // Si el proyecto exige confirmar el correo, signUp no devuelve sesión.
-    // Ojo: con un correo que YA tenía cuenta, Supabase responde igual (sin
-    // error, para no revelar qué correos existen) y no manda nada: por eso
-    // "Revisa tu correo" ofrece iniciar sesión y recuperar la contraseña.
+    // Sin verificación de correo, signUp ya devuelve la sesión. Si no la
+    // devuelve (la confirmación sigue activa en el panel de Supabase, o el
+    // correo ya tenía cuenta), se manda a iniciar sesión con lo que escribió.
     if (!data.session) {
-      setReenviado(false)
-      setEsperaReenvio(60)
-      return irA('revisa', { reemplazar: true })
+      errorAlLlegarRef.current = 'Inicia sesión para continuar.'
+      return irA('password', { flujo: 'login', reemplazar: true })
     }
 
     setCelebrando(true)
@@ -642,9 +620,11 @@ export default function Login() {
           {esLogin ? 'Inicia sesión' : 'Crea tu cuenta'}
         </Titulo>
         <div className="login-cascada" style={{ animationDelay: '60ms', display: 'flex', flexDirection: 'column', gap: 12 }}>
+          {/* Sin autoFocus a propósito: en móvil abriría el teclado al
+              entrar y taparía el botón de Google. */}
           <CampoIcono
             icono={HiOutlineEnvelope} type="email" placeholder="Correo electrónico" value={email}
-            onChange={e => setEmail(e.target.value)} autoComplete="email" inputMode="email" autoFocus
+            onChange={e => setEmail(e.target.value)} autoComplete="email" inputMode="email"
           />
           {mensajeError}
           <div style={{ fontSize: '0.88rem', color: 'var(--text-muted)' }}>
@@ -789,42 +769,6 @@ export default function Login() {
         </BotonPrincipal>
       </div>
     )
-  } else if (paso === 'revisa') {
-    contenido = (
-      <>
-        <div className="login-cascada login-hex" style={{
-          width: 72, height: 80, background: 'linear-gradient(160deg, #a58ae6, #5b3f9e)',
-          display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 30, color: '#fff',
-        }}>
-          <HiOutlineEnvelopeOpen />
-        </div>
-        <Titulo sub={`Te enviamos un enlace a ${email} para activar tu cuenta.`}>Revisa tu correo</Titulo>
-
-        {/* Mismo texto para todos a propósito: decir "ese correo ya tiene
-            cuenta" dejaría averiguar qué correos están registrados. */}
-        <div className="login-cascada" style={{
-          animationDelay: '80ms', display: 'flex', flexDirection: 'column', gap: 6,
-          padding: '14px 16px', borderRadius: 14, background: 'var(--surface2)', border: '1px solid var(--border)',
-        }}>
-          <p style={{ margin: 0, fontSize: '0.9rem', fontWeight: 700, color: 'var(--text)' }}>¿No te llegó?</p>
-          <p style={{ margin: 0, fontSize: '0.84rem', lineHeight: 1.5, color: 'var(--text-muted)' }}>
-            Revisa tu carpeta de spam. Si ya tenías una cuenta con este correo, no llegará nada: inicia sesión.
-          </p>
-          <div style={{ display: 'flex', flexWrap: 'wrap', columnGap: 14, marginTop: 2 }}>
-            <Enlace onClick={reenviarConfirmacion}>
-              {esperaReenvio > 0 ? `Reenviar en ${esperaReenvio}s` : 'Reenviar correo'}
-            </Enlace>
-            <Enlace onClick={() => { limpiarPasswords(); irA('password', { flujo: 'login' }) }}>Iniciar sesión</Enlace>
-            <Enlace onClick={() => { limpiarPasswords(); setEnlaceEnviado(false); irA('recuperar', { flujo: 'login' }) }}>Recuperar contraseña</Enlace>
-          </div>
-          {reenviado && esperaReenvio > 0 && (
-            <p style={{ margin: 0, fontSize: '0.8rem', color: 'var(--correct)' }}>Correo reenviado.</p>
-          )}
-          {mensajeError}
-        </div>
-      </>
-    )
-    pie = <BotonPrincipal onClick={() => { limpiarPasswords(); irA('password', { flujo: 'login' }) }}>Ya lo confirmé</BotonPrincipal>
   } else if (paso === 'recuperar') {
     contenido = enlaceEnviado ? (
       <Titulo sub={`Si ${email} tiene cuenta, te llegará un enlace para crear una nueva contraseña.`}>Revisa tu correo</Titulo>
@@ -858,8 +802,8 @@ export default function Login() {
       <FondoHexagonal />
       <Encabezado
         onAtras={retroceder}
-        esPrimero={(indice === 0 && paso !== 'recuperar') || paso === 'esperando' || paso === 'revisa'}
-        total={paso === 'recuperar' || paso === 'revisa' || paso === 'esperando' ? 0 : pasos.length}
+        esPrimero={(indice === 0 && paso !== 'recuperar') || paso === 'esperando'}
+        total={paso === 'recuperar' || paso === 'esperando' ? 0 : pasos.length}
         indice={indice}
       />
 
