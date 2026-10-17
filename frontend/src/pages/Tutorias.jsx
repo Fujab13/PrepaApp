@@ -1,8 +1,11 @@
 // Tutorias.jsx
-// Punto de entrada de "/tutorias": deja elegir entre el flujo de Alumnos
-// (reservar y pagar una clase) y el de Maestros (publicar disponibilidad,
-// una vez verificado — ver TutoriasMaestro.jsx). No requiere sesión para
-// verse; cada sub-página valida el acceso por su cuenta.
+// Pantalla "Ranking" de "/ranking" (antes "/tutorias", que hoy solo
+// redirige aquí): muestra el ranking semanal. Antes también era el punto de
+// entrada a los flujos de Alumnos (reservar y pagar una clase) y Maestros
+// (publicar disponibilidad, ver TutoriasMaestro.jsx); ese acceso sigue
+// abajo pero oculto, porque el apartado de tutorías está inactivo (ver
+// referencia/temporal_desactivar_pagos/README.md). No requiere sesión para
+// verse.
 
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";

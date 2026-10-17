@@ -256,10 +256,10 @@ export default function Sidenav({ open, onClose }) {
         <div style={{ flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: 8, paddingRight: '4px' }}>
           
 
-          {/* Botón Tutorías */}
+          {/* Botón Ranking */}
           <button
-            onClick={() => ir('/tutorias')}
-            onMouseEnter={() => setHoveredBtn('tutorias')}
+            onClick={() => ir('/ranking')}
+            onMouseEnter={() => setHoveredBtn('ranking')}
             onMouseLeave={() => setHoveredBtn(null)}
             className="btn-sidernav"
           >

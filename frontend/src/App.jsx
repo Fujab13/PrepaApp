@@ -120,7 +120,10 @@ export default function App() {
         <Route path="/mi-mascota" element={<Suspense fallback={<MascotasSkeleton />}><Mascota /></Suspense>} />
         <Route path="/formulario-area" element={<Suspense fallback={<FormularioAreaSkeleton />}><FormularioArea /></Suspense>} />
         <Route path="/informe-resultados" element={<InformeResultados />} />
-        <Route path="/tutorias" element={<Suspense fallback={<RankingSkeleton />}><Tutorias /></Suspense>} />
+        <Route path="/ranking" element={<Suspense fallback={<RankingSkeleton />}><Tutorias /></Suspense>} />
+        {/* Nombre anterior de /ranking (de cuando era el menú de tutorías):
+            se conserva como redirect por marcadores o enlaces viejos. */}
+        <Route path="/tutorias" element={<Navigate to="/ranking" replace />} />
         {/* Apartado de tutorías inactivo (ver RUTAS_TUTORIAS_INACTIVAS):
         <Route path="/tutorias/maestro/alumnos" element={<AlumnosOfertas />} />
         <Route path="/tutorias/maestro/ganancias" element={<MisGanancias />} />
