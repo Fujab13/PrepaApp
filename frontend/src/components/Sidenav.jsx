@@ -389,6 +389,11 @@ export default function Sidenav({ open, onClose }) {
               vive en el backend (cada RPC de admin revalida
               es_admin_actual), esto solo evita mostrar el enlace a quien no
               lo puede usar. */}
+          {/* Apartado de Administración inactivo junto con las tutorías:
+              sus cuatro accesos (pagos a profesores, profesores, ofertas y
+              reportes contra profesores) llevan a páginas de ese apartado,
+              cuyas rutas están desactivadas en App.jsx. Para reactivarlo,
+              quitar este comentario y el cierre de abajo.
           {esAdmin && (
             <>
               <p style={{
@@ -483,7 +488,7 @@ export default function Sidenav({ open, onClose }) {
                 <span>Reportes</span>
               </button>
             </>
-          )}
+          )} */}
         </div>
 
         {/* Sección Inferior de Botones (Despegada con Sombra y Borde superior) */}
