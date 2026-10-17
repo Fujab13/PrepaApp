@@ -152,13 +152,14 @@ export default function Inventario({ onClose, onNavigateStore }) {
             descripcion,
             tipo_producto,
             sku,
-            metadata
+            metadata,
+            activo
           )
         `)
         .eq('user_id', user.id);
 
       if (error) throw error;
-      setInventario(data || []);
+      setInventario((data || []).filter((item) => item.productos?.activo === true));
     } catch (error) {
       console.error('Error al cargar el inventario:', error.message);
     } finally {

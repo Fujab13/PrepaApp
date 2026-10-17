@@ -1,11 +1,11 @@
 Nota esta es una tarea extensa y repite esto en bucle
-  1. Lee concepto matematicas
+  1. Lee concepto español
   2. Identifica idea general
   3. Tomalo como tema y basado en @referencia\requerimientos\svg.txt genera un svg
   4. Revisa que tu svg no tenga errores una ultima vez
      4.1 si tiene errores corrigelos
   5. Añade el enlace svg a ese concepto de leccion matematicas de donde lo sacaste
-  6. Desplazate hasta el siguiente concepto o explicación en leccion matematicas y reptite hasta llegar a la ultima unidad
+  6. Desplazate hasta el siguiente concepto o explicación en leccion español y reptite hasta llegar a la ultima unidad
 
 
 

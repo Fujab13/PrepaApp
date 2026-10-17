@@ -239,58 +239,64 @@ export default function Tutorias() {
       >
         <RankingSemanal />
 
-        <p style={{
-          fontSize: 11, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase",
-          color: "var(--text-muted)", textAlign: "center", margin: "10px 0 -6px",
-        }}>
-          ¿Qué te gustaría hacer?
-        </p>
+        {/* Apartado de Maestros oculto temporalmente; se conserva para
+            poder reactivarlo sin reconstruir el acceso. */}
+        {false && (
+          <>
+            <p style={{
+              fontSize: 11, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase",
+              color: "var(--text-muted)", textAlign: "center", margin: "10px 0 -6px",
+            }}>
+              ¿Qué te gustaría hacer?
+            </p>
 
-        {/* Grid a una sola columna mientras el acceso de Alumnos esté oculto
-            (ver referencia/temporal_desactivar_pagos) — la tarjeta de
-            Maestros se centra y no se estira a todo el ancho. */}
-        <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: 14, justifyItems: "center" }}>
-          {OPCIONES.map((op) => (
-            <button
-              key={op.to}
-              type="button"
-              onClick={() => navigate(op.to)}
-              className="sp-card sp-card-interactive"
-              style={{
-                width: "100%",
-                maxWidth: 220,
-                height: "100%",
-                aspectRatio: "0.72",
-                alignItems: "center",
-                justifyContent: "center",
-                textAlign: "center",
-                cursor: "pointer",
-                margin: 0,
-                padding: 16,
-                font: "inherit",
-                color: "inherit",
-                WebkitTapHighlightColor: "transparent",
-                boxSizing: "border-box",
-              }}
-            >
-              <div
-                className="sp-card-icon"
-                style={{
-                  width: 68,
-                  height: 68,
-                  fontSize: "2.3rem",
-                  background: `radial-gradient(circle at 32% 28%, ${op.color}3d, ${op.color}17)`,
-                  color: op.color,
-                  boxShadow: `0 0 0 1px ${op.color}2a inset`,
-                }}
-              >
-                {op.icono}
-              </div>
-              <p className="sp-card-title" style={{ fontSize: "0.95rem", marginTop: 4 }}>{op.titulo}</p>
-              <p className="sp-card-description" style={{ textAlign: "center" }}>{op.subtitulo}</p>
-            </button>
-          ))}
-        </div>
+            {/* Grid a una sola columna mientras el acceso de Alumnos esté oculto
+                (ver referencia/temporal_desactivar_pagos) — la tarjeta de
+                Maestros se centra y no se estira a todo el ancho. */}
+            <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: 14, justifyItems: "center" }}>
+              {OPCIONES.map((op) => (
+                <button
+                  key={op.to}
+                  type="button"
+                  onClick={() => navigate(op.to)}
+                  className="sp-card sp-card-interactive"
+                  style={{
+                    width: "100%",
+                    maxWidth: 220,
+                    height: "100%",
+                    aspectRatio: "0.72",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    textAlign: "center",
+                    cursor: "pointer",
+                    margin: 0,
+                    padding: 16,
+                    font: "inherit",
+                    color: "inherit",
+                    WebkitTapHighlightColor: "transparent",
+                    boxSizing: "border-box",
+                  }}
+                >
+                  <div
+                    className="sp-card-icon"
+                    style={{
+                      width: 68,
+                      height: 68,
+                      fontSize: "2.3rem",
+                      background: `radial-gradient(circle at 32% 28%, ${op.color}3d, ${op.color}17)`,
+                      color: op.color,
+                      boxShadow: `0 0 0 1px ${op.color}2a inset`,
+                    }}
+                  >
+                    {op.icono}
+                  </div>
+                  <p className="sp-card-title" style={{ fontSize: "0.95rem", marginTop: 4 }}>{op.titulo}</p>
+                  <p className="sp-card-description" style={{ textAlign: "center" }}>{op.subtitulo}</p>
+                </button>
+              ))}
+            </div>
+          </>
+        )}
       </main>
     </div>
   );
