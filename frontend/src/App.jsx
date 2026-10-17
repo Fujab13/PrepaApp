@@ -1,5 +1,5 @@
 import React, { useEffect, Suspense, lazy } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import { StoreProvider } from './context/StoreContext'
 import { MusicProvider } from './context/MusicContext'
@@ -20,19 +20,21 @@ const Inventario = lazy(() => import('./pages/Inventario'));
 const Mascota = lazy(() => import('./pages/Mascota'));
 const FormularioArea = lazy(() => import('./pages/FormularioArea'));
 const InformeResultados = lazy(() => import('./pages/InformeResultados'));
-const AlumnosOfertas = lazy(() => import('./pages/AlumnosOfertas'));
-const AdminPagos = lazy(() => import('./pages/AdminPagos'));
-const AdminMaestros = lazy(() => import('./pages/AdminMaestros'));
-const AdminReportes = lazy(() => import('./pages/AdminReportes'));
-const AdminOfertas = lazy(() => import('./pages/AdminOfertas'));
-const MisGanancias = lazy(() => import('./pages/MisGanancias'));
 const Tutorias = lazy(() => import('./pages/Tutorias'));
-const TutoriasAlumno = lazy(() => import('./pages/TutoriasAlumno'));
-const TutoriasMaestro = lazy(() => import('./pages/TutoriasMaestro'));
-const PerfilProfesor = lazy(() => import('./pages/PerfilProfesor'));
-const Ofertas = lazy(() => import('./pages/Ofertas'));
-const PublicarOferta = lazy(() => import('./pages/PublicarOferta'));
-const OfertaConfirmada = lazy(() => import('./pages/OfertaConfirmada'));
+// Páginas del apartado de tutorías (alumnos, maestros, ofertas y su
+// administración): inactivo por ahora, ver RUTAS_TUTORIAS_INACTIVAS abajo.
+// const AlumnosOfertas = lazy(() => import('./pages/AlumnosOfertas'));
+// const AdminPagos = lazy(() => import('./pages/AdminPagos'));
+// const AdminMaestros = lazy(() => import('./pages/AdminMaestros'));
+// const AdminReportes = lazy(() => import('./pages/AdminReportes'));
+// const AdminOfertas = lazy(() => import('./pages/AdminOfertas'));
+// const MisGanancias = lazy(() => import('./pages/MisGanancias'));
+// const TutoriasAlumno = lazy(() => import('./pages/TutoriasAlumno'));
+// const TutoriasMaestro = lazy(() => import('./pages/TutoriasMaestro'));
+// const PerfilProfesor = lazy(() => import('./pages/PerfilProfesor'));
+// const Ofertas = lazy(() => import('./pages/Ofertas'));
+// const PublicarOferta = lazy(() => import('./pages/PublicarOferta'));
+// const OfertaConfirmada = lazy(() => import('./pages/OfertaConfirmada'));
 const Ajustes = lazy(() => import('./pages/Ajustes'));
 const AvisoPrivacidad = lazy(() => import('./pages/AvisoPrivacidad'));
 
@@ -50,6 +52,28 @@ import InventarioSkeleton from './components/skeletons/InventarioSkeleton';
 import MascotasSkeleton from './components/skeletons/MascotasSkeleton';
 import FormularioAreaSkeleton from './components/skeletons/FormularioAreaSkeleton';
 import { triggerVibration } from './utils/haptics';
+
+// Rutas del apartado de tutorías, inactivo por ahora (ver
+// referencia/temporal_desactivar_pagos/README.md): sus <Route> originales
+// siguen comentados dentro de <Routes>. Se redirigen al inicio en vez de
+// dejar una pantalla en blanco a quien llegue con un enlace viejo
+// (marcadores, notificaciones push, el regreso de Stripe Checkout, el magic
+// link de admin-acceso-profesor). Para reactivarlas: quitar estas rutas de
+// la lista y descomentar sus imports y <Route>.
+const RUTAS_TUTORIAS_INACTIVAS = [
+  '/tutorias/alumno',
+  '/tutorias/maestro',
+  '/tutorias/maestro/alumnos',
+  '/tutorias/maestro/ganancias',
+  '/perfil-profesor/:profesorId',
+  '/ofertas',
+  '/ofertas/publicar',
+  '/oferta-confirmada',
+  '/admin/pagos',
+  '/admin/maestros',
+  '/admin/reportes',
+  '/admin/ofertas',
+];
 
 export default function App() {
 
@@ -96,19 +120,24 @@ export default function App() {
         <Route path="/mi-mascota" element={<Suspense fallback={<MascotasSkeleton />}><Mascota /></Suspense>} />
         <Route path="/formulario-area" element={<Suspense fallback={<FormularioAreaSkeleton />}><FormularioArea /></Suspense>} />
         <Route path="/informe-resultados" element={<InformeResultados />} />
+        <Route path="/tutorias" element={<Suspense fallback={<RankingSkeleton />}><Tutorias /></Suspense>} />
+        {/* Apartado de tutorías inactivo (ver RUTAS_TUTORIAS_INACTIVAS):
         <Route path="/tutorias/maestro/alumnos" element={<AlumnosOfertas />} />
         <Route path="/tutorias/maestro/ganancias" element={<MisGanancias />} />
         <Route path="/admin/pagos" element={<AdminPagos />} />
         <Route path="/admin/maestros" element={<AdminMaestros />} />
         <Route path="/admin/reportes" element={<AdminReportes />} />
         <Route path="/admin/ofertas" element={<AdminOfertas />} />
-        <Route path="/tutorias" element={<Suspense fallback={<RankingSkeleton />}><Tutorias /></Suspense>} />
         <Route path="/tutorias/alumno" element={<TutoriasAlumno />} />
         <Route path="/tutorias/maestro" element={<TutoriasMaestro />} />
         <Route path="/perfil-profesor/:profesorId" element={<PerfilProfesor />} />
         <Route path="/ofertas" element={<Ofertas />} />
         <Route path="/ofertas/publicar" element={<PublicarOferta />} />
         <Route path="/oferta-confirmada" element={<OfertaConfirmada />} />
+        */}
+        {RUTAS_TUTORIAS_INACTIVAS.map((ruta) => (
+          <Route key={ruta} path={ruta} element={<Navigate to="/" replace />} />
+        ))}
       </Routes>
       </Suspense>
       {/* Pide elegir usuario a cuentas con uno genérico sin confirmar. */}
