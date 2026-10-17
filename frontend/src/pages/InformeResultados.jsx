@@ -20,7 +20,7 @@
 // dónde vino el dato.
 
 import { useMemo, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { useNombreAlumno } from "../hooks/useNombreAlumno";
 import { obtenerFormulariosPorEmail, obtenerResultadosPorEmail, obtenerProgresoPorEmail } from "../services/informes";
@@ -861,5 +861,10 @@ export default function InformeResultados() {
 
   if (state?.tipo === "formulario") return <PaginaFormulario formulario={state.formulario} navigate={navigate} />;
   if (state?.tipo === "examen") return <PaginaExamen examen={state.examen} navigate={navigate} />;
-  return <PaginaMaestro user={user} navigate={navigate} />;
+  // Modo maestro (buscar informes de alumnos por correo) inactivo junto con
+  // el apartado de tutorías: sin state de navegación se regresa al inicio.
+  // Para reactivarlo, descomentar la línea de PaginaMaestro y quitar el
+  // <Navigate>.
+  // return <PaginaMaestro user={user} navigate={navigate} />;
+  return <Navigate to="/" replace />;
 }
