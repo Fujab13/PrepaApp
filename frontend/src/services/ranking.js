@@ -2,7 +2,7 @@
 // Ranking semanal de actividad (RPC SECURITY DEFINER `obtener_ranking_semanal`,
 // migraciones 20260905120000_ranking_semanal y 20260907120000_ranking_top100_y_mi_posicion):
 // top 100 por puntos ganados en los últimos 7 días. Público a propósito
-// (grant a anon incluido) — Tutorias.jsx no exige sesión para verse.
+// (grant a anon incluido) — Ranking.jsx no exige sesión para verse.
 import { supabase } from './supabaseClient';
 
 export async function obtenerRankingSemanal() {

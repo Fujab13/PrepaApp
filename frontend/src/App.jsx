@@ -20,7 +20,7 @@ const Inventario = lazy(() => import('./pages/Inventario'));
 const Mascota = lazy(() => import('./pages/Mascota'));
 const FormularioArea = lazy(() => import('./pages/FormularioArea'));
 const InformeResultados = lazy(() => import('./pages/InformeResultados'));
-const Tutorias = lazy(() => import('./pages/Tutorias'));
+const Ranking = lazy(() => import('./pages/Ranking'));
 // Páginas del apartado de tutorías (alumnos, maestros, ofertas y su
 // administración): inactivo por ahora, ver RUTAS_TUTORIAS_INACTIVAS abajo.
 // const AlumnosOfertas = lazy(() => import('./pages/AlumnosOfertas'));
@@ -120,7 +120,7 @@ export default function App() {
         <Route path="/mi-mascota" element={<Suspense fallback={<MascotasSkeleton />}><Mascota /></Suspense>} />
         <Route path="/formulario-area" element={<Suspense fallback={<FormularioAreaSkeleton />}><FormularioArea /></Suspense>} />
         <Route path="/informe-resultados" element={<InformeResultados />} />
-        <Route path="/ranking" element={<Suspense fallback={<RankingSkeleton />}><Tutorias /></Suspense>} />
+        <Route path="/ranking" element={<Suspense fallback={<RankingSkeleton />}><Ranking /></Suspense>} />
         {/* Nombre anterior de /ranking (de cuando era el menú de tutorías):
             se conserva como redirect por marcadores o enlaces viejos. */}
         <Route path="/tutorias" element={<Navigate to="/ranking" replace />} />

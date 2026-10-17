@@ -1,6 +1,6 @@
 // utils/bots.js
 // Genera estudiantes falsos ("bots") para rellenar el Ranking Semanal
-// (Tutorias.jsx) mientras la actividad real todavía es poca. Es puramente
+// (Ranking.jsx) mientras la actividad real todavía es poca. Es puramente
 // de presentación: no escribe nada en Supabase, no crea usuarios reales ni
 // filas en `puntos_actividad` — solo produce datos con la misma forma que
 // devuelve `obtener_ranking_semanal()` para mezclarlos en el cliente.

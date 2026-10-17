@@ -1,5 +1,5 @@
 // RankingSkeleton.jsx
-// Siluetas de pages/Tutorias.jsx (la pantalla "Ranking"):
+// Siluetas de pages/Ranking.jsx (la pantalla "Ranking"):
 // - RankingSemanalSkeleton: el contenido de la tarjeta "Ranking Semanal"
 //   mientras llega el RPC — podio de 3 (2º, 1º, 3º, con las mismas alturas
 //   de pedestal) y las primeras filas de la lista.
@@ -11,7 +11,7 @@ import { Skeleton, SkeletonPantalla } from '../Skeleton'
 
 const FILAS_LISTA = 6
 
-// Mismo orden visual (2º, 1º, 3º) y medidas que ColumnaPodio en Tutorias.jsx.
+// Mismo orden visual (2º, 1º, 3º) y medidas que ColumnaPodio en Ranking.jsx.
 const PODIO = [
   { corona: 41, pedestal: 40 },
   { corona: 49, pedestal: 54 },

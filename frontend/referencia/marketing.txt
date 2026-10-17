@@ -22,7 +22,7 @@ nada desde cero para arrancar, solo empacar lo que ya hay:
   - El examen de diagnóstico (/examen) → "resultado personalizado en 20 min"
   - El Formulario de Área + Informe de Resultados (PDF descargable) →
     un artefacto para compartir ("mira mi reporte")
-  - El Ranking Semanal (Tutorias.jsx) → competencia pública, ya tiene podio
+  - El Ranking Semanal (Ranking.jsx) → competencia pública, ya tiene podio
   - Las lecciones/lecturas gratis de Español y Matemáticas → prueba sin
     fricción, sin pedir tarjeta
   - Los profesores de Tutorías, que YA ganan dinero por cada alumno → un

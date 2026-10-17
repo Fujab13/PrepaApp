@@ -1,4 +1,4 @@
-// Tutorias.jsx
+// Ranking.jsx
 // Pantalla "Ranking" de "/ranking" (antes "/tutorias", que hoy solo
 // redirige aquí): muestra el ranking semanal. Antes también era el punto de
 // entrada a los flujos de Alumnos (reservar y pagar una clase) y Maestros
@@ -224,7 +224,7 @@ const OPCIONES = [
   },
 ];
 
-export default function Tutorias() {
+export default function Ranking() {
   const navigate = useNavigate();
 
   return (

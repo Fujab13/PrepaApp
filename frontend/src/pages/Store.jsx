@@ -87,7 +87,7 @@ export default function Store() {
   // Tarjeta de producto de dinero real (Práctica extra/Suscripción): a
   // diferencia de la genérica de monedas, esta se diseñó para sentirse
   // "premium" — insignia de pago real arriba, ícono con resplandor morado
-  // (mismo lenguaje que las tarjetas de Alumnos/Maestros en Tutorias.jsx),
+  // (mismo lenguaje que las tarjetas de Alumnos/Maestros en Ranking.jsx),
   // precio grande en vez de metido en el texto del botón, y un botón de
   // acción compacto en vez de uno de ancho completo con solo el precio.
   function tarjetaPremium(item) {
@@ -118,7 +118,7 @@ export default function Store() {
         }}
       >
         {/* Resplandor decorativo, puramente ambiental — mismo truco que
-            RankingSemanal en Tutorias.jsx (un círculo difuminado detrás del
+            RankingSemanal en Ranking.jsx (un círculo difuminado detrás del
             contenido, nunca clicable). */}
         <div style={{
           position: 'absolute', top: -36, right: -24, width: 110, height: 110, borderRadius: '50%',
