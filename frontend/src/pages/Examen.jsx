@@ -684,6 +684,7 @@ export default function Examen() {
             <img
               src={`/svgs/${pregunta.enlace_svg}`}
               alt={`Imagen de la pregunta ${pregunta.id}`}
+              decoding="async"
               style={{ maxWidth: "100%", maxHeight: 400, width: "100%", objectFit: "contain", margin: 4 }}
               onError={e => { e.currentTarget.style.display = "none"; }}
             />

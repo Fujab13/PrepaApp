@@ -45,6 +45,7 @@ export default function Pizarron({ src, alt, color = '#7c5cbf' }) {
         <img
           src={src}
           alt={alt}
+          decoding="async"
           onError={() => setFallo(true)}
           style={{ display: 'block', width: '100%', maxHeight: 400, objectFit: 'contain' }}
         />
