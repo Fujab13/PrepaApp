@@ -88,13 +88,16 @@ export default function SeleccionExamen() {
 
   return (
     <div style={{ position: 'relative', display: 'flex', flexDirection: 'column', minHeight: '100dvh', overflow: 'hidden' }}>
-      {/* Resplandor del color del examen al frente, detrás de la tómbola. */}
+      {/* Resplandor tenue del color del examen al frente, detrás de la
+          tómbola. Degradado radial en vez de un círculo con filter: blur():
+          se ve casi igual y no obliga al celular a desenfocar una capa
+          grande en cada cuadro. */}
       <div
         aria-hidden="true"
         style={{
-          position: 'absolute', top: 0, left: '50%', width: 320, height: 320, marginLeft: -160,
-          borderRadius: '50%', background: examen.color, opacity: 0.16, filter: 'blur(70px)',
-          transition: 'background 0.5s ease', pointerEvents: 'none',
+          position: 'absolute', top: -60, left: '50%', width: 440, height: 440, marginLeft: -220,
+          background: `radial-gradient(closest-side, ${examen.color}29, transparent)`,
+          pointerEvents: 'none',
         }}
       />
 
@@ -159,14 +162,12 @@ export default function SeleccionExamen() {
           onClick={() => tombolaRef.current?.elegir()}
           className="gm-cta"
           style={{
-            position: 'relative', overflow: 'hidden', touchAction: 'manipulation',
+            touchAction: 'manipulation',
             flex: 1, maxWidth: 260, minHeight: 56, borderRadius: 16, border: 'none',
             background: '#7c5cbf', color: '#fff', fontWeight: 700, fontSize: '1rem', cursor: 'pointer',
             boxShadow: '0 10px 24px -10px rgba(124, 92, 191, 0.7)',
           }}
         >
-          {/* Destello al cambiar de examen (se reinicia con `key`). */}
-          <span key={examen.id} className="login-credencial-brillo" />
           Empezar
         </button>
         {/* Anterior y siguiente pegados, como un solo control segmentado. */}
