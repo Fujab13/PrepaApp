@@ -489,6 +489,15 @@ export default function Examen() {
   // Progreso global
   const progresoPct = ((indexActual + 1) / totalPreguntas) * 100;
 
+  // Estados "marcada" y "tiempo excedido": rellenos translúcidos del color
+  // semántico, así se ven bien sobre cualquier tema (claro u oscuro).
+  const estiloMarcada = {
+    background: "rgba(245, 158, 11, 0.14)",
+    border: "1px solid rgba(245, 158, 11, 0.5)",
+    color: "var(--aviso)",
+  };
+  const colorSeccion = seccion?.color ?? "#4f8ef7";
+
   // ═══════════════════════════════════════════════════════════════════════════
   // ─── RENDER ─────────────────────────────────────────────────────────────
   // ═══════════════════════════════════════════════════════════════════════════
@@ -600,28 +609,32 @@ export default function Examen() {
       {/* ── CUERPO PRINCIPAL ── */}
       <main className="page-content-compact" data-mascota-evitar="true" style={{ flex: 1, overflowY: "auto", paddingTop: 16, paddingBottom: 90 }}>
 
+        {/* `key`: cada pregunta entra con la misma transición corta que en
+            Leccion.jsx (.gm-entrada). */}
+        <div key={pregunta.id} className="gm-entrada">
+
         {/* Número + cronómetro de pregunta */}
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 14 }}>
           <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
             <div style={{
-              background: seccion?.color ?? "#4f8ef7",
+              background: colorSeccion,
               color: "#fff",
               borderRadius: 8,
-              padding: "4px 10px",
-              fontSize: 12,
-              fontWeight: 700,
+              padding: "5px 11px",
+              fontSize: 13,
+              fontWeight: 800,
+              fontVariantNumeric: "tabular-nums",
+              boxShadow: `0 6px 14px -8px ${colorSeccion}`,
             }}>
               #{indexActual + 1}
             </div>
             {esMarcada && (
               <div style={{
-                background: "#451a03",
-                border: "1px solid #92400e",
-                color: "#fcd34d",
+                ...estiloMarcada,
                 borderRadius: 6,
                 padding: "3px 8px",
                 fontSize: 11,
-                fontWeight: 600,
+                fontWeight: 700,
               }}>
                 ★ Marcada
               </div>
@@ -629,14 +642,15 @@ export default function Examen() {
           </div>
 
           {/* Cronómetro de pregunta */}
-          <div 
+          <div
           className="reloj-minimal"
           style={{
-            background: tiempoNegativo ? "#450a0a" : "var(--surface2)",
-            border: `1px solid ${tiempoNegativo ? "#7f1d1d" : "var(--surface)"}`,
+            background: tiempoNegativo ? "rgba(248, 113, 113, 0.12)" : "var(--surface2)",
+            border: `1px solid ${tiempoNegativo ? "rgba(248, 113, 113, 0.45)" : "var(--border)"}`,
             borderRadius: 8,
             padding: "4px 10px",
             textAlign: "center",
+            transition: "background 0.3s ease, border-color 0.3s ease",
           }}>
             <div style={{
               fontSize: 14,
@@ -652,7 +666,8 @@ export default function Examen() {
         {/* Texto de la pregunta */}
         <div style={{
           background: "var(--surface2)",
-          border: "0.5px solid var(--surface)",
+          border: "1px solid var(--border)",
+          borderLeft: `3px solid ${colorSeccion}`,
           borderRadius: 12,
           padding: "14px 16px",
           marginBottom: 14,
@@ -672,7 +687,9 @@ export default function Examen() {
         {pregunta.enlace_svg && (
           <div style={{
             background: "var(--surface2)",
-            border: "0.5px solid var(--surface)",
+            border: "1px solid var(--border)",
+            borderRadius: 12,
+            overflow: "hidden",
             marginBottom: 14,
             display: "flex",
             justifyContent: "center",
@@ -702,21 +719,23 @@ export default function Examen() {
                 key={inciso}
                 onClick={() => seleccionarRespuesta(inciso)}
                 data-pista-mascota={pistaActiva && inciso === pregunta.inciso_correcto ? "true" : undefined}
+                aria-pressed={esSelected}
+                className="opcion-btn"
                 style={{
                   display: "flex",
                   alignItems: "flex-start",
                   gap: 12,
-                  background: esSelected ? `${seccion?.color ?? "#4f8ef7"}18` : "var(--surface2)",
-                  border: esSelected
-                    ? `1.5px solid ${seccion?.color ?? "#4f8ef7"}`
-                    : "0.5px solid var(--surface)",
+                  background: esSelected ? `${colorSeccion}1f` : "var(--surface2)",
+                  // Mismo grosor seleccionada o no: solo cambia el color,
+                  // así el texto no "brinca" medio píxel al elegir.
+                  border: `1.5px solid ${esSelected ? colorSeccion : "var(--border)"}`,
                   borderRadius: 12,
                   padding: "12px 14px",
                   cursor: "pointer",
                   textAlign: "left",
-                  transition: "all 0.15s",
                   color: "var(--text)",
                   width: "100%",
+                  boxShadow: esSelected ? `0 8px 18px -14px ${colorSeccion}` : "none",
                 }}
               >
                 {/* Indicador */}
@@ -725,8 +744,9 @@ export default function Examen() {
                   height: 26,
                   borderRadius: 6,
                   flexShrink: 0,
-                  background: esSelected ? (seccion?.color ?? "#4f8ef7") : "var(--surface)",
-                  border: `1px solid ${esSelected ? "transparent" : "var(--surface)"}`,
+                  background: esSelected ? colorSeccion : "var(--surface)",
+                  border: `1px solid ${esSelected ? "transparent" : "var(--border)"}`,
+                  transition: "background 0.2s ease",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
@@ -746,6 +766,7 @@ export default function Examen() {
             );
           })}
         </div>
+        </div>
       </main>
 
       {/* ── BARRA INFERIOR ── */}
@@ -759,7 +780,7 @@ export default function Examen() {
             flex: 1,
             opacity: indexActual === 0 ? 0.35 : 1,
             color: "var(--text-muted)",
-            border: "0.5px solid var(--surface)"
+            border: "1px solid var(--border)"
           }}
         >
           <IoIosArrowBack /> Anterior
@@ -774,9 +795,11 @@ export default function Examen() {
             width: 44,
             padding: "10px 0",
             flexShrink: 0,
-            background: esMarcada ? "#451a03" : "var(--surface2)",
-            border: esMarcada ? "1px solid #92400e" : "0.5px solid var(--surface)",
-            color: esMarcada ? "#fcd34d" : "var(--text-muted)",
+            ...(esMarcada ? estiloMarcada : {
+              background: "var(--surface2)",
+              border: "1px solid var(--border)",
+              color: "var(--text-muted)",
+            }),
             fontSize: 18,
           }}
         >
@@ -792,9 +815,9 @@ export default function Examen() {
             width: 44,
             padding: "10px 0",
             flexShrink: 0,
-            background: matrizOpen ? "#1e3a5f" : "var(--surface2)",
-            border: matrizOpen ? "1px solid #1d4ed8" : "0.5px solid var(--surface)",
-            color: matrizOpen ? "#60a5fa" : "var(--text-muted)",
+            background: matrizOpen ? "rgba(79, 142, 247, 0.16)" : "var(--surface2)",
+            border: `1px solid ${matrizOpen ? "#4f8ef7" : "var(--border)"}`,
+            color: matrizOpen ? "#4f8ef7" : "var(--text-muted)",
             fontSize: 18,
           }}
         >
@@ -804,10 +827,12 @@ export default function Examen() {
         {/* Siguiente */}
         <button
         onClick={siguiente}
-        className="btn-footer-scroll"
+        className="btn-footer-scroll gm-cta"
         style={{
           flex: 1,
-          background: seccion?.color ?? "#4f8ef7"
+          background: colorSeccion,
+          border: "none",
+          color: "#fff",
         }}
       >
         {indexActual === totalPreguntas - 1 ? (

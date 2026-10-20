@@ -27,6 +27,8 @@
      --acento-texto  el morado de la marca en versión TEXTO (enlaces,
                    etiquetas, íconos): mismo tono, solo más claro u oscuro
                    según el fondo para que se lea en cualquier tema
+     --aviso       ámbar de "marcada para revisar" (Examen.jsx) en versión
+                   texto/ícono, con el mismo ajuste por tema
      --sidenav-bg  opcional, con fallback a --surface (ver Sidenav.jsx) —
                    solo un tema lo define si quiere que el menú lateral se
                    sienta distinto al resto de la app. */
@@ -42,6 +44,7 @@
   --correct:       #4ade80;
   --wrong:         #f87171;
   --acento-texto:  #a58be6;
+  --aviso:         #fcd34d;
   --radius:        16px;
   --font:          'Inter', system-ui, sans-serif;
 }
@@ -75,6 +78,7 @@
   --border-strong: rgba(15, 23, 42, 0.2);
   --overlay-sutil: rgba(15, 23, 42, 0.06);
   --acento-texto:  #6544b0;
+  --aviso:         #b45309;
   --sidenav-bg:    #e4eefb; /* azul suave: le da carácter propio al menú en vez de blanco liso */
 }
 
