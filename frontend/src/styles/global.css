@@ -24,6 +24,9 @@
      --border-strong  mismo borde, más marcado (hover/foco de tarjetas)
      --overlay-sutil  relleno translúcido de chips/pistas (ver .fondo-sutil)
      --correct/--wrong  semánticos, NO varían por tema
+     --acento-texto  el morado de la marca en versión TEXTO (enlaces,
+                   etiquetas, íconos): mismo tono, solo más claro u oscuro
+                   según el fondo para que se lea en cualquier tema
      --sidenav-bg  opcional, con fallback a --surface (ver Sidenav.jsx) —
                    solo un tema lo define si quiere que el menú lateral se
                    sienta distinto al resto de la app. */
@@ -38,6 +41,7 @@
   --overlay-sutil: rgba(255, 255, 255, 0.08);
   --correct:       #4ade80;
   --wrong:         #f87171;
+  --acento-texto:  #a58be6;
   --radius:        16px;
   --font:          'Inter', system-ui, sans-serif;
 }
@@ -70,6 +74,7 @@
   --border:        rgba(15, 23, 42, 0.1);
   --border-strong: rgba(15, 23, 42, 0.2);
   --overlay-sutil: rgba(15, 23, 42, 0.06);
+  --acento-texto:  #6544b0;
   --sidenav-bg:    #e4eefb; /* azul suave: le da carácter propio al menú en vez de blanco liso */
 }
 
@@ -276,8 +281,25 @@ display: flex;
   to { transform: translateX(100%); }
 }
 
+/* Retícula del fondo: deriva muy lenta de ida y vuelta (solo transform,
+   lo hace la GPU) y el logo hexagonal del primer paso, que entra una vez. */
+.login-fondo {
+  animation: login-deriva 18s ease-in-out infinite alternate;
+}
+@keyframes login-deriva {
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(-14px, 28px, 0); }
+}
+.login-logo {
+  animation: login-logo-entra 0.55s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+@keyframes login-logo-entra {
+  from { opacity: 0; transform: scale(0.82) translateY(6px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .login-paso, .login-paso-atras, .login-cascada { animation: none; }
+  .login-paso, .login-paso-atras, .login-cascada, .login-fondo, .login-logo { animation: none; }
   .login-credencial-brillo { display: none; }
 }
 
