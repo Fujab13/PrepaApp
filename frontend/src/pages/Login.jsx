@@ -160,7 +160,7 @@ function Encabezado({ onAtras, esPrimero, total, indice, conMarca = true }) {
               key={i}
               style={{
                 width: i === indice ? 22 : 8, height: 4, borderRadius: 999,
-                background: i <= indice ? '#7c5cbf' : 'var(--surface2)',
+                background: i <= indice ? '#7c5cbf' : 'var(--border-strong)',
                 transition: 'width 0.3s ease, background 0.3s ease',
               }}
             />
