@@ -165,7 +165,7 @@ const TombolaExamenes = forwardRef(function TombolaExamenes({ examenes, onElegir
                   : 'var(--surface2)',
                 borderRadius: 'var(--radius)',
                 border: `2px solid ${alFrente ? color : 'var(--border)'}`,
-                boxShadow: alFrente ? `0 12px 30px -14px ${color}` : 'none',
+                boxShadow: alFrente ? `0 10px 22px -16px ${color}` : 'none',
                 transition: 'border-color 0.2s ease, box-shadow 0.2s ease',
               }}
             >

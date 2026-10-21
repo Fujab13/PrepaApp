@@ -6,7 +6,7 @@
   "preguntas": [
     {
       "pregunta": "Bienvenido, adjuntamos la imagen de unos estudiantes felices, estudiar nunca será divertido, pero puede ser satisfactorio ... ",
-      "enlace_svg": "estudiantes.svg",
+      "enlace_svg": "estudiantes.webp",
       "intro": true
     },
     {
@@ -19,22 +19,22 @@
         "Lecciones",
         "Publicación de ofertas"
       ],
-      "enlace_svg": "interfaz.svg",
+      "enlace_svg": "interfaz.webp",
       "intro": true
     },
     {
       "pregunta": "El aprendizaje busca ser dinámico, la idea es hacértelo digerible, si prometes estudiar, prometemos encargarnos del resto ...",
-      "enlace_svg": "mapa.svg",
+      "enlace_svg": "mapa.webp",
       "intro": true
     },
     {
       "pregunta": "Buscamos simular tanto como sea posible la experiencia de tu acceso a la universidad ... ",
-      "enlace_svg": "examen.svg",
+      "enlace_svg": "examen.webp",
       "intro": true
     },
     {
       "pregunta": "¡Los profesores son una idea muy buena! Busca uno en el apartado de Tutorías y resérvalo ... ",
-      "enlace_svg": "profesor.svg",
+      "enlace_svg": "profesor.webp",
       "intro": true
     },
     {
@@ -44,22 +44,22 @@
     },
     {
       "pregunta": "Todo o casi todo lo que necesitas en un solo lugar, excepto el examen de admisión ... ",
-      "enlace_svg": "cajafuerte.svg",
+      "enlace_svg": "cajafuerte.webp",
       "intro": true
     },
     {
       "pregunta": "No te recomendamos estudiar a tu ritmo, mejor estudia un mínimo de una hora diaria. Sabemos de buenas fuentes que muchos de tus rivales estudian mucho más ... ",
-      "enlace_svg": "determinacion.svg",
+      "enlace_svg": "determinacion.webp",
       "intro": true
     },
     {
       "pregunta": "Privacidad de tu cuenta, el almacenamiento seguro de tu progreso y la protección de tus sesiones ... ",
-      "enlace_svg": "seguridad.svg",
+      "enlace_svg": "seguridad.webp",
       "intro": true
     },
     {
       "pregunta": "Traducir ideas a palabras obliga al cerebro a organizar, analizar y estructurar la información con claridad ... ",
-      "enlace_svg": "pluma.svg",
+      "enlace_svg": "pluma.webp",
       "intro": true
     },
     {

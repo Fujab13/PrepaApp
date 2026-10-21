@@ -25,7 +25,7 @@ export const PREGUNTAS = [
   {
     id: 1,
     pregunta: "¿Cuál de las siguientes oraciones tiene un sujeto compuesto?",
-    enlace_svg: "recomendados.svg",
+    enlace_svg: "recomendados.webp",
     respuestas: [
       "A. El perro con su dueño caminaba lentamente por el parque.",
       "B. Juan y Ana llegaron tarde a la reunión.",
@@ -207,7 +207,7 @@ export const PREGUNTAS = [
   {
     id: 16,
     pregunta: "Resuelve el siguiente sistema de ecuaciones lineales:\n\n$$\\begin{cases} x + y + z = 6 \\\\ 2x - y + z = 3 \\\\ x - y + 2z = 5 \\end{cases}$$",
-    enlace_svg: "espacio.svg",
+    enlace_svg: "espacio.webp",
     respuestas: [
       "A. $x = 1,\\ y = 2,\\ z = 3$",
       "B. $x = 2,\\ y = 1,\\ z = 3$",

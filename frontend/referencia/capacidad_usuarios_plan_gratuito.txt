@@ -162,6 +162,14 @@ frontend al mes". El único techo real que queda es el de Supabase.
   este caso SÍ hace falta optimizar el contenido de cada SVG (no borrar el
   archivo, porque sí se usa), a diferencia de los 4 de arriba.
 
+  RESUELTO (19 de oct.): esos 11 "SVG" eran diapositivas de 960×540
+  exportadas de Slides con un PNG en base64 adentro (no vectores). Se
+  convirtieron a WebP calidad 80 a la resolución de su PNG original (tope
+  1920px) y se reemplazaron en `public/svgs/` con extensión `.webp` (mismo
+  nombre; `enlace_svg` en `lecciones/espanol.json` y `examen.js` ya apunta
+  al `.webp`): ~18.1MB → ~650KB en total. Imágenes de foto/diapositiva
+  nuevas: exportarlas como WebP, no como SVG.
+
 
 4. EL CÁLCULO: CUÁNTOS USUARIOS CABEN HOY
 ----------------------------------------------
