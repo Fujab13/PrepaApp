@@ -254,12 +254,16 @@ export function StoreProvider({ children }) {
   // Compra de un consumible (a diferencia de purchaseWithCoins, NUNCA
   // bloquea por "ya lo tienes" — se puede comprar cuantas veces se quiera,
   // cada una suma `comidaCantidad` en vez de desbloquear algo una sola vez).
-  const comprarComida = useCallback((item) => {
-    if (coins < item.priceCoins) {
+  const comprarComida = useCallback((item, cantidad = 1) => {
+    if (!Number.isInteger(cantidad) || cantidad < 1) {
+      return { ok: false, reason: 'invalid_quantity' }
+    }
+    const costoTotal = item.priceCoins * cantidad
+    if (coins < costoTotal) {
       return { ok: false, reason: 'insufficient_funds' }
     }
-    setMonedas(prev => ({ ...prev, coins: prev.coins - item.priceCoins }))
-    setComida(prev => prev + (item.comidaCantidad || 0))
+    setMonedas(prev => ({ ...prev, coins: prev.coins - costoTotal }))
+    setComida(prev => prev + (item.comidaCantidad || 0) * cantidad)
     return { ok: true }
   }, [coins])
 
