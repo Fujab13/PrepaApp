@@ -80,63 +80,36 @@ const FLUJOS = {
 // ── Piezas visuales ───────────────────────────────────────────────────────
 
 // Retícula de hexágonos (la forma de la marca) que se desvanece hacia abajo.
-// SVG en línea para poder usar las variables del tema en el trazo. Todo en
-// el morado de la marca (#7c5cbf): un solo acento en toda la pantalla. El
-// SVG es más alto que su contenedor para que .login-fondo lo deslice muy
-// despacio sin que se vea el borde.
+// SVG en línea para poder usar las variables del tema en el trazo.
 function FondoHexagonal() {
   return (
-    <div
+    <svg
       aria-hidden="true"
       style={{
-        position: 'absolute', top: 0, left: 0, right: 0, height: 420, overflow: 'hidden', pointerEvents: 'none',
-        maskImage: 'linear-gradient(to bottom, black 35%, transparent)',
-        WebkitMaskImage: 'linear-gradient(to bottom, black 35%, transparent)',
+        position: 'absolute', top: 0, left: 0, width: '100%', height: 260, pointerEvents: 'none',
+        maskImage: 'linear-gradient(to bottom, black, transparent)',
+        WebkitMaskImage: 'linear-gradient(to bottom, black, transparent)',
       }}
     >
-      <svg className="login-fondo" style={{ position: 'absolute', top: -40, left: 0, width: '100%', height: 500 }}>
-        <defs>
-          <pattern id="login-hex" width="28" height="48.5" patternUnits="userSpaceOnUse" patternTransform="scale(1.1)">
-            <path d="M14 0 L28 8.08 L28 24.25 L14 32.33 L0 24.25 L0 8.08 Z M14 32.33 L14 48.5" fill="none" stroke="#7c5cbf" strokeOpacity="0.26" strokeWidth="1" />
-          </pattern>
-          <radialGradient id="login-brillo" cx="50%" cy="12%" r="65%">
-            <stop offset="0%" stopColor="#7c5cbf" stopOpacity="0.3" />
-            <stop offset="100%" stopColor="#7c5cbf" stopOpacity="0" />
-          </radialGradient>
-        </defs>
-        <rect width="100%" height="100%" fill="url(#login-hex)" />
-        <rect width="100%" height="100%" fill="url(#login-brillo)" />
-      </svg>
-    </div>
-  )
-}
-
-// Marca grande del primer paso: el hexágono (misma forma con punta arriba
-// que Hexagono.jsx y .login-hex) con la inicial, y el nombre debajo.
-function LogoHexagonal() {
-  return (
-    <div className="login-logo" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 10, marginTop: 8 }}>
-      <span style={{ filter: 'drop-shadow(0 14px 18px rgba(124, 92, 191, 0.45))' }}>
-        <span className="login-hex" style={{
-          position: 'relative', width: 68, height: 76, display: 'flex', alignItems: 'center', justifyContent: 'center',
-          background: 'linear-gradient(160deg, #9b7de0, #5b3f9e)',
-          fontSize: 30, fontWeight: 800, color: '#fff', letterSpacing: '-0.02em',
-        }}>
-          {/* Luz de arriba a la izquierda, como las facetas de Hexagono.jsx. */}
-          <span aria-hidden="true" style={{
-            position: 'absolute', inset: 0,
-            background: 'linear-gradient(150deg, rgba(255,255,255,0.35), rgba(255,255,255,0) 45%, rgba(0,0,0,0.18))',
-          }} />
-          <span style={{ position: 'relative' }}>P</span>
-        </span>
-      </span>
-      <MarcaPrepaApp size="1.3rem" />
-    </div>
+      <defs>
+        <pattern id="login-hex" width="28" height="48.5" patternUnits="userSpaceOnUse" patternTransform="scale(1.1)">
+          <path d="M14 0 L28 8.08 L28 24.25 L14 32.33 L0 24.25 L0 8.08 Z M14 32.33 L14 48.5" fill="none" stroke="#4f8ef7" strokeOpacity="0.22" strokeWidth="1" />
+        </pattern>
+        {/* Resplandor azul (el azul de la app, #4f8ef7): la retícula se
+            siente "de sistema", y el morado queda para las acciones. */}
+        <radialGradient id="login-brillo" cx="85%" cy="0%" r="70%">
+          <stop offset="0%" stopColor="#4f8ef7" stopOpacity="0.26" />
+          <stop offset="100%" stopColor="#4f8ef7" stopOpacity="0" />
+        </radialGradient>
+      </defs>
+      <rect width="100%" height="100%" fill="url(#login-hex)" />
+      <rect width="100%" height="100%" fill="url(#login-brillo)" />
+    </svg>
   )
 }
 
 // Barra superior: atrás/cerrar, marca y progreso segmentado del flujo.
-function Encabezado({ onAtras, esPrimero, total, indice, conMarca = true }) {
+function Encabezado({ onAtras, esPrimero, total, indice }) {
   return (
     <div style={{ position: 'relative', display: 'flex', alignItems: 'center', gap: 10, padding: '14px 16px 0' }}>
       <button
@@ -152,7 +125,7 @@ function Encabezado({ onAtras, esPrimero, total, indice, conMarca = true }) {
       >
         {esPrimero ? <AiOutlineClose /> : <IoIosArrowBack />}
       </button>
-      {conMarca && <MarcaPrepaApp size={18} />}
+      <MarcaPrepaApp size={18} />
       {total > 1 && (
         <div style={{ marginLeft: 'auto', display: 'flex', gap: 5 }} aria-label={`Paso ${indice + 1} de ${total}`}>
           {Array.from({ length: total }, (_, i) => (
@@ -160,7 +133,7 @@ function Encabezado({ onAtras, esPrimero, total, indice, conMarca = true }) {
               key={i}
               style={{
                 width: i === indice ? 22 : 8, height: 4, borderRadius: 999,
-                background: i <= indice ? '#7c5cbf' : 'var(--border-strong)',
+                background: i <= indice ? '#4f8ef7' : 'var(--surface2)',
                 transition: 'width 0.3s ease, background 0.3s ease',
               }}
             />
@@ -217,7 +190,7 @@ function Credencial({ usuario, avatarSrc }) {
         background: 'linear-gradient(135deg, var(--surface2), var(--surface))',
         border: '1px solid var(--border)',
         display: 'flex', alignItems: 'center', justifyContent: 'center',
-        fontSize: '1.2rem', color: 'var(--acento-texto)',
+        fontSize: '1.2rem', color: '#8482e0',
       }}>
         {avatarSrc && !fotoFallo ? (
           <img
@@ -232,7 +205,7 @@ function Credencial({ usuario, avatarSrc }) {
         )}
       </span>
       <div style={{ minWidth: 0 }}>
-        <p style={{ margin: 0, fontSize: 10, fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: 'var(--acento-texto)' }}>
+        <p style={{ margin: 0, fontSize: 10, fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#b9a4ec' }}>
           Alumno PrepaApp
         </p>
         <p style={{
@@ -298,7 +271,7 @@ function Enlace({ children, onClick }) {
       data-gamificacion="bajo"
       style={{
         background: 'transparent', border: 'none', padding: '10px 4px', minHeight: 44,
-        color: 'var(--acento-texto)', fontSize: '0.88rem', fontWeight: 600, cursor: 'pointer',
+        color: '#8b6fcf', fontSize: '0.88rem', fontWeight: 600, cursor: 'pointer',
       }}
     >
       {children}
@@ -635,7 +608,7 @@ export default function Login() {
   if (paso === 'esperando') {
     contenido = (
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 14 }}>
-        <AiOutlineLoading3Quarters className="spin" style={{ fontSize: '1.8rem', color: 'var(--acento-texto)' }} />
+        <AiOutlineLoading3Quarters className="spin" style={{ fontSize: '1.8rem', color: '#8b6fcf' }} />
         <p style={{ margin: 0, color: 'var(--text-muted)', fontSize: '0.9rem' }}>Entrando con Google…</p>
       </div>
     )
@@ -643,7 +616,6 @@ export default function Login() {
     const esLogin = flujo === 'login'
     contenido = (
       <>
-        <LogoHexagonal />
         <Titulo sub={esLogin ? 'Continúa donde te quedaste.' : 'Gratis. Tu progreso queda guardado.'}>
           {esLogin ? 'Inicia sesión' : 'Crea tu cuenta'}
         </Titulo>
@@ -675,7 +647,7 @@ export default function Login() {
         {botonGoogle}
         <p style={{ margin: '2px 0 0', fontSize: '0.74rem', color: 'var(--text-muted)', textAlign: 'center', lineHeight: 1.5 }}>
           Al continuar aceptas el{' '}
-          <a href="/privacidad" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--acento-texto)', fontWeight: 600 }}>
+          <a href="/privacidad" target="_blank" rel="noopener noreferrer" style={{ color: '#8b6fcf', fontWeight: 600 }}>
             Aviso de privacidad
           </a>.
         </p>
@@ -833,7 +805,6 @@ export default function Login() {
         esPrimero={(indice === 0 && paso !== 'recuperar') || paso === 'esperando'}
         total={paso === 'recuperar' || paso === 'esperando' ? 0 : pasos.length}
         indice={indice}
-        conMarca={paso !== 'correo'}
       />
 
       <form
