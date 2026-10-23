@@ -570,8 +570,8 @@ export default function Store() {
           : `Costo: ${compraMonedasPendiente?.priceCoins ?? 0} monedas.`}
         textoCancelar="Cancelar"
         textoConfirmar="Comprar"
-        colorCancelar="#1688e5"
-        colorConfirmar="#1688e5"
+        colorCancelar="#ef4444"
+        colorConfirmar="#22c55e"
         acciones={compraMonedasPendiente?.comidaCantidad ? (
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: 4, marginTop: 8 }}>
             <span
@@ -622,7 +622,12 @@ export default function Store() {
               aria-label="Cancelar compra"
               title="Cancelar"
               onClick={() => setCompraMonedasPendiente(null)}
-              style={estiloControlCantidad(false)}
+              style={{
+                ...estiloControlCantidad(false),
+                borderColor: '#ef4444',
+                background: 'rgba(239,68,68,0.14)',
+                color: '#ef4444',
+              }}
             >
               <HiOutlineXMark />
             </button>
@@ -635,7 +640,12 @@ export default function Store() {
                 setCompraMonedasPendiente(null)
                 if (item) manejarCompra(item, cantidadCompra)
               }}
-              style={estiloControlCantidad(false, true)}
+              style={{
+                ...estiloControlCantidad(false, true),
+                borderColor: '#22c55e',
+                background: '#22c55e',
+                color: '#052e16',
+              }}
             >
               <HiOutlineShoppingBag />
             </button>

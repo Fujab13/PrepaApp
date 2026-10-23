@@ -17,7 +17,7 @@ import { useRef, useState, useEffect } from 'react'
  * - conceptoResaltado: índice del concepto puntual a resaltar dentro de la
  *   lista (el que el buscador identificó como la línea más parecida)
  */
-export default function SubtemaItem({ subtema, completado, onToggleCompletado, color, autoAbrir, conceptoResaltado }) {
+export default function SubtemaItem({ subtema, completado, onToggleCompletado, onCambioAbierto, color, autoAbrir, conceptoResaltado }) {
   const [abierto, setAbierto] = useState(!!autoAbrir)
   const [resaltado, setResaltado] = useState(!!autoAbrir)
   const contentRef = useRef(null)
@@ -60,7 +60,11 @@ export default function SubtemaItem({ subtema, completado, onToggleCompletado, c
           padding: '10px 8px',
           cursor: 'pointer'
         }}
-        onClick={() => setAbierto(o => !o)}
+        onClick={() => setAbierto(o => {
+          const siguiente = !o
+          onCambioAbierto?.(siguiente)
+          return siguiente
+        })}
       >
         {/* Checkbox circular de progreso — independiente del accordion */}
         <button

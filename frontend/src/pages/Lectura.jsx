@@ -34,30 +34,105 @@ export default function Lectura() {
   const subtemaParam = searchParams.get('subtema')
   const conceptoParam = searchParams.get('concepto')
   const conceptoIdxInicial = conceptoParam !== null && conceptoParam !== '' ? Number(conceptoParam) : null
+  const storageKeyUbicacion = `ubicacion_lectura_${materiaId}`
+  const tieneDeepLink = Boolean(temaParam || subtemaParam || conceptoParam !== null)
+  const [ubicacionGuardada] = useState(() => {
+    if (tieneDeepLink) return null
+    try {
+      const raw = localStorage.getItem(storageKeyUbicacion)
+      return raw ? JSON.parse(raw) : null
+    } catch (error) {
+      console.warn('[Lectura] No se pudo recuperar la última ubicación:', error)
+      return null
+    }
+  })
+  const restaurandoUbicacionRef = useRef(!tieneDeepLink && Boolean(ubicacionGuardada))
 
   const [temaIdx, setTemaIdx] = useState(() => {
-    if (!lectura || !temaParam) return 0
-    const idx = lectura.temas.findIndex(t => t.id === temaParam)
+    if (!lectura) return 0
+    const temaIdInicial = temaParam || ubicacionGuardada?.temaId
+    if (!temaIdInicial) return 0
+    const idx = lectura.temas.findIndex(t => t.id === temaIdInicial)
     return idx >= 0 ? idx : 0
   })
   const activeTabRef = useRef(null)
 
   // Subtema/concepto a resaltar: arrancan con lo que traiga el deep link,
   // pero el buscador de esta misma página también puede actualizarlos.
-  const [subtemaResaltado, setSubtemaResaltado] = useState(subtemaParam)
-  const [conceptoResaltado, setConceptoResaltado] = useState(conceptoIdxInicial)
+  const [subtemaResaltado, setSubtemaResaltado] = useState(subtemaParam || ubicacionGuardada?.subtemaId || null)
+  const [conceptoResaltado, setConceptoResaltado] = useState(conceptoIdxInicial ?? ubicacionGuardada?.conceptoIdx ?? null)
 
   const [queryBusqueda, setQueryBusqueda] = useState('')
 
   // Una vez ubicados en el tema correcto, hace scroll hasta el subtema
   // encontrado (por deep link o por el buscador) para que quede a la vista.
   useEffect(() => {
-    if (!subtemaResaltado) return
+    if (!subtemaResaltado || restaurandoUbicacionRef.current) return
     const t = setTimeout(() => {
       document.getElementById(`subtema-${subtemaResaltado}`)?.scrollIntoView({ behavior: 'smooth', block: 'center' })
     }, 200)
     return () => clearTimeout(t)
   }, [subtemaResaltado, temaIdx])
+
+  useEffect(() => {
+    if (!ubicacionGuardada || tieneDeepLink) return
+    const temporizador = setTimeout(() => {
+        window.scrollTo({ top: Math.max(0, Number(ubicacionGuardada.scrollTop) || 0), behavior: 'auto' })
+        restaurandoUbicacionRef.current = false
+        guardarUbicacion({
+          temaId: lectura?.temas[temaIdx]?.id,
+          subtemaId: subtemaResaltado,
+          conceptoIdx: conceptoResaltado,
+          scrollTop: window.scrollY,
+        })
+    }, ubicacionGuardada.subtemaId ? 450 : 50)
+    return () => clearTimeout(temporizador)
+  }, [])
+
+  useEffect(() => {
+    let temporizador
+    const guardarAhora = () => {
+      if (restaurandoUbicacionRef.current) return
+      guardarUbicacion({
+        temaId: lectura?.temas[temaIdx]?.id,
+        subtemaId: subtemaResaltado,
+        conceptoIdx: conceptoResaltado,
+        scrollTop: window.scrollY,
+      })
+    }
+    const guardarScroll = () => {
+      if (restaurandoUbicacionRef.current) return
+      clearTimeout(temporizador)
+      temporizador = setTimeout(guardarAhora, 150)
+    }
+    window.addEventListener('scroll', guardarScroll, { passive: true })
+    window.addEventListener('pagehide', guardarAhora)
+    return () => {
+      window.removeEventListener('scroll', guardarScroll)
+      window.removeEventListener('pagehide', guardarAhora)
+      clearTimeout(temporizador)
+      guardarAhora()
+    }
+  }, [lectura, temaIdx, subtemaResaltado, conceptoResaltado, storageKeyUbicacion])
+
+  function guardarUbicacion(ubicacion) {
+    if (!ubicacion.temaId) return
+    try {
+      localStorage.setItem(storageKeyUbicacion, JSON.stringify(ubicacion))
+    } catch (error) {
+      console.error('[Lectura] No se pudo guardar la última ubicación:', error)
+    }
+  }
+
+  useEffect(() => {
+    if (restaurandoUbicacionRef.current) return
+    guardarUbicacion({
+      temaId: lectura?.temas[temaIdx]?.id,
+      subtemaId: subtemaResaltado,
+      conceptoIdx: conceptoResaltado,
+      scrollTop: window.scrollY,
+    })
+  }, [lectura, temaIdx, subtemaResaltado, conceptoResaltado, storageKeyUbicacion])
 
   // Búsqueda por id, título o conceptos (sin acentos ni mayúsculas), en
   // todos los temas. Los resultados se ordenan por prioridad para que un id
@@ -113,6 +188,10 @@ export default function Lectura() {
     setSubtemaResaltado(resultado.subtemaId)
     setConceptoResaltado(resultado.conceptoIdx)
     setQueryBusqueda('')
+  }
+
+  function actualizarSubtemaAbierto(subtemaId, abierto) {
+    setSubtemaResaltado(actual => abierto ? subtemaId : (actual === subtemaId ? null : actual))
   }
 
   // --- Progreso persistente por materia (localStorage) ---
@@ -279,6 +358,7 @@ export default function Lectura() {
           color={materia.color}
           completados={completados}
           onToggleSubtema={handleToggleSubtema}
+          onCambioSubtemaAbierto={actualizarSubtemaAbierto}
           subtemaResaltado={subtemaResaltado}
           conceptoResaltado={conceptoResaltado}
         />

@@ -27,6 +27,7 @@ import { supabase } from '../services/supabaseClient'
 import { useAuth } from '../context/AuthContext'
 import { triggerVibration } from '../utils/haptics'
 import Celebracion from '../components/Celebracion'
+import FondoHexagonal from '../components/FondoHexagonal'
 import CasillaConsentimiento from '../components/CasillaConsentimiento'
 import CampoUsuario from '../components/CampoUsuario'
 import MarcaPrepaApp from '../components/MarcaPrepaApp'
@@ -79,35 +80,6 @@ const FLUJOS = {
 
 // ── Piezas visuales ───────────────────────────────────────────────────────
 
-// Retícula de hexágonos (la forma de la marca) que se desvanece hacia abajo.
-// SVG en línea para poder usar las variables del tema en el trazo.
-function FondoHexagonal() {
-  return (
-    <svg
-      aria-hidden="true"
-      style={{
-        position: 'absolute', top: 0, left: 0, width: '100%', height: 260, pointerEvents: 'none',
-        maskImage: 'linear-gradient(to bottom, black, transparent)',
-        WebkitMaskImage: 'linear-gradient(to bottom, black, transparent)',
-      }}
-    >
-      <defs>
-        <pattern id="login-hex" width="28" height="48.5" patternUnits="userSpaceOnUse" patternTransform="scale(1.1)">
-          <path d="M14 0 L28 8.08 L28 24.25 L14 32.33 L0 24.25 L0 8.08 Z M14 32.33 L14 48.5" fill="none" stroke="#4f8ef7" strokeOpacity="0.22" strokeWidth="1" />
-        </pattern>
-        {/* Resplandor azul (el azul de la app, #4f8ef7): la retícula se
-            siente "de sistema", y el morado queda para las acciones. */}
-        <radialGradient id="login-brillo" cx="85%" cy="0%" r="70%">
-          <stop offset="0%" stopColor="#4f8ef7" stopOpacity="0.26" />
-          <stop offset="100%" stopColor="#4f8ef7" stopOpacity="0" />
-        </radialGradient>
-      </defs>
-      <rect width="100%" height="100%" fill="url(#login-hex)" />
-      <rect width="100%" height="100%" fill="url(#login-brillo)" />
-    </svg>
-  )
-}
-
 // Barra superior: atrás/cerrar, marca y progreso segmentado del flujo.
 function Encabezado({ onAtras, esPrimero, total, indice }) {
   return (
@@ -157,12 +129,13 @@ function FichaCorreo({ correo, onCambiar }) {
         background: 'var(--surface2)', border: '1px solid var(--border)', color: 'var(--text)',
       }}
     >
-      <span className="login-hex" style={{
-        width: 24, height: 26, flexShrink: 0, background: 'linear-gradient(160deg, #9b7de0, #5b3f9e)',
-        display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 11, fontWeight: 800, color: '#fff',
-      }}>
-        {correo.charAt(0).toUpperCase()}
-      </span>
+      <img
+        src="/logo.ico"
+        alt=""
+        width="26"
+        height="26"
+        style={{ flexShrink: 0, objectFit: 'contain' }}
+      />
       <span style={{ fontSize: '0.82rem', fontWeight: 600, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
         {correo}
       </span>
@@ -771,10 +744,19 @@ export default function Login() {
     )
   } else if (paso === 'recuperar') {
     contenido = enlaceEnviado ? (
-      <Titulo sub={`Si ${email} tiene cuenta, te llegará un enlace para crear una nueva contraseña.`}>Revisa tu correo</Titulo>
+      <>
+        <div style={{
+          width: 56, height: 56, display: 'flex', alignItems: 'center', justifyContent: 'center',
+          borderRadius: 18, background: 'rgba(79,142,247,0.12)', border: '1px solid rgba(79,142,247,0.24)',
+        }}>
+          <img src="/logo.ico" alt="" width="32" height="32" style={{ objectFit: 'contain' }} />
+        </div>
+        <Titulo sub="Si la cuenta existe, recibirás un enlace para restablecerla.">Revisa tu correo</Titulo>
+        <FichaCorreo correo={email} onCambiar={() => setEnlaceEnviado(false)} />
+      </>
     ) : (
       <>
-        <Titulo sub="Te enviaremos un enlace para crear una nueva.">Recupera tu contraseña</Titulo>
+        <Titulo sub="Te enviaremos un enlace para restablecerla.">Recupera tu contraseña</Titulo>
         <div className="login-cascada" style={{ animationDelay: '60ms', display: 'flex', flexDirection: 'column', gap: 12 }}>
           <CampoIcono
             icono={HiOutlineEnvelope} type="email" placeholder="Correo electrónico" value={email}

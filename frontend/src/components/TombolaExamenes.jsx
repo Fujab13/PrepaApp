@@ -26,9 +26,10 @@ function diferencia(a, b) {
   return d > 180 ? d - 360 : d
 }
 
-const TombolaExamenes = forwardRef(function TombolaExamenes({ examenes, onElegir, onCambio }, ref) {
+const TombolaExamenes = forwardRef(function TombolaExamenes({ examenes, onElegir, onCambio, indiceInicial = 0 }, ref) {
   const n = examenes.length
   const paso = 360 / n
+  const indiceSeguro = n > 0 ? mod(Math.trunc(indiceInicial), n) : 0
   // Radio para que las tarjetas vecinas no se encimen en el frente.
   const radio = Math.max(140, (ALTO_TARJETA / 2 + SEPARACION) / Math.tan(Math.PI / n))
   const altoVisor = Math.round(2 * radio * Math.sin(Math.min(90, paso * 2) * Math.PI / 180) + ALTO_TARJETA)
@@ -36,13 +37,14 @@ const TombolaExamenes = forwardRef(function TombolaExamenes({ examenes, onElegir
   const sinMovimiento = typeof window !== 'undefined'
     && window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
 
-  const [rot, setRot] = useState(sinMovimiento ? 0 : -360)
+  const rotInicial = indiceSeguro * paso
+  const [rot, setRot] = useState(sinMovimiento ? rotInicial : rotInicial - 360)
   const rotRef = useRef(rot)
   const animRef = useRef(0)
   // A dónde va la animación en curso: los pasos se suman sobre esto (no
   // sobre el ángulo a medio camino), así varios toques rápidos o dejar
   // presionado avanzan exactamente una tarjeta cada uno.
-  const destinoRef = useRef(0)
+  const destinoRef = useRef(rotInicial)
   const entradaRef = useRef(!sinMovimiento) // true mientras da la vuelta de entrada
 
   const seleccionado = mod(Math.round(rot / paso), n)
@@ -73,7 +75,7 @@ const TombolaExamenes = forwardRef(function TombolaExamenes({ examenes, onElegir
 
   // Vuelta de entrada.
   useEffect(() => {
-    animarA(0, 1300)
+    animarA(rotInicial, 1300)
     return () => cancelAnimationFrame(animRef.current)
     // Solo al montar.
     // eslint-disable-next-line react-hooks/exhaustive-deps

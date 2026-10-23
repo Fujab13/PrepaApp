@@ -184,6 +184,8 @@ export default function Leccion() {
   const [errorAnteriorVisible, setErrorAnteriorVisible] = useState(false)
   const [resumen, setResumen]                        = useState(null)
   const inicializadoRef = useRef(false)
+  const restaurandoSesionRef = useRef(false)
+  const claveSesionLeccion = `sesion_leccion_${materiaId}_${modoConceptos ? 'conceptos' : modoDificil ? 'dificil' : 'normal'}`
   const autoLecturaInicializadaRef = useRef(false)
   // Guarda qué unidad se acaba de completar, en el momento exacto en que se
   // sabe (justo cuando "cola" se vacía, dentro de siguiente()): para cuando
@@ -205,6 +207,16 @@ export default function Leccion() {
   }, [materiaId])
 
   useEffect(() => {
+    inicializadoRef.current = false
+    setEnRepaso(false)
+    setColaRepaso([])
+    setIndicesFallados(new Set())
+    setErrorAnteriorVisible(false)
+    // "resumen" se conserva deliberadamente mientras la pantalla de
+    // recompensa está abierta; se limpia al salir de ella.
+  }, [materiaId, unidad])
+
+  useEffect(() => {
     // Espera tanto a que cargue la lección como a que useProgreso termine de
     // leer la unidad/elemento reales (Supabase o localStorage); si no, este
     // efecto corre primero con los valores por defecto (unidad 1, elemento 0)
@@ -213,6 +225,53 @@ export default function Leccion() {
 
     const total = getPreguntasDeUnidad(preguntasPool, unidad, tamanoUnidad).length
     if (total === 0) return
+
+    let sesionGuardada = null
+    try {
+      const raw = localStorage.getItem(claveSesionLeccion)
+      sesionGuardada = raw ? JSON.parse(raw) : null
+    } catch (error) {
+      console.warn('[Leccion] No se pudo leer la sesión guardada:', error)
+    }
+    const colaValida = Array.isArray(sesionGuardada?.cola)
+      && sesionGuardada.cola.every(idx => Number.isInteger(idx) && idx >= 0 && idx < total)
+      && sesionGuardada.cola.length > 0
+    const repasoValido = Array.isArray(sesionGuardada?.colaRepaso)
+      && sesionGuardada.colaRepaso.every(p => p && Array.isArray(p.opciones))
+    const restaurable = sesionGuardada?.unidad === unidad
+      && sesionGuardada?.longitudPool === preguntasPool.length
+      && colaValida
+      && Number.isFinite(sesionGuardada.correctasIniciales)
+      && Number.isFinite(sesionGuardada.correctasNuevas)
+      && typeof sesionGuardada.respondido === 'boolean'
+      && typeof sesionGuardada.enRepaso === 'boolean'
+      && repasoValido
+
+    if (restaurable) {
+      restaurandoSesionRef.current = modoDificil
+      setCola(sesionGuardada.cola)
+      setCorrectasIniciales(sesionGuardada.correctasIniciales)
+      setCorrectasNuevas(sesionGuardada.correctasNuevas)
+      setRespondido(sesionGuardada.respondido)
+      setFeedback(sesionGuardada.feedback || null)
+      setEstados(Array.isArray(sesionGuardada.estados) ? sesionGuardada.estados : ['normal', 'normal', 'normal'])
+      setEnRepaso(sesionGuardada.enRepaso)
+      setColaRepaso(sesionGuardada.colaRepaso)
+      setHistorial(Array.isArray(sesionGuardada.historial) ? sesionGuardada.historial : [])
+      setIndicesFallados(new Set(Array.isArray(sesionGuardada.indicesFallados) ? sesionGuardada.indicesFallados : []))
+      if (Number.isFinite(sesionGuardada.tiempoRestante)) setTiempoRestante(sesionGuardada.tiempoRestante)
+      inicializadoRef.current = true
+      return
+    }
+
+    if (sesionGuardada) {
+      console.warn('[Leccion] La sesión guardada ya no coincide con esta unidad; se iniciará desde el progreso disponible.')
+      try {
+        localStorage.removeItem(claveSesionLeccion)
+      } catch (error) {
+        console.error('[Leccion] No se pudo eliminar la sesión incompatible:', error)
+      }
+    }
 
     const yaCorrectas = Math.min(elemento, total)
     const restantes = Array.from({ length: total - yaCorrectas }, (_, i) => i + yaCorrectas)
@@ -239,17 +298,27 @@ export default function Leccion() {
   }, [cargando, cargandoProgreso, materia, materiaId, unidad])
 
   useEffect(() => {
-    inicializadoRef.current = false
-    setEnRepaso(false)
-    setColaRepaso([])
-    setIndicesFallados(new Set())
-    setErrorAnteriorVisible(false)
-    // OJO: "resumen" NO se limpia aquí a propósito. Este efecto corre cada
-    // vez que cambia "unidad" -y avanzar de unidad es EXACTAMENTE lo que
-    // pasa al terminarla y mostrar el resumen (ver celebrarYNavegar)-, así
-    // que limpiarlo aquí borraba el resumen apenas se mostraba, en el mismo
-    // instante. Se limpia solo al salir de él, en continuarDesdeResumen().
-  }, [materiaId, unidad])
+    if (!inicializadoRef.current || !cola || cola.length === 0) return
+    try {
+      localStorage.setItem(claveSesionLeccion, JSON.stringify({
+        unidad,
+        longitudPool: preguntasPool.length,
+        cola,
+        correctasIniciales,
+        correctasNuevas,
+        respondido,
+        feedback,
+        estados,
+        enRepaso,
+        colaRepaso,
+        historial,
+        indicesFallados: [...indicesFallados],
+        tiempoRestante,
+      }))
+    } catch (error) {
+      console.error('[Leccion] No se pudo guardar la sesión actual:', error)
+    }
+  }, [claveSesionLeccion, unidad, preguntasPool.length, cola, correctasIniciales, correctasNuevas, respondido, feedback, estados, enRepaso, colaRepaso, historial, indicesFallados, tiempoRestante])
 
   // Congela el aviso "Error anterior" en el momento en que cambia la
   // pregunta que se está mostrando (la cabeza de "cola"), en vez de leer
@@ -337,7 +406,11 @@ export default function Leccion() {
       ? (colaRepaso[0] || null)
       : (cola.length > 0 ? getPreguntasDeUnidad(preguntasPool, unidad, tamanoUnidad)[cola[0]] : null)
 
-    setTiempoRestante(calcularTiempoLimiteDecimas(preguntaActual))
+    if (restaurandoSesionRef.current) {
+      restaurandoSesionRef.current = false
+    } else {
+      setTiempoRestante(calcularTiempoLimiteDecimas(preguntaActual))
+    }
 
     const id = setInterval(() => {
       setTiempoRestante(prev => (prev <= 1 ? 0 : prev - 1))

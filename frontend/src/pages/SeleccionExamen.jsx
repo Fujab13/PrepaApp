@@ -21,6 +21,26 @@ import { FiChevronUp, FiChevronDown } from 'react-icons/fi';
 
 const REPETIR_TRAS_MS = 380; // dejar presionado: espera antes de girar seguido…
 const REPETIR_CADA_MS = 170; // …y ritmo al que avanza mientras siga presionado
+const CLAVE_ULTIMO_EXAMEN = 'examenes_gratuitos_ultimo'
+
+function leerIndiceGuardado() {
+  try {
+    const ultimoId = localStorage.getItem(CLAVE_ULTIMO_EXAMEN)
+    const indice = EXAMENES_DISPONIBLES.findIndex(examen => examen.id === ultimoId)
+    return indice >= 0 ? indice : 0
+  } catch (error) {
+    console.warn('[SeleccionExamen] No se pudo recuperar el último examen seleccionado:', error)
+    return 0
+  }
+}
+
+function guardarUltimoExamen(examenId) {
+  try {
+    localStorage.setItem(CLAVE_ULTIMO_EXAMEN, examenId)
+  } catch (error) {
+    console.warn('[SeleccionExamen] No se pudo guardar el último examen seleccionado:', error)
+  }
+}
 
 // Flecha cuadrada que avanza/retrocede la tómbola (van juntas en un grupo). Responde al presionar (no
 // al soltar) para sentirse inmediata, y mientras siga presionada repite.
@@ -78,12 +98,18 @@ function BotonFlecha({ direccion, onPaso }) {
 export default function SeleccionExamen() {
   const navigate = useNavigate();
   const tombolaRef = useRef(null);
-  const [indice, setIndice] = useState(0);
+  const [indice, setIndice] = useState(leerIndiceGuardado);
   const examen = EXAMENES_DISPONIBLES[indice];
 
   const elegirExamen = (elegido) => {
+    guardarUltimoExamen(elegido.id);
     triggerVibration('success');
     navigate(`/examen/${elegido.id}`);
+  };
+
+  const cambiarIndice = (nuevoIndice) => {
+    setIndice(nuevoIndice);
+    guardarUltimoExamen(EXAMENES_DISPONIBLES[nuevoIndice].id);
   };
 
   return (
@@ -120,7 +146,8 @@ export default function SeleccionExamen() {
             ref={tombolaRef}
             examenes={EXAMENES_DISPONIBLES}
             onElegir={elegirExamen}
-            onCambio={setIndice}
+            onCambio={cambiarIndice}
+            indiceInicial={indice}
           />
         </div>
 
