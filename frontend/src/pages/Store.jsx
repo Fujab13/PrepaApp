@@ -8,6 +8,7 @@ import { supabase } from '../services/supabaseClient'
 import { MdToken } from 'react-icons/md'
 import { HiCheckCircle, HiOutlineShoppingBag } from 'react-icons/hi2'
 import { AiOutlineClose } from "react-icons/ai";
+import { HiOutlineMinus, HiOutlinePlus, HiOutlineXMark } from 'react-icons/hi2'
 import { PiShoppingCartSimpleFill } from "react-icons/pi";
 import { BiSolidCoin } from "react-icons/bi";
 import { PiHexagonDuotone  } from "react-icons/pi";
@@ -15,10 +16,23 @@ import { renderIconoMateria } from '../utils/renderIconoMateria'
 import { MASCOTAS, paletaSilueta, tamanoCeldaPixelArt } from '../data/mascotas'
 import PixelArt from '../components/PixelArt'
 import { ProductosPremiumSkeleton } from '../components/skeletons/TiendaSkeleton'
+import ConfirmDialog from '../components/ConfirmDialog'
 
 // Referencia estable (ver PixelArt.jsx: memo) — un objeto literal inline en
 // el JSX de abajo se recrearía en cada render y anularía la memoización.
 const ESTILO_SPRITE_TIENDA = { maxWidth: '100%', height: 'auto', color: 'var(--text-muted)' }
+
+function estiloControlCantidad(deshabilitado, primario = false) {
+  return {
+    width: 32, height: 32, flexShrink: 0, borderRadius: 9, padding: 0,
+    border: `1px solid ${primario ? '#1688e5' : deshabilitado ? 'var(--border)' : '#1688e5'}`,
+    background: primario ? '#1688e5' : deshabilitado ? 'transparent' : 'rgba(22,136,229,0.14)',
+    color: primario ? '#fff' : deshabilitado ? 'var(--text-muted)' : '#1688e5',
+    fontSize: '1rem', fontWeight: 700,
+    cursor: deshabilitado ? 'not-allowed' : 'pointer',
+    display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+  }
+}
 
 // Los encabezados de categoría son solo texto, sin icono — también para
 // categorías nuevas que se agreguen a futuro.
@@ -38,6 +52,8 @@ export default function Store() {
   const { esAdmin } = useAuth()
   const [feedback, setFeedback] = useState(null)
   const [loadingId, setLoadingId] = useState(null)
+  const [compraMonedasPendiente, setCompraMonedasPendiente] = useState(null)
+  const [cantidadCompra, setCantidadCompra] = useState(1)
 
   // Panel de pruebas (solo admin): oculto para cualquier otra cuenta, ni
   // siquiera con un cursor distinto al tocar el saldo — no hay pista visual
@@ -169,7 +185,7 @@ export default function Store() {
           </div>
 
           <button
-            onClick={() => manejarCompra(item)}
+            onClick={() => solicitarCompra(item)}
             disabled={owned || isLoading}
             style={{
               minHeight: 44, padding: '0 18px', borderRadius: 12, border: 'none', flexShrink: 0,
@@ -228,7 +244,7 @@ export default function Store() {
 
         <button
           className="btn-footer-scroll"
-          onClick={() => (owned && esTema ? elegirTema(temaEstaActivo ? null : item.temaId) : manejarCompra(item))}
+          onClick={() => (owned && esTema ? elegirTema(temaEstaActivo ? null : item.temaId) : solicitarCompra(item))}
           disabled={(owned && !esTema) || isLoading || (item.type === 'coins' && !owned && !puedeComprar)}
           style={{
             background: temaEstaActivo
@@ -269,7 +285,16 @@ export default function Store() {
     setTimeout(() => setFeedback(null), 2200)
   }
 
-  async function manejarCompra(item) {
+  function solicitarCompra(item) {
+    if (item.type === 'coins') {
+      setCantidadCompra(1)
+      setCompraMonedasPendiente(item)
+      return
+    }
+    manejarCompra(item)
+  }
+
+  async function manejarCompra(item, cantidad = 1) {
     if (ownsItem(item.id) || loadingId) return
     setLoadingId(item.id)
 
@@ -278,10 +303,10 @@ export default function Store() {
       // La comida es consumible (se puede comprar varias veces, ver
       // comprarComida en StoreContext.jsx) — todo lo demás es un
       // desbloqueo único de toda la vida (purchaseWithCoins).
-      const result = item.comidaCantidad ? comprarComida(item) : purchaseWithCoins(item)
+      const result = item.comidaCantidad ? comprarComida(item, cantidad) : purchaseWithCoins(item)
       if (result.ok) {
         mostrarFeedback('success', item.comidaCantidad
-          ? `+${item.comidaCantidad} de comida para tus mascotas`
+          ? `+${item.comidaCantidad * cantidad} de comida para tus mascotas`
           : `¡Desbloqueaste "${item.nombre}"!`)
       } else if (result.reason === 'insufficient_funds') {
         mostrarFeedback('error', 'No tienes suficientes monedas')
@@ -484,7 +509,7 @@ export default function Store() {
                           ) : (
                             <button
                               type="button"
-                              onClick={() => manejarCompra(item)}
+                              onClick={() => solicitarCompra(item)}
                               disabled={isLoading || !puedeComprar}
                               className="btn-footer-scroll"
                               style={{
@@ -536,6 +561,103 @@ export default function Store() {
           {feedback.text}
         </div>
       )}
+
+      <ConfirmDialog
+        abierto={Boolean(compraMonedasPendiente)}
+        titulo={compraMonedasPendiente?.nombre}
+        mensaje={compraMonedasPendiente?.comidaCantidad
+          ? undefined
+          : `Costo: ${compraMonedasPendiente?.priceCoins ?? 0} monedas.`}
+        textoCancelar="Cancelar"
+        textoConfirmar="Comprar"
+        colorCancelar="#ef4444"
+        colorConfirmar="#22c55e"
+        acciones={compraMonedasPendiente?.comidaCantidad ? (
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: 4, marginTop: 8 }}>
+            <span
+              aria-label={`Se descontarán ${compraMonedasPendiente.priceCoins * cantidadCompra} monedas`}
+              style={{
+                flex: 1, minWidth: 0, display: 'flex', alignItems: 'center', justifyContent: 'center',
+                gap: 4, color: 'var(--text)', fontSize: '0.82rem', fontWeight: 800,
+                fontVariantNumeric: 'tabular-nums', whiteSpace: 'nowrap',
+                minHeight: 32, padding: '0 8px', border: '1px solid var(--text-muted)',
+                borderRadius: 9,
+              }}
+            >
+              <span aria-hidden="true">−</span>
+              <PiHexagonDuotone aria-hidden="true" style={{ color: '#facc15', fontSize: '1rem', flexShrink: 0 }} />
+              {compraMonedasPendiente.priceCoins * cantidadCompra}
+            </span>
+            <button
+              type="button"
+              aria-label="Quitar un paquete"
+              title="Quitar un paquete"
+              disabled={cantidadCompra <= 1}
+              onClick={() => setCantidadCompra(cantidad => Math.max(1, cantidad - 1))}
+              style={estiloControlCantidad(cantidadCompra <= 1)}
+            >
+              <HiOutlineMinus />
+            </button>
+            <span aria-live="polite" aria-label={`${cantidadCompra} paquetes`} style={{
+              width: 24, flexShrink: 0, textAlign: 'center', color: 'var(--text)', fontWeight: 800,
+              fontVariantNumeric: 'tabular-nums',
+            }}>
+              {cantidadCompra}
+            </span>
+            <button
+              type="button"
+              aria-label="Agregar un paquete"
+              title="Agregar un paquete"
+              disabled={cantidadCompra >= Math.floor(coins / compraMonedasPendiente.priceCoins)}
+              onClick={() => setCantidadCompra(cantidad => Math.min(
+                Math.floor(coins / compraMonedasPendiente.priceCoins),
+                cantidad + 1,
+              ))}
+              style={estiloControlCantidad(cantidadCompra >= Math.floor(coins / compraMonedasPendiente.priceCoins))}
+            >
+              <HiOutlinePlus />
+            </button>
+            <button
+              type="button"
+              aria-label="Cancelar compra"
+              title="Cancelar"
+              onClick={() => setCompraMonedasPendiente(null)}
+              style={{
+                ...estiloControlCantidad(false),
+                borderColor: '#ef4444',
+                background: 'rgba(239,68,68,0.14)',
+                color: '#ef4444',
+              }}
+            >
+              <HiOutlineXMark />
+            </button>
+            <button
+              type="button"
+              aria-label={`Comprar por ${compraMonedasPendiente.priceCoins * cantidadCompra} monedas`}
+              title="Comprar"
+              onClick={() => {
+                const item = compraMonedasPendiente
+                setCompraMonedasPendiente(null)
+                if (item) manejarCompra(item, cantidadCompra)
+              }}
+              style={{
+                ...estiloControlCantidad(false, true),
+                borderColor: '#22c55e',
+                background: '#22c55e',
+                color: '#052e16',
+              }}
+            >
+              <HiOutlineShoppingBag />
+            </button>
+          </div>
+        ) : undefined}
+        onCancelar={() => setCompraMonedasPendiente(null)}
+        onConfirmar={() => {
+          const item = compraMonedasPendiente
+          setCompraMonedasPendiente(null)
+          if (item) manejarCompra(item, cantidadCompra)
+        }}
+      />
 
       {/* Panel de pruebas para admin: solo llega a existir en el DOM si
           esAdmin (ver tocarSaldo) — nada que un usuario normal pueda

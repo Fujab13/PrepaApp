@@ -7,9 +7,12 @@ export default function ConfirmDialog({
   abierto,
   titulo,
   mensaje,
+  contenido,
   textoConfirmar = 'Confirmar',
   textoCancelar = 'Cancelar',
   colorConfirmar = '#7c5cbf',
+  colorCancelar,
+  acciones,
   onConfirmar,
   onCancelar,
 }) {
@@ -83,39 +86,43 @@ export default function ConfirmDialog({
           </p>
         )}
 
-        <div style={{ display: 'flex', gap: 10, marginTop: 14 }}>
-          <button
-            onClick={cerrar}
-            className="cd-btn"
-            style={{
-              flex: 1,
-              background: 'transparent',
-              border: '1px solid rgba(255,255,255,0.12)',
-              borderRadius: 12,
-              color: 'var(--text-muted)',
-              fontWeight: 600,
-              fontSize: '0.88rem',
-            }}
-          >
-            {textoCancelar}
-          </button>
-          <button
-            onClick={() => onConfirmar && onConfirmar()}
-            className="cd-btn"
-            style={{
-              flex: 1,
-              background: colorConfirmar,
-              border: 'none',
-              borderRadius: 12,
-              color: '#fff',
-              fontWeight: 700,
-              fontSize: '0.88rem',
-              boxShadow: '0 8px 20px -10px rgba(0,0,0,0.6)',
-            }}
-          >
-            {textoConfirmar}
-          </button>
-        </div>
+        {contenido}
+
+        {acciones || (
+          <div style={{ display: 'flex', gap: 10, marginTop: 14 }}>
+            <button
+              onClick={cerrar}
+              className="cd-btn"
+              style={{
+                flex: 1,
+                background: colorCancelar ? `${colorCancelar}14` : 'transparent',
+                border: `1px solid ${colorCancelar || 'rgba(255,255,255,0.12)'}`,
+                borderRadius: 12,
+                color: colorCancelar || 'var(--text-muted)',
+                fontWeight: 600,
+                fontSize: '0.88rem',
+              }}
+            >
+              {textoCancelar}
+            </button>
+            <button
+              onClick={() => onConfirmar && onConfirmar()}
+              className="cd-btn"
+              style={{
+                flex: 1,
+                background: colorConfirmar,
+                border: 'none',
+                borderRadius: 12,
+                color: '#fff',
+                fontWeight: 700,
+                fontSize: '0.88rem',
+                boxShadow: '0 8px 20px -10px rgba(0,0,0,0.6)',
+              }}
+            >
+              {textoConfirmar}
+            </button>
+          </div>
+        )}
       </div>
     </div>
   )

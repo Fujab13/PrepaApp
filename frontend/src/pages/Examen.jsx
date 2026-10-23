@@ -20,12 +20,15 @@ import { useConfirmarSalida } from "../hooks/useConfirmarSalida";
 import { useImpulsoActivo } from "../hooks/useImpulsoActivo";
 import MascotaCompanera from "../components/MascotaCompanera";
 import { convertirTextoParaVoz } from "../utils/latexAHabla";
+import { hablarTexto, detenerLectura } from "../utils/tts";
+import { esNavegadorEmbebido, intentarAbrirEnNavegador } from "../utils/navegadorEmbebido";
 
 import { AiOutlineClose } from "react-icons/ai";
+import { FaGoogle, FaVolumeUp } from "react-icons/fa";
 import ExamenSkeleton from "../components/skeletons/ExamenSkeleton";
 import { IoIosArrowBack } from "react-icons/io";
 import { IoIosArrowForward } from "react-icons/io";
-import { HiOutlineSquares2X2 } from "react-icons/hi2";
+import { HiOutlineEye, HiOutlineEyeSlash, HiOutlineSquares2X2 } from "react-icons/hi2";
 import { IoBookmarkOutline } from "react-icons/io5";
 // ════════════════════════════════════════════════════════════════════════════
 // ─── CONFIGURACIÓN ──────────────────────────────────────────────────────────
@@ -33,6 +36,15 @@ import { IoBookmarkOutline } from "react-icons/io5";
 const CONFIG = {
   TIEMPO_RECOMENDADO_SEG: 90, // Tiempo recomendado PROMEDIO por pregunta (en segundos) — ver calcularTiempoPreguntaSeg más abajo, que reparte este mismo ritmo según el largo real de cada pregunta en vez de dar siempre el mismo número fijo.
 };
+const CLAVE_BORRADOR_EXAMEN = (examenId) => `borrador_examen_${examenId}`;
+
+function eliminarBorradorExamen(examenId) {
+  try {
+    localStorage.removeItem(CLAVE_BORRADOR_EXAMEN(examenId));
+  } catch (error) {
+    console.warn('[Examen] No se pudo eliminar el intento guardado:', error);
+  }
+}
 // ════════════════════════════════════════════════════════════════════════════
 // ─── HELPERS ────────────────────────────────────────────────────────────────
 // ════════════════════════════════════════════════════════════════════════════
@@ -167,24 +179,30 @@ export default function Examen() {
   const [indexActual, setIndexActual] = useState(0);     // índice en preguntas
   const [respuestas,  setRespuestas]  = useState({});    // { id: 'A'|'B'|'C'... }
   const [marcadas,    setMarcadas]    = useState(new Set()); // ids marcados
+  const [sesionLista, setSesionLista] = useState(false);
+  const [borradorPendiente, setBorradorPendiente] = useState(null);
   const [matrizOpen,  setMatrizOpen]  = useState(false);
   const [confirmacion, setConfirmacion] = useState(null);
+  const [leyendo, setLeyendo] = useState(false);
+  const [mostrarRespuestaCorrecta, setMostrarRespuestaCorrecta] = useState(false);
 
-  // Salir a medio examen (botón "X" o botón Atrás del navegador) pierde
-  // todas las respuestas: nada se guarda hasta terminar. `replace: true`
-  // sobreescribe la entrada "centinela" que empuja useConfirmarSalida, para
-  // no dejar un "atrás" fantasma que regrese aquí de nuevo.
+  useEffect(() => () => detenerLectura(), []);
+
+  // Salir a medio examen conserva el intento local para ofrecer continuarlo
+  // o reiniciarlo al volver. `replace: true` sobreescribe la entrada
+  // "centinela" que empuja useConfirmarSalida, para no dejar un "atrás"
+  // fantasma que regrese aquí de nuevo.
   const confirmarSalir = useCallback(() => {
     setConfirmacion({
       titulo: "Salir del examen",
-      mensaje: "Se perderán todas tus respuestas.",
+      mensaje: "Tu avance y tus respuestas se guardarán para que puedas continuar después.",
       textoConfirmar: "Salir",
       colorConfirmar: "var(--wrong)",
       accion: () => navigate('/', { replace: true }),
     });
   }, [navigate]);
 
-  useConfirmarSalida(!cargandoExamen && !errorExamen, confirmarSalir);
+  useConfirmarSalida(!cargandoExamen && !errorExamen && sesionLista, confirmarSalir);
 
   // Tiempos por pregunta (en segundos usados)
   const tiemposRef = useRef({});
@@ -199,23 +217,59 @@ export default function Examen() {
   const [tiempoGlobal, setTiempoGlobal] = useState(null);
   const tiempoGlobalRef = useRef(null);
   const tiempoGlobalInicialRef = useRef(null);
+  const restaurandoBorradorRef = useRef(false);
+  const borradorFinalizadoRef = useRef(false);
 
   useEffect(() => {
-    if (!preguntas || tiempoGlobalInicialRef.current !== null) return;
+    if (!preguntas) return;
+    let borrador = null;
+    try {
+      const raw = localStorage.getItem(CLAVE_BORRADOR_EXAMEN(examenId));
+      borrador = raw ? JSON.parse(raw) : null;
+    } catch (error) {
+      console.warn('[Examen] No se pudo leer el intento guardado:', error);
+      eliminarBorradorExamen(examenId);
+    }
+
+    const idsActuales = preguntas.map(p => p.id);
+    const esValido = borrador
+      && Array.isArray(borrador.idsPreguntas)
+      && borrador.idsPreguntas.length === idsActuales.length
+      && borrador.idsPreguntas.every((id, i) => id === idsActuales[i])
+      && Number.isInteger(borrador.indiceActual)
+      && borrador.indiceActual >= 0
+      && borrador.indiceActual < preguntas.length
+      && borrador.respuestas
+      && typeof borrador.respuestas === 'object'
+      && Array.isArray(borrador.marcadas)
+      && Number.isFinite(borrador.tiempoGlobal)
+      && borrador.tiempoGlobal > 0;
+
+    if (esValido) {
+      setBorradorPendiente(borrador);
+      return;
+    }
+    if (borrador) {
+      console.warn('[Examen] El intento guardado no coincide con este examen; se descartará.');
+      eliminarBorradorExamen(examenId);
+    }
+
     const inicial = calcularTiempoGlobalSegundos(preguntas.length);
     tiempoGlobalInicialRef.current = inicial;
     tiempoGlobalRef.current = inicial;
     setTiempoGlobal(inicial);
-  }, [preguntas]);
+    setSesionLista(true);
+  }, [preguntas, examenId]);
 
   useEffect(() => {
+    if (!sesionLista) return;
     const id = setInterval(() => {
       if (tiempoGlobalRef.current === null) return; // todavía no se sabe la duración total
       tiempoGlobalRef.current -= 1;
       setTiempoGlobal(prev => (prev === null ? null : prev - 1));
     }, 1000);
     return () => clearInterval(id);
-  }, []);
+  }, [sesionLista]);
 
   // ── Cronómetro por pregunta (cuenta hacia 0 desde un tiempo calculado según
   // el largo de CADA pregunta — ver calcularTiempoPreguntaSeg) ──
@@ -227,20 +281,91 @@ export default function Examen() {
   // async): guarda el tiempo usado y reinicia el contador con el tiempo
   // propio de la nueva pregunta.
   useEffect(() => {
+    if (!sesionLista) return;
+    if (restaurandoBorradorRef.current) {
+      restaurandoBorradorRef.current = false;
+      return;
+    }
     const preguntaSiguiente = preguntas?.[indexActual];
+    detenerLectura();
+    setLeyendo(false);
     const seg = preguntaSiguiente ? calcularTiempoPreguntaSeg(preguntaSiguiente) : CONFIG.TIEMPO_RECOMENDADO_SEG;
     tiempoPregRef.current = seg;
     setTiempoPregunta(seg);
     startTimeRef.current = Date.now();
-  }, [indexActual, preguntas]);
+  }, [indexActual, preguntas, sesionLista]);
 
   useEffect(() => {
+    if (!sesionLista) return;
     const id = setInterval(() => {
       tiempoPregRef.current -= 1;
       setTiempoPregunta(prev => prev - 1);
     }, 1000);
     return () => clearInterval(id);
-  }, [indexActual]);
+  }, [indexActual, sesionLista]);
+
+  function comenzarNuevoExamen() {
+    eliminarBorradorExamen(examenId);
+    setBorradorPendiente(null);
+    setIndexActual(0);
+    setRespuestas({});
+    setMarcadas(new Set());
+    tiemposRef.current = {};
+    borradorFinalizadoRef.current = false;
+    const inicial = calcularTiempoGlobalSegundos(preguntas.length);
+    tiempoGlobalInicialRef.current = inicial;
+    tiempoGlobalRef.current = inicial;
+    setTiempoGlobal(inicial);
+    const tiempoInicialPregunta = calcularTiempoPreguntaSeg(preguntas[0]);
+    tiempoPregRef.current = tiempoInicialPregunta;
+    setTiempoPregunta(tiempoInicialPregunta);
+    startTimeRef.current = Date.now();
+    setSesionLista(true);
+  }
+
+  function continuarExamenGuardado() {
+    if (!borradorPendiente) return;
+    const borrador = borradorPendiente;
+    restaurandoBorradorRef.current = true;
+    borradorFinalizadoRef.current = false;
+    setIndexActual(borrador.indiceActual);
+    setRespuestas(borrador.respuestas);
+    setMarcadas(new Set(borrador.marcadas));
+    tiemposRef.current = borrador.tiempos && typeof borrador.tiempos === 'object' ? borrador.tiempos : {};
+
+    const duracionTotal = calcularTiempoGlobalSegundos(preguntas.length);
+    const restanteGlobal = Math.max(1, Math.min(duracionTotal, Math.floor(borrador.tiempoGlobal)));
+    tiempoGlobalInicialRef.current = duracionTotal;
+    tiempoGlobalRef.current = restanteGlobal;
+    setTiempoGlobal(restanteGlobal);
+
+    const duracionPregunta = calcularTiempoPreguntaSeg(preguntas[borrador.indiceActual]);
+    const restantePregunta = Number.isFinite(borrador.tiempoPregunta)
+      ? Math.max(1, Math.min(duracionPregunta, Math.floor(borrador.tiempoPregunta)))
+      : duracionPregunta;
+    tiempoPregRef.current = restantePregunta;
+    setTiempoPregunta(restantePregunta);
+    startTimeRef.current = Date.now() - (duracionPregunta - restantePregunta) * 1000;
+    setBorradorPendiente(null);
+    setSesionLista(true);
+  }
+
+  useEffect(() => {
+    if (!sesionLista || borradorPendiente || borradorFinalizadoRef.current || !preguntas) return;
+    try {
+      localStorage.setItem(CLAVE_BORRADOR_EXAMEN(examenId), JSON.stringify({
+        idsPreguntas: preguntas.map(p => p.id),
+        indiceActual: indexActual,
+        respuestas,
+        marcadas: [...marcadas],
+        tiempos: tiemposRef.current,
+        tiempoGlobal,
+        tiempoPregunta,
+      }));
+    } catch (error) {
+      console.error('[Examen] No se pudo guardar el intento para continuar después:', error);
+    }
+  }, [sesionLista, borradorPendiente, preguntas, examenId, indexActual, respuestas, marcadas, tiempoGlobal, tiempoPregunta]);
 
   // ── Pregunta actual ───────────────────────────────────────────────────────
   // Optional chaining porque, mientras cargandoExamen/errorExamen siguen
@@ -252,6 +377,53 @@ export default function Examen() {
   const pregunta       = preguntas?.[indexActual];
   const seccionIdx     = pregunta ? getSectionIndex(pregunta.id) : -1;
   const seccion        = seccionIdx >= 0 ? secciones?.[seccionIdx] : undefined;
+
+  function buscarExplicacionEnGoogle() {
+    if (!pregunta) return;
+
+    const opciones = Array.isArray(pregunta.respuestas) ? pregunta.respuestas : [];
+    const contexto = [
+      pregunta.pregunta,
+      opciones.length > 0 ? `Opciones:\n${opciones.join("\n")}` : "",
+    ].filter(Boolean).join("\n\n");
+    const prompt = `Explícame cómo resolver esta pregunta paso a paso:\n\n${contexto}`;
+
+    navigator.clipboard?.writeText(prompt)?.catch(() => {});
+    window.open(`https://www.google.com/search?q=${encodeURIComponent(prompt)}`, "_blank", "noopener,noreferrer");
+  }
+
+  function alternarLectura() {
+    if (leyendo) {
+      detenerLectura();
+      setLeyendo(false);
+      return;
+    }
+
+    if (esNavegadorEmbebido()) {
+      setConfirmacion({
+        titulo: "Lectura en voz alta no disponible aquí",
+        mensaje: "El navegador dentro de Instagram no deja reproducir audio de lectura. Ábrelo en tu navegador normal para poder usarla.",
+        textoConfirmar: "Abrir en el navegador",
+        textoCancelar: "Ahora no",
+        colorConfirmar: seccion?.color,
+        accion: () => intentarAbrirEnNavegador(),
+      });
+      return;
+    }
+
+    const iniciado = hablarTexto(pregunta?.pregunta, { onEnd: () => setLeyendo(false) });
+    if (iniciado) {
+      setLeyendo(true);
+      return;
+    }
+
+    setConfirmacion({
+      titulo: "Lectura en voz alta no disponible",
+      mensaje: "Este navegador no permite reproducir audio de lectura.",
+      textoConfirmar: "Entendido",
+      colorConfirmar: seccion?.color,
+    });
+  }
 
   // ── Guardar tiempo al cambiar de pregunta ─────────────────────────────────
   const guardarTiempoPregunta = useCallback((id) => {
@@ -345,6 +517,8 @@ export default function Examen() {
       // Última pregunta → ir a resultados
       const enviar = () => {
         guardarTiempoPregunta(pregunta.id);
+        borradorFinalizadoRef.current = true;
+        eliminarBorradorExamen(examenId);
         guardarResultadoExamen({
           respuestasFinal: respuestas,
           tiempoTotalSegundos: tiempoGlobalInicialRef.current - tiempoGlobal,
@@ -395,7 +569,7 @@ export default function Examen() {
     }
 
     avanzar();
-  }, [indexActual, totalPreguntas, seccionIdx, seccion, pregunta?.id, preguntas, secciones, respuestas, marcadas, tiempoGlobal, guardarTiempoPregunta, guardarResultadoExamen, navigate]);
+  }, [indexActual, totalPreguntas, seccionIdx, seccion, pregunta?.id, preguntas, secciones, respuestas, marcadas, tiempoGlobal, guardarTiempoPregunta, guardarResultadoExamen, navigate, examenId]);
 
   // ── Seleccionar respuesta ─────────────────────────────────────────────────
   const seleccionarRespuesta = (inciso) => {
@@ -417,8 +591,10 @@ export default function Examen() {
   // real" (ver arriba) — sin este chequeo, `null <= 0` da `true` en JS y
   // esto dispararía apenas monta, antes de saber cuántas preguntas hay.
   useEffect(() => {
-    if (tiempoGlobal !== null && tiempoGlobal <= 0 && pregunta) {
+    if (sesionLista && tiempoGlobal !== null && tiempoGlobal <= 0 && pregunta) {
       guardarTiempoPregunta(pregunta.id);
+      borradorFinalizadoRef.current = true;
+      eliminarBorradorExamen(examenId);
       guardarResultadoExamen({
         respuestasFinal: respuestas,
         tiempoTotalSegundos: tiempoGlobalInicialRef.current,
@@ -439,7 +615,7 @@ export default function Examen() {
         },
       });
     }
-  }, [tiempoGlobal]);
+  }, [tiempoGlobal, sesionLista]);
 
   // ── Carga/error del examen: recién aquí, después de declarar todos los
   // hooks de arriba (deben correr siempre en el mismo orden en cada
@@ -449,7 +625,25 @@ export default function Examen() {
   // carga, hasta que el efecto de arriba calcule la duración real) para que
   // el cronómetro nunca se alcance a pintar en 0:00:00 por una fracción de
   // segundo antes del valor real. ──────
-  if (cargandoExamen || errorExamen || !pregunta || tiempoGlobal === null) {
+  if (borradorPendiente && !sesionLista) {
+    return (
+      <>
+        <ExamenSkeleton />
+        <ConfirmDialog
+          abierto
+          titulo="Examen pendiente"
+          mensaje="¿Continuar o empezar de nuevo?"
+          textoConfirmar="Continuar"
+          textoCancelar="Reiniciar"
+          colorConfirmar={seccion?.color}
+          onCancelar={comenzarNuevoExamen}
+          onConfirmar={continuarExamenGuardado}
+        />
+      </>
+    );
+  }
+
+  if (cargandoExamen || errorExamen || !pregunta || tiempoGlobal === null || !sesionLista) {
     if (!errorExamen) return <ExamenSkeleton />
     return (
       <div style={{
@@ -626,7 +820,7 @@ export default function Examen() {
               fontVariantNumeric: "tabular-nums",
               boxShadow: `0 6px 14px -8px ${colorSeccion}`,
             }}>
-              #{indexActual + 1}
+              {`{ ${indexActual + 1} }`}
             </div>
             {esMarcada && (
               <div style={{
@@ -681,6 +875,72 @@ export default function Examen() {
           }}>
             <Latex texto={pregunta.pregunta} />
           </div>
+          <div style={{ display: "flex", justifyContent: "flex-end", gap: 8, marginTop: 10 }}>
+            <button
+              onClick={buscarExplicacionEnGoogle}
+              title="Buscar explicación con Google"
+              aria-label="Buscar explicación con Google"
+              className="util-btn fondo-sutil"
+              data-gamificacion="bajo"
+              style={{
+                width: 36,
+                height: 36,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                borderRadius: "50%",
+                color: "var(--text-muted)",
+                fontSize: "0.92rem",
+                transition: "background 0.2s ease, color 0.2s ease",
+              }}
+            >
+              <FaGoogle />
+            </button>
+            <button
+              onClick={alternarLectura}
+              title={leyendo ? "Detener lectura" : "Leer en voz alta"}
+              aria-label={leyendo ? "Detener lectura" : "Leer en voz alta"}
+              aria-pressed={leyendo}
+              className={`util-btn${leyendo ? "" : " fondo-sutil"}`}
+              data-gamificacion="bajo"
+              style={{
+                width: 36,
+                height: 36,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                borderRadius: "50%",
+                background: leyendo ? seccion?.color : undefined,
+                color: leyendo ? "#fff" : "var(--text-muted)",
+                fontSize: "1rem",
+                transition: "background 0.2s ease, color 0.2s ease",
+              }}
+            >
+              <FaVolumeUp />
+            </button>
+            <button
+              onClick={() => setMostrarRespuestaCorrecta(v => !v)}
+              title={mostrarRespuestaCorrecta ? "Ocultar respuesta correcta" : "Mostrar respuesta correcta"}
+              aria-label={mostrarRespuestaCorrecta ? "Ocultar respuesta correcta" : "Mostrar respuesta correcta"}
+              aria-pressed={mostrarRespuestaCorrecta}
+              className={`util-btn${mostrarRespuestaCorrecta ? "" : " fondo-sutil"}`}
+              data-gamificacion="bajo"
+              style={{
+                width: 36,
+                height: 36,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                borderRadius: "50%",
+                background: mostrarRespuestaCorrecta ? "rgba(74, 222, 128, 0.18)" : undefined,
+                color: mostrarRespuestaCorrecta ? "var(--correct)" : "var(--text-muted)",
+                fontSize: "1rem",
+                transition: "background 0.2s ease, color 0.2s ease",
+              }}
+            >
+              {mostrarRespuestaCorrecta ? <HiOutlineEyeSlash /> : <HiOutlineEye />}
+            </button>
+          </div>
         </div>
 
         {/* SVG de la pregunta (si existe) */}
@@ -713,29 +973,33 @@ export default function Examen() {
           {pregunta.respuestas.map((opcion) => {
             const inciso    = opcion.charAt(0); // 'A', 'B', 'C', 'D'...
             const esSelected = respuestas[pregunta.id] === inciso;
+            const esCorrectaRevelada = mostrarRespuestaCorrecta && inciso === pregunta.inciso_correcto;
+            const colorOpcion = esCorrectaRevelada ? "var(--correct)" : esSelected ? colorSeccion : null;
 
             return (
               <button
                 key={inciso}
                 onClick={() => seleccionarRespuesta(inciso)}
-                data-pista-mascota={pistaActiva && inciso === pregunta.inciso_correcto ? "true" : undefined}
+                data-pista-mascota={(pistaActiva || (mostrarRespuestaCorrecta && mascotaSeleccionada && ownsItem(`mascota-${mascotaSeleccionada}`))) && inciso === pregunta.inciso_correcto ? "true" : undefined}
                 aria-pressed={esSelected}
                 className="opcion-btn"
                 style={{
                   display: "flex",
                   alignItems: "flex-start",
                   gap: 12,
-                  background: esSelected ? `${colorSeccion}1f` : "var(--surface2)",
+                  background: esCorrectaRevelada ? "rgba(74, 222, 128, 0.12)" : esSelected ? `${colorSeccion}1f` : "var(--surface2)",
                   // Mismo grosor seleccionada o no: solo cambia el color,
                   // así el texto no "brinca" medio píxel al elegir.
-                  border: `1.5px solid ${esSelected ? colorSeccion : "var(--border)"}`,
+                  border: `1.5px solid ${colorOpcion ?? "var(--border)"}`,
                   borderRadius: 12,
                   padding: "12px 14px",
                   cursor: "pointer",
                   textAlign: "left",
                   color: "var(--text)",
                   width: "100%",
-                  boxShadow: esSelected ? `0 8px 18px -14px ${colorSeccion}` : "none",
+                  boxShadow: esCorrectaRevelada
+                    ? "0 8px 18px -14px var(--correct)"
+                    : esSelected ? `0 8px 18px -14px ${colorSeccion}` : "none",
                 }}
               >
                 {/* Indicador */}
@@ -744,15 +1008,15 @@ export default function Examen() {
                   height: 26,
                   borderRadius: 6,
                   flexShrink: 0,
-                  background: esSelected ? colorSeccion : "var(--surface)",
-                  border: `1px solid ${esSelected ? "transparent" : "var(--border)"}`,
+                  background: esCorrectaRevelada ? "var(--correct)" : esSelected ? colorSeccion : "var(--surface)",
+                  border: `1px solid ${esCorrectaRevelada || esSelected ? "transparent" : "var(--border)"}`,
                   transition: "background 0.2s ease",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
                   fontSize: 12,
                   fontWeight: 700,
-                  color: esSelected ? "#fff" : "var(--text-muted)",
+                  color: esCorrectaRevelada || esSelected ? "#fff" : "var(--text-muted)",
                   marginTop: 1,
                 }}>
                   {inciso}

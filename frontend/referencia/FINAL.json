@@ -1,0 +1,431 @@
+{
+  "nombre": "Examen de Admisión de Álgebra",
+  "secciones": [
+    { "nombre": "Expresiones algebraicas y exponentes", "id_inicio": 1, "id_fin": 15, "color": "#4f8ef7" },
+    { "nombre": "Ecuaciones e inecuaciones", "id_inicio": 16, "id_fin": 30, "color": "#cf3b3b" },
+    { "nombre": "Polinomios y ecuaciones cuadráticas", "id_inicio": 31, "id_fin": 45, "color": "#22c55e" },
+    { "nombre": "Sistemas, funciones y sucesiones", "id_inicio": 46, "id_fin": 60, "color": "#d8c468" }
+  ],
+  "preguntas": [
+    {
+      "id": 1,
+      "pregunta": "Simplifica: $3x(2x-5)-2(x^2-4x)$",
+      "enlace_svg": null,
+      "respuestas": ["A. $4x^2-23x$", "B. $8x^2-7x$", "C. $4x^2-7x$", "D. $4x^2+7x$"],
+      "inciso_correcto": "C"
+    },
+    {
+      "id": 2,
+      "pregunta": "Simplifica, suponiendo $a\\ne0$ y $b\\ne0$: $\\frac{(2a^2b^{-1})^2}{4ab^{-3}}$",
+      "enlace_svg": null,
+      "respuestas": ["A. $a^3b$", "B. $a^3b^{-1}$", "C. $a^2b$", "D. $4a^3b$"],
+      "inciso_correcto": "A"
+    },
+    {
+      "id": 3,
+      "pregunta": "Simplifica e indica la restricción del dominio: $\\frac{x^2-16}{x^2+8x+16}$",
+      "enlace_svg": null,
+      "respuestas": ["A. $\\frac{x+4}{x-4}$, con $x\\ne4$", "B. $\\frac{x-4}{x+4}$, con $x\\ne4$", "C. $\\frac{x+4}{x-4}$, con $x\\ne-4$", "D. $\\frac{x-4}{x+4}$, con $x\\ne-4$"],
+      "inciso_correcto": "D"
+    },
+    {
+      "id": 4,
+      "pregunta": "Simplifica: $\\sqrt{75}-2\\sqrt{12}+\\sqrt{3}$",
+      "enlace_svg": null,
+      "respuestas": ["A. $4\\sqrt{3}$", "B. $2\\sqrt{3}$", "C. $\\sqrt{3}$", "D. $8\\sqrt{3}$"],
+      "inciso_correcto": "B"
+    },
+    {
+      "id": 5,
+      "pregunta": "Racionaliza el denominador de $\\frac{3}{\\sqrt{5}+\\sqrt{2}}$.",
+      "enlace_svg": null,
+      "respuestas": ["A. $\\sqrt{5}-\\sqrt{2}$", "B. $\\frac{\\sqrt{5}-\\sqrt{2}}{7}$", "C. $3(\\sqrt{5}-\\sqrt{2})$", "D. $\\sqrt{5}+\\sqrt{2}$"],
+      "inciso_correcto": "A"
+    },
+    {
+      "id": 6,
+      "pregunta": "Desarrolla y simplifica: $(x+2)^2-(x-2)^2$",
+      "enlace_svg": null,
+      "respuestas": ["A. $2x^2+8$", "B. $4x$", "C. $8x+8$", "D. $8x$"],
+      "inciso_correcto": "D"
+    },
+    {
+      "id": 7,
+      "pregunta": "Simplifica: $\\frac{2x}{3}-\\frac{x-1}{4}$",
+      "enlace_svg": null,
+      "respuestas": ["A. $\\frac{5x-3}{12}$", "B. $\\frac{8x-3}{12}$", "C. $\\frac{5x+3}{12}$", "D. $\\frac{x+3}{7}$"],
+      "inciso_correcto": "C"
+    },
+    {
+      "id": 8,
+      "pregunta": "Simplifica e indica las restricciones: $\\frac{4}{x-1}-\\frac{2}{x+1}$",
+      "enlace_svg": null,
+      "respuestas": ["A. $\\frac{2(x-3)}{x^2-1}$, $x\\ne\\pm1$", "B. $\\frac{2(x+3)}{x^2-1}$, $x\\ne\\pm1$", "C. $\\frac{2(x+3)}{x^2+1}$, $x\\ne1$", "D. $\\frac{2x+6}{x^2-1}$, sin restricciones"],
+      "inciso_correcto": "B"
+    },
+    {
+      "id": 9,
+      "pregunta": "Simplifica la expresión: $(a-b)^2+2ab$",
+      "enlace_svg": null,
+      "respuestas": ["A. $a^2-b^2$", "B. $a^2+2ab+b^2$", "C. $a^2-2ab+b^2$", "D. $a^2+b^2$"],
+      "inciso_correcto": "D"
+    },
+    {
+      "id": 10,
+      "pregunta": "Calcula: $\\left(\\frac{8}{27}\\right)^{-2/3}$",
+      "enlace_svg": null,
+      "respuestas": ["A. $\\frac{9}{4}$", "B. $\\frac{4}{9}$", "C. $\\frac{3}{2}$", "D. $\\frac{9}{2}$"],
+      "inciso_correcto": "A"
+    },
+    {
+      "id": 11,
+      "pregunta": "Simplifica e indica las restricciones del dominio: $\\frac{x^2-9}{x^2-3x}$",
+      "enlace_svg": null,
+      "respuestas": ["A. $\\frac{x-3}{x}$, $x\\ne0,3$", "B. $\\frac{x+3}{x-3}$, $x\\ne0$", "C. $\\frac{x+3}{x}$, $x\\ne0,3$", "D. $\\frac{x-3}{x+3}$, $x\\ne-3,0$"],
+      "inciso_correcto": "C"
+    },
+    {
+      "id": 12,
+      "pregunta": "Si $x\\ge0$, simplifica: $\\sqrt{18x^2}$",
+      "enlace_svg": null,
+      "respuestas": ["A. $3x\\sqrt{2}$", "B. $9x\\sqrt{2}$", "C. $3\\sqrt{2x}$", "D. $6x\\sqrt{2}$"],
+      "inciso_correcto": "A"
+    },
+    {
+      "id": 13,
+      "pregunta": "Calcula: $\\left(\\frac{1}{2}\\right)^{-3}+2^{-1}$",
+      "enlace_svg": null,
+      "respuestas": ["A. $\\frac{15}{2}$", "B. $\\frac{9}{2}$", "C. $\\frac{17}{4}$", "D. $\\frac{17}{2}$"],
+      "inciso_correcto": "D"
+    },
+    {
+      "id": 14,
+      "pregunta": "Simplifica: $\\frac{x+1}{2}+\\frac{x-3}{3}$",
+      "enlace_svg": null,
+      "respuestas": ["A. $\\frac{5x+3}{6}$", "B. $\\frac{5x-3}{6}$", "C. $\\frac{2x-2}{5}$", "D. $\\frac{5x-1}{6}$"],
+      "inciso_correcto": "B"
+    },
+    {
+      "id": 15,
+      "pregunta": "Simplifica e indica la restricción: $\\frac{a^2-b^2}{a-b}$",
+      "enlace_svg": null,
+      "respuestas": ["A. $a-b$, con $a\\ne b$", "B. $a^2+b^2$, con $a\\ne b$", "C. $a+b$, con $a\\ne b$", "D. $a+b$, con $a\\ne-b$"],
+      "inciso_correcto": "C"
+    },
+    {
+      "id": 16,
+      "pregunta": "Resuelve: $5(2x-1)-3(x+4)=4x+10$",
+      "enlace_svg": null,
+      "respuestas": ["A. $x=3$", "B. $x=9$", "C. $x=8$", "D. $x=-9$"],
+      "inciso_correcto": "B"
+    },
+    {
+      "id": 17,
+      "pregunta": "Despeja $b$ en la fórmula del área de un trapecio: $A=\\frac{(B+b)h}{2}$",
+      "enlace_svg": null,
+      "respuestas": ["A. $b=\\frac{2A-B}{h}$", "B. $b=\\frac{A}{2h}-B$", "C. $b=2Ah-B$", "D. $b=\\frac{2A}{h}-B$"],
+      "inciso_correcto": "D"
+    },
+    {
+      "id": 18,
+      "pregunta": "Resuelve: $\\frac{x-2}{3}+\\frac{x+1}{2}=5$",
+      "enlace_svg": null,
+      "respuestas": ["A. $x=\\frac{31}{5}$", "B. $x=5$", "C. $x=6$", "D. $x=\\frac{29}{5}$"],
+      "inciso_correcto": "A"
+    },
+    {
+      "id": 19,
+      "pregunta": "Resuelve: $0.4x-1.2=0.1x+3$",
+      "enlace_svg": null,
+      "respuestas": ["A. $x=12$", "B. $x=10$", "C. $x=14$", "D. $x=\\frac{14}{3}$"],
+      "inciso_correcto": "C"
+    },
+    {
+      "id": 20,
+      "pregunta": "Resuelve la inecuación: $5-2(3x-1)\\le x+8$",
+      "enlace_svg": null,
+      "respuestas": ["A. $x\\le-\\frac{1}{7}$", "B. $x\\ge-\\frac{1}{7}$", "C. $x\\le\\frac{1}{7}$", "D. $x\\ge\\frac{1}{7}$"],
+      "inciso_correcto": "B"
+    },
+    {
+      "id": 21,
+      "pregunta": "Resuelve: $|2x-3|=7$",
+      "enlace_svg": null,
+      "respuestas": ["A. $x=5$ o $x=2$", "B. $x=-5$ o $x=2$", "C. $x=2$", "D. $x=5$ o $x=-2$"],
+      "inciso_correcto": "D"
+    },
+    {
+      "id": 22,
+      "pregunta": "Resuelve la inecuación: $2x+3<5x-6$",
+      "enlace_svg": null,
+      "respuestas": ["A. $x< -3$", "B. $x<3$", "C. $x>3$", "D. $x> -3$"],
+      "inciso_correcto": "C"
+    },
+    {
+      "id": 23,
+      "pregunta": "Resuelve la inecuación compuesta: $-3<2x+1\\le7$",
+      "enlace_svg": null,
+      "respuestas": ["A. $-2<x\\le3$", "B. $-2\\le x<3$", "C. $-4<x\\le6$", "D. $-1<x\\le3$"],
+      "inciso_correcto": "A"
+    },
+    {
+      "id": 24,
+      "pregunta": "Resuelve la ecuación e identifica la solución válida: $\\frac{2}{x-1}=\\frac{1}{x+2}$",
+      "enlace_svg": null,
+      "respuestas": ["A. $x=5$", "B. $x=-5$", "C. $x=-1$", "D. $x=1$"],
+      "inciso_correcto": "B"
+    },
+    {
+      "id": 25,
+      "pregunta": "Resuelve: $3^x=81$",
+      "enlace_svg": null,
+      "respuestas": ["A. $x=3$", "B. $x=5$", "C. $x=9$", "D. $x=4$"],
+      "inciso_correcto": "D"
+    },
+    {
+      "id": 26,
+      "pregunta": "Resuelve en los números reales: $\\sqrt{2x+3}=x$",
+      "enlace_svg": null,
+      "respuestas": ["A. $x=-1$", "B. $x=3$ o $x=-1$", "C. $x=3$", "D. No tiene solución real"],
+      "inciso_correcto": "C"
+    },
+    {
+      "id": 27,
+      "pregunta": "Resuelve la inecuación: $2|x-1|\\le6$",
+      "enlace_svg": null,
+      "respuestas": ["A. $-2\\le x\\le4$", "B. $-3\\le x\\le3$", "C. $x\\le-2$ o $x\\ge4$", "D. $-4\\le x\\le2$"],
+      "inciso_correcto": "A"
+    },
+    {
+      "id": 28,
+      "pregunta": "Resuelve: $\\frac{4x}{5}-\\frac{x}{2}=3$",
+      "enlace_svg": null,
+      "respuestas": ["A. $x=6$", "B. $x=\\frac{30}{13}$", "C. $x=15$", "D. $x=10$"],
+      "inciso_correcto": "D"
+    },
+    {
+      "id": 29,
+      "pregunta": "Resuelve: $7-\\frac{2x+1}{3}=x$",
+      "enlace_svg": null,
+      "respuestas": ["A. $x=5$", "B. $x=4$", "C. $x=\\frac{20}{3}$", "D. $x=\\frac{7}{5}$"],
+      "inciso_correcto": "B"
+    },
+    {
+      "id": 30,
+      "pregunta": "Resuelve: $\\frac{2(x-3)}{5}-\\frac{x+1}{2}=1$",
+      "enlace_svg": null,
+      "respuestas": ["A. $x=27$", "B. $x=-3$", "C. $x=-27$", "D. $x=3$"],
+      "inciso_correcto": "C"
+    },
+    {
+      "id": 31,
+      "pregunta": "Factoriza completamente: $x^2-11x+24$",
+      "enlace_svg": null,
+      "respuestas": ["A. $(x-4)(x-6)$", "B. $(x+3)(x-8)$", "C. $(x+3)(x+8)$", "D. $(x-3)(x-8)$"],
+      "inciso_correcto": "D"
+    },
+    {
+      "id": 32,
+      "pregunta": "Factoriza: $6x^2+x-2$",
+      "enlace_svg": null,
+      "respuestas": ["A. $(3x-2)(2x+1)$", "B. $(3x+2)(2x-1)$", "C. $(6x-2)(x+1)$", "D. $(3x+2)(2x+1)$"],
+      "inciso_correcto": "B"
+    },
+    {
+      "id": 33,
+      "pregunta": "Factoriza completamente por agrupación: $x^3-4x^2-x+4$",
+      "enlace_svg": null,
+      "respuestas": ["A. $(x-1)(x+1)(x-4)$", "B. $(x-1)(x-4)^2$", "C. $(x+1)(x+4)(x-1)$", "D. $(x-4)(x^2+1)$"],
+      "inciso_correcto": "A"
+    },
+    {
+      "id": 34,
+      "pregunta": "Factoriza completamente: $(2x-3)^2-25$",
+      "enlace_svg": null,
+      "respuestas": ["A. $4(x-1)(x-4)$", "B. $(2x-8)(2x-2)$", "C. $4(x-4)(x+1)$", "D. $4(x+4)(x-1)$"],
+      "inciso_correcto": "C"
+    },
+    {
+      "id": 35,
+      "pregunta": "Completa el cuadrado: expresa $x^2+6x+13$ en la forma $(x+h)^2+k$.",
+      "enlace_svg": null,
+      "respuestas": ["A. $(x+6)^2-23$", "B. $(x+3)^2+13$", "C. $(x-3)^2+4$", "D. $(x+3)^2+4$"],
+      "inciso_correcto": "D"
+    },
+    {
+      "id": 36,
+      "pregunta": "Resuelve: $x^2-4x-12=0$",
+      "enlace_svg": null,
+      "respuestas": ["A. $x=6$ o $x=-2$", "B. $x=2$ o $x=-6$", "C. $x=6$ o $x=2$", "D. $x=4$ o $x=-3$"],
+      "inciso_correcto": "A"
+    },
+    {
+      "id": 37,
+      "pregunta": "Resuelve: $3x^2-12x+12=0$",
+      "enlace_svg": null,
+      "respuestas": ["A. $x=2$ o $x=-2$", "B. $x=2$ (raíz doble)", "C. $x=4$ (raíz doble)", "D. $x=1$ o $x=3$"],
+      "inciso_correcto": "B"
+    },
+    {
+      "id": 38,
+      "pregunta": "Resuelve en los números reales: $x^2+2x-7=0$",
+      "enlace_svg": null,
+      "respuestas": ["A. $x=-1\\pm\\sqrt{7}$", "B. $x=1\\pm2\\sqrt{2}$", "C. $x=-1\\pm2\\sqrt{2}$", "D. $x=-2\\pm\\sqrt{7}$"],
+      "inciso_correcto": "C"
+    },
+    {
+      "id": 39,
+      "pregunta": "¿Qué ecuación cuadrática tiene como raíces $2$ y $-5$ y coeficiente principal igual a $2$?",
+      "enlace_svg": null,
+      "respuestas": ["A. $2x^2-6x-20=0$", "B. $x^2+3x-10=0$", "C. $2x^2+3x-10=0$", "D. $2x^2+6x-20=0$"],
+      "inciso_correcto": "D"
+    },
+    {
+      "id": 40,
+      "pregunta": "¿Cuál es el discriminante de $2x^2-5x+1=0$?",
+      "enlace_svg": null,
+      "respuestas": ["A. $33$", "B. $17$", "C. $9$", "D. $-17$"],
+      "inciso_correcto": "B"
+    },
+    {
+      "id": 41,
+      "pregunta": "¿Qué valor de $k$ hace que $x^2-5x+k=0$ tenga una raíz real doble?",
+      "enlace_svg": null,
+      "respuestas": ["A. $k=\\frac{25}{4}$", "B. $k=5$", "C. $k=\\frac{5}{2}$", "D. $k=25$"],
+      "inciso_correcto": "A"
+    },
+    {
+      "id": 42,
+      "pregunta": "¿Cuál es el valor mínimo de $x^2-4x+8$ para $x\\in\\mathbb{R}$?",
+      "enlace_svg": null,
+      "respuestas": ["A. $8$", "B. $2$", "C. $4$", "D. $0$"],
+      "inciso_correcto": "C"
+    },
+    {
+      "id": 43,
+      "pregunta": "Resuelve la inecuación: $x^2-9<0$",
+      "enlace_svg": null,
+      "respuestas": ["A. $x<-3$ o $x>3$", "B. $x\\le-3$ o $x\\ge3$", "C. $-3\\le x\\le3$", "D. $-3<x<3$"],
+      "inciso_correcto": "D"
+    },
+    {
+      "id": 44,
+      "pregunta": "Resuelve la inecuación: $x^2-5x+6\\ge0$",
+      "enlace_svg": null,
+      "respuestas": ["A. $2<x<3$", "B. $x\\le2$ o $x\\ge3$", "C. $x\\ge2$ y $x\\le3$", "D. $x<2$ o $x>3$"],
+      "inciso_correcto": "B"
+    },
+    {
+      "id": 45,
+      "pregunta": "Resuelve: $x+\\frac{6}{x}=5$",
+      "enlace_svg": null,
+      "respuestas": ["A. $x=2$ o $x=3$", "B. $x=-2$ o $x=-3$", "C. $x=1$ o $x=6$", "D. $x=5$ o $x=6$"],
+      "inciso_correcto": "A"
+    },
+    {
+      "id": 46,
+      "pregunta": "Resuelve el sistema: $x+y=11$ y $2x-y=4$.",
+      "enlace_svg": null,
+      "respuestas": ["A. $(x,y)=(6,5)$", "B. $(x,y)=(5,6)$", "C. $(x,y)=(4,7)$", "D. $(x,y)=(3,8)$"],
+      "inciso_correcto": "B"
+    },
+    {
+      "id": 47,
+      "pregunta": "¿Cuántas soluciones tiene el sistema $2x-4y=6$ y $x-2y=5$?",
+      "enlace_svg": null,
+      "respuestas": ["A. Exactamente una solución", "B. Infinitas soluciones", "C. Ninguna solución", "D. Exactamente dos soluciones"],
+      "inciso_correcto": "C"
+    },
+    {
+      "id": 48,
+      "pregunta": "Una entrada de adulto y dos de niño cuestan 70 pesos; dos entradas de adulto y una de niño cuestan 80 pesos. ¿Cuánto cuesta una entrada de adulto?",
+      "enlace_svg": null,
+      "respuestas": ["A. 30 pesos", "B. 25 pesos", "C. 20 pesos", "D. 35 pesos"],
+      "inciso_correcto": "A"
+    },
+    {
+      "id": 49,
+      "pregunta": "Si $f(x)=2x^2-3x+4$, calcula $f(-2)$.",
+      "enlace_svg": null,
+      "respuestas": ["A. $10$", "B. $6$", "C. $-2$", "D. $18$"],
+      "inciso_correcto": "D"
+    },
+    {
+      "id": 50,
+      "pregunta": "Si $f(x)=3x-5$ y $g(x)=2-x$, ¿para qué valor de $x$ se cumple $f(x)=g(x)$?",
+      "enlace_svg": null,
+      "respuestas": ["A. $x=\\frac{1}{4}$", "B. $x=\\frac{7}{5}$", "C. $x=\\frac{7}{4}$", "D. $x=\\frac{5}{4}$"],
+      "inciso_correcto": "C"
+    },
+    {
+      "id": 51,
+      "pregunta": "¿Cuál es el dominio real de $f(x)=\\sqrt{5-2x}$?",
+      "enlace_svg": null,
+      "respuestas": ["A. $x\\le\\frac{5}{2}$", "B. $x\\ge\\frac{5}{2}$", "C. $x<\\frac{5}{2}$", "D. $x\\in\\mathbb{R}$"],
+      "inciso_correcto": "A"
+    },
+    {
+      "id": 52,
+      "pregunta": "¿Cuál es el rango de $f(x)=(x-2)^2+3$ para $x\\in\\mathbb{R}$?",
+      "enlace_svg": null,
+      "respuestas": ["A. $(-\\infty,3]$", "B. $[3,\\infty)$", "C. $[2,\\infty)$", "D. $(3,\\infty)$"],
+      "inciso_correcto": "B"
+    },
+    {
+      "id": 53,
+      "pregunta": "¿Cuál es la ecuación de la recta que pasa por $(2,-1)$ y tiene pendiente $3$?",
+      "enlace_svg": null,
+      "respuestas": ["A. $y=3x+7$", "B. $y=-3x+5$", "C. $y=2x-5$", "D. $y=3x-7$"],
+      "inciso_correcto": "D"
+    },
+    {
+      "id": 54,
+      "pregunta": "Una sucesión aritmética tiene primer término $a_1=7$ y diferencia común $d=-3$. ¿Cuál es su término $a_{12}$?",
+      "enlace_svg": null,
+      "respuestas": ["A. $-26$", "B. $-23$", "C. $-29$", "D. $-20$"],
+      "inciso_correcto": "A"
+    },
+    {
+      "id": 55,
+      "pregunta": "Una sucesión geométrica comienza $3,-6,12,\\ldots$. ¿Cuál es su término general?",
+      "enlace_svg": null,
+      "respuestas": ["A. $a_n=3(-2)^n$", "B. $a_n=-3(2)^{n-1}$", "C. $a_n=3(-2)^{n-1}$", "D. $a_n=3(2)^{n-1}$"],
+      "inciso_correcto": "C"
+    },
+    {
+      "id": 56,
+      "pregunta": "Calcula la suma de los primeros $20$ términos de la sucesión aritmética $4,6,8,10,\\ldots$.",
+      "enlace_svg": null,
+      "respuestas": ["A. $420$", "B. $460$", "C. $480$", "D. $440$"],
+      "inciso_correcto": "B"
+    },
+    {
+      "id": 57,
+      "pregunta": "Calcula la suma de los primeros $5$ términos de la sucesión geométrica $2,6,18,\\ldots$.",
+      "enlace_svg": null,
+      "respuestas": ["A. $162$", "B. $486$", "C. $728$", "D. $242$"],
+      "inciso_correcto": "D"
+    },
+    {
+      "id": 58,
+      "pregunta": "Si $f(x)=x^2-4x+1$, ¿cuál es la expresión simplificada de $f(x+2)-f(x)$?",
+      "enlace_svg": null,
+      "respuestas": ["A. $4x+4$", "B. $4x-4$", "C. $2x-4$", "D. $4x$"],
+      "inciso_correcto": "B"
+    },
+    {
+      "id": 59,
+      "pregunta": "Si $f(x)=\\frac{2x-1}{3}$, ¿cuál es la función inversa $f^{-1}(x)$?",
+      "enlace_svg": null,
+      "respuestas": ["A. $\\frac{x-1}{2}$", "B. $\\frac{2x+1}{3}$", "C. $\\frac{3x+1}{2}$", "D. $\\frac{3x-1}{2}$"],
+      "inciso_correcto": "C"
+    },
+    {
+      "id": 60,
+      "pregunta": "Si $x+\\frac{1}{x}=3$, ¿cuánto vale $x^2+\\frac{1}{x^2}$?",
+      "enlace_svg": null,
+      "respuestas": ["A. $7$", "B. $5$", "C. $6$", "D. $8$"],
+      "inciso_correcto": "A"
+    }
+  ]
+}
