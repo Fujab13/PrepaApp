@@ -1,16 +1,37 @@
 // AjustesSkeleton.jsx
-// Silueta de pages/Ajustes.jsx mientras se cuentan los datos del usuario (y
-// fallback de <Suspense> de su ruta): barra con "Ajustes", sección "Tu
-// cuenta" (usuario) y "Tus datos" con una fila por opción. Los títulos son
-// fijos y se muestran de verdad; solo el estado y el botón se sombrean.
+// Replica la estructura completa de Ajustes sin renderizar contenedores
+// cargados por componentes hijos, evitando skeletons superpuestos.
 
 import { Skeleton, SkeletonPantalla, SkeletonBarra } from '../Skeleton'
-
-const FILAS = ['Resultados del examen', 'Formulario de área']
+import RecordatoriosAjustesSkeleton from './RecordatoriosAjustesSkeleton'
 
 const ENCABEZADO = {
   color: 'var(--text-muted)', fontSize: '0.72rem', fontWeight: 700,
   textTransform: 'uppercase', letterSpacing: '1.3px', margin: 0,
+}
+
+const TARJETA = {
+  background: 'var(--surface2)', borderRadius: 'var(--radius)', overflow: 'hidden',
+}
+
+const FILA = {
+  minHeight: 68, display: 'flex', alignItems: 'center', gap: 12,
+  padding: '12px 16px',
+}
+
+function TarjetaFilas({ filas, accion = 78 }) {
+  return (
+    <div style={TARJETA}>
+      {filas.map((filasFila, i) => (
+        <div key={i} style={{ ...FILA, borderTop: i > 0 ? '1px solid var(--border)' : 'none' }}>
+          <div style={{ flex: 1, minWidth: 0 }}>
+            <Skeleton width={filasFila} height={13} radius={5} sutil />
+          </div>
+          <Skeleton width={accion} height={44} radius={12} sutil />
+        </div>
+      ))}
+    </div>
+  )
 }
 
 export default function AjustesSkeleton() {
@@ -22,27 +43,30 @@ export default function AjustesSkeleton() {
       <SkeletonBarra titulo="Ajustes" />
       <div className="page-content-compact" style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
         <p style={ENCABEZADO}>Tu cuenta</p>
-        <div style={{ background: 'var(--surface2)', borderRadius: 'var(--radius)', display: 'flex', alignItems: 'center', gap: 12, padding: '12px 16px' }}>
-          <div style={{ flex: 1 }}>
-            <Skeleton width={130} height={13} sutil />
+        <TarjetaFilas filas={['58%']} />
+
+        <p style={{ ...ENCABEZADO, marginTop: 8 }}>Notificaciones</p>
+        <RecordatoriosAjustesSkeleton />
+
+        <p style={{ ...ENCABEZADO, marginTop: 8 }}>Música</p>
+        <div style={TARJETA}>
+          <div style={FILA}>
+            <div style={{ flex: 1 }}><Skeleton width="53%" height={13} radius={5} sutil /></div>
+            <Skeleton circle height={44} sutil />
+            <Skeleton width={56} height={44} radius={14} sutil />
           </div>
-          <Skeleton width={78} height={44} radius={12} sutil />
+          <div style={{ ...FILA, minHeight: 48, borderTop: '1px solid var(--border)' }}>
+            <div style={{ flex: 1 }}><Skeleton width="24%" height={13} radius={5} sutil /></div>
+            <Skeleton width={18} height={18} radius={5} sutil />
+          </div>
         </div>
 
         <p style={{ ...ENCABEZADO, marginTop: 8 }}>Tus datos</p>
-        <div style={{ background: 'var(--surface2)', borderRadius: 'var(--radius)', overflow: 'hidden' }}>
-          {FILAS.map((titulo, i) => (
-            <div
-              key={titulo}
-              style={{
-                display: 'flex', alignItems: 'center', gap: 12, padding: '12px 16px',
-                borderTop: i > 0 ? '1px solid var(--border)' : 'none',
-              }}
-            >
-              <p style={{ flex: 1, margin: 0, fontSize: '0.92rem', fontWeight: 600, color: 'var(--text)' }}>{titulo}</p>
-              <Skeleton width={78} height={44} radius={12} sutil />
-            </div>
-          ))}
+        <TarjetaFilas filas={['52%', '44%']} />
+
+        <div style={{ ...TARJETA, ...FILA, width: '100%', marginTop: 4 }}>
+          <div style={{ flex: 1 }}><Skeleton width="38%" height={13} radius={5} sutil /></div>
+          <Skeleton width={18} height={18} radius={5} sutil />
         </div>
       </div>
     </SkeletonPantalla>

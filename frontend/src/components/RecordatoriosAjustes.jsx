@@ -18,7 +18,7 @@ import {
   obtenerPreferenciasRecordatorio,
   guardarPreferenciasRecordatorio,
 } from '../services/pushNotifications'
-import { Skeleton } from './Skeleton'
+import RecordatoriosAjustesSkeleton from './skeletons/RecordatoriosAjustesSkeleton'
 
 const FRECUENCIAS = [
   { dias: 1, texto: 'Diario' },
@@ -41,7 +41,7 @@ const estiloBoton = {
   border: '1px solid var(--border)', color: 'var(--text)', fontWeight: 700, fontSize: '0.82rem',
 }
 
-export default function RecordatoriosAjustes({ user }) {
+export default function RecordatoriosAjustes({ user, onReady }) {
   const soportadas = notificacionesSoportadas()
   const [activas, setActivas] = useState(null)
   const [prefs, setPrefs] = useState(null)
@@ -58,6 +58,7 @@ export default function RecordatoriosAjustes({ user }) {
       if (cancelado) return
       setActivas(Boolean(sub))
       setPrefs(p ? { frecuenciaDias: p.frecuencia_dias, hora: p.hora } : POR_DEFECTO)
+      onReady?.()
     })
     return () => { cancelado = true }
   }, [user.id, soportadas])
@@ -103,13 +104,7 @@ export default function RecordatoriosAjustes({ user }) {
   }
 
   if (activas === null || prefs === null) {
-    return (
-      <div style={estiloTarjeta} aria-busy="true">
-        <Skeleton width="55%" height={13} sutil />
-        <Skeleton height={40} radius={999} sutil />
-        <Skeleton height={44} radius={12} sutil />
-      </div>
-    )
+    return <RecordatoriosAjustesSkeleton />
   }
 
   const bloqueado = estadoPermiso() === 'denied'
