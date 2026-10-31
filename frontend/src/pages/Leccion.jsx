@@ -566,6 +566,7 @@ export default function Leccion() {
       <EscaneoRecompensa
         materiaId={materiaId}
         unidad={resumen.unidad}
+        totalUnidades={totalUnidades}
         colorAcento={materia.color}
         modoDificil={modoDificil}
         precisionAlta={resumen.precisionAlta}
@@ -582,6 +583,7 @@ export default function Leccion() {
   const pregunta  = enRepaso
     ? (colaRepaso[0] || null)
     : (idxActual !== null ? preguntas[idxActual] : null)
+  const tutorialNavegacion = materiaId === 'espanol' && unidad === 1 && !enRepaso && idxActual === 4
 
   if (cargando || cargandoProgreso || !colaLista || preguntas.length === 0 || !pregunta) {
     if (!errorCarga) return <LeccionSkeleton color={materia?.color} icono={materia?.icono} />
@@ -902,6 +904,7 @@ export default function Leccion() {
   }
 
   function omitirUnidad() {
+    if (materiaId === 'espanol' && unidad === 1) return
     setConfirmacion({
       titulo: 'Omitir unidad',
       mensaje: `Esto te adelantará a la unidad ${unidad + 1} sin terminar la unidad actual.`,
@@ -994,9 +997,13 @@ export default function Leccion() {
           <button
             onClick={() => setMenuAbierto(v => !v)}
             title="Navegación rápida"
-            className="page-topbar-btn"
+            className={`page-topbar-btn${tutorialNavegacion ? ' leccion-navegacion-tutorial' : ''}`}
             data-gamificacion="bajo"
-            style={{ fontSize: '1.35rem', background: 'transparent', border: 'none' }}
+            style={{
+              fontSize: '1.35rem',
+              background: 'transparent',
+              border: 'none',
+            }}
           >
             {renderIconoMateria(materia.icono)}
           </button>
@@ -1057,13 +1064,15 @@ export default function Leccion() {
                   onClick={() => { setMenuAbierto(false); omitirUnidad() }}
                   title="Omitir unidad"
                   className="util-btn"
+                  disabled={materiaId === 'espanol' && unidad === 1}
                   style={{
                     width: 44, height: 44,
                     display: 'flex', alignItems: 'center', justifyContent: 'center',
                     borderRadius: 10,
                     background: 'var(--surface)',
-                    color: 'var(--wrong)',
+                    color: materiaId === 'espanol' && unidad === 1 ? 'var(--text-muted)' : 'var(--wrong)',
                     fontSize: '1.1rem',
+                    opacity: materiaId === 'espanol' && unidad === 1 ? 0.4 : 1,
                   }}
                 >
                   <MdSkipNext />

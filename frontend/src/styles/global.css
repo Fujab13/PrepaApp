@@ -830,7 +830,7 @@ display: flex;
 .mascotas-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 10px;
+  gap: 8.1px;
 }
 
 .mascotas-card {
@@ -853,7 +853,8 @@ display: flex;
 
 @media (max-width: 420px) {
   .mascotas-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 5px;
   }
 
   .mascotas-sandbox-marco {
@@ -908,6 +909,32 @@ display: flex;
 }
 .mascota-comida-cae {
   animation: mascota-comida-cae 0.65s cubic-bezier(0.55, 0, 1, 0.45) forwards;
+}
+
+@keyframes leccion-navegacion-halo {
+  0%, 100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.leccion-navegacion-tutorial {
+  position: relative;
+  isolation: isolate;
+}
+
+.leccion-navegacion-tutorial::before {
+  content: '';
+  position: absolute;
+  inset: -120px;
+  z-index: -1;
+  border-radius: 50%;
+  pointer-events: none;
+  background: radial-gradient(circle, rgba(124, 92, 191, 0.78) 0%, rgba(124, 92, 191, 0.38) 38%, rgba(124, 92, 191, 0) 72%);
+  filter: blur(5px);
+  animation: leccion-navegacion-halo 1.8s ease-in-out infinite;
 }
 
 /* Filtro "vision nocturna" del sandbox de Mascota.jsx (FILTRO_DIA/NOCHE): se

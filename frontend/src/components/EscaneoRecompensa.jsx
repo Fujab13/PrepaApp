@@ -87,22 +87,28 @@ function generarValorParaColor(color) {
   return color.valorMin + Math.floor(Math.random() * rango)
 }
 
-function generarPunto(colores) {
+function generarPunto(colores, probabilidadExtraRojo = 0) {
   const color = generarColor(colores)
+  const bonusRojo = Math.random() < probabilidadExtraRojo
   return {
     x: MARGEN + Math.random() * (ANCHO - MARGEN * 2),
     y: MARGEN + Math.random() * (ALTO - MARGEN * 2),
-    puntos: generarValorParaColor(color),
-    color,
+    puntos: generarValorParaColor(bonusRojo ? COLORES_NORMAL.find(c => c.id === 'rojo') : color),
+    color: bonusRojo ? COLORES_NORMAL.find(c => c.id === 'rojo') : color,
     revelado: false,
     reveladoEn: null,
   }
 }
 
-export default function EscaneoRecompensa({ materiaId, unidad, colorAcento = '#7c5cbf', modoDificil = false, precisionAlta = false, onContinuar }) {
+export default function EscaneoRecompensa({ materiaId, unidad, totalUnidades, colorAcento = '#7c5cbf', modoDificil = false, precisionAlta = false, onContinuar }) {
   const colores = modoDificil
     ? (precisionAlta ? COLORES_DIFICIL_PRECISION_ALTA : COLORES_DIFICIL)
     : COLORES_NORMAL
+  const probabilidadExtraRojo = unidad === totalUnidades
+    ? 0.80
+    : unidad === totalUnidades - 1
+      ? 0.60
+      : 0
   const { reclamarRecompensaUnidad } = useStore()
   const canvasRef = useRef(null)
   const puntosRef = useRef([])
@@ -201,7 +207,7 @@ export default function EscaneoRecompensa({ materiaId, unidad, colorAcento = '#7
   function escanear() {
     if (!puedeEscanear) return
 
-    puntosRef.current = Array.from({ length: PUNTOS_POR_ESCANEO }, () => generarPunto(colores))
+    puntosRef.current = Array.from({ length: PUNTOS_POR_ESCANEO }, () => generarPunto(colores, probabilidadExtraRojo))
     sweepXRef.current = 0
     inicioBarridoRef.current = null
     enBarridoRef.current = true
