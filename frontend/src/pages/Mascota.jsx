@@ -3,11 +3,12 @@ import { useNavigate } from 'react-router-dom'
 import { AiOutlineClose } from 'react-icons/ai'
 import { FaHamburger, FaTrash, FaStar, FaRegStar } from 'react-icons/fa'
 import { useStore } from '../context/StoreContext'
-import { MASCOTAS, paletaSilueta, tamanoCeldaPixelArt } from '../data/mascotas'
+import { MASCOTAS, paletaSilueta, quitarPuntoFinal, tamanoCeldaPixelArt } from '../data/mascotas'
 import PixelArt from '../components/PixelArt'
 import ConfirmDialog from '../components/ConfirmDialog'
 import { felicidadDe, textoEdad, estaHambrienta, alimentarMascota, olvidarMascota, activarImpulso } from '../utils/mascotasEstado'
 import { triggerVibration } from '../utils/haptics'
+import texturaSuelo from '../assets/texturas/suelo.png'
 
 // Tamaño de sprite fijo (antes elegible entre Micro/Diminuto vía botones,
 // ahora siempre "micro" — ver historial si hace falta recuperar el toggle).
@@ -36,6 +37,14 @@ const DURACION_DANIO_TOQUES_MS = 500
 // principio a fin, arrancando en día apenas se abre la pantalla.
 const DURACION_DIA_MS = 5 * 60 * 1000 // 5 min por día completo (día + noche)
 const DURACION_FASE_MS = DURACION_DIA_MS / 2 // mitad luz, mitad noche
+const INTERVALO_SECCION_TABLERO_MS = 22000
+const SECCIONES_TABLERO = [
+  { nombre: 'centro', posicion: '50% 50%' },
+  { nombre: 'flanco de rey', posicion: '100% 50%' },
+  { nombre: 'flanco de reina', posicion: '0% 50%' },
+  { nombre: 'sector norte', posicion: '50% 0%' },
+  { nombre: 'sector sur', posicion: '50% 100%' },
+]
 // Mismas funciones de filtro, mismo orden, en ambas — así el navegador
 // puede interpolar cada una al transicionar (ver `transition: filter` en el
 // JSX) en vez de solo cortar de golpe entre "sin filtro" y "con filtro".
@@ -166,7 +175,13 @@ export default function Mascota() {
   // Posición de la luna: se sortea una vez por entrada/recarga (ver
   // posicionLunaAleatoria arriba) y no vuelve a cambiar durante la sesión.
   const [posicionLuna] = useState(posicionLunaAleatoria)
-
+  const [seccionTablero, setSeccionTablero] = useState(0)
+  useEffect(() => {
+    const id = setInterval(() => {
+      setSeccionTablero(actual => (actual + 1) % SECCIONES_TABLERO.length)
+    }, INTERVALO_SECCION_TABLERO_MS)
+    return () => clearInterval(id)
+  }, [])
   // Fuerza a recalcular felicidad/temporizador de cada mascota cada
   // INTERVALO_RELOJ_MS (ver más abajo, donde se leen fresco en cada render).
   const [, setReloj] = useState(0)
@@ -474,9 +489,8 @@ export default function Mascota() {
           <AiOutlineClose />
         </button>
         <h1 className="page-topbar-title">Mascotas</h1>
-        <div className="fondo-sutil" style={{
+        <div className="mascotas-comida-total" style={{
           marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: 6,
-          padding: '6px 12px', borderRadius: 999,
           fontWeight: 700, fontSize: '0.82rem', color: 'var(--text)',
         }}>
           <FaHamburger style={{ color: '#caa46b' }} /> {comida}
@@ -510,12 +524,12 @@ export default function Mascota() {
             degradado + sombra (mismo lenguaje que .sp-card/las tarjetas
             primarias del resto de la app) para que se sienta una pieza de
             UI, no una imagen suelta. */}
-        <div style={{
+        <div className="mascotas-sandbox-marco" style={{
           borderRadius: 24, padding: 4,
           background: 'linear-gradient(145deg, var(--surface2), var(--surface))',
           boxShadow: '0 10px 24px -12px rgba(0, 0, 0, 0.35)',
         }}>
-          <div ref={sandboxRef} style={{
+          <div ref={sandboxRef} className="mascotas-sandbox" style={{
             position: 'relative',
             height: 380,
             borderRadius: 20,
@@ -557,12 +571,12 @@ export default function Mascota() {
               }}>
                 <div style={{
                   position: 'absolute', top: 0, left: '-50%', width: '200%', height: '340%',
-                  backgroundColor: esDeNoche ? '#173d1a' : '#4f9e4f',
-                  transition: 'background-color 1.2s ease',
-                  backgroundImage:
-                    'linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px),' +
-                    'linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px)',
-                  backgroundSize: '34px 34px',
+                  backgroundColor: esDeNoche ? '#173d1a' : '#7f6750',
+                  transition: 'background-color 1.2s ease, background-position 3s ease',
+                  backgroundImage: `url("${texturaSuelo}")`,
+                  backgroundSize: '180% 180%',
+                  backgroundRepeat: 'no-repeat',
+                  backgroundPosition: SECCIONES_TABLERO[seccionTablero].posicion,
                   transform: 'rotateX(62deg)',
                   transformOrigin: 'top',
                 }}>
@@ -662,6 +676,7 @@ export default function Mascota() {
             type="button"
             onClick={alimentarATodos}
             disabled={comida < propias.length}
+            className="mascotas-alimentar-todos"
             style={{
               display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8,
               minHeight: 48, borderRadius: 14, border: 'none',
@@ -684,14 +699,14 @@ export default function Mascota() {
           </button>
         )}
 
-        <p style={{
+        <p className="mascotas-mensaje" style={{
           textAlign: 'center', fontSize: 12.5, color: 'var(--text-muted)', margin: 0,
           minHeight: 16, opacity: mensaje ? 1 : 0, transition: 'opacity 0.2s ease',
         }}>
           {mensaje || '.'}
         </p>
 
-        <div style={{
+        <div className="mascotas-coleccion" style={{
           background: 'var(--surface)', border: '1px solid var(--border)',
           borderRadius: 'var(--radius)', padding: 16,
           display: 'flex', flexDirection: 'column', gap: 12,
@@ -703,14 +718,14 @@ export default function Mascota() {
             Tu colección
           </p>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 10 }}>
+          <div className="mascotas-grid">
             {MASCOTAS.map(m => {
               const tuya = ownsItem(`mascota-${m.id}`)
               const paletaMostrada = tuya ? m.paleta : paletaSilueta(m.id)
               const felicidad = tuya ? felicidadDe(m.id) : 0
 
               return (
-                <div key={m.id} style={{
+                <div key={m.id} className={`mascotas-card${mascotaSeleccionada === m.id ? ' mascotas-card-activa' : ''}`} style={{
                   display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 7,
                   background: 'var(--surface2)', border: '1px solid var(--border)',
                   borderRadius: 14, padding: '14px 8px',
@@ -746,27 +761,29 @@ export default function Mascota() {
                   <span style={{ fontSize: 11.5, fontWeight: 700, color: 'var(--text)' }}>{m.nombre}</span>
                   {tuya ? (
                     <>
-                      <div style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: 4 }}>
-                        <div className="fondo-sutil" style={{ height: 4, borderRadius: 999, overflow: 'hidden' }}>
-                          <div style={{
-                            height: '100%', width: `${felicidad}%`, borderRadius: 999,
-                            background: 'linear-gradient(90deg, var(--correct), #86efac)',
-                            transition: 'width 300ms ease',
-                          }} />
+                      <div style={{ width: '100%', marginTop: 'auto', display: 'flex', flexDirection: 'column', gap: 4 }}>
+                        <div style={{ width: '100%', display: 'flex', flexDirection: 'column' }}>
+                          <div className="fondo-sutil" style={{ height: 4, borderRadius: 999, overflow: 'hidden' }}>
+                            <div style={{
+                              height: '100%', width: `${felicidad}%`, borderRadius: 999,
+                              background: 'linear-gradient(90deg, var(--correct), #86efac)',
+                              transition: 'width 300ms ease',
+                            }} />
+                          </div>
                         </div>
+                        <button
+                          type="button"
+                          onClick={() => setMascotaAEliminar(m)}
+                          style={{
+                            width: '100%', minHeight: 44, borderRadius: 8, border: 'none',
+                            background: 'transparent', color: 'var(--wrong)',
+                            fontSize: 10.5, fontWeight: 700, cursor: 'pointer',
+                            display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 5,
+                          }}
+                        >
+                          <FaTrash size={10} /> Eliminar
+                        </button>
                       </div>
-                      <button
-                        type="button"
-                        onClick={() => setMascotaAEliminar(m)}
-                        style={{
-                          width: '100%', minHeight: 44, borderRadius: 8, border: 'none',
-                          background: 'transparent', color: 'var(--wrong)',
-                          fontSize: 10.5, fontWeight: 700, cursor: 'pointer',
-                          display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 5,
-                        }}
-                      >
-                        <FaTrash size={10} /> Eliminar
-                      </button>
                     </>
                   ) : (
                     <button
@@ -914,7 +931,7 @@ const MascotaViva = forwardRef(function MascotaViva(
       const espera = 6000 + Math.random() * 8000
       timeoutId = setTimeout(() => {
         if (cancelado) return
-        setSonidoActivo(sonidos[Math.floor(Math.random() * sonidos.length)])
+        setSonidoActivo(quitarPuntoFinal(sonidos[Math.floor(Math.random() * sonidos.length)]))
         ocultarId = setTimeout(() => { if (!cancelado) setSonidoActivo(null) }, 1800)
         programar()
       }, espera)
@@ -950,7 +967,7 @@ const MascotaViva = forwardRef(function MascotaViva(
 
   const duracionRebote = felicidad >= 60 ? '0.8s' : felicidad >= 30 ? '1.3s' : '2s'
   const claseTemblor = danioActivo ? 'mascota-danio' : 'mascota-balanceo'
-  const etiqueta = sonidoActivo ?? textoEdad
+  const etiqueta = sonidoActivo ?? quitarPuntoFinal(textoEdad)
   // Las mascotas siempre están sobre el pasto (Y_MIN..Y_MAX cae entero
   // dentro del piso, nunca en el cielo) — blanco + sombra en vez del cian
   // de antes, para que se lea bien sobre el verde.
@@ -987,7 +1004,7 @@ const MascotaViva = forwardRef(function MascotaViva(
       ref={elRef}
       type="button"
       onClick={manejarTap}
-      title={mascota.frase}
+      title={quitarPuntoFinal(mascota.frase)}
       style={{
         position: 'absolute',
         background: 'transparent',
