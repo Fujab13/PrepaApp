@@ -37,6 +37,7 @@ const Ranking = lazy(() => import('./pages/Ranking'));
 // const OfertaConfirmada = lazy(() => import('./pages/OfertaConfirmada'));
 const Ajustes = lazy(() => import('./pages/Ajustes'));
 const AvisoPrivacidad = lazy(() => import('./pages/AvisoPrivacidad'));
+const PreguntasFrecuentes = lazy(() => import('./pages/PreguntasFrecuentes'));
 
 import PaginaSkeleton from './components/skeletons/PaginaSkeleton';
 import { PedirUsuarioPendiente } from './components/ElegirUsuarioDialog';
@@ -115,6 +116,7 @@ export default function App() {
         <Route path="/examen" element={<Suspense fallback={<SeleccionExamenSkeleton />}><SeleccionExamen /></Suspense>} />
         <Route path="/examen/:examenId" element={<Suspense fallback={<ExamenSkeleton />}><Examen /></Suspense>} />
         <Route path="/privacidad" element={<AvisoPrivacidad />} />
+        <Route path="/preguntas-frecuentes" element={<PreguntasFrecuentes />} />
         <Route path="/ajustes" element={<Suspense fallback={<AjustesSkeleton />}><Ajustes /></Suspense>} />
         <Route path="/inventario" element={<Suspense fallback={<InventarioSkeleton />}><Inventario /></Suspense>} />
         <Route path="/mi-mascota" element={<Suspense fallback={<MascotasSkeleton />}><Mascota /></Suspense>} />

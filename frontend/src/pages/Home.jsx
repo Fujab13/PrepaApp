@@ -311,6 +311,7 @@ export default function Home() {
 
   </div>
   <p style={{ margin: 0, fontSize: 13, opacity: 0.7 }}>© 2026 PrepaApp - Todos los derechos reservados</p>
+  <p style={{ margin: '-6px 0 0', fontSize: 12, opacity: 0.55 }}>Version 2.1.8</p>
 </footer>
     </div>
   )

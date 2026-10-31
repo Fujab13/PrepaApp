@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { useStore } from '../context/StoreContext'
-import { MASCOTAS, tamanoCeldaPixelArt } from '../data/mascotas'
+import { MASCOTAS, quitarPuntoFinal, tamanoCeldaPixelArt } from '../data/mascotas'
 import { useImpulsoActivo } from '../hooks/useImpulsoActivo'
 import PixelArt from './PixelArt'
 
@@ -294,7 +294,7 @@ export default function MascotaCompanera() {
             boxShadow: '0 4px 12px -4px rgba(0, 0, 0, 0.4)',
             fontWeight: fraseVisible ? 600 : 700,
           }}>
-            {fraseVisible ? mascota.frase : '¡Aquí!'}
+            {fraseVisible ? quitarPuntoFinal(mascota.frase) : '¡Aquí!'}
           </span>
         )}
         <span className="mascota-balanceo">

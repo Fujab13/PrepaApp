@@ -7,13 +7,14 @@
 
 import { Skeleton, SkeletonPantalla, SkeletonBarra } from '../Skeleton'
 
-// Por tarjeta, de arriba abajo: alto aparente, opacidad y ancho del nombre.
+// Vista frontal simplificada de la tómbola: un cilindro vertical con las
+// tarjetas recortadas dentro, imitando el mismo espacio que el componente real.
 const TARJETAS = [
-  { alto: 26, opacidad: 0.3, ancho: '40%' },
-  { alto: 68, opacidad: 0.6, ancho: '52%' },
-  { alto: 84, opacidad: 1, ancho: '61%' },
-  { alto: 68, opacidad: 0.6, ancho: '45%' },
-  { alto: 26, opacidad: 0.3, ancho: '38%' },
+  { y: 26, alto: 42, ancho: '42%', opacidad: 0.2 },
+  { y: 74, alto: 58, ancho: '72%', opacidad: 0.42 },
+  { y: 102, alto: 84, ancho: '100%', opacidad: 1 },
+  { y: 194, alto: 58, ancho: '72%', opacidad: 0.42 },
+  { y: 246, alto: 42, ancho: '42%', opacidad: 0.2 },
 ]
 
 export default function SeleccionExamenSkeleton() {
@@ -28,22 +29,53 @@ export default function SeleccionExamenSkeleton() {
         className="page-content-compact"
         style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6, paddingTop: 8 }}
       >
-        {TARJETAS.map(({ alto, opacidad, ancho }, i) => (
-          <div
-            key={i}
-            className="skeleton-entrada"
-            style={{
-              width: '100%', maxWidth: 420, height: alto, opacity: opacidad, overflow: 'hidden',
-              background: 'var(--surface2)', borderRadius: 'var(--radius)', padding: '0 16px',
-              border: '2px solid var(--border)',
-              display: 'flex', alignItems: 'center', gap: 14,
-              animationDelay: `${0.2 + i * 0.05}s`,
-            }}
-          >
-            {alto > 40 && <Skeleton width={48} height={Math.min(48, alto - 20)} radius={12} sutil />}
-            <Skeleton width={ancho} height={14} sutil />
-          </div>
-        ))}
+        <div
+          className="skeleton-entrada"
+          aria-hidden="true"
+          style={{
+            position: 'relative', width: '100%', height: 270, overflow: 'hidden',
+            borderRadius: '48% / 14%', animationDelay: '0.15s',
+            background: 'linear-gradient(90deg, color-mix(in srgb, var(--surface2) 72%, transparent), var(--surface2) 18%, var(--surface) 50%, var(--surface2) 82%, color-mix(in srgb, var(--surface2) 72%, transparent))',
+            border: '1px solid var(--border)',
+            boxShadow: 'inset 24px 0 30px -28px rgba(0,0,0,.7), inset -24px 0 30px -28px rgba(0,0,0,.7)',
+          }}
+        >
+          <div style={{
+            position: 'absolute', left: 0, right: 0, top: 0, height: 34, zIndex: 4,
+            background: 'linear-gradient(to bottom, var(--bg), transparent)', opacity: .75,
+          }} />
+          <div style={{
+            position: 'absolute', left: 0, right: 0, bottom: 0, height: 34, zIndex: 4,
+            background: 'linear-gradient(to top, var(--bg), transparent)', opacity: .75,
+          }} />
+          {TARJETAS.map(({ y, alto, ancho, opacidad }, i) => {
+            const central = i === 2
+            return (
+              <div
+                key={i}
+                style={{
+                  position: 'absolute', left: '50%', top: y, height: alto,
+                  width: ancho, transform: 'translateX(-50%)', opacity: opacidad,
+                  zIndex: central ? 3 : 2, overflow: 'hidden',
+                  borderRadius: central ? 'var(--radius)' : 12,
+                  padding: central ? '0 16px' : '0 12px',
+                  border: `1px solid ${central ? 'var(--border-strong)' : 'var(--border)'}`,
+                  background: central ? 'var(--surface2)' : 'color-mix(in srgb, var(--surface2) 88%, transparent)',
+                  boxShadow: central ? '0 12px 24px -18px rgba(0,0,0,.85)' : 'none',
+                  display: 'flex', alignItems: 'center', gap: central ? 14 : 10,
+                }}
+              >
+                <Skeleton
+                  width={central ? 48 : 34}
+                  height={central ? 48 : 34}
+                  radius={central ? 12 : 9}
+                  sutil
+                />
+                <Skeleton width={central ? '62%' : '48%'} height={central ? 14 : 10} radius={5} sutil />
+              </div>
+            )
+          })}
+        </div>
 
         <div style={{
           width: '100%', maxWidth: 420, marginTop: 28, padding: '4px 0',

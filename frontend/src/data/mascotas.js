@@ -74,8 +74,8 @@ export const MASCOTAS = [
     // a propósito, prácticamente el precio de un solo Snack Pack (ver
     // storeItems.js: ~9-10 monedas en promedio por unidad completada).
     precioCoins: 20,
-    frase: 'Te aprueba.',
-    sonidos: ['¡Miau!', 'Miau...', 'Ronroneo...'],
+    frase: 'Te aprueba',
+    sonidos: ['¡Miau!', 'Miau', 'Ronroneo'],
     // El más ágil de los que no saltan.
     atributos: { ritmo: 1.25 },
     paleta: { N: '#1e201f', A: '#8c8d87', B: '#a9a9a9' },
@@ -130,8 +130,8 @@ export const MASCOTAS = [
     id: 'pez',
     nombre: 'Pez',
     precioCoins: 100,
-    frase: 'Burbujas felices.',
-    sonidos: ['Blub...', 'Blub blub...'],
+    frase: 'Burbujas felices',
+    sonidos: ['Blub', 'Blub blub'],
     atributos: { ritmo: 0.9 },
     paleta: { N: '#1f211e', A: '#bf4b1a', B: '#f08132' },
     grid: [
@@ -153,7 +153,7 @@ export const MASCOTAS = [
     id: 'caballo',
     nombre: 'Caballo',
     precioCoins: 240,
-    frase: 'Relincho fuerte.',
+    frase: 'Relincho fuerte',
     sonidos: ['¡Iiiihh!', '¡Brrrm!'],
     // Galopa: el más rápido de todas las mascotas.
     atributos: { ritmo: 1.6 },
@@ -209,7 +209,7 @@ export const MASCOTAS = [
     id: 'gallina',
     nombre: 'Gallina',
     precioCoins: 140,
-    frase: 'Picoteando cerca.',
+    frase: 'Picoteando cerca',
     sonidos: ['¡Cloc cloc!', '¡Coc coc!'],
     atributos: { ritmo: 0.85 },
     paleta: { N: '#1e201f', A: '#c88f38', B: '#f8b437' },
@@ -237,7 +237,7 @@ export const MASCOTAS = [
     id: 'pato',
     nombre: 'Pato',
     precioCoins: 120,
-    frase: 'Nadando feliz.',
+    frase: 'Nadando feliz',
     sonidos: ['¡Cuac!', '¡Cuac cuac!'],
     atributos: { ritmo: 0.8 },
     paleta: { N: '#1e201f', A: '#d6b534', B: '#fccf3e' },
@@ -265,7 +265,7 @@ export const MASCOTAS = [
     id: 'conejo-gris',
     nombre: 'Conejo Gris',
     precioCoins: 280,
-    frase: 'Nariz inquieta.',
+    frase: 'Nariz inquieta',
     // Los conejos no "hablan" — su señal característica es el golpe de pata
     // (thump) con el que avisan, y el salto (ver atributos.salta) en vez de
     // una voz.
@@ -297,7 +297,7 @@ export const MASCOTAS = [
     id: 'conejo-blanco',
     nombre: 'Conejo Blanco',
     precioCoins: 200,
-    frase: 'Saltitos curiosos.',
+    frase: 'Saltitos curiosos',
     sonidos: ['*Thump!*'],
     atributos: { salta: true, ritmo: 1.35 },
     paleta: { N: '#0c0c0c', A: '#202221', B: '#5a5c5b', C: '#8e8d88', D: '#ee9784', E: '#f4eee2', F: '#ffffff' },
@@ -327,8 +327,8 @@ export const MASCOTAS = [
     // El más caro de las mascotas normales (no cosmético de tema): la
     // insignia de la colección, muy por encima del resto a propósito.
     precioCoins: 900,
-    frase: 'Objetivo fijado.',
-    sonidos: ['*postcombustion*', 'Misil fuera.', '*rugido grave*'],
+    frase: 'Objetivo fijado',
+    sonidos: ['*postcombustion*', 'Misil fuera', '*rugido grave*'],
     atributos: { ritmo: 2.8, ataque: 1.5 },
     // Grid a mucha más resolución que el resto (76×66) — tamanoRelativo lo
     // deja notoriamente más grande que las demás mascotas (a propósito, un
@@ -409,8 +409,8 @@ export const MASCOTAS = [
     id: 'jet-lightning',
     nombre: 'Lightning',
     precioCoins: 600,
-    frase: 'Cielo despejado.',
-    sonidos: ['*rugido de turbina*', 'Fiuuum...', '*boom sonico*'],
+    frase: 'Cielo despejado',
+    sonidos: ['*rugido de turbina*', 'Fiuuum', '*boom sonico*'],
     atributos: { ritmo: 3.6, sigilo: 1.3 },
     // Mismo criterio de tamaño que jet-raptor (ver comentario ahí) — grid a
     // 64×58, normalizado a la misma referencia para que ambos jets se vean
@@ -479,6 +479,10 @@ export const MASCOTAS = [
     ],
   },
 ]
+
+export function quitarPuntoFinal(texto) {
+  return typeof texto === 'string' ? texto.replace(/[.]+$/, '').trimEnd() : texto
+}
 
 export function obtenerMascota(id) {
   return MASCOTAS.find(m => m.id === id) || null

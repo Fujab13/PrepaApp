@@ -1,7 +1,6 @@
 # Música enriquecida
 
-Suelta aquí los `.mp3` y se agregan solos a la lista al compilar (no hay que
-registrarlos en ningún lado). El nombre de archivo no importa.
+Suelta aquí los `.mp3` y se agregan solos a la lista al compilar (no hay que registrarlos en ningún lado). El nombre de archivo no importa.
 
 Se activa en Ajustes → Música → "Música enriquecida". Se reproducen en orden
 aleatorio como en un reproductor: se baraja la lista completa, se tocan todas

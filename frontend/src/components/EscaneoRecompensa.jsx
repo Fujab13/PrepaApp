@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { useStore } from '../context/StoreContext'
 import { triggerVibration } from '../utils/haptics'
-import { HiOutlineArrowRight, HiMagnifyingGlass, HiOutlineGift } from 'react-icons/hi2'
 
 // Minijuego de cierre de unidad: la mecánica de "barrido" del radar
 // anterior (RadarMinijuego, ya borrado), pero sin puertas — en vez de
@@ -23,9 +22,9 @@ import { HiOutlineArrowRight, HiMagnifyingGlass, HiOutlineGift } from 'react-ico
 //      tenga revelado en pantalla, cuando guste, con "Reclamar" — si nunca
 //      reclama, no se otorga nada.
 
-const ANCHO = 300
-const ALTO = 170
-const INTENTOS_MAX = 4
+const ANCHO = 360
+const ALTO = 360
+const INTENTOS_MAX = 20
 const PUNTOS_POR_ESCANEO = 4
 const DURACION_BARRIDO_MS = 1300
 const RADIO_BASE = 9
@@ -255,8 +254,8 @@ export default function EscaneoRecompensa({ materiaId, unidad, colorAcento = '#7
   return (
     <div className="escaneo-recompensa-pantalla" style={{
       display: 'flex', flexDirection: 'column', width: '100%',
-      boxSizing: 'border-box', padding: '28px 20px 24px', alignItems: 'center',
-      justifyContent: 'center', gap: 14, textAlign: 'center',
+      boxSizing: 'border-box', padding: '28px 20px calc(88px + env(safe-area-inset-bottom, 0px))', alignItems: 'center',
+      justifyContent: 'center', gap: 14, textAlign: 'center', minHeight: '100dvh',
     }}>
       <div>
         <p style={{ margin: 0, fontSize: 12, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--text-muted)', fontWeight: 700 }}>
@@ -265,9 +264,6 @@ export default function EscaneoRecompensa({ materiaId, unidad, colorAcento = '#7
         <h1 style={{ margin: '4px 0 0', fontSize: '1.15rem', fontWeight: 800, color: 'var(--text)' }}>
           Escanea tu recompensa
         </h1>
-        <p style={{ margin: '4px 0 0', fontSize: 12, color: 'var(--text-muted)' }}>
-          {`Te quedan ${intentosRestantes} de ${INTENTOS_MAX} escaneos. Reclama cuando te guste lo que salió.`}
-        </p>
         {precisionAlta && (
           <p style={{ margin: '6px 0 0', fontSize: 11.5, fontWeight: 700, color: '#ef4444' }}>
             +93% de precisión: el escaneo casi seguro saca algo rojo
@@ -279,7 +275,7 @@ export default function EscaneoRecompensa({ materiaId, unidad, colorAcento = '#7
         ref={canvasRef}
         width={ANCHO}
         height={ALTO}
-        style={{ width: '100%', maxWidth: 340, borderRadius: 10, border: '2px solid var(--surface2)' }}
+        style={{ width: '100%', maxWidth: 420, aspectRatio: '1 / 1', objectFit: 'contain', borderRadius: 12, border: '2px solid var(--surface2)' }}
       />
 
       <div style={{ minHeight: 22, display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap', justifyContent: 'center' }}>
@@ -296,7 +292,7 @@ export default function EscaneoRecompensa({ materiaId, unidad, colorAcento = '#7
         )}
       </div>
 
-      <div style={{ display: 'flex', gap: 10, width: '100%', maxWidth: 340 }}>
+      <div style={{ display: 'flex', gap: 10, width: '100%', maxWidth: 420 }}>
         <button
           type="button"
           onClick={escanear}
@@ -310,7 +306,7 @@ export default function EscaneoRecompensa({ materiaId, unidad, colorAcento = '#7
             opacity: puedeEscanear ? 1 : 0.6,
           }}
         >
-          <HiMagnifyingGlass /> Escanear
+          Escanear
         </button>
         <button
           type="button"
@@ -326,15 +322,9 @@ export default function EscaneoRecompensa({ materiaId, unidad, colorAcento = '#7
             boxShadow: puedeReclamar ? '0 8px 20px -8px rgba(34,197,94,0.6)' : 'none',
           }}
         >
-          <HiOutlineGift /> Reclamar
+          Reclamar
         </button>
       </div>
-
-      {!puedeContinuar && (
-        <p style={{ margin: 0, fontSize: 11.5, color: 'var(--text-muted)' }}>
-          Reclama tu recompensa para continuar.
-        </p>
-      )}
 
       <button
         type="button"
@@ -342,16 +332,17 @@ export default function EscaneoRecompensa({ materiaId, unidad, colorAcento = '#7
         disabled={!puedeContinuar}
         className="gm-cta"
         style={{
-          minHeight: 44, width: '100%', maxWidth: 340, marginTop: 6, borderRadius: 14, border: 'none',
+          position: 'fixed', left: '50%', bottom: 'calc(16px + env(safe-area-inset-bottom, 0px))', transform: 'translateX(-50%)',
+          zIndex: 30, minHeight: 52, width: 'calc(100% - 40px)', maxWidth: 420, borderRadius: 14, border: 'none',
           background: puedeContinuar ? colorAcento : 'var(--surface2)',
           color: puedeContinuar ? '#fff' : 'var(--text-muted)',
           fontWeight: 700, fontSize: 14, cursor: puedeContinuar ? 'pointer' : 'default',
           display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6,
-          boxShadow: puedeContinuar ? `0 10px 24px -8px ${colorAcento}80` : 'none',
+          boxShadow: puedeContinuar ? `0 12px 28px -8px ${colorAcento}80` : 'none',
           opacity: puedeContinuar ? 1 : 0.6,
         }}
       >
-        Continuar <HiOutlineArrowRight />
+        Continuar
       </button>
     </div>
   )

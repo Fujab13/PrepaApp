@@ -87,6 +87,7 @@ export default function Ajustes() {
   }
 
   const [conteos, setConteos] = useState(null) // { examen: n, formulario: n }
+  const [notificacionesListas, setNotificacionesListas] = useState(false)
   const [borrando, setBorrando] = useState(null) // clave en curso
   const [error, setError] = useState('')
   const [confirmacion, setConfirmacion] = useState(null)
@@ -119,6 +120,8 @@ export default function Ajustes() {
     }
   }, [user, conteos])
 
+  const notificacionesCargadas = useCallback(() => setNotificacionesListas(true), [])
+
   const pedirConfirmacion = (op) => {
     setConfirmacion({
       titulo: op.confirmar,
@@ -129,7 +132,14 @@ export default function Ajustes() {
     })
   }
 
-  if (!user || (conteos === null && !error)) return <AjustesSkeleton />
+  if (!user || (conteos === null && !error) || !notificacionesListas) {
+    return (
+      <>
+        <AjustesSkeleton />
+        {user && <div style={{ display: 'none' }}><RecordatoriosAjustes user={user} onReady={notificacionesCargadas} /></div>}
+      </>
+    )
+  }
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
@@ -300,18 +310,32 @@ export default function Ajustes() {
 
         {error && <p style={{ color: 'var(--wrong)', fontSize: '0.8rem', margin: 0, textAlign: 'center' }}>{error}</p>}
 
-        <button
-          type="button"
-          onClick={() => navigate('/privacidad')}
-          style={{
-            ...estiloTarjeta, ...filaStyle(0), width: '100%', minHeight: 52, marginTop: 8,
-            border: 'none', cursor: 'pointer', textAlign: 'left',
-            color: 'var(--text)', fontSize: '0.92rem', fontWeight: 600,
-          }}
-        >
-          <span style={{ flex: 1 }}>Aviso de privacidad</span>
-          <span style={{ color: 'var(--text-muted)', fontSize: '1.2rem' }}>›</span>
-        </button>
+        <div style={{ ...estiloTarjeta, marginTop: 8 }}>
+          <button
+            type="button"
+            onClick={() => navigate('/privacidad')}
+            style={{
+              ...filaStyle(0), width: '100%', minHeight: 52,
+              border: 'none', background: 'transparent', cursor: 'pointer', textAlign: 'left',
+              color: 'var(--text)', fontSize: '0.92rem', fontWeight: 600,
+            }}
+          >
+            <span style={{ flex: 1 }}>Aviso de privacidad</span>
+            <span style={{ color: 'var(--text-muted)', fontSize: '1.2rem' }}>›</span>
+          </button>
+          <button
+            type="button"
+            onClick={() => navigate('/preguntas-frecuentes')}
+            style={{
+              ...filaStyle(1), width: '100%', minHeight: 52,
+              border: 'none', background: 'transparent', cursor: 'pointer', textAlign: 'left',
+              color: 'var(--text)', fontSize: '0.92rem', fontWeight: 600,
+            }}
+          >
+            <span style={{ flex: 1 }}>Preguntas frecuentes</span>
+            <span style={{ color: 'var(--text-muted)', fontSize: '1.2rem' }}>›</span>
+          </button>
+        </div>
       </main>
 
       <ElegirUsuarioDialog
