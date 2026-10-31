@@ -8,8 +8,6 @@ import PixelArt from '../components/PixelArt'
 import ConfirmDialog from '../components/ConfirmDialog'
 import { felicidadDe, textoEdad, estaHambrienta, alimentarMascota, olvidarMascota, activarImpulso } from '../utils/mascotasEstado'
 import { triggerVibration } from '../utils/haptics'
-import texturaSuelo from '../assets/texturas/suelo.png'
-
 // Tamaño de sprite fijo (antes elegible entre Micro/Diminuto vía botones,
 // ahora siempre "micro" — ver historial si hace falta recuperar el toggle).
 // 25% más chico que el "micro" original (era 3).
@@ -20,7 +18,7 @@ const TAMANO_PX = 2.25
 const INTERVALO_RELOJ_MS = 30000
 // Referencia estable (ver PixelArt.jsx: memo) — un objeto literal inline en
 // el JSX de abajo se recrearía en cada render y anularía la memoización.
-const ESTILO_SPRITE_COLECCION = { maxWidth: '100%', height: 'auto', color: 'var(--text-muted)' }
+const ESTILO_SPRITE_COLECCION = { maxWidth: '81%', height: 'auto', color: 'var(--text-muted)' }
 // Toques rápidos seguidos: puramente un chiste visual (mismo temblor que ya
 // existe para "hambrienta" — ver `danioActivo` en MascotaViva), no afecta
 // felicidad/hambre ni nada real. VENTANA_TOQUES_MS es cuánto se le da al
@@ -29,6 +27,30 @@ const ESTILO_SPRITE_COLECCION = { maxWidth: '100%', height: 'auto', color: 'var(
 const TOQUES_PARA_DANIO = 3
 const VENTANA_TOQUES_MS = 600
 const DURACION_DANIO_TOQUES_MS = 500
+const CLAVE_POPOS = 'mascotas_popos'
+const MAX_POPOS = 6
+const MONEDAS_POR_POPO = 3
+
+function leerPopos() {
+  try {
+    const guardados = JSON.parse(localStorage.getItem(CLAVE_POPOS) || '[]')
+    return Array.isArray(guardados) ? guardados.filter(popo =>
+      typeof popo?.id === 'string' &&
+      Number.isFinite(popo.xPercent) &&
+      Number.isFinite(popo.yPercent)
+    ).slice(-MAX_POPOS) : []
+  } catch {
+    return []
+  }
+}
+
+function guardarPopos(popos) {
+  try {
+    localStorage.setItem(CLAVE_POPOS, JSON.stringify(popos))
+  } catch {
+    // Sin almacenamiento disponible, las popós siguen funcionando durante la sesión.
+  }
+}
 
 // ── Ciclo día/noche ──────────────────────────────────────────────────────
 // Ciclo simulado y acelerado (antes se guiaba por la hora real del
@@ -37,14 +59,6 @@ const DURACION_DANIO_TOQUES_MS = 500
 // principio a fin, arrancando en día apenas se abre la pantalla.
 const DURACION_DIA_MS = 5 * 60 * 1000 // 5 min por día completo (día + noche)
 const DURACION_FASE_MS = DURACION_DIA_MS / 2 // mitad luz, mitad noche
-const INTERVALO_SECCION_TABLERO_MS = 22000
-const SECCIONES_TABLERO = [
-  { nombre: 'centro', posicion: '50% 50%' },
-  { nombre: 'flanco de rey', posicion: '100% 50%' },
-  { nombre: 'flanco de reina', posicion: '0% 50%' },
-  { nombre: 'sector norte', posicion: '50% 0%' },
-  { nombre: 'sector sur', posicion: '50% 100%' },
-]
 // Mismas funciones de filtro, mismo orden, en ambas — así el navegador
 // puede interpolar cada una al transicionar (ver `transition: filter` en el
 // JSX) en vez de solo cortar de golpe entre "sin filtro" y "con filtro".
@@ -152,7 +166,7 @@ function nuevoCuerpo(mascota, anchoPx, altoPx) {
 
 export default function Mascota() {
   const navigate = useNavigate()
-  const { ownsItem, comida, consumirComida, removeInventoryItem, mascotaSeleccionada, seleccionarMascota } = useStore()
+  const { ownsItem, comida, consumirComida, addCoins, removeInventoryItem, mascotaSeleccionada, seleccionarMascota } = useStore()
 
   const [mensaje, setMensaje] = useState(null)
   const ocultarMensajeRef = useRef(null)
@@ -162,11 +176,10 @@ export default function Mascota() {
     ocultarMensajeRef.current = setTimeout(() => setMensaje(null), 2400)
   }, [])
 
-  // Ciclo día/noche del sandbox (ver DURACION_DIA_MS/DURACION_FASE_MS
-  // arriba) — arranca en día o noche al azar (así cada vez que se entra o
-  // se recarga se puede ver una parte distinta del ciclo) y alterna cada
-  // DURACION_FASE_MS de ahí en adelante.
-  const [esDeNoche, setEsDeNoche] = useState(() => Math.random() < 0.5)
+  // Ciclo día/noche del sandbox: la noche es el estado predeterminado.
+  // Solo 5% de las entradas arrancan en día; después alterna normalmente
+  // cada DURACION_FASE_MS.
+  const [esDeNoche, setEsDeNoche] = useState(() => Math.random() >= 0.05)
   useEffect(() => {
     const id = setInterval(() => setEsDeNoche(v => !v), DURACION_FASE_MS)
     return () => clearInterval(id)
@@ -175,13 +188,53 @@ export default function Mascota() {
   // Posición de la luna: se sortea una vez por entrada/recarga (ver
   // posicionLunaAleatoria arriba) y no vuelve a cambiar durante la sesión.
   const [posicionLuna] = useState(posicionLunaAleatoria)
-  const [seccionTablero, setSeccionTablero] = useState(0)
+  const [popos, setPopos] = useState(leerPopos)
+
   useEffect(() => {
-    const id = setInterval(() => {
-      setSeccionTablero(actual => (actual + 1) % SECCIONES_TABLERO.length)
-    }, INTERVALO_SECCION_TABLERO_MS)
-    return () => clearInterval(id)
-  }, [])
+    guardarPopos(popos)
+  }, [popos])
+
+  const propias = MASCOTAS.filter(m => ownsItem(`mascota-${m.id}`))
+
+  useEffect(() => {
+    if (propias.length === 0) return undefined
+
+    let activo = true
+    let timeoutId
+
+    function crearPopo() {
+      if (!activo) return
+      setPopos(actual => {
+        if (actual.length >= MAX_POPOS) return actual
+        const nuevoPopo = {
+          id: `${Date.now()}-${Math.random().toString(36).slice(2)}`,
+          xPercent: 8 + Math.random() * 84,
+          yPercent: Math.max(Y_MIN + 10, 32 + Math.random() * (Y_MAX - 32)),
+        }
+        return [...actual, nuevoPopo].slice(-MAX_POPOS)
+      })
+      programar()
+    }
+
+    function programar() {
+      const espera = 75000 + Math.random() * 30000
+      timeoutId = setTimeout(crearPopo, espera)
+    }
+
+    programar()
+    return () => {
+      activo = false
+      clearTimeout(timeoutId)
+    }
+  }, [propias.length])
+
+  const recolectarPopo = useCallback((popoId) => {
+    setPopos(actual => actual.filter(popo => popo.id !== popoId))
+    addCoins(MONEDAS_POR_POPO)
+    triggerVibration('success')
+    mostrarMensaje(`¡Popó recogida! +${MONEDAS_POR_POPO} monedas`)
+  }, [addCoins, mostrarMensaje])
+
   // Fuerza a recalcular felicidad/temporizador de cada mascota cada
   // INTERVALO_RELOJ_MS (ver más abajo, donde se leen fresco en cada render).
   const [, setReloj] = useState(0)
@@ -189,8 +242,6 @@ export default function Mascota() {
     const id = setInterval(() => setReloj(n => n + 1), INTERVALO_RELOJ_MS)
     return () => clearInterval(id)
   }, [])
-
-  const propias = MASCOTAS.filter(m => ownsItem(`mascota-${m.id}`))
 
   // Devuelve si de verdad la alimentó (false = no había comida) — MascotaViva
   // lo usa para decidir si dispara su flash verde (ver más abajo, `alimentando`).
@@ -571,12 +622,12 @@ export default function Mascota() {
               }}>
                 <div style={{
                   position: 'absolute', top: 0, left: '-50%', width: '200%', height: '340%',
-                  backgroundColor: esDeNoche ? '#173d1a' : '#7f6750',
-                  transition: 'background-color 1.2s ease, background-position 3s ease',
-                  backgroundImage: `url("${texturaSuelo}")`,
-                  backgroundSize: '180% 180%',
-                  backgroundRepeat: 'no-repeat',
-                  backgroundPosition: SECCIONES_TABLERO[seccionTablero].posicion,
+                  backgroundColor: esDeNoche ? '#173d1a' : '#5f963f',
+                  backgroundImage: esDeNoche
+                    ? 'linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px)'
+                    : 'linear-gradient(rgba(255, 255, 255, 0.12) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.12) 1px, transparent 1px)',
+                  backgroundSize: '32px 32px',
+                  transition: 'background-color 1.2s ease',
                   transform: 'rotateX(62deg)',
                   transformOrigin: 'top',
                 }}>
@@ -640,13 +691,46 @@ export default function Mascota() {
                     mascota={m}
                     tamanoPx={tamanoCeldaPixelArt(m, TAMANO_PX)}
                     felicidad={felicidadDe(m.id)}
-                    textoEdad={textoEdad(m.id)}
                     hambrienta={estaHambrienta(m.id)}
                     enPelea={peleando.has(m.id)}
                     onTap={alimentar}
                   />
                 ))
               )}
+
+              {popos.map(popo => (
+                <button
+                  key={popo.id}
+                  type="button"
+                  aria-label={`Recoger popó por ${MONEDAS_POR_POPO} monedas`}
+                  onClick={() => recolectarPopo(popo.id)}
+                  style={{
+                    position: 'absolute',
+                    left: `${popo.xPercent}%`,
+                    top: `${popo.yPercent}%`,
+                    transform: 'translate(-50%, -50%)',
+                    zIndex: zIndexPorProfundidad(popo.yPercent) + 2,
+                    border: 'none',
+                    background: 'transparent',
+                    padding: 4,
+                    cursor: 'pointer',
+                    filter: 'drop-shadow(0 2px 1px rgba(0, 0, 0, 0.35))',
+                    fontSize: 18,
+                    lineHeight: 1,
+                  }}
+                >
+                  <svg width="22" height="18" viewBox="0 0 22 18" aria-hidden="true">
+                    <path
+                      d="M3 14.5c0-2.1 1.6-3.8 3.7-4.1.1-2 1.7-3.6 3.7-3.8-.2-1.8 1-3.4 2.8-3.8.8 1.1 1.1 2.3.7 3.6 2.6-.1 4.8 1.9 4.9 4.5 0 1.3-.5 2.5-1.4 3.3H3v.3Z"
+                      fill="#8a5538"
+                      stroke="#603921"
+                      strokeWidth="1"
+                      strokeLinejoin="round"
+                    />
+                    <path d="M4 14.5h14.8c0 1-.8 1.8-1.8 2H5.8c-1 0-1.8-.8-1.8-1.8v-.2Z" fill="#6f442d" />
+                  </svg>
+                </button>
+              ))}
 
               {comidaCayendo && (
                 <div style={{
@@ -708,11 +792,11 @@ export default function Mascota() {
 
         <div className="mascotas-coleccion" style={{
           background: 'var(--surface)', border: '1px solid var(--border)',
-          borderRadius: 'var(--radius)', padding: 16,
-          display: 'flex', flexDirection: 'column', gap: 12,
+          borderRadius: 'var(--radius)', padding: '12.6px 14.4px',
+          display: 'flex', flexDirection: 'column', gap: 9.9,
         }}>
           <p style={{
-            color: 'var(--text-muted)', fontSize: '0.72rem', fontWeight: 700,
+            color: 'var(--text-muted)', fontSize: '0.648rem', fontWeight: 700,
             textTransform: 'uppercase', letterSpacing: '1.3px', margin: 0,
           }}>
             Tu colección
@@ -726,9 +810,9 @@ export default function Mascota() {
 
               return (
                 <div key={m.id} className={`mascotas-card${mascotaSeleccionada === m.id ? ' mascotas-card-activa' : ''}`} style={{
-                  display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 7,
+                  display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 5.4,
                   background: 'var(--surface2)', border: '1px solid var(--border)',
-                  borderRadius: 14, padding: '14px 8px',
+                  borderRadius: 11.7, padding: '9.9px 6.3px',
                   opacity: tuya ? 1 : 0.55,
                   // Sin esto, el ancho fijo del PixelArt de abajo (columnas
                   // × size en px) obliga a esta columna del grid a no
@@ -747,23 +831,26 @@ export default function Mascota() {
                       onClick={() => seleccionarMascota(m.id)}
                       title={mascotaSeleccionada === m.id ? 'Quitar de compañera' : 'Hacer mi compañera'}
                       style={{
-                        minHeight: 44, minWidth: 44, padding: 4, marginTop: -6,
+                        minHeight: 36, minWidth: 36, padding: 3.6, marginTop: -4.5,
                         background: 'transparent', border: 'none', cursor: 'pointer',
                         display: 'flex', alignItems: 'center', justifyContent: 'center',
                         color: mascotaSeleccionada === m.id ? '#facc15' : 'var(--text-muted)',
-                        fontSize: 15,
+                        fontSize: 12.6,
                       }}
                     >
                       {mascotaSeleccionada === m.id ? <FaStar /> : <FaRegStar />}
                     </button>
                   )}
-                  <PixelArt grid={m.grid} paleta={paletaMostrada} size={tamanoCeldaPixelArt(m, 4)} style={ESTILO_SPRITE_COLECCION} />
-                  <span style={{ fontSize: 11.5, fontWeight: 700, color: 'var(--text)' }}>{m.nombre}</span>
+                  <PixelArt grid={m.grid} paleta={paletaMostrada} size={tamanoCeldaPixelArt(m, 3.24)} style={ESTILO_SPRITE_COLECCION} />
+                  <span style={{ fontSize: 9.36, fontWeight: 700, color: 'var(--text)' }}>{m.nombre}</span>
                   {tuya ? (
                     <>
-                      <div style={{ width: '100%', marginTop: 'auto', display: 'flex', flexDirection: 'column', gap: 4 }}>
+                      <span style={{ fontSize: 8.55, color: 'var(--text-muted)', marginTop: -2.7 }}>
+                        {textoEdad(m.id)}
+                      </span>
+                      <div style={{ width: '100%', marginTop: 'auto', display: 'flex', flexDirection: 'column', gap: 3.6 }}>
                         <div style={{ width: '100%', display: 'flex', flexDirection: 'column' }}>
-                          <div className="fondo-sutil" style={{ height: 4, borderRadius: 999, overflow: 'hidden' }}>
+                          <div className="fondo-sutil" style={{ height: 3.24, borderRadius: 999, overflow: 'hidden' }}>
                             <div style={{
                               height: '100%', width: `${felicidad}%`, borderRadius: 999,
                               background: 'linear-gradient(90deg, var(--correct), #86efac)',
@@ -775,13 +862,13 @@ export default function Mascota() {
                           type="button"
                           onClick={() => setMascotaAEliminar(m)}
                           style={{
-                            width: '100%', minHeight: 44, borderRadius: 8, border: 'none',
+                            width: '100%', minHeight: 36, borderRadius: 7.2, border: 'none',
                             background: 'transparent', color: 'var(--wrong)',
-                            fontSize: 10.5, fontWeight: 700, cursor: 'pointer',
-                            display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 5,
+                            fontSize: 8.55, fontWeight: 700, cursor: 'pointer',
+                            display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 4.5,
                           }}
                         >
-                          <FaTrash size={10} /> Eliminar
+                          <FaTrash size={9} /> Eliminar
                         </button>
                       </div>
                     </>
@@ -790,7 +877,7 @@ export default function Mascota() {
                       type="button"
                       onClick={() => navigate('/tienda')}
                       className="btn-footer-scroll"
-                      style={{ fontSize: 10.5, padding: '8px 6px', minHeight: 44, width: '100%' }}
+                      style={{ fontSize: 8.55, padding: '6.3px 4.5px', minHeight: 36, width: '100%' }}
                     >
                       {m.precioCoins === 0 ? 'Gratis' : `${m.precioCoins} monedas`}
                     </button>
@@ -867,20 +954,18 @@ function Farola({ left, encendida }) {
 // texto propios, ver `sonidos`) y `saltar` (solo si `atributos.salta`) —
 // ambos corren en temporizadores propios e independientes entre mascotas,
 // igual que el paseo lo era antes de moverse al loop de física. Sin
-// emojis: la única señal sobre su cabeza es su edad en texto (ver
-// textoEdad en utils/mascotasEstado.js — cuánto lleva desbloqueada, no un
-// reloj de hambre), reemplazada por su sonido característico al vocalizar.
+// no deja texto fijo ni mensajes sobre su cabeza; la permanencia en la
+// colección se muestra únicamente en la tarjeta correspondiente abajo.
 // `enPelea`/`alimentando` no tienen texto propio — se ven como un tinte de
 // color sobre el sprite (PixelArt `tinte`, estilo el flash de daño de
 // Minecraft: rojo en pelea, verde al comer), no como un mensaje.
 const MascotaViva = forwardRef(function MascotaViva(
-  { mascota, tamanoPx, felicidad, textoEdad, hambrienta, enPelea, onTap }, ref
+  { mascota, tamanoPx, felicidad, hambrienta, enPelea, onTap }, ref
 ) {
   const elRef = useRef(null)
   const [mirandoIzq, setMirandoIzq] = useState(false)
   const mirandoRef = useRef(false)
   const [danioActivo, setDanioActivo] = useState(false)
-  const [sonidoActivo, setSonidoActivo] = useState(null)
   const [saltando, setSaltando] = useState(false)
   const [alimentando, setAlimentando] = useState(false)
   // Desincroniza el balanceo entre mascotas (si no, se mecen exactamente
@@ -916,31 +1001,6 @@ const MascotaViva = forwardRef(function MascotaViva(
     return () => clearInterval(id)
   }, [hambrienta])
 
-  // Vocalización: cada tanto "dice" uno de sus sonidos característicos
-  // (data/mascotas.js) sobre su cabeza, en vez del reloj — una especie con
-  // `sonidos: []` simplemente nunca dispara este efecto (silencio como
-  // rasgo de carácter, igual que `atributos.salta` en los conejos).
-  useEffect(() => {
-    const sonidos = mascota.sonidos
-    if (!sonidos || sonidos.length === 0) return
-    let cancelado = false
-    let ocultarId = null
-    let timeoutId = null
-
-    function programar() {
-      const espera = 6000 + Math.random() * 8000
-      timeoutId = setTimeout(() => {
-        if (cancelado) return
-        setSonidoActivo(quitarPuntoFinal(sonidos[Math.floor(Math.random() * sonidos.length)]))
-        ocultarId = setTimeout(() => { if (!cancelado) setSonidoActivo(null) }, 1800)
-        programar()
-      }, espera)
-    }
-
-    programar()
-    return () => { cancelado = true; clearTimeout(timeoutId); clearTimeout(ocultarId) }
-  }, [mascota.sonidos])
-
   // Salto: rasgo exclusivo de las especies con atributos.salta (los
   // conejos) — puramente visual (mascota-salto, ver global.css), no mueve
   // su posición real en el sandbox, solo la hace brincar en el sitio cada
@@ -967,13 +1027,6 @@ const MascotaViva = forwardRef(function MascotaViva(
 
   const duracionRebote = felicidad >= 60 ? '0.8s' : felicidad >= 30 ? '1.3s' : '2s'
   const claseTemblor = danioActivo ? 'mascota-danio' : 'mascota-balanceo'
-  const etiqueta = sonidoActivo ?? quitarPuntoFinal(textoEdad)
-  // Las mascotas siempre están sobre el pasto (Y_MIN..Y_MAX cae entero
-  // dentro del piso, nunca en el cielo) — blanco + sombra en vez del cian
-  // de antes, para que se lea bien sobre el verde.
-  const colorEtiqueta = sonidoActivo
-    ? '#fff6b8'
-    : hambrienta ? 'var(--wrong)' : 'rgba(255, 255, 255, 0.95)'
   // Rojo en pelea, verde al alimentarla (mismo verde que --correct, para
   // que se lea como "bien hecho") — mismo mecanismo de tinte (PixelArt
   // `tinte`), la pelea manda porque es la señal más urgente de las dos.
@@ -1017,12 +1070,6 @@ const MascotaViva = forwardRef(function MascotaViva(
         gap: 4,
       }}
     >
-      <span style={{
-        fontSize: 10, fontWeight: 700, lineHeight: 1.2, color: colorEtiqueta,
-        textShadow: '0 1px 2px rgba(0, 0, 0, 0.55)',
-      }}>
-        {etiqueta}
-      </span>
       <span
         className={claseTemblor}
         style={claseTemblor === 'mascota-balanceo' ? { animationDelay: `${retrasoBalanceoRef.current}s` } : undefined}
