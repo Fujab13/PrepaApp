@@ -100,7 +100,7 @@ export default function ActualizarPassword() {
       <main style={{ position: 'relative', flex: 1, width: '100%', maxWidth: 480, alignSelf: 'center', boxSizing: 'border-box', padding: '28px 24px 32px', display: 'flex', flexDirection: 'column' }}>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 22, margin: 'auto 0' }}>
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: 14 }}>
-            <img src="/logo.ico" alt="" width="52" height="52" style={{ objectFit: 'contain' }} />
+            <img src="/logo.svg" alt="" width="48" height="48" className="login-logo" style={{ objectFit: 'contain' }} />
             <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
               <h1 style={{ margin: 0, fontSize: '1.75rem', fontWeight: 800, letterSpacing: '-0.03em', lineHeight: 1.15, color: 'var(--text)' }}>
                 Nueva contraseña

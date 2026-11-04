@@ -20,6 +20,7 @@ export default function LoginSkeleton() {
 
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column', padding: '28px 24px 24px', gap: 22 }}>
         <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 22 }}>
+          <img src="/logo.svg" alt="" width="48" height="48" style={{ display: 'block', marginBottom: -8 }} />
           <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
             <h1 style={{ margin: 0, fontSize: '1.75rem', fontWeight: 800, letterSpacing: '-0.03em' }}>Inicia sesión</h1>
             <Skeleton width={190} height={12} />

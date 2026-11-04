@@ -130,10 +130,10 @@ function FichaCorreo({ correo, onCambiar }) {
       }}
     >
       <img
-        src="/logo.ico"
+        src="/logo.svg"
         alt=""
-        width="26"
-        height="26"
+        width="24"
+        height="24"
         style={{ flexShrink: 0, objectFit: 'contain' }}
       />
       <span style={{ fontSize: '0.82rem', fontWeight: 600, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
@@ -589,6 +589,9 @@ export default function Login() {
     const esLogin = flujo === 'login'
     contenido = (
       <>
+        {/* El símbolo de la marca solo en el primer paso: presenta la app
+            sin repetirse en cada pantalla del flujo. */}
+        <img src="/logo.svg" alt="" width="48" height="48" className="login-logo" style={{ display: 'block', marginBottom: -8 }} />
         <Titulo sub={esLogin ? 'Continúa donde te quedaste.' : 'Gratis. Tu progreso queda guardado.'}>
           {esLogin ? 'Inicia sesión' : 'Crea tu cuenta'}
         </Titulo>
@@ -749,7 +752,7 @@ export default function Login() {
           width: 56, height: 56, display: 'flex', alignItems: 'center', justifyContent: 'center',
           borderRadius: 18, background: 'rgba(79,142,247,0.12)', border: '1px solid rgba(79,142,247,0.24)',
         }}>
-          <img src="/logo.ico" alt="" width="32" height="32" style={{ objectFit: 'contain' }} />
+          <img src="/logo.svg" alt="" width="32" height="32" style={{ objectFit: 'contain' }} />
         </div>
         <Titulo sub="Si la cuenta existe, recibirás un enlace para restablecerla.">Revisa tu correo</Titulo>
         <FichaCorreo correo={email} onCambiar={() => setEnlaceEnviado(false)} />
