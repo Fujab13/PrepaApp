@@ -625,9 +625,13 @@ export default function Login() {
         <div className="login-cascada" style={{ animationDelay: '60ms', display: 'flex', flexDirection: 'column', gap: 12 }}>
           {/* Sin autoFocus a propósito: en móvil abriría el teclado al
               entrar y taparía el botón de Google. */}
+          {/* Al iniciar sesión, autocomplete="username": así los gestores de
+              contraseñas (1Password, Bitwarden, Chrome, iOS) ofrecen la
+              cuenta guardada. Al registrarse es un correo nuevo: "email". */}
           <CampoIcono
             icono={HiOutlineEnvelope} type="email" placeholder="Correo electrónico" value={email}
-            onChange={e => setEmail(e.target.value)} autoComplete="email" inputMode="email"
+            onChange={e => setEmail(e.target.value)} onBlur={() => setEmail(v => v.trim())}
+            name={esLogin ? 'username' : 'email'} autoComplete={esLogin ? 'username' : 'email'} inputMode="email"
           />
           {mensajeError}
           <div style={{ fontSize: '0.88rem', color: 'var(--text-muted)' }}>
@@ -790,7 +794,8 @@ export default function Login() {
         <div className="login-cascada" style={{ animationDelay: '60ms', display: 'flex', flexDirection: 'column', gap: 12 }}>
           <CampoIcono
             icono={HiOutlineEnvelope} type="email" placeholder="Correo electrónico" value={email}
-            onChange={e => setEmail(e.target.value)} autoComplete="email" inputMode="email" autoFocus
+            onChange={e => setEmail(e.target.value)} onBlur={() => setEmail(v => v.trim())}
+            name="username" autoComplete="username" inputMode="email" autoFocus
           />
           {mensajeError}
         </div>
