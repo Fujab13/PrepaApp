@@ -231,7 +231,8 @@ display: flex;
   border-radius: 12px;
   padding: 14px 16px 14px 46px;
   color: var(--text);
-  font-size: 0.95rem;
+  /* 16px exactos: con menos, iOS/Safari hace zoom al enfocar el campo. */
+  font-size: 1rem;
   outline: none;
   transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
@@ -243,6 +244,17 @@ display: flex;
 
 .auth-input::placeholder {
   color: var(--text-muted);
+}
+
+/* Foco visible al navegar con teclado (Tab) en el login y en "Nueva
+   contraseña": :focus-visible no se activa al tocar, así que en el
+   celular no aparece ningún anillo de más. Los campos ya tienen el suyo
+   (.auth-input:focus). */
+.login-pantalla button:focus-visible,
+.login-pantalla a:focus-visible,
+.login-pantalla input[type="checkbox"]:focus-visible {
+  outline: 2px solid #8b6fcf;
+  outline-offset: 3px;
 }
 
 /* ── Login por pasos (pages/Login.jsx) ─────────────────────────────────────

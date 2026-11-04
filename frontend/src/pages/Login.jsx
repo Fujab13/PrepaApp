@@ -783,7 +783,7 @@ export default function Login() {
   }[paso] || ((e) => e.preventDefault())
 
   return (
-    <div style={{ position: 'relative', display: 'flex', flexDirection: 'column', minHeight: '100dvh', overflowX: 'hidden' }}>
+    <div className="login-pantalla" style={{ position: 'relative', display: 'flex', flexDirection: 'column', minHeight: '100dvh', overflowX: 'hidden' }}>
       <FondoLogin />
       <Encabezado
         onAtras={retroceder}

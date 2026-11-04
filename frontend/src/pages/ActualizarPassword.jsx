@@ -76,7 +76,7 @@ export default function ActualizarPassword() {
   }
 
   return (
-    <div style={{ position: 'relative', display: 'flex', flexDirection: 'column', minHeight: '100dvh', overflow: 'hidden' }}>
+    <div className="login-pantalla" style={{ position: 'relative', display: 'flex', flexDirection: 'column', minHeight: '100dvh', overflow: 'hidden' }}>
       <FondoLogin />
 
       <header style={{ position: 'relative', display: 'flex', alignItems: 'center', gap: 10, padding: '14px 16px 0' }}>
