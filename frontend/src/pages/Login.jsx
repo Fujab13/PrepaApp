@@ -298,6 +298,8 @@ export default function Login() {
   const [cargandoGoogle, setCargandoGoogle] = useState(false)
   const [celebrando, setCelebrando] = useState(false)
   const [enlaceEnviado, setEnlaceEnviado] = useState(false)
+  // Contenido del paso actual: se sacude cuando algo sale mal.
+  const contenidoRef = useRef(null)
 
   const pasos = FLUJOS[flujo]
   const indice = Math.max(0, pasos.indexOf(paso))
@@ -397,6 +399,31 @@ export default function Login() {
     })
   }
 
+  // Error de una acción del alumno: además del mensaje, una sacudida corta
+  // del paso y la vibración de error, para que se note aunque no esté
+  // leyendo. Con Web Animations (no una clase CSS) se puede repetir en
+  // cada intento sin volver a montar el formulario, que perdería el foco.
+  // Con "reducir movimiento" solo queda el mensaje y la vibración.
+  function fallar(mensaje) {
+    setError(mensaje)
+    triggerVibration('error')
+    const el = contenidoRef.current
+    const reducir = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
+    if (el?.animate && !reducir) {
+      el.animate(
+        [
+          { transform: 'translateX(0)' },
+          { transform: 'translateX(-8px)' },
+          { transform: 'translateX(7px)' },
+          { transform: 'translateX(-5px)' },
+          { transform: 'translateX(3px)' },
+          { transform: 'translateX(0)' },
+        ],
+        { duration: 380, easing: 'ease-out' },
+      )
+    }
+  }
+
   function limpiarPasswords() {
     setPassword('')
     setConfirmPassword('')
@@ -413,7 +440,7 @@ export default function Login() {
   // ── acciones de cada paso ──
   function continuarCorreo(e) {
     e.preventDefault()
-    if (!CORREO_REGEX.test(email.trim())) return setError('Escribe un correo válido.')
+    if (!CORREO_REGEX.test(email.trim())) return fallar('Escribe un correo válido.')
     setEmail(email.trim())
     // Usuario de inicio: una sugerencia segura (no la parte del correo). Se
     // rehace si cambió el correo, mientras el alumno no haya puesto el suyo.
@@ -427,20 +454,20 @@ export default function Login() {
   async function continuarPassword(e) {
     e.preventDefault()
     if (flujo === 'login') {
-      if (!password) return setError('Escribe tu contraseña.')
+      if (!password) return fallar('Escribe tu contraseña.')
       setCargando(true)
       const { error: err } = await supabase.auth.signInWithPassword({ email, password })
       setCargando(false)
       if (err) {
         setSugerirGoogle(err.message === 'Invalid login credentials')
-        return setError(traducirErrorAuth(err.message))
+        return fallar(traducirErrorAuth(err.message))
       }
       triggerVibration('success')
       navigate('/')
       return
     }
-    if (password.length < 6) return setError('Mínimo 6 caracteres.')
-    if (password !== confirmPassword) return setError('Las contraseñas no coinciden.')
+    if (password.length < 6) return fallar('Mínimo 6 caracteres.')
+    if (password !== confirmPassword) return fallar('Las contraseñas no coinciden.')
     irA('usuario')
   }
 
@@ -448,7 +475,7 @@ export default function Login() {
     e.preventDefault()
     if (estadoUsuario !== 'libre') {
       if (estadoUsuario === 'revisando') return
-      return setError({
+      return fallar({
         ocupado: 'Ese usuario ya está en uso.',
         no_permitido: 'Ese usuario no está permitido.',
       }[estadoUsuario] || 'Elige un usuario válido.')
@@ -460,7 +487,7 @@ export default function Login() {
     e.preventDefault()
     if (!aceptaAviso) {
       setResaltarAviso(true)
-      return setError('Acepta el aviso de privacidad.')
+      return fallar('Acepta el aviso de privacidad.')
     }
     const constancia = { aviso_privacidad_version: VERSION_AVISO, aviso_privacidad_aceptado_en: new Date().toISOString() }
     setCargando(true)
@@ -473,7 +500,7 @@ export default function Login() {
         await refrescarPerfil()
       } catch (err) {
         setCargando(false)
-        return setError(err.message)
+        return fallar(err.message)
       }
       setCargando(false)
       setCelebrando(true)
@@ -488,7 +515,7 @@ export default function Login() {
     setCargando(false)
     if (err) {
       const deContrasena = errorDeContrasena(err)
-      if (!deContrasena) return setError(traducirErrorAuth(err.message))
+      if (!deContrasena) return fallar(traducirErrorAuth(err.message))
       // La contraseña se corrige en su paso: dos entradas atrás del
       // historial (confirmar → usuario → contraseña), con el error ya ahí.
       errorAlLlegarRef.current = deContrasena
@@ -512,13 +539,13 @@ export default function Login() {
 
   async function enviarRecuperacion(e) {
     e.preventDefault()
-    if (!CORREO_REGEX.test(email.trim())) return setError('Escribe un correo válido.')
+    if (!CORREO_REGEX.test(email.trim())) return fallar('Escribe un correo válido.')
     setCargando(true)
     const { error: err } = await supabase.auth.resetPasswordForEmail(email.trim(), {
       redirectTo: `${window.location.origin}/actualizar-password`,
     })
     setCargando(false)
-    if (err) return setError(traducirErrorAuth(err.message))
+    if (err) return fallar(traducirErrorAuth(err.message))
     setEnlaceEnviado(true)
   }
 
@@ -531,7 +558,7 @@ export default function Login() {
     })
     // Sin error, el navegador ya se va a Google: no se apaga el "cargando".
     if (err) {
-      setError(traducirErrorAuth(err.message))
+      fallar(traducirErrorAuth(err.message))
       setCargandoGoogle(false)
     }
   }
@@ -799,7 +826,7 @@ export default function Login() {
         className={atras ? 'login-paso-atras' : 'login-paso'}
         style={{ position: 'relative', flex: 1, display: 'flex', flexDirection: 'column', padding: '28px 24px 24px', gap: 22 }}
       >
-        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 22 }}>
+        <div ref={contenidoRef} style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 22 }}>
           {contenido}
         </div>
         {pie && <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>{pie}</div>}
