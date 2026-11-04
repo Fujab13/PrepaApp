@@ -51,8 +51,28 @@ function traducirErrorAuth(mensaje) {
     'Password should be at least 6 characters': 'Mínimo 6 caracteres.',
     'Email not confirmed': 'Confirma tu correo primero.',
     'Email rate limit exceeded': 'Demasiados intentos. Espera un poco.',
+    'Request rate limit reached': 'Demasiados intentos. Espera un poco.',
   }
   return mapa[mensaje] || mensaje
+}
+
+// Supabase limita los intentos por IP (sección [auth.rate_limit] de
+// supabase/config.toml) y responde 429. El límite real lo pone el
+// servidor; aquí solo se muestra cuánto falta en vez del error en inglés.
+// Devuelve los segundos de espera, o 0 si el error no es de límite.
+function segundosDeLimite(err) {
+  const m = err?.message || ''
+  const esLimite = err?.status === 429
+    || ['over_request_rate_limit', 'over_email_send_rate_limit'].includes(err?.code)
+    || /rate limit/i.test(m)
+  if (!esLimite) return 0
+  // "For security purposes, you can only request this after 42 seconds."
+  const n = m.match(/after (\d+) seconds?/i)
+  return n ? Number(n[1]) : 60
+}
+
+function formatoEspera(seg) {
+  return `${Math.floor(seg / 60)}:${String(seg % 60).padStart(2, '0')}`
 }
 
 // Errores de la política de contraseñas de Supabase, que llegan hasta el
@@ -300,9 +320,27 @@ export default function Login() {
   const [enlaceEnviado, setEnlaceEnviado] = useState(false)
   // Contenido del paso actual: se sacude cuando algo sale mal.
   const contenidoRef = useRef(null)
+  // Fin del bloqueo por demasiados intentos (429), en ms; 0 = sin bloqueo.
+  // `tic` solo existe para volver a pintar la cuenta regresiva cada segundo.
+  const [bloqueadoHasta, setBloqueadoHasta] = useState(0)
+  const [, setTic] = useState(0)
+  const restante = bloqueadoHasta ? Math.max(0, Math.ceil((bloqueadoHasta - Date.now()) / 1000)) : 0
 
   const pasos = FLUJOS[flujo]
   const indice = Math.max(0, pasos.indexOf(paso))
+
+  useEffect(() => {
+    if (!bloqueadoHasta) return
+    const id = setInterval(() => {
+      if (Date.now() >= bloqueadoHasta) {
+        setBloqueadoHasta(0)
+        setError('')
+      } else {
+        setTic(t => t + 1)
+      }
+    }, 1000)
+    return () => clearInterval(id)
+  }, [bloqueadoHasta])
 
   // Vuelta de Google: cuenta nueva (usuario genérico sin confirmar) → elige
   // usuario y acepta el aviso; cuenta que ya lo había hecho → a Home.
@@ -424,6 +462,16 @@ export default function Login() {
     }
   }
 
+  // Si el error es por demasiados intentos, arranca la cuenta regresiva y
+  // avisa con fallar(). Devuelve true si lo manejó.
+  function manejarLimite(err) {
+    const seg = segundosDeLimite(err)
+    if (!seg) return false
+    setBloqueadoHasta(Date.now() + seg * 1000)
+    fallar('Demasiados intentos.')
+    return true
+  }
+
   function limpiarPasswords() {
     setPassword('')
     setConfirmPassword('')
@@ -455,10 +503,12 @@ export default function Login() {
     e.preventDefault()
     if (flujo === 'login') {
       if (!password) return fallar('Escribe tu contraseña.')
+      if (restante) return
       setCargando(true)
       const { error: err } = await supabase.auth.signInWithPassword({ email, password })
       setCargando(false)
       if (err) {
+        if (manejarLimite(err)) return
         setSugerirGoogle(err.message === 'Invalid login credentials')
         return fallar(traducirErrorAuth(err.message))
       }
@@ -489,6 +539,7 @@ export default function Login() {
       setResaltarAviso(true)
       return fallar('Acepta el aviso de privacidad.')
     }
+    if (restante) return
     const constancia = { aviso_privacidad_version: VERSION_AVISO, aviso_privacidad_aceptado_en: new Date().toISOString() }
     setCargando(true)
     setError('')
@@ -514,6 +565,7 @@ export default function Login() {
     })
     setCargando(false)
     if (err) {
+      if (manejarLimite(err)) return
       const deContrasena = errorDeContrasena(err)
       if (!deContrasena) return fallar(traducirErrorAuth(err.message))
       // La contraseña se corrige en su paso: dos entradas atrás del
@@ -540,12 +592,16 @@ export default function Login() {
   async function enviarRecuperacion(e) {
     e.preventDefault()
     if (!CORREO_REGEX.test(email.trim())) return fallar('Escribe un correo válido.')
+    if (restante) return
     setCargando(true)
     const { error: err } = await supabase.auth.resetPasswordForEmail(email.trim(), {
       redirectTo: `${window.location.origin}/actualizar-password`,
     })
     setCargando(false)
-    if (err) return fallar(traducirErrorAuth(err.message))
+    if (err) {
+      if (manejarLimite(err)) return
+      return fallar(traducirErrorAuth(err.message))
+    }
     setEnlaceEnviado(true)
   }
 
@@ -596,8 +652,15 @@ export default function Login() {
     </button>
   )
 
-  const mensajeError = error && (
-    <p role="alert" style={{ margin: 0, fontSize: '0.84rem', fontWeight: 600, color: 'var(--wrong)' }}>{error}</p>
+  // Durante el bloqueo, la cuenta regresiva va fuera del role="alert" para
+  // que el lector de pantalla no la repita cada segundo.
+  const mensajeError = (error || restante > 0) && (
+    <p role="alert" style={{ margin: 0, fontSize: '0.84rem', fontWeight: 600, color: 'var(--wrong)' }}>
+      {restante > 0 ? 'Demasiados intentos.' : error}
+      {restante > 0 && (
+        <span aria-live="off" style={{ fontVariantNumeric: 'tabular-nums' }}> Intenta de nuevo en {formatoEspera(restante)}.</span>
+      )}
+    </p>
   )
 
   // Cada paso arma su `contenido` y su `pie` (el botón principal queda
@@ -701,7 +764,11 @@ export default function Login() {
         </div>
       </>
     )
-    pie = <BotonPrincipal type="submit" cargando={cargando}>{esLogin ? (cargando ? 'Entrando…' : 'Iniciar sesión') : 'Siguiente'}</BotonPrincipal>
+    pie = (
+      <BotonPrincipal type="submit" cargando={cargando} deshabilitado={esLogin && restante > 0}>
+        {esLogin && restante > 0 ? `Espera ${formatoEspera(restante)}` : esLogin ? (cargando ? 'Entrando…' : 'Iniciar sesión') : 'Siguiente'}
+      </BotonPrincipal>
+    )
   } else if (paso === 'usuario') {
     contenido = (
       <>
@@ -771,7 +838,7 @@ export default function Login() {
     pie = (
       <div style={{ position: 'relative' }}>
         <Celebracion activo={celebrando} color="#7c5cbf" />
-        <BotonPrincipal type="submit" cargando={cargando} deshabilitado={celebrando}>
+        <BotonPrincipal type="submit" cargando={cargando} deshabilitado={celebrando || restante > 0}>
           {cargando ? 'Un momento…' : flujo === 'completar' ? 'Empezar' : 'Crear cuenta'}
         </BotonPrincipal>
       </div>
@@ -803,7 +870,11 @@ export default function Login() {
     )
     pie = enlaceEnviado
       ? <BotonPrincipal onClick={() => navigate(-1)}>Volver</BotonPrincipal>
-      : <BotonPrincipal type="submit" cargando={cargando}>{cargando ? 'Enviando…' : 'Enviar enlace'}</BotonPrincipal>
+      : (
+        <BotonPrincipal type="submit" cargando={cargando} deshabilitado={restante > 0}>
+          {restante > 0 ? `Espera ${formatoEspera(restante)}` : cargando ? 'Enviando…' : 'Enviar enlace'}
+        </BotonPrincipal>
+      )
   }
 
   const alEnviar = {
