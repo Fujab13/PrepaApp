@@ -250,6 +250,12 @@ display: flex;
    contraseña": :focus-visible no se activa al tocar, así que en el
    celular no aparece ningún anillo de más. Los campos ya tienen el suyo
    (.auth-input:focus). */
+/* Respuesta al pasar el mouse (solo en dispositivos con puntero real; en
+   el celular no queda "pegado" el hover tras tocar). */
+@media (hover: hover) {
+  .login-pantalla .gm-cta:hover:not(:disabled) { filter: brightness(1.08); }
+}
+
 .login-pantalla button:focus-visible,
 .login-pantalla a:focus-visible,
 .login-pantalla input[type="checkbox"]:focus-visible {

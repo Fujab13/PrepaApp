@@ -243,11 +243,15 @@ function BotonPrincipal({ children, cargando, deshabilitado, onClick, type = 'bu
       className="gm-cta"
       style={{
         width: '100%', minHeight: 52, borderRadius: 14, border: 'none',
-        background: '#7c5cbf', color: '#fff', fontWeight: 700, fontSize: '0.98rem',
+        // Degradado casi imperceptible del mismo morado (#7c5cbf) y un filo
+        // de luz arriba: da volumen sin cambiar el color de la marca.
+        background: 'linear-gradient(180deg, #8667c9, #7c5cbf 55%)', color: '#fff', fontWeight: 700, fontSize: '0.98rem',
         display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8,
         opacity: inactivo ? 0.55 : 1, cursor: inactivo ? 'default' : 'pointer',
-        boxShadow: inactivo ? 'none' : '0 10px 24px -10px rgba(124, 92, 191, 0.7)',
-        transition: 'opacity 0.2s ease, box-shadow 0.2s ease',
+        boxShadow: inactivo
+          ? 'none'
+          : 'inset 0 1px 0 rgba(255, 255, 255, 0.18), 0 10px 24px -10px rgba(124, 92, 191, 0.7)',
+        transition: 'opacity 0.2s ease, box-shadow 0.2s ease, filter 0.15s ease',
       }}
     >
       {cargando && <AiOutlineLoading3Quarters className="spin" />}
