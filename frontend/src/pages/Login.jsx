@@ -27,7 +27,7 @@ import { supabase } from '../services/supabaseClient'
 import { useAuth } from '../context/AuthContext'
 import { triggerVibration } from '../utils/haptics'
 import Celebracion from '../components/Celebracion'
-import FondoHexagonal from '../components/FondoHexagonal'
+import FondoLogin from '../components/FondoLogin'
 import CasillaConsentimiento from '../components/CasillaConsentimiento'
 import CampoUsuario from '../components/CampoUsuario'
 import MarcaPrepaApp from '../components/MarcaPrepaApp'
@@ -781,7 +781,7 @@ export default function Login() {
 
   return (
     <div style={{ position: 'relative', display: 'flex', flexDirection: 'column', minHeight: '100dvh', overflowX: 'hidden' }}>
-      <FondoHexagonal />
+      <FondoLogin />
       <Encabezado
         onAtras={retroceder}
         esPrimero={(indice === 0 && paso !== 'recuperar') || paso === 'esperando'}

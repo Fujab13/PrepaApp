@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { supabase } from '../services/supabaseClient'
 import MarcaPrepaApp from '../components/MarcaPrepaApp'
-import FondoHexagonal from '../components/FondoHexagonal'
+import FondoLogin from '../components/FondoLogin'
 
 import { AiOutlineClose, AiOutlineLoading3Quarters } from 'react-icons/ai'
 import { HiOutlineLockClosed } from 'react-icons/hi2'
@@ -77,7 +77,7 @@ export default function ActualizarPassword() {
 
   return (
     <div style={{ position: 'relative', display: 'flex', flexDirection: 'column', minHeight: '100dvh', overflow: 'hidden' }}>
-      <FondoHexagonal />
+      <FondoLogin />
 
       <header style={{ position: 'relative', display: 'flex', alignItems: 'center', gap: 10, padding: '14px 16px 0' }}>
         <button
