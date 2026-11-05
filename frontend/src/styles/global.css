@@ -231,7 +231,8 @@ display: flex;
   border-radius: 12px;
   padding: 14px 16px 14px 46px;
   color: var(--text);
-  font-size: 0.95rem;
+  /* 16px exactos: con menos, iOS/Safari hace zoom al enfocar el campo. */
+  font-size: 1rem;
   outline: none;
   transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
@@ -243,6 +244,23 @@ display: flex;
 
 .auth-input::placeholder {
   color: var(--text-muted);
+}
+
+/* Foco visible al navegar con teclado (Tab) en el login y en "Nueva
+   contraseña": :focus-visible no se activa al tocar, así que en el
+   celular no aparece ningún anillo de más. Los campos ya tienen el suyo
+   (.auth-input:focus). */
+/* Respuesta al pasar el mouse (solo en dispositivos con puntero real; en
+   el celular no queda "pegado" el hover tras tocar). */
+@media (hover: hover) {
+  .login-pantalla .gm-cta:hover:not(:disabled) { filter: brightness(1.08); }
+}
+
+.login-pantalla button:focus-visible,
+.login-pantalla a:focus-visible,
+.login-pantalla input[type="checkbox"]:focus-visible {
+  outline: 2px solid #8b6fcf;
+  outline-offset: 3px;
 }
 
 /* ── Login por pasos (pages/Login.jsx) ─────────────────────────────────────
@@ -302,8 +320,43 @@ display: flex;
   to   { opacity: 1; transform: scale(1) translateY(0); }
 }
 
+/* Auroras del fondo del login (components/FondoLogin.jsx): manchas de luz
+   con los colores de la marca que flotan muy despacio. Son gradientes
+   radiales (sin filter: blur) y solo animan transform. */
+.login-aurora {
+  position: absolute;
+  border-radius: 50%;
+  will-change: transform;
+}
+.login-aurora-morada {
+  width: 360px;
+  height: 360px;
+  top: -170px;
+  right: -110px;
+  background: radial-gradient(circle, rgba(124, 92, 191, 0.42), rgba(124, 92, 191, 0) 68%);
+  animation: login-aurora-a 14s ease-in-out infinite alternate;
+}
+.login-aurora-azul {
+  width: 300px;
+  height: 300px;
+  top: -80px;
+  left: -140px;
+  background: radial-gradient(circle, rgba(79, 142, 247, 0.26), rgba(79, 142, 247, 0) 68%);
+  animation: login-aurora-b 18s ease-in-out infinite alternate;
+}
+@keyframes login-aurora-a {
+  from { transform: translate3d(0, 0, 0) scale(1); }
+  to   { transform: translate3d(-40px, 30px, 0) scale(1.08); }
+}
+@keyframes login-aurora-b {
+  from { transform: translate3d(0, 0, 0) scale(1); }
+  to   { transform: translate3d(36px, 18px, 0) scale(1.12); }
+}
+/* En el tema claro el morado sobre blanco pesa más: se baja un poco. */
+:root[data-tema="claro"] .login-aurora { opacity: 0.7; }
+
 @media (prefers-reduced-motion: reduce) {
-  .login-paso, .login-paso-atras, .login-cascada, .login-fondo, .login-logo { animation: none; }
+  .login-paso, .login-paso-atras, .login-cascada, .login-fondo, .login-logo, .login-aurora { animation: none; }
   .login-credencial-brillo { display: none; }
 }
 

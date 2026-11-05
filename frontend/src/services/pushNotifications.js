@@ -112,7 +112,7 @@ export async function activarNotificaciones() {
 function mostrarConfirmacion(registro) {
   registro.showNotification('Notificaciones activadas', {
     body: 'Así te recordaremos estudiar. Ajusta cuándo en Ajustes.',
-    icon: '/logo.png',
+    icon: '/icons/icon-192.png',
     badge: '/logo.png',
     data: { url: '/ajustes' },
   }).catch((err) => console.error('[pushNotifications] No se pudo mostrar la confirmación:', err));

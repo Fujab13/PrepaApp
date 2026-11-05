@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { supabase } from '../services/supabaseClient'
 import MarcaPrepaApp from '../components/MarcaPrepaApp'
-import FondoHexagonal from '../components/FondoHexagonal'
+import FondoLogin from '../components/FondoLogin'
 
 import { AiOutlineClose, AiOutlineLoading3Quarters } from 'react-icons/ai'
 import { HiOutlineLockClosed } from 'react-icons/hi2'
@@ -76,8 +76,8 @@ export default function ActualizarPassword() {
   }
 
   return (
-    <div style={{ position: 'relative', display: 'flex', flexDirection: 'column', minHeight: '100dvh', overflow: 'hidden' }}>
-      <FondoHexagonal />
+    <div className="login-pantalla" style={{ position: 'relative', display: 'flex', flexDirection: 'column', minHeight: '100dvh', overflow: 'hidden' }}>
+      <FondoLogin />
 
       <header style={{ position: 'relative', display: 'flex', alignItems: 'center', gap: 10, padding: '14px 16px 0' }}>
         <button
@@ -100,7 +100,7 @@ export default function ActualizarPassword() {
       <main style={{ position: 'relative', flex: 1, width: '100%', maxWidth: 480, alignSelf: 'center', boxSizing: 'border-box', padding: '28px 24px 32px', display: 'flex', flexDirection: 'column' }}>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 22, margin: 'auto 0' }}>
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: 14 }}>
-            <img src="/logo.ico" alt="" width="52" height="52" style={{ objectFit: 'contain' }} />
+            <img src="/logo.svg" alt="" width="48" height="48" className="login-logo" style={{ objectFit: 'contain' }} />
             <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
               <h1 style={{ margin: 0, fontSize: '1.75rem', fontWeight: 800, letterSpacing: '-0.03em', lineHeight: 1.15, color: 'var(--text)' }}>
                 Nueva contraseña

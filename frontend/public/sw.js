@@ -26,7 +26,9 @@ self.addEventListener("push", (event) => {
   const titulo = datos.title || "PrepaApp";
   const opciones = {
     body: datos.body || "",
-    icon: "/logo.png",
+    // icon: mosaico morado completo; badge: Android usa solo la silueta
+    // (canal alfa), por eso va el símbolo con fondo transparente.
+    icon: "/icons/icon-192.png",
     badge: "/logo.png",
     data: { url: datos.url || "/" },
   };

@@ -27,7 +27,7 @@ import { supabase } from '../services/supabaseClient'
 import { useAuth } from '../context/AuthContext'
 import { triggerVibration } from '../utils/haptics'
 import Celebracion from '../components/Celebracion'
-import FondoHexagonal from '../components/FondoHexagonal'
+import FondoLogin from '../components/FondoLogin'
 import CasillaConsentimiento from '../components/CasillaConsentimiento'
 import CampoUsuario from '../components/CampoUsuario'
 import MarcaPrepaApp from '../components/MarcaPrepaApp'
@@ -51,8 +51,28 @@ function traducirErrorAuth(mensaje) {
     'Password should be at least 6 characters': 'Mínimo 6 caracteres.',
     'Email not confirmed': 'Confirma tu correo primero.',
     'Email rate limit exceeded': 'Demasiados intentos. Espera un poco.',
+    'Request rate limit reached': 'Demasiados intentos. Espera un poco.',
   }
   return mapa[mensaje] || mensaje
+}
+
+// Supabase limita los intentos por IP (sección [auth.rate_limit] de
+// supabase/config.toml) y responde 429. El límite real lo pone el
+// servidor; aquí solo se muestra cuánto falta en vez del error en inglés.
+// Devuelve los segundos de espera, o 0 si el error no es de límite.
+function segundosDeLimite(err) {
+  const m = err?.message || ''
+  const esLimite = err?.status === 429
+    || ['over_request_rate_limit', 'over_email_send_rate_limit'].includes(err?.code)
+    || /rate limit/i.test(m)
+  if (!esLimite) return 0
+  // "For security purposes, you can only request this after 42 seconds."
+  const n = m.match(/after (\d+) seconds?/i)
+  return n ? Number(n[1]) : 60
+}
+
+function formatoEspera(seg) {
+  return `${Math.floor(seg / 60)}:${String(seg % 60).padStart(2, '0')}`
 }
 
 // Errores de la política de contraseñas de Supabase, que llegan hasta el
@@ -130,10 +150,10 @@ function FichaCorreo({ correo, onCambiar }) {
       }}
     >
       <img
-        src="/logo.ico"
+        src="/logo.svg"
         alt=""
-        width="26"
-        height="26"
+        width="24"
+        height="24"
         style={{ flexShrink: 0, objectFit: 'contain' }}
       />
       <span style={{ fontSize: '0.82rem', fontWeight: 600, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
@@ -223,11 +243,15 @@ function BotonPrincipal({ children, cargando, deshabilitado, onClick, type = 'bu
       className="gm-cta"
       style={{
         width: '100%', minHeight: 52, borderRadius: 14, border: 'none',
-        background: '#7c5cbf', color: '#fff', fontWeight: 700, fontSize: '0.98rem',
+        // Degradado casi imperceptible del mismo morado (#7c5cbf) y un filo
+        // de luz arriba: da volumen sin cambiar el color de la marca.
+        background: 'linear-gradient(180deg, #8667c9, #7c5cbf 55%)', color: '#fff', fontWeight: 700, fontSize: '0.98rem',
         display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8,
         opacity: inactivo ? 0.55 : 1, cursor: inactivo ? 'default' : 'pointer',
-        boxShadow: inactivo ? 'none' : '0 10px 24px -10px rgba(124, 92, 191, 0.7)',
-        transition: 'opacity 0.2s ease, box-shadow 0.2s ease',
+        boxShadow: inactivo
+          ? 'none'
+          : 'inset 0 1px 0 rgba(255, 255, 255, 0.18), 0 10px 24px -10px rgba(124, 92, 191, 0.7)',
+        transition: 'opacity 0.2s ease, box-shadow 0.2s ease, filter 0.15s ease',
       }}
     >
       {cargando && <AiOutlineLoading3Quarters className="spin" />}
@@ -298,9 +322,29 @@ export default function Login() {
   const [cargandoGoogle, setCargandoGoogle] = useState(false)
   const [celebrando, setCelebrando] = useState(false)
   const [enlaceEnviado, setEnlaceEnviado] = useState(false)
+  // Contenido del paso actual: se sacude cuando algo sale mal.
+  const contenidoRef = useRef(null)
+  // Fin del bloqueo por demasiados intentos (429), en ms; 0 = sin bloqueo.
+  // `tic` solo existe para volver a pintar la cuenta regresiva cada segundo.
+  const [bloqueadoHasta, setBloqueadoHasta] = useState(0)
+  const [, setTic] = useState(0)
+  const restante = bloqueadoHasta ? Math.max(0, Math.ceil((bloqueadoHasta - Date.now()) / 1000)) : 0
 
   const pasos = FLUJOS[flujo]
   const indice = Math.max(0, pasos.indexOf(paso))
+
+  useEffect(() => {
+    if (!bloqueadoHasta) return
+    const id = setInterval(() => {
+      if (Date.now() >= bloqueadoHasta) {
+        setBloqueadoHasta(0)
+        setError('')
+      } else {
+        setTic(t => t + 1)
+      }
+    }, 1000)
+    return () => clearInterval(id)
+  }, [bloqueadoHasta])
 
   // Vuelta de Google: cuenta nueva (usuario genérico sin confirmar) → elige
   // usuario y acepta el aviso; cuenta que ya lo había hecho → a Home.
@@ -397,6 +441,41 @@ export default function Login() {
     })
   }
 
+  // Error de una acción del alumno: además del mensaje, una sacudida corta
+  // del paso y la vibración de error, para que se note aunque no esté
+  // leyendo. Con Web Animations (no una clase CSS) se puede repetir en
+  // cada intento sin volver a montar el formulario, que perdería el foco.
+  // Con "reducir movimiento" solo queda el mensaje y la vibración.
+  function fallar(mensaje) {
+    setError(mensaje)
+    triggerVibration('error')
+    const el = contenidoRef.current
+    const reducir = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
+    if (el?.animate && !reducir) {
+      el.animate(
+        [
+          { transform: 'translateX(0)' },
+          { transform: 'translateX(-8px)' },
+          { transform: 'translateX(7px)' },
+          { transform: 'translateX(-5px)' },
+          { transform: 'translateX(3px)' },
+          { transform: 'translateX(0)' },
+        ],
+        { duration: 380, easing: 'ease-out' },
+      )
+    }
+  }
+
+  // Si el error es por demasiados intentos, arranca la cuenta regresiva y
+  // avisa con fallar(). Devuelve true si lo manejó.
+  function manejarLimite(err) {
+    const seg = segundosDeLimite(err)
+    if (!seg) return false
+    setBloqueadoHasta(Date.now() + seg * 1000)
+    fallar('Demasiados intentos.')
+    return true
+  }
+
   function limpiarPasswords() {
     setPassword('')
     setConfirmPassword('')
@@ -413,7 +492,7 @@ export default function Login() {
   // ── acciones de cada paso ──
   function continuarCorreo(e) {
     e.preventDefault()
-    if (!CORREO_REGEX.test(email.trim())) return setError('Escribe un correo válido.')
+    if (!CORREO_REGEX.test(email.trim())) return fallar('Escribe un correo válido.')
     setEmail(email.trim())
     // Usuario de inicio: una sugerencia segura (no la parte del correo). Se
     // rehace si cambió el correo, mientras el alumno no haya puesto el suyo.
@@ -427,20 +506,22 @@ export default function Login() {
   async function continuarPassword(e) {
     e.preventDefault()
     if (flujo === 'login') {
-      if (!password) return setError('Escribe tu contraseña.')
+      if (!password) return fallar('Escribe tu contraseña.')
+      if (restante) return
       setCargando(true)
       const { error: err } = await supabase.auth.signInWithPassword({ email, password })
       setCargando(false)
       if (err) {
+        if (manejarLimite(err)) return
         setSugerirGoogle(err.message === 'Invalid login credentials')
-        return setError(traducirErrorAuth(err.message))
+        return fallar(traducirErrorAuth(err.message))
       }
       triggerVibration('success')
       navigate('/')
       return
     }
-    if (password.length < 6) return setError('Mínimo 6 caracteres.')
-    if (password !== confirmPassword) return setError('Las contraseñas no coinciden.')
+    if (password.length < 6) return fallar('Mínimo 6 caracteres.')
+    if (password !== confirmPassword) return fallar('Las contraseñas no coinciden.')
     irA('usuario')
   }
 
@@ -448,7 +529,7 @@ export default function Login() {
     e.preventDefault()
     if (estadoUsuario !== 'libre') {
       if (estadoUsuario === 'revisando') return
-      return setError({
+      return fallar({
         ocupado: 'Ese usuario ya está en uso.',
         no_permitido: 'Ese usuario no está permitido.',
       }[estadoUsuario] || 'Elige un usuario válido.')
@@ -460,8 +541,9 @@ export default function Login() {
     e.preventDefault()
     if (!aceptaAviso) {
       setResaltarAviso(true)
-      return setError('Acepta el aviso de privacidad.')
+      return fallar('Acepta el aviso de privacidad.')
     }
+    if (restante) return
     const constancia = { aviso_privacidad_version: VERSION_AVISO, aviso_privacidad_aceptado_en: new Date().toISOString() }
     setCargando(true)
     setError('')
@@ -473,7 +555,7 @@ export default function Login() {
         await refrescarPerfil()
       } catch (err) {
         setCargando(false)
-        return setError(err.message)
+        return fallar(err.message)
       }
       setCargando(false)
       setCelebrando(true)
@@ -487,8 +569,9 @@ export default function Login() {
     })
     setCargando(false)
     if (err) {
+      if (manejarLimite(err)) return
       const deContrasena = errorDeContrasena(err)
-      if (!deContrasena) return setError(traducirErrorAuth(err.message))
+      if (!deContrasena) return fallar(traducirErrorAuth(err.message))
       // La contraseña se corrige en su paso: dos entradas atrás del
       // historial (confirmar → usuario → contraseña), con el error ya ahí.
       errorAlLlegarRef.current = deContrasena
@@ -512,13 +595,17 @@ export default function Login() {
 
   async function enviarRecuperacion(e) {
     e.preventDefault()
-    if (!CORREO_REGEX.test(email.trim())) return setError('Escribe un correo válido.')
+    if (!CORREO_REGEX.test(email.trim())) return fallar('Escribe un correo válido.')
+    if (restante) return
     setCargando(true)
     const { error: err } = await supabase.auth.resetPasswordForEmail(email.trim(), {
       redirectTo: `${window.location.origin}/actualizar-password`,
     })
     setCargando(false)
-    if (err) return setError(traducirErrorAuth(err.message))
+    if (err) {
+      if (manejarLimite(err)) return
+      return fallar(traducirErrorAuth(err.message))
+    }
     setEnlaceEnviado(true)
   }
 
@@ -531,7 +618,7 @@ export default function Login() {
     })
     // Sin error, el navegador ya se va a Google: no se apaga el "cargando".
     if (err) {
-      setError(traducirErrorAuth(err.message))
+      fallar(traducirErrorAuth(err.message))
       setCargandoGoogle(false)
     }
   }
@@ -569,8 +656,15 @@ export default function Login() {
     </button>
   )
 
-  const mensajeError = error && (
-    <p role="alert" style={{ margin: 0, fontSize: '0.84rem', fontWeight: 600, color: 'var(--wrong)' }}>{error}</p>
+  // Durante el bloqueo, la cuenta regresiva va fuera del role="alert" para
+  // que el lector de pantalla no la repita cada segundo.
+  const mensajeError = (error || restante > 0) && (
+    <p role="alert" style={{ margin: 0, fontSize: '0.84rem', fontWeight: 600, color: 'var(--wrong)' }}>
+      {restante > 0 ? 'Demasiados intentos.' : error}
+      {restante > 0 && (
+        <span aria-live="off" style={{ fontVariantNumeric: 'tabular-nums' }}> Intenta de nuevo en {formatoEspera(restante)}.</span>
+      )}
+    </p>
   )
 
   // Cada paso arma su `contenido` y su `pie` (el botón principal queda
@@ -589,15 +683,22 @@ export default function Login() {
     const esLogin = flujo === 'login'
     contenido = (
       <>
+        {/* El símbolo de la marca solo en el primer paso: presenta la app
+            sin repetirse en cada pantalla del flujo. */}
+        <img src="/logo.svg" alt="" width="48" height="48" className="login-logo" style={{ display: 'block', marginBottom: -8 }} />
         <Titulo sub={esLogin ? 'Continúa donde te quedaste.' : 'Gratis. Tu progreso queda guardado.'}>
           {esLogin ? 'Inicia sesión' : 'Crea tu cuenta'}
         </Titulo>
         <div className="login-cascada" style={{ animationDelay: '60ms', display: 'flex', flexDirection: 'column', gap: 12 }}>
           {/* Sin autoFocus a propósito: en móvil abriría el teclado al
               entrar y taparía el botón de Google. */}
+          {/* Al iniciar sesión, autocomplete="username": así los gestores de
+              contraseñas (1Password, Bitwarden, Chrome, iOS) ofrecen la
+              cuenta guardada. Al registrarse es un correo nuevo: "email". */}
           <CampoIcono
             icono={HiOutlineEnvelope} type="email" placeholder="Correo electrónico" value={email}
-            onChange={e => setEmail(e.target.value)} autoComplete="email" inputMode="email"
+            onChange={e => setEmail(e.target.value)} onBlur={() => setEmail(v => v.trim())}
+            name={esLogin ? 'username' : 'email'} autoComplete={esLogin ? 'username' : 'email'} inputMode="email"
           />
           {mensajeError}
           <div style={{ fontSize: '0.88rem', color: 'var(--text-muted)' }}>
@@ -667,7 +768,11 @@ export default function Login() {
         </div>
       </>
     )
-    pie = <BotonPrincipal type="submit" cargando={cargando}>{esLogin ? (cargando ? 'Entrando…' : 'Iniciar sesión') : 'Siguiente'}</BotonPrincipal>
+    pie = (
+      <BotonPrincipal type="submit" cargando={cargando} deshabilitado={esLogin && restante > 0}>
+        {esLogin && restante > 0 ? `Espera ${formatoEspera(restante)}` : esLogin ? (cargando ? 'Entrando…' : 'Iniciar sesión') : 'Siguiente'}
+      </BotonPrincipal>
+    )
   } else if (paso === 'usuario') {
     contenido = (
       <>
@@ -737,7 +842,7 @@ export default function Login() {
     pie = (
       <div style={{ position: 'relative' }}>
         <Celebracion activo={celebrando} color="#7c5cbf" />
-        <BotonPrincipal type="submit" cargando={cargando} deshabilitado={celebrando}>
+        <BotonPrincipal type="submit" cargando={cargando} deshabilitado={celebrando || restante > 0}>
           {cargando ? 'Un momento…' : flujo === 'completar' ? 'Empezar' : 'Crear cuenta'}
         </BotonPrincipal>
       </div>
@@ -749,7 +854,7 @@ export default function Login() {
           width: 56, height: 56, display: 'flex', alignItems: 'center', justifyContent: 'center',
           borderRadius: 18, background: 'rgba(79,142,247,0.12)', border: '1px solid rgba(79,142,247,0.24)',
         }}>
-          <img src="/logo.ico" alt="" width="32" height="32" style={{ objectFit: 'contain' }} />
+          <img src="/logo.svg" alt="" width="32" height="32" style={{ objectFit: 'contain' }} />
         </div>
         <Titulo sub="Si la cuenta existe, recibirás un enlace para restablecerla.">Revisa tu correo</Titulo>
         <FichaCorreo correo={email} onCambiar={() => setEnlaceEnviado(false)} />
@@ -760,7 +865,8 @@ export default function Login() {
         <div className="login-cascada" style={{ animationDelay: '60ms', display: 'flex', flexDirection: 'column', gap: 12 }}>
           <CampoIcono
             icono={HiOutlineEnvelope} type="email" placeholder="Correo electrónico" value={email}
-            onChange={e => setEmail(e.target.value)} autoComplete="email" inputMode="email" autoFocus
+            onChange={e => setEmail(e.target.value)} onBlur={() => setEmail(v => v.trim())}
+            name="username" autoComplete="username" inputMode="email" autoFocus
           />
           {mensajeError}
         </div>
@@ -768,7 +874,11 @@ export default function Login() {
     )
     pie = enlaceEnviado
       ? <BotonPrincipal onClick={() => navigate(-1)}>Volver</BotonPrincipal>
-      : <BotonPrincipal type="submit" cargando={cargando}>{cargando ? 'Enviando…' : 'Enviar enlace'}</BotonPrincipal>
+      : (
+        <BotonPrincipal type="submit" cargando={cargando} deshabilitado={restante > 0}>
+          {restante > 0 ? `Espera ${formatoEspera(restante)}` : cargando ? 'Enviando…' : 'Enviar enlace'}
+        </BotonPrincipal>
+      )
   }
 
   const alEnviar = {
@@ -780,8 +890,8 @@ export default function Login() {
   }[paso] || ((e) => e.preventDefault())
 
   return (
-    <div style={{ position: 'relative', display: 'flex', flexDirection: 'column', minHeight: '100dvh', overflowX: 'hidden' }}>
-      <FondoHexagonal />
+    <div className="login-pantalla" style={{ position: 'relative', display: 'flex', flexDirection: 'column', minHeight: '100dvh', overflowX: 'hidden' }}>
+      <FondoLogin />
       <Encabezado
         onAtras={retroceder}
         esPrimero={(indice === 0 && paso !== 'recuperar') || paso === 'esperando'}
@@ -796,7 +906,7 @@ export default function Login() {
         className={atras ? 'login-paso-atras' : 'login-paso'}
         style={{ position: 'relative', flex: 1, display: 'flex', flexDirection: 'column', padding: '28px 24px 24px', gap: 22 }}
       >
-        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 22 }}>
+        <div ref={contenidoRef} style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 22 }}>
           {contenido}
         </div>
         {pie && <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>{pie}</div>}
