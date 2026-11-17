@@ -393,6 +393,150 @@
       "correcta": 2
     },
     {
+      "pregunta": "Simplifica $\\left(\\frac{a}{b}\\right)^2$, con $b\\ne 0$.",
+      "opciones": [
+        "$\\frac{a}{b^2}$",
+        "$\\frac{a^2}{b^2}$",
+        "$\\frac{a^2}{b}$"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "¿Cuál es el resultado de $\\left(\\frac{2}{x}\\right)^4$, con $x\\ne 0$?",
+      "opciones": [
+        "$\\frac{8}{x^4}$",
+        "$\\frac{16}{x}$",
+        "$\\frac{16}{x^4}$"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "Al desarrollar $\\left(\\frac{a}{3b^2}\\right)^5$, se obtiene:",
+      "opciones": [
+        "$\\frac{a^5}{243b^{10}}$",
+        "$\\frac{a^5}{15b^{10}}$",
+        "$\\frac{a^5}{243b^7}$"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Simplifica $\\left(\\frac{3a^3c}{d}\\right)^3$, con $d\\ne 0$.",
+      "opciones": [
+        "$\\frac{9a^9c^3}{d^3}$",
+        "$\\frac{27a^9c^3}{d^3}$",
+        "$\\frac{27a^6c^3}{d^3}$"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "¿Qué expresión equivale a $\\left(\\frac{mn}{4z^4}\\right)^4$, con $z\\ne 0$?",
+      "opciones": [
+        "$\\frac{m^4n^4}{256z^{16}}$",
+        "$\\frac{m^4n^4}{16z^{16}}$",
+        "$\\frac{m^4n^4}{256z^8}$"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Para $b\\ne 0$, ¿cuál es la forma simplificada de $\\left(\\frac{ab}{b}\\right)^5$?",
+      "opciones": [
+        "$a^5b^5$",
+        "$a^5$",
+        "$a^5b$"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Simplifica $\\left(\\frac{1}{3m^2n^2}\\right)^3$, con $m,n\\ne 0$.",
+      "opciones": [
+        "$\\frac{1}{9m^6n^6}$",
+        "$\\frac{1}{27m^5n^5}$",
+        "$\\frac{1}{27m^6n^6}$"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "¿Cuál es el desarrollo de $\\left(\\frac{5x}{7y^3z}\\right)^4$, con $y,z\\ne 0$?",
+      "opciones": [
+        "$\\frac{625x^4}{2401y^{12}z^4}$",
+        "$\\frac{20x^4}{28y^{12}z^4}$",
+        "$\\frac{625x^4}{2401y^7z^4}$"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Calcula $4^3$.",
+      "opciones": [
+        "$12$",
+        "$64$",
+        "$81$"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "¿Cuál es el valor de $(-5)^4$?",
+      "opciones": [
+        "$-625$",
+        "$-20$",
+        "$625$"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "Calcula $(-2)^5$.",
+      "opciones": [
+        "$-32$",
+        "$32$",
+        "$-10$"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Simplifica $(-2x)^3$.",
+      "opciones": [
+        "$-8x^2$",
+        "$-8x^3$",
+        "$8x^3$"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "¿Cuál es el resultado de $(3c^2)^3$?",
+      "opciones": [
+        "$9c^6$",
+        "$27c^5$",
+        "$27c^6$"
+      ],
+      "correcta": 2
+    },
+    {
+      "pregunta": "En el monomio $-2p^3z^4$, ¿cuál es el coeficiente y cuál es su grado total?",
+      "opciones": [
+        "Coeficiente: $-2$; grado: $7$",
+        "Coeficiente: $2$; grado: $7$",
+        "Coeficiente: $-2$; grado: $12$"
+      ],
+      "correcta": 0
+    },
+    {
+      "pregunta": "Desarrolla $(-3abc^3)^3$.",
+      "opciones": [
+        "$-27a^3b^3c^3$",
+        "$-27a^3b^3c^9$",
+        "$27a^3b^3c^9$"
+      ],
+      "correcta": 1
+    },
+    {
+      "pregunta": "Simplifica $(-4a^3b^3)^4$.",
+      "opciones": [
+        "$-256a^{12}b^{12}$",
+        "$256a^7b^7$",
+        "$256a^{12}b^{12}$"
+      ],
+      "correcta": 2
+    },
+    {
       "pregunta": "Una proporción es la igualdad entre dos razones, como $\\frac{a}{b} = \\frac{c}{d}$, y se resuelve con el producto cruzado ($a \\times d = b \\times c$). Cuando dos magnitudes son directamente proporcionales, al aumentar una la otra aumenta en la misma razón; si son inversamente proporcionales, al aumentar una la otra disminuye. Un porcentaje es una razón especial con denominador $100$: el $x\\%$ de una cantidad $C$ equivale a $\\frac{x}{100} \\times C$.",
       "enlace_svg": "proporciones.svg"
     },

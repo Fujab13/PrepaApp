@@ -1,4 +1,5 @@
 import { useEffect, useCallback } from 'react'
+import { useBackDismiss } from '../hooks/useBackDismiss'
 
 // Modal de confirmación minimalista, reemplazo estético de window.confirm().
 // Uso: guarda en un state el mensaje/acción a confirmar y renderiza este
@@ -19,6 +20,8 @@ export default function ConfirmDialog({
   const cerrar = useCallback(() => {
     if (onCancelar) onCancelar()
   }, [onCancelar])
+
+  useBackDismiss(abierto, cerrar)
 
   useEffect(() => {
     if (!abierto) return

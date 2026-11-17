@@ -1,5 +1,6 @@
 // SidenavMatrix.jsx
 import { useEffect, useMemo } from "react";
+import { useBackDismiss } from "../hooks/useBackDismiss";
 
 import { AiOutlineClose } from "react-icons/ai";
 
@@ -24,6 +25,8 @@ export default function SidenavMatrix({
   onCerrar,
   seccionActual,
 }) {
+  useBackDismiss(true, onCerrar)
+
   // Cerrar con Escape
   useEffect(() => {
     const handler = (e) => { if (e.key === "Escape") onCerrar(); };

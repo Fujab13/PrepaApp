@@ -13,6 +13,7 @@
 
 import { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
+import { useBackDismiss } from '../hooks/useBackDismiss'
 import { useAuth } from '../context/AuthContext'
 import { supabase } from '../services/supabaseClient'
 import { cambiarMiUsuario } from '../services/usuario'
@@ -37,6 +38,8 @@ export default function ElegirUsuarioDialog({
   const [resaltarAviso, setResaltarAviso] = useState(false)
   const [guardando, setGuardando] = useState(false)
   const [error, setError] = useState('')
+
+  useBackDismiss(abierto, () => onCerrar?.())
 
   useEffect(() => {
     if (abierto) { setValor(usuarioActual || ''); setError(''); setAceptaAviso(false); setResaltarAviso(false) }
