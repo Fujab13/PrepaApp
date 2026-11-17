@@ -2,6 +2,7 @@ import { useState, useMemo, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useStore } from '../context/StoreContext'
 import { useAuth } from '../context/AuthContext'
+import { useBackDismiss } from '../hooks/useBackDismiss'
 
 import { supabase } from '../services/supabaseClient'
 
@@ -21,6 +22,42 @@ import ConfirmDialog from '../components/ConfirmDialog'
 // Referencia estable (ver PixelArt.jsx: memo) — un objeto literal inline en
 // el JSX de abajo se recrearía en cada render y anularía la memoización.
 const ESTILO_SPRITE_TIENDA = { maxWidth: '100%', height: 'auto', color: 'var(--text-muted)' }
+
+function mensajeErrorProductoGratis(reason) {
+  const error = String(reason ?? '').toLowerCase()
+
+  if (error.includes('no autenticado') || error.includes('not authenticated') || error.includes('unauthorized')) {
+    return 'Inicia sesión con una cuenta'
+  }
+  if (error.includes('producto no encontrado') || error.includes('inactivo')) {
+    return 'Esta lección ya no está disponible. Actualiza la tienda e inténtalo de nuevo.'
+  }
+  if (error.includes('no es gratuito')) {
+    return 'El precio de esta lección cambió. Actualiza la tienda e inténtalo de nuevo.'
+  }
+  if (error.includes('failed to fetch') || error.includes('network') || error.includes('fetch')) {
+    return 'No se pudo conectar con la tienda. Revisa tu conexión e inténtalo de nuevo.'
+  }
+  return 'No se pudo activar la lección gratuita. Inténtalo de nuevo; si el problema continúa, contacta soporte.'
+}
+
+function mensajeErrorPago(error) {
+  const mensaje = String(error ?? '').toLowerCase()
+
+  if (mensaje.includes('no autenticado') || mensaje.includes('not authenticated') || mensaje.includes('unauthorized')) {
+    return 'Inicia sesión con una cuenta para comprar este artículo.'
+  }
+  if (mensaje.includes('producto no encontrado')) {
+    return 'Este artículo ya no está disponible. Actualiza la tienda e inténtalo de nuevo.'
+  }
+  if (mensaje.includes('transacción') || mensaje.includes('transaccion')) {
+    return 'No se pudo registrar la compra. Inténtalo de nuevo; si el problema continúa, contacta soporte.'
+  }
+  if (mensaje.includes('failed to fetch') || mensaje.includes('network') || mensaje.includes('fetch')) {
+    return 'No se pudo conectar con el servicio de pago. Revisa tu conexión e inténtalo de nuevo.'
+  }
+  return 'No se pudo iniciar el pago. Inténtalo de nuevo; si el problema continúa, contacta soporte.'
+}
 
 function estiloControlCantidad(deshabilitado, primario = false) {
   return {
@@ -48,7 +85,7 @@ const VENTANA_TOQUES_MS = 1200
 
 export default function Store() {
   const navigate = useNavigate()
-  const { coins, ownsItem, purchaseWithCoins, comprarComida, startRealPayment, claimFreeProduct, items, productosLoading, temaActivo, elegirTema, ajustarMonedasAdmin } = useStore()
+  const { coins, ownsItem, purchaseWithCoins, comprarComida, startRealPayment, claimFreeProduct, items, productosLoading, temaActivo, elegirTema, ajustarMonedasAdmin, user, authLoading } = useStore()
   const { esAdmin } = useAuth()
   const [feedback, setFeedback] = useState(null)
   const [loadingId, setLoadingId] = useState(null)
@@ -62,6 +99,8 @@ export default function Store() {
   const reinicioToquesRef = useRef(null)
   const [panelAdminAbierto, setPanelAdminAbierto] = useState(false)
   const [montoAdmin, setMontoAdmin] = useState('500')
+
+  useBackDismiss(panelAdminAbierto, () => setPanelAdminAbierto(false))
 
   function tocarSaldo() {
     if (!esAdmin) return
@@ -282,7 +321,7 @@ export default function Store() {
 
   function mostrarFeedback(type, text) {
     setFeedback({ type, text })
-    setTimeout(() => setFeedback(null), 2200)
+    setTimeout(() => setFeedback(null), type === 'error' ? 4500 : 2200)
   }
 
   function solicitarCompra(item) {
@@ -296,6 +335,14 @@ export default function Store() {
 
   async function manejarCompra(item, cantidad = 1) {
     if (ownsItem(item.id) || loadingId) return
+    if (item.type === 'real' && authLoading) {
+      mostrarFeedback('error', 'Estamos verificando tu cuenta. Inténtalo de nuevo en unos segundos.')
+      return
+    }
+    if (item.type === 'real' && !user) {
+      mostrarFeedback('error', 'Inicia sesión con una cuenta')
+      return
+    }
     setLoadingId(item.id)
 
     // --- monedas internas ---
@@ -319,13 +366,19 @@ export default function Store() {
 
     // --- producto real gratuito (precio $0 en Supabase): sin Stripe ---
     if (item.type === 'real' && item.priceMXN === 0) {
-      const result = await claimFreeProduct(item.productoId)
-      if (result.ok) {
-        mostrarFeedback('success', `¡Desbloqueaste "${item.nombre}"!`)
-      } else {
-        mostrarFeedback('error', 'No se pudo activar la lección gratuita')
+      try {
+        const result = await claimFreeProduct(item.productoId)
+        if (result.ok) {
+          mostrarFeedback('success', `¡Desbloqueaste "${item.nombre}"!`)
+        } else {
+          mostrarFeedback('error', mensajeErrorProductoGratis(result.reason))
+        }
+      } catch (error) {
+        console.error('[Store] No se pudo activar la lección gratuita:', error)
+        mostrarFeedback('error', mensajeErrorProductoGratis(error?.message))
+      } finally {
+        setLoadingId(null)
       }
-      setLoadingId(null)
       return
     }
 
@@ -337,7 +390,7 @@ export default function Store() {
       } else if (result.reason === 'payment_gateway_not_implemented') {
         mostrarFeedback('error', 'Pagos con dinero real próximamente')
       } else {
-        mostrarFeedback('error', 'No se pudo procesar el pago')
+        mostrarFeedback('error', mensajeErrorPago(result.reason))
       }
       setLoadingId(null)
       return
@@ -368,15 +421,15 @@ export default function Store() {
       const data = await res.json()
 
       if (!res.ok || data.error || !data.url) {
-        mostrarFeedback('error', data.error || 'No se pudo iniciar el pago')
+        mostrarFeedback('error', mensajeErrorPago(data.error))
         setLoadingId(null)
         return
       }
 
       window.location.href = data.url // redirige a Stripe Checkout
     } catch (err) {
-      console.error(err)
-      mostrarFeedback('error', 'No se pudo procesar el pago')
+      console.error('[Store] No se pudo iniciar el pago:', err)
+      mostrarFeedback('error', mensajeErrorPago(err?.message))
       setLoadingId(null)
     }
   }

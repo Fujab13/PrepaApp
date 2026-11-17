@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom'
+import { useBackDismiss } from '../hooks/useBackDismiss'
 import { supabase } from '../services/supabaseClient'
 import { useAuth } from '../context/AuthContext'
 import { useMusic } from '../context/MusicContext'
@@ -38,6 +39,8 @@ export default function Sidenav({ open, onClose }) {
     () => (typeof window !== 'undefined' ? window.innerHeight : null)
   );
   const [puedeInstalar, setPuedeInstalar] = useState(hayPromptDeInstalacion);
+
+  useBackDismiss(open, onClose)
 
   // Recordatorio de estudio cada ~3 días (ver edge function
   // recordatorio-estudio) — usa la MISMA suscripción push genérica que ya
@@ -139,7 +142,7 @@ export default function Sidenav({ open, onClose }) {
   }
 
   function ir(ruta) {
-    navigate(ruta)
+    navigate(ruta, { replace: true })
     onClose()
   }
 

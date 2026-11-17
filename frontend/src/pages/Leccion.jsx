@@ -24,6 +24,7 @@ import { esNavegadorEmbebido, intentarAbrirEnNavegador } from '../utils/navegado
 import { getLectura } from '../data/lecturas/index';
 import { buscarConceptoSimilar } from '../utils/buscarConcepto';
 import { useFullscreen } from '../hooks/useFullscreen';
+import { useBackDismiss } from '../hooks/useBackDismiss'
 import { renderIconoMateria } from '../utils/renderIconoMateria';
 
 import { IoMdClose } from "react-icons/io";
@@ -157,6 +158,7 @@ export default function Leccion() {
   const sinConceptos = modoConceptos && Boolean(materia) && preguntasPool.length === 0
   const totalUnidades = materia && preguntasPool.length > 0 ? getTotalUnidades(preguntasPool, tamanoUnidad) : undefined
   const { unidad, elemento, cargando: cargandoProgreso, guardarProgreso } = useProgreso(materiaId, totalUnidades, { soloLocal: modoConceptos })
+  const [unidadInput, setUnidadInput] = useState('1')
 
   const [cola, setCola]                             = useState(null)
   const [correctasIniciales, setCorrectasIniciales]  = useState(0)
@@ -194,6 +196,8 @@ export default function Leccion() {
   // unidad siguiente, no la que en realidad se acaba de terminar.
   const unidadCompletadaRef = useRef(null)
 
+  useBackDismiss(menuAbierto, () => setMenuAbierto(false))
+
   // Detiene cualquier lectura en curso al salir de la lección.
   useEffect(() => {
     return () => detenerLectura()
@@ -215,6 +219,10 @@ export default function Leccion() {
     // "resumen" se conserva deliberadamente mientras la pantalla de
     // recompensa está abierta; se limpia al salir de ella.
   }, [materiaId, unidad])
+
+  useEffect(() => {
+    setUnidadInput(String(totalUnidades ? Math.min(unidad, totalUnidades) : unidad))
+  }, [unidad, totalUnidades])
 
   useEffect(() => {
     // Espera tanto a que cargue la lección como a que useProgreso termine de
@@ -871,6 +879,32 @@ export default function Leccion() {
     })
   }
 
+  async function navegarAUnidad(valor = unidadInput) {
+    const unidadDestino = Number(valor)
+    if (!Number.isInteger(totalUnidades) || !Number.isInteger(unidadDestino) || unidadDestino < 1 || unidadDestino > totalUnidades) {
+      setUnidadInput(String(Math.min(unidad, totalUnidades || unidad)))
+      return
+    }
+
+    if (unidadDestino === unidad) return
+
+    detenerLectura()
+    setLeyendo(false)
+    setCola(null)
+    setCorrectasIniciales(0)
+    setCorrectasNuevas(0)
+    setRespondido(false)
+    setFeedback(null)
+    setEstados(['normal', 'normal', 'normal'])
+    setEnRepaso(false)
+    setColaRepaso([])
+    setHistorial([])
+    setIndicesFallados(new Set())
+    setErrorAnteriorVisible(false)
+    setTiempoRestante(220)
+    await guardarProgreso(unidadDestino, 0)
+  }
+
   // Deshace el último avance registrado en el historial (ver siguiente()),
   // devolviendo la cola/colaRepaso a como estaban en la pregunta previa.
   function preguntaAnterior() {
@@ -1060,6 +1094,36 @@ export default function Leccion() {
                 >
                   <MdRestartAlt />
                 </button>
+                <input
+                  type="number"
+                  inputMode="numeric"
+                  min={1}
+                  max={totalUnidades}
+                  step={1}
+                  aria-label={`Ir a una unidad del 1 al ${totalUnidades || 1}`}
+                  title={`Escribe una unidad del 1 al ${totalUnidades || 1} y presiona Enter`}
+                  value={unidadInput}
+                  disabled={!totalUnidades || cargandoProgreso || Boolean(resumen) || celebrando}
+                  onChange={event => setUnidadInput(event.target.value)}
+                  onKeyDown={event => {
+                    if (event.key === 'Enter') {
+                      event.preventDefault()
+                      navegarAUnidad(event.currentTarget.value)
+                    }
+                  }}
+                  className="util-btn"
+                  style={{
+                    width: 52,
+                    height: 44,
+                    boxSizing: 'border-box',
+                    padding: '4px',
+                    borderRadius: 10,
+                    background: 'var(--surface)',
+                    color: 'var(--text)',
+                    fontSize: '0.9rem',
+                    textAlign: 'center',
+                  }}
+                />
                 <button
                   onClick={() => { setMenuAbierto(false); omitirUnidad() }}
                   title="Omitir unidad"
